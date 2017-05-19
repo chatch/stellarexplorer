@@ -1,12 +1,15 @@
 import React from 'react'
-import {Table} from 'react-bootstrap'
-import {server as stellar} from '../lib/Stellar'
+import { Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { server as stellar } from '../lib/Stellar'
 
 class LedgerRow extends React.Component {
     render() {
         return (
             <tr>
-                <td>{this.props.sequence}</td>
+                <td>
+                    <Link to="/ledger/{this.props.sequence}">{this.props.sequence}</Link>
+                </td>
                 <td>{this.props.time}</td>
                 <td>{this.props.txCount}</td>
             </tr>
@@ -17,7 +20,9 @@ class LedgerRow extends React.Component {
 class LedgerTable extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {rows: []}
+        this.state = {
+            rows: []
+        }
         this.updateLedgers()
     }
 
@@ -51,13 +56,7 @@ class LedgerTable extends React.Component {
             // console.log(`LED = [${JSON.stringify(result)}]`)
             let rows = []
             result.records.forEach((ledger) => {
-                rows.push(
-                    <LedgerRow
-                        key={ledger.sequence}
-                        sequence={ledger.sequence}
-                        time={ledger.closed_at}
-                        txCount={ledger.transaction_count}/>
-                )
+                rows.push(<LedgerRow key={ledger.sequence} sequence={ledger.sequence} time={ledger.closed_at} txCount={ledger.transaction_count}/>)
             })
             // console.log(`rows = [${JSON.stringify(rows)}]`)
             this.setState({rows: rows})

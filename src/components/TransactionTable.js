@@ -1,14 +1,33 @@
 import React from 'react'
-import {Table} from 'react-bootstrap'
-import {server as stellar} from '../lib/Stellar'
+import { Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { server as stellar } from '../lib/Stellar'
 
 class TransactionRow extends React.Component {
+    // ledgerClick(e) {
+    //   e.preventDefault();
+    //   console.log(`ledger ${e.target.text}`);
+    // }
+    //
+    // txClick(e) {
+    //   e.preventDefault();
+    //   console.log(`tx ${e.target.title}`);
+    // }
+
     render() {
+        const shortHash = this.props.key.substring(0, 10) + "..."
         return (
             <tr>
-                <td>{this.props.hash}</td>
+                <td>
+                    <span title={this.props.key}>
+                        <Link to="/tx/{this.props.key}">{shortHash}</Link>
+                    </span>
+                </td>
                 <td>{this.props.time}</td>
-                <td>{this.props.ledger}</td>
+                <td>{this.props.value}</td>
+                <td>
+                    <Link to="/ledger/{this.props.ledger}">{this.props.ledger}</Link>
+                </td>
             </tr>
         )
     }
@@ -28,6 +47,7 @@ class TransactionTable extends React.Component {
                     <tr>
                         <th>#</th>
                         <th>Time</th>
+                        <th>Value</th>
                         <th>Ledger</th>
                     </tr>
                 </thead>
@@ -54,8 +74,8 @@ class TransactionTable extends React.Component {
                 rows.push(
                     <TransactionRow
                         key={transaction.hash}
-                        hash={transaction.hash}
                         time={transaction.created_at}
+                        value={transaction.value}
                         ledger={transaction.ledger_attr}/>
                 )
             })
