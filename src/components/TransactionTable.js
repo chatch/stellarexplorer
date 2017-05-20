@@ -4,29 +4,20 @@ import { Link } from 'react-router-dom'
 import { server as stellar } from '../lib/Stellar'
 
 class TransactionRow extends React.Component {
-    // ledgerClick(e) {
-    //   e.preventDefault();
-    //   console.log(`ledger ${e.target.text}`);
-    // }
-    //
-    // txClick(e) {
-    //   e.preventDefault();
-    //   console.log(`tx ${e.target.title}`);
-    // }
-
     render() {
-        const shortHash = this.props.key.substring(0, 10) + "..."
+        const txHash = this.props.hash
+        const shortHash = txHash.substring(0, 10) + "..."
         return (
             <tr>
                 <td>
-                    <span title={this.props.key}>
-                        <Link to="/tx/{this.props.key}">{shortHash}</Link>
+                    <span title={txHash}>
+                        <Link to={`/tx/${txHash}`}>{shortHash}</Link>
                     </span>
                 </td>
                 <td>{this.props.time}</td>
                 <td>{this.props.value}</td>
                 <td>
-                    <Link to="/ledger/{this.props.ledger}">{this.props.ledger}</Link>
+                    <Link to={`/ledger/${this.props.ledger}`}>{this.props.ledger}</Link>
                 </td>
             </tr>
         )
@@ -37,7 +28,7 @@ class TransactionTable extends React.Component {
     constructor(props) {
         super(props)
         this.state = {rows: []}
-        this.updateTransactions()
+        this.update()
     }
 
     render() {
@@ -57,32 +48,36 @@ class TransactionTable extends React.Component {
     }
 
     componentDidMount() {
-        console.log(`componentDidMount()`)
-        this.timerID = setInterval(() => this.updateTransactions(), 15000);
+        this.timerID = setInterval(() => this.update(), 15000);
     }
 
     componentWillUnmount() {
-        console.log(`componentWillUnmount()`)
         clearInterval(this.timerID);
     }
 
-    updateTransactions() {
-        stellar.transactions().order('desc').limit(5).call().then((result) => {
-            // console.log(`ONE = [${JSON.stringify(result.records[0])}]`)
+    update() {
+        // if ledger param get for single ledger else get the latest
+        const singleLedger = (this.props.ledger && Number.isInteger(Number(this.props.ledger)))
+        console.log(`sl=${singleLedger} l=${this.props.ledger} t=${typeof this.props.ledger}`);
+        const txsPromise = (singleLedger) ?
+            stellar.transactions().forLedger(this.props.ledger).call() :
+            stellar.transactions().order('desc').limit(5).call()
+
+        txsPromise.then((result) => {
             let rows = []
             result.records.forEach((transaction) => {
                 rows.push(
                     <TransactionRow
                         key={transaction.hash}
+                        hash={transaction.hash}
                         time={transaction.created_at}
                         value={transaction.value}
                         ledger={transaction.ledger_attr}/>
                 )
             })
-            // console.log(`rows = [${JSON.stringify(rows)}]`)
             this.setState({rows: rows})
         }).catch((err) => {
-            console.error(`Failed to fetch transactions: [{err}]`)
+            console.error(`Failed to fetch transactions: [${err}]`)
         })
     }
 

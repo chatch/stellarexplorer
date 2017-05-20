@@ -8,7 +8,7 @@ class LedgerRow extends React.Component {
         return (
             <tr>
                 <td>
-                    <Link to="/ledger/{this.props.sequence}">{this.props.sequence}</Link>
+                    <Link to={`/ledger/${this.props.sequence}`}>{this.props.sequence}</Link>
                 </td>
                 <td>{this.props.time}</td>
                 <td>{this.props.txCount}</td>
@@ -23,7 +23,7 @@ class LedgerTable extends React.Component {
         this.state = {
             rows: []
         }
-        this.updateLedgers()
+        this.update()
     }
 
     render() {
@@ -42,16 +42,14 @@ class LedgerTable extends React.Component {
     }
 
     componentDidMount() {
-        console.log(`componentDidMount()`)
-        this.timerID = setInterval(() => this.updateLedgers(), 15000);
+        this.timerID = setInterval(() => this.update(), 15000);
     }
 
     componentWillUnmount() {
-        console.log(`componentWillUnmount()`)
         clearInterval(this.timerID);
     }
 
-    updateLedgers() {
+    update() {
         stellar.ledgers().order('desc').limit(5).call().then((result) => {
             // console.log(`LED = [${JSON.stringify(result)}]`)
             let rows = []
@@ -61,7 +59,7 @@ class LedgerTable extends React.Component {
             // console.log(`rows = [${JSON.stringify(rows)}]`)
             this.setState({rows: rows})
         }).catch((err) => {
-            console.error(`Failed to fetch ledgers: [{err}]`)
+            console.error(`Failed to fetch ledgers: [${err}]`)
         })
     }
 
