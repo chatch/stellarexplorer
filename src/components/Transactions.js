@@ -7,7 +7,7 @@ class Transactions extends React.Component {
     return (
         <Grid>
             <Row>
-                <TransactionTable/>
+                <TransactionTable limit={10}/>
             </Row>
         </Grid>
     )

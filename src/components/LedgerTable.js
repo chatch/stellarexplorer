@@ -1,7 +1,9 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+
 import { server as stellar } from '../lib/Stellar'
+import { isDefInt } from '../lib/Utils'
 
 class LedgerRow extends React.Component {
     render() {
@@ -50,7 +52,9 @@ class LedgerTable extends React.Component {
     }
 
     update() {
-        stellar.ledgers().order('desc').limit(5).call().then((result) => {
+        const limit = (isDefInt(this.props, 'limit'))
+            ? this.props.limit : this.DEFAULT_LIMIT
+        stellar.ledgers().order('desc').limit(limit).call().then((result) => {
             // console.log(`LED = [${JSON.stringify(result)}]`)
             let rows = []
             result.records.forEach((ledger) => {

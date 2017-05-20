@@ -7,7 +7,7 @@ class Ledgers extends React.Component {
     return (
         <Grid>
             <Row>
-                <LedgerTable/>
+                <LedgerTable limit={10}/>
             </Row>
         </Grid>
     )

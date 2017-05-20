@@ -1,7 +1,9 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+
 import { server as stellar } from '../lib/Stellar'
+import { isDefInt } from '../lib/Utils'
 
 class TransactionRow extends React.Component {
     render() {
@@ -25,6 +27,8 @@ class TransactionRow extends React.Component {
 }
 
 class TransactionTable extends React.Component {
+    static DEFAULT_LIMIT = 5
+
     constructor(props) {
         super(props)
         this.state = {rows: []}
@@ -56,14 +60,17 @@ class TransactionTable extends React.Component {
     }
 
     update() {
-        // if ledger param get for single ledger else get the latest
-        const singleLedger = (this.props.ledger && Number.isInteger(Number(this.props.ledger)))
-        console.log(`sl=${singleLedger} l=${this.props.ledger} t=${typeof this.props.ledger}`);
-        const txsPromise = (singleLedger) ?
-            stellar.transactions().forLedger(this.props.ledger).call() :
-            stellar.transactions().order('desc').limit(5).call()
+        const builder = stellar.transactions()
+        if (isDefInt(this.props, 'ledger'))
+            builder.forLedger(this.props.ledger)
+        else {
+            const limit = (isDefInt(this.props, 'limit'))
+                ? this.props.limit : this.DEFAULT_LIMIT
+            builder.limit(limit)
+            builder.order('desc')
+        }
 
-        txsPromise.then((result) => {
+        builder.call().then((result) => {
             let rows = []
             result.records.forEach((transaction) => {
                 rows.push(
@@ -80,7 +87,6 @@ class TransactionTable extends React.Component {
             console.error(`Failed to fetch transactions: [${err}]`)
         })
     }
-
 }
 
 export default TransactionTable

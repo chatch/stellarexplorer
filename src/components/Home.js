@@ -11,12 +11,12 @@ class Home extends React.Component {
                 <Row>
                     <Col md={6}>
                         <Panel header="Ledgers" bsStyle="warning">
-                            <LedgerTable/>
+                            <LedgerTable limit={5}/>
                         </Panel>
                     </Col>
                     <Col md={6}>
                         <Panel header="Transactions" bsStyle="warning">
-                            <TransactionTable/>
+                            <TransactionTable limit={5}/>
                         </Panel>
                     </Col>
                 </Row>
