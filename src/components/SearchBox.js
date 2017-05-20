@@ -1,8 +1,5 @@
-
 import React from 'react'
 import { FormControl } from 'react-bootstrap'
-
-// see https://react-bootstrap.github.io/components.html#forms
 
 class SearchBox extends React.Component {
   render() {
