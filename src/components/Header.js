@@ -2,10 +2,12 @@ import React from 'react'
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
+import { isPubNet } from '../lib/Stellar'
 import SearchBox from './SearchBox'
 
 class Header extends React.Component {
   render() {
+    const netStr = (isPubNet) ? 'public' : 'testnet'
     const placeHolderText = "Search on Account ID / Transaction Hash / etc."
     return (
         <div>
@@ -14,7 +16,7 @@ class Header extends React.Component {
                     <Navbar.Brand>
                         <Link to="/">
                             <ruby style={{rubyPosition:'under'}}>
-                                Stellar Graph<rt>testnet</rt>
+                                Stellar Graph<rt>{netStr}</rt>
                             </ruby>
                         </Link>
                     </Navbar.Brand>

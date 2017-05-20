@@ -2,11 +2,13 @@ const sdk = require('stellar-sdk')
 
 const TESTNET = 'https://horizon-testnet.stellar.org'
 const PUBNET = 'https://horizon.stellar.org'
+// const LOCALNET = 'http://localhost:8000'
 
-const usePubNet = false   // TODO: parameterise
-const horizonUrl = (usePubNet) ? PUBNET : TESTNET
-const server = new sdk.Server(horizonUrl)
-if (!usePubNet)
+const isPubNet = false   // TODO: parameterise
+const horizonUrl = (isPubNet) ? PUBNET : TESTNET
+
+const server = new sdk.Server(horizonUrl, {allowHttp: true})
+if (!isPubNet)
     sdk.Network.useTestNetwork()
 
-export { sdk, server }
+export { sdk, server, isPubNet }
