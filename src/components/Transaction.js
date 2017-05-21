@@ -2,6 +2,19 @@ import React from 'react'
 import { Grid, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { server as stellar } from '../lib/Stellar'
+import Operation from './operations/Operation'
+
+const OperationsList = (props) => {
+    const ops = props.operations.map((op) =>
+        <Operation key={op.id} data={op}/>
+    )
+    return (
+        <div>
+            <h4>Operations ({props.operations.length})</h4>
+            {ops}
+        </div>
+    )
+}
 
 class Transaction extends React.Component {
     constructor(props) {
@@ -10,29 +23,33 @@ class Transaction extends React.Component {
     }
 
     componentDidMount() {
+        let data = {}
         stellar.transactions().transaction(this.state.id).call().then((res) => {
-            console.log(`s=[${JSON.stringify(res)}]`)
-
-            this.setState({
-                time: res.created_at,
-                value: res.value,
-                memoType: res.memo_type,
-                ledger: res.ledger_attr
-            })
+            data.txData = res
+            return res.operations()
+        }).then((ops) => {
+            data.ops = ops._embedded.records
+        }).then(() => {
+            this.setState(data)
         })
     }
 
     render() {
-        const s = this.state
-        console.log(`s=[${JSON.stringify(s)}]`)
+        if (!this.state.txData)
+            return null
+        const data = this.state.txData
+        const ops = this.state.ops
         return (
             <Grid>
                 <Row>
-                    <div>Transaction Number {s.id}</div>
-                    <div>Time {s.time}</div>
-                    <div>Value {s.value}</div>
-                    <div>Memo Type {s.memoType}</div>
-                    <div>Ledger <Link to={`/ledger/${s.ledger}`}>{s.ledger}</Link></div>
+                    <div>Transaction Number {data.id}</div>
+                    <div>Time {data.created_at}</div>
+                    <div>Value {data.value}</div>
+                    <div>Memo Type {data.memo_type}</div>
+                    <div>Ledger <Link to={`/ledger/${data.ledger_attr}`}>{data.ledger_attr}</Link></div>
+                </Row>
+                <Row>
+                    <OperationsList operations={ops} />
                 </Row>
             </Grid>
         )
