@@ -9,6 +9,7 @@ import Ledger from './components/Ledger'
 import Ledgers from './components/Ledgers'
 import Transaction from './components/Transaction'
 import Transactions from './components/Transactions'
+import Account from './components/Account'
 import Accounts from './components/Accounts'
 
 // import logo from './logo.svg';
@@ -30,6 +31,7 @@ class App extends Component {
                     <Route path="/txs" component={Transactions} />
                     <Route path="/tx/:id" component={Transaction} />
                     <Route path="/accounts" component={Accounts} />
+                    <Route path="/account/:id" component={Account} />
                     <Footer/>
                 </div>
             </Router>
