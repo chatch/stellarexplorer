@@ -7,7 +7,7 @@ import SearchBox from './SearchBox'
 
 class Header extends React.Component {
   render() {
-    const netStr = (isPubNet) ? 'public' : 'testnet'
+    const netStr = (isPubNet) ? 'PUBLIC' : 'TESTNET'
     return (
         <div>
             <Navbar>
