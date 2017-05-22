@@ -10,12 +10,10 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const placeHolderText = "Search on Account ID / Transaction Hash / etc."
+    const placeHolderText = "Search by Ledger / Account ID / Transaction Hash"
     return (
       <form onSubmit={this.search}>
-        <FormControl
-          className="Search-box"
-          placeholder={placeHolderText} />
+        <FormControl placeholder={placeHolderText} className="Search-box"/>
       </form>
     )
   }

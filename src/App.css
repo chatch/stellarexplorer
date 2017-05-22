@@ -5,6 +5,14 @@
 .App-front {
 }
 
-.Search-box {
-    margin-top: 8px;
+@media (min-width: 768px) {
+    .Search-box {
+        width: 350px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .Search-box {
+        width: 520px !important;
+    }
 }
