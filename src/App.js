@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {IntlProvider} from 'react-intl'
 
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
@@ -21,21 +22,23 @@ import './App.css'
 class App extends Component {
     render() {
         return (
+          <IntlProvider locale={navigator.language}>
             <Router>
-                <div className="App">
-                    <Header/>
-                    <div id="main-content">
-                      <Route exact path="/" component={Home} />
-                      <Route path="/ledgers" component={Ledgers} />
-                      <Route path="/ledger/:id" component={Ledger} />
-                      <Route path="/txs" component={Transactions} />
-                      <Route path="/tx/:id" component={Transaction} />
-                      <Route path="/accounts" component={Accounts} />
-                      <Route path="/account/:id" component={Account} />
-                    </div>
-                    <Footer/>
+              <div className="App">
+                <Header/>
+                <div id="main-content">
+                  <Route exact path="/" component={Home} />
+                  <Route path="/ledgers" component={Ledgers} />
+                  <Route path="/ledger/:id" component={Ledger} />
+                  <Route path="/txs" component={Transactions} />
+                  <Route path="/tx/:id" component={Transaction} />
+                  <Route path="/accounts" component={Accounts} />
+                  <Route path="/account/:id" component={Account} />
                 </div>
+                <Footer/>
+              </div>
             </Router>
+          </IntlProvider>
         );
     }
 }

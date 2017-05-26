@@ -1,6 +1,8 @@
 import React from 'react'
 import { Grid, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { FormattedDate, FormattedTime } from 'react-intl'
+
 import { server as stellar } from '../lib/Stellar'
 import TransactionTable from './TransactionTable'
 
@@ -42,7 +44,7 @@ class Ledger extends React.Component {
                       </tr>
                       <tr>
                         <td>Time</td>
-                        <td>{s.time}</td>
+                        <td><FormattedDate value={s.time}/> <FormattedTime value={s.time}/></td>
                       </tr>
                       <tr>
                         <td>Ops</td>

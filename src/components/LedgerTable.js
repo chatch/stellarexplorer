@@ -1,6 +1,7 @@
 import React from 'react'
-import { Table } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import {Table} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import {FormattedDate, FormattedTime} from 'react-intl'
 
 import { server as stellar } from '../lib/Stellar'
 import { isDefInt } from '../lib/Utils'
@@ -12,7 +13,7 @@ class LedgerRow extends React.Component {
                 <td>
                     <Link to={`/ledger/${this.props.sequence}`}>{this.props.sequence}</Link>
                 </td>
-                <td>{this.props.time}</td>
+                <td><FormattedDate value={this.props.time}/> <FormattedTime value={this.props.time}/></td>
                 <td>{this.props.txCount}</td>
             </tr>
         )

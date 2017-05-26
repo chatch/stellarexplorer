@@ -1,6 +1,8 @@
 import React from 'react'
 import { Grid, Row, Panel, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { FormattedDate, FormattedTime } from 'react-intl'
+
 import { server as stellar } from '../lib/Stellar'
 import Operation from './operations/Operation'
 
@@ -50,7 +52,7 @@ class Transaction extends React.Component {
                       </tr>
                       <tr>
                         <td>Time</td>
-                        <td>{data.created_at}</td>
+                        <td><FormattedDate value={data.created_at}/> <FormattedTime value={data.created_at}/></td>
                       </tr>
                       <tr>
                         <td>Value</td>

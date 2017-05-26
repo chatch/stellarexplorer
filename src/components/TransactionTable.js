@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { FormattedDate, FormattedTime } from 'react-intl'
 
 import { server as stellar } from '../lib/Stellar'
 import { isDefInt } from '../lib/Utils'
@@ -16,7 +17,7 @@ class TransactionRow extends React.Component {
                         <Link to={`/tx/${txHash}`}>{shortHash}</Link>
                     </span>
                 </td>
-                <td>{this.props.time}</td>
+                <td><FormattedDate value={this.props.time}/> <FormattedTime value={this.props.time}/></td>
                 <td>{this.props.value}</td>
                 <td>
                     <Link to={`/ledger/${this.props.ledger}`}>{this.props.ledger}</Link>
