@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
+import {Grid, Row, Table} from 'react-bootstrap'
 
 class Trust extends React.Component {
     render() {
@@ -7,11 +7,32 @@ class Trust extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <div>Asset Type {d.asset_type}</div>
-                    <div>Asset Code {d.asset_code}</div>
-                    <div>Asset Issuer {d.asset_issuer}</div>
-                    <div>Trustee {d.trustee}</div>
-                    <div>Trustor {d.trustor}</div>
+                    <Table>
+                        <tbody>
+                            <tr>
+                                <td>Asset Code</td>
+                                <td>{d.asset_code}</td>
+                            </tr>
+                            <tr>
+                                <td>Asset Type</td>
+                                <td>{d.asset_type}</td>
+                            </tr>
+                            <tr>
+                                <td>Asset Issuer</td>
+                                <td>{d.asset_issuer}</td>
+                            </tr>
+                            <tr>
+                                <td>Trustee</td>
+                                <td>{d.trustee}</td>
+                            </tr>
+                            <tr>
+                                <td>Trustor</td>
+                                <td>{d.trustor}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                </Row>
+                <Row>
                     {this.props.children}
                 </Row>
             </Grid>

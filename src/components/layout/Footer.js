@@ -4,7 +4,7 @@ import {Grid, Row, Col} from 'react-bootstrap'
 class Footer extends React.Component {
     render() {
         return (
-            <Grid>
+            <Grid id="footer">
                 <Row>
                     <Col>
                         <hr/>

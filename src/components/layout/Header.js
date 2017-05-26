@@ -2,22 +2,20 @@ import React from 'react'
 import {Nav, Navbar, NavItem, MenuItem, NavDropdown, FormGroup} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
-import {isPubNet} from '../../lib/Stellar'
+
+// import {isPubNet} from '../../lib/Stellar'
 import SearchBox from './SearchBox'
+import logo from './logo.png';
 
 class Header extends React.Component {
     render() {
-        const netStr = (isPubNet)
-            ? 'PUBLIC'
-            : 'TESTNET'
         return (
-            <Navbar fluid collapseOnSelect inverse>
+            <Navbar fluid fixedTop collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
                         <Link to="/">
-                            <ruby style={{rubyPosition:'under'}}>
-                                Stellar Graph<rt>{netStr}</rt>
-                            </ruby>
+                          <img src={logo} className="App-logo" alt="logo" />
+                          <span className="brand-text">Explorer</span>
                         </Link>
                     </Navbar.Brand>
                     <Navbar.Toggle/>

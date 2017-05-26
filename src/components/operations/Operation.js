@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
+import {Grid, Table, Row} from 'react-bootstrap'
 
 import CreateAccount from './CreateAccount'
 import Payment from './Payment'
@@ -54,15 +54,29 @@ class Operation extends React.Component {
     render() {
         const d = this.props.data
         return (
-            <Grid>
-                <Row>
-                    <h5>Operation {d.id}</h5>
-                    <div>Type {d.type}</div>
-                    <div>Type_i {d.type_i}</div>
-                    <div>Source {d.source_account}</div>
-                    <SubOperation data={d}/>
-                </Row>
-            </Grid>
+          <Grid>
+            <Row>
+              <Table>
+                <tbody>
+                  <tr>
+                    <td>Operation</td>
+                    <td>{d.type}</td>
+                  </tr>
+                  <tr>
+                    <td>Id</td>
+                    <td>{d.id}</td>
+                  </tr>
+                  <tr>
+                    <td>Source</td>
+                    <td>{d.source_account}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Row>
+            <Row>
+              <SubOperation data={d}/>
+            </Row>
+          </Grid>
         )
     }
 }

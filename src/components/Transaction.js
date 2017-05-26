@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Row } from 'react-bootstrap'
+import { Grid, Row, Panel, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { server as stellar } from '../lib/Stellar'
 import Operation from './operations/Operation'
@@ -10,7 +10,6 @@ const OperationsList = (props) => {
     )
     return (
         <div>
-            <h4>Operations ({props.operations.length})</h4>
             {ops}
         </div>
     )
@@ -41,16 +40,39 @@ class Transaction extends React.Component {
         const ops = this.state.ops
         return (
             <Grid>
-                <Row>
-                    <div>Transaction Number {data.id}</div>
-                    <div>Time {data.created_at}</div>
-                    <div>Value {data.value}</div>
-                    <div>Memo Type {data.memo_type}</div>
-                    <div>Ledger <Link to={`/ledger/${data.ledger_attr}`}>{data.ledger_attr}</Link></div>
-                </Row>
-                <Row>
-                    <OperationsList operations={ops} />
-                </Row>
+              <Row>
+                <Panel header="Transation Details" bsStyle="warning">
+                  <Table>
+                    <tbody>
+                      <tr>
+                        <td>Hash</td>
+                        <td>{data.id}</td>
+                      </tr>
+                      <tr>
+                        <td>Time</td>
+                        <td>{data.created_at}</td>
+                      </tr>
+                      <tr>
+                        <td>Value</td>
+                        <td>{data.value}</td>
+                      </tr>
+                      <tr>
+                        <td>Memo Type</td>
+                        <td>{data.memo_type}</td>
+                      </tr>
+                      <tr>
+                        <td>Ledger</td>
+                        <td><Link to={`/ledger/${data.ledger_attr}`}>{data.ledger_attr}</Link></td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Panel>
+              </Row>
+              <Row>
+                <Panel header={`Operations (${ops.length})`} bsStyle="warning">
+                  <OperationsList operations={ops} />
+                </Panel>
+              </Row>
             </Grid>
         )
     }

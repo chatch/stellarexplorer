@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
+import {Grid, Row, Table} from 'react-bootstrap'
 
 class SetOptions extends React.Component {
     render() {
@@ -7,17 +7,54 @@ class SetOptions extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <div>Signer Key {d.signer_key}</div>
-                    <div>Signer Weight {d.signer_weight}</div>
-                    <div>Master Key Weight {d.master_key_weight}</div>
-                    <div>Low Threshold {d.low_threshold}</div>
-                    <div>Med Threshold {d.med_threshold}</div>
-                    <div>High Threshold {d.high_threshold}</div>
-                    <div>Home Domain {d.home_domain}</div>
-                    <div>Set Flags {d.set_flags}</div>
-                    <div>Set Flags_s {d.set_flags_s}</div>
-                    <div>Clear Flags {d.clear_flags}</div>
-                    <div>Clear Flags_s {d.clear_flags_s}</div>
+                    <Table>
+                        <tbody>
+                            <tr>
+                                <td>Signer Key</td>
+                                <td>{d.signer_key}</td>
+                            </tr>
+                            <tr>
+                                <td>Signer Weight</td>
+                                <td>{d.signer_weight}</td>
+                            </tr>
+                            <tr>
+                                <td>Master Key Weight</td>
+                                <td>{d.master_key_weight}</td>
+                            </tr>
+                            <tr>
+                                <td>Low Threshold</td>
+                                <td>{d.low_threshold}</td>
+                            </tr>
+                            <tr>
+                                <td>Med Threshold</td>
+                                <td>{d.med_threshold}</td>
+                            </tr>
+                            <tr>
+                                <td>High Threshold</td>
+                                <td>{d.high_threshold}</td>
+                            </tr>
+                            <tr>
+                                <td>Home Domain</td>
+                                <td>{d.home_domain}</td>
+                            </tr>
+                            <tr>
+                                <td>Set Flags</td>
+                                <td>{d.set_flags}</td>
+                            </tr>
+                            <tr>
+                                <td>Set Flags_s</td>
+                                <td>{d.set_flags_s}</td>
+                            </tr>
+                            <tr>
+                                <td>Clear Flags</td>
+                                <td>{d.clear_flags}</td>
+                            </tr>
+                            <tr>
+                                <td>Clear Flags_s</td>
+                                <td>{d.clear_flags_s}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
                 </Row>
             </Grid>
         )

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
+import {Grid, Row, Table} from 'react-bootstrap'
 
 class Payment extends React.Component {
     render() {
@@ -7,12 +7,36 @@ class Payment extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <div>From {d.from}</div>
-                    <div>To {d.to}</div>
-                    <div>Asset Type {d.asset_type}</div>
-                    <div>Asset Code {d.asset_code}</div>
-                    <div>Asset Issuer {d.asset_issuer}</div>
-                    <div>Amount {d.amount}</div>
+                    <Table>
+                        <tbody>
+                          <tr>
+                              <td>From</td>
+                              <td>{d.from}</td>
+                          </tr>
+                          <tr>
+                              <td>To</td>
+                              <td>{d.to}</td>
+                          </tr>
+                          <tr>
+                              <td>Asset Code</td>
+                              <td>{d.asset_code}</td>
+                          </tr>
+                          <tr>
+                              <td>Asset Type</td>
+                              <td>{d.asset_type}</td>
+                          </tr>
+                          <tr>
+                              <td>Asset Issuer</td>
+                              <td>{d.asset_issuer}</td>
+                          </tr>
+                          <tr>
+                              <td>Amount</td>
+                              <td>{d.amount}</td>
+                          </tr>
+                        </tbody>
+                    </Table>
+                </Row>
+                <Row>
                     {this.props.children}
                 </Row>
             </Grid>

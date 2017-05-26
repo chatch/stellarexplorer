@@ -1,8 +1,59 @@
-.App {
-    margin-bottom:20px;
+body, .navbar {
+    background-color: black !important;
 }
 
-.App-front {
+.App {
+}
+
+.App-logo {
+    height: 22px;
+    float:left;
+    margin-right: 10px;
+}
+
+.brand-text {
+    position: relative;
+    top: 1px;
+    color: white;
+    font-size: 20px;
+}
+
+#main-content {
+    padding-top: 70px; /* because navbar has fixed top */
+}
+
+#footer {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    font-size: 13px;
+}
+
+/* colors (from the presskit) heart svg */
+.stellar-heart-blue { color: #42aae6; }
+.stellar-heart-aqua { color: #50e3c2; }
+.stellar-heart-yellow { color: #ffd148; }
+.stellar-heart-red { color: #ef7e48; }
+
+/* colors (from press kit) stellar logo */
+.stellar-logo-blue { color: #14b4e6; }
+
+/* colors (from press kit) rocket */
+.stellar-rocket-blue { color: #dcf2f9; }
+.stellar-rocket-orange { color: #ed8117; }
+.stellar-rocket-yellow { color: #eebb18; }
+
+/* colors from website */
+.stellar-org-bluetext { color: #07a2cc; }
+
+.navbar-default {
+    background-color: inherit;
+    border-color: inherit;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    background-color: black;
 }
 
 @media (min-width: 768px) {
