@@ -1,5 +1,6 @@
 import React from 'react'
 import {Grid, Row, Table} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 class Payment extends React.Component {
     render() {
@@ -11,11 +12,11 @@ class Payment extends React.Component {
                         <tbody>
                           <tr>
                               <td>From</td>
-                              <td>{d.from}</td>
+                              <td><Link to={`/account/${d.from}`}>{d.from}</Link></td>
                           </tr>
                           <tr>
                               <td>To</td>
-                              <td>{d.to}</td>
+                              <td><Link to={`/account/${d.to}`}>{d.to}</Link></td>
                           </tr>
                           <tr>
                               <td>Asset Code</td>
@@ -27,7 +28,7 @@ class Payment extends React.Component {
                           </tr>
                           <tr>
                               <td>Asset Issuer</td>
-                              <td>{d.asset_issuer}</td>
+                              <td><Link to={`/account/${d.asset_issuer}`}>{d.asset_issuer}</Link></td>
                           </tr>
                           <tr>
                               <td>Amount</td>

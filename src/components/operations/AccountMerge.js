@@ -1,5 +1,6 @@
 import React from 'react'
 import {Grid, Row} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 class AccountMerge extends React.Component {
     render() {
@@ -7,7 +8,7 @@ class AccountMerge extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <div>Into {d.into}</div>
+                    <div>Into <Link to={`/account/${d.into}`}>{d.into}</Link></div>
                 </Row>
             </Grid>
         )

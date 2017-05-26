@@ -1,5 +1,6 @@
 import React from 'react'
 import {Grid, Table, Row} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 import CreateAccount from './CreateAccount'
 import Payment from './Payment'
@@ -68,7 +69,7 @@ class Operation extends React.Component {
                   </tr>
                   <tr>
                     <td>Source</td>
-                    <td>{d.source_account}</td>
+                    <td><Link to={`/account/${d.source_account}`}>{d.source_account}</Link></td>
                   </tr>
                 </tbody>
               </Table>

@@ -28,9 +28,9 @@ class Header extends React.Component {
                         <LinkContainer to="/txs">
                             <NavItem eventKey={2}>Transactions</NavItem>
                         </LinkContainer>
-                        <LinkContainer to="/accounts">
-                            <NavItem eventKey={3}>Accounts</NavItem>
-                        </LinkContainer>
+                        {/* <LinkContainer to="/accounts">
+                              <NavItem eventKey={3}>Accounts</NavItem>
+                            </LinkContainer>*/}
                         <NavDropdown eventKey={3} title="More" id="basic-nav-dropdown">
                             <MenuItem eventKey={3.1} href="https://www.stellar.org/laboratory/">Laboratory</MenuItem>
                             <MenuItem eventKey={3.2} href="https://stellarterm.com/">StellarTerm</MenuItem>

@@ -1,14 +1,15 @@
 import React from 'react'
 import {Grid, Row} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 import {server as stellar} from '../lib/Stellar'
 
 const Balances = (props) => {
     const bals = props.balances.map((bal) =>
-        <div>
+        <div key={bal.asset_type}>
             <div>Type: {bal.asset_type !== 'native' ? bal.asset_type : 'Lumens'}</div>
             <div>Balance: {bal.balance}</div>
             <div>Asset: {bal.asset_code}</div>
-            <div>Issuer: {bal.asset_issuer}</div>
+            <div>Issuer:<Link to={`/account/${bal.asset_issuer}`}>{bal.asset_issuer}</Link></div>
             <div>Limit: {bal.limit}</div>
             <br/>
         </div>
@@ -35,7 +36,7 @@ const Thresholds = (props) => {
 
 const Signers = (props) => {
     const signers = props.signers.map((signer) =>
-        <div>
+        <div key={signer.public_key}>
             <div>Key: {signer.public_key}</div>
             <div>Weight: {signer.weight}</div>
             <br/>
@@ -49,24 +50,25 @@ const Signers = (props) => {
     )
 }
 
-class Ledger extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            id: this.props.match.params.id
-        }
+class Account extends React.Component {
+    componentDidMount() {
+        this.loadAccount(this.props.match.params.id)
     }
 
-    componentDidMount() {
-        stellar.accounts().accountId(this.state.id).call().then((res) => {
+    componentWillReceiveProps(nextProps){
+        this.loadAccount(nextProps.match.params.id)
+    }
+
+    loadAccount(accountId) {
+        stellar.accounts().accountId(accountId).call().then((res) => {
             this.setState({account: res})
         })
     }
 
     render() {
-        const a = this.state.account
-        if (!a)
+        if (this.state === null || this.state.account === null)
             return null
+        const a = this.state.account
         return (
             <Grid>
                 <Row>
@@ -82,4 +84,4 @@ class Ledger extends React.Component {
     }
 }
 
-export default Ledger
+export default Account

@@ -1,5 +1,6 @@
 import React from 'react'
 import {Grid, Row, Table} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 class Trust extends React.Component {
     render() {
@@ -19,15 +20,15 @@ class Trust extends React.Component {
                             </tr>
                             <tr>
                                 <td>Asset Issuer</td>
-                                <td>{d.asset_issuer}</td>
+                                <td><Link to={`/account/${d.asset_issuer}`}>{d.asset_issuer}</Link></td>
                             </tr>
                             <tr>
                                 <td>Trustee</td>
-                                <td>{d.trustee}</td>
+                                <td><Link to={`/account/${d.trustee}`}>{d.trustee}</Link></td>
                             </tr>
                             <tr>
                                 <td>Trustor</td>
-                                <td>{d.trustor}</td>
+                                <td><Link to={`/account/${d.trustor}`}>{d.trustor}</Link></td>
                             </tr>
                         </tbody>
                     </Table>

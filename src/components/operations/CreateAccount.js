@@ -1,5 +1,6 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 class CreateAccount extends React.Component {
     render() {
@@ -9,11 +10,11 @@ class CreateAccount extends React.Component {
                 <tbody>
                     <tr>
                         <td>Account</td>
-                        <td>{d.account}</td>
+                        <td><Link to={`/account/${d.account}`}>{d.account}</Link></td>
                     </tr>
                     <tr>
                         <td>Funder</td>
-                        <td>{d.funder}</td>
+                        <td><Link to={`/account/${d.funder}`}>{d.funder}</Link></td>
                     </tr>
                     <tr>
                         <td>Starting Balance</td>
