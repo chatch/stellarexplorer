@@ -1,14 +1,15 @@
 import React from 'react'
 import {Grid, Row} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import {FormattedMessage} from 'react-intl'
 import {server as stellar} from '../lib/Stellar'
 
 const Balances = (props) => {
     const bals = props.balances.map((bal) =>
         <div key={bal.asset_type}>
             <div>Type: {bal.asset_type !== 'native' ? bal.asset_type : 'Lumens'}</div>
-            <div>Balance: {bal.balance}</div>
-            <div>Asset: {bal.asset_code}</div>
+            <div><FormattedMessage id="balance"/>: {bal.balance}</div>
+            <div><FormattedMessage id="assetCode"/>: {bal.asset_code}</div>
             <div>Issuer:<Link to={`/account/${bal.asset_issuer}`}>{bal.asset_issuer}</Link></div>
             <div>Limit: {bal.limit}</div>
             <br/>
@@ -16,7 +17,7 @@ const Balances = (props) => {
     )
     return (
         <div>
-            <h4>Balances</h4>
+            <h4><FormattedMessage id="balances"/></h4>
             {bals}
         </div>
     )
@@ -72,7 +73,7 @@ class Account extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <div>Account id {a.id}</div>
+                    <div><FormattedMessage id="account"/> {a.id}</div>
                     <div>Sequence {a.sequence}</div>
                     <br/>
                     <Balances balances={a.balances}/>

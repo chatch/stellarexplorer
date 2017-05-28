@@ -1,4 +1,26 @@
 {
     "title": "Stellar 中文",
-    "latest.ledgers": "最新的根帐"
+    "stellar": "恒星",
+    "time": "时间",
+    "transaction": "交易",
+    "transactions": "交易记录",
+    "ledger": "根帐",
+    "ledgers": "根帐",
+    "currency": "货币",
+    "operation": "操作",
+    "operations": "操作",
+    "account": "帐户",
+    "balance" : "余额",
+    "balances" : "余额",
+    "asset" : "资产",
+    "assetCode": "资产代码",
+    "anchor": "锚点",
+    "trust": "授信",
+    "memo": "备注",
+    "payments": "转账",
+    "hash": "哈希值",
+    "prevHash": "上一个",
+    "protocolVersion": "协议版本",
+    "latest.ledgers": "最新的根帐",
+    "latest.txs": "最新的交易记录"
 }

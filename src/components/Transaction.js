@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Row, Panel, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { FormattedDate, FormattedTime } from 'react-intl'
+import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
 
 import { server as stellar } from '../lib/Stellar'
 import Operation from './operations/Operation'
@@ -43,15 +43,15 @@ class Transaction extends React.Component {
         return (
             <Grid>
               <Row>
-                <Panel header="Transation Details" bsStyle="warning">
+                <Panel header="Transaction Details" bsStyle="warning">
                   <Table>
                     <tbody>
                       <tr>
-                        <td>Hash</td>
+                        <td><FormattedMessage id="hash"/></td>
                         <td>{data.id}</td>
                       </tr>
                       <tr>
-                        <td>Time</td>
+                        <td><FormattedMessage id="time"/></td>
                         <td><FormattedDate value={data.created_at}/> <FormattedTime value={data.created_at}/></td>
                       </tr>
                       <tr>
@@ -63,7 +63,7 @@ class Transaction extends React.Component {
                         <td>{data.memo_type}</td>
                       </tr>
                       <tr>
-                        <td>Ledger</td>
+                        <td><FormattedMessage id="ledger"/></td>
                         <td><Link to={`/ledger/${data.ledger_attr}`}>{data.ledger_attr}</Link></td>
                       </tr>
                     </tbody>

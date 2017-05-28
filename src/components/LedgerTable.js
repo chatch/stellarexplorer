@@ -1,7 +1,7 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import {FormattedDate, FormattedTime} from 'react-intl'
+import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
 
 import { server as stellar } from '../lib/Stellar'
 import { isDefInt } from '../lib/Utils'
@@ -35,8 +35,8 @@ class LedgerTable extends React.Component {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Time</th>
-                        <th>Transactions</th>
+                        <th><FormattedMessage id="time" /></th>
+                        <th><FormattedMessage id="transactions" /></th>
                     </tr>
                 </thead>
                 <tbody>{this.state.rows}</tbody>

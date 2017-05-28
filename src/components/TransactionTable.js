@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { FormattedDate, FormattedTime } from 'react-intl'
+import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
 
 import { server as stellar } from '../lib/Stellar'
 import { isDefInt } from '../lib/Utils'
@@ -18,7 +18,7 @@ class TransactionRow extends React.Component {
                     </span>
                 </td>
                 <td><FormattedDate value={this.props.time}/> <FormattedTime value={this.props.time}/></td>
-                <td>{this.props.value}</td>
+                <td>{this.props.opCount}</td>
                 <td>
                     <Link to={`/ledger/${this.props.ledger}`}>{this.props.ledger}</Link>
                 </td>
@@ -42,9 +42,9 @@ class TransactionTable extends React.Component {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Time</th>
-                        <th>Value</th>
-                        <th>Ledger</th>
+                        <th><FormattedMessage id="time" /></th>
+                        <th><FormattedMessage id="operations" /></th>
+                        <th><FormattedMessage id="ledger" /></th>
                     </tr>
                 </thead>
                 <tbody>{this.state.rows}</tbody>
@@ -79,7 +79,7 @@ class TransactionTable extends React.Component {
                         key={transaction.hash}
                         hash={transaction.hash}
                         time={transaction.created_at}
-                        value={transaction.value}
+                        opCount={transaction.operation_count}
                         ledger={transaction.ledger_attr}/>
                 )
             })

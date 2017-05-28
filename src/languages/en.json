@@ -1,4 +1,26 @@
 {
     "title": "Stellar English",
-    "latest.ledgers": "Latest Ledgers"
+    "stellar": "Stellar",
+    "time": "Time",
+    "transaction": "Transaction",
+    "transactions": "Transactions",
+    "ledger": "Ledger",
+    "ledgers": "Ledgers",
+    "currency": "Currency",
+    "operation": "Operation",
+    "operations": "Operations",
+    "account": "Account",
+    "balance": "Balance",
+    "balances": "Balances",
+    "asset": "Asset",
+    "assetCode": "Asset Code",
+    "anchor": "Anchor",
+    "trust": "Trust",
+    "memo": "Memo",
+    "payments": "Payments",
+    "hash": "Hash",
+    "prevHash": "Prev Hash",
+    "protocolVersion": "Protocol Version",
+    "latest.ledgers": "Latest Ledgers",
+    "latest.txs": "Latest Transactions"
 }

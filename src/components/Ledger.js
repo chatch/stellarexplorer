@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { FormattedDate, FormattedTime } from 'react-intl'
+import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
 
 import { server as stellar } from '../lib/Stellar'
 import TransactionTable from './TransactionTable'
@@ -39,33 +39,33 @@ class Ledger extends React.Component {
                   <Table>
                     <tbody>
                       <tr>
-                        <td>Sequence</td>
+                        <td>#</td>
                         <td>{s.seq}</td>
                       </tr>
                       <tr>
-                        <td>Time</td>
+                        <td><FormattedMessage id="time" /></td>
                         <td><FormattedDate value={s.time}/> <FormattedTime value={s.time}/></td>
                       </tr>
                       <tr>
-                        <td>Ops</td>
+                        <td><FormattedMessage id="operations" /></td>
                         <td>{s.opCount}</td>
                       </tr>
                       <tr>
-                        <td>Hash</td>
+                        <td><FormattedMessage id="hash" /></td>
                         <td>{s.hash}</td>
                       </tr>
                       <tr>
-                        <td>Prev Hash</td>
+                        <td><FormattedMessage id="prevHash" /></td>
                         <td>
                           <Link to={`/ledger/${s.prevSeq}`}>{s.prevHash}</Link>
                         </td>
                       </tr>
                       <tr>
-                        <td>Protocol Version</td>
+                        <td><FormattedMessage id="protocolVersion" /></td>
                         <td>{s.protocol}</td>
                       </tr>
                       <tr>
-                        <td>Txs</td>
+                        <td><FormattedMessage id="transactions" /></td>
                         <td>{s.txCount}</td>
                       </tr>
                     </tbody>

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import {FormattedMessage} from 'react-intl'
 
 class CreateAccount extends React.Component {
     render() {
@@ -9,7 +10,7 @@ class CreateAccount extends React.Component {
             <Table>
                 <tbody>
                     <tr>
-                        <td>Account</td>
+                        <td><FormattedMessage id="account"/></td>
                         <td><Link to={`/account/${d.account}`}>{d.account}</Link></td>
                     </tr>
                     <tr>

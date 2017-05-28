@@ -2,6 +2,7 @@ import React from 'react'
 import {Nav, Navbar, NavItem, MenuItem, NavDropdown, FormGroup} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
+import {FormattedMessage} from 'react-intl'
 
 // import {isPubNet} from '../../lib/Stellar'
 import LanguageSelector from './LanguageSelector'
@@ -24,10 +25,10 @@ class Header extends React.Component {
                 <Navbar.Collapse>
                     <Nav>
                         <LinkContainer to="/ledgers">
-                            <NavItem eventKey={1}>Ledgers</NavItem>
+                            <NavItem eventKey={1}><FormattedMessage id="ledgers" /></NavItem>
                         </LinkContainer>
                         <LinkContainer to="/txs">
-                            <NavItem eventKey={2}>Transactions</NavItem>
+                            <NavItem eventKey={2}><FormattedMessage id="transactions" /></NavItem>
                         </LinkContainer>
                         {/* <LinkContainer to="/accounts">
                               <NavItem eventKey={3}>Accounts</NavItem>

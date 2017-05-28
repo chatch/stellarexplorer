@@ -1,6 +1,7 @@
 import React from 'react'
 import {Grid, Table, Row} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import {FormattedMessage} from 'react-intl'
 
 import CreateAccount from './CreateAccount'
 import Payment from './Payment'
@@ -60,7 +61,7 @@ class Operation extends React.Component {
               <Table>
                 <tbody>
                   <tr>
-                    <td>Operation</td>
+                    <td><FormattedMessage id="operation" /></td>
                     <td>{d.type}</td>
                   </tr>
                   <tr>

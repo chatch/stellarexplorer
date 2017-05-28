@@ -17,7 +17,7 @@ class Home extends React.Component {
                         </Panel>
                     </Col>
                     <Col md={6}>
-                        <Panel header="Latest Transactions" bsStyle="warning">
+                        <Panel header={formatMessage({id:'latest.txs'})} bsStyle="warning">
                             <TransactionTable limit={5}/>
                         </Panel>
                     </Col>
