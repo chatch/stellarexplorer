@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import {IntlProvider} from 'react-intl'
+
+import {IntlProvider, addLocaleData} from 'react-intl'
+import en from 'react-intl/locale-data/en'
+import zh from 'react-intl/locale-data/zh'
+import enMessages from "./languages/en";
+import zhMessages from "./languages/zh";
 
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
@@ -16,16 +21,40 @@ import Accounts from './components/Accounts'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
+addLocaleData([...en, ...zh])
 
-// TODO: setup i18n and translate to Chinese and Nigerian and Phillipino to start with ...
-//       add language selection widget but autoset on first load using the accept-language headers
+const locale = localStorage.getItem("lang") || navigator.language || "en"
+
+const getMessages = locale => {
+  switch (locale) {
+    case "zh":
+      return zhMessages
+    default:
+      return enMessages
+  }
+}
+
 class App extends Component {
+    state = {
+        lang: locale
+    }
+
+    languageSwitch = locale => {
+        localStorage.setItem("lang", locale);
+        this.setState({
+            lang: locale
+        })
+    }
+
     render() {
         return (
-          <IntlProvider locale={navigator.language}>
+          <IntlProvider
+              key={this.state.lang}
+              locale={this.state.lang}
+              messages={getMessages(this.state.lang)}>
             <Router>
               <div className="App">
-                <Header/>
+                <Header lang={this.state.lang} languageSwitch={this.languageSwitch}/>
                 <div id="main-content">
                   <Route exact path="/" component={Home} />
                   <Route path="/ledgers" component={Ledgers} />

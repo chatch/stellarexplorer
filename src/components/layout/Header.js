@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 
 // import {isPubNet} from '../../lib/Stellar'
+import LanguageSelector from './LanguageSelector'
 import SearchBox from './SearchBox'
 import logo from './logo.png';
 
@@ -37,6 +38,9 @@ class Header extends React.Component {
                             <MenuItem eventKey={3.3}>Stats</MenuItem>
                         </NavDropdown>
                     </Nav>
+                    <Navbar.Form pullRight>
+                      <LanguageSelector lang={this.props.lang} languageSwitch={this.props.languageSwitch}/>
+                    </Navbar.Form>
                     <Navbar.Form pullRight>
                       <FormGroup>
                         <SearchBox />

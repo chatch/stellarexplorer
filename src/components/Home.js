@@ -1,16 +1,18 @@
 import React from 'react'
 import { Grid, Row, Col, Panel } from 'react-bootstrap'
+import { injectIntl } from 'react-intl'
 
 import LedgerTable from './LedgerTable'
 import TransactionTable from './TransactionTable'
 
 class Home extends React.Component {
     render() {
+        const {formatMessage} = this.props.intl;
         return (
             <Grid>
                 <Row>
                     <Col md={6}>
-                        <Panel header="Latest Ledgers" bsStyle="warning">
+                        <Panel header={formatMessage({id:'latest.ledgers'})} bsStyle="warning">
                             <LedgerTable limit={5}/>
                         </Panel>
                     </Col>
@@ -25,4 +27,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home
+export default injectIntl(Home)

@@ -2,12 +2,11 @@ body, .navbar {
     background-color: black !important;
 }
 
-.App {
-}
+.App {}
 
 .App-logo {
     height: 22px;
-    float:left;
+    float: left;
     margin-right: 10px;
 }
 
@@ -19,7 +18,8 @@ body, .navbar {
 }
 
 #main-content {
-    padding-top: 70px; /* because navbar has fixed top */
+    padding-top: 70px;
+    /* because navbar has fixed top */
 }
 
 #footer {
@@ -30,22 +30,53 @@ body, .navbar {
     font-size: 13px;
 }
 
+
 /* colors (from the presskit) heart svg */
-.stellar-heart-blue { color: #42aae6; }
-.stellar-heart-aqua { color: #50e3c2; }
-.stellar-heart-yellow { color: #ffd148; }
-.stellar-heart-red { color: #ef7e48; }
+
+.stellar-heart-blue {
+    color: #42aae6;
+}
+
+.stellar-heart-aqua {
+    color: #50e3c2;
+}
+
+.stellar-heart-yellow {
+    color: #ffd148;
+}
+
+.stellar-heart-red {
+    color: #ef7e48;
+}
+
 
 /* colors (from press kit) stellar logo */
-.stellar-logo-blue { color: #14b4e6; }
+
+.stellar-logo-blue {
+    color: #14b4e6;
+}
+
 
 /* colors (from press kit) rocket */
-.stellar-rocket-blue { color: #dcf2f9; }
-.stellar-rocket-orange { color: #ed8117; }
-.stellar-rocket-yellow { color: #eebb18; }
+
+.stellar-rocket-blue {
+    color: #dcf2f9;
+}
+
+.stellar-rocket-orange {
+    color: #ed8117;
+}
+
+.stellar-rocket-yellow {
+    color: #eebb18;
+}
+
 
 /* colors from website */
-.stellar-org-bluetext { color: #07a2cc; }
+
+.stellar-org-bluetext {
+    color: #07a2cc;
+}
 
 .navbar-default {
     background-color: inherit;
@@ -66,4 +97,30 @@ body, .navbar {
     .Search-box {
         width: 520px !important;
     }
+}
+
+.Lang-Selector {
+    margin: 5px 0;
+}
+
+.Lang-Selector button {
+    display: inline-block;
+    cursor: pointer;
+    background: #333;
+    color: #ccc;
+    border: none;
+    border-radius: 2px;
+}
+
+.Lang-Selector button:focus {
+    outline: none;
+}
+
+.Lang-Selector button:not(:first-child) {
+    margin-left: 5px;
+}
+
+.Lang-Selector .is-active {
+    background: #61dafb;
+    color: #fff;
 }
