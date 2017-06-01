@@ -4,7 +4,21 @@ import { Link } from 'react-router-dom'
 import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
 
 import { server as stellar } from '../lib/Stellar'
+import { withMaybe } from './shared/HOCs'
 import { isDefInt } from '../lib/Utils'
+
+const DEFAULT_LIMIT = 5
+
+const responseToTxs = (rsp) => (
+    rsp.records.map((tx) => ({
+      hash: tx.hash,
+      time: tx.created_at,
+      opCount: tx.operation_count,
+      ledger: tx.ledger_attr
+    }))
+)
+
+const isLoading = (props) => (props.isLoading === true)
 
 class TransactionRow extends React.Component {
     render() {
@@ -28,15 +42,11 @@ class TransactionRow extends React.Component {
 }
 
 class TransactionTable extends React.Component {
-    static DEFAULT_LIMIT = 5
-
-    constructor(props) {
-        super(props)
-        this.state = {rows: []}
-        this.update()
-    }
-
     render() {
+        const txRows = this.props.txs.map((tx) =>
+            <TransactionRow key={tx.hash} {...tx}/>
+        )
+
         return (
             <Table id="transaction-table">
                 <thead>
@@ -47,12 +57,26 @@ class TransactionTable extends React.Component {
                         <th><FormattedMessage id="ledger" /></th>
                     </tr>
                 </thead>
-                <tbody>{this.state.rows}</tbody>
+                <tbody>
+                    {txRows}
+                </tbody>
             </Table>
         )
     }
+}
+const WrappedTransactionTable = withMaybe(TransactionTable, isLoading)
+
+class TransactionTableStateWrapper extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+          isLoading: true,
+          txs: []
+        }
+    }
 
     componentDidMount() {
+        this.update()
         this.timerID = setInterval(() => this.update(), 15000);
     }
 
@@ -66,28 +90,29 @@ class TransactionTable extends React.Component {
             builder.forLedger(this.props.ledger)
         else {
             const limit = (isDefInt(this.props, 'limit'))
-                ? this.props.limit : this.DEFAULT_LIMIT
+                ? this.props.limit : DEFAULT_LIMIT
             builder.limit(limit)
             builder.order('desc')
         }
 
-        builder.call().then((result) => {
-            let rows = []
-            result.records.forEach((transaction) => {
-                rows.push(
-                    <TransactionRow
-                        key={transaction.hash}
-                        hash={transaction.hash}
-                        time={transaction.created_at}
-                        opCount={transaction.operation_count}
-                        ledger={transaction.ledger_attr}/>
-                )
+        builder.call().then((stellarRsp) => {
+            this.setState({
+                txs: responseToTxs(stellarRsp),
+                isLoading: false
             })
-            this.setState({rows: rows})
         }).catch((err) => {
-            console.error(`Failed to fetch transactions: [${err}]`)
+            console.error(`Failed to fetch transactions: [${err.stack}]`)
         })
     }
+
+    render() {
+        return (
+            <WrappedTransactionTable
+                isLoading={this.state.isLoading}
+                txs={this.state.txs}/>
+        )
+    }
+
 }
 
-export default TransactionTable
+export default TransactionTableStateWrapper

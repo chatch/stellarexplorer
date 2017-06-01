@@ -30,6 +30,9 @@ body, .navbar {
     font-size: 13px;
 }
 
+.width80 {
+    width: 80px;
+}
 
 /* colors (from the presskit) heart svg */
 
