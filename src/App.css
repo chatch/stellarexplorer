@@ -36,50 +36,37 @@ body, .navbar {
 
 /* colors (from the presskit) heart svg */
 
-.stellar-heart-blue {
-    color: #42aae6;
-}
-
-.stellar-heart-aqua {
-    color: #50e3c2;
-}
-
-.stellar-heart-yellow {
-    color: #ffd148;
-}
-
-.stellar-heart-red {
-    color: #ef7e48;
-}
-
+.stellar-heart-blue { color: #42aae6; }
+.stellar-heart-aqua { color: #50e3c2; }
+.stellar-heart-yellow { color: #ffd148; }
+.stellar-heart-red { color: #ef7e48; }
 
 /* colors (from press kit) stellar logo */
 
-.stellar-logo-blue {
-    color: #14b4e6;
-}
-
+.stellar-logo-blue { color: #14b4e6; }
 
 /* colors (from press kit) rocket */
 
-.stellar-rocket-blue {
-    color: #dcf2f9;
-}
-
-.stellar-rocket-orange {
-    color: #ed8117;
-}
-
-.stellar-rocket-yellow {
-    color: #eebb18;
-}
-
+.stellar-rocket-blue { color: #dcf2f9; }
+.stellar-rocket-orange { color: #ed8117; }
+.stellar-rocket-yellow { color: #eebb18; }
 
 /* colors from website */
 
-.stellar-org-bluetext {
-    color: #07a2cc;
-}
+.stellar-org-bluetext { color: #07a2cc; }
+
+/* colors (from mobile design) elements screen */
+
+.stellar-mb-blue1 { color: #08B5E5 }
+.stellar-mb-blue2 { color: #07A2CC }
+.stellar-mb-blue3 { color: #057B9B }
+.stellar-mb-yellow { color: #FFD148 }
+.stellar-mb-red { color: #EF7E48 }
+.stellar-mb-grey1 { color: #5B6A72 }
+.stellar-mb-grey2 { color: #9B9B9B }
+.stellar-mb-grey3 { color: #D0D0D0 }
+.stellar-mb-grey4 { color: #F4F6F5 }
+.stellar-mb-grey5 { color: #979797 }
 
 .navbar-default {
     background-color: inherit;
