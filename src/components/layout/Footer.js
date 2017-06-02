@@ -1,5 +1,6 @@
 import React from 'react'
 import {Grid, Row, Col} from 'react-bootstrap'
+import LumensRates from './LumensRates'
 
 class Footer extends React.Component {
     render() {
@@ -7,8 +8,7 @@ class Footer extends React.Component {
             <Grid id="footer">
                 <Row>
                     <Col>
-                        <hr/>
-                        <a href="https://github.com/stellargraph">Github</a>
+                        <LumensRates/>
                     </Col>
                 </Row>
             </Grid>
