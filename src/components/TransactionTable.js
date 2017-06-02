@@ -7,6 +7,7 @@ import { server as stellar } from '../lib/Stellar'
 import { withMaybe } from './shared/HOCs'
 import { isDefInt } from '../lib/Utils'
 
+const REFRESH_RATE = 15000
 const DEFAULT_LIMIT = 5
 
 const responseToTxs = (rsp) => (
@@ -70,14 +71,14 @@ class TransactionTableStateWrapper extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          isLoading: true,
-          txs: []
+            isLoading: true,
+            txs: []
         }
     }
 
     componentDidMount() {
         this.update()
-        this.timerID = setInterval(() => this.update(), 15000);
+        this.timerID = setInterval(() => this.update(), REFRESH_RATE);
     }
 
     componentWillUnmount() {
@@ -85,6 +86,11 @@ class TransactionTableStateWrapper extends React.Component {
     }
 
     update() {
+        this.setState({
+            isLoading: true,
+            txs: []
+        })
+
         const builder = stellar.transactions()
         if (isDefInt(this.props, 'ledger'))
             builder.forLedger(this.props.ledger)
@@ -101,7 +107,11 @@ class TransactionTableStateWrapper extends React.Component {
                 isLoading: false
             })
         }).catch((err) => {
-            console.error(`Failed to fetch transactions: [${err.stack}]`)
+            console.error(`Failed to fetch transactions: [${err}]`)
+            this.setState({
+                txs: [],
+                isLoading: false
+            })
         })
     }
 

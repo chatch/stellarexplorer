@@ -8,6 +8,7 @@ import { withMaybe } from './shared/HOCs'
 import { isDefInt } from '../lib/Utils'
 
 const REFRESH_RATE = 15000
+const DEFAULT_LIMIT = 5
 
 const responseToLedgers = (rsp) => (
     rsp.records.map((ledger) => ({
@@ -75,9 +76,13 @@ class LedgerTableStateWrapper extends React.Component {
     }
 
     update() {
+        this.setState({
+            isLoading: true,
+            ledgers: [],
+        })
         const limit = (isDefInt(this.props, 'limit'))
             ? this.props.limit
-            : this.DEFAULT_LIMIT
+            : DEFAULT_LIMIT
         stellar.ledgers().order('desc').limit(limit).call()
             .then((stellarRsp) =>
                 this.setState({
