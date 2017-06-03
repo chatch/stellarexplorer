@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Row, Panel, Table } from 'react-bootstrap'
+import { Grid, Row, Table, Panel, Accordion } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
 
@@ -11,9 +11,9 @@ const OperationsList = (props) => {
         <Operation key={op.id} data={op}/>
     )
     return (
-        <div>
+        <Accordion expanded={false}>
             {ops}
-        </div>
+        </Accordion>
     )
 }
 
@@ -27,9 +27,10 @@ class Transaction extends React.Component {
         let data = {}
         stellar.transactions().transaction(this.state.id).call().then((res) => {
             data.txData = res
-            return res.operations()
+            return stellar.operations().forTransaction(this.state.id).limit(50).call()
         }).then((ops) => {
-            data.ops = ops._embedded.records
+          console.log(ops)
+            data.ops = ops.records
         }).then(() => {
             this.setState(data)
         })
@@ -43,8 +44,8 @@ class Transaction extends React.Component {
         return (
             <Grid>
               <Row>
-                <Panel header="Transaction Details" bsStyle="warning">
-                  <Table>
+                <Panel header="Transaction Details">
+                  <Table className="table-hover table-condensed" fill>
                     <tbody>
                       <tr>
                         <td><FormattedMessage id="hash"/></td>

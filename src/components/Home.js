@@ -18,13 +18,13 @@ class Home extends React.Component {
             <Grid>
                 <Row>
                     <Col md={6}>
-                        <Panel header={panelHeader(formatMessage({id:'latest.ledgers'}), '/ledgers')} bsStyle="warning">
-                            <LedgerTable limit={5}/>
+                        <Panel header={panelHeader(formatMessage({id:'latest.ledgers'}), '/ledgers')}>
+                            <LedgerTable fill limit={5}/>
                         </Panel>
                     </Col>
                     <Col md={6}>
-                        <Panel header={panelHeader(formatMessage({id:'latest.txs'}), '/txs')} bsStyle="warning">
-                            <TransactionTable limit={5}/>
+                        <Panel header={panelHeader(formatMessage({id:'latest.txs'}), '/txs')}>
+                            <TransactionTable fill limit={5}/>
                         </Panel>
                     </Col>
                 </Row>

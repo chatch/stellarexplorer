@@ -40,7 +40,7 @@ class LedgerTable extends React.Component {
         )
 
         return (
-            <Table id="ledger-table">
+            <Table id="ledger-table" className="table-striped table-hover table-condensed" fill>
                 <thead>
                     <tr>
                         <th>#</th>

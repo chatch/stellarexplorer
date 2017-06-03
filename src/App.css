@@ -17,6 +17,10 @@ body, .navbar {
     font-size: 20px;
 }
 
+.panel, .panel-heading {
+    background-color: transparent;
+}
+
 #main-content {
     padding-top: 70px;
     /* because navbar has fixed top */
@@ -28,6 +32,10 @@ body, .navbar {
 
 .form-control {
     font-size: 13px;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #5B6A72;
 }
 
 .width80 {

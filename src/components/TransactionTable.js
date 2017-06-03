@@ -49,7 +49,7 @@ class TransactionTable extends React.Component {
         )
 
         return (
-            <Table id="transaction-table">
+            <Table id="transaction-table" className="table-striped table-hover table-condensed">
                 <thead>
                     <tr>
                         <th>#</th>

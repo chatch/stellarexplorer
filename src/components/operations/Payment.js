@@ -1,6 +1,8 @@
 import React from 'react'
-import {Grid, Row, Table} from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import {Grid, Row} from 'react-bootstrap'
+
+import Asset from '../shared/Asset'
+import AccountLink from '../shared/AccountLink'
 
 class Payment extends React.Component {
     render() {
@@ -8,34 +10,14 @@ class Payment extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <Table>
-                        <tbody>
-                          <tr>
-                              <td>From</td>
-                              <td><Link to={`/account/${d.from}`}>{d.from}</Link></td>
-                          </tr>
-                          <tr>
-                              <td>To</td>
-                              <td><Link to={`/account/${d.to}`}>{d.to}</Link></td>
-                          </tr>
-                          <tr>
-                              <td>Asset Code</td>
-                              <td>{d.asset_code}</td>
-                          </tr>
-                          <tr>
-                              <td>Asset Type</td>
-                              <td>{d.asset_type}</td>
-                          </tr>
-                          <tr>
-                              <td>Asset Issuer</td>
-                              <td><Link to={`/account/${d.asset_issuer}`}>{d.asset_issuer}</Link></td>
-                          </tr>
-                          <tr>
-                              <td>Amount</td>
-                              <td>{d.amount}</td>
-                          </tr>
-                        </tbody>
-                    </Table>
+                    <AccountLink account={d.from}/>
+                    &nbsp;TO&nbsp;
+                    <AccountLink account={d.to}/>
+                </Row>
+                <Row>
+                    <Asset type={d.asset_type}
+                           code={d.asset_code}
+                           issuer={d.asset_issuer} /> {d.amount}
                 </Row>
                 <Row>
                     {this.props.children}

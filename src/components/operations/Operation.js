@@ -1,7 +1,7 @@
 import React from 'react'
-import {Grid, Table, Row} from 'react-bootstrap'
+import {Grid, Table, Row, Panel} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import {FormattedMessage} from 'react-intl'
+// import {FormattedMessage} from 'react-intl'
 
 import CreateAccount from './CreateAccount'
 import Payment from './Payment'
@@ -58,25 +58,21 @@ class Operation extends React.Component {
         return (
           <Grid>
             <Row>
-              <Table>
-                <tbody>
-                  <tr>
-                    <td><FormattedMessage id="operation" /></td>
-                    <td>{d.type}</td>
-                  </tr>
-                  <tr>
-                    <td>Id</td>
-                    <td>{d.id}</td>
-                  </tr>
-                  <tr>
-                    <td>Source</td>
-                    <td><Link to={`/account/${d.source_account}`}>{d.source_account}</Link></td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Row>
-            <Row>
-              <SubOperation data={d}/>
+              <Panel collapsible defaultExpanded={false} header={d.type}>
+                <Table className="table-hover table-condensed" fill>
+                  <tbody>
+                    <tr>
+                      <td>Id</td>
+                      <td>{d.id}</td>
+                    </tr>
+                    <tr>
+                      <td>Source</td>
+                      <td><Link to={`/account/${d.source_account}`}>{d.source_account}</Link></td>
+                    </tr>
+                  </tbody>
+                </Table>
+                <SubOperation data={d}/>
+              </Panel>
             </Row>
           </Grid>
         )
