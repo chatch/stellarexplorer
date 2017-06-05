@@ -6,7 +6,11 @@ import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
 import {server as stellar} from '../lib/Stellar'
 import TransactionTable from './TransactionTable'
 
-class Ledger extends React.Component {
+class LedgerContainer extends React.Component {
+  state = {
+    seq: 0
+  }
+
   componentDidMount() {
     this.loadLedger(this.props.match.params.id)
   }
@@ -31,9 +35,14 @@ class Ledger extends React.Component {
   }
 
   render() {
-    if (this.state === null)
-      return null
-    const s = this.state
+    return (this.state.seq === 0)
+      ? null
+      : <Ledger {...this.state}/>
+  }
+}
+
+class Ledger extends React.Component {
+  render() {
     return (
       <Grid>
         <Row>
@@ -41,44 +50,44 @@ class Ledger extends React.Component {
             <tbody>
               <tr>
                 <td>#</td>
-                <td>{s.seq}</td>
+                <td>{this.props.seq}</td>
               </tr>
               <tr>
                 <td><FormattedMessage id="time"/></td>
-                <td><FormattedDate value={s.time}/>
-                  <FormattedTime value={s.time}/></td>
+                <td><FormattedDate value={this.props.time}/>
+                  <FormattedTime value={this.props.time}/></td>
               </tr>
               <tr>
                 <td><FormattedMessage id="operations"/></td>
-                <td>{s.opCount}</td>
+                <td>{this.props.opCount}</td>
               </tr>
               <tr>
                 <td><FormattedMessage id="hash"/></td>
-                <td>{s.hash}</td>
+                <td>{this.props.hash}</td>
               </tr>
               <tr>
                 <td><FormattedMessage id="prevHash"/></td>
                 <td>
-                  <Link to={`/ledger/${s.prevSeq}`}>{s.prevHash}</Link>
+                  <Link to={`/ledger/${this.props.prevSeq}`}>{this.props.prevHash}</Link>
                 </td>
               </tr>
               <tr>
                 <td><FormattedMessage id="protocolVersion"/></td>
-                <td>{s.protocol}</td>
+                <td>{this.props.protocol}</td>
               </tr>
               <tr>
                 <td><FormattedMessage id="transactions"/></td>
-                <td>{s.txCount}</td>
+                <td>{this.props.txCount}</td>
               </tr>
             </tbody>
           </Table>
         </Row>
         <Row>
-          <TransactionTable ledger={this.state.seq}/>
+          <TransactionTable ledger={this.props.seq}/>
         </Row>
       </Grid>
     )
   }
 }
 
-export default Ledger
+export default LedgerContainer

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Row, Panel} from 'react-bootstrap'
+import {Grid, Row} from 'react-bootstrap'
 import {injectIntl, FormattedMessage} from 'react-intl'
 import {server as stellar} from '../lib/Stellar'
 import TransactionTable from './TransactionTable'
@@ -85,4 +85,4 @@ class Account extends React.Component {
   }
 }
 
-export default AccountContainer
+export default injectIntl(AccountContainer)

@@ -12,4 +12,8 @@ function isTxHash(hashStr) {
   return /^[0-9a-f]{64}$/i.test(hashStr)
 }
 
-export {isDefInt, isAccount, isTxHash}
+function shortHash(hash) {
+  return hash.substring(0, 10) + "..."
+}
+
+export {isDefInt, isAccount, isTxHash, shortHash}

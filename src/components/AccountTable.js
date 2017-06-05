@@ -4,17 +4,16 @@ import {Link} from 'react-router-dom'
 import {FormattedTime, FormattedDate, FormattedMessage} from 'react-intl'
 
 import {server as stellar} from '../lib/Stellar'
-import {isDefInt} from '../lib/Utils'
+import {isDefInt, shortHash} from '../lib/Utils'
 
 class AccountRow extends React.Component {
   render() {
     const txHash = this.props.hash
-    const shortHash = txHash.substring(0, 10) + "..."
     return (
       <tr>
         <td>
           <span title={txHash}>
-            <Link to={`/tx/${txHash}`}>{shortHash}</Link>
+            <Link to={`/tx/${txHash}`}>{shortHash(txHash)}</Link>
           </span>
         </td>
         <td><FormattedDate value={this.props.time}/>
@@ -29,14 +28,8 @@ class AccountRow extends React.Component {
 }
 
 class AccountTable extends React.Component {
-  static DEFAULT_LIMIT = 5
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      rows: []
-    }
-    this.update()
+  renderRow(account) {
+    return <AccountRow key={account.hash} {...account}/>
   }
 
   render() {
@@ -50,12 +43,21 @@ class AccountTable extends React.Component {
             <th><FormattedMessage id="ledger"/></th>
           </tr>
         </thead>
-        <tbody>{this.state.rows}</tbody>
+        <tbody>{this.props.accounts.map(this.renderRow)}</tbody>
       </Table>
     )
   }
+}
+
+class AccountTableContainer extends React.Component {
+  static DEFAULT_LIMIT = 5
+
+  state = {
+    rows: []
+  }
 
   componentDidMount() {
+    this.update()
     this.timerID = setInterval(() => this.update(), 15000);
   }
 
@@ -63,8 +65,9 @@ class AccountTable extends React.Component {
     clearInterval(this.timerID);
   }
 
-  update() {
+  accounts() {
     const builder = stellar.Accounts()
+
     if (isDefInt(this.props, 'ledger'))
       builder.forLedger(this.props.ledger)
     else {
@@ -72,24 +75,23 @@ class AccountTable extends React.Component {
         ? this.props.limit
         : this.DEFAULT_LIMIT
       builder.limit(limit)
-      builder.order('desc')
     }
+    builder.order('desc')
 
-    builder.call().then((result) => {
-      let rows = []
-      result.records.forEach((Account) => {
-        rows.push(<AccountRow
-          key={Account.hash}
-          hash={Account.hash}
-          time={Account.created_at}
-          value={Account.value}
-          ledger={Account.ledger_attr}/>)
-      })
-      this.setState({rows: rows})
+    return builder.call()
+  }
+
+  update() {
+    this.accounts().then((result) => {
+      this.setState({accounts: result.records.accounts})
     }).catch((err) => {
       console.error(`Failed to fetch Accounts: [${err}]`)
     })
   }
+
+  render() {
+    return (<AccountTable accounts={this.state.accounts}/>)
+  }
 }
 
-export default AccountTable
+export default AccountTableContainer

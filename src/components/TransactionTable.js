@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
 import {server as stellar} from '../lib/Stellar'
 import {withMaybe} from './shared/HOCs'
-import {isDefInt, isAccount} from '../lib/Utils'
+import {isDefInt, isAccount, shortHash} from '../lib/Utils'
 
 const REFRESH_RATE = 15000
 const DEFAULT_LIMIT = 5
@@ -16,7 +16,6 @@ const responseToTxs = (rsp) => {
 }
 
 const isLoading = (props) => (props.isLoading === true)
-const shortHash = (hash) => hash.substring(0, 10) + "..."
 
 class TransactionRow extends React.Component {
   render() {

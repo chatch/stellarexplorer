@@ -8,7 +8,7 @@ import Operation from './operations/Operation'
 const OperationsList = (props) => {
   const ops = props.operations.map((op) => <Operation key={op.id} data={op}/>)
   return (
-    <Accordion expanded={false}>
+    <Accordion>
       {ops}
     </Accordion>
   )

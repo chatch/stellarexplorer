@@ -52,13 +52,10 @@ class LedgerTable extends React.Component {
 }
 const WrappedLedgerTable = withMaybe(LedgerTable, isLoading)
 
-class LedgerTableStateWrapper extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isLoading: true,
-      ledgers: []
-    }
+class LedgerTableContainer extends React.Component {
+  state = {
+    isLoading: true,
+    ledgers: []
   }
 
   componentDidMount() {
@@ -70,12 +67,18 @@ class LedgerTableStateWrapper extends React.Component {
     clearInterval(this.timerID);
   }
 
-  update() {
-    this.setState({isLoading: true, ledgers: []})
+  ledgers() {
     const limit = (isDefInt(this.props, 'limit'))
       ? this.props.limit
       : DEFAULT_LIMIT
-    stellar.ledgers().order('desc').limit(limit).call().then((stellarRsp) => this.setState({ledgers: responseToLedgers(stellarRsp), isLoading: false})).catch((err) => {
+    return stellar.ledgers().order('desc').limit(limit).call()
+  }
+
+  update() {
+    this.setState({isLoading: true, ledgers: []})
+    this.ledgers().then((stellarRsp) => {
+      this.setState({ledgers: responseToLedgers(stellarRsp), isLoading: false})
+    }).catch((err) => {
       console.error(`Failed to fetch ledgers: [${err}]`)
       this.setState({ledgers: [], isLoading: false})
     })
@@ -88,4 +91,4 @@ class LedgerTableStateWrapper extends React.Component {
   }
 }
 
-export default LedgerTableStateWrapper
+export default LedgerTableContainer
