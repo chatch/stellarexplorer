@@ -1,4 +1,11 @@
+import { sdk } from './Stellar'
 
-export function isDefInt(obj, key) {
+function isDefInt(obj, key) {
     return (obj[key] && Number.isInteger(Number(obj[key])))
 }
+
+function isAccount(accStr) {
+    return sdk.StrKey.isValidEd25519PublicKey(accStr)
+}
+
+export { isDefInt, isAccount }

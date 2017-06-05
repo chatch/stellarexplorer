@@ -5,7 +5,7 @@ import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl'
 
 import { server as stellar } from '../lib/Stellar'
 import { withMaybe } from './shared/HOCs'
-import { isDefInt } from '../lib/Utils'
+import { isDefInt, isAccount } from '../lib/Utils'
 
 const REFRESH_RATE = 15000
 const DEFAULT_LIMIT = 5
@@ -92,14 +92,18 @@ class TransactionTableStateWrapper extends React.Component {
         })
 
         const builder = stellar.transactions()
+
         if (isDefInt(this.props, 'ledger'))
             builder.forLedger(this.props.ledger)
-        else {
-            const limit = (isDefInt(this.props, 'limit'))
-                ? this.props.limit : DEFAULT_LIMIT
-            builder.limit(limit)
-            builder.order('desc')
-        }
+
+        if (isAccount(this.props.account))
+            builder.forAccount(this.props.account)
+
+        const limit = (isDefInt(this.props, 'limit'))
+            ? this.props.limit : DEFAULT_LIMIT
+        builder.limit(limit)
+
+        builder.order('desc')
 
         builder.call().then((stellarRsp) => {
             this.setState({

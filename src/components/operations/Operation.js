@@ -58,7 +58,7 @@ class Operation extends React.Component {
         return (
           <Grid>
             <Row>
-              <Panel collapsible defaultExpanded={false} header={d.type}>
+              <Panel collapsible defaultExpanded={true} header={d.type}>
                 <Table className="table-hover table-condensed" fill>
                   <tbody>
                     <tr>

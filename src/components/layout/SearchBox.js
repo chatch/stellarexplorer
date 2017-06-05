@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormControl } from 'react-bootstrap'
 import { withRouter } from 'react-router'
-import { sdk } from '../../lib/Stellar'
+import { isAccount } from '../../lib/Utils'
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -20,10 +20,12 @@ class SearchBox extends React.Component {
 
   search(event) {
       event.preventDefault()
+
       const searchBox = event.target.firstElementChild
       const searchStr = searchBox.value.trim()
       console.log(searchStr)
-      if (sdk.StrKey.isValidEd25519PublicKey(searchStr)) {
+
+      if (isAccount(searchStr)) {
         console.log('account search')
         this.props.history.push(`/account/${searchStr}`)
       } else {

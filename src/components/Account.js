@@ -1,16 +1,17 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
-import {FormattedMessage} from 'react-intl'
+import {Grid, Row, Panel} from 'react-bootstrap'
+import {injectIntl, FormattedMessage} from 'react-intl'
 import {server as stellar} from '../lib/Stellar'
+import TransactionTable from './TransactionTable'
+import Asset from './shared/Asset'
 
 const Balances = (props) => {
     const bals = props.balances.map((bal) =>
         <div key={bal.asset_type}>
-            <div>Type: {bal.asset_type !== 'native' ? bal.asset_type : 'Lumens'}</div>
+            <Asset type={bal.asset_type}
+                   code={bal.asset_code}
+                   issuer={bal.asset_issuer} />
             <div><FormattedMessage id="balance"/>: {bal.balance}</div>
-            <div><FormattedMessage id="assetCode"/>: {bal.asset_code}</div>
-            <div>Issuer:<Link to={`/account/${bal.asset_issuer}`}>{bal.asset_issuer}</Link></div>
             <div>Limit: {bal.limit}</div>
             <br/>
         </div>
@@ -69,7 +70,10 @@ class Account extends React.Component {
     render() {
         if (this.state === null || this.state.account === null)
             return null
+
         const a = this.state.account
+        // const {formatMessage} = this.props.intl
+
         return (
             <Grid>
                 <Row>
@@ -79,6 +83,9 @@ class Account extends React.Component {
                     <Balances balances={a.balances}/>
                     <Thresholds thresholds={a.thresholds}/>
                     <Signers signers={a.signers}/>
+                </Row>
+                <Row>
+                        <TransactionTable account={a.id} limit={10}/>
                 </Row>
             </Grid>
         )

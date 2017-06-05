@@ -1,6 +1,8 @@
 import React from 'react'
 import {Grid, Row, Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import Asset from '../shared/Asset'
+import AccountLink from '../shared/AccountLink'
 
 class Trust extends React.Component {
     render() {
@@ -11,24 +13,16 @@ class Trust extends React.Component {
                     <Table>
                         <tbody>
                             <tr>
-                                <td>Asset Code</td>
-                                <td>{d.asset_code}</td>
-                            </tr>
-                            <tr>
-                                <td>Asset Type</td>
-                                <td>{d.asset_type}</td>
-                            </tr>
-                            <tr>
-                                <td>Asset Issuer</td>
-                                <td><Link to={`/account/${d.asset_issuer}`}>{d.asset_issuer}</Link></td>
+                                <td>Asset</td>
+                                <td><Asset code={d.asset_code} type={d.asset_type} issuer={d.asset_issuer}/></td>
                             </tr>
                             <tr>
                                 <td>Trustee</td>
-                                <td><Link to={`/account/${d.trustee}`}>{d.trustee}</Link></td>
+                                <td><AccountLink account={d.trustee}/></td>
                             </tr>
                             <tr>
                                 <td>Trustor</td>
-                                <td><Link to={`/account/${d.trustor}`}>{d.trustor}</Link></td>
+                                <td><AccountLink account={d.trustor}/></td>
                             </tr>
                         </tbody>
                     </Table>
