@@ -20,7 +20,12 @@
     "payments": "Payments",
     "hash": "Hash",
     "prevHash": "Prev Hash",
+    "sequence": "Sequence",
+    "signers": "Signers",
+    "thresholds": "Thresholds",
+    "limit": "Limit",
     "protocolVersion": "Protocol Version",
     "latest.ledgers": "Latest Ledgers",
-    "latest.txs": "Latest Transactions"
+    "latest.txs": "Latest Transactions",
+    "search.placeHolder": "Search by Ledger / Account ID / Transaction Hash"
 }
