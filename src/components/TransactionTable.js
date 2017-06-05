@@ -20,16 +20,16 @@ const responseToTxs = (rsp) => (
 )
 
 const isLoading = (props) => (props.isLoading === true)
+const shortHash = (hash) => hash.substring(0, 10) + "..."
 
 class TransactionRow extends React.Component {
     render() {
         const txHash = this.props.hash
-        const shortHash = txHash.substring(0, 10) + "..."
         return (
             <tr>
                 <td>
                     <span title={txHash}>
-                        <Link to={`/tx/${txHash}`}>{shortHash}</Link>
+                        <Link to={`/tx/${txHash}`}>{shortHash(txHash)}</Link>
                     </span>
                 </td>
                 <td><FormattedDate value={this.props.time}/> <FormattedTime value={this.props.time}/></td>
@@ -43,11 +43,11 @@ class TransactionRow extends React.Component {
 }
 
 class TransactionTable extends React.Component {
-    render() {
-        const txRows = this.props.txs.map((tx) =>
-            <TransactionRow key={tx.hash} {...tx}/>
-        )
+    renderRow(tx) {
+        return <TransactionRow key={tx.hash} {...tx}/>
+    }
 
+    render() {
         return (
             <Table id="transaction-table" className="table-striped table-hover table-condensed">
                 <thead>
@@ -59,7 +59,7 @@ class TransactionTable extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {txRows}
+                    {this.props.txs.map(this.renderRow)}
                 </tbody>
             </Table>
         )
@@ -67,13 +67,10 @@ class TransactionTable extends React.Component {
 }
 const WrappedTransactionTable = withMaybe(TransactionTable, isLoading)
 
-class TransactionTableStateWrapper extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isLoading: true,
-            txs: []
-        }
+class TransactionTableContainer extends React.Component {
+    state = {
+        isLoading: true,
+        txs: []
     }
 
     componentDidMount() {
@@ -90,22 +87,7 @@ class TransactionTableStateWrapper extends React.Component {
             isLoading: true,
             txs: []
         })
-
-        const builder = stellar.transactions()
-
-        if (isDefInt(this.props, 'ledger'))
-            builder.forLedger(this.props.ledger)
-
-        if (isAccount(this.props.account))
-            builder.forAccount(this.props.account)
-
-        const limit = (isDefInt(this.props, 'limit'))
-            ? this.props.limit : DEFAULT_LIMIT
-        builder.limit(limit)
-
-        builder.order('desc')
-
-        builder.call().then((stellarRsp) => {
+        this.transactions(this.props).then((stellarRsp) => {
             this.setState({
                 txs: responseToTxs(stellarRsp),
                 isLoading: false
@@ -119,6 +101,24 @@ class TransactionTableStateWrapper extends React.Component {
         })
     }
 
+    transactions(props) {
+        const builder = stellar.transactions()
+
+        if (isDefInt(props, 'ledger'))
+            builder.forLedger(props.ledger)
+
+        if (isAccount(props.account))
+            builder.forAccount(props.account)
+
+        const limit = (isDefInt(props, 'limit'))
+            ? props.limit : DEFAULT_LIMIT
+        builder.limit(limit)
+
+        builder.order('desc')
+
+        return builder.call()
+    }
+
     render() {
         return (
             <WrappedTransactionTable
@@ -126,7 +126,6 @@ class TransactionTableStateWrapper extends React.Component {
                 txs={this.state.txs}/>
         )
     }
-
 }
 
-export default TransactionTableStateWrapper
+export default TransactionTableContainer

@@ -1,6 +1,5 @@
 import React from 'react'
 import {Grid, Row, Table} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
 import Asset from '../shared/Asset'
 import AccountLink from '../shared/AccountLink'
 
