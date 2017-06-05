@@ -1,15 +1,15 @@
 import React from 'react'
-import { Grid, Row } from 'react-bootstrap'
+import {Grid, Row} from 'react-bootstrap'
 import AccountTable from './AccountTable'
 
 class Accounts extends React.Component {
   render() {
     return (
-        <Grid>
-            <Row>
-                <AccountTable limit={10}/>
-            </Row>
-        </Grid>
+      <Grid>
+        <Row>
+          <AccountTable limit={10}/>
+        </Row>
+      </Grid>
     )
   }
 }

@@ -21,7 +21,10 @@ import Accounts from './components/Accounts'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
-addLocaleData([...en, ...zh])
+addLocaleData([
+  ...en,
+  ...zh
+])
 
 const locale = localStorage.getItem("lang") || navigator.language || "en"
 
@@ -35,41 +38,39 @@ const getMessages = locale => {
 }
 
 class App extends Component {
-    state = {
-        lang: locale
-    }
+  state = {
+    lang: locale
+  }
 
-    languageSwitch = locale => {
-        localStorage.setItem("lang", locale);
-        this.setState({
-            lang: locale
-        })
-    }
+  languageSwitch = locale => {
+    localStorage.setItem("lang", locale);
+    this.setState({lang: locale})
+  }
 
-    render() {
-        return (
-          <IntlProvider
-              key={this.state.lang}
-              locale={this.state.lang}
-              messages={getMessages(this.state.lang)}>
-            <Router>
-              <div className="App">
-                <Header lang={this.state.lang} languageSwitch={this.languageSwitch}/>
-                <div id="main-content">
-                  <Route exact path="/" component={Home} />
-                  <Route path="/ledgers" component={Ledgers} />
-                  <Route path="/ledger/:id" component={Ledger} />
-                  <Route path="/txs" component={Transactions} />
-                  <Route path="/tx/:id" component={Transaction} />
-                  <Route path="/accounts" component={Accounts} />
-                  <Route path="/account/:id" component={Account} />
-                </div>
-                <Footer/>
-              </div>
-            </Router>
-          </IntlProvider>
-        );
-    }
+  render() {
+    return (
+      <IntlProvider
+        key={this.state.lang}
+        locale={this.state.lang}
+        messages={getMessages(this.state.lang)}>
+        <Router>
+          <div className="App">
+            <Header lang={this.state.lang} languageSwitch={this.languageSwitch}/>
+            <div id="main-content">
+              <Route exact path="/" component={Home}/>
+              <Route path="/ledgers" component={Ledgers}/>
+              <Route path="/ledger/:id" component={Ledger}/>
+              <Route path="/txs" component={Transactions}/>
+              <Route path="/tx/:id" component={Transaction}/>
+              <Route path="/accounts" component={Accounts}/>
+              <Route path="/account/:id" component={Account}/>
+            </div>
+            <Footer/>
+          </div>
+        </Router>
+      </IntlProvider>
+    );
+  }
 }
 
 export default App;

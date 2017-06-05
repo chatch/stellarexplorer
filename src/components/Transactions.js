@@ -1,15 +1,15 @@
 import React from 'react'
-import { Grid, Row } from 'react-bootstrap'
+import {Grid, Row} from 'react-bootstrap'
 import TransactionTable from './TransactionTable'
 
 class Transactions extends React.Component {
   render() {
     return (
-        <Grid>
-            <Row>
-                <TransactionTable limit={20}/>
-            </Row>
-        </Grid>
+      <Grid>
+        <Row>
+          <TransactionTable limit={20}/>
+        </Row>
+      </Grid>
     )
   }
 }

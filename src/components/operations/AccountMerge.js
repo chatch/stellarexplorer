@@ -1,18 +1,20 @@
 import React from 'react'
 import {Grid, Row} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import AccountLink from '../shared/AccountLink'
 
 class AccountMerge extends React.Component {
-    render() {
-        const d = this.props.data
-        return (
-            <Grid>
-                <Row>
-                    <div>Into <Link to={`/account/${d.into}`}>{d.into}</Link></div>
-                </Row>
-            </Grid>
-        )
-    }
+  render() {
+    const d = this.props.data
+    return (
+      <Grid>
+        <Row>
+          <div>Into
+            <AccountLink account={d.into}/>
+          </div>
+        </Row>
+      </Grid>
+    )
+  }
 }
 
 export default AccountMerge
