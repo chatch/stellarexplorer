@@ -8,4 +8,8 @@ function isAccount(accStr) {
     return sdk.StrKey.isValidEd25519PublicKey(accStr)
 }
 
-export { isDefInt, isAccount }
+function isTxHash(hashStr) {
+    return /^[0-9a-f]{64}$/i.test(hashStr)
+}
+
+export { isDefInt, isAccount, isTxHash }
