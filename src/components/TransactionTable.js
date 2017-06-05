@@ -1,7 +1,7 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
+import {FormattedRelative, FormattedMessage} from 'react-intl'
 import {server as stellar} from '../lib/Stellar'
 import {withMaybe} from './shared/HOCs'
 import {isDefInt, isAccount, shortHash} from '../lib/Utils'
@@ -19,16 +19,19 @@ const isLoading = (props) => (props.isLoading === true)
 
 class TransactionRow extends React.Component {
   render() {
+    console.log(`tr ${Object.keys(this.props)}`)
     const txHash = this.props.hash
+    const hashLabel = (this.props.compact === true)
+      ? shortHash(txHash)
+      : txHash
     return (
       <tr>
         <td>
           <span title={txHash}>
-            <Link to={`/tx/${txHash}`}>{shortHash(txHash)}</Link>
+            <Link to={`/tx/${txHash}`}>{hashLabel}</Link>
           </span>
         </td>
-        <td><FormattedDate value={this.props.time}/>
-          <FormattedTime value={this.props.time}/></td>
+        <td><FormattedRelative value={this.props.time}/></td>
         <td>{this.props.opCount}</td>
         <td>
           <Link to={`/ledger/${this.props.ledger}`}>{this.props.ledger}</Link>
@@ -39,9 +42,7 @@ class TransactionRow extends React.Component {
 }
 
 class TransactionTable extends React.Component {
-  renderRow(tx) {
-    return <TransactionRow key={tx.hash} {...tx}/>
-  }
+  renderRow(tx) {}
 
   render() {
     return (
@@ -57,7 +58,9 @@ class TransactionTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.txs.map(this.renderRow)}
+          {this.props.txs.map((tx) => {
+            return <TransactionRow key={tx.hash} compact={this.props.compact} {...tx}/>
+          })}
         </tbody>
       </Table>
     )
@@ -66,6 +69,10 @@ class TransactionTable extends React.Component {
 const WrappedTransactionTable = withMaybe(TransactionTable, isLoading)
 
 class TransactionTableContainer extends React.Component {
+  static defaultProps = {
+    compact: true
+  }
+
   state = {
     isLoading: true,
     txs: []
@@ -110,7 +117,12 @@ class TransactionTableContainer extends React.Component {
   }
 
   render() {
-    return (<WrappedTransactionTable isLoading={this.state.isLoading} txs={this.state.txs}/>)
+    if (this.state.txs.length === 0)
+      return null
+    return (<WrappedTransactionTable
+      isLoading={this.state.isLoading}
+      txs={this.state.txs}
+      compact={this.props.compact}/>)
   }
 }
 

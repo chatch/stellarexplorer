@@ -1,7 +1,7 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
+import {FormattedRelative, FormattedMessage} from 'react-intl'
 
 import {server as stellar} from '../lib/Stellar'
 import {withMaybe} from './shared/HOCs'
@@ -18,8 +18,7 @@ const LedgerRow = (props) => <tr>
   <td>
     <Link to={`/ledger/${props.sequence}`}>{props.sequence}</Link>
   </td>
-  <td><FormattedDate value={props.time}/>
-    <FormattedTime value={props.time}/></td>
+  <td><FormattedRelative value={props.time}/></td>
   <td>{props.txCount}</td>
 </tr>
 

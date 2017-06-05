@@ -22,5 +22,6 @@
     "prevHash": "上一个",
     "protocolVersion": "协议版本",
     "latest.ledgers": "最新的根帐",
-    "latest.txs": "最新的交易记录"
+    "latest.txs": "最新的交易记录",
+    "search.placeHolder": "搜索"
 }
