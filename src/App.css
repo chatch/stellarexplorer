@@ -1,6 +1,7 @@
 body, .navbar {
     color: white;
     background-color: black !important;
+    font-family: "Noto Sans", "Noto Sans CJK {SC, TC}", sans-serif;
 }
 
 .App {}
@@ -18,6 +19,10 @@ body, .navbar {
 
 #footer {
     margin-bottom: 20px;
+}
+
+.monospace {
+    font-family: "Noto Sans Mono", monospace;
 }
 
 .width80 {

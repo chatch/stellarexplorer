@@ -26,7 +26,7 @@ class TransactionRow extends React.Component {
     return (
       <tr>
         <td>
-          <span title={txHash}>
+          <span title={txHash} className={"monospace"}>
             <Link to={`/tx/${txHash}`}>{hashLabel}</Link>
           </span>
         </td>
