@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {FormattedRelative, FormattedMessage} from 'react-intl'
 
 import {server as stellar} from '../lib/Stellar'
-import {withMaybe} from './shared/HOCs'
+import {withSpinner} from './shared/HOCs'
 import {isDefInt} from '../lib/Utils'
 
 const REFRESH_RATE = 15000
@@ -49,7 +49,7 @@ class LedgerTable extends React.Component {
     )
   }
 }
-const WrappedLedgerTable = withMaybe(LedgerTable, isLoading)
+const WrappedLedgerTable = withSpinner(LedgerTable, isLoading)
 
 class LedgerTableContainer extends React.Component {
   state = {

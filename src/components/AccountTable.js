@@ -5,6 +5,9 @@ import {FormattedTime, FormattedDate, FormattedMessage} from 'react-intl'
 
 import {server as stellar} from '../lib/Stellar'
 import {isDefInt, shortHash} from '../lib/Utils'
+import {withSpinner} from './shared/HOCs'
+
+const isLoading = (props) => (props.isLoading === true)
 
 class AccountRow extends React.Component {
   render() {
@@ -53,7 +56,8 @@ class AccountTableContainer extends React.Component {
   static DEFAULT_LIMIT = 5
 
   state = {
-    rows: []
+    accounts: [],
+    isLoading: true
   }
 
   componentDidMount() {
@@ -66,32 +70,28 @@ class AccountTableContainer extends React.Component {
   }
 
   accounts() {
-    const builder = stellar.Accounts()
-
-    if (isDefInt(this.props, 'ledger'))
-      builder.forLedger(this.props.ledger)
-    else {
-      const limit = (isDefInt(this.props, 'limit'))
-        ? this.props.limit
-        : this.DEFAULT_LIMIT
-      builder.limit(limit)
-    }
+    const limit = (isDefInt(this.props, 'limit'))
+      ? this.props.limit
+      : this.DEFAULT_LIMIT
+    const builder = stellar.accounts()
+    builder.limit(limit)
     builder.order('desc')
-
     return builder.call()
   }
 
   update() {
     this.accounts().then((result) => {
-      this.setState({accounts: result.records.accounts})
+      this.setState({accounts: result.records.accounts, isLoading: false})
     }).catch((err) => {
       console.error(`Failed to fetch Accounts: [${err}]`)
+      this.setState({accounts: [], isLoading: false})
     })
   }
 
   render() {
-    return (<AccountTable accounts={this.state.accounts}/>)
+    return (<WrappedAccountTable accounts={this.state.accounts}/>)
   }
 }
+const WrappedAccountTable = withSpinner(AccountTable, isLoading)
 
 export default AccountTableContainer

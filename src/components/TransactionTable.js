@@ -3,7 +3,7 @@ import {Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {FormattedRelative, FormattedMessage} from 'react-intl'
 import {server as stellar} from '../lib/Stellar'
-import {withMaybe} from './shared/HOCs'
+import {withSpinner} from './shared/HOCs'
 import {isDefInt, isAccount, shortHash} from '../lib/Utils'
 
 const REFRESH_RATE = 15000
@@ -19,7 +19,6 @@ const isLoading = (props) => (props.isLoading === true)
 
 class TransactionRow extends React.Component {
   render() {
-    console.log(`tr ${Object.keys(this.props)}`)
     const txHash = this.props.hash
     const hashLabel = (this.props.compact === true)
       ? shortHash(txHash)
@@ -66,7 +65,7 @@ class TransactionTable extends React.Component {
     )
   }
 }
-const WrappedTransactionTable = withMaybe(TransactionTable, isLoading)
+const WrappedTransactionTable = withSpinner(TransactionTable, isLoading)
 
 class TransactionTableContainer extends React.Component {
   static defaultProps = {
@@ -117,8 +116,6 @@ class TransactionTableContainer extends React.Component {
   }
 
   render() {
-    if (this.state.txs.length === 0)
-      return null
     return (<WrappedTransactionTable
       isLoading={this.state.isLoading}
       txs={this.state.txs}

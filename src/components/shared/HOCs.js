@@ -2,20 +2,14 @@ import React from 'react'
 
 import Spinner from './Spinner'
 
-function withMaybe(WrappedComponent, conditionalRenderingFn) {
+function withSpinner(WrappedComponent, conditionalRenderingFn) {
   return class extends React.Component {
     render() {
-      // console.log(`withMaybe fn result: ${conditionalRenderingFn(this.props)}`)
-      const spinner = conditionalRenderingFn(this.props)
+      return conditionalRenderingFn(this.props)
         ? <Spinner/>
-        : null
-      return (
-        <div>
-          <WrappedComponent { ...this.props }/> {spinner}
-        </div>
-      )
+        : <WrappedComponent { ...this.props }/>
     }
   }
 }
 
-export {withMaybe}
+export {withSpinner}
