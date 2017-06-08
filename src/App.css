@@ -26,10 +26,6 @@ body, .navbar {
     font-family: "Noto Sans Mono", monospace;
 }
 
-.width80 {
-    width: 80px;
-}
-
 
 /*
  * Bootstrap components and styles
@@ -152,4 +148,10 @@ body, .navbar {
 
 .operation {
     margin-bottom: 20px !important;
+}
+
+.spinner {
+    width: 80px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }

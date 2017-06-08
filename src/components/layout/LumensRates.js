@@ -25,20 +25,23 @@ class LumensRatesContainer extends React.Component {
 }
 
 class LumensRates extends React.Component {
-  changeToColor(change) {
-    const asFloat = Number.parseFloat(change)
-    if (Number.isNaN(asFloat))
-      return ''
-    return (Number(asFloat) < 0)
-      ? 'red'
-      : 'green'
+  isPositive(changeNumStr) {
+    const asFloat = Number.parseFloat(changeNumStr)
+    return (Number.isNaN(asFloat) === false && Number(asFloat) >= 0)
   }
 
   renderChange(change) {
+    const positive = this.isPositive(change)
+    const valueStr = `${ (positive)
+      ? '+'
+      : '-'}${this.props.change}%`
+    const style = {
+      color: (positive)
+        ? 'green'
+        : 'red'
+    }
     return <span>Change (24hrs):&nbsp;
-      <span style={{
-        color: this.changeToColor(change)
-      }}>{this.props.change}</span>
+      <span style={style}>{valueStr}</span>
     </span>
   }
 

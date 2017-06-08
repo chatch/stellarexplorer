@@ -84,6 +84,7 @@ class TransactionTableContainer extends React.Component {
     compact: true,
     limit: 5,
     paging: false,
+    refresh: true,
     refreshRate: 15000
   }
 
@@ -94,7 +95,7 @@ class TransactionTableContainer extends React.Component {
 
   componentDidMount() {
     this.updateWithLatest()
-    if (this.props.paging === false) { // don't refresh data on paging views
+    if (this.props.refresh === true && this.props.paging === false) { // don't refresh data on paging views
       this.timerID = setInterval(() => this.updateWithLatest(), this.props.refreshRate);
     }
   }
@@ -122,7 +123,6 @@ class TransactionTableContainer extends React.Component {
   }
 
   update(txsPromise, reverse = false) {
-    console.log(`updating table`)
     this.setState({isLoading: true, txs: []})
     txsPromise.then((rsp) => {
       const newState = {
@@ -135,12 +135,9 @@ class TransactionTableContainer extends React.Component {
           ? rsp.next
           : rsp.prev
       }
-      const nt = newState.txs
       if (reverse === true) {
-        console.log(`reverse`);
         newState.txs = newState.txs.reverse()
       }
-      console.log(`new: ledger: first: ${nt[0].time}|${nt[0].ledger} last: ${nt[nt.length - 1].time}|${nt[nt.length - 1].ledger}`)
       this.setState(newState)
     }).catch((err) => {
       console.error(`Failed to fetch transactions: [${err.stack}]`)

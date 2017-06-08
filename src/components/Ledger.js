@@ -83,7 +83,7 @@ class Ledger extends React.Component {
           </Table>
         </Row>
         {this.props.opCount > 0 && <Row>
-          <TransactionTable ledger={this.props.seq}/>
+          <TransactionTable compact={false} refresh={false} ledger={this.props.seq}/>
         </Row>
 }
       </Grid>

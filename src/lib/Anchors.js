@@ -1,4 +1,4 @@
-const names = {
+const Anchors = {
   "GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH": {
     code: "BTC",
     name: "NaoBTC",
@@ -26,7 +26,8 @@ const names = {
   },
   "GBVAOIACNSB7OVUXJYC5UE2D4YK2F7A24T7EE5YOMN4CE6GCHUTOUQXM": {
     code: "JPY",
-    name: "vcbear.net"
+    name: "vcbear.net",
+    img: "vcbear.png"
   },
   "GBAMBOOZDWZPVV52RCLJQYMQNXOBLOXWNQAY2IF2FREV2WL46DBCH3BE": {
     code: "DEMO",
@@ -35,4 +36,4 @@ const names = {
   }
 }
 
-export default names
+export default Anchors

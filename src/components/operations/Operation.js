@@ -70,7 +70,9 @@ class Operation extends React.Component {
             <tr>
               <td>Source</td>
               <td>
-                <AccountLink account={d.source_account}/>
+                {(d.type !== "account_merge")
+                  ? <AccountLink account={d.source_account}/>
+                  : d.source_account}
               </td>
             </tr>
           </tbody>
