@@ -17,6 +17,7 @@ import Transaction from './components/Transaction'
 import Transactions from './components/Transactions'
 import Account from './components/Account'
 import Accounts from './components/Accounts'
+import Anchors from './components/Anchors'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
@@ -64,6 +65,7 @@ class App extends Component {
               <Route path="/tx/:id" component={Transaction}/>
               <Route path="/accounts" component={Accounts}/>
               <Route path="/account/:id" component={Account}/>
+              <Route path="/anchors" component={Anchors}/>
             </div>
             <Footer/>
           </div>

@@ -15,6 +15,7 @@
     "asset": "Asset",
     "assetCode": "Asset Code",
     "anchor": "Anchor",
+    "anchors": "Anchors",
     "trust": "Trust",
     "memo": "Memo",
     "payments": "Payments",

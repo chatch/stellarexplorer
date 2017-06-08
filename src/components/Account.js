@@ -2,7 +2,7 @@ import React from 'react'
 import {Grid, Row} from 'react-bootstrap'
 import {injectIntl, FormattedMessage} from 'react-intl'
 import {server as stellar} from '../lib/Stellar'
-import issuers from '../lib/Issuers'
+import anchors from '../lib/Anchors'
 import TransactionTable from './TransactionTable'
 import Asset from './shared/Asset'
 
@@ -74,7 +74,7 @@ class Account extends React.Component {
     return (
       <Grid>
         <Row>
-          {issuers.hasOwnProperty(a.id) && <Issuer id={a.id} issuer={issuers[a.id]}/>}
+          {anchors.hasOwnProperty(a.id) && <Issuer id={a.id} issuer={anchors[a.id]}/>}
           <div><FormattedMessage id="account"/> {a.id}</div>
           <div><FormattedMessage id="sequence"/> {a.sequence}</div>
         </Row>
