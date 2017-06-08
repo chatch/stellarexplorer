@@ -2,6 +2,7 @@ import React from 'react'
 import {Grid, Row} from 'react-bootstrap'
 import {injectIntl, FormattedMessage} from 'react-intl'
 import {server as stellar} from '../lib/Stellar'
+import issuers from '../lib/Issuers'
 import TransactionTable from './TransactionTable'
 import Asset from './shared/Asset'
 
@@ -31,6 +32,14 @@ const Signer = (signer) => <div key={signer.public_key}>
 const Signers = (props) => <div>
   <h4><FormattedMessage id="signers"/></h4>
   {props.signers.map(Signer)}
+</div>
+
+const Issuer = (props) => <div>
+  {props.issuer.img
+    ? <img
+        src={`${process.env.PUBLIC_URL}/img/${props.issuer.img}`}
+        alt={props.issuer.name}/>
+    : props.issuer.name}
 </div>
 
 class AccountContainer extends React.Component {
@@ -65,6 +74,7 @@ class Account extends React.Component {
     return (
       <Grid>
         <Row>
+          {issuers.hasOwnProperty(a.id) && <Issuer id={a.id} issuer={issuers[a.id]}/>}
           <div><FormattedMessage id="account"/> {a.id}</div>
           <div><FormattedMessage id="sequence"/> {a.sequence}</div>
         </Row>
@@ -78,7 +88,7 @@ class Account extends React.Component {
           <Signers signers={a.signers}/>
         </Row>
         <Row>
-          <TransactionTable account={a.id} limit={10}/>
+          <TransactionTable paging compact={false} account={a.id} limit={10}/>
         </Row>
       </Grid>
     )

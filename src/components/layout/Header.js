@@ -13,7 +13,7 @@ import {FormattedMessage} from 'react-intl'
 
 import LanguageSelector from './LanguageSelector'
 import SearchBox from './SearchBox'
-import logo from './logo.png';
+import logo from '../../img/logo.png';
 
 class Header extends React.Component {
   render() {
