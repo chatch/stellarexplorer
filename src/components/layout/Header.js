@@ -37,9 +37,10 @@ class Header extends React.Component {
               <NavItem eventKey={2}><FormattedMessage id="transactions"/></NavItem>
             </LinkContainer>
             <NavDropdown eventKey={3} title="More" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1} href="https://www.stellar.org/laboratory/">Laboratory</MenuItem>
-              <MenuItem eventKey={3.2} href="https://stellarterm.com/">StellarTerm</MenuItem>
-              <MenuItem eventKey={3.3}>Stats</MenuItem>
+              <MenuItem eventKey={3.1} href="/anchors">Anchors</MenuItem>
+              <MenuItem eventKey={3.2} href="https://www.stellar.org/laboratory/">Laboratory</MenuItem>
+              <MenuItem eventKey={3.3} href="https://stellarterm.com/">StellarTerm</MenuItem>
+              <MenuItem eventKey={3.4}>Stats</MenuItem>
             </NavDropdown>
           </Nav>
           <Navbar.Form pullRight>
