@@ -28,7 +28,6 @@ class Transaction extends React.Component {
       data.txData = res
       return stellar.operations().forTransaction(this.state.id).limit(50).call()
     }).then((ops) => {
-      console.log(ops)
       data.ops = ops.records
     }).then(() => {
       this.setState(data)
@@ -74,9 +73,8 @@ class Transaction extends React.Component {
           </Panel>
         </Row>
         <Row>
-          <Panel header={`Operations (${ops.length})`} bsStyle="warning">
-            <OperationsList operations={ops}/>
-          </Panel>
+          <h3>{`Operations (${ops.length})`}</h3>
+          <OperationsList operations={ops}/>
         </Row>
       </Grid>
     )

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Table, Row, Panel} from 'react-bootstrap'
+import {Table, Panel} from 'react-bootstrap'
 
 import AccountLink from '../shared/AccountLink'
 
@@ -56,27 +56,27 @@ class Operation extends React.Component {
   render() {
     const d = this.props.data
     return (
-      <Grid>
-        <Row>
-          <Panel collapsible defaultExpanded={true} header={d.type}>
-            <Table className="table-hover table-condensed" fill>
-              <tbody>
-                <tr>
-                  <td>Id</td>
-                  <td>{d.id}</td>
-                </tr>
-                <tr>
-                  <td>Source</td>
-                  <td>
-                    <AccountLink account={d.source_account}/>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
-            <SubOperation data={d}/>
-          </Panel>
-        </Row>
-      </Grid>
+      <Panel
+        collapsible
+        defaultExpanded={true}
+        header={d.type}
+        className={"operation"}>
+        <Table className="table-hover table-condensed" fill>
+          <tbody>
+            <tr>
+              <td>Id</td>
+              <td>{d.id}</td>
+            </tr>
+            <tr>
+              <td>Source</td>
+              <td>
+                <AccountLink account={d.source_account}/>
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+        <SubOperation data={d}/>
+      </Panel>
     )
   }
 }

@@ -8,7 +8,7 @@ class AccountMerge extends React.Component {
     return (
       <Grid>
         <Row>
-          <div>Into
+          <div>Into: &nbsp;
             <AccountLink account={d.into}/>
           </div>
         </Row>

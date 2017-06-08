@@ -18,6 +18,7 @@ body, .navbar {
 }
 
 #footer {
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
@@ -147,4 +148,8 @@ body, .navbar {
 .Lang-Selector .is-active {
     background: #61dafb;
     color: #fff;
+}
+
+.operation {
+    margin-bottom: 20px !important;
 }
