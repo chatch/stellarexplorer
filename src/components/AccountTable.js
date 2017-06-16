@@ -92,6 +92,6 @@ class AccountTableContainer extends React.Component {
     return (<WrappedAccountTable accounts={this.state.accounts}/>)
   }
 }
-const WrappedAccountTable = withSpinner(AccountTable, isLoading)
+const WrappedAccountTable = withSpinner(isLoading)(AccountTable)
 
 export default AccountTableContainer

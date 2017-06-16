@@ -49,7 +49,7 @@ class LedgerTable extends React.Component {
     )
   }
 }
-const WrappedLedgerTable = withSpinner(LedgerTable, isLoading)
+const WrappedLedgerTable = withSpinner(isLoading)(LedgerTable)
 
 class LedgerTableContainer extends React.Component {
   state = {

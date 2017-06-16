@@ -1,46 +1,26 @@
 import React from 'react'
-import {Pager} from 'react-bootstrap'
-
+import PagingControls from './PagingControls'
 import Spinner from './Spinner'
 
-function withEither(OnTrueComponent, OnFalseComponent, conditionalRenderingFn) {
-  return class extends React.Component {
-    render() {
-      return conditionalRenderingFn(this.props)
-        ? <OnTrueComponent { ...this.props }/>
-        : <OnFalseComponent { ...this.props }/>
-    }
-  }
+const withEither = (conditionalRenderingFn, EitherComponent) => (Component) => (props) => {
+  return conditionalRenderingFn(props)
+    ? <EitherComponent { ...props }/>
+    : <Component { ...props }/>
 }
 
-function withSpinner(WrappedComponent, conditionalRenderingFn) {
-  return withEither(Spinner, WrappedComponent, conditionalRenderingFn)
-}
+const withSpinner = (conditionalRenderingFn) => withEither(conditionalRenderingFn, Spinner)
 
-function withPaging(WrappedComponent, conditionalRenderingFn) {
-  return class extends React.Component {
-    render() {
-      if (conditionalRenderingFn(this.props) === false)
-        return (<WrappedComponent {...this.props}/>)
-      return (
-        <div>
-          <Paging
-            handleClickNext={this.props.handleClickNext}
-            handleClickPrev={this.props.handleClickPrev}/>
-          <WrappedComponent {...this.props}/>
-        </div>
-      )
-    }
-  }
-}
-
-function Paging(props) {
+const withPaging = (conditionalRenderingFn) => (Component) => (props) => {
+  if (conditionalRenderingFn(props) === false)
+    return (<Component {...props}/>)
   return (
-    <Pager>
-      <Pager.Item previous onClick={props.handleClickPrev} href="#">&larr; Previous Page</Pager.Item>
-      <Pager.Item next onClick={props.handleClickNext} href="#">Next Page &rarr;</Pager.Item>
-    </Pager>
+    <div>
+      <PagingControls
+        handleClickNext={props.handleClickNext}
+        handleClickPrev={props.handleClickPrev}/>
+      <Component {...props}/>
+    </div>
   )
 }
 
-export {withSpinner, withPaging}
+export {withPaging, withSpinner}

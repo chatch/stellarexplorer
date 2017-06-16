@@ -2,6 +2,7 @@ import React from 'react'
 import {Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {FormattedRelative, FormattedMessage} from 'react-intl'
+import {compose} from 'recompose'
 import {server as stellar} from '../lib/Stellar'
 import {withPaging, withSpinner} from './shared/HOCs'
 import {isDefInt, isAccount, shortHash} from '../lib/Utils'
@@ -76,8 +77,8 @@ class TransactionTable extends React.Component {
 const loadingCondition = (props) => props.isLoading === true
 const pagingCondition = (props) => props.paging === true
 
-const TransactionTableWithPaging = withPaging(TransactionTable, pagingCondition)
-const TransactionTableWithAll = withSpinner(TransactionTableWithPaging, loadingCondition)
+const withAll = compose(withPaging(pagingCondition), withSpinner(loadingCondition))
+const TransactionTableWithAll = withAll(TransactionTable)
 
 class TransactionTableContainer extends React.Component {
   static defaultProps = {
