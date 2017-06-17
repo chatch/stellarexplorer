@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {FormattedRelative, FormattedMessage} from 'react-intl'
 
 import {server as stellar} from '../lib/Stellar'
-import {withSpinner} from './shared/HOCs'
+import {withSpinner} from './shared/Spinner'
 import {isDefInt} from '../lib/Utils'
 
 const REFRESH_RATE = 15000

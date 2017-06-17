@@ -5,7 +5,7 @@ import {FormattedTime, FormattedDate, FormattedMessage} from 'react-intl'
 
 import {server as stellar} from '../lib/Stellar'
 import {isDefInt, shortHash} from '../lib/Utils'
-import {withSpinner} from './shared/HOCs'
+import {withSpinner} from './shared/Spinner'
 
 const isLoading = (props) => (props.isLoading === true)
 

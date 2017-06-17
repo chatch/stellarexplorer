@@ -88,7 +88,7 @@ class Account extends React.Component {
           <Signers signers={a.signers}/>
         </Row>
         <Row>
-          <TransactionTable paging compact={false} account={a.id} limit={10}/>
+          <TransactionTable usePaging compact={false} account={a.id} limit={10}/>
         </Row>
       </Grid>
     )

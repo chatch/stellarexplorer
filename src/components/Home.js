@@ -3,7 +3,7 @@ import {Grid, Row, Col, Panel} from 'react-bootstrap'
 import {injectIntl} from 'react-intl'
 
 import LedgerTable from './LedgerTable'
-import TransactionTable from './TransactionTable'
+import TransactionTable from './TransactionTableContainer'
 
 const panelHeader = (title, viewAllLink) => <div>
   <span>{title}</span>
@@ -18,12 +18,12 @@ class Home extends React.Component {
         <Row>
           <Col md={6}>
             <Panel header={panelHeader(formatMessage({id: 'latest.ledgers'}), '/ledgers')}>
-              <LedgerTable fill limit={5}/>
+              <LedgerTable fill limit={5} refresh/>
             </Panel>
           </Col>
           <Col md={6}>
             <Panel header={panelHeader(formatMessage({id: 'latest.txs'}), '/txs')}>
-              <TransactionTable fill limit={5}/>
+              <TransactionTable fill limit={5} refresh/>
             </Panel>
           </Col>
         </Row>
