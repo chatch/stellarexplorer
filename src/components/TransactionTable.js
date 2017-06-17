@@ -54,7 +54,7 @@ TransactionRow.propTypes = propTypesRow
 const propTypesTable = {
   compact: PropTypes.bool,
   isLoading: PropTypes.bool,
-  txs: PropTypes.array.isRequired
+  records: PropTypes.array.isRequired
 }
 
 class TransactionTable extends React.Component {
@@ -72,7 +72,7 @@ class TransactionTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.txs.map((tx) => {
+          {this.props.records.map((tx) => {
             return <TransactionRow key={tx.hash} compact={this.props.compact} {...tx}/>
           })}
         </tbody>

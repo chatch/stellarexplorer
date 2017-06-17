@@ -22,7 +22,7 @@ const stellarResponseToSavedState = (rsp) => {
     isLoading: false,
     next: rsp.next,
     prev: rsp.prev,
-    txs: stellarResponseToTxs(rsp)
+    records: stellarResponseToTxs(rsp)
   }
   return rec
 }
@@ -48,13 +48,13 @@ class TransactionTableContainer extends React.Component {
 
   state = {
     isLoading: true,
-    txs: []
+    records: []
   }
 
   componentDidMount() {
-    this.fetchTransactions()
+    this.fetchRecords()
     if (this.props.refresh === true && this.props.usePaging === false) { // don't refresh data on paging views
-      this.timerID = setInterval(() => this.fetchTransactions(), this.props.refreshRate)
+      this.timerID = setInterval(() => this.fetchRecords(), this.props.refreshRate)
     }
   }
 
@@ -67,7 +67,7 @@ class TransactionTableContainer extends React.Component {
     else if (this.props.page < prevProps.page)
       this.handleServerResponse(this.state.prev())
 
-    this.setState({isLoading: true, txs: []})
+    this.setState({isLoading: true, records: []})
   }
 
   componentWillUnmount() {
@@ -79,12 +79,12 @@ class TransactionTableContainer extends React.Component {
 
   handleServerResponse(rspPromise) {
     rspPromise.then((stellarRsp) => this.setState(stellarResponseToSavedState(stellarRsp))).catch((err) => {
-      console.error(`Failed to fetch transactions: [${err.stack}]`)
-      this.setState({isLoading: false, stellarRsp: undefined, txs: []})
+      console.error(`Failed to fetch records: [${err.stack}]`)
+      this.setState({isLoading: false, stellarRsp: undefined, records: []})
     })
   }
 
-  fetchTransactions() {
+  fetchRecords() {
     const builder = stellar.transactions()
     if (isDefInt(this.props, 'ledger'))
       builder.forLedger(this.props.ledger)
@@ -98,7 +98,7 @@ class TransactionTableContainer extends React.Component {
   render() {
     return (<TransactionTable
       isLoading={this.state.isLoading}
-      txs={this.state.txs}
+      records={this.state.records}
       {...this.props}/>)
   }
 }

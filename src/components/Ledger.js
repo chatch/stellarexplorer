@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
 
 import {server as stellar} from '../lib/Stellar'
-import TransactionTable from './TransactionTable'
+import TransactionTable from './TransactionTableContainer'
 
 class LedgerContainer extends React.Component {
   state = {

@@ -51,7 +51,7 @@ class Transaction extends React.Component {
                 </tr>
                 <tr>
                   <td><FormattedMessage id="time"/></td>
-                  <td><FormattedDate value={data.created_at}/>
+                  <td><FormattedDate value={data.created_at}/>&nbsp;
                     <FormattedTime value={data.created_at}/></td>
                 </tr>
                 <tr>

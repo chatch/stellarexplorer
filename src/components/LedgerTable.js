@@ -4,15 +4,29 @@ import {Link} from 'react-router-dom'
 import {FormattedRelative, FormattedMessage} from 'react-intl'
 
 import {server as stellar} from '../lib/Stellar'
+import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
-import {isDefInt} from '../lib/Utils'
 
-const REFRESH_RATE = 15000
-const DEFAULT_LIMIT = 5
+const stellarResponseToLedgers = (rsp) => {
+  return rsp.records.map((ledger) => {
+    const rec = {
+      sequence: ledger.sequence,
+      time: ledger.closed_at,
+      txCount: ledger.transaction_count
+    }
+    return rec
+  })
+}
 
-const responseToLedgers = (rsp) => (rsp.records.map((ledger) => ({sequence: ledger.sequence, time: ledger.closed_at, txCount: ledger.transaction_count})))
-
-const isLoading = (props) => (props.isLoading === true)
+const stellarResponseToSavedState = (rsp) => {
+  const rec = {
+    isLoading: false,
+    next: rsp.next,
+    prev: rsp.prev,
+    records: stellarResponseToLedgers(rsp)
+  }
+  return rec
+}
 
 const LedgerRow = (props) => <tr>
   <td>
@@ -24,7 +38,7 @@ const LedgerRow = (props) => <tr>
 
 class LedgerTable extends React.Component {
   render() {
-    const ledgerRows = this.props.ledgers.map((ledger) => <LedgerRow
+    const ledgerRows = this.props.records.map((ledger) => <LedgerRow
       key={ledger.sequence}
       sequence={ledger.sequence}
       time={ledger.time}
@@ -49,45 +63,74 @@ class LedgerTable extends React.Component {
     )
   }
 }
-const WrappedLedgerTable = withSpinner(isLoading)(LedgerTable)
+
+const isLoading = (props) => (props.isLoading === true)
+const LedgerTableWithSpinner = withSpinner(isLoading)(LedgerTable)
 
 class LedgerTableContainer extends React.Component {
+  static defaultProps = {
+    compact: true,
+    limit: 5,
+    page: 0,
+    usePaging: false,
+    refresh: false,
+    refreshRate: 15000
+  }
+
   state = {
     isLoading: true,
-    ledgers: []
+    records: []
   }
 
   componentDidMount() {
-    this.update()
-    this.timerID = setInterval(() => this.update(), REFRESH_RATE);
+    this.fetchRecords()
+    if (this.props.refresh === true && this.props.usePaging === false) { // don't refresh data on paging views
+      this.timerID = setInterval(() => this.fetchRecords(), this.props.refreshRate)
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.page === prevProps.page)
+      return
+
+    if (this.props.page > prevProps.page)
+      this.handleServerResponse(this.state.next())
+    else if (this.props.page < prevProps.page)
+      this.handleServerResponse(this.state.prev())
+
+    this.setState({isLoading: true, records: []})
   }
 
   componentWillUnmount() {
-    clearInterval(this.timerID);
+    if (this.timerID) {
+      clearInterval(this.timerID);
+      delete this.timerID
+    }
   }
 
-  ledgers() {
-    const limit = (isDefInt(this.props, 'limit'))
-      ? this.props.limit
-      : DEFAULT_LIMIT
-    return stellar.ledgers().order('desc').limit(limit).call()
-  }
-
-  update() {
-    this.setState({isLoading: true, ledgers: []})
-    this.ledgers().then((stellarRsp) => {
-      this.setState({ledgers: responseToLedgers(stellarRsp), isLoading: false})
-    }).catch((err) => {
-      console.error(`Failed to fetch ledgers: [${err}]`)
-      this.setState({ledgers: [], isLoading: false})
+  handleServerResponse(rspPromise) {
+    rspPromise.then((stellarRsp) => this.setState(stellarResponseToSavedState(stellarRsp))).catch((err) => {
+      console.error(`Failed to fetch records: [${err.stack}]`)
+      this.setState({isLoading: false, stellarRsp: undefined, records: []})
     })
   }
 
+  fetchRecords() {
+    const builder = stellar.ledgers()
+    builder.limit(this.props.limit)
+    builder.order('desc')
+    this.handleServerResponse(builder.call())
+  }
+
   render() {
-    return (<WrappedLedgerTable
+    return (<LedgerTableWithSpinner
       isLoading={this.state.isLoading}
-      ledgers={this.state.ledgers}/>)
+      records={this.state.records}
+      {...this.props}/>)
   }
 }
 
-export default LedgerTableContainer
+const usePagingCondition = (props) => props.usePaging === true
+const LedgerTableContainerWithPaging = withPaging(usePagingCondition)(LedgerTableContainer)
+
+export default LedgerTableContainerWithPaging
