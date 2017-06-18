@@ -3,11 +3,9 @@ import {Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {FormattedTime, FormattedDate, FormattedMessage} from 'react-intl'
 
-import {server as stellar} from '../lib/Stellar'
+import {withServer} from './shared/HOCs'
 import {isDefInt, shortHash} from '../lib/Utils'
 import {withSpinner} from './shared/Spinner'
-
-const isLoading = (props) => (props.isLoading === true)
 
 class AccountRow extends React.Component {
   render() {
@@ -73,14 +71,14 @@ class AccountTableContainer extends React.Component {
     const limit = (isDefInt(this.props, 'limit'))
       ? this.props.limit
       : this.DEFAULT_LIMIT
-    const builder = stellar.accounts()
+    const builder = this.props.server.accounts()
     builder.limit(limit)
     builder.order('desc')
     return builder.call()
   }
 
   update() {
-    this.accounts().then((result) => {
+    this.props.server.accounts().then((result) => {
       this.setState({accounts: result.records.accounts, isLoading: false})
     }).catch((err) => {
       console.error(`Failed to fetch Accounts: [${err}]`)
@@ -92,6 +90,7 @@ class AccountTableContainer extends React.Component {
     return (<WrappedAccountTable accounts={this.state.accounts}/>)
   }
 }
-const WrappedAccountTable = withSpinner(isLoading)(AccountTable)
 
-export default AccountTableContainer
+const WrappedAccountTable = withSpinner()(AccountTable)
+
+export default withServer(AccountTableContainer)

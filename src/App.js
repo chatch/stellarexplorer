@@ -58,7 +58,10 @@ class App extends Component {
     console.log(`NETWORK change: ${this.state.network} to ${selectedNetwork}`)
     localStorage.setItem("network", selectedNetwork)
     const server = networks[selectedNetwork].initFunc()
-    this.setState({network: selectedNetwork, server: server})
+    this.setState({
+      network: selectedNetwork,
+      server: server
+    }, () => window.location.reload(true))
   }
 
   getChildContext() {
