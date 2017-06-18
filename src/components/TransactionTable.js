@@ -6,16 +6,8 @@ import {FormattedRelative, FormattedMessage} from 'react-intl'
 import {withSpinner} from './shared/Spinner'
 import {shortHash} from '../lib/Utils'
 
-const propTypesRow = {
-  compact: PropTypes.bool,
-  hash: PropTypes.string,
-  opCount: PropTypes.number,
-  ledger: PropTypes.number,
-  time: PropTypes.string
-}
-
 class TransactionRow extends React.Component {
-  defaultProps = {
+  static defaultProps = {
     compact: true
   }
 
@@ -49,12 +41,12 @@ class TransactionRow extends React.Component {
   }
 }
 
-TransactionRow.propTypes = propTypesRow
-
-const propTypesTable = {
+TransactionRow.propTypes = {
   compact: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  records: PropTypes.array.isRequired
+  hash: PropTypes.string,
+  ledger: PropTypes.number,
+  opCount: PropTypes.number,
+  time: PropTypes.string
 }
 
 class TransactionTable extends React.Component {
@@ -72,18 +64,16 @@ class TransactionTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.records.map((tx) => {
-            return <TransactionRow key={tx.hash} compact={this.props.compact} {...tx}/>
-          })}
+          {this.props.records.map((tx) => <TransactionRow key={tx.hash} compact={this.props.compact} {...tx}/>)}
         </tbody>
       </Table>
     )
   }
 }
 
-TransactionTable.propTypes = propTypesTable
+TransactionTable.propTypes = {
+  compact: PropTypes.bool,
+  records: PropTypes.array.isRequired
+}
 
-const isLoadingCondition = (props) => props.isLoading === true
-const TransactionTableWithSpinner = withSpinner(isLoadingCondition)(TransactionTable)
-
-export default TransactionTableWithSpinner
+export default withSpinner()(TransactionTable)

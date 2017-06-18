@@ -6,6 +6,8 @@ const Spinner = () => <div className="spinner center-block">
   <Loader color="#14b4e6" size="80" margin="4px"/>
 </div>
 
-const withSpinner = (conditionalRenderingFn) => withEither(conditionalRenderingFn, Spinner)
+const isLoading = (props) => (props.isLoading === true)
+
+const withSpinner = () => withEither(isLoading, Spinner)
 
 export {Spinner, withSpinner}

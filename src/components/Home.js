@@ -2,7 +2,7 @@ import React from 'react'
 import {Grid, Row, Col, Panel} from 'react-bootstrap'
 import {injectIntl} from 'react-intl'
 
-import LedgerTable from './LedgerTable'
+import LedgerTable from './LedgerTableContainer'
 import TransactionTable from './TransactionTableContainer'
 
 const panelHeader = (title, viewAllLink) => <div>

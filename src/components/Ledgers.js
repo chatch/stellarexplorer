@@ -1,6 +1,6 @@
 import React from 'react'
 import {Grid, Row} from 'react-bootstrap'
-import LedgerTable from './LedgerTable'
+import LedgerTable from './LedgerTableContainer'
 
 class Ledgers extends React.Component {
   render() {
