@@ -1,4 +1,5 @@
 import React from 'react'
+import {getContext} from 'recompose'
 
 const withEither = (conditionalRenderingFn, EitherComponent) => (Component) => (props) => {
   return conditionalRenderingFn(props)
@@ -6,4 +7,6 @@ const withEither = (conditionalRenderingFn, EitherComponent) => (Component) => (
     : <Component { ...props }/>
 }
 
-export {withEither}
+const withServer = getContext({server: React.PropTypes.object})
+
+export {withEither, withServer}

@@ -1,11 +1,18 @@
 import React from 'react'
-import {Grid, Panel, Row} from 'react-bootstrap'
+import {Col, Grid, Panel, Row} from 'react-bootstrap'
 import {injectIntl} from 'react-intl'
 import anchors from '../lib/Anchors'
 import AccountLink from './shared/AccountLink'
 
 const Anchor = (anchor) => <div>
-  <AccountLink account={anchor.id} label={anchor.name}/>
+  <Row>
+    <Col md={3}>
+      {anchor.name}
+    </Col>
+    <Col md={9}>
+      <AccountLink account={anchor.id} label={anchor.id}/>
+    </Col>
+  </Row>
 </div>
 
 const AnchorsList = () => <div>{Object.keys(anchors).map((id) => <Anchor key={id} id={id} {...anchors[id]}/>)}</div>

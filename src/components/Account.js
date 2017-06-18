@@ -1,37 +1,69 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
+import {Grid, Panel, Row, Table} from 'react-bootstrap'
 import {injectIntl, FormattedMessage} from 'react-intl'
-import {server as stellar} from '../lib/Stellar'
+import {withServer} from './shared/HOCs'
 import anchors from '../lib/Anchors'
-import TransactionTable from './TransactionTable'
+import TransactionTable from './TransactionTableContainer'
 import Asset from './shared/Asset'
 
-const Balance = (bal) => <div key={bal.asset_type}>
-  <Asset type={bal.asset_type} code={bal.asset_code} issuer={bal.asset_issuer}/>
-  <div><FormattedMessage id="balance"/>: {bal.balance}</div>
-  <div><FormattedMessage id="limit"/>: {bal.limit}</div>
-</div>
+const BalanceRow = (bal) => <tr key={bal.asset_type}>
+  <td><Asset type={bal.asset_type} code={bal.asset_code} issuer={bal.asset_issuer}/></td>
+  <td>{bal.balance}</td>
+  <td>{bal.limit}</td>
+</tr>
 
 const Balances = (props) => <div>
   <h4><FormattedMessage id="balances"/></h4>
-  {props.balances.map(Balance)}
+  <Table>
+    <thead>
+      <tr>
+        <th><FormattedMessage id="asset"/></th>
+        <th><FormattedMessage id="balance"/></th>
+        <th><FormattedMessage id="limit"/></th>
+      </tr>
+    </thead>
+    <tbody>
+      {props.balances.map(BalanceRow)}
+    </tbody>
+  </Table>
 </div>
 
 const Thresholds = (props) => <div>
   <h4><FormattedMessage id="thresholds"/></h4>
-  <div>Low: {props.thresholds.low_threshold}</div>
-  <div>Med: {props.thresholds.med_threshold}</div>
-  <div>High: {props.thresholds.high_threshold}</div>
+  <Table>
+    <thead>
+      <tr>
+        <th><FormattedMessage id="low"/></th>
+        <th><FormattedMessage id="medium"/></th>
+        <th><FormattedMessage id="high"/></th>
+      </tr>
+    </thead>
+    <tbody>
+      <td>{props.thresholds.low_threshold}</td>
+      <td>{props.thresholds.med_threshold}</td>
+      <td>{props.thresholds.high_threshold}</td>
+    </tbody>
+  </Table>
 </div>
 
-const Signer = (signer) => <div key={signer.public_key}>
-  <div>Key: {signer.public_key}</div>
-  <div>Weight: {signer.weight}</div>
-</div>
+const Signer = (signer) => <tr key={signer.public_key}>
+  <td>{signer.public_key}</td>
+  <td>{signer.weight}</td>
+</tr>
 
 const Signers = (props) => <div>
   <h4><FormattedMessage id="signers"/></h4>
-  {props.signers.map(Signer)}
+  <Table>
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Weight</th>
+      </tr>
+    </thead>
+    <tbody>
+      {props.signers.map(Signer)}
+    </tbody>
+  </Table>
 </div>
 
 const Issuer = (props) => <div>
@@ -41,6 +73,41 @@ const Issuer = (props) => <div>
         alt={props.issuer.name}/>
     : props.issuer.name}
 </div>
+
+class Account extends React.Component {
+  render() {
+    const {formatMessage} = this.props.intl
+    const a = this.props.account
+    return (
+      <Grid>
+        <Row>
+          {anchors.hasOwnProperty(a.id) && <Issuer id={a.id} issuer={anchors[a.id]}/>}
+        </Row>
+        <Row>
+          <div style={{
+            marginTop: "10px"
+          }}>{a.id}</div>
+        </Row>
+        <Row>
+          <Balances balances={a.balances}/>
+        </Row>
+        <Row>
+          <Signers signers={a.signers}/>
+        </Row>
+        <Row>
+          <Thresholds thresholds={a.thresholds}/>
+        </Row>
+        <Row style={{
+          marginTop: "20px"
+        }}>
+          <Panel header={formatMessage({id: "transactions"})}>
+            <TransactionTable usePaging compact={false} account={a.id} limit={10}/>
+          </Panel>
+        </Row>
+      </Grid>
+    )
+  }
+}
 
 class AccountContainer extends React.Component {
   state = {
@@ -56,7 +123,7 @@ class AccountContainer extends React.Component {
   }
 
   loadAccount(accountId) {
-    stellar.accounts().accountId(accountId).call().then((res) => {
+    this.props.server.accounts().accountId(accountId).call().then((res) => {
       this.setState({account: res})
     })
   }
@@ -64,35 +131,8 @@ class AccountContainer extends React.Component {
   render() {
     return (this.state.account === null)
       ? null
-      : <Account account={this.state.account}/>
+      : <Account account={this.state.account} {...this.props}/>
   }
 }
 
-class Account extends React.Component {
-  render() {
-    const a = this.props.account
-    return (
-      <Grid>
-        <Row>
-          {anchors.hasOwnProperty(a.id) && <Issuer id={a.id} issuer={anchors[a.id]}/>}
-          <div><FormattedMessage id="account"/> {a.id}</div>
-          <div><FormattedMessage id="sequence"/> {a.sequence}</div>
-        </Row>
-        <Row>
-          <Balances balances={a.balances}/>
-        </Row>
-        <Row>
-          <Thresholds thresholds={a.thresholds}/>
-        </Row>
-        <Row>
-          <Signers signers={a.signers}/>
-        </Row>
-        <Row>
-          <TransactionTable usePaging compact={false} account={a.id} limit={10}/>
-        </Row>
-      </Grid>
-    )
-  }
-}
-
-export default injectIntl(AccountContainer)
+export default injectIntl(withServer(AccountContainer))

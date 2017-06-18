@@ -1,17 +1,54 @@
 const sdk = require('stellar-sdk')
 const URI = require("urijs");
 
+/* ----------------------------------------------------------
+ *
+ * Stellar networks
+ *
+ * ---------------------------------------------------------*/
+
+const networks = {
+  public: {
+    address: 'https://horizon.stellar.org',
+    initFunc: usePubnetServer
+  },
+  test: {
+    address: 'https://horizon-testnet.stellar.org',
+    initFunc: useTestnetServer
+  },
+  local: {
+    address: 'http://localhost:8000',
+    initFunc: useLocalServer,
+    hide: true // from UI
+  }
+}
+
+function usePubnetServer() {
+  sdk.Network.usePublicNetwork()
+  return newServer(networks.public.address)
+}
+
+function useTestnetServer() {
+  sdk.Network.useTestNetwork()
+  return newServer(networks.test.address)
+}
+
+function useLocalServer() {
+  return newServer(networks.local.address)
+}
+
+function newServer(address) {
+  return new sdk.Server(address, {allowHttp: true})
+}
+
+/* ----------------------------------------------------------
+ *
+ * Customise the paging behaviour on stellar-sdk calls.
+ *
+ * ---------------------------------------------------------*/
+
 const TransactionCallBuilder = require('stellar-sdk/lib/transaction_call_builder').TransactionCallBuilder
 const LedgerCallBuilder = require('stellar-sdk/lib/ledger_call_builder').LedgerCallBuilder
-
-const TESTNET = 'https://horizon-testnet.stellar.org'
-const PUBNET = 'https://horizon.stellar.org'
-// const LOCALNET = 'http://localhost:8000'
-
-const isPubNet = true // TODO: parameterise
-const horizonUrl = (isPubNet)
-  ? PUBNET
-  : TESTNET
 
 /**
  * Wrap the Stellar CallBuilder's to modify the default paging behaviour for
@@ -75,12 +112,4 @@ Object.keys(pagingCalls).forEach((callName) => sdk.Server.prototype[callName] = 
   return new WrappedClass(URI(this.serverURL))
 })
 
-/*
- * Stellar Server instance
- */
-
-const server = new sdk.Server(horizonUrl, {allowHttp: true})
-if (!isPubNet)
-  sdk.Network.useTestNetwork()
-
-export {sdk, server, isPubNet}
+export {sdk, networks}

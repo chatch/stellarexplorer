@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 import {FormattedMessage} from 'react-intl'
 
-import LanguageSelector from './LanguageSelector'
+import NetworkSelector from './NetworkSelector'
 import SearchBox from './SearchBox'
 import logo from '../../img/logo.png';
 
@@ -44,9 +44,9 @@ class Header extends React.Component {
             </NavDropdown>
           </Nav>
           <Navbar.Form pullRight>
-            <LanguageSelector
-              lang={this.props.lang}
-              languageSwitch={this.props.languageSwitch}/>
+            <NetworkSelector
+              network={this.props.network}
+              switcher={this.props.networkSwitcher}/>
           </Navbar.Form>
           <Navbar.Form pullRight>
             <FormGroup>

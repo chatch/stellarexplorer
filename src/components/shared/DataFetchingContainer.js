@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {withServer} from './HOCs'
 
 const propTypesContainer = {
   limit: PropTypes.number,
   page: PropTypes.number,
   usePaging: PropTypes.bool,
   refresh: PropTypes.bool,
-  refreshRate: PropTypes.number
+  refreshRate: PropTypes.number,
+  server: PropTypes.object
 }
 
 const withDataFetchingContainer = (fetchDataFn, rspRecsToPropsFn) => (TableComponent) => {
@@ -73,8 +75,13 @@ const withDataFetchingContainer = (fetchDataFn, rspRecsToPropsFn) => (TableCompo
         {...this.props}/>)
     }
   }
+
   dataFetchingContainerClass.propTypes = propTypesContainer
-  return dataFetchingContainerClass
+  dataFetchingContainerClass.contextTypes = {
+    server: PropTypes.object
+  }
+
+  return withServer(dataFetchingContainerClass)
 }
 
 export {withDataFetchingContainer}

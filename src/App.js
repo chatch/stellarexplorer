@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import {IntlProvider, addLocaleData} from 'react-intl'
 import en from 'react-intl/locale-data/en'
@@ -19,6 +20,8 @@ import Account from './components/Account'
 import Accounts from './components/Accounts'
 import Anchors from './components/Anchors'
 
+import {networks} from './lib/Stellar'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
@@ -28,6 +31,7 @@ addLocaleData([
 ])
 
 const locale = localStorage.getItem("lang") || navigator.language || "en"
+const network = localStorage.getItem("network") || "public"
 
 const getMessages = locale => {
   switch (locale) {
@@ -40,12 +44,25 @@ const getMessages = locale => {
 
 class App extends Component {
   state = {
-    lang: locale
+    lang: locale,
+    network: network,
+    server: networks[network].initFunc()
   }
 
-  languageSwitch = locale => {
-    localStorage.setItem("lang", locale);
+  languageSwitcher = locale => {
+    localStorage.setItem("lang", locale)
     this.setState({lang: locale})
+  }
+
+  networkSwitcher = selectedNetwork => {
+    console.log(`NETWORK change: ${this.state.network} to ${selectedNetwork}`)
+    localStorage.setItem("network", selectedNetwork)
+    const server = networks[selectedNetwork].initFunc()
+    this.setState({network: selectedNetwork, server: server})
+  }
+
+  getChildContext() {
+    return {server: this.state.server}
   }
 
   render() {
@@ -56,7 +73,7 @@ class App extends Component {
         messages={getMessages(this.state.lang)}>
         <Router>
           <div className="App">
-            <Header lang={this.state.lang} languageSwitch={this.languageSwitch}/>
+            <Header network={this.state.network} networkSwitcher={this.networkSwitcher}/>
             <div id="main-content">
               <Route exact path="/" component={Home}/>
               <Route path="/ledgers" component={Ledgers}/>
@@ -75,4 +92,8 @@ class App extends Component {
   }
 }
 
-export default App;
+App.childContextTypes = {
+  server: PropTypes.object
+}
+
+export default App

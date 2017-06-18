@@ -1,10 +1,87 @@
 import React from 'react'
-import {Grid, Row, Table} from 'react-bootstrap'
+import {Grid, Panel, Row, Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
+import {injectIntl, FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
 
-import {server as stellar} from '../lib/Stellar'
+import {withServer} from './shared/HOCs'
 import TransactionTable from './TransactionTableContainer'
+
+const responseToState = (rsp) => {
+  const rec = {
+    seq: rsp.sequence,
+    time: rsp.closed_at,
+    txCount: rsp.transaction_count,
+    opCount: rsp.operation_count,
+    hash: rsp.hash,
+    prevHash: rsp.prev_hash,
+    prevSeq: Number(rsp.sequence) - 1, // horizon doesn't support ledger lookup by hash - so derive seq - does this break?
+    protocol: rsp.protocol_version,
+    totalCoins: rsp.total_coins, // maybe display these on the front page ...?
+    feePool: rsp.fee_pool,
+    baseFee: rsp.base_fee,
+    baseReserve: rsp.base_reserve,
+    maxTxSetSize: rsp.max_tx_set_size
+  }
+  return rec
+}
+
+class Ledger extends React.Component {
+  render() {
+    const {formatMessage} = this.props.intl
+    return (
+      <Grid>
+        <Row>
+          <Panel header={formatMessage({id: "ledger"})}>
+            <Table>
+              <tbody>
+                <tr>
+                  <td>#</td>
+                  <td>{this.props.seq}</td>
+                </tr>
+                <tr>
+                  <td><FormattedMessage id="time"/></td>
+                  <td><FormattedDate value={this.props.time}/>&nbsp;
+                    <FormattedTime value={this.props.time}/></td>
+                </tr>
+                <tr>
+                  <td><FormattedMessage id="hash"/></td>
+                  <td>{this.props.hash}</td>
+                </tr>
+                <tr>
+                  <td><FormattedMessage id="prevHash"/></td>
+                  <td>
+                    <Link to={`/ledger/${this.props.prevSeq}`}>{this.props.prevHash}</Link>
+                  </td>
+                </tr>
+                <tr>
+                  <td><FormattedMessage id="protocolVersion"/></td>
+                  <td>{this.props.protocol}</td>
+                </tr>
+                <tr>
+                  <td><FormattedMessage id="protocolVersion"/></td>
+                  <td>{this.props.protocol}</td>
+                </tr>
+                {this.props.opCount === 0 && <tr>
+                  <td><FormattedMessage id="transactions"/></td>
+                  <td>{this.props.txCount}</td>
+                </tr>
+}
+                <tr>
+                  <td><FormattedMessage id="operations"/></td>
+                  <td>{this.props.opCount}</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Panel>
+        </Row>
+        {this.props.opCount > 0 && <Row>
+          <h3><FormattedMessage id="transactions"/>&nbsp;({this.props.txCount})</h3>
+          <TransactionTable compact={false} refresh={false} ledger={this.props.seq}/>
+        </Row>}
+      </Grid>
+    )
+  }
+}
 
 class LedgerContainer extends React.Component {
   state = {
@@ -20,75 +97,16 @@ class LedgerContainer extends React.Component {
   }
 
   loadLedger(ledgerId) {
-    stellar.ledgers().ledger(ledgerId).call().then((res) => {
-      this.setState({
-        seq: res.sequence,
-        time: res.closed_at,
-        txCount: res.transaction_count,
-        opCount: res.operation_count,
-        hash: res.hash,
-        prevHash: res.prev_hash,
-        prevSeq: Number(res.sequence) - 1, // horizon doesn't support ledger lookup by hash - so derive seq - does this break?
-        protocol: res.protocol_version
-      })
+    this.props.server.ledgers().ledger(ledgerId).call().then((res) => {
+      this.setState(responseToState(res))
     })
   }
 
   render() {
     return (this.state.seq === 0)
       ? null
-      : <Ledger {...this.state}/>
+      : <Ledger {...this.state} {...this.props}/>
   }
 }
 
-class Ledger extends React.Component {
-  render() {
-    return (
-      <Grid>
-        <Row>
-          <Table>
-            <tbody>
-              <tr>
-                <td>#</td>
-                <td>{this.props.seq}</td>
-              </tr>
-              <tr>
-                <td><FormattedMessage id="time"/></td>
-                <td><FormattedDate value={this.props.time}/>
-                  <FormattedTime value={this.props.time}/></td>
-              </tr>
-              <tr>
-                <td><FormattedMessage id="operations"/></td>
-                <td>{this.props.opCount}</td>
-              </tr>
-              <tr>
-                <td><FormattedMessage id="hash"/></td>
-                <td>{this.props.hash}</td>
-              </tr>
-              <tr>
-                <td><FormattedMessage id="prevHash"/></td>
-                <td>
-                  <Link to={`/ledger/${this.props.prevSeq}`}>{this.props.prevHash}</Link>
-                </td>
-              </tr>
-              <tr>
-                <td><FormattedMessage id="protocolVersion"/></td>
-                <td>{this.props.protocol}</td>
-              </tr>
-              <tr>
-                <td><FormattedMessage id="transactions"/></td>
-                <td>{this.props.txCount}</td>
-              </tr>
-            </tbody>
-          </Table>
-        </Row>
-        {this.props.opCount > 0 && <Row>
-          <TransactionTable compact={false} refresh={false} ledger={this.props.seq}/>
-        </Row>
-}
-      </Grid>
-    )
-  }
-}
-
-export default LedgerContainer
+export default injectIntl(withServer(LedgerContainer))

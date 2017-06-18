@@ -146,6 +146,32 @@ body, .navbar {
     color: #fff;
 }
 
+.Network-Selector {
+    margin: 5px 0;
+}
+
+.Network-Selector button {
+    display: inline-block;
+    cursor: pointer;
+    background: #333;
+    color: #ccc;
+    border: none;
+    border-radius: 2px;
+}
+
+.Network-Selector button:focus {
+    outline: none;
+}
+
+.Network-Selector button:not(:first-child) {
+    margin-left: 5px;
+}
+
+.Network-Selector .is-active {
+    background: #61dafb;
+    color: #fff;
+}
+
 .operation {
     margin-bottom: 20px !important;
 }
@@ -154,4 +180,9 @@ body, .navbar {
     width: 80px;
     padding-top: 50px;
     padding-bottom: 50px;
+}
+
+.pager {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

@@ -2,7 +2,8 @@ import React from 'react'
 import {Grid, Row, Table, Panel, Accordion} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
-import {server as stellar} from '../lib/Stellar'
+import PropTypes from 'prop-types'
+import {withServer} from './shared/HOCs'
 import Operation from './operations/Operation'
 
 const OperationsList = (props) => {
@@ -15,30 +16,23 @@ const OperationsList = (props) => {
 }
 
 class Transaction extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      id: this.props.match.params.id
-    }
-  }
-
-  componentDidMount() {
-    let data = {}
-    stellar.transactions().transaction(this.state.id).call().then((res) => {
-      data.txData = res
-      return stellar.operations().forTransaction(this.state.id).limit(50).call()
-    }).then((ops) => {
-      data.ops = ops.records
-    }).then(() => {
-      this.setState(data)
-    })
+  static defaultProps = {
+    operations: []
   }
 
   render() {
-    if (!this.state.txData)
+    const {
+      id,
+      fee,
+      ledger,
+      memoType,
+      operations,
+      time
+    } = this.props
+
+    if (!id)
       return null
-    const data = this.state.txData
-    const ops = this.state.ops
+
     return (
       <Grid>
         <Row>
@@ -47,38 +41,80 @@ class Transaction extends React.Component {
               <tbody>
                 <tr>
                   <td><FormattedMessage id="hash"/></td>
-                  <td>{data.id}</td>
+                  <td>{id}</td>
                 </tr>
                 <tr>
                   <td><FormattedMessage id="time"/></td>
-                  <td><FormattedDate value={data.created_at}/>&nbsp;
-                    <FormattedTime value={data.created_at}/></td>
+                  <td><FormattedDate value={time}/>&nbsp;
+                    <FormattedTime value={time}/>
+                  </td>
                 </tr>
                 <tr>
-                  <td>Value</td>
-                  <td>{data.value}</td>
-                </tr>
-                <tr>
-                  <td>Memo Type</td>
-                  <td>{data.memo_type}</td>
+                  <td>Fee</td>
+                  <td>{fee}&nbsp; stroops</td>
                 </tr>
                 <tr>
                   <td><FormattedMessage id="ledger"/></td>
                   <td>
-                    <Link to={`/ledger/${data.ledger_attr}`}>{data.ledger_attr}</Link>
+                    <Link to={`/ledger/${ledger}`}>{ledger}</Link>
                   </td>
+                </tr>
+                <tr>
+                  <td>Memo Type</td>
+                  <td>{memoType}</td>
                 </tr>
               </tbody>
             </Table>
           </Panel>
         </Row>
         <Row>
-          <h3>{`Operations (${ops.length})`}</h3>
-          <OperationsList operations={ops}/>
+          <h3>{`Operations (${operations.length})`}</h3>
+          <OperationsList operations={operations}/>
         </Row>
       </Grid>
     )
   }
 }
 
-export default Transaction
+Transaction.propTypes = {
+  fee: PropTypes.number,
+  id: PropTypes.string,
+  ledger: PropTypes.number,
+  memoType: PropTypes.string,
+  operations: PropTypes.array,
+  time: PropTypes.string
+}
+
+class TransactionContainer extends React.Component {
+  state = {
+    operations: []
+  }
+
+  componentDidMount() {
+    const id = this.props.match.params.id
+    const server = this.props.server
+    server.transactions().transaction(id).call().then((res) => {
+      this.setState({tx: res})
+      return server.operations().forTransaction(id).limit(50).call()
+    }).then((ops) => {
+      this.setState({operations: ops.records})
+    }).catch((err) => {
+      console.error(`Failed to fetch records: [${err.stack}]`)
+    })
+  }
+
+  render() {
+    if (!this.state.tx)
+      return null
+    const tx = this.state.tx
+    return (<Transaction
+      id={tx.id}
+      fee={tx.fee_paid}
+      ledger={tx.ledger_attr}
+      memoType={tx.memo_type}
+      time={tx.created_at}
+      operations={this.state.operations}/>)
+  }
+}
+
+export default withServer(TransactionContainer)

@@ -1,7 +1,6 @@
 import {compose} from 'recompose'
-import {server as stellar} from '../lib/Stellar'
 import {withPaging} from './shared/Paging'
-import {withDataFetchingContainer} from './shared/TableContainer'
+import {withDataFetchingContainer} from './shared/DataFetchingContainer'
 import LedgerTable from './LedgerTable'
 
 const rspRecsToProps = (records) => {
@@ -16,7 +15,7 @@ const rspRecsToProps = (records) => {
 }
 
 const fetchRecords = (props) => {
-  const builder = stellar.ledgers()
+  const builder = props.server.ledgers()
   builder.limit(props.limit)
   builder.order('desc')
   return builder.call()
