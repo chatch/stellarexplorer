@@ -40,7 +40,9 @@ class Header extends React.Component {
               <MenuItem eventKey={3.1} href="/anchors">Anchors</MenuItem>
               <MenuItem eventKey={3.2} href="https://www.stellar.org/laboratory/">Laboratory</MenuItem>
               <MenuItem eventKey={3.3} href="https://stellarterm.com/">StellarTerm</MenuItem>
-              <MenuItem eventKey={3.4}>Stats</MenuItem>
+              <MenuItem eventKey={3.4} href="https://dashboard.stellar.org/">Stellar Dashboard</MenuItem>
+              <MenuItem eventKey={3.5} href="http://stellar.network/">Stellar Network</MenuItem>
+              <MenuItem eventKey={3.6} href="https://www.stellar.org/stats/">Stats</MenuItem>
             </NavDropdown>
           </Nav>
           <Navbar.Form pullRight>
