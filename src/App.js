@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {Grid, Row} from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
 import {IntlProvider, addLocaleData} from 'react-intl'
@@ -42,6 +43,18 @@ const getMessages = locale => {
   }
 }
 
+class NoMatch extends Component {
+  render() {
+    return (
+      <Grid>
+        <Row>
+          <h3>Oops, nothing here ...</h3>
+        </Row>
+      </Grid>
+    )
+  }
+}
+
 class App extends Component {
   state = {
     lang: locale,
@@ -78,14 +91,17 @@ class App extends Component {
           <div className="App">
             <Header network={this.state.network} networkSwitcher={this.networkSwitcher}/>
             <div id="main-content">
-              <Route exact path="/" component={Home}/>
-              <Route path="/ledgers" component={Ledgers}/>
-              <Route path="/ledger/:id" component={Ledger}/>
-              <Route path="/txs" component={Transactions}/>
-              <Route path="/tx/:id" component={Transaction}/>
-              <Route path="/accounts" component={Accounts}/>
-              <Route path="/account/:id" component={Account}/>
-              <Route path="/anchors" component={Anchors}/>
+              <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route path="/ledgers" component={Ledgers}/>
+                <Route path="/ledger/:id" component={Ledger}/>
+                <Route path="/txs" component={Transactions}/>
+                <Route path="/tx/:id" component={Transaction}/>
+                <Route path="/accounts" component={Accounts}/>
+                <Route path="/account/:id" component={Account}/>
+                <Route path="/anchors" component={Anchors}/>
+                <Route component={NoMatch}/>
+              </Switch>
             </div>
             <Footer/>
           </div>
