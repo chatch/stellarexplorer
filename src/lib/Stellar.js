@@ -1,5 +1,5 @@
 const sdk = require('stellar-sdk')
-const URI = require("urijs");
+const URI = require('urijs')
 
 /* ----------------------------------------------------------
  *
@@ -10,17 +10,17 @@ const URI = require("urijs");
 const networks = {
   public: {
     address: 'https://horizon.stellar.org',
-    initFunc: usePubnetServer
+    initFunc: usePubnetServer,
   },
   test: {
     address: 'https://horizon-testnet.stellar.org',
-    initFunc: useTestnetServer
+    initFunc: useTestnetServer,
   },
   local: {
     address: 'http://localhost:8000',
     initFunc: useLocalServer,
-    hide: true // from UI
-  }
+    hide: true, // from UI
+  },
 }
 
 function usePubnetServer() {
@@ -47,8 +47,10 @@ function newServer(address) {
  *
  * ---------------------------------------------------------*/
 
-const TransactionCallBuilder = require('stellar-sdk/lib/transaction_call_builder').TransactionCallBuilder
-const LedgerCallBuilder = require('stellar-sdk/lib/ledger_call_builder').LedgerCallBuilder
+const TransactionCallBuilder = require('stellar-sdk/lib/transaction_call_builder')
+  .TransactionCallBuilder
+const LedgerCallBuilder = require('stellar-sdk/lib/ledger_call_builder')
+  .LedgerCallBuilder
 
 /**
  * Wrap the Stellar CallBuilder's to modify the default paging behaviour for
@@ -57,16 +59,16 @@ const LedgerCallBuilder = require('stellar-sdk/lib/ledger_call_builder').LedgerC
  *
  * @see [Stellar Paging docs](https://www.stellar.org/developers/horizon/reference/resources/page.html)
  */
-const wrapStellarCallBuilderWithWebPagePaging = (CallBuilder) => {
+const wrapStellarCallBuilderWithWebPagePaging = CallBuilder => {
   return class WrappedCallBuilder extends CallBuilder {
-    wrapNext = (rspNext) => () => {
-      return rspNext().then((rsp) => {
+    wrapNext = rspNext => () => {
+      return rspNext().then(rsp => {
         return this.wrap(rsp)
       })
     }
 
-    wrapPrev = (rspPrev) => () => {
-      return rspPrev().then((rsp) => {
+    wrapPrev = rspPrev => () => {
+      return rspPrev().then(rsp => {
         // prev requests desc so flip it to the order we maintain for every page
         rsp.records = rsp.records.reverse()
 
@@ -91,7 +93,7 @@ const wrapStellarCallBuilderWithWebPagePaging = (CallBuilder) => {
    * Calls the parent call() and modifies the response.
    */
     call() {
-      return super.call().then((stellarRsp) => {
+      return super.call().then(stellarRsp => {
         return this.wrap(stellarRsp)
       })
     }
@@ -104,12 +106,17 @@ const wrapStellarCallBuilderWithWebPagePaging = (CallBuilder) => {
 
 const pagingCalls = {
   transactions: TransactionCallBuilder,
-  ledgers: LedgerCallBuilder
+  ledgers: LedgerCallBuilder,
 }
 
-Object.keys(pagingCalls).forEach((callName) => sdk.Server.prototype[callName] = function() {
-  const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(pagingCalls[callName])
-  return new WrappedClass(URI(this.serverURL))
-})
+Object.keys(pagingCalls).forEach(
+  callName =>
+    (sdk.Server.prototype[callName] = function() {
+      const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
+        pagingCalls[callName]
+      )
+      return new WrappedClass(URI(this.serverURL))
+    })
+)
 
 export {sdk, networks}

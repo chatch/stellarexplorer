@@ -8,37 +8,42 @@ const propTypesContainer = {
   usePaging: PropTypes.bool,
   refresh: PropTypes.bool,
   refreshRate: PropTypes.number,
-  server: PropTypes.object
+  server: PropTypes.object,
 }
 
-const withDataFetchingContainer = (fetchDataFn, rspRecsToPropsFn) => (TableComponent) => {
+const withDataFetchingContainer = (
+  fetchDataFn,
+  rspRecsToPropsFn
+) => TableComponent => {
   const dataFetchingContainerClass = class extends React.Component {
     static defaultProps = {
       limit: 5,
       page: 0,
       refresh: false,
       refreshRate: 15000,
-      usePaging: false
+      usePaging: false,
     }
 
     state = {
       isLoading: true,
-      records: []
+      records: [],
     }
 
     componentDidMount() {
       this.fetchData(fetchDataFn(this.props))
-      if (this.props.refresh === true && this.props.usePaging === false) { // don't refresh data on paging views
-        this.timerID = setInterval(() => this.fetchData(fetchDataFn(this.props)), this.props.refreshRate)
+      if (this.props.refresh === true && this.props.usePaging === false) {
+        // don't refresh data on paging views
+        this.timerID = setInterval(
+          () => this.fetchData(fetchDataFn(this.props)),
+          this.props.refreshRate
+        )
       }
     }
 
     componentDidUpdate(prevProps) {
-      if (this.props.page === prevProps.page)
-        return
+      if (this.props.page === prevProps.page) return
 
-      if (this.props.page > prevProps.page)
-        this.fetchData(this.state.next())
+      if (this.props.page > prevProps.page) this.fetchData(this.state.next())
       else if (this.props.page < prevProps.page)
         this.fetchData(this.state.prev())
 
@@ -47,13 +52,13 @@ const withDataFetchingContainer = (fetchDataFn, rspRecsToPropsFn) => (TableCompo
 
     componentWillUnmount() {
       if (this.timerID) {
-        clearInterval(this.timerID);
+        clearInterval(this.timerID)
         delete this.timerID
       }
     }
 
     fetchData(fetchDataPromise) {
-      fetchDataPromise.then((r) => this.responseToState(r)).catch((err) => {
+      fetchDataPromise.then(r => this.responseToState(r)).catch(err => {
         console.error(`Failed to fetch records: [${err.stack}]`)
         this.setState({isLoading: false, records: []})
       })
@@ -64,21 +69,24 @@ const withDataFetchingContainer = (fetchDataFn, rspRecsToPropsFn) => (TableCompo
         isLoading: false,
         next: rsp.next,
         prev: rsp.prev,
-        records: rspRecsToPropsFn(rsp.records)
+        records: rspRecsToPropsFn(rsp.records),
       })
     }
 
     render() {
-      return (<TableComponent
-        isLoading={this.state.isLoading}
-        records={this.state.records}
-        {...this.props}/>)
+      return (
+        <TableComponent
+          isLoading={this.state.isLoading}
+          records={this.state.records}
+          {...this.props}
+        />
+      )
     }
   }
 
   dataFetchingContainerClass.propTypes = propTypesContainer
   dataFetchingContainerClass.contextTypes = {
-    server: PropTypes.object
+    server: PropTypes.object,
   }
 
   return withServer(dataFetchingContainerClass)

@@ -8,7 +8,7 @@ class Footer extends React.Component {
       <Grid id="footer">
         <Row>
           <Col>
-            <LumensRates/>
+            <LumensRates />
           </Col>
         </Row>
       </Grid>

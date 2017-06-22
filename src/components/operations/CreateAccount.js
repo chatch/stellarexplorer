@@ -10,15 +10,15 @@ class CreateAccount extends React.Component {
       <Table>
         <tbody>
           <tr>
-            <td><FormattedMessage id="account"/></td>
+            <td><FormattedMessage id="account" /></td>
             <td>
-              <AccountLink account={d.account}/>
+              <AccountLink account={d.account} />
             </td>
           </tr>
           <tr>
             <td>Funder</td>
             <td>
-              <AccountLink account={d.funder}/>
+              <AccountLink account={d.funder} />
             </td>
           </tr>
           <tr>

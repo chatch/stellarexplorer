@@ -5,18 +5,19 @@ import {FormattedRelative, FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import {withSpinner} from './shared/Spinner'
 
-const LedgerRow = (props) => <tr>
-  <td>
-    <Link to={`/ledger/${props.sequence}`}>{props.sequence}</Link>
-  </td>
-  <td><FormattedRelative value={props.time}/></td>
-  <td>{props.txCount}</td>
-</tr>
+const LedgerRow = props =>
+  <tr>
+    <td>
+      <Link to={`/ledger/${props.sequence}`}>{props.sequence}</Link>
+    </td>
+    <td><FormattedRelative value={props.time} /></td>
+    <td>{props.txCount}</td>
+  </tr>
 
 LedgerRow.propTypes = {
   sequence: PropTypes.number,
   txCount: PropTypes.number,
-  time: PropTypes.string
+  time: PropTypes.string,
 }
 
 class LedgerTable extends React.Component {
@@ -25,20 +26,24 @@ class LedgerTable extends React.Component {
       <Table
         id="ledger-table"
         className="table-striped table-hover table-condensed"
-        fill>
+        fill
+      >
         <thead>
           <tr>
             <th>#</th>
-            <th><FormattedMessage id="time"/></th>
-            <th><FormattedMessage id="transactions"/></th>
+            <th><FormattedMessage id="time" /></th>
+            <th><FormattedMessage id="transactions" /></th>
           </tr>
         </thead>
         <tbody>
-          {this.props.records.map((ledger) => <LedgerRow
-            key={ledger.sequence}
-            sequence={ledger.sequence}
-            time={ledger.time}
-            txCount={ledger.txCount}/>)}
+          {this.props.records.map(ledger =>
+            <LedgerRow
+              key={ledger.sequence}
+              sequence={ledger.sequence}
+              time={ledger.time}
+              txCount={ledger.txCount}
+            />
+          )}
         </tbody>
       </Table>
     )
@@ -46,7 +51,7 @@ class LedgerTable extends React.Component {
 }
 
 LedgerTable.propTypes = {
-  records: PropTypes.array
+  records: PropTypes.array,
 }
 
 export default withSpinner()(LedgerTable)

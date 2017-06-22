@@ -1,7 +1,7 @@
 import {sdk} from './Stellar'
 
 function isDefInt(obj, key) {
-  return (obj[key] && Number.isInteger(Number(obj[key])))
+  return obj[key] && Number.isInteger(Number(obj[key]))
 }
 
 function isAccount(accStr) {
@@ -13,7 +13,7 @@ function isTxHash(hashStr) {
 }
 
 function shortHash(hash) {
-  return hash.substring(0, 10) + "..."
+  return hash.substring(0, 10) + '...'
 }
 
 export {isDefInt, isAccount, isTxHash, shortHash}

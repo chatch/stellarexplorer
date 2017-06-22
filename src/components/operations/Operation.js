@@ -17,35 +17,35 @@ function SubOperation(props) {
   let subOp
   switch (props.data.type) {
     case 'create_account':
-      subOp = <CreateAccount data={props.data}/>
+      subOp = <CreateAccount data={props.data} />
       break
     case 'payment':
-      subOp = <Payment data={props.data}/>
+      subOp = <Payment data={props.data} />
       break
     case 'path_payment':
-      subOp = <PathPayment data={props.data}/>
+      subOp = <PathPayment data={props.data} />
       break
     case 'manage_offer':
     case 'create_passive_offer':
-      subOp = <Offer data={props.data}/>
+      subOp = <Offer data={props.data} />
       break
     case 'set_options':
-      subOp = <SetOptions data={props.data}/>
+      subOp = <SetOptions data={props.data} />
       break
     case 'change_trust':
-      subOp = <ChangeTrust data={props.data}/>
+      subOp = <ChangeTrust data={props.data} />
       break
     case 'allow_trust':
-      subOp = <AllowTrust data={props.data}/>
+      subOp = <AllowTrust data={props.data} />
       break
     case 'account_merge':
-      subOp = <AccountMerge data={props.data}/>
+      subOp = <AccountMerge data={props.data} />
       break
     case 'inflation':
-      subOp = <Inflation data={props.data}/>
+      subOp = <Inflation data={props.data} />
       break
     default:
-      console.error(`Unknown operation type ${props.data.type}`);
+      console.error(`Unknown operation type ${props.data.type}`)
       subOp = null
       break
   }
@@ -60,7 +60,8 @@ class Operation extends React.Component {
         collapsible
         defaultExpanded={true}
         header={d.type}
-        className={"operation"}>
+        className={'operation'}
+      >
         <Table className="table-hover table-condensed" fill>
           <tbody>
             <tr>
@@ -70,14 +71,14 @@ class Operation extends React.Component {
             <tr>
               <td>Source</td>
               <td>
-                {(d.type !== "account_merge")
-                  ? <AccountLink account={d.source_account}/>
+                {d.type !== 'account_merge'
+                  ? <AccountLink account={d.source_account} />
                   : d.source_account}
               </td>
             </tr>
           </tbody>
         </Table>
-        <SubOperation data={d}/>
+        <SubOperation data={d} />
       </Panel>
     )
   }

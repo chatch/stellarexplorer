@@ -7,7 +7,7 @@ class Accounts extends React.Component {
     return (
       <Grid>
         <Row>
-          <AccountTable limit={10}/>
+          <AccountTable limit={10} />
         </Row>
       </Grid>
     )

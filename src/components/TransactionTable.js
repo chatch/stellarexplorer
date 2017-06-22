@@ -8,17 +8,13 @@ import {shortHash} from '../lib/Utils'
 
 class TransactionRow extends React.Component {
   static defaultProps = {
-    compact: true
+    compact: true,
   }
 
   renderTxHash() {
     const {hash: txHash, compact} = this.props
-    const hashLabel = (compact)
-      ? shortHash(txHash)
-      : txHash
-    const className = (!compact)
-      ? "monospace"
-      : ""
+    const hashLabel = compact ? shortHash(txHash) : txHash
+    const className = !compact ? 'monospace' : ''
     return (
       <span title={txHash} className={className}>
         <Link to={`/tx/${txHash}`}>{hashLabel}</Link>
@@ -31,7 +27,7 @@ class TransactionRow extends React.Component {
     return (
       <tr>
         <td>{this.renderTxHash()}</td>
-        <td><FormattedRelative value={time}/></td>
+        <td><FormattedRelative value={time} /></td>
         <td>{opCount}</td>
         <td>
           <Link to={`/ledger/${ledger}`}>{ledger}</Link>
@@ -46,7 +42,7 @@ TransactionRow.propTypes = {
   hash: PropTypes.string,
   ledger: PropTypes.number,
   opCount: PropTypes.number,
-  time: PropTypes.string
+  time: PropTypes.string,
 }
 
 class TransactionTable extends React.Component {
@@ -54,17 +50,24 @@ class TransactionTable extends React.Component {
     return (
       <Table
         id="transaction-table"
-        className="table-striped table-hover table-condensed">
+        className="table-striped table-hover table-condensed"
+      >
         <thead>
           <tr>
             <th>#</th>
-            <th><FormattedMessage id="time"/></th>
-            <th><FormattedMessage id="operations"/></th>
-            <th><FormattedMessage id="ledger"/></th>
+            <th><FormattedMessage id="time" /></th>
+            <th><FormattedMessage id="operations" /></th>
+            <th><FormattedMessage id="ledger" /></th>
           </tr>
         </thead>
         <tbody>
-          {this.props.records.map((tx) => <TransactionRow key={tx.hash} compact={this.props.compact} {...tx}/>)}
+          {this.props.records.map(tx =>
+            <TransactionRow
+              key={tx.hash}
+              compact={this.props.compact}
+              {...tx}
+            />
+          )}
         </tbody>
       </Table>
     )
@@ -73,7 +76,7 @@ class TransactionTable extends React.Component {
 
 TransactionTable.propTypes = {
   compact: PropTypes.bool,
-  records: PropTypes.array.isRequired
+  records: PropTypes.array.isRequired,
 }
 
 export default withSpinner()(TransactionTable)

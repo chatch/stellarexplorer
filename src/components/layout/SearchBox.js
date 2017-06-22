@@ -5,7 +5,7 @@ import {injectIntl} from 'react-intl'
 import {isAccount, isTxHash} from '../../lib/Utils'
 
 class SearchBox extends React.Component {
-  search = (event) => {
+  search = event => {
     event.preventDefault()
 
     const searchBox = event.target.firstElementChild
@@ -27,7 +27,10 @@ class SearchBox extends React.Component {
     const {formatMessage} = this.props.intl
     return (
       <form onSubmit={this.search}>
-        <FormControl className="Search-box" placeholder={formatMessage({id: "search.placeHolder"})}/>
+        <FormControl
+          className="Search-box"
+          placeholder={formatMessage({id: 'search.placeHolder'})}
+        />
       </form>
     )
   }

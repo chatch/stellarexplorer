@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
 import {withServer} from './shared/HOCs'
 import Operation from './operations/Operation'
 
-const OperationsList = (props) => {
-  const ops = props.operations.map((op) => <Operation key={op.id} data={op}/>)
+const OperationsList = props => {
+  const ops = props.operations.map(op => <Operation key={op.id} data={op} />)
   return (
     <Accordion>
       {ops}
@@ -17,21 +17,13 @@ const OperationsList = (props) => {
 
 class Transaction extends React.Component {
   static defaultProps = {
-    operations: []
+    operations: [],
   }
 
   render() {
-    const {
-      id,
-      fee,
-      ledger,
-      memoType,
-      operations,
-      time
-    } = this.props
+    const {id, fee, ledger, memoType, operations, time} = this.props
 
-    if (!id)
-      return null
+    if (!id) return null
 
     return (
       <Grid>
@@ -40,13 +32,14 @@ class Transaction extends React.Component {
             <Table className="table-hover table-condensed" fill>
               <tbody>
                 <tr>
-                  <td><FormattedMessage id="hash"/></td>
+                  <td><FormattedMessage id="hash" /></td>
                   <td>{id}</td>
                 </tr>
                 <tr>
-                  <td><FormattedMessage id="time"/></td>
-                  <td><FormattedDate value={time}/>&nbsp;
-                    <FormattedTime value={time}/>
+                  <td><FormattedMessage id="time" /></td>
+                  <td>
+                    <FormattedDate value={time} />&nbsp;
+                    <FormattedTime value={time} />
                   </td>
                 </tr>
                 <tr>
@@ -54,7 +47,7 @@ class Transaction extends React.Component {
                   <td>{fee}&nbsp; stroops</td>
                 </tr>
                 <tr>
-                  <td><FormattedMessage id="ledger"/></td>
+                  <td><FormattedMessage id="ledger" /></td>
                   <td>
                     <Link to={`/ledger/${ledger}`}>{ledger}</Link>
                   </td>
@@ -69,7 +62,7 @@ class Transaction extends React.Component {
         </Row>
         <Row>
           <h3>{`Operations (${operations.length})`}</h3>
-          <OperationsList operations={operations}/>
+          <OperationsList operations={operations} />
         </Row>
       </Grid>
     )
@@ -82,38 +75,46 @@ Transaction.propTypes = {
   ledger: PropTypes.number,
   memoType: PropTypes.string,
   operations: PropTypes.array,
-  time: PropTypes.string
+  time: PropTypes.string,
 }
 
 class TransactionContainer extends React.Component {
   state = {
-    operations: []
+    operations: [],
   }
 
   componentDidMount() {
     const id = this.props.match.params.id
     const server = this.props.server
-    server.transactions().transaction(id).call().then((res) => {
-      this.setState({tx: res})
-      return server.operations().forTransaction(id).limit(50).call()
-    }).then((ops) => {
-      this.setState({operations: ops.records})
-    }).catch((err) => {
-      console.error(`Failed to fetch records: [${err.stack}]`)
-    })
+    server
+      .transactions()
+      .transaction(id)
+      .call()
+      .then(res => {
+        this.setState({tx: res})
+        return server.operations().forTransaction(id).limit(50).call()
+      })
+      .then(ops => {
+        this.setState({operations: ops.records})
+      })
+      .catch(err => {
+        console.error(`Failed to fetch records: [${err.stack}]`)
+      })
   }
 
   render() {
-    if (!this.state.tx)
-      return null
+    if (!this.state.tx) return null
     const tx = this.state.tx
-    return (<Transaction
-      id={tx.id}
-      fee={tx.fee_paid}
-      ledger={tx.ledger_attr}
-      memoType={tx.memo_type}
-      time={tx.created_at}
-      operations={this.state.operations}/>)
+    return (
+      <Transaction
+        id={tx.id}
+        fee={tx.fee_paid}
+        ledger={tx.ledger_attr}
+        memoType={tx.memo_type}
+        time={tx.created_at}
+        operations={this.state.operations}
+      />
+    )
   }
 }
 

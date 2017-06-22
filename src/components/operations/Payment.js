@@ -9,12 +9,17 @@ class Payment extends React.Component {
     return (
       <Grid>
         <Row>
-          <AccountLink account={d.from}/>
+          <AccountLink account={d.from} />
           &nbsp;TO&nbsp;
-          <AccountLink account={d.to}/>
+          <AccountLink account={d.to} />
         </Row>
         <Row>
-          <Asset type={d.asset_type} code={d.asset_code} issuer={d.asset_issuer}/> {d.amount}
+          <Asset
+            type={d.asset_type}
+            code={d.asset_code}
+            issuer={d.asset_issuer}
+          />{' '}
+          {d.amount}
         </Row>
         <Row>
           {this.props.children}

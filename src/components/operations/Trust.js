@@ -13,15 +13,21 @@ class Trust extends React.Component {
             <tbody>
               <tr>
                 <td>Asset</td>
-                <td><Asset code={d.asset_code} type={d.asset_type} issuer={d.asset_issuer}/></td>
+                <td>
+                  <Asset
+                    code={d.asset_code}
+                    type={d.asset_type}
+                    issuer={d.asset_issuer}
+                  />
+                </td>
               </tr>
               <tr>
                 <td>Trustee</td>
-                <td><AccountLink account={d.trustee}/></td>
+                <td><AccountLink account={d.trustee} /></td>
               </tr>
               <tr>
                 <td>Trustor</td>
-                <td><AccountLink account={d.trustor}/></td>
+                <td><AccountLink account={d.trustor} /></td>
               </tr>
             </tbody>
           </Table>

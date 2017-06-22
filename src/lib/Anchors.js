@@ -4,7 +4,7 @@ const Anchors = {
     name: "NaoBTC",
     img: "naobtc.png"
   },
-  "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S": {
+  "GC2BQYBXFOVPRDH35D5HT2AFVCDGXJM5YVTAF5THFSAISYOWAJQKRESK": {
     code: "EURT",
     name: "tempo.eu.com",
     img: "tempo.png"

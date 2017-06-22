@@ -5,10 +5,11 @@ import {injectIntl} from 'react-intl'
 import LedgerTable from './LedgerTableContainer'
 import TransactionTable from './TransactionTableContainer'
 
-const panelHeader = (title, viewAllLink) => <div>
-  <span>{title}</span>
-  <a href={viewAllLink} className="pull-right">View All</a>
-</div>
+const panelHeader = (title, viewAllLink) =>
+  <div>
+    <span>{title}</span>
+    <a href={viewAllLink} className="pull-right">View All</a>
+  </div>
 
 class Home extends React.Component {
   render() {
@@ -17,13 +18,20 @@ class Home extends React.Component {
       <Grid>
         <Row>
           <Col md={6}>
-            <Panel header={panelHeader(formatMessage({id: 'latest.ledgers'}), '/ledgers')}>
-              <LedgerTable fill limit={5} refresh/>
+            <Panel
+              header={panelHeader(
+                formatMessage({id: 'latest.ledgers'}),
+                '/ledgers'
+              )}
+            >
+              <LedgerTable fill limit={5} refresh />
             </Panel>
           </Col>
           <Col md={6}>
-            <Panel header={panelHeader(formatMessage({id: 'latest.txs'}), '/txs')}>
-              <TransactionTable fill limit={5} refresh/>
+            <Panel
+              header={panelHeader(formatMessage({id: 'latest.txs'}), '/txs')}
+            >
+              <TransactionTable fill limit={5} refresh />
             </Panel>
           </Col>
         </Row>

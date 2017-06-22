@@ -17,8 +17,10 @@ class AccountRow extends React.Component {
             <Link to={`/tx/${txHash}`}>{shortHash(txHash)}</Link>
           </span>
         </td>
-        <td><FormattedDate value={this.props.time}/>
-          <FormattedTime value={this.props.time}/></td>
+        <td>
+          <FormattedDate value={this.props.time} />
+          <FormattedTime value={this.props.time} />
+        </td>
         <td>{this.props.value}</td>
         <td>
           <Link to={`/ledger/${this.props.ledger}`}>{this.props.ledger}</Link>
@@ -30,7 +32,7 @@ class AccountRow extends React.Component {
 
 class AccountTable extends React.Component {
   renderRow(account) {
-    return <AccountRow key={account.hash} {...account}/>
+    return <AccountRow key={account.hash} {...account} />
   }
 
   render() {
@@ -39,9 +41,9 @@ class AccountTable extends React.Component {
         <thead>
           <tr>
             <th>#</th>
-            <th><FormattedMessage id="time"/></th>
+            <th><FormattedMessage id="time" /></th>
             <th>Value</th>
-            <th><FormattedMessage id="ledger"/></th>
+            <th><FormattedMessage id="ledger" /></th>
           </tr>
         </thead>
         <tbody>{this.props.accounts.map(this.renderRow)}</tbody>
@@ -55,20 +57,20 @@ class AccountTableContainer extends React.Component {
 
   state = {
     accounts: [],
-    isLoading: true
+    isLoading: true,
   }
 
   componentDidMount() {
     this.update()
-    this.timerID = setInterval(() => this.update(), 15000);
+    this.timerID = setInterval(() => this.update(), 15000)
   }
 
   componentWillUnmount() {
-    clearInterval(this.timerID);
+    clearInterval(this.timerID)
   }
 
   accounts() {
-    const limit = (isDefInt(this.props, 'limit'))
+    const limit = isDefInt(this.props, 'limit')
       ? this.props.limit
       : this.DEFAULT_LIMIT
     const builder = this.props.server.accounts()
@@ -78,16 +80,19 @@ class AccountTableContainer extends React.Component {
   }
 
   update() {
-    this.props.server.accounts().then((result) => {
-      this.setState({accounts: result.records.accounts, isLoading: false})
-    }).catch((err) => {
-      console.error(`Failed to fetch Accounts: [${err}]`)
-      this.setState({accounts: [], isLoading: false})
-    })
+    this.props.server
+      .accounts()
+      .then(result => {
+        this.setState({accounts: result.records.accounts, isLoading: false})
+      })
+      .catch(err => {
+        console.error(`Failed to fetch Accounts: [${err}]`)
+        this.setState({accounts: [], isLoading: false})
+      })
   }
 
   render() {
-    return (<WrappedAccountTable accounts={this.state.accounts}/>)
+    return <WrappedAccountTable accounts={this.state.accounts} />
   }
 }
 
