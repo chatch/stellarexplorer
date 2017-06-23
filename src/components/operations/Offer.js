@@ -1,40 +1,48 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
+import PropTypes from 'prop-types'
 import Asset from '../shared/Asset'
 
-class Offer extends React.Component {
-  render() {
-    const d = this.props.data
-    return (
-      <Grid>
-        <Row>
-          <div>Offer Id {d.offer_id}</div>
-          <div>Amount {d.amount}</div>
-          <div>
-            Buying Asset:
-            <Asset
-              type={d.buying_asset_type}
-              code={d.buying_asset_code}
-              issuer={d.buying_asset_issuer}
-            />
-          </div>
-          <div>
-            Selling Asset:
-            <Asset
-              type={d.selling_asset_type}
-              code={d.selling_asset_code}
-              issuer={d.selling_asset_issuer}
-            />
-          </div>
-          <div>Price {d.price}</div>
-          <div>
-            Price_r num={d.price_r.n}
-            den={d.price_r.d}
-          </div>
-        </Row>
-      </Grid>
-    )
-  }
+const offerTypeString = (amount, offerId) =>
+  offerId === 0 ? 'Sell' : amount === 0 ? 'Remove offer' : 'Update offer'
+
+const Offer = ({
+  amount,
+  buyingAssetCode,
+  buyingAssetIssuer,
+  buyingAssetType,
+  offerId,
+  price,
+  sellingAssetCode,
+  sellingAssetIssuer,
+  sellingAssetType,
+}) =>
+  <span>
+    {`${offerTypeString(amount, offerId)} ${amount} `}
+    {console.log(sellingAssetType)}
+    <Asset
+      code={sellingAssetCode}
+      issuer={sellingAssetIssuer}
+      type={sellingAssetType}
+    />
+    {` for `}
+    <Asset
+      code={buyingAssetCode}
+      issuer={buyingAssetIssuer}
+      type={buyingAssetType}
+    />
+    {` @ ${price}`}
+  </span>
+
+Offer.propTypes = {
+  amount: PropTypes.string,
+  buyingAssetCode: PropTypes.string,
+  buyingAssetIssuer: PropTypes.string.isRequired,
+  buyingAssetType: PropTypes.string.isRequired,
+  offerId: PropTypes.number.isRequired,
+  price: PropTypes.number.isRequired,
+  sellingAssetCode: PropTypes.string,
+  sellingAssetIssuer: PropTypes.string.isRequired,
+  sellingAssetType: PropTypes.string.isRequired,
 }
 
 export default Offer

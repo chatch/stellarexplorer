@@ -1,87 +1,54 @@
 import React from 'react'
-import {Table, Panel} from 'react-bootstrap'
+import {Row} from 'react-bootstrap'
+import PropTypes from 'prop-types'
+import _ from 'lodash'
 
 import AccountLink from '../shared/AccountLink'
 
-import CreateAccount from './CreateAccount'
-import Payment from './Payment'
-import PathPayment from './PathPayment'
-import Offer from './Offer'
-import SetOptions from './SetOptions'
-import ChangeTrust from './ChangeTrust'
-import AllowTrust from './AllowTrust'
 import AccountMerge from './AccountMerge'
+import AllowTrust from './AllowTrust'
+import ChangeTrust from './ChangeTrust'
+import CreateAccount from './CreateAccount'
 import Inflation from './Inflation'
+import ManageData from './ManageData'
+import Offer from './Offer'
+import PathPayment from './PathPayment'
+import Payment from './Payment'
+import SetOptions from './SetOptions'
 
-function SubOperation(props) {
-  let subOp
-  switch (props.data.type) {
-    case 'create_account':
-      subOp = <CreateAccount data={props.data} />
-      break
-    case 'payment':
-      subOp = <Payment data={props.data} />
-      break
-    case 'path_payment':
-      subOp = <PathPayment data={props.data} />
-      break
-    case 'manage_offer':
-    case 'create_passive_offer':
-      subOp = <Offer data={props.data} />
-      break
-    case 'set_options':
-      subOp = <SetOptions data={props.data} />
-      break
-    case 'change_trust':
-      subOp = <ChangeTrust data={props.data} />
-      break
-    case 'allow_trust':
-      subOp = <AllowTrust data={props.data} />
-      break
-    case 'account_merge':
-      subOp = <AccountMerge data={props.data} />
-      break
-    case 'inflation':
-      subOp = <Inflation data={props.data} />
-      break
-    default:
-      console.error(`Unknown operation type ${props.data.type}`)
-      subOp = null
-      break
-  }
-  return subOp
+const opTypeToComponent = {
+  account_merge: AccountMerge,
+  allow_trust: AllowTrust,
+  change_trust: ChangeTrust,
+  create_account: CreateAccount,
+  create_passive_offer: Offer,
+  inflation: Inflation,
+  manage_data: ManageData,
+  manage_offer: Offer,
+  path_payment: PathPayment,
+  payment: Payment,
+  set_options: SetOptions,
 }
 
-class Operation extends React.Component {
-  render() {
-    const d = this.props.data
-    return (
-      <Panel
-        collapsible
-        defaultExpanded={true}
-        header={d.type}
-        className={'operation'}
-      >
-        <Table className="table-hover table-condensed" fill>
-          <tbody>
-            <tr>
-              <td>Id</td>
-              <td>{d.id}</td>
-            </tr>
-            <tr>
-              <td>Source</td>
-              <td>
-                {d.type !== 'account_merge'
-                  ? <AccountLink account={d.source_account} />
-                  : d.source_account}
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-        <SubOperation data={d} />
-      </Panel>
-    )
-  }
+const SubOperation = ({op}) => {
+  const SubOpComponent = opTypeToComponent[op.type]
+  return <SubOpComponent {...op} />
+}
+
+const Operation = props => {
+  const op = _.mapKeys(props.op, (v, k) => _.camelCase(k))
+  return (
+    <Row key={op.id} className="operation">
+      {op.type !== 'account_merge'
+        ? <AccountLink account={op.sourceAccount} />
+        : op.sourceAccount}:&nbsp;
+      <SubOperation op={op} />
+    </Row>
+  )
+}
+
+PropTypes.Operation = {
+  op: PropTypes.object.isRequired,
 }
 
 export default Operation

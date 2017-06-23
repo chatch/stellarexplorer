@@ -1,32 +1,22 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
+import PropTypes from 'prop-types'
 import Asset from '../shared/Asset'
 import AccountLink from '../shared/AccountLink'
 
-class Payment extends React.Component {
-  render() {
-    const d = this.props.data
-    return (
-      <Grid>
-        <Row>
-          <AccountLink account={d.from} />
-          &nbsp;TO&nbsp;
-          <AccountLink account={d.to} />
-        </Row>
-        <Row>
-          <Asset
-            type={d.asset_type}
-            code={d.asset_code}
-            issuer={d.asset_issuer}
-          />{' '}
-          {d.amount}
-        </Row>
-        <Row>
-          {this.props.children}
-        </Row>
-      </Grid>
-    )
-  }
+const Payment = ({amount, assetCode, assetIssuer, assetType, children, to}) =>
+  <span>
+    Pay {amount}{' '}
+    <Asset code={assetCode} issuer={assetIssuer} type={assetType} />{' '}
+    to <AccountLink account={to} />
+    {children}
+  </span>
+
+Payment.propTypes = {
+  amount: PropTypes.string.isRequired,
+  assetCode: PropTypes.string,
+  assetIssuer: PropTypes.string,
+  assetType: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
 }
 
 export default Payment

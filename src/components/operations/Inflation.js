@@ -1,9 +1,6 @@
 import React from 'react'
 
-class Inflation extends React.Component {
-  render() {
-    return null // no props - just runs inflation
-  }
-}
+// no props - just runs inflation
+const Inflation = () => <span>Inflation run</span>
 
 export default Inflation

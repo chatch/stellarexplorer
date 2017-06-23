@@ -1,34 +1,18 @@
 import React from 'react'
-import {Table} from 'react-bootstrap'
+import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import AccountLink from '../shared/AccountLink'
 
-class CreateAccount extends React.Component {
-  render() {
-    const d = this.props.data
-    return (
-      <Table>
-        <tbody>
-          <tr>
-            <td><FormattedMessage id="account" /></td>
-            <td>
-              <AccountLink account={d.account} />
-            </td>
-          </tr>
-          <tr>
-            <td>Funder</td>
-            <td>
-              <AccountLink account={d.funder} />
-            </td>
-          </tr>
-          <tr>
-            <td>Starting Balance</td>
-            <td>{d.starting_balance}</td>
-          </tr>
-        </tbody>
-      </Table>
-    )
-  }
+const CreateAccount = ({account, startingBalance}) =>
+  <span>
+    Created <FormattedMessage id="account" />{' '}
+    <AccountLink account={account} /> with Balance{' '}
+    {startingBalance}
+  </span>
+
+CreateAccount.propTypes = {
+  account: PropTypes.string.isRequired,
+  startingBalance: PropTypes.number,
 }
 
 export default CreateAccount

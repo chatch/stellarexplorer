@@ -6,14 +6,10 @@ import PropTypes from 'prop-types'
 import {withServer} from './shared/HOCs'
 import Operation from './operations/Operation'
 
-const OperationsList = props => {
-  const ops = props.operations.map(op => <Operation key={op.id} data={op} />)
-  return (
-    <Accordion>
-      {ops}
-    </Accordion>
-  )
-}
+const OperationsList = props =>
+  <Accordion>
+    {props.operations.map(op => <Operation key={op.id} op={op} />)}
+  </Accordion>
 
 class Transaction extends React.Component {
   static defaultProps = {
@@ -62,7 +58,9 @@ class Transaction extends React.Component {
         </Row>
         <Row>
           <h3>{`Operations (${operations.length})`}</h3>
-          <OperationsList operations={operations} />
+          <Grid>
+            <OperationsList operations={operations} />
+          </Grid>
         </Row>
       </Grid>
     )
