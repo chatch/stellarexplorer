@@ -1,15 +1,10 @@
 import React from 'react'
-import {Grid, Row, Table, Panel, Accordion} from 'react-bootstrap'
+import {Grid, Row, Table, Panel} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import {withServer} from './shared/HOCs'
-import Operation from './operations/Operation'
-
-const OperationsList = props =>
-  <Accordion>
-    {props.operations.map(op => <Operation key={op.id} op={op} />)}
-  </Accordion>
+import Operations from './Operations'
 
 class Transaction extends React.Component {
   static defaultProps = {
@@ -17,7 +12,7 @@ class Transaction extends React.Component {
   }
 
   render() {
-    const {id, fee, ledger, memoType, operations, time} = this.props
+    const {id, fee, ledger, memoType, opCount, time} = this.props
 
     if (!id) return null
 
@@ -57,9 +52,9 @@ class Transaction extends React.Component {
           </Panel>
         </Row>
         <Row>
-          <h3>{`Operations (${operations.length})`}</h3>
+          <h3>{`Operations (${opCount})`}</h3>
           <Grid>
-            <OperationsList operations={operations} />
+            <Operations tx={id} />
           </Grid>
         </Row>
       </Grid>
@@ -90,13 +85,9 @@ class TransactionContainer extends React.Component {
       .call()
       .then(res => {
         this.setState({tx: res})
-        return server.operations().forTransaction(id).limit(50).call()
-      })
-      .then(ops => {
-        this.setState({operations: ops.records})
       })
       .catch(err => {
-        console.error(`Failed to fetch records: [${err.stack}]`)
+        console.error(`Failed to fetch record: [${err.stack}]`)
       })
   }
 
@@ -109,8 +100,8 @@ class TransactionContainer extends React.Component {
         fee={tx.fee_paid}
         ledger={tx.ledger_attr}
         memoType={tx.memo_type}
+        opCount={tx.operation_count}
         time={tx.created_at}
-        operations={this.state.operations}
       />
     )
   }

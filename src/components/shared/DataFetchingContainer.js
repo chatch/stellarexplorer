@@ -14,7 +14,7 @@ const propTypesContainer = {
 const withDataFetchingContainer = (
   fetchDataFn,
   rspRecsToPropsFn
-) => TableComponent => {
+) => Component => {
   const dataFetchingContainerClass = class extends React.Component {
     static defaultProps = {
       limit: 5,
@@ -75,7 +75,7 @@ const withDataFetchingContainer = (
 
     render() {
       return (
-        <TableComponent
+        <Component
           isLoading={this.state.isLoading}
           records={this.state.records}
           {...this.props}

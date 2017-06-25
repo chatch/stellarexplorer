@@ -1,7 +1,6 @@
 import React from 'react'
 import {Row} from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 
 import AccountLink from '../shared/AccountLink'
 
@@ -16,7 +15,7 @@ import PathPayment from './PathPayment'
 import Payment from './Payment'
 import SetOptions from './SetOptions'
 
-const opTypeToComponent = {
+const opTypeComponentMap = {
   account_merge: AccountMerge,
   allow_trust: AllowTrust,
   change_trust: ChangeTrust,
@@ -31,23 +30,25 @@ const opTypeToComponent = {
 }
 
 const SubOperation = ({op}) => {
-  const SubOpComponent = opTypeToComponent[op.type]
+  const SubOpComponent = opTypeComponentMap[op.type]
   return <SubOpComponent {...op} />
 }
 
-const Operation = props => {
-  const op = _.mapKeys(props.op, (v, k) => _.camelCase(k))
-  return (
-    <Row key={op.id} className="operation">
-      {op.type !== 'account_merge'
-        ? <AccountLink account={op.sourceAccount} />
-        : op.sourceAccount}:&nbsp;
-      <SubOperation op={op} />
-    </Row>
-  )
+const Operation = ({compact, op}) =>
+  <Row key={op.id} className="operation">
+    {op.type !== 'account_merge'
+      ? <AccountLink account={op.sourceAccount} />
+      : op.sourceAccount}:&nbsp;
+    <SubOperation op={op} />
+    {!compact && <span>NOT COMPACT</span>}
+  </Row>
+
+Operation.defaultProps = {
+  compact: true,
 }
 
-PropTypes.Operation = {
+Operation.propTypes = {
+  compact: PropTypes.bool,
   op: PropTypes.object.isRequired,
 }
 

@@ -27,4 +27,5 @@ const enhance = compose(
   withPaging(),
   withDataFetchingContainer(fetchRecords, rspRecsToProps)
 )
+
 export default enhance(TransactionTable)
