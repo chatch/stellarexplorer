@@ -18,7 +18,6 @@ const Offer = ({
 }) =>
   <span>
     {`${offerTypeString(amount, offerId)} ${amount} `}
-    {console.log(sellingAssetType)}
     <Asset
       code={sellingAssetCode}
       issuer={sellingAssetIssuer}
@@ -39,7 +38,7 @@ Offer.propTypes = {
   buyingAssetIssuer: PropTypes.string.isRequired,
   buyingAssetType: PropTypes.string.isRequired,
   offerId: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   sellingAssetCode: PropTypes.string,
   sellingAssetIssuer: PropTypes.string.isRequired,
   sellingAssetType: PropTypes.string.isRequired,

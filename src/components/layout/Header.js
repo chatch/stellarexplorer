@@ -30,29 +30,36 @@ class Header extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to="/ledgers">
-              <NavItem eventKey={1}><FormattedMessage id="ledgers" /></NavItem>
+            <LinkContainer to="/">
+              <NavItem>
+                <FormattedMessage id="home" />
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/operations">
+              <NavItem>
+                <FormattedMessage id="operations" />
+              </NavItem>
             </LinkContainer>
             <LinkContainer to="/txs">
-              <NavItem eventKey={2}>
+              <NavItem>
                 <FormattedMessage id="transactions" />
               </NavItem>
             </LinkContainer>
-            <NavDropdown eventKey={3} title="More" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1} href="/anchors">Anchors</MenuItem>
-              <MenuItem
-                eventKey={3.2}
-                href="https://www.stellar.org/laboratory/"
-              >
+            <LinkContainer to="/ledgers">
+              <NavItem><FormattedMessage id="ledgers" /></NavItem>
+            </LinkContainer>
+            <NavDropdown title="More" id="basic-nav-dropdown">
+              <MenuItem href="/anchors">Anchors</MenuItem>
+              <MenuItem href="https://www.stellar.org/laboratory/">
                 Laboratory
               </MenuItem>
-              <MenuItem eventKey={3.3} href="https://stellarterm.com/">
+              <MenuItem href="https://stellarterm.com/">
                 StellarTerm
               </MenuItem>
-              <MenuItem eventKey={3.4} href="https://dashboard.stellar.org/">
+              <MenuItem href="https://dashboard.stellar.org/">
                 Stellar Dashboard
               </MenuItem>
-              <MenuItem eventKey={3.5} href="http://stellar.network/">
+              <MenuItem href="http://stellar.network/">
                 Stellar Network
               </MenuItem>
             </NavDropdown>
