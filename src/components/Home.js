@@ -6,12 +6,10 @@ import LedgerTable from './LedgerTableContainer'
 import OperationList from './OperationList'
 import TransactionTable from './TransactionTableContainer'
 import LumensRates from './shared/LumensRates'
+import {titleWithRightJustifiedLink} from '../lib/Utils'
 
 const panelHeader = (title, viewAllLink) =>
-  <div>
-    <span>{title}</span>
-    <a href={viewAllLink} className="pull-right">View All</a>
-  </div>
+  titleWithRightJustifiedLink(title, 'View All', viewAllLink)
 
 class Home extends React.Component {
   render() {

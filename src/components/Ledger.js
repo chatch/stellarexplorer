@@ -9,6 +9,7 @@ import {
 } from 'react-intl'
 
 import {withServer} from './shared/HOCs'
+import {titleWithRightJustifiedLink} from '../lib/Utils'
 import TransactionTable from './TransactionTableContainer'
 
 const responseToState = rsp => {
@@ -31,67 +32,76 @@ const responseToState = rsp => {
 
 class Ledger extends React.Component {
   render() {
+    const {
+      dataURL,
+      hash,
+      opCount,
+      prevHash,
+      prevSeq,
+      protocol,
+      seq,
+      time,
+      txCount,
+    } = this.props
     const {formatMessage} = this.props.intl
     return (
       <Grid>
         <Row>
-          <Panel header={formatMessage({id: 'ledger'})}>
+          <Panel
+            header={titleWithRightJustifiedLink(
+              formatMessage({id: 'ledger'}),
+              'JSON',
+              dataURL
+            )}
+          >
             <Table>
               <tbody>
                 <tr>
                   <td>#</td>
-                  <td>{this.props.seq}</td>
+                  <td>{seq}</td>
                 </tr>
                 <tr>
                   <td><FormattedMessage id="time" /></td>
                   <td>
-                    <FormattedDate value={this.props.time} />&nbsp;
-                    <FormattedTime value={this.props.time} />
+                    <FormattedDate value={time} />&nbsp;
+                    <FormattedTime value={time} />
                   </td>
                 </tr>
                 <tr>
                   <td><FormattedMessage id="hash" /></td>
-                  <td>{this.props.hash}</td>
+                  <td>{hash}</td>
                 </tr>
                 <tr>
                   <td><FormattedMessage id="prevHash" /></td>
                   <td>
-                    <Link to={`/ledger/${this.props.prevSeq}`}>
-                      {this.props.prevHash}
+                    <Link to={`/ledger/${prevSeq}`}>
+                      {prevHash}
                     </Link>
                   </td>
                 </tr>
                 <tr>
                   <td><FormattedMessage id="protocolVersion" /></td>
-                  <td>{this.props.protocol}</td>
+                  <td>{protocol}</td>
                 </tr>
-                <tr>
-                  <td><FormattedMessage id="protocolVersion" /></td>
-                  <td>{this.props.protocol}</td>
-                </tr>
-                {this.props.opCount === 0 &&
+                {opCount === 0 &&
                   <tr>
                     <td><FormattedMessage id="transactions" /></td>
-                    <td>{this.props.txCount}</td>
+                    <td>{txCount}</td>
                   </tr>}
                 <tr>
                   <td><FormattedMessage id="operations" /></td>
-                  <td>{this.props.opCount}</td>
+                  <td>{opCount}</td>
                 </tr>
               </tbody>
             </Table>
           </Panel>
         </Row>
-        {this.props.opCount > 0 &&
+        {opCount > 0 &&
           <Row>
             <h3>
-              <FormattedMessage id="transactions" />&nbsp;({this.props.txCount})
+              <FormattedMessage id="transactions" />&nbsp;({txCount})
             </h3>
-            <TransactionTable
-              compact={false}
-              refresh={false}
-              ledger={this.props.seq}
-            />
+            <TransactionTable compact={false} refresh={false} ledger={seq} />
           </Row>}
       </Grid>
     )
@@ -120,7 +130,11 @@ class LedgerContainer extends React.Component {
   render() {
     return this.state.seq === 0
       ? null
-      : <Ledger {...this.state} {...this.props} />
+      : <Ledger
+          dataURL={this.props.server.ledgerURL(this.state.seq)}
+          {...this.state}
+          {...this.props}
+        />
   }
 }
 

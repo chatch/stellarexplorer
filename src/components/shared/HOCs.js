@@ -9,6 +9,7 @@ const withEither = (
     ? <EitherComponent {...props} />
     : <Component {...props} />
 
+// @see App.js which puts this stellar server handle on the context
 const withServer = getContext({server: React.PropTypes.object})
 
 export {withEither, withServer}

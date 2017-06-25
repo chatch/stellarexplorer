@@ -27,7 +27,6 @@ const fetchRecords = props => {
   if (props.tx) builder.forTransaction(props.tx)
   builder.limit(props.limit)
   builder.order('desc')
-  console.log(`built call`)
   return builder.call()
 }
 

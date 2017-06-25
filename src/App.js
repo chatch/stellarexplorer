@@ -78,6 +78,7 @@ class App extends Component {
     )
   }
 
+  // @see HOCs.js withServer() to get this as props in any component
   getChildContext() {
     return {server: this.state.server}
   }

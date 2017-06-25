@@ -5,6 +5,7 @@ import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import {withServer} from './shared/HOCs'
 import OperationList from './OperationList'
+import {titleWithRightJustifiedLink} from '../lib/Utils'
 
 class Transaction extends React.Component {
   static defaultProps = {
@@ -12,14 +13,20 @@ class Transaction extends React.Component {
   }
 
   render() {
-    const {id, fee, ledger, memoType, opCount, time} = this.props
+    const {id, dataURL, fee, ledger, memoType, opCount, time} = this.props
 
     if (!id) return null
 
     return (
       <Grid>
         <Row>
-          <Panel header="Transaction Details">
+          <Panel
+            header={titleWithRightJustifiedLink(
+              'Transaction Details',
+              'JSON',
+              dataURL
+            )}
+          >
             <Table className="table-hover table-condensed" fill>
               <tbody>
                 <tr>
@@ -63,6 +70,7 @@ class Transaction extends React.Component {
 }
 
 Transaction.propTypes = {
+  dataURL: PropTypes.string,
   fee: PropTypes.number,
   id: PropTypes.string,
   ledger: PropTypes.number,
@@ -97,6 +105,7 @@ class TransactionContainer extends React.Component {
     return (
       <Transaction
         id={tx.id}
+        dataURL={this.props.server.txURL(tx.id)}
         fee={tx.fee_paid}
         ledger={tx.ledger_attr}
         memoType={tx.memo_type}

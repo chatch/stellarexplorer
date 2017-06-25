@@ -1,19 +1,16 @@
+import React from 'react'
 import {sdk} from './Stellar'
 
-function isDefInt(obj, key) {
-  return obj[key] && Number.isInteger(Number(obj[key]))
-}
+const isAccount = accStr => sdk.StrKey.isValidEd25519PublicKey(accStr)
+const isDefInt = (obj, key) => obj[key] && Number.isInteger(Number(obj[key]))
+const isTxHash = hashStr => /^[0-9a-f]{64}$/i.test(hashStr)
 
-function isAccount(accStr) {
-  return sdk.StrKey.isValidEd25519PublicKey(accStr)
-}
+const shortHash = hash => hash.substring(0, 10) + '...'
 
-function isTxHash(hashStr) {
-  return /^[0-9a-f]{64}$/i.test(hashStr)
-}
+const titleWithRightJustifiedLink = (title, rightLinkLabel, rightLinkAddr) =>
+  <div>
+    <span>{title}</span>
+    <a href={rightLinkAddr} className="pull-right">{rightLinkLabel}</a>
+  </div>
 
-function shortHash(hash) {
-  return hash.substring(0, 10) + '...'
-}
-
-export {isDefInt, isAccount, isTxHash, shortHash}
+export {isDefInt, isAccount, isTxHash, titleWithRightJustifiedLink, shortHash}
