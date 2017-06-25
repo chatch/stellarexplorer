@@ -38,7 +38,10 @@ function useLocalServer() {
 }
 
 function newServer(address) {
-  return new sdk.Server(address, {allowHttp: true})
+  const server = new sdk.Server(address, {allowHttp: true})
+  server.ledgerURL = id => `${server.serverURL}ledgers/${id}`
+  server.txURL = id => `${server.serverURL}transactions/${id}`
+  return server
 }
 
 /* ----------------------------------------------------------
@@ -46,11 +49,6 @@ function newServer(address) {
  * Customise the paging behaviour on stellar-sdk calls.
  *
  * ---------------------------------------------------------*/
-
-const TransactionCallBuilder = require('stellar-sdk/lib/transaction_call_builder')
-  .TransactionCallBuilder
-const LedgerCallBuilder = require('stellar-sdk/lib/ledger_call_builder')
-  .LedgerCallBuilder
 
 /**
  * Wrap the Stellar CallBuilder's to modify the default paging behaviour for
@@ -103,6 +101,11 @@ const wrapStellarCallBuilderWithWebPagePaging = CallBuilder => {
 /*
  * Wrap the stellar server calls we want to use modified paging on
  */
+
+const TransactionCallBuilder = require('stellar-sdk/lib/transaction_call_builder')
+  .TransactionCallBuilder
+const LedgerCallBuilder = require('stellar-sdk/lib/ledger_call_builder')
+  .LedgerCallBuilder
 
 const pagingCalls = {
   transactions: TransactionCallBuilder,
