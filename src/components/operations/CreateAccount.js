@@ -12,7 +12,7 @@ const CreateAccount = ({account, startingBalance}) =>
 
 CreateAccount.propTypes = {
   account: PropTypes.string.isRequired,
-  startingBalance: PropTypes.number,
+  startingBalance: PropTypes.string,
 }
 
 export default CreateAccount
