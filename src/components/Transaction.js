@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import {withServer} from './shared/HOCs'
-import Operations from './Operations'
+import OperationList from './OperationList'
 
 class Transaction extends React.Component {
   static defaultProps = {
@@ -54,7 +54,7 @@ class Transaction extends React.Component {
         <Row>
           <h3>{`Operations (${opCount})`}</h3>
           <Grid>
-            <Operations tx={id} />
+            <OperationList limit={opCount} tx={id} />
           </Grid>
         </Row>
       </Grid>

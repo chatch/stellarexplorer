@@ -27,6 +27,7 @@
     "limit": "Limit",
     "protocolVersion": "Protocol Version",
     "latest.ledgers": "Latest Ledgers",
+    "latest.operations": "Latest Operations",
     "latest.txs": "Latest Transactions",
     "search.placeHolder": "Search by Ledger / Account ID / Transaction Hash"
 }

@@ -20,6 +20,7 @@ import Transactions from './components/Transactions'
 import Account from './components/Account'
 import Accounts from './components/Accounts'
 import Anchors from './components/Anchors'
+import Operations from './components/Operations'
 
 import {networks} from './lib/Stellar'
 
@@ -101,6 +102,7 @@ class App extends Component {
                 <Route path="/ledger/:id" component={Ledger} />
                 <Route path="/txs" component={Transactions} />
                 <Route path="/tx/:id" component={Transaction} />
+                <Route path="/operations" component={Operations} />
                 <Route path="/accounts" component={Accounts} />
                 <Route path="/account/:id" component={Account} />
                 <Route path="/anchors" component={Anchors} />

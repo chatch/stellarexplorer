@@ -8,8 +8,8 @@
     "ledgers": "根帐",
     "currency": "货币",
     "operation": "操作",
-    "operations": "操作",
     "account": "帐户",
+    "operations": "操作",
     "balance" : "余额",
     "balances" : "余额",
     "asset" : "资产",
@@ -22,6 +22,7 @@
     "prevHash": "上一个",
     "protocolVersion": "协议版本",
     "latest.ledgers": "最新的根帐",
+    "latest.operations": "最新的操作",
     "latest.txs": "最新的交易记录",
     "search.placeHolder": "搜索"
 }
