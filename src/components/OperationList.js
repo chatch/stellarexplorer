@@ -11,7 +11,7 @@ import Operation from './operations/Operation'
 const OperationList = props =>
   <div style={{marginLeft: 15}}>
     {props.records.map(op => {
-      return <Operation key={op.id} op={op} />
+      return <Operation key={op.id} op={op} opURLFn={props.server.opURL} />
     })}
   </div>
 

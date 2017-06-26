@@ -34,13 +34,28 @@ const SubOperation = ({op}) => {
   return <SubOpComponent {...op} />
 }
 
-const Operation = ({compact, op}) =>
+const Operation = ({compact, op, opURLFn}) =>
   <Row key={op.id} className="operation">
     {op.type !== 'account_merge'
       ? <AccountLink account={op.sourceAccount} />
-      : op.sourceAccount}:&nbsp;
+      : <span title={op.sourceAccount}>
+          {op.sourceAccount.substring(0, 4)}
+        </span>}:&nbsp;
     <SubOperation op={op} />
-    {!compact && <span>NOT COMPACT</span>}
+    <a href={opURLFn(op.id)}>
+      <span
+        style={{
+          fontSize: '0.8em',
+          backgroundColor: 'white',
+          borderRadius: '3',
+          color: 'black',
+          padding: 2,
+          marginLeft: 10,
+        }}
+      >
+        JSON
+      </span>
+    </a>
   </Row>
 
 Operation.defaultProps = {
@@ -50,6 +65,7 @@ Operation.defaultProps = {
 Operation.propTypes = {
   compact: PropTypes.bool,
   op: PropTypes.object.isRequired,
+  opURLFn: PropTypes.func.isRequired,
 }
 
 export default Operation
