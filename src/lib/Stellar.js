@@ -39,6 +39,7 @@ function useLocalServer() {
 
 function newServer(address) {
   const server = new sdk.Server(address, {allowHttp: true})
+  server.accountURL = id => `${server.serverURL}accounts/${id}`
   server.ledgerURL = id => `${server.serverURL}ledgers/${id}`
   server.opURL = id => `${server.serverURL}operations/${id}`
   server.txURL = id => `${server.serverURL}transactions/${id}`

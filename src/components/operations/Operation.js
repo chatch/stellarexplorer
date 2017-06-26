@@ -3,6 +3,7 @@ import {Row} from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
 import AccountLink from '../shared/AccountLink'
+import HorizonJSONButton from '../shared/HorizonJSONButton'
 
 import AccountMerge from './AccountMerge'
 import AllowTrust from './AllowTrust'
@@ -42,20 +43,7 @@ const Operation = ({compact, op, opURLFn}) =>
           {op.sourceAccount.substring(0, 4)}
         </span>}:&nbsp;
     <SubOperation op={op} />
-    <a href={opURLFn(op.id)}>
-      <span
-        style={{
-          fontSize: '0.8em',
-          backgroundColor: 'white',
-          borderRadius: '3',
-          color: 'black',
-          padding: 2,
-          marginLeft: 10,
-        }}
-      >
-        JSON
-      </span>
-    </a>
+    <HorizonJSONButton id={op.id} urlFn={opURLFn} />
   </Row>
 
 Operation.defaultProps = {

@@ -1,10 +1,12 @@
 import React from 'react'
 import {Grid, Panel, Row, Table} from 'react-bootstrap'
 import {injectIntl, FormattedMessage} from 'react-intl'
-import {withServer} from './shared/HOCs'
+
 import anchors from '../lib/Anchors'
-import TransactionTable from './TransactionTableContainer'
 import Asset from './shared/Asset'
+import {withServer} from './shared/HOCs'
+import HorizonJSONButton from './shared/HorizonJSONButton'
+import TransactionTable from './TransactionTableContainer'
 
 const BalanceRow = bal =>
   <tr key={bal.asset_type}>
@@ -93,18 +95,21 @@ class Account extends React.Component {
     const a = this.props.account
     return (
       <Grid>
-        <Row>
-          {anchors.hasOwnProperty(a.id) &&
-            <Issuer id={a.id} issuer={anchors[a.id]} />}
-        </Row>
+        {anchors.hasOwnProperty(a.id) &&
+          <Row>
+            <Issuer id={a.id} issuer={anchors[a.id]} />
+          </Row>}
         <Row>
           <div
             style={{
-              marginTop: '10px',
+              marginTop: 10,
             }}
           >
             {a.id}
           </div>
+        </Row>
+        <Row>
+          <HorizonJSONButton id={a.id} urlFn={this.props.server.accountURL} />
         </Row>
         <Row>
           <Balances balances={a.balances} />
