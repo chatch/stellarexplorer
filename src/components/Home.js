@@ -6,10 +6,10 @@ import LedgerTable from './LedgerTableContainer'
 import OperationList from './OperationList'
 import TransactionTable from './TransactionTableContainer'
 import LumensRates from './shared/LumensRates'
-import {titleWithRightJustifiedLink} from '../lib/Utils'
+import Title from './shared/TitleWithLink'
 
 const panelHeader = (title, viewAllLink) =>
-  titleWithRightJustifiedLink(title, 'View All', viewAllLink)
+  <Title rightLinkAddr={viewAllLink} rightLinkLabel="View All" title={title} />
 
 class Home extends React.Component {
   render() {
@@ -17,17 +17,7 @@ class Home extends React.Component {
     return (
       <Grid>
         <Row>
-          <Col md={6}>
-            <Panel header={formatMessage({id: 'stats'})}>
-              <div>
-                <LumensRates />
-              </div>
-            </Panel>
-            <Panel
-              header={panelHeader(formatMessage({id: 'latest.txs'}), '/txs')}
-            >
-              <TransactionTable fill limit={5} refresh />
-            </Panel>
+          <Col md={4}>
             <Panel
               header={panelHeader(
                 formatMessage({id: 'latest.ledgers'}),
@@ -36,15 +26,25 @@ class Home extends React.Component {
             >
               <LedgerTable fill limit={5} refresh />
             </Panel>
+            <Panel
+              header={panelHeader(formatMessage({id: 'latest.txs'}), '/txs')}
+            >
+              <TransactionTable compact fill limit={5} refresh />
+            </Panel>
+            <Panel header={formatMessage({id: 'stats'})}>
+              <div>
+                <LumensRates />
+              </div>
+            </Panel>
           </Col>
-          <Col md={6}>
+          <Col md={8}>
             <Panel
               header={panelHeader(
                 formatMessage({id: 'latest.operations'}),
                 '/operations'
               )}
             >
-              <OperationList limit={20} refresh />
+              <OperationList compact limit={20} refresh />
             </Panel>
           </Col>
         </Row>

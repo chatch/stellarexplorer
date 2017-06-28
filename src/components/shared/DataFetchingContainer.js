@@ -85,9 +85,6 @@ const withDataFetchingContainer = (
   }
 
   dataFetchingContainerClass.propTypes = propTypesContainer
-  dataFetchingContainerClass.contextTypes = {
-    server: PropTypes.object,
-  }
 
   return withServer(dataFetchingContainerClass)
 }

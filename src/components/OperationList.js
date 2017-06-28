@@ -9,9 +9,16 @@ import {withSpinner} from './shared/Spinner'
 import Operation from './operations/Operation'
 
 const OperationList = props =>
-  <div style={{marginLeft: 15}}>
+  <div style={{marginLeft: 5, marginRight: 20}}>
     {props.records.map(op => {
-      return <Operation key={op.id} op={op} opURLFn={props.server.opURL} />
+      return (
+        <Operation
+          key={op.id}
+          compact={props.compact}
+          op={op}
+          opURLFn={props.server.opURL}
+        />
+      )
     })}
   </div>
 
@@ -25,6 +32,7 @@ const rspRecsToProps = records =>
 const fetchRecords = props => {
   const builder = props.server.operations()
   if (props.tx) builder.forTransaction(props.tx)
+  if (props.account) builder.forAccount(props.account)
   builder.limit(props.limit)
   builder.order('desc')
   return builder.call()

@@ -56,7 +56,11 @@ class TransactionTable extends React.Component {
           <tr>
             <th>#</th>
             <th><FormattedMessage id="time" /></th>
-            <th><FormattedMessage id="operations" /></th>
+            <th>
+              <FormattedMessage
+                id={this.props.compact === true ? 'ops' : 'operations'}
+              />
+            </th>
             <th><FormattedMessage id="ledger" /></th>
           </tr>
         </thead>

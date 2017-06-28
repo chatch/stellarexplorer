@@ -9,8 +9,8 @@ import {
 } from 'react-intl'
 
 import {withServer} from './shared/HOCs'
-import {titleWithRightJustifiedLink} from '../lib/Utils'
 import TransactionTable from './TransactionTableContainer'
+import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 const responseToState = rsp => {
   return {
@@ -33,7 +33,6 @@ const responseToState = rsp => {
 class Ledger extends React.Component {
   render() {
     const {
-      dataURL,
       hash,
       opCount,
       prevHash,
@@ -42,16 +41,19 @@ class Ledger extends React.Component {
       seq,
       time,
       txCount,
+      urlFn,
     } = this.props
+
     const {formatMessage} = this.props.intl
+
     return (
       <Grid>
         <Row>
           <Panel
-            header={titleWithRightJustifiedLink(
+            header={titleWithJSONButton(
+              seq,
               formatMessage({id: 'ledger'}),
-              'JSON',
-              dataURL
+              urlFn
             )}
           >
             <Table>
@@ -131,7 +133,7 @@ class LedgerContainer extends React.Component {
     return this.state.seq === 0
       ? null
       : <Ledger
-          dataURL={this.props.server.ledgerURL(this.state.seq)}
+          urlFn={this.props.server.ledgerURL}
           {...this.state}
           {...this.props}
         />

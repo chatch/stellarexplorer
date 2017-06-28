@@ -1,15 +1,17 @@
 import React from 'react'
-import {Grid, Panel, Row, Table} from 'react-bootstrap'
+import {Col, Grid, Panel, Row, Table} from 'react-bootstrap'
 import {injectIntl, FormattedMessage} from 'react-intl'
 
 import anchors from '../lib/Anchors'
+import AccountLink from './shared/AccountLink'
 import Asset from './shared/Asset'
 import {withServer} from './shared/HOCs'
-import HorizonJSONButton from './shared/HorizonJSONButton'
+import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 import TransactionTable from './TransactionTableContainer'
+import OperationList from './OperationList'
 
-const BalanceRow = bal =>
-  <tr key={bal.asset_type}>
+const balanceRow = bal =>
+  <tr key={bal.asset_code ? bal.asset_code : 'XLM'}>
     <td>
       <Asset
         type={bal.asset_type}
@@ -22,21 +24,18 @@ const BalanceRow = bal =>
   </tr>
 
 const Balances = props =>
-  <div>
-    <h4><FormattedMessage id="balances" /></h4>
-    <Table>
-      <thead>
-        <tr>
-          <th><FormattedMessage id="asset" /></th>
-          <th><FormattedMessage id="balance" /></th>
-          <th><FormattedMessage id="limit" /></th>
-        </tr>
-      </thead>
-      <tbody>
-        {props.balances.map(BalanceRow)}
-      </tbody>
-    </Table>
-  </div>
+  <Table>
+    <thead>
+      <tr>
+        <th><FormattedMessage id="asset" /></th>
+        <th><FormattedMessage id="balance" /></th>
+        <th><FormattedMessage id="limit" /></th>
+      </tr>
+    </thead>
+    <tbody>
+      {props.balances.map(balanceRow)}
+    </tbody>
+  </Table>
 
 const Thresholds = props =>
   <div>
@@ -50,18 +49,14 @@ const Thresholds = props =>
         </tr>
       </thead>
       <tbody>
-        <td>{props.thresholds.low_threshold}</td>
-        <td>{props.thresholds.med_threshold}</td>
-        <td>{props.thresholds.high_threshold}</td>
+        <tr>
+          <td>{props.thresholds.low_threshold}</td>
+          <td>{props.thresholds.med_threshold}</td>
+          <td>{props.thresholds.high_threshold}</td>
+        </tr>
       </tbody>
     </Table>
   </div>
-
-const Signer = signer =>
-  <tr key={signer.public_key}>
-    <td>{signer.public_key}</td>
-    <td>{signer.weight}</td>
-  </tr>
 
 const Signers = props =>
   <div>
@@ -71,10 +66,41 @@ const Signers = props =>
         <tr>
           <th>Key</th>
           <th>Weight</th>
+          <th>Type</th>
         </tr>
       </thead>
       <tbody>
-        {props.signers.map(Signer)}
+        {props.signers.map(signer =>
+          <tr key={signer.public_key}>
+            <td><AccountLink account={signer.public_key} /></td>
+            <td>{signer.weight}</td>
+            <td>{signer.type}</td>
+          </tr>
+        )}
+      </tbody>
+    </Table>
+  </div>
+
+const Flags = props =>
+  <div>
+    <Table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.keys(props.flags).map(flag =>
+          <tr key={flag}>
+            <td>{flag}</td>
+            <td>
+              {typeof props.flags[flag] === 'boolean'
+                ? props.flags[flag].toString()
+                : props.flags[flag]}
+            </td>
+          </tr>
+        )}
       </tbody>
     </Table>
   </div>
@@ -93,44 +119,62 @@ class Account extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
     const a = this.props.account
+    const header = titleWithJSONButton(
+      a.id,
+      formatMessage({id: 'account'}),
+      this.props.urlFn
+    )
+
     return (
       <Grid>
-        {anchors.hasOwnProperty(a.id) &&
-          <Row>
-            <Issuer id={a.id} issuer={anchors[a.id]} />
-          </Row>}
         <Row>
-          <div
-            style={{
-              marginTop: 10,
-            }}
-          >
-            {a.id}
-          </div>
+          <Panel header={header}>
+            {anchors.hasOwnProperty(a.id) &&
+              <Issuer id={a.id} issuer={anchors[a.id]} />}
+
+            <h4>Public Key</h4>
+            {'   '}{a.id}
+          </Panel>
         </Row>
         <Row>
-          <HorizonJSONButton id={a.id} urlFn={this.props.server.accountURL} />
+          <Panel header="Balances">
+            <Balances balances={a.balances} />
+          </Panel>
         </Row>
         <Row>
-          <Balances balances={a.balances} />
+          <Panel header="Signing">
+            <Col md={9}>
+              <Signers signers={a.signers} />
+            </Col>
+            <Col md={3}>
+              <Thresholds thresholds={a.thresholds} />
+            </Col>
+          </Panel>
         </Row>
         <Row>
-          <Signers signers={a.signers} />
+          <Panel header="Flags">
+            <Flags flags={a.flags} />
+          </Panel>
         </Row>
         <Row>
-          <Thresholds thresholds={a.thresholds} />
+          <Panel header={formatMessage({id: 'operations'})}>
+            <OperationList
+              key={a.id}
+              account={a.id}
+              compact={false}
+              limit={20}
+              usePaging
+            />
+          </Panel>
         </Row>
-        <Row
-          style={{
-            marginTop: '20px',
-          }}
-        >
+        <Row>
           <Panel header={formatMessage({id: 'transactions'})}>
             <TransactionTable
-              usePaging
-              compact={false}
+              key={a.id}
               account={a.id}
+              compact={false}
               limit={10}
+              usePaging
             />
           </Panel>
         </Row>
@@ -159,9 +203,14 @@ class AccountContainer extends React.Component {
   }
 
   render() {
-    return this.state.account === null
-      ? null
-      : <Account account={this.state.account} {...this.props} />
+    if (this.state.account == null) return null
+    return (
+      <Account
+        account={this.state.account}
+        urlFn={this.props.server.accountURL}
+        {...this.props}
+      />
+    )
   }
 }
 

@@ -1,9 +1,10 @@
 import React from 'react'
-import {Row} from 'react-bootstrap'
+import {Col, Row} from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
 import AccountLink from '../shared/AccountLink'
 import HorizonJSONButton from '../shared/HorizonJSONButton'
+import TransactionTime from '../shared/TransactionTime'
 
 import AccountMerge from './AccountMerge'
 import AllowTrust from './AllowTrust'
@@ -30,21 +31,35 @@ const opTypeComponentMap = {
   set_options: SetOptions,
 }
 
+const opTypes = Object.keys(opTypeComponentMap)
+
 const SubOperation = ({op}) => {
   const SubOpComponent = opTypeComponentMap[op.type]
   return <SubOpComponent {...op} />
 }
 
-const Operation = ({compact, op, opURLFn}) =>
-  <Row key={op.id} className="operation">
-    {op.type !== 'account_merge'
-      ? <AccountLink account={op.sourceAccount} />
-      : <span title={op.sourceAccount}>
-          {op.sourceAccount.substring(0, 4)}
-        </span>}:&nbsp;
-    <SubOperation op={op} />
-    <HorizonJSONButton id={op.id} urlFn={opURLFn} />
-  </Row>
+const txLinkToHash = link => {
+  const uri = 'transactions/'
+  return link.substring(link.indexOf(uri) + uri.length)
+}
+
+const Operation = ({compact, op, opURLFn}) => {
+  const acc = op.type !== 'account_merge'
+    ? <AccountLink account={op.sourceAccount} />
+    : <span title={op.sourceAccount}>
+        {op.sourceAccount.substring(0, 4)}
+      </span>
+  return (
+    <Row key={op.id} className="operation">
+      <Col md={1}>{acc}</Col>
+      <Col md={7}><SubOperation op={op} /></Col>
+      <Col md={3}>
+        <TransactionTime id={txLinkToHash(op.links.transaction.href)} />
+      </Col>
+      <Col md={1}><HorizonJSONButton id={op.id} urlFn={opURLFn} /></Col>
+    </Row>
+  )
+}
 
 Operation.defaultProps = {
   compact: true,
@@ -52,7 +67,12 @@ Operation.defaultProps = {
 
 Operation.propTypes = {
   compact: PropTypes.bool,
-  op: PropTypes.object.isRequired,
+  op: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    links: PropTypes.object.isRequired,
+    sourceAccount: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(opTypes).isRequired,
+  }).isRequired,
   opURLFn: PropTypes.func.isRequired,
 }
 
