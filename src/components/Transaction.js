@@ -3,6 +3,8 @@ import {Grid, Row, Table, Panel} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
+
+import {handleFetchDataFailure} from '../lib/Utils'
 import {withServer} from './shared/HOCs'
 import OperationList from './OperationList'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -88,9 +90,7 @@ class TransactionContainer extends React.Component {
       .then(res => {
         this.setState({tx: res})
       })
-      .catch(err => {
-        console.error(`Failed to fetch record: [${err.stack}]`)
-      })
+      .catch(handleFetchDataFailure(id))
   }
 
   render() {

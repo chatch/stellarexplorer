@@ -3,6 +3,7 @@ import {Col, Grid, Panel, Row, Table} from 'react-bootstrap'
 import {injectIntl, FormattedMessage} from 'react-intl'
 
 import anchors from '../lib/Anchors'
+import {handleFetchDataFailure} from '../lib/Utils'
 import AccountLink from './shared/AccountLink'
 import Asset from './shared/Asset'
 import {withServer} from './shared/HOCs'
@@ -197,9 +198,14 @@ class AccountContainer extends React.Component {
   }
 
   loadAccount(accountId) {
-    this.props.server.accounts().accountId(accountId).call().then(res => {
-      this.setState({account: res})
-    })
+    this.props.server
+      .accounts()
+      .accountId(accountId)
+      .call()
+      .then(res => {
+        this.setState({account: res})
+      })
+      .catch(handleFetchDataFailure(accountId))
   }
 
   render() {

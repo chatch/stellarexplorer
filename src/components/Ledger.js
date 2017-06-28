@@ -8,6 +8,7 @@ import {
   FormattedMessage,
 } from 'react-intl'
 
+import {handleFetchDataFailure} from '../lib/Utils'
 import {withServer} from './shared/HOCs'
 import TransactionTable from './TransactionTableContainer'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -124,9 +125,14 @@ class LedgerContainer extends React.Component {
   }
 
   loadLedger(ledgerId) {
-    this.props.server.ledgers().ledger(ledgerId).call().then(res => {
-      this.setState(responseToState(res))
-    })
+    this.props.server
+      .ledgers()
+      .ledger(ledgerId)
+      .call()
+      .then(res => {
+        this.setState(responseToState(res))
+      })
+      .catch(handleFetchDataFailure(ledgerId))
   }
 
   render() {

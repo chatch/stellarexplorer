@@ -46,7 +46,11 @@ class NoMatch extends Component {
     return (
       <Grid>
         <Row>
-          <h3>Oops, nothing here ...</h3>
+          <h3>
+            {this.props.match.params.id
+              ? `Couldn't find "${this.props.match.params.id}"`
+              : `Nothing found here ...`}
+          </h3>
         </Row>
       </Grid>
     )
@@ -107,6 +111,7 @@ class App extends Component {
                 <Route path="/accounts" component={Accounts} />
                 <Route path="/account/:id" component={Account} />
                 <Route path="/anchors" component={Anchors} />
+                <Route path="/error/not-found/:id" component={NoMatch} />
                 <Route component={NoMatch} />
               </Switch>
             </div>
