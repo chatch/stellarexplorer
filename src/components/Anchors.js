@@ -3,14 +3,18 @@ import {Col, Grid, Panel, Row} from 'react-bootstrap'
 import {injectIntl} from 'react-intl'
 import anchors from '../lib/Anchors'
 import AccountLink from './shared/AccountLink'
+import AnchorLogo from './shared/AnchorLogo'
 
 const Anchor = anchor =>
   <div>
-    <Row>
+    <Row style={{marginBottom: 20}}>
+      <Col md={3}>
+        <AnchorLogo anchor={anchor} />
+      </Col>
       <Col md={3}>
         {anchor.name}
       </Col>
-      <Col md={9}>
+      <Col md={6}>
         <AccountLink account={anchor.id} label={anchor.id} />
       </Col>
     </Row>
@@ -33,7 +37,7 @@ class Anchors extends React.Component {
             <AnchorsList />
             <div
               style={{
-                paddingTop: '10px',
+                paddingTop: '30px',
               }}
             >
               NOTE: this is not

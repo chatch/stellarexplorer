@@ -5,6 +5,7 @@ import {injectIntl, FormattedMessage} from 'react-intl'
 import anchors from '../lib/Anchors'
 import {handleFetchDataFailure} from '../lib/Utils'
 import AccountLink from './shared/AccountLink'
+import AnchorLogo from './shared/AnchorLogo'
 import Asset from './shared/Asset'
 import {withServer} from './shared/HOCs'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -82,7 +83,7 @@ const Signers = props =>
     </Table>
   </div>
 
-const Flags = props =>
+const Flags = ({flags}) =>
   <div>
     <Table>
       <thead>
@@ -92,13 +93,13 @@ const Flags = props =>
         </tr>
       </thead>
       <tbody>
-        {Object.keys(props.flags).map(flag =>
+        {Object.keys(flags).map(flag =>
           <tr key={flag}>
             <td>{flag}</td>
             <td>
-              {typeof props.flags[flag] === 'boolean'
-                ? props.flags[flag].toString()
-                : props.flags[flag]}
+              {typeof flags[flag] === 'boolean'
+                ? flags[flag].toString()
+                : flags[flag]}
             </td>
           </tr>
         )}
@@ -106,14 +107,9 @@ const Flags = props =>
     </Table>
   </div>
 
-const Issuer = props =>
+const Anchor = ({anchor}) =>
   <div>
-    {props.issuer.img
-      ? <img
-          src={`${process.env.PUBLIC_URL}/img/${props.issuer.img}`}
-          alt={props.issuer.name}
-        />
-      : props.issuer.name}
+    {anchor.img ? <AnchorLogo anchor={anchor} /> : anchor.name}
   </div>
 
 class Account extends React.Component {
@@ -131,7 +127,7 @@ class Account extends React.Component {
         <Row>
           <Panel header={header}>
             {anchors.hasOwnProperty(a.id) &&
-              <Issuer id={a.id} issuer={anchors[a.id]} />}
+              <Anchor id={a.id} anchor={anchors[a.id]} />}
 
             <h4>Public Key</h4>
             {'   '}{a.id}
