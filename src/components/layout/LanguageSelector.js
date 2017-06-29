@@ -1,25 +1,26 @@
 import React from 'react'
+import {Dropdown, MenuItem} from 'react-bootstrap'
+import langSelectImg from '../../img/lang-select.png'
 
-const LanguageButton = ({buttonLang, currentLang, switcher}) =>
-  <button
-    className={buttonLang === currentLang ? 'is-active' : 'is-inactive'}
-    onClick={e => switcher(buttonLang)}
-  >
-    {buttonLang.toUpperCase()}
-  </button>
+const styleLanguageSelector = {
+  backgroundColor: 'rgba(255, 0, 0, 0)',
+  border: 0,
+  padding: 0,
+}
 
-const LanguageSelector = ({...props}) =>
-  <div className="Lang-Selector">
-    <LanguageButton
-      buttonLang="zh"
-      currentLang={props.lang}
-      switcher={props.languageSwitch}
-    />
-    <LanguageButton
-      buttonLang="en"
-      currentLang={props.lang}
-      switcher={props.languageSwitch}
-    />
-  </div>
+const LanguageSelector = ({selectedLanguage, switcher}) =>
+  <Dropdown id="Language-Selector">
+    <Dropdown.Toggle style={styleLanguageSelector}>
+      <img
+        src={langSelectImg}
+        style={{height: 35, width: 28}}
+        alt="Language Selector"
+      />
+    </Dropdown.Toggle>
+    <Dropdown.Menu style={{color: 'white'}}>
+      <MenuItem eventKey="1" lang="en" onClick={switcher}>English</MenuItem>
+      <MenuItem eventKey="2" lang="zh" onClick={switcher}>中文</MenuItem>
+    </Dropdown.Menu>
+  </Dropdown>
 
 export default LanguageSelector

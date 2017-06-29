@@ -29,8 +29,9 @@ import './App.css'
 
 addLocaleData([...en, ...zh])
 
-const locale = localStorage.getItem('lang') || navigator.language || 'en'
-const network = localStorage.getItem('network') || 'public'
+const initialLanguage =
+  localStorage.getItem('language') || navigator.language || 'en'
+const initialNetwork = localStorage.getItem('network') || 'public'
 
 const getMessages = locale => {
   switch (locale) {
@@ -40,6 +41,8 @@ const getMessages = locale => {
       return enMessages
   }
 }
+
+const reloadPage = () => window.location.reload(true)
 
 class NoMatch extends Component {
   render() {
@@ -59,14 +62,15 @@ class NoMatch extends Component {
 
 class App extends Component {
   state = {
-    lang: locale,
-    network: network,
-    server: networks[network].initFunc(),
+    language: initialLanguage,
+    network: initialNetwork,
+    server: networks[initialNetwork].initFunc(),
   }
 
-  languageSwitcher = locale => {
-    localStorage.setItem('lang', locale)
-    this.setState({lang: locale})
+  languageSwitcher = event => {
+    const newLanguage = event.target.lang
+    localStorage.setItem('language', newLanguage)
+    this.setState({language: newLanguage}, reloadPage)
   }
 
   networkSwitcher = selectedNetwork => {
@@ -78,7 +82,7 @@ class App extends Component {
         network: selectedNetwork,
         server: server,
       },
-      () => window.location.reload(true)
+      reloadPage
     )
   }
 
@@ -90,15 +94,17 @@ class App extends Component {
   render() {
     return (
       <IntlProvider
-        key={this.state.lang}
-        locale={this.state.lang}
-        messages={getMessages(this.state.lang)}
+        key={this.state.language}
+        locale={this.state.language}
+        messages={getMessages(this.state.language)}
       >
         <Router>
           <div className="App">
             <Header
               network={this.state.network}
               networkSwitcher={this.networkSwitcher}
+              language={this.state.language}
+              languageSwitcher={this.languageSwitcher}
             />
             <div id="main-content">
               <Switch>

@@ -11,9 +11,10 @@ import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 import {FormattedMessage} from 'react-intl'
 
+import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
 import SearchBox from './SearchBox'
-import logo from '../../img/logo.png'
+import logoImg from '../../img/logo.png'
 
 class Header extends React.Component {
   render() {
@@ -22,7 +23,7 @@ class Header extends React.Component {
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">
-              <img src={logo} className="App-logo" alt="logo" />
+              <img src={logoImg} className="App-logo" alt="logo" />
               <span className="brand-text">Explorer</span>
             </Link>
           </Navbar.Brand>
@@ -64,6 +65,12 @@ class Header extends React.Component {
               </MenuItem>
             </NavDropdown>
           </Nav>
+          <Navbar.Form pullRight>
+            <LanguageSelector
+              language={this.props.language}
+              switcher={this.props.languageSwitcher}
+            />
+          </Navbar.Form>
           <Navbar.Form pullRight>
             <NetworkSelector
               network={this.props.network}

@@ -153,34 +153,12 @@ body, .navbar {
 
 @media (min-width: 992px) {
   .Search-box {
-    width: 520px !important;
+    width: 450px !important;
   }
 }
 
-.Lang-Selector {
-  margin: 5px 0;
-}
-
-.Lang-Selector button {
-  display: inline-block;
-  cursor: pointer;
-  background: #333;
-  color: #ccc;
-  border: none;
-  border-radius: 2px;
-}
-
-.Lang-Selector button:focus {
-  outline: none;
-}
-
-.Lang-Selector button:not(:first-child) {
-  margin-left: 5px;
-}
-
-.Lang-Selector .is-active {
-  background: #61dafb;
-  color: #fff;
+#Language-Selector > span.caret {
+  color: #777 !important;
 }
 
 .Network-Selector {
