@@ -9,7 +9,7 @@ import {
 } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
-import {FormattedMessage} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 
 import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
@@ -18,12 +18,17 @@ import logoImg from '../../img/logo.png'
 
 class Header extends React.Component {
   render() {
+    const {formatMessage} = this.props.intl
     return (
       <Navbar fluid fixedTop collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">
-              <img src={logoImg} className="App-logo" alt="logo" />
+              <img
+                src={logoImg}
+                className="App-logo"
+                alt={formatMessage({id: 'logo'})}
+              />
               <span className="brand-text">Explorer</span>
             </Link>
           </Navbar.Brand>
@@ -49,8 +54,13 @@ class Header extends React.Component {
             <LinkContainer to="/ledgers">
               <NavItem><FormattedMessage id="ledgers" /></NavItem>
             </LinkContainer>
-            <NavDropdown title="More" id="basic-nav-dropdown">
-              <MenuItem href="/anchors">Anchors</MenuItem>
+            <NavDropdown
+              title={formatMessage({id: 'more'})}
+              id="basic-nav-dropdown"
+            >
+              <MenuItem href="/anchors">
+                <FormattedMessage id="anchors" />
+              </MenuItem>
               <MenuItem href="https://www.stellar.org/laboratory/">
                 Laboratory
               </MenuItem>
@@ -88,4 +98,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+export default injectIntl(Header)

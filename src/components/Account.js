@@ -66,9 +66,9 @@ const Signers = props =>
     <Table>
       <thead>
         <tr>
-          <th>Key</th>
-          <th>Weight</th>
-          <th>Type</th>
+          <th><FormattedMessage id="key" /></th>
+          <th><FormattedMessage id="weight" /></th>
+          <th><FormattedMessage id="type" /></th>
         </tr>
       </thead>
       <tbody>
@@ -88,8 +88,8 @@ const Flags = ({flags}) =>
     <Table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Value</th>
+          <th><FormattedMessage id="name" /></th>
+          <th><FormattedMessage id="value" /></th>
         </tr>
       </thead>
       <tbody>
@@ -129,17 +129,17 @@ class Account extends React.Component {
             {anchors.hasOwnProperty(a.id) &&
               <Anchor id={a.id} anchor={anchors[a.id]} />}
 
-            <h4>Public Key</h4>
+            <h4><FormattedMessage id="key.public" /></h4>
             {'   '}{a.id}
           </Panel>
         </Row>
         <Row>
-          <Panel header="Balances">
+          <Panel header={formatMessage({id: 'balances'})}>
             <Balances balances={a.balances} />
           </Panel>
         </Row>
         <Row>
-          <Panel header="Signing">
+          <Panel header={formatMessage({id: 'signing'})}>
             <Col md={9}>
               <Signers signers={a.signers} />
             </Col>
@@ -149,7 +149,7 @@ class Account extends React.Component {
           </Panel>
         </Row>
         <Row>
-          <Panel header="Flags">
+          <Panel header={formatMessage({id: 'flags'})}>
             <Flags flags={a.flags} />
           </Panel>
         </Row>

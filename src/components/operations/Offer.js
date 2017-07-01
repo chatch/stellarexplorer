@@ -1,13 +1,14 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import Asset from '../shared/Asset'
 
-const offerTypeDesc = (amount, offerId) => {
-  let desc = ''
-  if (offerId === 0) desc += `Sell Offer: ${amount} `
-  else if (parseFloat(amount) === 0) desc += `Remove Offer: `
-  else desc += `Update Offer: ${amount} `
-  return desc
+const offerType = (amount, offerId) => {
+  let type = ''
+  if (offerId === 0) type = 'sell'
+  else if (parseFloat(amount) === 0) type = 'remove'
+  else type = 'update'
+  return type
 }
 
 const Offer = ({
@@ -20,22 +21,32 @@ const Offer = ({
   sellingAssetCode,
   sellingAssetIssuer,
   sellingAssetType,
-}) =>
-  <span>
-    {offerTypeDesc(amount, offerId)}
-    <Asset
-      code={sellingAssetCode}
-      issuer={sellingAssetIssuer}
-      type={sellingAssetType}
+}) => {
+  const msgId = `operation.offer.${offerType(amount, offerId)}`
+  return (
+    <FormattedMessage
+      id={msgId}
+      values={{
+        amount: amount,
+        buyingAsset: (
+          <Asset
+            code={buyingAssetCode}
+            issuer={buyingAssetIssuer}
+            type={buyingAssetType}
+          />
+        ),
+        price: price,
+        sellingAsset: (
+          <Asset
+            code={sellingAssetCode}
+            issuer={sellingAssetIssuer}
+            type={sellingAssetType}
+          />
+        ),
+      }}
     />
-    {` for `}
-    <Asset
-      code={buyingAssetCode}
-      issuer={buyingAssetIssuer}
-      type={buyingAssetType}
-    />
-    {` @ ${price}`}
-  </span>
+  )
+}
 
 Offer.propTypes = {
   amount: PropTypes.string,

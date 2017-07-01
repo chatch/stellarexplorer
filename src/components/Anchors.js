@@ -1,6 +1,6 @@
 import React from 'react'
 import {Col, Grid, Panel, Row} from 'react-bootstrap'
-import {injectIntl} from 'react-intl'
+import {injectIntl, FormattedMessage} from 'react-intl'
 import anchors from '../lib/Anchors'
 import AccountLink from './shared/AccountLink'
 import AnchorLogo from './shared/AnchorLogo'
@@ -37,13 +37,10 @@ class Anchors extends React.Component {
             <AnchorsList />
             <div
               style={{
-                paddingTop: '30px',
+                paddingTop: 30,
               }}
             >
-              NOTE: this is not
-              a comprehensive list. Add other anchors to the Anchors.json file
-              to have them
-              appear here.
+              <FormattedMessage id="anchors.notice" />
             </div>
           </Panel>
         </Row>

@@ -147,13 +147,13 @@ body, .navbar {
 
 @media (min-width: 768px) {
   .Search-box {
-    width: 350px !important;
+    width: 250px !important;
   }
 }
 
 @media (min-width: 992px) {
   .Search-box {
-    width: 450px !important;
+    width: 350px !important;
   }
 }
 

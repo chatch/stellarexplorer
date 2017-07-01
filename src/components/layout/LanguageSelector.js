@@ -1,5 +1,6 @@
 import React from 'react'
 import {Dropdown, MenuItem} from 'react-bootstrap'
+import {injectIntl} from 'react-intl'
 import langSelectImg from '../../img/lang-select.png'
 
 const styleLanguageSelector = {
@@ -8,13 +9,17 @@ const styleLanguageSelector = {
   padding: 0,
 }
 
-const LanguageSelector = ({selectedLanguage, switcher}) =>
+const LanguageSelector = ({
+  selectedLanguage,
+  switcher,
+  intl: {formatMessage},
+}) =>
   <Dropdown id="Language-Selector">
     <Dropdown.Toggle style={styleLanguageSelector}>
       <img
         src={langSelectImg}
         style={{height: 35, width: 28}}
-        alt="Language Selector"
+        alt={formatMessage({id: 'language.selector'})}
       />
     </Dropdown.Toggle>
     <Dropdown.Menu style={{color: 'white'}}>
@@ -23,4 +28,4 @@ const LanguageSelector = ({selectedLanguage, switcher}) =>
     </Dropdown.Menu>
   </Dropdown>
 
-export default LanguageSelector
+export default injectIntl(LanguageSelector)

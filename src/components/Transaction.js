@@ -1,7 +1,12 @@
 import React from 'react'
 import {Grid, Row, Table, Panel} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import {FormattedDate, FormattedTime, FormattedMessage} from 'react-intl'
+import {
+  formatMessage,
+  FormattedDate,
+  FormattedTime,
+  FormattedMessage,
+} from 'react-intl'
 import PropTypes from 'prop-types'
 
 import {handleFetchDataFailure} from '../lib/Utils'
@@ -22,7 +27,13 @@ class Transaction extends React.Component {
     return (
       <Grid>
         <Row>
-          <Panel header={titleWithJSONButton(id, 'Transaction Details', urlFn)}>
+          <Panel
+            header={titleWithJSONButton(
+              id,
+              formatMessage({id: 'transaction.details'}),
+              urlFn
+            )}
+          >
             <Table className="table-hover table-condensed" fill>
               <tbody>
                 <tr>
@@ -38,7 +49,7 @@ class Transaction extends React.Component {
                 </tr>
                 <tr>
                   <td>Fee</td>
-                  <td>{fee}&nbsp; stroops</td>
+                  <td>{fee}{' '}stroops</td>
                 </tr>
                 <tr>
                   <td><FormattedMessage id="ledger" /></td>

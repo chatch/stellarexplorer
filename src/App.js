@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {Grid, Row} from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
-import {IntlProvider, addLocaleData} from 'react-intl'
+import {IntlProvider, addLocaleData, FormattedMessage} from 'react-intl'
 import en from 'react-intl/locale-data/en'
 import zh from 'react-intl/locale-data/zh'
 import enMessages from './languages/en'
@@ -46,13 +46,17 @@ const reloadPage = () => window.location.reload(true)
 
 class NoMatch extends Component {
   render() {
+    const id = this.props.match.params.id
     return (
       <Grid>
         <Row>
           <h3>
-            {this.props.match.params.id
-              ? `Couldn't find "${this.props.match.params.id}"`
-              : `Nothing found here ...`}
+            {id
+              ? <FormattedMessage
+                  id="error.cant.find"
+                  values={{searchStr: id}}
+                />
+              : <FormattedMessage id="error.nothing.found" />}
           </h3>
         </Row>
       </Grid>

@@ -1,14 +1,27 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
+const MSG_KEY_PREFIX = 'operation.manage.data'
+
 const ManageData = ({name, value}) => {
   const isRemove = value === ''
-  const desc = `${isRemove ? 'Remove' : 'Set'} Key`
   return (
     <span>
-      {`${desc} ${_.truncate(name)}`}
-      {!isRemove && ` to ${_.truncate(value)}`}
+      <FormattedMessage
+        id={`${MSG_KEY_PREFIX}.${isRemove ? 'remove' : 'set'}`}
+        values={{
+          name: _.truncate(name),
+        }}
+      />
+      {!isRemove &&
+        <FormattedMessage
+          id={`${MSG_KEY_PREFIX}.set.to`}
+          values={{
+            value: _.truncate(value),
+          }}
+        />}
     </span>
   )
 }

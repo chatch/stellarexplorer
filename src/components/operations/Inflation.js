@@ -1,6 +1,7 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 
 // no props - just runs inflation
-const Inflation = () => <span>Inflation run</span>
+const Inflation = () => <FormattedMessage id="operation.inflation" />
 
 export default Inflation

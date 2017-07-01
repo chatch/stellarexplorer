@@ -19,6 +19,7 @@ class SearchBox extends React.Component {
     } else if (Number.isInteger(Number(searchStr))) {
       this.props.history.push(`/ledger/${searchStr}`)
     } else {
+      // TODO: show a view with a message
       console.log(`unknown search string [${searchStr}]`)
     }
   }

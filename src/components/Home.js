@@ -5,15 +5,19 @@ import {injectIntl} from 'react-intl'
 import LedgerTable from './LedgerTableContainer'
 import OperationList from './OperationList'
 import TransactionTable from './TransactionTableContainer'
-import LumensRates from './shared/LumensRates'
 import Title from './shared/TitleWithLink'
 
-const panelHeader = (title, viewAllLink) =>
-  <Title rightLinkAddr={viewAllLink} rightLinkLabel="View All" title={title} />
+const panelHeader = (title, viewAllLabel, viewAllLink) =>
+  <Title
+    rightLinkAddr={viewAllLink}
+    rightLinkLabel={viewAllLabel}
+    title={title}
+  />
 
 class Home extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
+    const viewAllStr = formatMessage({id: 'view.all'})
     return (
       <Grid>
         <Row>
@@ -21,26 +25,27 @@ class Home extends React.Component {
             <Panel
               header={panelHeader(
                 formatMessage({id: 'latest.ledgers'}),
+                viewAllStr,
                 '/ledgers'
               )}
             >
               <LedgerTable fill limit={5} refresh />
             </Panel>
             <Panel
-              header={panelHeader(formatMessage({id: 'latest.txs'}), '/txs')}
+              header={panelHeader(
+                formatMessage({id: 'latest.txs'}),
+                viewAllStr,
+                '/txs'
+              )}
             >
               <TransactionTable compact fill limit={5} refresh />
-            </Panel>
-            <Panel header={formatMessage({id: 'stats'})}>
-              <div>
-                <LumensRates />
-              </div>
             </Panel>
           </Col>
           <Col md={8}>
             <Panel
               header={panelHeader(
                 formatMessage({id: 'latest.operations'}),
+                viewAllStr,
                 '/operations'
               )}
             >

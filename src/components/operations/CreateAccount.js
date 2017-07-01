@@ -4,11 +4,13 @@ import {FormattedMessage} from 'react-intl'
 import AccountLink from '../shared/AccountLink'
 
 const CreateAccount = ({account, startingBalance}) =>
-  <span>
-    Created <FormattedMessage id="account" />{' '}
-    <AccountLink account={account} /> with Balance{' '}
-    {startingBalance}
-  </span>
+  <FormattedMessage
+    id="operation.account.create"
+    values={{
+      account: <AccountLink account={account} />,
+      balance: startingBalance,
+    }}
+  />
 
 CreateAccount.propTypes = {
   account: PropTypes.string.isRequired,

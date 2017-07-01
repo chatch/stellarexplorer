@@ -1,49 +1,69 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import {FormattedMessage} from 'react-intl'
 import AccountLink from '../shared/AccountLink'
+import _ from 'lodash'
 
-const renderSetOptions = props => {
-  let options = []
-  if (props.lowThreshold || props.medThreshold || props.highThreshold)
-    options.push(
-      <span>
-        Thresholds: L: {props.lowThreshold} M: {props.medThreshold} H:
-        {props.highThreshold}
-      </span>
-    )
-
-  if (props.homeDomain)
-    options.push(<span>Home Domain: {props.homeDomain}</span>)
-
-  if (props.setFlagsS)
-    options.push(<span>Set Flags: {props.setFlagsS.join(', ')}</span>)
-
-  if (props.clearFlagsS)
-    options.push(<span>Clear Flags: {props.clearFlagsS.join(', ')}</span>)
-
-  if (props.signerKey) options.push(<span>Signer Key: {props.signerKey}</span>)
-
-  if (props.signerWeight)
-    options.push(<span>Signer Weight: {props.signerWeight}</span>)
-
-  if (props.masterKeyWeight)
-    options.push(<span>Master Key Weight: {props.masterKeyWeight}</span>)
-
-  if (props.inflationDest)
-    options.push(
-      <span>
-        Inflation Destination: <AccountLink account={props.inflationDest} />
-      </span>
-    )
-
-  return options
+const propTypes = {
+  homeDomain: PropTypes.string,
+  signerKey: PropTypes.string,
+  signerWeight: PropTypes.string,
+  masterKeyWeight: PropTypes.string,
+  inflationDest: PropTypes.string,
+  setFlagsS: PropTypes.array,
+  clearFlagsS: PropTypes.array,
+  lowThreshold: PropTypes.number,
+  medThreshold: PropTypes.number,
+  highThreshold: PropTypes.number,
 }
 
-const SetOptions = props =>
+const dotCase = str => _.snakeCase(str).replace('_', '.')
+
+const Option = ({msgId, value}) => {
+  return (
+    <FormattedMessage
+      id={`operation.options.set.${msgId}`}
+      values={{
+        value: value,
+      }}
+    />
+  )
+}
+
+const OptionValue = ({optKey, value, type}) =>
   <span>
-    Set Options: [{renderSetOptions(props).map((opt, idx, all) => {
-      const isLast = idx === all.length - 1
-      return <span key={idx}>{opt}{!isLast && <span>, </span>}</span>
-    })}]
+    {type === PropTypes.array
+      ? value.join(', ')
+      : optKey === 'inflationDest' ? <AccountLink account={value} /> : value}
   </span>
+
+const OptionsList = props =>
+  <span>
+    {Object.keys(props).filter(p => p in propTypes).map((prop, idx, all) =>
+      <span key={prop}>
+        <Option
+          msgId={dotCase(prop)}
+          value={
+            <OptionValue
+              optKey={prop}
+              value={props[prop]}
+              type={propTypes[prop]}
+            />
+          }
+        />
+        {idx < all.length - 1 && ', '}
+      </span>
+    )}
+  </span>
+
+const SetOptions = props =>
+  <FormattedMessage
+    id="operation.options.set"
+    values={{
+      options: <OptionsList {...props} />,
+    }}
+  />
+
+SetOptions.propTypes = propTypes
 
 export default SetOptions

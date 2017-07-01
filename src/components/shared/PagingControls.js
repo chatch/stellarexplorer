@@ -1,14 +1,15 @@
 import React from 'react'
 import {Pager} from 'react-bootstrap'
+import {FormattedMessage} from 'react-intl'
 
 const PagingControls = ({handleClickNext, handleClickPrev, hidePrev}) =>
   <Pager>
     {!hidePrev &&
       <Pager.Item previous onClick={handleClickPrev} href="#">
-        &larr; Previous Page
+        &larr; <FormattedMessage id="paging.prev" />
       </Pager.Item>}
     <Pager.Item next onClick={handleClickNext} href="#">
-      Next Page &rarr;
+      <FormattedMessage id="paging.next" /> &rarr;
     </Pager.Item>
   </Pager>
 
