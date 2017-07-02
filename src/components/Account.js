@@ -21,17 +21,27 @@ const balanceRow = bal =>
         issuer={bal.asset_issuer}
       />
     </td>
-    <td>{bal.balance}</td>
-    <td>{bal.limit}</td>
+    <td>
+      {bal.balance}
+    </td>
+    <td>
+      {bal.limit}
+    </td>
   </tr>
 
 const Balances = props =>
   <Table>
     <thead>
       <tr>
-        <th><FormattedMessage id="asset" /></th>
-        <th><FormattedMessage id="balance" /></th>
-        <th><FormattedMessage id="limit" /></th>
+        <th>
+          <FormattedMessage id="asset" />
+        </th>
+        <th>
+          <FormattedMessage id="balance" />
+        </th>
+        <th>
+          <FormattedMessage id="limit" />
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -41,20 +51,34 @@ const Balances = props =>
 
 const Thresholds = props =>
   <div>
-    <h4><FormattedMessage id="thresholds" /></h4>
+    <h4>
+      <FormattedMessage id="thresholds" />
+    </h4>
     <Table>
       <thead>
         <tr>
-          <th><FormattedMessage id="low" /></th>
-          <th><FormattedMessage id="medium" /></th>
-          <th><FormattedMessage id="high" /></th>
+          <th>
+            <FormattedMessage id="threshold.low" />
+          </th>
+          <th>
+            <FormattedMessage id="threshold.medium" />
+          </th>
+          <th>
+            <FormattedMessage id="threshold.high" />
+          </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>{props.thresholds.low_threshold}</td>
-          <td>{props.thresholds.med_threshold}</td>
-          <td>{props.thresholds.high_threshold}</td>
+          <td>
+            {props.thresholds.low_threshold}
+          </td>
+          <td>
+            {props.thresholds.med_threshold}
+          </td>
+          <td>
+            {props.thresholds.high_threshold}
+          </td>
         </tr>
       </tbody>
     </Table>
@@ -62,21 +86,35 @@ const Thresholds = props =>
 
 const Signers = props =>
   <div>
-    <h4><FormattedMessage id="signers" /></h4>
+    <h4>
+      <FormattedMessage id="signers" />
+    </h4>
     <Table>
       <thead>
         <tr>
-          <th><FormattedMessage id="key" /></th>
-          <th><FormattedMessage id="weight" /></th>
-          <th><FormattedMessage id="type" /></th>
+          <th>
+            <FormattedMessage id="key" />
+          </th>
+          <th>
+            <FormattedMessage id="weight" />
+          </th>
+          <th>
+            <FormattedMessage id="type" />
+          </th>
         </tr>
       </thead>
       <tbody>
         {props.signers.map(signer =>
           <tr key={signer.public_key}>
-            <td><AccountLink account={signer.public_key} /></td>
-            <td>{signer.weight}</td>
-            <td>{signer.type}</td>
+            <td>
+              <AccountLink account={signer.public_key} />
+            </td>
+            <td>
+              {signer.weight}
+            </td>
+            <td>
+              {signer.type}
+            </td>
           </tr>
         )}
       </tbody>
@@ -88,14 +126,20 @@ const Flags = ({flags}) =>
     <Table>
       <thead>
         <tr>
-          <th><FormattedMessage id="name" /></th>
-          <th><FormattedMessage id="value" /></th>
+          <th>
+            <FormattedMessage id="name" />
+          </th>
+          <th>
+            <FormattedMessage id="value" />
+          </th>
         </tr>
       </thead>
       <tbody>
         {Object.keys(flags).map(flag =>
           <tr key={flag}>
-            <td>{flag}</td>
+            <td>
+              {flag}
+            </td>
             <td>
               {typeof flags[flag] === 'boolean'
                 ? flags[flag].toString()
@@ -129,8 +173,11 @@ class Account extends React.Component {
             {anchors.hasOwnProperty(a.id) &&
               <Anchor id={a.id} anchor={anchors[a.id]} />}
 
-            <h4><FormattedMessage id="key.public" /></h4>
-            {'   '}{a.id}
+            <h4>
+              <FormattedMessage id="key.public" />
+            </h4>
+            {'   '}
+            {a.id}
           </Panel>
         </Row>
         <Row>
@@ -200,6 +247,7 @@ class AccountContainer extends React.Component {
       .call()
       .then(res => {
         this.setState({account: res})
+        return null
       })
       .catch(handleFetchDataFailure(accountId))
   }

@@ -116,6 +116,9 @@
   "stellar": "Stellar",
 
   "thresholds": "Thresholds",
+  "threshold.low": "Low",
+  "threshold.medium": "Medium",
+  "threshold.high": "High",
   "time": "Time",
   "title": "Stellar English",
   "trade": "Trade",
