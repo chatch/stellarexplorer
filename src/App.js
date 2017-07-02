@@ -56,7 +56,10 @@ class NoMatch extends Component {
                   id="error.cant.find"
                   values={{searchStr: id}}
                 />
-              : <FormattedMessage id="error.nothing.found" />}
+              : <FormattedMessage
+                  id="error.nothing.found"
+                  values={{path: this.props.location.pathname}}
+                />}
           </h3>
         </Row>
       </Grid>

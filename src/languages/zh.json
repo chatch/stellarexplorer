@@ -14,8 +14,8 @@
   "contact.address.label": "地址",
   "currency": "货币",
 
-  "error.cant.find": "没找到了",
-  "error.nothing.found": "在这里没有",
+  "error.cant.find": "找不到 [{searchStr}]",
+  "error.nothing.found": "没有东西在 [{path}]",
 
   "fed.protocol": "联邦协议",
   "fed.url": "联邦协议 URL",

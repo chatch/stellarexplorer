@@ -14,8 +14,8 @@
   "contact.address.label": "Address",
   "currency": "Currency",
 
-  "error.cant.find": "Couldn't find {searchStr}",
-  "error.nothing.found": "Nothing found here ...",
+  "error.cant.find": "Couldn't find [{searchStr}]",
+  "error.nothing.found": "Nothing exists at [{path}]",
 
   "fed.protocol": "Federation Protocol",
   "fed.url": "Federation URL",

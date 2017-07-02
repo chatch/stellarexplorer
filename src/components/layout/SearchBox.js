@@ -5,6 +5,11 @@ import {injectIntl} from 'react-intl'
 import {isAccount, isTxHash} from '../../lib/Utils'
 
 class SearchBox extends React.Component {
+  noMatch = searchStr => {
+    console.log(`unknown search string [${searchStr}]`)
+    window.location.href = `/error/not-found/${searchStr}`
+  }
+
   search = event => {
     event.preventDefault()
 
@@ -19,8 +24,7 @@ class SearchBox extends React.Component {
     } else if (Number.isInteger(Number(searchStr))) {
       this.props.history.push(`/ledger/${searchStr}`)
     } else {
-      // TODO: show a view with a message
-      console.log(`unknown search string [${searchStr}]`)
+      this.noMatch(searchStr)
     }
   }
 
