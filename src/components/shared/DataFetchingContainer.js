@@ -58,19 +58,25 @@ const withDataFetchingContainer = (
     }
 
     fetchData(fetchDataPromise) {
-      fetchDataPromise.then(r => this.responseToState(r)).catch(err => {
-        console.error(`Failed to fetch records: [${err.stack}]`)
-        this.setState({isLoading: false, records: []})
-      })
+      fetchDataPromise
+        .then(r => this.responseToState(r))
+        .then(newState => {
+          this.setState(newState)
+          return null
+        })
+        .catch(err => {
+          console.error(`Failed to fetch records: [${err.stack}]`)
+          this.setState({isLoading: false, records: []})
+        })
     }
 
     responseToState(rsp) {
-      this.setState({
+      return {
         isLoading: false,
         next: rsp.next,
         prev: rsp.prev,
         records: rspRecsToPropsFn(rsp.records),
-      })
+      }
     }
 
     render() {

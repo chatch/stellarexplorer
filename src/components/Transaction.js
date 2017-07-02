@@ -2,10 +2,10 @@ import React from 'react'
 import {Grid, Row, Table, Panel} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {
-  formatMessage,
   FormattedDate,
   FormattedTime,
   FormattedMessage,
+  injectIntl,
 } from 'react-intl'
 import PropTypes from 'prop-types'
 
@@ -21,6 +21,7 @@ class Transaction extends React.Component {
 
   render() {
     const {id, urlFn, fee, ledger, memoType, opCount, time} = this.props
+    const {formatMessage} = this.props.intl
 
     if (!id) return null
 
@@ -37,11 +38,17 @@ class Transaction extends React.Component {
             <Table className="table-hover table-condensed" fill>
               <tbody>
                 <tr>
-                  <td><FormattedMessage id="hash" /></td>
-                  <td>{id}</td>
+                  <td>
+                    <FormattedMessage id="hash" />
+                  </td>
+                  <td>
+                    {id}
+                  </td>
                 </tr>
                 <tr>
-                  <td><FormattedMessage id="time" /></td>
+                  <td>
+                    <FormattedMessage id="time" />
+                  </td>
                   <td>
                     <FormattedDate value={time} />&nbsp;
                     <FormattedTime value={time} />
@@ -49,17 +56,25 @@ class Transaction extends React.Component {
                 </tr>
                 <tr>
                   <td>Fee</td>
-                  <td>{fee}{' '}stroops</td>
+                  <td>
+                    {fee} stroops
+                  </td>
                 </tr>
                 <tr>
-                  <td><FormattedMessage id="ledger" /></td>
                   <td>
-                    <Link to={`/ledger/${ledger}`}>{ledger}</Link>
+                    <FormattedMessage id="ledger" />
+                  </td>
+                  <td>
+                    <Link to={`/ledger/${ledger}`}>
+                      {ledger}
+                    </Link>
                   </td>
                 </tr>
                 <tr>
                   <td>Memo Type</td>
-                  <td>{memoType}</td>
+                  <td>
+                    {memoType}
+                  </td>
                 </tr>
               </tbody>
             </Table>
@@ -86,6 +101,8 @@ Transaction.propTypes = {
   urlFn: PropTypes.func,
 }
 
+const TransactionIntl = injectIntl(Transaction)
+
 class TransactionContainer extends React.Component {
   state = {
     operations: [],
@@ -100,6 +117,7 @@ class TransactionContainer extends React.Component {
       .call()
       .then(res => {
         this.setState({tx: res})
+        return null
       })
       .catch(handleFetchDataFailure(id))
   }
@@ -108,7 +126,7 @@ class TransactionContainer extends React.Component {
     if (!this.state.tx) return null
     const tx = this.state.tx
     return (
-      <Transaction
+      <TransactionIntl
         id={tx.id}
         fee={tx.fee_paid}
         ledger={tx.ledger_attr}

@@ -61,21 +61,31 @@ class Ledger extends React.Component {
               <tbody>
                 <tr>
                   <td>#</td>
-                  <td>{seq}</td>
+                  <td>
+                    {seq}
+                  </td>
                 </tr>
                 <tr>
-                  <td><FormattedMessage id="time" /></td>
+                  <td>
+                    <FormattedMessage id="time" />
+                  </td>
                   <td>
                     <FormattedDate value={time} />&nbsp;
                     <FormattedTime value={time} />
                   </td>
                 </tr>
                 <tr>
-                  <td><FormattedMessage id="hash" /></td>
-                  <td>{hash}</td>
+                  <td>
+                    <FormattedMessage id="hash" />
+                  </td>
+                  <td>
+                    {hash}
+                  </td>
                 </tr>
                 <tr>
-                  <td><FormattedMessage id="prevHash" /></td>
+                  <td>
+                    <FormattedMessage id="prevHash" />
+                  </td>
                   <td>
                     <Link to={`/ledger/${prevSeq}`}>
                       {prevHash}
@@ -83,17 +93,29 @@ class Ledger extends React.Component {
                   </td>
                 </tr>
                 <tr>
-                  <td><FormattedMessage id="protocolVersion" /></td>
-                  <td>{protocol}</td>
+                  <td>
+                    <FormattedMessage id="protocolVersion" />
+                  </td>
+                  <td>
+                    {protocol}
+                  </td>
                 </tr>
                 {opCount === 0 &&
                   <tr>
-                    <td><FormattedMessage id="transactions" /></td>
-                    <td>{txCount}</td>
+                    <td>
+                      <FormattedMessage id="transactions" />
+                    </td>
+                    <td>
+                      {txCount}
+                    </td>
                   </tr>}
                 <tr>
-                  <td><FormattedMessage id="operations" /></td>
-                  <td>{opCount}</td>
+                  <td>
+                    <FormattedMessage id="operations" />
+                  </td>
+                  <td>
+                    {opCount}
+                  </td>
                 </tr>
               </tbody>
             </Table>
@@ -131,6 +153,7 @@ class LedgerContainer extends React.Component {
       .call()
       .then(res => {
         this.setState(responseToState(res))
+        return null
       })
       .catch(handleFetchDataFailure(ledgerId))
   }
