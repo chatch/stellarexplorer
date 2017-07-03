@@ -27,6 +27,9 @@ import {networks} from './lib/Stellar'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
+import {basepath} from '../package.json'
+const routerBasepath = process.env.NODE_ENV === 'production' ? basepath : ''
+
 addLocaleData([...en, ...zh])
 
 const initialLanguage =
@@ -105,7 +108,7 @@ class App extends Component {
         locale={this.state.language}
         messages={getMessages(this.state.language)}
       >
-        <Router>
+        <Router basename={routerBasepath}>
           <div className="App">
             <Header
               network={this.state.network}
