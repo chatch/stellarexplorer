@@ -52,21 +52,23 @@ class Header extends React.Component {
               </NavItem>
             </LinkContainer>
             <LinkContainer to="/ledgers">
-              <NavItem><FormattedMessage id="ledgers" /></NavItem>
+              <NavItem>
+                <FormattedMessage id="ledgers" />
+              </NavItem>
             </LinkContainer>
             <NavDropdown
               title={formatMessage({id: 'more'})}
               id="basic-nav-dropdown"
             >
-              <MenuItem href="/anchors">
-                <FormattedMessage id="anchors" />
-              </MenuItem>
+              <LinkContainer to="/anchors">
+                <MenuItem>
+                  <FormattedMessage id="anchors" />
+                </MenuItem>
+              </LinkContainer>
               <MenuItem href="https://www.stellar.org/laboratory/">
                 Laboratory
               </MenuItem>
-              <MenuItem href="https://stellarterm.com/">
-                StellarTerm
-              </MenuItem>
+              <MenuItem href="https://stellarterm.com/">StellarTerm</MenuItem>
               <MenuItem href="https://dashboard.stellar.org/">
                 Stellar Dashboard
               </MenuItem>

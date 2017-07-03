@@ -1,15 +1,26 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 const linkStyle = {color: 'white', textDecoration: 'underline'}
 
-const TitleWithLink = ({title, rightLinkLabel, rightLinkAddr}) =>
-  <div>
-    <span>{title}</span>
-    <a href={rightLinkAddr} className="pull-right" style={linkStyle}>
-      {rightLinkLabel}
-    </a>
-  </div>
+class TitleWithLink extends React.Component {
+  render() {
+    const {title, rightLinkLabel, rightLinkAddr} = this.props
+    return (
+      <div>
+        <span>
+          {title}
+        </span>
+        <Link to={rightLinkAddr} className="pull-right" style={linkStyle}>
+          <span>
+            {rightLinkLabel}
+          </span>
+        </Link>
+      </div>
+    )
+  }
+}
 
 TitleWithLink.propTypes = {
   title: PropTypes.string.isRequired,

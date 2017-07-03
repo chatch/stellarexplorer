@@ -2,6 +2,7 @@
   "name": "stellarexplorer",
   "version": "0.1.0",
   "license": "Apache-2.0",
+  "homepage": ".",
   "dependencies": {
     "halogen": "^0.2.0",
     "react": "^15.5.4",
