@@ -7,11 +7,11 @@ class Footer extends React.Component {
     return (
       <Grid id="footer">
         <Row>
-          <Col md={1}>
-            Github{' '}
-          </Col>
           <Col md={3}>
             <LumensRates />
+          </Col>
+          <Col mdOffset={8} md={1}>
+            <a href="https://github.com/chatch/stellarexplorer">Github</a>
           </Col>
         </Row>
       </Grid>

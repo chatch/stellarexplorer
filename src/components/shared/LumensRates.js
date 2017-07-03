@@ -40,7 +40,9 @@ class LumensRates extends React.Component {
     }
     return (
       <span>
-        <span style={style}>{valueStr}</span>
+        <span style={style}>
+          {valueStr}
+        </span>
       </span>
     )
   }
@@ -48,7 +50,7 @@ class LumensRates extends React.Component {
   render() {
     return (
       <span>
-        Lumens/USD: {this.props.usd} {this.renderChange(this.props.change)}
+        XLM/USD: {this.props.usd} {this.renderChange(this.props.change)}
       </span>
     )
   }
