@@ -1,7 +1,12 @@
 import React from 'react'
 import {Dropdown, MenuItem} from 'react-bootstrap'
-import {injectIntl} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import langSelectImg from '../../img/lang-select.png'
+
+const onClickTranslateHelp = () => {
+  window.location.href =
+    'https://github.com/chatch/stellarexplorer/tree/master/src/languages'
+}
 
 const styleLanguageSelector = {
   backgroundColor: 'rgba(255, 0, 0, 0)',
@@ -23,8 +28,18 @@ const LanguageSelector = ({
       />
     </Dropdown.Toggle>
     <Dropdown.Menu style={{color: 'white'}}>
-      <MenuItem eventKey="1" lang="en" onClick={switcher}>English</MenuItem>
-      <MenuItem eventKey="2" lang="zh" onClick={switcher}>中文</MenuItem>
+      <MenuItem lang="en" onClick={switcher}>
+        English
+      </MenuItem>
+      <MenuItem lang="zh" onClick={switcher}>
+        中文
+      </MenuItem>
+      <MenuItem
+        onClick={onClickTranslateHelp}
+        style={{borderTop: '1px solid black'}}
+      >
+        <FormattedMessage id="translate.help" />
+      </MenuItem>
     </Dropdown.Menu>
   </Dropdown>
 
