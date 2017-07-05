@@ -27,11 +27,19 @@ import {networks} from './lib/Stellar'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
+let storage
+if (typeof localStorage === 'undefined' || localStorage === null) {
+  const LocalStorage = require('node-localstorage').LocalStorage
+  storage = new LocalStorage('./scratch')
+} else {
+  storage = localStorage
+}
+
 addLocaleData([...en, ...zh])
 
 const initialLanguage =
-  localStorage.getItem('language') || navigator.language || 'en'
-const initialNetwork = localStorage.getItem('network') || 'public'
+  storage.getItem('language') || navigator.language || 'en'
+const initialNetwork = storage.getItem('network') || 'public'
 
 const getMessages = locale => {
   switch (locale) {
@@ -76,13 +84,13 @@ class App extends Component {
 
   languageSwitcher = event => {
     const newLanguage = event.target.lang
-    localStorage.setItem('language', newLanguage)
+    storage.setItem('language', newLanguage)
     this.setState({language: newLanguage}, reloadPage)
   }
 
   networkSwitcher = selectedNetwork => {
     console.log(`NETWORK change: ${this.state.network} to ${selectedNetwork}`)
-    localStorage.setItem('network', selectedNetwork)
+    storage.setItem('network', selectedNetwork)
     const server = networks[selectedNetwork].initFunc()
     this.setState(
       {

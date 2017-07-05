@@ -1,5 +1,6 @@
 import React from 'react'
-import 'whatwg-fetch'
+import FetchPonyfill from 'fetch-ponyfill'
+const fetch = FetchPonyfill().fetch
 
 const FEED_URL = 'https://api.coinmarketcap.com/v1/ticker/stellar/'
 
@@ -18,6 +19,7 @@ class LumensRatesContainer extends React.Component {
       })
       .catch(err => {
         console.error(`Failed to fetch price: [${err}]`)
+        console.error(`stack: [${err.stack}]`)
       })
   }
   render() {
