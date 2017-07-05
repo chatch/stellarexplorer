@@ -9,6 +9,5 @@ cache:
   directories:
     - node_modules
 script:
-  - npm install
-  - npm test
-  - npm run build
+  - CI=true npm test
+  - CI=true npm run build
