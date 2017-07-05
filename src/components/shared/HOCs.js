@@ -1,5 +1,6 @@
 import React from 'react'
 import {getContext} from 'recompose'
+import PropTypes from 'prop-types'
 
 const withEither = (
   conditionalRenderingFn,
@@ -10,6 +11,6 @@ const withEither = (
     : <Component {...props} />
 
 // @see App.js which puts this stellar server handle on the context
-const withServer = getContext({server: React.PropTypes.object})
+const withServer = getContext({server: PropTypes.object})
 
 export {withEither, withServer}
