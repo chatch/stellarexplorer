@@ -27,6 +27,9 @@ import {networks} from './lib/Stellar'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
+import {ipfsBasepath} from './config.json'
+const routerBasepath = process.env.NODE_ENV === 'production' ? ipfsBasepath : ''
+
 let storage
 if (typeof localStorage === 'undefined' || localStorage === null) {
   const LocalStorage = require('node-localstorage').LocalStorage
@@ -113,7 +116,7 @@ class App extends Component {
         locale={this.state.language}
         messages={getMessages(this.state.language)}
       >
-        <Router>
+        <Router basename={routerBasepath}>
           <div className="App">
             <Header
               network={this.state.network}
