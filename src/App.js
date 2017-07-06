@@ -27,8 +27,11 @@ import {networks} from './lib/Stellar'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
-import {ipfsBasepath} from './config.json'
-const routerBasepath = process.env.NODE_ENV === 'production' ? ipfsBasepath : ''
+// TODO: revist ipfs deploy .. some routes are failing on ipfs gateway:
+
+// import {ipfsBasepath} from './config.json'
+// const routerBasepath = process.env.NODE_ENV === 'production' ? ipfsBasepath : ''
+const routerBasepath = ''
 
 let storage
 if (typeof localStorage === 'undefined' || localStorage === null) {
