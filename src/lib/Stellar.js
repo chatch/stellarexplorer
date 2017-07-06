@@ -1,5 +1,8 @@
-const sdk = require('stellar-sdk')
-const URI = require('urijs')
+import sdk from 'stellar-sdk'
+import URI from 'urijs'
+
+import {TransactionCallBuilder} from 'stellar-sdk/lib/transaction_call_builder'
+import {LedgerCallBuilder} from 'stellar-sdk/lib/ledger_call_builder'
 
 /* ----------------------------------------------------------
  *
@@ -103,11 +106,6 @@ const wrapStellarCallBuilderWithWebPagePaging = CallBuilder => {
 /*
  * Wrap the stellar server calls we want to use modified paging on
  */
-
-const TransactionCallBuilder = require('stellar-sdk/lib/transaction_call_builder')
-  .TransactionCallBuilder
-const LedgerCallBuilder = require('stellar-sdk/lib/ledger_call_builder')
-  .LedgerCallBuilder
 
 const pagingCalls = {
   transactions: TransactionCallBuilder,

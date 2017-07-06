@@ -10,4 +10,4 @@ cache:
     - node_modules
 script:
   - CI=true npm test
-  - CI=true npm run build
+  - CI=false npm run build  # CI=false so warnings (from stellar-base>bindings) don't fail the build
