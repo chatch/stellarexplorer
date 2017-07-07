@@ -7,6 +7,9 @@
   "bugs": {
     "url": "https://github.com/chatch/stellarexplorer/issues"
   },
+  "engines": {
+    "node": "6.x.x"
+  },
   "dependencies": {
     "fetch-ponyfill": "^4.0.0",
     "prop-types": "^15.5.10",
@@ -18,13 +21,13 @@
     "react-router": "^4.1.1",
     "react-router-bootstrap": "^0.24.2",
     "react-router-dom": "^4.1.1",
+    "react-scripts": "1.0.10",
     "recompose": "^0.23.5",
     "stellar-sdk": "chatch/js-stellar-sdk#patched"
   },
   "devDependencies": {
     "bootstrap": "^3.3.7",
-    "node-localstorage": "^1.3.0",
-    "react-scripts": "1.0.10"
+    "node-localstorage": "^1.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
