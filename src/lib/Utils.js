@@ -17,4 +17,22 @@ const handleFetchDataFailure = id => e => {
   window.location.href = redirectURI
 }
 
-export {handleFetchDataFailure, isDefInt, isAccount, isTxHash, shortHash}
+const storageInit = () => {
+  let storage
+  if (typeof localStorage === 'undefined' || localStorage === null) {
+    const LocalStorage = require('node-localstorage').LocalStorage
+    storage = new LocalStorage('./stellarexplorer')
+  } else {
+    storage = localStorage
+  }
+  return storage
+}
+
+export {
+  handleFetchDataFailure,
+  isDefInt,
+  isAccount,
+  isTxHash,
+  shortHash,
+  storageInit,
+}

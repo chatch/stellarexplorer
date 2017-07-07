@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {Grid, Row} from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
-import {IntlProvider, addLocaleData, FormattedMessage} from 'react-intl'
+import {IntlProvider, addLocaleData} from 'react-intl'
 import en from 'react-intl/locale-data/en'
 import zh from 'react-intl/locale-data/zh'
 import enMessages from './languages/en'
@@ -12,6 +11,7 @@ import zhMessages from './languages/zh'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Home from './components/Home'
+import NoMatch from './components/shared/NoMatch'
 
 import Ledger from './components/Ledger'
 import Ledgers from './components/Ledgers'
@@ -23,6 +23,7 @@ import Anchors from './components/Anchors'
 import Operations from './components/Operations'
 
 import {networks} from './lib/Stellar'
+import {storageInit} from './lib/Utils'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
@@ -33,13 +34,7 @@ import './App.css'
 // const routerBasepath = process.env.NODE_ENV === 'production' ? ipfsBasepath : ''
 const routerBasepath = ''
 
-let storage
-if (typeof localStorage === 'undefined' || localStorage === null) {
-  const LocalStorage = require('node-localstorage').LocalStorage
-  storage = new LocalStorage('./scratch')
-} else {
-  storage = localStorage
-}
+const storage = storageInit()
 
 addLocaleData([...en, ...zh])
 
@@ -57,29 +52,6 @@ const getMessages = locale => {
 }
 
 const reloadPage = () => window.location.reload(true)
-
-class NoMatch extends Component {
-  render() {
-    const id = this.props.match.params.id
-    return (
-      <Grid>
-        <Row>
-          <h3>
-            {id
-              ? <FormattedMessage
-                  id="error.cant.find"
-                  values={{searchStr: id}}
-                />
-              : <FormattedMessage
-                  id="error.nothing.found"
-                  values={{path: this.props.location.pathname}}
-                />}
-          </h3>
-        </Row>
-      </Grid>
-    )
-  }
-}
 
 class App extends Component {
   state = {
