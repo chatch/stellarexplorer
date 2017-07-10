@@ -7,8 +7,8 @@ import _ from 'lodash'
 const propTypes = {
   homeDomain: PropTypes.string,
   signerKey: PropTypes.string,
-  signerWeight: PropTypes.string,
-  masterKeyWeight: PropTypes.string,
+  signerWeight: PropTypes.number,
+  masterKeyWeight: PropTypes.number,
   inflationDest: PropTypes.string,
   setFlagsS: PropTypes.array,
   clearFlagsS: PropTypes.array,
@@ -30,12 +30,17 @@ const Option = ({msgId, value}) => {
   )
 }
 
-const OptionValue = ({optKey, value, type}) =>
-  <span>
-    {type === PropTypes.array
-      ? value.join(', ')
-      : optKey === 'inflationDest' ? <AccountLink account={value} /> : value}
-  </span>
+const OptionValue = ({optKey, value, type}) => {
+  let valueEl = value
+  if (type === PropTypes.array) valueEl = value.join(', ')
+  else if (optKey === 'inflationDest' || optKey === 'signerKey')
+    valueEl = <AccountLink account={value} />
+  return (
+    <span>
+      {valueEl}
+    </span>
+  )
+}
 
 const OptionsList = props =>
   <span>
