@@ -35,6 +35,12 @@ const OptionValue = ({optKey, value, type}) => {
   if (type === PropTypes.array) valueEl = value.join(', ')
   else if (optKey === 'inflationDest' || optKey === 'signerKey')
     valueEl = <AccountLink account={value} />
+  else if (optKey === 'homeDomain')
+    valueEl = (
+      <a href={`http://${value}`}>
+        {value}
+      </a>
+    )
   return (
     <span>
       {valueEl}
