@@ -21,6 +21,17 @@ class Home extends React.Component {
     return (
       <Grid>
         <Row>
+          <Col md={8}>
+            <Panel
+              header={panelHeader(
+                formatMessage({id: 'latest.operations'}),
+                viewAllStr,
+                '/operations'
+              )}
+            >
+              <OperationList compact limit={20} refresh />
+            </Panel>
+          </Col>
           <Col md={4}>
             <Panel
               header={panelHeader(
@@ -39,17 +50,6 @@ class Home extends React.Component {
               )}
             >
               <TransactionTable compact fill limit={5} refresh />
-            </Panel>
-          </Col>
-          <Col md={8}>
-            <Panel
-              header={panelHeader(
-                formatMessage({id: 'latest.operations'}),
-                viewAllStr,
-                '/operations'
-              )}
-            >
-              <OperationList compact limit={20} refresh />
             </Panel>
           </Col>
         </Row>

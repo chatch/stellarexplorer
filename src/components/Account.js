@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Grid, Panel, Row, Table} from 'react-bootstrap'
+import {Grid, Panel, Row, Table, Tab, Tabs} from 'react-bootstrap'
 import {injectIntl, FormattedMessage} from 'react-intl'
 
 import anchors from '../lib/Anchors'
@@ -181,46 +181,38 @@ class Account extends React.Component {
           </Panel>
         </Row>
         <Row>
-          <Panel header={formatMessage({id: 'balances'})}>
-            <Balances balances={a.balances} />
-          </Panel>
-        </Row>
-        <Row>
-          <Panel header={formatMessage({id: 'signing'})}>
-            <Col md={9}>
+          <Tabs defaultActiveKey={1} id="account-tabs">
+            <Tab eventKey={1} title={formatMessage({id: 'balances'})}>
+              <Balances balances={a.balances} />
+            </Tab>
+            <Tab eventKey={2} title={formatMessage({id: 'operations'})}>
+              <OperationList
+                key={a.id}
+                account={a.id}
+                compact={false}
+                limit={20}
+                usePaging
+              />
+            </Tab>
+            <Tab eventKey={3} title={formatMessage({id: 'transactions'})}>
+              <TransactionTable
+                key={a.id}
+                account={a.id}
+                compact={false}
+                limit={10}
+                usePaging
+              />
+            </Tab>
+            <Tab eventKey={4} title={formatMessage({id: 'signing'})}>
               <Signers signers={a.signers} />
-            </Col>
-            <Col md={3}>
+            </Tab>
+            <Tab eventKey={5} title={formatMessage({id: 'thresholds'})}>
               <Thresholds thresholds={a.thresholds} />
-            </Col>
-          </Panel>
-        </Row>
-        <Row>
-          <Panel header={formatMessage({id: 'flags'})}>
-            <Flags flags={a.flags} />
-          </Panel>
-        </Row>
-        <Row>
-          <Panel header={formatMessage({id: 'operations'})}>
-            <OperationList
-              key={a.id}
-              account={a.id}
-              compact={false}
-              limit={20}
-              usePaging
-            />
-          </Panel>
-        </Row>
-        <Row>
-          <Panel header={formatMessage({id: 'transactions'})}>
-            <TransactionTable
-              key={a.id}
-              account={a.id}
-              compact={false}
-              limit={10}
-              usePaging
-            />
-          </Panel>
+            </Tab>
+            <Tab eventKey={6} title={formatMessage({id: 'flags'})}>
+              <Flags flags={a.flags} />
+            </Tab>
+          </Tabs>
         </Row>
       </Grid>
     )
