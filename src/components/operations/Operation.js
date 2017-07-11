@@ -1,5 +1,6 @@
 import React from 'react'
-import {Col, Row} from 'react-bootstrap'
+import Col from 'react-bootstrap/lib/Col'
+import Row from 'react-bootstrap/lib/Row'
 import PropTypes from 'prop-types'
 
 import AccountLink from '../shared/AccountLink'
@@ -44,19 +45,26 @@ const txLinkToHash = link => {
 }
 
 const Operation = ({compact, op, opURLFn}) => {
-  const acc = op.type !== 'account_merge'
-    ? <AccountLink account={op.sourceAccount} />
-    : <span title={op.sourceAccount}>
-        {op.sourceAccount.substring(0, 4)}
-      </span>
+  const acc =
+    op.type !== 'account_merge'
+      ? <AccountLink account={op.sourceAccount} />
+      : <span title={op.sourceAccount}>
+          {op.sourceAccount.substring(0, 4)}
+        </span>
   return (
     <Row key={op.id} className="operation">
-      <Col md={1}>{acc}</Col>
-      <Col md={7}><SubOperation op={op} /></Col>
+      <Col md={1}>
+        {acc}
+      </Col>
+      <Col md={7}>
+        <SubOperation op={op} />
+      </Col>
       <Col md={3}>
         <TransactionTime id={txLinkToHash(op.links.transaction.href)} />
       </Col>
-      <Col md={1}><HorizonJSONButton id={op.id} urlFn={opURLFn} /></Col>
+      <Col md={1}>
+        <HorizonJSONButton id={op.id} urlFn={opURLFn} />
+      </Col>
     </Row>
   )
 }

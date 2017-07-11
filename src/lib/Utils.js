@@ -1,10 +1,10 @@
 import {sdk} from './Stellar'
-import _ from 'lodash'
+import truncate from 'lodash/truncate'
 
 const isAccount = accStr => sdk.StrKey.isValidEd25519PublicKey(accStr)
 const isDefInt = (obj, key) => obj[key] && Number.isInteger(Number(obj[key]))
 const isTxHash = hashStr => /^[0-9a-f]{64}$/i.test(hashStr)
-const shortHash = hash => _.truncate(hash, {length: 10})
+const shortHash = hash => truncate(hash, {length: 10})
 
 const handleFetchDataFailure = id => e => {
   let msg = `Failed to fetch data. `

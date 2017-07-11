@@ -1,5 +1,8 @@
 import React from 'react'
-import {Grid, Row, Col, Panel} from 'react-bootstrap'
+import Grid from 'react-bootstrap/lib/Grid'
+import Panel from 'react-bootstrap/lib/Panel'
+import Row from 'react-bootstrap/lib/Row'
+import Col from 'react-bootstrap/lib/Col'
 import {injectIntl} from 'react-intl'
 
 import LedgerTable from './LedgerTableContainer'

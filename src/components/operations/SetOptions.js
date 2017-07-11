@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import AccountLink from '../shared/AccountLink'
-import _ from 'lodash'
+import snakeCase from 'lodash/snakeCase'
 
 const propTypes = {
   homeDomain: PropTypes.string,
@@ -17,7 +17,7 @@ const propTypes = {
   highThreshold: PropTypes.number,
 }
 
-const dotCase = str => _.snakeCase(str).replace('_', '.')
+const dotCase = str => snakeCase(str).replace('_', '.')
 
 const Option = ({msgId, value}) => {
   return (

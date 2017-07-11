@@ -1,5 +1,11 @@
 import React from 'react'
-import {Grid, Panel, Row, Table, Tab, Tabs} from 'react-bootstrap'
+import Grid from 'react-bootstrap/lib/Grid'
+import Panel from 'react-bootstrap/lib/Panel'
+import Row from 'react-bootstrap/lib/Row'
+import Table from 'react-bootstrap/lib/Table'
+import Tab from 'react-bootstrap/lib/Tab'
+import Tabs from 'react-bootstrap/lib/Tabs'
+
 import {injectIntl, FormattedMessage} from 'react-intl'
 
 import anchors from '../lib/Anchors'

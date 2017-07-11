@@ -1,5 +1,7 @@
 import React from 'react'
-import {Grid, Panel, Row} from 'react-bootstrap'
+import Grid from 'react-bootstrap/lib/Grid'
+import Panel from 'react-bootstrap/lib/Panel'
+import Row from 'react-bootstrap/lib/Row'
 import {injectIntl} from 'react-intl'
 import OperationList from './OperationList'
 

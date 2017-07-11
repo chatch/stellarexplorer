@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormControl} from 'react-bootstrap'
+import FormControl from 'react-bootstrap/lib/FormControl'
 import {withRouter} from 'react-router'
 import {injectIntl} from 'react-intl'
 import {isAccount, isTxHash} from '../../lib/Utils'

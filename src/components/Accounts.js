@@ -1,5 +1,7 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
+import Grid from 'react-bootstrap/lib/Grid'
+import Row from 'react-bootstrap/lib/Row'
+
 import AccountTable from './AccountTable'
 
 class Accounts extends React.Component {

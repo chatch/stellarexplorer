@@ -1,5 +1,5 @@
 import React from 'react'
-import {Pager} from 'react-bootstrap'
+import Pager from 'react-bootstrap/lib/Pager'
 import {FormattedMessage} from 'react-intl'
 
 const PagingControls = ({handleClickNext, handleClickPrev, hidePrev}) =>

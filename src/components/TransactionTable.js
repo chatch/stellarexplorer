@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Table} from 'react-bootstrap'
+import Table from 'react-bootstrap/lib/Table'
 import {Link} from 'react-router-dom'
 import {FormattedRelative, FormattedMessage} from 'react-intl'
 import {withSpinner} from './shared/Spinner'
@@ -17,7 +17,9 @@ class TransactionRow extends React.Component {
     const className = !compact ? 'monospace' : ''
     return (
       <span title={txHash} className={className}>
-        <Link to={`/tx/${txHash}`}>{hashLabel}</Link>
+        <Link to={`/tx/${txHash}`}>
+          {hashLabel}
+        </Link>
       </span>
     )
   }
@@ -26,11 +28,19 @@ class TransactionRow extends React.Component {
     const {ledger, opCount, time} = this.props
     return (
       <tr>
-        <td>{this.renderTxHash()}</td>
-        <td><FormattedRelative value={time} /></td>
-        <td>{opCount}</td>
         <td>
-          <Link to={`/ledger/${ledger}`}>{ledger}</Link>
+          {this.renderTxHash()}
+        </td>
+        <td>
+          <FormattedRelative value={time} />
+        </td>
+        <td>
+          {opCount}
+        </td>
+        <td>
+          <Link to={`/ledger/${ledger}`}>
+            {ledger}
+          </Link>
         </td>
       </tr>
     )
@@ -55,13 +65,17 @@ class TransactionTable extends React.Component {
         <thead>
           <tr>
             <th>#</th>
-            <th><FormattedMessage id="time" /></th>
+            <th>
+              <FormattedMessage id="time" />
+            </th>
             <th>
               <FormattedMessage
                 id={this.props.compact === true ? 'ops' : 'operations'}
               />
             </th>
-            <th><FormattedMessage id="ledger" /></th>
+            <th>
+              <FormattedMessage id="ledger" />
+            </th>
           </tr>
         </thead>
         <tbody>

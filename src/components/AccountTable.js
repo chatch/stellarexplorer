@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table} from 'react-bootstrap'
+import Table from 'react-bootstrap/lib/Table'
 import {Link} from 'react-router-dom'
 import {FormattedTime, FormattedDate, FormattedMessage} from 'react-intl'
 
@@ -14,16 +14,22 @@ class AccountRow extends React.Component {
       <tr>
         <td>
           <span title={txHash}>
-            <Link to={`/tx/${txHash}`}>{shortHash(txHash)}</Link>
+            <Link to={`/tx/${txHash}`}>
+              {shortHash(txHash)}
+            </Link>
           </span>
         </td>
         <td>
           <FormattedDate value={this.props.time} />
           <FormattedTime value={this.props.time} />
         </td>
-        <td>{this.props.value}</td>
         <td>
-          <Link to={`/ledger/${this.props.ledger}`}>{this.props.ledger}</Link>
+          {this.props.value}
+        </td>
+        <td>
+          <Link to={`/ledger/${this.props.ledger}`}>
+            {this.props.ledger}
+          </Link>
         </td>
       </tr>
     )
@@ -41,12 +47,20 @@ class AccountTable extends React.Component {
         <thead>
           <tr>
             <th>#</th>
-            <th><FormattedMessage id="time" /></th>
-            <th><FormattedMessage id="value" /></th>
-            <th><FormattedMessage id="ledger" /></th>
+            <th>
+              <FormattedMessage id="time" />
+            </th>
+            <th>
+              <FormattedMessage id="value" />
+            </th>
+            <th>
+              <FormattedMessage id="ledger" />
+            </th>
           </tr>
         </thead>
-        <tbody>{this.props.accounts.map(this.renderRow)}</tbody>
+        <tbody>
+          {this.props.accounts.map(this.renderRow)}
+        </tbody>
       </Table>
     )
   }

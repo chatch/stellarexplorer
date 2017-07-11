@@ -1,5 +1,6 @@
 import React from 'react'
-import {Grid, Row} from 'react-bootstrap'
+import Grid from 'react-bootstrap/lib/Grid'
+import Row from 'react-bootstrap/lib/Row'
 import {FormattedMessage} from 'react-intl'
 
 class NoMatch extends React.Component {

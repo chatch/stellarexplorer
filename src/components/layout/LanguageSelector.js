@@ -1,5 +1,6 @@
 import React from 'react'
-import {Dropdown, MenuItem} from 'react-bootstrap'
+import Dropdown from 'react-bootstrap/lib/Dropdown'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import langSelectImg from '../../img/lang-select.png'
 

@@ -1,12 +1,10 @@
 import React from 'react'
-import {
-  Nav,
-  Navbar,
-  NavItem,
-  MenuItem,
-  NavDropdown,
-  FormGroup,
-} from 'react-bootstrap'
+import Nav from 'react-bootstrap/lib/Nav'
+import Navbar from 'react-bootstrap/lib/Navbar'
+import NavItem from 'react-bootstrap/lib/NavItem'
+import NavDropdown from 'react-bootstrap/lib/NavDropdown'
+import FormGroup from 'react-bootstrap/lib/FormGroup'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
 import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 import {FormattedMessage, injectIntl} from 'react-intl'

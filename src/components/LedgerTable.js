@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table} from 'react-bootstrap'
+import Table from 'react-bootstrap/lib/Table'
 import {Link} from 'react-router-dom'
 import {FormattedRelative, FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
@@ -8,10 +8,16 @@ import {withSpinner} from './shared/Spinner'
 const LedgerRow = props =>
   <tr>
     <td>
-      <Link to={`/ledger/${props.sequence}`}>{props.sequence}</Link>
+      <Link to={`/ledger/${props.sequence}`}>
+        {props.sequence}
+      </Link>
     </td>
-    <td><FormattedRelative value={props.time} /></td>
-    <td>{props.txCount}</td>
+    <td>
+      <FormattedRelative value={props.time} />
+    </td>
+    <td>
+      {props.txCount}
+    </td>
   </tr>
 
 LedgerRow.propTypes = {
@@ -31,8 +37,12 @@ class LedgerTable extends React.Component {
         <thead>
           <tr>
             <th>#</th>
-            <th><FormattedMessage id="time" /></th>
-            <th><FormattedMessage id="transactions" /></th>
+            <th>
+              <FormattedMessage id="time" />
+            </th>
+            <th>
+              <FormattedMessage id="transactions" />
+            </th>
           </tr>
         </thead>
         <tbody>

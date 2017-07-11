@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {compose} from 'recompose'
-import _ from 'lodash'
+
+import mapKeys from 'lodash/mapKeys'
+import camelCase from 'lodash/camelCase'
 
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
 import {withPaging} from './shared/Paging'
@@ -27,7 +29,7 @@ OperationList.propTypes = {
 }
 
 const rspRecsToProps = records =>
-  records.map(r => _.mapKeys(r, (v, k) => _.camelCase(k)))
+  records.map(r => mapKeys(r, (v, k) => camelCase(k)))
 
 const fetchRecords = props => {
   const builder = props.server.operations()
