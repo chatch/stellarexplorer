@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withServer} from './HOCs'
+import {handleFetchDataFailure} from '../../lib/Utils'
 
 const propTypesContainer = {
   limit: PropTypes.number,
@@ -64,10 +65,7 @@ const withDataFetchingContainer = (
           this.setState(newState)
           return null
         })
-        .catch(err => {
-          console.error(`Failed to fetch records: [${err.stack}]`)
-          this.setState({isLoading: false, records: []})
-        })
+        .catch(handleFetchDataFailure())
     }
 
     responseToState(rsp) {
