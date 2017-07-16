@@ -2,7 +2,6 @@
   "name": "stellarexplorer",
   "version": "0.1.0",
   "license": "Apache-2.0",
-  "homepage": ".",
   "repository": "chatch/stellarexplorer",
   "bugs": {
     "url": "https://github.com/chatch/stellarexplorer/issues"
@@ -32,6 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "rm ./build/static/*/*.map",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build && ipfs add -r build/",
