@@ -10,13 +10,15 @@ import {injectIntl, FormattedMessage} from 'react-intl'
 
 import anchors from '../lib/Anchors'
 import {handleFetchDataFailure} from '../lib/Utils'
+import {withServer} from './shared/HOCs'
+import {withSpinner} from './shared/Spinner'
+import {titleWithJSONButton} from './shared/TitleWithJSONButton'
+
 import AccountLink from './shared/AccountLink'
 import AnchorLogo from './shared/AnchorLogo'
 import Asset from './shared/Asset'
-import {withServer} from './shared/HOCs'
-import {titleWithJSONButton} from './shared/TitleWithJSONButton'
-import TransactionTable from './TransactionTableContainer'
 import OperationList from './OperationList'
+import TransactionTable from './TransactionTableContainer'
 
 const balanceRow = bal =>
   <tr key={bal.asset_code ? bal.asset_code : 'XLM'}>
@@ -56,106 +58,94 @@ const Balances = props =>
   </Table>
 
 const Thresholds = props =>
-  <div>
-    <h4>
-      <FormattedMessage id="thresholds" />
-    </h4>
-    <Table>
-      <thead>
-        <tr>
-          <th>
-            <FormattedMessage id="threshold.low" />
-          </th>
-          <th>
-            <FormattedMessage id="threshold.medium" />
-          </th>
-          <th>
-            <FormattedMessage id="threshold.high" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            {props.thresholds.low_threshold}
-          </td>
-          <td>
-            {props.thresholds.med_threshold}
-          </td>
-          <td>
-            {props.thresholds.high_threshold}
-          </td>
-        </tr>
-      </tbody>
-    </Table>
-  </div>
+  <Table>
+    <thead>
+      <tr>
+        <th>
+          <FormattedMessage id="threshold.low" />
+        </th>
+        <th>
+          <FormattedMessage id="threshold.medium" />
+        </th>
+        <th>
+          <FormattedMessage id="threshold.high" />
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          {props.thresholds.low_threshold}
+        </td>
+        <td>
+          {props.thresholds.med_threshold}
+        </td>
+        <td>
+          {props.thresholds.high_threshold}
+        </td>
+      </tr>
+    </tbody>
+  </Table>
 
 const Signers = props =>
-  <div>
-    <h4>
-      <FormattedMessage id="signers" />
-    </h4>
-    <Table>
-      <thead>
-        <tr>
-          <th>
-            <FormattedMessage id="key" />
-          </th>
-          <th>
-            <FormattedMessage id="weight" />
-          </th>
-          <th>
-            <FormattedMessage id="type" />
-          </th>
+  <Table>
+    <thead>
+      <tr>
+        <th>
+          <FormattedMessage id="key" />
+        </th>
+        <th>
+          <FormattedMessage id="weight" />
+        </th>
+        <th>
+          <FormattedMessage id="type" />
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {props.signers.map(signer =>
+        <tr key={signer.public_key}>
+          <td>
+            <AccountLink account={signer.public_key} />
+          </td>
+          <td>
+            {signer.weight}
+          </td>
+          <td>
+            {signer.type}
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        {props.signers.map(signer =>
-          <tr key={signer.public_key}>
-            <td>
-              <AccountLink account={signer.public_key} />
-            </td>
-            <td>
-              {signer.weight}
-            </td>
-            <td>
-              {signer.type}
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </Table>
-  </div>
+      )}
+    </tbody>
+  </Table>
 
 const Flags = ({flags}) =>
-  <div>
-    <Table>
-      <thead>
-        <tr>
-          <th>
-            <FormattedMessage id="name" />
-          </th>
-          <th>
-            <FormattedMessage id="value" />
-          </th>
+  <Table>
+    <thead>
+      <tr>
+        <th>
+          <FormattedMessage id="name" />
+        </th>
+        <th>
+          <FormattedMessage id="value" />
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {Object.keys(flags).map(flag =>
+        <tr key={flag}>
+          <td>
+            {flag}
+          </td>
+          <td>
+            {typeof flags[flag] === 'boolean'
+              ? flags[flag].toString()
+              : flags[flag]}
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        {Object.keys(flags).map(flag =>
-          <tr key={flag}>
-            <td>
-              {flag}
-            </td>
-            <td>
-              {typeof flags[flag] === 'boolean'
-                ? flags[flag].toString()
-                : flags[flag]}
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </Table>
-  </div>
+      )}
+    </tbody>
+  </Table>
 
 const Anchor = ({anchor}) =>
   <div>
@@ -171,14 +161,12 @@ class Account extends React.Component {
       formatMessage({id: 'account'}),
       this.props.urlFn
     )
-
     return (
       <Grid>
         <Row>
           <Panel header={header}>
             {anchors.hasOwnProperty(a.id) &&
               <Anchor id={a.id} anchor={anchors[a.id]} />}
-
             <h4>
               <FormattedMessage id="key.public" />
             </h4>
@@ -187,7 +175,11 @@ class Account extends React.Component {
           </Panel>
         </Row>
         <Row>
-          <Tabs defaultActiveKey={1} id="account-tabs">
+          <Tabs
+            defaultActiveKey={1}
+            id="account-tabs"
+            style={{border: '1px solid #ddd', borderRadius: 4}}
+          >
             <Tab eventKey={1} title={formatMessage({id: 'balances'})}>
               <Balances balances={a.balances} />
             </Tab>
@@ -224,10 +216,12 @@ class Account extends React.Component {
     )
   }
 }
+const AccountWithSpinner = withSpinner()(Account)
 
 class AccountContainer extends React.Component {
   state = {
     account: null,
+    isLoading: true,
   }
 
   componentDidMount() {
@@ -244,17 +238,17 @@ class AccountContainer extends React.Component {
       .accountId(accountId)
       .call()
       .then(res => {
-        this.setState({account: res})
+        this.setState({account: res, isLoading: false})
         return null
       })
       .catch(handleFetchDataFailure(accountId))
   }
 
   render() {
-    if (this.state.account == null) return null
     return (
-      <Account
+      <AccountWithSpinner
         account={this.state.account}
+        isLoading={this.state.isLoading}
         urlFn={this.props.server.accountURL}
         {...this.props}
       />

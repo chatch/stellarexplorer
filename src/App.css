@@ -5,13 +5,14 @@ body,
   font-family: "Noto Sans", "Noto Sans CJK {SC, TC}", sans-serif;
 }
 
-.App {
+table {
+  margin-bottom: 0 !important;
 }
 
 .App-logo {
-  height: 22px;
+  height: 20px;
   float: left;
-  margin-right: 10px;
+  margin-right: 6px;
 }
 
 #main-content {
@@ -35,10 +36,8 @@ body,
  */
 
 .brand-text {
-  position: relative;
-  top: 1px;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .panel,
@@ -76,6 +75,10 @@ body,
 
 .navbar-default .navbar-nav > li > a:hover {
   color: white;
+}
+
+.nav-tabs > li > a {
+  border-radius: 0;
 }
 
 /*
@@ -166,16 +169,19 @@ body,
 }
 
 .Network-Selector {
-  margin: 5px 0;
+  position: relative;
+  top: 2px;
 }
 
 .Network-Selector button {
-  display: inline-block;
-  cursor: pointer;
   background: #333;
-  color: #ccc;
   border: none;
   border-radius: 2px;
+  color: #ccc;
+  cursor: pointer;
+  display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .Network-Selector button:focus {
@@ -189,6 +195,18 @@ body,
 .Network-Selector .is-active {
   background: #61dafb;
   color: #fff;
+}
+
+div[id|='account-tabs-pane'] {
+  padding: 15px;
+}
+
+a[id|='account-tabs-tab'] {
+  color: #777;
+}
+
+a[id|='account-tabs-tab']:hover {
+  color: black;
 }
 
 .operation {

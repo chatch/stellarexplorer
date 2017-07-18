@@ -27,7 +27,7 @@ class Header extends React.Component {
                 className="App-logo"
                 alt={formatMessage({id: 'logo'})}
               />
-              <span className="brand-text">Explorer</span>
+              <span className="brand-text">explorer</span>
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle />
@@ -55,8 +55,8 @@ class Header extends React.Component {
               </NavItem>
             </LinkContainer>
             <NavDropdown
-              title={formatMessage({id: 'more'})}
               id="basic-nav-dropdown"
+              title={formatMessage({id: 'more'})}
             >
               <LinkContainer to="/anchors">
                 <MenuItem>
