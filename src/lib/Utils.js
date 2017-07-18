@@ -12,9 +12,9 @@ const handleFetchDataFailure = id => e => {
   if (e.message) msg += `Message: ${e.message}`
   console.error(msg)
 
-  let redirectURI = '/error/not-found'
-  if (id) redirectURI += `/${id}`
-  window.location.href = redirectURI
+  // let redirectURI = '/error/not-found'
+  // if (id) redirectURI += `/${id}`
+  // window.location.href = redirectURI
 }
 
 const storageInit = () => {
