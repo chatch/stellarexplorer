@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const HorizonJSONButton = props =>
-  <a href={props.urlFn(props.id)}>
+const JSONButton = props =>
+  <a href={props.urlFn(props.id)} type="application/hal+json">
     <span
       style={{
         fontSize: '0.8em',
@@ -17,9 +17,9 @@ const HorizonJSONButton = props =>
     </span>
   </a>
 
-HorizonJSONButton.propTypes = {
+JSONButton.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   urlFn: PropTypes.func.isRequired,
 }
 
-export default HorizonJSONButton
+export default JSONButton
