@@ -13,7 +13,7 @@ const handleFetchDataFailure = id => e => {
   if (e.stack) msg += `\n\tStack: [${e.stack}]`
   console.error(msg)
 
-  if (e.data.status === 404) {
+  if (e.data && e.data.status === 404) {
     let redirectURI = '/error/not-found'
     if (id) redirectURI += `/${id}`
     window.location.href = redirectURI
