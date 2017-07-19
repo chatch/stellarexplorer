@@ -30,9 +30,9 @@ const Option = ({msgId, value}) => {
   )
 }
 
-const OptionValue = ({optKey, value, type}) => {
+const OptionValue = ({optKey, value}) => {
   let valueEl = value
-  if (type === PropTypes.array) valueEl = value.join(', ')
+  if (value instanceof Array) valueEl = value.join(', ')
   else if (optKey === 'inflationDest' || optKey === 'signerKey')
     valueEl = <AccountLink account={value} />
   else if (optKey === 'homeDomain')
@@ -54,13 +54,7 @@ const OptionsList = props =>
       <span key={prop}>
         <Option
           msgId={dotCase(prop)}
-          value={
-            <OptionValue
-              optKey={prop}
-              value={props[prop]}
-              type={propTypes[prop]}
-            />
-          }
+          value={<OptionValue optKey={prop} value={props[prop]} />}
         />
         {idx < all.length - 1 && ', '}
       </span>
