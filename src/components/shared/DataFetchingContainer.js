@@ -65,7 +65,10 @@ const withDataFetchingContainer = (
           this.setState(newState)
           return null
         })
-        .catch(handleFetchDataFailure())
+        .catch(e => {
+          handleFetchDataFailure()(e)
+          this.setState({isLoading: false})
+        })
     }
 
     responseToState(rsp) {

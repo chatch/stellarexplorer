@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/lib/Row'
 import PropTypes from 'prop-types'
 
 import AccountLink from '../shared/AccountLink'
-import HorizonJSONButton from '../shared/HorizonJSONButton'
+import JSONButton from '../shared/JSONButton'
 import TransactionTime from '../shared/TransactionTime'
 
 import AccountMerge from './AccountMerge'
@@ -63,7 +63,7 @@ const Operation = ({compact, op, opURLFn}) => {
         <TransactionTime id={txLinkToHash(op.links.transaction.href)} />
       </Col>
       <Col md={1}>
-        <HorizonJSONButton id={op.id} urlFn={opURLFn} />
+        <JSONButton id={op.id} urlFn={opURLFn} />
       </Col>
     </Row>
   )

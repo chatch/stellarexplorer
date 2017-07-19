@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import JSONButton from './HorizonJSONButton'
+import JSONButton from './JSONButton'
 
 const TitleWithJSONButton = ({id, title, urlFn}) =>
   <div>
