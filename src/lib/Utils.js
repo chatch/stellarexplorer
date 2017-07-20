@@ -17,6 +17,7 @@ const handleFetchDataFailure = id => e => {
   if (e.message) msg += `\n\tMessage: [${e.message}]`
   if (e.stack) msg += `\n\tStack: [${e.stack}]`
   console.error(msg)
+  console.error(`Raw Error: ${e}`)
 
   if (e.data && e.data.status === 404) {
     let redirectURI = '/error/not-found'

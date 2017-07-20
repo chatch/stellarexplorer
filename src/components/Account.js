@@ -8,8 +8,14 @@ import Tabs from 'react-bootstrap/lib/Tabs'
 
 import {injectIntl, FormattedMessage} from 'react-intl'
 
+import StellarSdk from 'stellar-sdk'
+
 import anchors from '../lib/Anchors'
-import {handleFetchDataFailure} from '../lib/Utils'
+import {
+  handleFetchDataFailure,
+  isPublicKey,
+  isStellarAddress,
+} from '../lib/Utils'
 import {withServer} from './shared/HOCs'
 import {withSpinner} from './shared/Spinner'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -233,6 +239,25 @@ class AccountContainer extends React.Component {
   }
 
   loadAccount(accountId) {
+    if (isPublicKey(accountId)) this.loadAccountByKey(accountId)
+    else if (isStellarAddress(accountId))
+      this.loadAccountByStellarAddress(accountId)
+    else
+      handleFetchDataFailure(accountId)(
+        new Error(`Unrecognized account: ${accountId}`)
+      )
+  }
+
+  loadAccountByStellarAddress(stellarAddr) {
+    const [name, domain] = stellarAddr.split('*')
+    StellarSdk.FederationServer
+      .createForDomain(domain)
+      .then(fed => fed.resolveAddress(name))
+      .then(acc => this.loadAccount(acc.account_id))
+      .catch(handleFetchDataFailure(stellarAddr))
+  }
+
+  loadAccountByKey(accountId) {
     this.props.server
       .accounts()
       .accountId(accountId)

@@ -2,7 +2,7 @@ import React from 'react'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import {withRouter} from 'react-router'
 import {injectIntl} from 'react-intl'
-import {isPublicKey, isTxHash} from '../../lib/Utils'
+import {isPublicKey, isStellarAddress, isTxHash} from '../../lib/Utils'
 
 class SearchBox extends React.Component {
   noMatch = searchStr => {
@@ -23,6 +23,8 @@ class SearchBox extends React.Component {
       this.props.history.push(`/tx/${searchStr}`)
     } else if (Number.isInteger(Number(searchStr))) {
       this.props.history.push(`/ledger/${searchStr}`)
+    } else if (isStellarAddress(searchStr)) {
+      this.props.history.push(`/account/${searchStr}`)
     } else {
       this.noMatch(searchStr)
     }
