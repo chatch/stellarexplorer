@@ -1,10 +1,15 @@
 import {sdk} from './Stellar'
 import truncate from 'lodash/truncate'
 
-const isAccount = accStr => sdk.StrKey.isValidEd25519PublicKey(accStr)
-const isDefInt = (obj, key) => obj[key] && Number.isInteger(Number(obj[key]))
+const isPublicKey = keyStr => sdk.StrKey.isValidEd25519PublicKey(keyStr)
+const isStellarAddress = addr => /^[^*,]*\*[a-z0-9-.]*$/i.test(addr)
 const isTxHash = hashStr => /^[0-9a-f]{64}$/i.test(hashStr)
 const shortHash = hash => truncate(hash, {length: 10})
+
+const isDefInt = (obj, key) => {
+  if (!obj || !key || obj.hasOwnProperty(key) === false) return false
+  return Number.isInteger(Number(obj[key]))
+}
 
 const handleFetchDataFailure = id => e => {
   let msg = `Failed to fetch data:`
@@ -34,7 +39,8 @@ const storageInit = () => {
 export {
   handleFetchDataFailure,
   isDefInt,
-  isAccount,
+  isPublicKey,
+  isStellarAddress,
   isTxHash,
   shortHash,
   storageInit,

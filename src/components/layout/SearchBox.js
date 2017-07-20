@@ -2,7 +2,7 @@ import React from 'react'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import {withRouter} from 'react-router'
 import {injectIntl} from 'react-intl'
-import {isAccount, isTxHash} from '../../lib/Utils'
+import {isPublicKey, isTxHash} from '../../lib/Utils'
 
 class SearchBox extends React.Component {
   noMatch = searchStr => {
@@ -17,7 +17,7 @@ class SearchBox extends React.Component {
     const searchStr = searchBox.value.trim()
     console.log(searchStr)
 
-    if (isAccount(searchStr)) {
+    if (isPublicKey(searchStr)) {
       this.props.history.push(`/account/${searchStr}`)
     } else if (isTxHash(searchStr)) {
       this.props.history.push(`/tx/${searchStr}`)
