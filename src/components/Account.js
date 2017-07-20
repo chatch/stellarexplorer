@@ -158,6 +158,13 @@ const Anchor = ({anchor}) =>
     {anchor.img ? <AnchorLogo anchor={anchor} /> : anchor.name}
   </div>
 
+const stellarAddressFromURI = () => {
+  if (!window || !window.location || !window.location.pathname) return
+  const path = window.location.pathname
+  const lastPath = path.substring(path.lastIndexOf('/') + 1)
+  return isStellarAddress(lastPath) ? lastPath : undefined
+}
+
 class Account extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
@@ -167,6 +174,7 @@ class Account extends React.Component {
       formatMessage({id: 'account'}),
       this.props.urlFn
     )
+    const stellarAddr = stellarAddressFromURI()
     return (
       <Grid>
         <Row>
@@ -176,8 +184,17 @@ class Account extends React.Component {
             <h4>
               <FormattedMessage id="key.public" />
             </h4>
-            {'   '}
-            {a.id}
+            <span>
+              {a.id}
+            </span>
+
+            {stellarAddr &&
+              <span>
+                <h4>
+                  <FormattedMessage id="stellar.address" />
+                </h4>
+                {stellarAddr}
+              </span>}
           </Panel>
         </Row>
         <Row>
