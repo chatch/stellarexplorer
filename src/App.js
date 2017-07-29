@@ -63,8 +63,16 @@ class App extends Component {
 
   componentWillMount() {
     // handle direct to testnet links in the form testnet.steexp.com/*
-    if (isTestnetAddr() && this.state.network !== 'test')
-      this.networkSwitcher(NETWORK_TEST)
+    // and handle switch back to public when testnet is not in the domain
+    if (isTestnetAddr()) {
+      if (this.state.network !== NETWORK_TEST) {
+        this.networkSwitcher(NETWORK_TEST)
+      }
+    } else {
+      if (this.state.network !== NETWORK_PUBLIC) {
+        this.networkSwitcher(NETWORK_PUBLIC)
+      }
+    }
   }
 
   languageSwitcher = event => {
