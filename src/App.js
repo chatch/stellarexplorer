@@ -22,7 +22,7 @@ import Accounts from './components/Accounts'
 import Anchors from './components/Anchors'
 import Operations from './components/Operations'
 
-import {networks} from './lib/Stellar'
+import {networks, NETWORK_PUBLIC, NETWORK_TEST} from './lib/Stellar'
 import {storageInit} from './lib/Utils'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -40,7 +40,7 @@ addLocaleData([...en, ...zh])
 
 const initialLanguage =
   storage.getItem('language') || navigator.language || 'en'
-const initialNetwork = storage.getItem('network') || 'public'
+const initialNetwork = storage.getItem('network') || NETWORK_PUBLIC
 
 const getMessages = locale => {
   switch (locale) {
@@ -52,12 +52,19 @@ const getMessages = locale => {
 }
 
 const reloadPage = () => window.location.reload(true)
+const isTestnetAddr = () => /^testnet\..*/.test(window.location.hostname)
 
 class App extends Component {
   state = {
     language: initialLanguage,
     network: initialNetwork,
     server: networks[initialNetwork].initFunc(),
+  }
+
+  componentWillMount() {
+    // handle direct to testnet links in the form testnet.steexp.com/*
+    if (isTestnetAddr() && this.state.network !== 'test')
+      this.networkSwitcher(NETWORK_TEST)
   }
 
   languageSwitcher = event => {

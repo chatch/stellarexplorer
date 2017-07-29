@@ -10,16 +10,20 @@ import {LedgerCallBuilder} from 'stellar-sdk/lib/ledger_call_builder'
  *
  * ---------------------------------------------------------*/
 
+const NETWORK_PUBLIC = 'public'
+const NETWORK_TEST = 'test'
+const NETWORK_LOCAL = 'local'
+
 const networks = {
-  public: {
+  [NETWORK_PUBLIC]: {
     address: 'https://horizon.stellar.org',
     initFunc: usePubnetServer,
   },
-  test: {
+  [NETWORK_TEST]: {
     address: 'https://horizon-testnet.stellar.org',
     initFunc: useTestnetServer,
   },
-  local: {
+  [NETWORK_LOCAL]: {
     address: 'http://localhost:8000',
     initFunc: useLocalServer,
     hide: true, // from UI
@@ -122,4 +126,4 @@ Object.keys(pagingCalls).forEach(
     })
 )
 
-export {sdk, networks}
+export {sdk, networks, NETWORK_PUBLIC, NETWORK_TEST, NETWORK_LOCAL}
