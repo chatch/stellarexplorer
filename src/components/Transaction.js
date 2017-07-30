@@ -17,13 +17,21 @@ import {withServer} from './shared/HOCs'
 import OperationList from './OperationList'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
+const memoTypeToLabel = {
+  id: 'ID',
+  hash: 'Hash',
+  none: 'None',
+  return: 'Return',
+  text: 'Text',
+}
+
 class Transaction extends React.Component {
   static defaultProps = {
     operations: [],
   }
 
   render() {
-    const {id, urlFn, fee, ledger, memoType, opCount, time} = this.props
+    const {id, urlFn, fee, ledger, memoType, memo, opCount, time} = this.props
     const {formatMessage} = this.props.intl
 
     if (!id) return null
@@ -58,7 +66,9 @@ class Transaction extends React.Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Fee</td>
+                  <td>
+                    <FormattedMessage id="fee" />
+                  </td>
                   <td>
                     {fee} stroops
                   </td>
@@ -74,9 +84,11 @@ class Transaction extends React.Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Memo Type</td>
                   <td>
-                    {memoType}
+                    <FormattedMessage id="memo" /> ({memoTypeToLabel[memoType]})
+                  </td>
+                  <td>
+                    {memo}
                   </td>
                 </tr>
               </tbody>
@@ -98,6 +110,7 @@ Transaction.propTypes = {
   fee: PropTypes.number,
   id: PropTypes.string,
   ledger: PropTypes.number,
+  memo: PropTypes.string,
   memoType: PropTypes.string,
   operations: PropTypes.array,
   time: PropTypes.string,
@@ -134,6 +147,7 @@ class TransactionContainer extends React.Component {
         fee={tx.fee_paid}
         ledger={tx.ledger_attr}
         memoType={tx.memo_type}
+        memo={tx.memo}
         opCount={tx.operation_count}
         time={tx.created_at}
         urlFn={this.props.server.txURL}
