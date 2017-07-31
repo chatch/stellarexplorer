@@ -53,10 +53,10 @@ const Operation = ({compact, op, opURLFn}) => {
         </span>
   return (
     <Row key={op.id} className="operation">
-      <Col md={1}>
+      <Col md={2}>
         {acc}
       </Col>
-      <Col md={7}>
+      <Col md={6}>
         <SubOperation op={op} />
       </Col>
       <Col md={3}>

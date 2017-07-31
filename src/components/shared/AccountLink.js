@@ -2,12 +2,25 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
-const AccountLink = ({account, label}) =>
-  <span title={account}>
-    <Link to={`/account/${account}`}>
-      {label ? label : account.substring(0, 4)}
-    </Link>
-  </span>
+import anchors from '../../lib/Anchors'
+
+const AccountLink = ({account, label}) => {
+  let accLabel = label
+  if (!accLabel) {
+    accLabel = anchors.hasOwnProperty(account)
+      ? <span style={{fontStyle: 'italic'}}>
+          {anchors[account].name}
+        </span>
+      : account.substring(0, 4)
+  }
+  return (
+    <span title={account}>
+      <Link to={`/account/${account}`}>
+        {accLabel}
+      </Link>
+    </span>
+  )
+}
 
 AccountLink.propTypes = {
   account: PropTypes.string.isRequired,

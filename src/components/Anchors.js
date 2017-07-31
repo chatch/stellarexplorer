@@ -12,10 +12,14 @@ const Anchor = anchor =>
   <div>
     <Row style={{marginBottom: 20}}>
       <Col md={3}>
-        <AnchorLogo anchor={anchor} />
+        <a href={`https://${anchor.home}`}>
+          <AnchorLogo anchor={anchor} />
+        </a>
       </Col>
       <Col md={3}>
-        {anchor.name}
+        <a href={`https://${anchor.home}`}>
+          {anchor.name}
+        </a>
       </Col>
       <Col md={6}>
         <AccountLink account={anchor.id} label={anchor.id} />
