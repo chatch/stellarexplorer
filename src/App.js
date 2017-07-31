@@ -28,11 +28,8 @@ import {storageInit} from './lib/Utils'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
-// TODO: revist ipfs deploy .. some routes are failing on ipfs gateway:
-
-// import {ipfsBasepath} from './config.json'
-// const routerBasepath = process.env.NODE_ENV === 'production' ? ipfsBasepath : ''
-const routerBasepath = ''
+const HOME_TESTNET = 'https://testnet.steexp.com'
+const HOME_PUBLIC = 'https://steexp.com'
 
 const storage = storageInit()
 
@@ -66,32 +63,37 @@ class App extends Component {
     // and handle switch back to public when testnet is not in the domain
     if (isTestnetAddr()) {
       if (this.state.network !== NETWORK_TEST) {
-        this.networkSwitcher(NETWORK_TEST)
+        this.setNetwork(NETWORK_TEST)
       }
     } else {
       if (this.state.network !== NETWORK_PUBLIC) {
-        this.networkSwitcher(NETWORK_PUBLIC)
+        this.setNetwork(NETWORK_PUBLIC)
       }
     }
+  }
+
+  setNetwork = (network, page) => {
+    console.log(`NETWORK change: ${this.state.network} to ${network}`)
+    storage.setItem('network', network)
+    this.setState(
+      {
+        network: network,
+        server: networks[network].initFunc(),
+      },
+      page ? () => (window.location.href = page) : reloadPage
+    )
+  }
+
+  networkSwitcher = selectedNetwork => {
+    const newHome =
+      selectedNetwork === NETWORK_PUBLIC ? HOME_PUBLIC : HOME_TESTNET
+    this.setNetwork(selectedNetwork, newHome)
   }
 
   languageSwitcher = event => {
     const newLanguage = event.target.lang
     storage.setItem('language', newLanguage)
     this.setState({language: newLanguage}, reloadPage)
-  }
-
-  networkSwitcher = selectedNetwork => {
-    console.log(`NETWORK change: ${this.state.network} to ${selectedNetwork}`)
-    storage.setItem('network', selectedNetwork)
-    const server = networks[selectedNetwork].initFunc()
-    this.setState(
-      {
-        network: selectedNetwork,
-        server: server,
-      },
-      reloadPage
-    )
   }
 
   // @see HOCs.js withServer() to get this as props in any component
@@ -106,7 +108,7 @@ class App extends Component {
         locale={this.state.language}
         messages={getMessages(this.state.language)}
       >
-        <Router basename={routerBasepath}>
+        <Router basename="">
           <div className="App">
             <Header
               network={this.state.network}
