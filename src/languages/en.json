@@ -14,6 +14,8 @@
   "contact.address.label": "Address",
   "currency": "Currency",
 
+  "data": "Data",
+
   "error.cant.find": "Couldn't find [{searchStr}]",
   "error.nothing.found": "Nothing exists at [{path}]",
 

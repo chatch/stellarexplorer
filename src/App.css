@@ -205,8 +205,9 @@ a[id|='account-tabs-tab'] {
   color: #777;
 }
 
-a[id|='account-tabs-tab']:hover {
-  color: black;
+a[id|='account-tabs-tab']:hover,
+a[id|='account-tabs-tab'][aria-selected=true] {
+  color: black !important;
 }
 
 .operation {

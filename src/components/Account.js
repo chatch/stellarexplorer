@@ -26,6 +26,38 @@ import Asset from './shared/Asset'
 import OperationList from './OperationList'
 import TransactionTable from './TransactionTableContainer'
 
+const NameValueTable = ({data}) => {
+  if (!data || Object.keys(data).length === 0) return <div>No Data</div>
+  return (
+    <Table>
+      <thead>
+        <tr>
+          <th>
+            <FormattedMessage id="name" />
+          </th>
+          <th>
+            <FormattedMessage id="value" />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.keys(data).map(key =>
+          <tr key={key}>
+            <td>
+              {key}
+            </td>
+            <td>
+              {typeof data[key] === 'boolean'
+                ? data[key].toString()
+                : data[key]}
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </Table>
+  )
+}
+
 const balanceRow = bal =>
   <tr key={bal.asset_code ? bal.asset_code : 'XLM'}>
     <td>
@@ -125,33 +157,8 @@ const Signers = props =>
     </tbody>
   </Table>
 
-const Flags = ({flags}) =>
-  <Table>
-    <thead>
-      <tr>
-        <th>
-          <FormattedMessage id="name" />
-        </th>
-        <th>
-          <FormattedMessage id="value" />
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      {Object.keys(flags).map(flag =>
-        <tr key={flag}>
-          <td>
-            {flag}
-          </td>
-          <td>
-            {typeof flags[flag] === 'boolean'
-              ? flags[flag].toString()
-              : flags[flag]}
-          </td>
-        </tr>
-      )}
-    </tbody>
-  </Table>
+const Flags = ({flags}) => <NameValueTable data={flags} />
+const Data = ({data}) => <NameValueTable data={data} />
 
 const Anchor = ({anchor}) =>
   <div>
@@ -232,6 +239,9 @@ class Account extends React.Component {
             </Tab>
             <Tab eventKey={6} title={formatMessage({id: 'flags'})}>
               <Flags flags={a.flags} />
+            </Tab>
+            <Tab eventKey={7} title={formatMessage({id: 'data'})}>
+              <Data data={a.data_attr} />
             </Tab>
           </Tabs>
         </Row>
