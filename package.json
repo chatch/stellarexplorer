@@ -1,11 +1,21 @@
 {
   "name": "stellarexplorer",
+  "description": "Ledger explorer for the Stellar network",
   "version": "0.1.0",
   "license": "Apache-2.0",
+  "author": "Chris Hatch",
+  "homepage": "https://steexp.com",
   "repository": "chatch/stellarexplorer",
   "bugs": {
     "url": "https://github.com/chatch/stellarexplorer/issues"
   },
+  "keywords": [
+    "stellar"
+    "react",
+    "ledger",
+    "block explorer",
+    "blockchain"
+  ],
   "engines": {
     "node": "6.x.x"
   },
