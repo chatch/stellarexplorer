@@ -5,7 +5,7 @@
   "amount": "Amount",
   "anchor": "Anchor",
   "anchors": "Anchors",
-  "anchors.notice": "NOTE: this is not a comprehensive list. Add other anchors to the Anchors.json file to have them appear here.",
+  "anchors.notice": "NOTE: this is not a comprehensive list. Add other anchors to the anchors.json file to have them appear here.",
   "asset": "Asset",
   "assetCode": "Asset Code",
 
