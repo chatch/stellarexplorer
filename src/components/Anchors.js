@@ -4,7 +4,7 @@ import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import {injectIntl, FormattedMessage} from 'react-intl'
-import anchors from '../lib/Anchors'
+import anchors from '../lib/anchors'
 import AccountLink from './shared/AccountLink'
 import AnchorLogo from './shared/AnchorLogo'
 

@@ -4,7 +4,7 @@ import {
   isStellarAddress,
   isTxHash,
   shortHash,
-} from './Utils'
+} from '../utils'
 
 it('isDefInt checks for defined int correctly', () => {
   expect(isDefInt()).toBe(false)

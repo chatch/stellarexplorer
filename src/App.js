@@ -22,8 +22,8 @@ import Accounts from './components/Accounts'
 import Anchors from './components/Anchors'
 import Operations from './components/Operations'
 
-import {networks, NETWORK_PUBLIC, NETWORK_TEST} from './lib/Stellar'
-import {storageInit} from './lib/Utils'
+import {networks, NETWORK_PUBLIC, NETWORK_TEST} from './lib/stellar'
+import {storageInit} from './lib/utils'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'

@@ -1,5 +1,5 @@
 import React from 'react'
-import {networks} from '../../lib/Stellar'
+import {networks} from '../../lib/stellar'
 
 const NetworkButton = ({network, selectedNetwork, switcher}) =>
   <button

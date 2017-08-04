@@ -11,7 +11,7 @@ import {
   FormattedMessage,
 } from 'react-intl'
 
-import {handleFetchDataFailure} from '../lib/Utils'
+import {handleFetchDataFailure} from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import TransactionTable from './TransactionTableContainer'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'

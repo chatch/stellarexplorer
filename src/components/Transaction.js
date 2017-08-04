@@ -12,7 +12,7 @@ import {
 } from 'react-intl'
 import PropTypes from 'prop-types'
 
-import {handleFetchDataFailure} from '../lib/Utils'
+import {handleFetchDataFailure} from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import OperationList from './OperationList'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'

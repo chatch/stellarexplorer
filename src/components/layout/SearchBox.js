@@ -2,7 +2,7 @@ import React from 'react'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import {withRouter} from 'react-router'
 import {injectIntl} from 'react-intl'
-import {isPublicKey, isStellarAddress, isTxHash} from '../../lib/Utils'
+import {isPublicKey, isStellarAddress, isTxHash} from '../../lib/utils'
 
 class SearchBox extends React.Component {
   noMatch = searchStr => {

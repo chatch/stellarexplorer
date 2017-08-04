@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {FormattedTime, FormattedDate, FormattedMessage} from 'react-intl'
 
 import {withServer} from './shared/HOCs'
-import {isDefInt, shortHash} from '../lib/Utils'
+import {isDefInt, shortHash} from '../lib/utils'
 import {withSpinner} from './shared/Spinner'
 
 class AccountRow extends React.Component {

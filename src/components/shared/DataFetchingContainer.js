@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withServer} from './HOCs'
-import {handleFetchDataFailure} from '../../lib/Utils'
+import {handleFetchDataFailure} from '../../lib/utils'
 
 const propTypesContainer = {
   limit: PropTypes.number,

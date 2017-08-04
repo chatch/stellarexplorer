@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/lib/Table'
 import {Link} from 'react-router-dom'
 import {FormattedRelative, FormattedMessage} from 'react-intl'
 import {withSpinner} from './shared/Spinner'
-import {shortHash} from '../lib/Utils'
+import {shortHash} from '../lib/utils'
 
 class TransactionRow extends React.Component {
   static defaultProps = {

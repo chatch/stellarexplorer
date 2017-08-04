@@ -10,12 +10,12 @@ import {injectIntl, FormattedMessage} from 'react-intl'
 
 import StellarSdk from 'stellar-sdk'
 
-import anchors from '../lib/Anchors'
+import anchors from '../lib/anchors'
 import {
   handleFetchDataFailure,
   isPublicKey,
   isStellarAddress,
-} from '../lib/Utils'
+} from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import {withSpinner} from './shared/Spinner'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'

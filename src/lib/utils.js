@@ -1,4 +1,4 @@
-import {sdk} from './Stellar'
+import {sdk} from './stellar'
 import truncate from 'lodash/truncate'
 
 const isPublicKey = keyStr => sdk.StrKey.isValidEd25519PublicKey(keyStr)

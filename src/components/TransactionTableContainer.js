@@ -1,7 +1,7 @@
 import {compose} from 'recompose'
 import {withPaging} from './shared/Paging'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
-import {isDefInt, isPublicKey} from '../lib/Utils'
+import {isDefInt, isPublicKey} from '../lib/utils'
 import TransactionTable from './TransactionTable'
 
 const rspRecsToProps = records =>
