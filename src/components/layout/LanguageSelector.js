@@ -35,6 +35,9 @@ const LanguageSelector = ({
       <MenuItem lang="zh" onClick={switcher}>
         中文
       </MenuItem>
+      <MenuItem lang="vi" onClick={switcher}>
+        Tiếng Việt
+      </MenuItem>
       <MenuItem
         onClick={onClickTranslateHelp}
         style={{borderTop: '1px solid black'}}
