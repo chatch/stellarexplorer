@@ -1,5 +1,5 @@
-import {sdk} from './stellar'
 import truncate from 'lodash/truncate'
+import {sdk} from './stellar'
 
 const isPublicKey = keyStr => sdk.StrKey.isValidEd25519PublicKey(keyStr)
 const isStellarAddress = addr => /^[^*,]*\*[a-z0-9-.]*$/i.test(addr)
@@ -29,8 +29,11 @@ const handleFetchDataFailure = id => e => {
 const storageInit = () => {
   let storage
   if (typeof localStorage === 'undefined' || localStorage === null) {
+    const tmpdir = require('os').tmpdir
+    const join = require('path').join
+    const storagePath = join(tmpdir(), 'steexp')
     const LocalStorage = require('node-localstorage').LocalStorage
-    storage = new LocalStorage('./stellarexplorer')
+    storage = new LocalStorage(storagePath)
   } else {
     storage = localStorage
   }
