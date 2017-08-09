@@ -86,7 +86,7 @@
   "operation.payment.path": "Đường dẫn {asset} tối đa {max}",
   "operation.trust": "Tin tưởng {trustee} phát hành {assetCode}",
   "operation.trust.allow": "Ủy quyền {authorize}",
-  "operation.trust.change": "Với giới hạn {limit}",
+  "operation.trust.change": " với giới hạn {limit}",
 
   "optional": "Không bắt buộc",
   "order.amount": "Số tiền",
