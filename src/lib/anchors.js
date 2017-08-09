@@ -35,6 +35,12 @@ const Anchors = {
     home: "vcbear.net",
     img: "vcbear.png"
   },
+  "GCZAGTNARIVAGJG5MMQSBCO5OHDAFDBONJVSVK3TIOEOV3V3LPGYXEC7": {
+    code: "NGN",
+    name: "TONAIRA",
+    home: "tonaira.com",
+    img: "tonaira.png"
+  },
   "GBV4ZDEPNQ2FKSPKGJP2YKDAIZWQ2XKRQD4V4ACH3TCTFY6KPY3OAVS7": {
     code: "XLM",
     name: "Changelly",
