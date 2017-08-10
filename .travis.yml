@@ -3,10 +3,10 @@ language: node_js
 node_js:
   - lts/*
   - 6
-  # - node  TODO: restore this: failure occuring under latest v8.* of node
+  - node
 cache:
   directories:
     - node_modules
 script:
-  - CI=true npm test
-  - CI=false npm run build  # CI=false so warnings (from stellar-base>bindings) don't fail the build
+  - npm test
+  - npm run build
