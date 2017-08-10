@@ -26,7 +26,7 @@
     "react-router-dom": "^4.1.1",
     "react-scripts": "1.0.10",
     "recompose": "^0.23.5",
-    "stellar-sdk": "chatch/js-stellar-sdk#patched"
+    "stellar-sdk": "chatch/js-stellar-sdk#upgrade_dependencies"
   },
   "devDependencies": {
     "bootstrap": "^3.3.7",
