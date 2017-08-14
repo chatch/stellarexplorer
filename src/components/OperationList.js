@@ -25,20 +25,15 @@ const OperationList = props =>
   </div>
 
 OperationList.propTypes = {
+  compact: PropTypes.bool,
   records: PropTypes.array.isRequired,
+  server: PropTypes.object.isRequired,
 }
 
 const rspRecsToProps = records =>
   records.map(r => mapKeys(r, (v, k) => camelCase(k)))
 
-const fetchRecords = props => {
-  const builder = props.server.operations()
-  if (props.tx) builder.forTransaction(props.tx)
-  if (props.account) builder.forAccount(props.account)
-  builder.limit(props.limit)
-  builder.order('desc')
-  return builder.call()
-}
+const fetchRecords = props => props.server.loadOperations(props)
 
 const enhance = compose(
   withPaging(),

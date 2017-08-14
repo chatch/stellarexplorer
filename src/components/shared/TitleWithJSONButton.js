@@ -2,20 +2,23 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import JSONButton from './JSONButton'
 
-const TitleWithJSONButton = ({id, title, urlFn}) =>
+const TitleWithJSONButton = ({title, url}) =>
   <div>
-    <span>{title}</span>
-    <span className="pull-right"><JSONButton id={id} urlFn={urlFn} /></span>
+    <span>
+      {title}
+    </span>
+    <span className="pull-right">
+      <JSONButton url={url} />
+    </span>
   </div>
 
 TitleWithJSONButton.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   title: PropTypes.string.isRequired,
-  urlFn: PropTypes.func.isRequired,
+  url: PropTypes.string.isRequired,
 }
 
-const titleWithJSONButton = (id, title, urlFn) => {
-  return <TitleWithJSONButton title={title} id={id} urlFn={urlFn} />
+const titleWithJSONButton = (title, url) => {
+  return <TitleWithJSONButton title={title} url={url} />
 }
 
 export {titleWithJSONButton, TitleWithJSONButton}

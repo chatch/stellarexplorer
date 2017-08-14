@@ -55,9 +55,8 @@ class Ledger extends React.Component {
         <Row>
           <Panel
             header={titleWithJSONButton(
-              seq,
               formatMessage({id: 'ledger'}),
-              urlFn
+              urlFn(seq)
             )}
           >
             <Table>

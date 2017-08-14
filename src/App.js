@@ -24,7 +24,7 @@ import Accounts from './components/Accounts'
 import Anchors from './components/Anchors'
 import Operations from './components/Operations'
 
-import {networks, NETWORK_PUBLIC, NETWORK_TEST} from './lib/stellar'
+import {networks, Server} from './lib/stellar'
 import {storageInit} from './lib/utils'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -39,7 +39,7 @@ addLocaleData([...en, ...vi, ...zh])
 
 const initialLanguage =
   storage.getItem('language') || navigator.language || 'en'
-const initialNetwork = storage.getItem('network') || NETWORK_PUBLIC
+const initialNetwork = storage.getItem('network') || networks.public
 
 const getMessages = locale => {
   switch (locale) {
@@ -59,19 +59,19 @@ class App extends Component {
   state = {
     language: initialLanguage,
     network: initialNetwork,
-    server: networks[initialNetwork].initFunc(),
+    server: Server(initialNetwork),
   }
 
   componentWillMount() {
     // handle direct to testnet links in the form testnet.steexp.com/*
     // and handle switch back to public when testnet is not in the domain
     if (isTestnetAddr()) {
-      if (this.state.network !== NETWORK_TEST) {
-        this.setNetwork(NETWORK_TEST)
+      if (this.state.network !== networks.test) {
+        this.setNetwork(networks.test)
       }
     } else {
-      if (this.state.network !== NETWORK_PUBLIC) {
-        this.setNetwork(NETWORK_PUBLIC)
+      if (this.state.network !== networks.public) {
+        this.setNetwork(networks.public)
       }
     }
   }
@@ -82,7 +82,7 @@ class App extends Component {
     this.setState(
       {
         network: network,
-        server: networks[network].initFunc(),
+        server: Server(network),
       },
       page ? () => (window.location.href = page) : reloadPage
     )
@@ -90,7 +90,7 @@ class App extends Component {
 
   networkSwitcher = selectedNetwork => {
     const newHome =
-      selectedNetwork === NETWORK_PUBLIC ? HOME_PUBLIC : HOME_TESTNET
+      selectedNetwork === networks.public ? HOME_PUBLIC : HOME_TESTNET
     this.setNetwork(selectedNetwork, newHome)
   }
 

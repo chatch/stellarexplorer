@@ -63,7 +63,7 @@ const Operation = ({compact, op, opURLFn}) => {
         <TransactionTime id={txLinkToHash(op.links.transaction.href)} />
       </Col>
       <Col md={1}>
-        <JSONButton id={op.id} urlFn={opURLFn} />
+        <JSONButton url={opURLFn(op.id)} />
       </Col>
     </Row>
   )
