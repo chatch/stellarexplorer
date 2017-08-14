@@ -41,9 +41,8 @@ class Transaction extends React.Component {
         <Row>
           <Panel
             header={titleWithJSONButton(
-              id,
               formatMessage({id: 'transaction.details'}),
-              urlFn
+              urlFn(id)
             )}
           >
             <Table className="table-hover table-condensed" fill>

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const JSONButton = props =>
-  <a href={props.urlFn(props.id)} type="application/hal+json">
+  <a href={props.url} type="application/hal+json">
     <span
       style={{
         fontSize: '0.8em',
@@ -18,8 +18,7 @@ const JSONButton = props =>
   </a>
 
 JSONButton.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  urlFn: PropTypes.func.isRequired,
+  url: PropTypes.string.isRequired,
 }
 
 export default JSONButton

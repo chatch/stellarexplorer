@@ -8,7 +8,7 @@ import Tabs from 'react-bootstrap/lib/Tabs'
 
 import {injectIntl, FormattedMessage} from 'react-intl'
 
-import StellarSdk from 'stellar-sdk'
+import {FederationServer} from 'stellar-sdk'
 
 import anchors from '../lib/anchors'
 import {
@@ -177,9 +177,8 @@ class Account extends React.Component {
     const {formatMessage} = this.props.intl
     const a = this.props.account
     const header = titleWithJSONButton(
-      a.id,
       formatMessage({id: 'account'}),
-      this.props.urlFn
+      this.props.urlFn(a.id)
     )
     const stellarAddr = stellarAddressFromURI()
     return (
@@ -277,8 +276,7 @@ class AccountContainer extends React.Component {
 
   loadAccountByStellarAddress(stellarAddr) {
     const [name, domain] = stellarAddr.split('*')
-    StellarSdk.FederationServer
-      .createForDomain(domain)
+    FederationServer.createForDomain(domain)
       .then(fed => fed.resolveAddress(name))
       .then(acc => this.loadAccount(acc.account_id))
       .catch(handleFetchDataFailure(stellarAddr))

@@ -11,17 +11,15 @@ const NetworkButton = ({network, selectedNetwork, switcher}) =>
 
 const NetworkSelector = props =>
   <div className="Network-Selector">
-    {Object.keys(networks)
-      .filter(network => networks[network].hide !== true)
-      .map(network =>
-        <NetworkButton
-          key={network}
-          hide={networks[network].hide}
-          network={network}
-          selectedNetwork={props.network}
-          switcher={props.switcher}
-        />
-      )}
+    {[networks.public, networks.test].map(network =>
+      <NetworkButton
+        key={network}
+        hide={networks[network].hide}
+        network={network}
+        selectedNetwork={props.network}
+        switcher={props.switcher}
+      />
+    )}
   </div>
 
 export default NetworkSelector

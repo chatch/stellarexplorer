@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import FetchPonyfill from 'fetch-ponyfill'
 const fetch = FetchPonyfill().fetch
 
@@ -41,10 +42,8 @@ class LumensRates extends React.Component {
       color: positive ? 'green' : 'red',
     }
     return (
-      <span>
-        <span style={style}>
-          {valueStr}
-        </span>
+      <span style={style}>
+        {valueStr}
       </span>
     )
   }
@@ -58,4 +57,9 @@ class LumensRates extends React.Component {
   }
 }
 
-export default LumensRatesContainer
+LumensRates.propTypes = {
+  change: PropTypes.string.isRequired,
+  usd: PropTypes.string.isRequired,
+}
+
+export {LumensRatesContainer as default, LumensRates}
