@@ -5,7 +5,6 @@
   "amount": "Amount",
   "anchor": "Anchor",
   "anchors": "Anchors",
-  "anchors.notice": "NOTE: this is not a comprehensive list. Add other anchors to the anchors.json file to have them appear here.",
   "asset": "Asset",
   "assetCode": "Asset Code",
 
@@ -18,6 +17,8 @@
 
   "error.cant.find": "Couldn't find [{searchStr}]",
   "error.nothing.found": "Nothing exists at [{path}]",
+
+  "exchanges": "Exchanges",
 
   "fed.protocol": "Federation Protocol",
   "fed.url": "Federation URL",

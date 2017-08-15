@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
-import anchors from '../../lib/anchors'
+import knownAccounts from '../../data/known_accounts'
 
 const AccountLink = ({account, label}) => {
   let accLabel = label
   if (!accLabel) {
-    accLabel = anchors.hasOwnProperty(account)
+    accLabel = knownAccounts.hasOwnProperty(account)
       ? <span style={{fontStyle: 'italic'}}>
-          {anchors[account].name}
+          {knownAccounts[account].name}
         </span>
       : account.substring(0, 4)
   }

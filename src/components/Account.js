@@ -10,7 +10,7 @@ import {injectIntl, FormattedMessage} from 'react-intl'
 
 import {FederationServer} from 'stellar-sdk'
 
-import anchors from '../lib/anchors'
+import knownAccounts from '../data/known_accounts'
 import {
   handleFetchDataFailure,
   isPublicKey,
@@ -21,7 +21,7 @@ import {withSpinner} from './shared/Spinner'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 import AccountLink from './shared/AccountLink'
-import AnchorLogo from './shared/AnchorLogo'
+import Logo from './shared/Logo'
 import Asset from './shared/Asset'
 import OperationList from './OperationList'
 import TransactionTable from './TransactionTableContainer'
@@ -160,9 +160,9 @@ const Signers = props =>
 const Flags = ({flags}) => <NameValueTable data={flags} />
 const Data = ({data}) => <NameValueTable data={data} />
 
-const Anchor = ({anchor}) =>
+const AccountLogoOrName = ({img, name}) =>
   <div>
-    {anchor.img ? <AnchorLogo anchor={anchor} /> : anchor.name}
+    {img ? <Logo img={img} name={name} /> : name}
   </div>
 
 const stellarAddressFromURI = () => {
@@ -185,8 +185,8 @@ class Account extends React.Component {
       <Grid>
         <Row>
           <Panel header={header}>
-            {anchors.hasOwnProperty(a.id) &&
-              <Anchor id={a.id} anchor={anchors[a.id]} />}
+            {knownAccounts.hasOwnProperty(a.id) &&
+              <AccountLogoOrName {...knownAccounts[a.id]} />}
             <h4>
               <FormattedMessage id="key.public" />
             </h4>

@@ -22,6 +22,7 @@ import Transactions from './components/Transactions'
 import Account from './components/Account'
 import Accounts from './components/Accounts'
 import Anchors from './components/Anchors'
+import Exchanges from './components/Exchanges'
 import Operations from './components/Operations'
 
 import {networks, Server} from './lib/stellar'
@@ -131,6 +132,7 @@ class App extends Component {
                 <Route path="/accounts" component={Accounts} />
                 <Route path="/account/:id" component={Account} />
                 <Route path="/anchors" component={Anchors} />
+                <Route path="/exchanges" component={Exchanges} />
                 <Route path="/error/not-found/:id" component={NoMatch} />
                 <Route component={NoMatch} />
               </Switch>

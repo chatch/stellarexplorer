@@ -3,17 +3,22 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import {injectIntl, FormattedMessage} from 'react-intl'
-import anchors from '../lib/anchors'
+import {injectIntl} from 'react-intl'
+
+import anchors from '../data/anchors'
 import AccountLink from './shared/AccountLink'
-import AnchorLogo from './shared/AnchorLogo'
+import Logo from './shared/Logo'
+import {titleWithJSONButton} from './shared/TitleWithJSONButton'
+
+const METADATA_PATH =
+  'https://github.com/chatch/stellarexplorer/src/data/anchors.js'
 
 const Anchor = anchor =>
   <div>
-    <Row style={{marginBottom: 20}}>
+    <Row style={{marginTop: 20, marginBottom: 20}}>
       <Col md={3}>
         <a href={`https://${anchor.home}`}>
-          <AnchorLogo anchor={anchor} />
+          <Logo img={anchor.img} name={anchor.name} />
         </a>
       </Col>
       <Col md={3}>
@@ -37,18 +42,15 @@ const AnchorsList = () =>
 class Anchors extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
+    const header = titleWithJSONButton(
+      formatMessage({id: 'anchors'}),
+      METADATA_PATH
+    )
     return (
       <Grid>
         <Row>
-          <Panel header={formatMessage({id: 'anchors'})}>
+          <Panel header={header}>
             <AnchorsList />
-            <div
-              style={{
-                paddingTop: 30,
-              }}
-            >
-              <FormattedMessage id="anchors.notice" />
-            </div>
           </Panel>
         </Row>
         <Row />

@@ -63,6 +63,12 @@ class Header extends React.Component {
                   <FormattedMessage id="anchors" />
                 </MenuItem>
               </LinkContainer>
+              <LinkContainer to="/exchanges">
+                <MenuItem>
+                  <FormattedMessage id="exchanges" />
+                </MenuItem>
+              </LinkContainer>
+              <MenuItem divider />
               <MenuItem href="https://www.stellar.org/laboratory/">
                 Laboratory
               </MenuItem>

@@ -5,7 +5,6 @@
 
   "anchor": "锚点",
   "anchors": "锚点",
-  "anchors.notice": "注意:这个标不综合的。请添加别的锚点到anchors.json。",
   "asset": "资产",
   "assetCode": "资产代码",
 
@@ -18,6 +17,8 @@
 
   "error.cant.find": "找不到 [{searchStr}]",
   "error.nothing.found": "没有东西在 [{path}]",
+
+  "exchanges": "货币交换",
 
   "fed.protocol": "联邦协议",
   "fed.url": "联邦协议 URL",

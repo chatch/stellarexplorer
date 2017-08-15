@@ -5,7 +5,6 @@
   "amount": "Số tiền",
   "anchor": "Mỏ neo",
   "anchors": "Neo",
-  "anchors.notice": "Chú ý: đây không phải là một danh sách đầy đủ. Thêm các neo khác vào anchors.json",
   "asset": "Tài sản",
   "assetCode": "Mã Tài sản",
 
@@ -18,6 +17,8 @@
 
   "error.cant.find": "Không thể tìm thấy [{searchStr}]",
   "error.nothing.found": "Không có gì tồn tại ở [{path}]",
+
+  "exchanges": "Trao đổi tiền tệ",
 
   "fed.protocol": "Nghị định thư Liên đoàn",
   "fed.url": "Liên kết URL",
