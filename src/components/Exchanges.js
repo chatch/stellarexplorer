@@ -13,14 +13,14 @@ import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 const METADATA_PATH =
   'https://github.com/chatch/stellarexplorer/src/data/exchanges.js'
 
-const Exchange = exchange => {
-  const homePage = `https://${exchange.home}`
+const Exchange = ({home, id, img, name}) => {
+  const homePage = `https://${home}`
   return (
     <div>
       <Row style={{marginTop: 20, marginBottom: 20}}>
         <Col md={3}>
           <a href={homePage}>
-            <Logo img={exchange.img} name={exchange.name} />
+            <Logo img={img} name={name} />
           </a>
         </Col>
         <Col md={3}>
@@ -29,7 +29,7 @@ const Exchange = exchange => {
           </a>
         </Col>
         <Col md={6}>
-          <AccountLink account={exchange.id} label={exchange.id} />
+          <AccountLink account={id} label={id} />
         </Col>
       </Row>
     </div>
