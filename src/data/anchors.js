@@ -93,7 +93,7 @@ export default {
       },
     },
   },
-  SellarTerm: {
+  StellarTerm: {
     home: 'stellarterm.com',
     currencies: {
       DEMO: {
