@@ -1,17 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import has from 'lodash/has'
 
 import knownAccounts from '../../data/known_accounts'
 
-const AccountLink = ({account, label}) => {
+const AccountLink = ({account, label, hideKnown = false}) => {
   let accLabel = label
   if (!accLabel) {
-    accLabel = knownAccounts.hasOwnProperty(account)
-      ? <span style={{fontStyle: 'italic'}}>
-          {knownAccounts[account].name}
-        </span>
-      : account.substring(0, 4)
+    accLabel =
+      has(knownAccounts, account) && !hideKnown
+        ? <span style={{fontStyle: 'italic'}}>
+            {knownAccounts[account].name}
+          </span>
+        : account.substring(0, 4)
   }
   return (
     <span title={account}>
@@ -24,6 +26,7 @@ const AccountLink = ({account, label}) => {
 
 AccountLink.propTypes = {
   account: PropTypes.string.isRequired,
+  hideKnown: PropTypes.bool,
   label: PropTypes.string,
 }
 

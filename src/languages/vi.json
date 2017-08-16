@@ -14,6 +14,7 @@
   "currency": "Tiền tệ",
 
   "data": "Dữ liệu",
+  "distributers": "Nhà phân phối",
 
   "error.cant.find": "Không thể tìm thấy [{searchStr}]",
   "error.nothing.found": "Không có gì tồn tại ở [{path}]",
@@ -30,6 +31,7 @@
 
   "inflation": "Lạm phát Điểm đến",
   "invalid.account": "Tài khoản không hợp lệ",
+  "issuer": "Phát hành",
   "language.selector": "Trình chọn ngôn ngữ",
   "latest.ledgers": "Ledgers mới nhất",
   "latest.operations": "Hoạt động mới nhất",

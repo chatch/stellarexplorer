@@ -5,10 +5,9 @@ import Row from 'react-bootstrap/lib/Row'
 import Table from 'react-bootstrap/lib/Table'
 import Tab from 'react-bootstrap/lib/Tab'
 import Tabs from 'react-bootstrap/lib/Tabs'
-
 import {injectIntl, FormattedMessage} from 'react-intl'
-
 import {FederationServer} from 'stellar-sdk'
+import has from 'lodash/has'
 
 import knownAccounts from '../data/known_accounts'
 import {
@@ -160,11 +159,6 @@ const Signers = props =>
 const Flags = ({flags}) => <NameValueTable data={flags} />
 const Data = ({data}) => <NameValueTable data={data} />
 
-const AccountLogoOrName = ({img, name}) =>
-  <div>
-    {img ? <Logo img={img} name={name} /> : name}
-  </div>
-
 const stellarAddressFromURI = () => {
   if (!window || !window.location || !window.location.pathname) return
   const path = window.location.pathname
@@ -185,8 +179,13 @@ class Account extends React.Component {
       <Grid>
         <Row>
           <Panel header={header}>
-            {knownAccounts.hasOwnProperty(a.id) &&
-              <AccountLogoOrName {...knownAccounts[a.id]} />}
+            {has(knownAccounts, a.id) &&
+              <div>
+                <Logo
+                  img={knownAccounts[a.id].img}
+                  name={knownAccounts[a.id].name}
+                />
+              </div>}
             <h4>
               <FormattedMessage id="key.public" />
             </h4>

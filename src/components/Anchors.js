@@ -3,7 +3,7 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import {injectIntl} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import has from 'lodash/has'
 
 import anchors from '../data/anchors'
@@ -22,7 +22,7 @@ const Anchor = ({currencies, home, img, name, toml}) => {
       <Row style={{marginTop: 25, marginBottom: 25}}>
         <Col md={2}>
           <a href={homePage}>
-            <Logo img={img ? img : `${name.toLowerCase()}.png`} name={name} />
+            <Logo img={img} name={name} />
           </a>
         </Col>
         <Col md={3}>
@@ -49,14 +49,18 @@ const Anchor = ({currencies, home, img, name, toml}) => {
                 {code}
               </Col>
               <Col md={6}>
-                <span>Issuer:&nbsp;</span>
-                <AccountLink account={currency.issuer} />
+                <span>
+                  <FormattedMessage id="issuer" />:&nbsp;
+                </span>
+                <AccountLink account={currency.issuer} hideKnown />
                 {has(currency, 'distributers') &&
                   <span>
-                    <span>,&nbsp;Distrubuter(s):&nbsp;</span>
+                    <span>
+                      ,&nbsp;<FormattedMessage id="distributers" />:&nbsp;
+                    </span>
                     {currency.distributers.map(distAcc =>
                       <span>
-                        <AccountLink account={distAcc} />&nbsp;
+                        <AccountLink account={distAcc} hideKnown />&nbsp;
                       </span>
                     )}
                   </span>}

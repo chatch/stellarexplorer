@@ -20,7 +20,7 @@ const Exchange = ({home, id, img, name}) => {
       <Row style={{marginTop: 20, marginBottom: 20}}>
         <Col md={3}>
           <a href={homePage}>
-            <Logo img={img} name={name} />
+            <Logo name={name} />
           </a>
         </Col>
         <Col md={3}>

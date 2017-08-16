@@ -2,24 +2,9 @@
 
 exports[`renders button with given url 1`] = `
 Array [
-  <a
-    href="https://somebackend.xyz/resource/12345"
-    type="application/hal+json"
->
-    <span
-        style={
-            Object {
-                "backgroundColor": "white",
-                "borderRadius": "3px",
-                "color": "black",
-                "fontSize": "0.8em",
-                "marginLeft": 10,
-                "padding": 3,
-              }
-        }
-    >
-        JSON
-    </span>
-</a>,
+  <BadgeButton
+    label="JSON"
+    url="https://somebackend.xyz/resource/12345"
+/>,
 ]
 `;

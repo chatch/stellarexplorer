@@ -14,6 +14,7 @@
   "currency": "货币",
 
   "data": "资料",
+  "distributers": "经销商",
 
   "error.cant.find": "找不到 [{searchStr}]",
   "error.nothing.found": "没有东西在 [{path}]",
@@ -33,7 +34,7 @@
 
   "inflation": "通胀地址",
   "invalid.account": "账号是无效的",
-  "issuer.id": "发行方账号",
+  "issuer": "发行方",
   "language.selector": "选择语言",
   "latest.ledgers": "最新的根帐",
   "latest.operations": "最新的操作",

@@ -14,6 +14,7 @@
   "currency": "Currency",
 
   "data": "Data",
+  "distributers": "Distributer(s)",
 
   "error.cant.find": "Couldn't find [{searchStr}]",
   "error.nothing.found": "Nothing exists at [{path}]",
@@ -30,6 +31,7 @@
 
   "inflation": "Inflation Destination",
   "invalid.account": "Account is invalid",
+  "issuer": "Issuer",
   "language.selector": "Language Selector",
   "latest.ledgers": "Latest Ledgers",
   "latest.operations": "Latest Operations",

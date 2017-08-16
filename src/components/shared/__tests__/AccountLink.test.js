@@ -1,27 +1,27 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 
-import anchors from '../../../lib/anchors'
+import knownAccounts from '../../../data/known_accounts'
 import AccountLink from '../AccountLink'
 
-const anAccount = 'GCGG3CIRBG2TTBR4HYZJ7JLDRFKZIYOAHFXRWLU62CA2QN52P2SUQNPJ'
-const aLabel = 'Anchor'
+const ACC_KNOWN = Object.keys(knownAccounts)[0]
+const ACC_UNKNOWN = 'GCGG3CIRBG2TTBR4HYZJ7JLDRFKZIYOAHFXRWLU62CA2QN52P2SUQNPJ'
+const LABEL = 'Anchor'
 
 it('renders with label', () => {
-  const link = shallow(<AccountLink label={aLabel} account={anAccount} />)
+  const link = shallow(<AccountLink label={LABEL} account={ACC_UNKNOWN} />)
   expect(link.getNodes()).toMatchSnapshot()
 })
 
 it('renders short account for label when no label property', () => {
-  const link = shallow(<AccountLink account={anAccount} />)
+  const link = shallow(<AccountLink account={ACC_UNKNOWN} />)
   expect(link.getNodes()).toMatchSnapshot()
 })
 
 it('renders anchor name in italics if account a known anchor', () => {
-  const anchorAccount = Object.keys(anchors)[0] // pick the first one out
-  const anchorName = anchors[anchorAccount].name
+  const anchorName = knownAccounts[ACC_KNOWN].name
 
-  const link = shallow(<AccountLink account={anchorAccount} />)
+  const link = shallow(<AccountLink account={ACC_KNOWN} />)
   const nameEl = link.find('Link > span')
 
   expect(nameEl.text()).toEqual(anchorName)
