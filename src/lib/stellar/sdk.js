@@ -1,8 +1,9 @@
 import sdk from 'stellar-sdk'
 import URI from 'urijs'
 
-import {TransactionCallBuilder} from 'stellar-sdk/lib/transaction_call_builder'
 import {LedgerCallBuilder} from 'stellar-sdk/lib/ledger_call_builder'
+import {OperationCallBuilder} from 'stellar-sdk/lib/operation_call_builder'
+import {TransactionCallBuilder} from 'stellar-sdk/lib/transaction_call_builder'
 
 /* ----------------------------------------------------------
  *
@@ -63,8 +64,9 @@ const wrapStellarCallBuilderWithWebPagePaging = CallBuilder => {
  */
 
 const pagingCalls = {
-  transactions: TransactionCallBuilder,
   ledgers: LedgerCallBuilder,
+  operations: OperationCallBuilder,
+  transactions: TransactionCallBuilder,
 }
 
 Object.keys(pagingCalls).forEach(
