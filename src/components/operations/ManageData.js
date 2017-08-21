@@ -2,6 +2,7 @@ import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import truncate from 'lodash/truncate'
+import {base64Decode} from '../../lib/utils'
 
 const MSG_KEY_PREFIX = 'operation.manage.data'
 
@@ -19,7 +20,7 @@ const ManageData = ({name, value}) => {
         <FormattedMessage
           id={`${MSG_KEY_PREFIX}.set.to`}
           values={{
-            value: truncate(value),
+            value: truncate(base64Decode(value)),
           }}
         />}
     </span>
