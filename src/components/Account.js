@@ -11,6 +11,7 @@ import has from 'lodash/has'
 
 import knownAccounts from '../data/known_accounts'
 import {
+  base64Decode,
   handleFetchDataFailure,
   isPublicKey,
   isStellarAddress,
@@ -25,7 +26,7 @@ import Asset from './shared/Asset'
 import OperationList from './OperationList'
 import TransactionTable from './TransactionTableContainer'
 
-const NameValueTable = ({data}) => {
+const NameValueTable = ({data, decodeValue = false}) => {
   if (!data || Object.keys(data).length === 0) return <div>No Data</div>
   return (
     <Table>
@@ -48,7 +49,7 @@ const NameValueTable = ({data}) => {
             <td>
               {typeof data[key] === 'boolean'
                 ? data[key].toString()
-                : data[key]}
+                : decodeValue ? base64Decode(data[key]) : data[key]}
             </td>
           </tr>
         )}
@@ -157,7 +158,7 @@ const Signers = props =>
   </Table>
 
 const Flags = ({flags}) => <NameValueTable data={flags} />
-const Data = ({data}) => <NameValueTable data={data} />
+const Data = ({data}) => <NameValueTable data={data} decodeValue />
 
 const stellarAddressFromURI = () => {
   if (!window || !window.location || !window.location.pathname) return

@@ -11,6 +11,8 @@ const isDefInt = (obj, key) => {
   return Number.isInteger(Number(obj[key]))
 }
 
+const base64Decode = value => Buffer.from(value, 'base64').toString()
+
 const handleFetchDataFailure = id => e => {
   let msg = `Failed to fetch data:`
   if (e.data && e.data.status) msg += `\n\tStatus: [${e.data.status}]`
@@ -41,6 +43,7 @@ const storageInit = () => {
 }
 
 export {
+  base64Decode,
   handleFetchDataFailure,
   isDefInt,
   isPublicKey,

@@ -1,4 +1,5 @@
 import {
+  base64Decode,
   isDefInt,
   isPublicKey,
   isStellarAddress,
@@ -72,4 +73,9 @@ it('shortHash shortens hash', () => {
       'ddeff3d3b8455f8173ef4d63e6650625734207fd351d2b9eeeaf0e38ffe1064b'
     )
   ).toBe('ddeff3d...')
+})
+
+it('base64Decode decodes', () => {
+  expect(base64Decode('aW5kb25lc2lhbg==')).toBe('indonesian')
+  expect(base64Decode('6ams6ams6JmO6JmO')).toBe('马马虎虎')
 })
