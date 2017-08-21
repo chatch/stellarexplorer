@@ -93,7 +93,7 @@ export default {
       },
     },
   },
-  'Papaya BTC': {
+  'Papaya': {
     home: 'btc.papayame.com',
     currencies: {
       BTC: {
