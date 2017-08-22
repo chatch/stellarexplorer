@@ -117,6 +117,42 @@ export default {
     },
     toml: 'https://btc.papayame.com/.well-known/stellar.toml',
   },
+
+  Cryptomover: {
+    home: 'cryptomover.com',
+    currencies: {
+      CM3: {
+        issuer: 'GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3',
+        distributers: [
+          'GDTH6R6JK72V4OUQH7WAWNCO3OKT4NDWSVCK2QNX77LYV47TYYFA5EPB',
+        ],
+      },
+      CM10: {
+        issuer: 'GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3',
+        distributers: [
+          'GDTH6R6JK72V4OUQH7WAWNCO3OKT4NDWSVCK2QNX77LYV47TYYFA5EPB',
+        ],
+      },
+      CME: {
+        issuer: 'GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3',
+        distributers: [
+          'GDTH6R6JK72V4OUQH7WAWNCO3OKT4NDWSVCK2QNX77LYV47TYYFA5EPB',
+        ],
+      },
+      CM3x2: {
+        issuer: 'GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3',
+        distributers: [
+          'GDTH6R6JK72V4OUQH7WAWNCO3OKT4NDWSVCK2QNX77LYV47TYYFA5EPB',
+        ],
+      },
+      HKDC: {
+        issuer: 'GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3',
+        distributers: [
+          'GDTH6R6JK72V4OUQH7WAWNCO3OKT4NDWSVCK2QNX77LYV47TYYFA5EPB',
+        ],
+      },
+    },
+  },
   StellarTerm: {
     home: 'stellarterm.com',
     currencies: {

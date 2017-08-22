@@ -15,6 +15,54 @@ import BadgeButton from './shared/BadgeButton'
 const METADATA_PATH =
   'https://github.com/chatch/stellarexplorer/blob/master/src/data/anchors.js'
 
+// render list of currency codes, each code on a new line
+const CodesColumn = ({currencies}) =>
+  <span>
+    {Object.keys(currencies).map(code =>
+      <div>
+        {code}
+      </div>
+    )}
+  </span>
+
+// render single issuer with link to account
+const Issuer = ({issuer}) =>
+  <span>
+    <FormattedMessage id="issuer" />:&nbsp;
+    <AccountLink account={issuer} hideKnown />
+  </span>
+
+// render 1 to n distributers with links to accounts
+const Distributers = ({distributers}) =>
+  <span>
+    <FormattedMessage id="distributers" />:&nbsp;
+    {distributers.map(distAcc =>
+      <span>
+        <AccountLink account={distAcc} hideKnown />&nbsp;
+      </span>
+    )}
+  </span>
+
+// render column of account details (known issuer and distributers), one row for each currency
+const AccountsColumn = ({currencies}) =>
+  <span>
+    {Object.keys(currencies).map(code => {
+      const currency = currencies[code]
+      const issuer = <Issuer issuer={currency.issuer} />
+      const distributers = has(currency, 'distributers')
+        ? <span>
+            ,&nbsp;<Distributers distributers={currency.distributers} />
+          </span>
+        : null
+      return (
+        <div>
+          {issuer}
+          {distributers}
+        </div>
+      )
+    })}
+  </span>
+
 const Anchor = ({currencies, home, img, name, toml}) => {
   const homePage = `https://${home}`
   return (
@@ -41,33 +89,12 @@ const Anchor = ({currencies, home, img, name, toml}) => {
             />
           </div>
         </Col>
-        {Object.keys(currencies).map(code => {
-          const currency = currencies[code]
-          return (
-            <div>
-              <Col md={1}>
-                {code}
-              </Col>
-              <Col md={6}>
-                <span>
-                  <FormattedMessage id="issuer" />:&nbsp;
-                </span>
-                <AccountLink account={currency.issuer} hideKnown />
-                {has(currency, 'distributers') &&
-                  <span>
-                    <span>
-                      ,&nbsp;<FormattedMessage id="distributers" />:&nbsp;
-                    </span>
-                    {currency.distributers.map(distAcc =>
-                      <span>
-                        <AccountLink account={distAcc} hideKnown />&nbsp;
-                      </span>
-                    )}
-                  </span>}
-              </Col>
-            </div>
-          )
-        })}
+        <Col md={1}>
+          <CodesColumn currencies={currencies} />
+        </Col>
+        <Col md={6}>
+          <AccountsColumn currencies={currencies} />
+        </Col>
       </Row>
     </div>
   )
