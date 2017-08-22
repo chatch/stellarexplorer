@@ -11,7 +11,7 @@ import Logo from './shared/Logo'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 const METADATA_PATH =
-  'https://github.com/chatch/stellarexplorer/src/data/exchanges.js'
+  'https://github.com/chatch/stellarexplorer/blob/master/src/data/exchanges.js'
 
 const Exchange = ({home, id, img, name}) => {
   const homePage = `https://${home}`

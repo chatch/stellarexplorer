@@ -13,7 +13,7 @@ import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 import BadgeButton from './shared/BadgeButton'
 
 const METADATA_PATH =
-  'https://github.com/chatch/stellarexplorer/src/data/anchors.js'
+  'https://github.com/chatch/stellarexplorer/blob/master/src/data/anchors.js'
 
 const Anchor = ({currencies, home, img, name, toml}) => {
   const homePage = `https://${home}`
