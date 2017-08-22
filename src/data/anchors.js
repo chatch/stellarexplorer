@@ -93,7 +93,7 @@ export default {
       },
     },
   },
-  'Papaya': {
+  Papaya: {
     home: 'btc.papayame.com',
     currencies: {
       BTC: {
@@ -108,8 +108,14 @@ export default {
           'GA7XRBMPWWIGOINPHEFLF2JMWKDP2ZAXNAWI6LWOWO4WWPFLEHNJWL5Y',
         ],
       },
+      ICN: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
     },
-    toml: 'https://btc.papayme.com/.well-known/stellar.toml',
+    toml: 'https://btc.papayame.com/.well-known/stellar.toml',
   },
   StellarTerm: {
     home: 'stellarterm.com',
