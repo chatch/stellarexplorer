@@ -1,4 +1,5 @@
 import React from 'react'
+import Col from 'react-bootstrap/lib/Col'
 import Grid from 'react-bootstrap/lib/Grid'
 import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
@@ -25,6 +26,13 @@ import Logo from './shared/Logo'
 import Asset from './shared/Asset'
 import OperationList from './OperationList'
 import TransactionTable from './TransactionTableContainer'
+
+const stellarAddressFromURI = () => {
+  if (!window || !window.location || !window.location.pathname) return
+  const path = window.location.pathname
+  const lastPath = path.substring(path.lastIndexOf('/') + 1)
+  return isStellarAddress(lastPath) ? lastPath : undefined
+}
 
 const NameValueTable = ({data, decodeValue = false}) => {
   if (!data || Object.keys(data).length === 0) return <div>No Data</div>
@@ -160,48 +168,77 @@ const Signers = props =>
 const Flags = ({flags}) => <NameValueTable data={flags} />
 const Data = ({data}) => <NameValueTable data={data} decodeValue />
 
-const stellarAddressFromURI = () => {
-  if (!window || !window.location || !window.location.pathname) return
-  const path = window.location.pathname
-  const lastPath = path.substring(path.lastIndexOf('/') + 1)
-  return isStellarAddress(lastPath) ? lastPath : undefined
+const AccountSummaryPanel = ({
+  account: a,
+  accountUrl,
+  formatMessageFn,
+  knownAccounts,
+}) => {
+  const header = titleWithJSONButton(
+    formatMessageFn({id: 'account'}),
+    accountUrl
+  )
+  const stellarAddr = stellarAddressFromURI()
+  return (
+    <Panel header={header}>
+      {has(knownAccounts, a.id) &&
+        <div>
+          <Logo img={knownAccounts[a.id].img} name={knownAccounts[a.id].name} />
+        </div>}
+      <Grid style={{paddingLeft: 0}}>
+        <Row>
+          <Col md={3}>
+            <FormattedMessage id="key.public" />:
+          </Col>
+          <Col md={9}>
+            {a.id}
+          </Col>
+        </Row>
+        {stellarAddr &&
+          <Row>
+            <Col md={3}>
+              <FormattedMessage id="stellar.address" />:
+            </Col>
+            <Col md={9}>
+              {stellarAddr}
+            </Col>
+          </Row>}
+        <Row>
+          <Col md={3}>
+            <FormattedMessage id="home.domain" />:
+          </Col>
+          <Col md={9}>
+            <a href={`http://${a.home_domain}`}>
+              {a.home_domain}
+            </a>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={3}>
+            <FormattedMessage id="inflation" />:
+          </Col>
+          <Col md={9}>
+            <AccountLink account={a.inflation_destination} />
+          </Col>
+        </Row>
+      </Grid>
+    </Panel>
+  )
 }
 
 class Account extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
     const a = this.props.account
-    const header = titleWithJSONButton(
-      formatMessage({id: 'account'}),
-      this.props.urlFn(a.id)
-    )
-    const stellarAddr = stellarAddressFromURI()
     return (
       <Grid>
         <Row>
-          <Panel header={header}>
-            {has(knownAccounts, a.id) &&
-              <div>
-                <Logo
-                  img={knownAccounts[a.id].img}
-                  name={knownAccounts[a.id].name}
-                />
-              </div>}
-            <h4>
-              <FormattedMessage id="key.public" />
-            </h4>
-            <span>
-              {a.id}
-            </span>
-
-            {stellarAddr &&
-              <span>
-                <h4>
-                  <FormattedMessage id="stellar.address" />
-                </h4>
-                {stellarAddr}
-              </span>}
-          </Panel>
+          <AccountSummaryPanel
+            account={a}
+            accountUrl={this.props.urlFn(a.id)}
+            formatMessageFn={formatMessage}
+            knownAccounts={knownAccounts}
+          />
         </Row>
         <Row>
           <Tabs

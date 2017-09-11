@@ -28,6 +28,7 @@
 
   "hash": "Hash",
   "home": "Home",
+  "home.domain": "Home Domain",
 
   "inflation": "Inflation Destination",
   "invalid.account": "Account is invalid",
@@ -118,7 +119,7 @@
   "settings.trustlines": "Trustlines",
   "signers": "Signers",
   "signing": "Signing",
-  "stellar.address": "Stellar address",
+  "stellar.address": "Stellar Address",
   "stellar": "Stellar",
 
   "thresholds": "Thresholds",
