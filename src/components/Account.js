@@ -182,7 +182,7 @@ const AccountSummaryPanel = ({
   return (
     <Panel header={header}>
       {has(knownAccounts, a.id) &&
-        <div>
+        <div style={{marginBottom: 10}}>
           <Logo img={knownAccounts[a.id].img} name={knownAccounts[a.id].name} />
         </div>}
       <Grid style={{paddingLeft: 0}}>
@@ -218,7 +218,8 @@ const AccountSummaryPanel = ({
             <FormattedMessage id="inflation" />:
           </Col>
           <Col md={9}>
-            <AccountLink account={a.inflation_destination} />
+            {a.inflation_destination &&
+              <AccountLink account={a.inflation_destination} />}
           </Col>
         </Row>
       </Grid>
