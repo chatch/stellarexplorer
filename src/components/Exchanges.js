@@ -14,7 +14,7 @@ import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 const METADATA_PATH =
   'https://github.com/chatch/stellarexplorer/blob/master/src/data/exchanges.js'
 
-const Exchange = ({accounts, aggregator=false, home, name}) => {
+const Exchange = ({accounts, aggregator = false, home, name}) => {
   const homePage = `https://${home}`
   return (
     <div>
@@ -31,9 +31,13 @@ const Exchange = ({accounts, aggregator=false, home, name}) => {
         </Col>
         <Col md={6}>
           {aggregator === true && <span>Aggregator</span>}
-          {aggregator !== true && !isEmpty(accounts) && accounts.map((account) =>
-            <span key={account}><AccountLink account={account} />&nbsp;</span>
-          )}
+          {aggregator !== true &&
+            !isEmpty(accounts) &&
+            accounts.map(account =>
+              <span key={account}>
+                <AccountLink account={account} hideKnown={true} />&nbsp;
+              </span>
+            )}
         </Col>
       </Row>
     </div>
