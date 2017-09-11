@@ -12,7 +12,10 @@ class Footer extends React.Component {
           <Col md={3}>
             <LumensRates />
           </Col>
-          <Col mdOffset={8} md={1}>
+          <Col mdOffset={2} md={3}>
+            Donate: hatch*fed.network
+          </Col>
+          <Col mdOffset={3} md={1}>
             <a href="https://github.com/chatch/stellarexplorer">Github</a>
           </Col>
         </Row>
