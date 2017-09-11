@@ -1,4 +1,5 @@
 import has from 'lodash/has'
+import isEmpty from 'lodash/isEmpty'
 
 import anchors from './anchors'
 import exchanges from './exchanges'
@@ -24,6 +25,14 @@ Object.keys(anchors).forEach(anchorKey => {
   })
 })
 
-Object.assign(knownAccounts, exchanges)
+Object.keys(exchanges).forEach(exchangeKey => {
+  const exchange = exchanges[exchangeKey]
+  if (!isEmpty(exchange.accounts)) {
+    exchange.accounts.forEach(account => {
+      knownAccounts[account] = exchange
+      knownAccounts[account].name = exchangeKey
+    })
+  }
+})
 
 export default knownAccounts

@@ -38,21 +38,21 @@ class Home extends React.Component {
           <Col md={4}>
             <Panel
               header={panelHeader(
-                formatMessage({id: 'latest.ledgers'}),
-                viewAllStr,
-                '/ledgers'
-              )}
-            >
-              <LedgerTable fill limit={5} refresh />
-            </Panel>
-            <Panel
-              header={panelHeader(
                 formatMessage({id: 'latest.txs'}),
                 viewAllStr,
                 '/txs'
               )}
             >
               <TransactionTable compact fill limit={5} refresh />
+            </Panel>
+            <Panel
+              header={panelHeader(
+                formatMessage({id: 'latest.ledgers'}),
+                viewAllStr,
+                '/ledgers'
+              )}
+            >
+              <LedgerTable fill limit={5} refresh />
             </Panel>
           </Col>
         </Row>

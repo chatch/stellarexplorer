@@ -4,6 +4,7 @@ import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import {injectIntl} from 'react-intl'
+import isEmpty from 'lodash/isEmpty'
 
 import exchanges from '../data/exchanges'
 import AccountLink from './shared/AccountLink'
@@ -13,7 +14,7 @@ import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 const METADATA_PATH =
   'https://github.com/chatch/stellarexplorer/blob/master/src/data/exchanges.js'
 
-const Exchange = ({home, id, img, name}) => {
+const Exchange = ({accounts, aggregator=false, home, name}) => {
   const homePage = `https://${home}`
   return (
     <div>
@@ -29,7 +30,10 @@ const Exchange = ({home, id, img, name}) => {
           </a>
         </Col>
         <Col md={6}>
-          <AccountLink account={id} label={id} />
+          {aggregator === true && <span>Aggregator</span>}
+          {aggregator !== true && !isEmpty(accounts) && accounts.map((account) =>
+            <span key={account}><AccountLink account={account} />&nbsp;</span>
+          )}
         </Col>
       </Row>
     </div>
@@ -39,7 +43,7 @@ const Exchange = ({home, id, img, name}) => {
 const ExchangesList = () =>
   <div>
     {Object.keys(exchanges).map(id =>
-      <Exchange key={id} id={id} {...exchanges[id]} />
+      <Exchange key={id} name={id} {...exchanges[id]} />
     )}
   </div>
 

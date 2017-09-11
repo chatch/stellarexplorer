@@ -117,7 +117,6 @@ export default {
     },
     toml: 'https://btc.papayame.com/.well-known/stellar.toml',
   },
-
   Cryptomover: {
     home: 'cryptomover.com',
     currencies: {
@@ -149,6 +148,52 @@ export default {
         issuer: 'GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3',
         distributers: [
           'GDTH6R6JK72V4OUQH7WAWNCO3OKT4NDWSVCK2QNX77LYV47TYYFA5EPB',
+        ],
+      },
+    },
+  },
+  Funtracker: {
+    home: 'funtracker.site',
+    currencies: {
+      FUNT: {
+        issuer: 'GBUYUAI75XXWDZEKLY66CFYKQPET5JR4EENXZBUZ3YXZ7DS56Z4OKOFU',
+        distributers: [
+          'GBURK32BMC7XORYES62HDKY7VTA5MO7JYBDH7KTML4EPN4BV2MIRQOVR',
+        ],
+      },
+      THB: {
+        issuer: 'GBUYUAI75XXWDZEKLY66CFYKQPET5JR4EENXZBUZ3YXZ7DS56Z4OKOFU',
+        distributers: [
+          'GBURK32BMC7XORYES62HDKY7VTA5MO7JYBDH7KTML4EPN4BV2MIRQOVR',
+        ],
+      },
+      USD: {
+        issuer: 'GBUYUAI75XXWDZEKLY66CFYKQPET5JR4EENXZBUZ3YXZ7DS56Z4OKOFU',
+        distributers: [
+          'GBURK32BMC7XORYES62HDKY7VTA5MO7JYBDH7KTML4EPN4BV2MIRQOVR',
+        ],
+      },
+      BTC: {
+        issuer: 'GBUYUAI75XXWDZEKLY66CFYKQPET5JR4EENXZBUZ3YXZ7DS56Z4OKOFU',
+        distributers: [
+          'GBURK32BMC7XORYES62HDKY7VTA5MO7JYBDH7KTML4EPN4BV2MIRQOVR',
+        ],
+      },
+      mBTC: {
+        issuer: 'GBUYUAI75XXWDZEKLY66CFYKQPET5JR4EENXZBUZ3YXZ7DS56Z4OKOFU',
+        distributers: [
+          'GBURK32BMC7XORYES62HDKY7VTA5MO7JYBDH7KTML4EPN4BV2MIRQOVR',
+        ],
+      },
+    },
+  },
+  ClicWorld: {
+    home: 'clic.world',
+    currencies: {
+      ESDT: {
+        issuer: 'GDPQRGW5VNJU63L6R573S65DW4XSJZEXPH4IG5EMJBQD3QUCXSLVFW7A',
+        distributers: [
+          'GAOTIY32H7QIUXXA6AADNYOLVRUUG7S43MFJGDALZ7PJODCHLRXIW26F',
         ],
       },
     },
