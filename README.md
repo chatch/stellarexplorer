@@ -1,12 +1,13 @@
-# stellarexplorer
-[![Build Status](https://travis-ci.org/chatch/stellarexplorer.svg?branch=master)](https://travis-ci.org/chatch/stellarexplorer)
+# Stellar Explorer
 
 Public: https://steexp.com |
 Test: https://testnet.steexp.com
 
-Ledger Explorer for the Stellar Network.
+A ledger Explorer for the Stellar Network.
 
-### Resources
+[![Build Status](https://travis-ci.org/chatch/stellarexplorer.svg?branch=master)](https://travis-ci.org/chatch/stellarexplorer)
+
+## Resources
 Resource|URI
 ---|---
 Latest Operations|[/operations](https://steexp.com/operations)
@@ -19,13 +20,13 @@ Ledger|[/ledger/10000000](https://steexp.com/ledger/10000000)
 
 TODO: [#17](https://github.com/chatch/stellarexplorer/issues/17) - support direct to tab links like /account/myacc@stellar.network#flags
 
-### Lists
+## Lists
 List|URI
 ---|---
 Anchors|[/anchors](https://steexp.com/anchors)
 Exchanges|[/exchanges](https://steexp.com/exchanges)
 
-### Languages
+## Languages
 Use the language selector in the top right corner to change the language.
 
 Translation files are here:
