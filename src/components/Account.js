@@ -152,7 +152,9 @@ const Signers = props =>
       {props.signers.map(signer =>
         <tr key={signer.public_key}>
           <td>
-            <AccountLink account={signer.public_key} />
+            {signer.type === 'ed25519_public_key' &&
+              <AccountLink account={signer.public_key} />}
+            {signer.type !== 'ed25519_public_key' && signer.public_key}
           </td>
           <td>
             {signer.weight}
