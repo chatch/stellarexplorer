@@ -79,12 +79,12 @@ class Header extends React.Component {
               title={formatMessage({id: 'more'})}
             >
               <MenuItem href="https://www.stellar.org">Stellar.org</MenuItem>
-              <MenuItem href="https://www.stellar.org/laboratory/">
-                Laboratory
-              </MenuItem>
               <MenuItem href="https://stellarterm.com/">StellarTerm</MenuItem>
               <MenuItem href="https://dashboard.stellar.org/">
                 Stellar Dashboard
+              </MenuItem>
+              <MenuItem href="https://www.stellar.org/laboratory/">
+                Laboratory
               </MenuItem>
               <MenuItem href="http://stellar.network/">
                 Stellar Network

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
+import {StrKey} from 'stellar-sdk'
 import AccountLink from '../shared/AccountLink'
 import snakeCase from 'lodash/snakeCase'
 import {isPublicKey, shortHash} from '../../lib/utils'
@@ -37,13 +38,18 @@ const OptionValue = ({optKey, value}) => {
   else if (
     (optKey === 'signerKey' && isPublicKey(value)) ||
     optKey === 'inflationDest'
-  )
+  ) {
     valueEl = <AccountLink account={value} />
-  else if (optKey === 'signerKey')
+  } else if (optKey === 'signerKey') {
     // and !isPublicKey (#19)
-    valueEl = <span title={value}>{shortHash(value)}</span>
-  else if (optKey === 'homeDomain')
+    const decodedValue =
+      value.charAt(0) === 'X'
+        ? StrKey.decodeSha256Hash(value).toString('hex')
+        : StrKey.decodePreAuthTx(value).toString('hex')
+    valueEl = <span title={decodedValue}>{shortHash(decodedValue)}</span>
+  } else if (optKey === 'homeDomain') {
     valueEl = <a href={`http://${value}`}>{value}</a>
+  }
   return <span>{valueEl}</span>
 }
 
