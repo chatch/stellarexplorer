@@ -16,8 +16,8 @@
   "data": "Data",
   "distributers": "Distributer(s)",
 
-  "error.cant.find": "Couldn't find [{searchStr}]",
-  "error.nothing.found": "Nothing exists at [{path}]",
+  "error.cant.find": "Couldn't find \"{searchStr}\"",
+  "error.nothing.found": "Nothing exists at \"{path}\"",
 
   "exchanges": "Exchanges",
 
@@ -66,15 +66,19 @@
   "operations": "Operations",
   "ops": "Ops",
 
-  "operation.account.create": "Created Account {account} with balance {balance}",
+  "operation.account.create":
+    "Created Account {account} with balance {balance}",
   "operation.account.merge": "Account merged into {account}",
   "operation.inflation": "Inflation run",
   "operation.manage.data.remove": "Remove Key {name}",
   "operation.manage.data.set": "Set Key {name}",
   "operation.manage.data.set.to": " to {value}",
-  "operation.offer.remove": "Remove Offer: {sellingAsset} for {buyingAsset} @ {price}",
-  "operation.offer.sell": "Sell Offer: {amount} {sellingAsset} for {buyingAsset} @ {price}",
-  "operation.offer.update": "Update Offer: {amount} {sellingAsset} for {buyingAsset} @ {price}",
+  "operation.offer.remove":
+    "Remove Offer: {sellingAsset} for {buyingAsset} @ {price}",
+  "operation.offer.sell":
+    "Sell Offer: {amount} {sellingAsset} for {buyingAsset} @ {price}",
+  "operation.offer.update":
+    "Update Offer: {amount} {sellingAsset} for {buyingAsset} @ {price}",
   "operation.options.set": "Set Options: [{options}]",
   "operation.options.set.clear.flags_s": "Clear Flags: {value}",
   "operation.options.set.set.flags_s": "Set Flags: {value}",

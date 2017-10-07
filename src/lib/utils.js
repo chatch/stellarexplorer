@@ -15,17 +15,26 @@ const isDefInt = (obj, key) => {
 const base64Decode = value => Buffer.from(value, 'base64').toString()
 
 const handleFetchDataFailure = id => e => {
+  let status
+  if (e.data && e.data.status) status = e.data.status
+  else if (e.response && e.response.status) status = e.response.status
+
   let msg = `Failed to fetch data:`
-  if (e.data && e.data.status) msg += `\n\tStatus: [${e.data.status}]`
+  if (status) msg += `\n\tStatus: [${status}]`
+  if (e.response && e.response.status)
+    msg += `\n\tStatus: [${e.response.status}]`
   if (e.message) msg += `\n\tMessage: [${e.message}]`
   if (e.stack) msg += `\n\tStack: [${e.stack}]`
+
   console.error(msg)
   console.error(`Raw Error: ${e}`)
 
-  if (e.data && e.data.status === 404) {
+  if (status === 404) {
     let redirectURI = '/error/not-found'
     if (id) redirectURI += `/${id}`
     window.location.href = redirectURI
+  } else {
+    window.location.href = `/error/not-found/${id}`
   }
 }
 

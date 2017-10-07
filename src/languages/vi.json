@@ -16,8 +16,8 @@
   "data": "Dữ liệu",
   "distributers": "Nhà phân phối",
 
-  "error.cant.find": "Không thể tìm thấy [{searchStr}]",
-  "error.nothing.found": "Không có gì tồn tại ở [{path}]",
+  "error.cant.find": "Không thể tìm thấy \"{searchStr}\"",
+  "error.nothing.found": "Không có gì tồn tại ở \"{path}\"",
 
   "exchanges": "Trao đổi tiền tệ",
 
@@ -72,9 +72,12 @@
   "operation.manage.data.remove": "Xoá Khóa {name}",
   "operation.manage.data.set": "Đặt Khóa {name}",
   "operation.manage.data.set.to": "to {value}",
-  "operation.offer.remove": "Hủy cung cấp: {sellingAsset} cho {buyingAsset} @ {price}",
-  "operation.offer.sell": "Phiếu mua hàng: {amount} {sellingAsset} cho {buyingAsset} @ {price}",
-  "operation.offer.update": "Cập nhật Cung cấp: {amount} {sellingAsset} cho {buyingAsset} @ {price}",
+  "operation.offer.remove":
+    "Hủy cung cấp: {sellingAsset} cho {buyingAsset} @ {price}",
+  "operation.offer.sell":
+    "Phiếu mua hàng: {amount} {sellingAsset} cho {buyingAsset} @ {price}",
+  "operation.offer.update":
+    "Cập nhật Cung cấp: {amount} {sellingAsset} cho {buyingAsset} @ {price}",
   "operation.options.set": "Set Options: [{options}]",
   "operation.options.set.clear.flags_s": "Xóa cờ: {value}",
   "operation.options.set.set.flags_s": "Set Flags: {value}",
@@ -106,7 +109,8 @@
   "recipient": "Người nhận",
   "remove": "Tẩy",
 
-  "search.placeHolder": "Tìm kiếm theo Ledger / Tài khoản ID / Transaction Hash",
+  "search.placeHolder":
+    "Tìm kiếm theo Ledger / Tài khoản ID / Transaction Hash",
   "sell": "Bán",
   "sell.offers": "Bán chào hàng",
   "sequence": "Trình tự",

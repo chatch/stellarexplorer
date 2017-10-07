@@ -16,8 +16,8 @@
   "data": "资料",
   "distributers": "经销商",
 
-  "error.cant.find": "找不到 [{searchStr}]",
-  "error.nothing.found": "没有东西在 [{path}]",
+  "error.cant.find": "找不到 \"{searchStr}\"",
+  "error.nothing.found": "没有东西在 \"{path}\"",
 
   "exchanges": "货币交换",
 
@@ -72,8 +72,10 @@
   "operation.manage.data.set": "设置键{name}",
   "operation.manage.data.set.to": ":{value}",
   "operation.offer.remove": "撤销价: 卖 {sellingAsset} 买 {buyingAsset} @ {price}",
-  "operation.offer.sell": "卖报价: {amount} 卖 {sellingAsset} 买 {buyingAsset} @ {price}",
-  "operation.offer.update": "更改报价: {amount} 卖 {sellingAsset} 买 {buyingAsset} @ {price}",
+  "operation.offer.sell":
+    "卖报价: {amount} 卖 {sellingAsset} 买 {buyingAsset} @ {price}",
+  "operation.offer.update":
+    "更改报价: {amount} 卖 {sellingAsset} 买 {buyingAsset} @ {price}",
   "operation.options.set": "设置选项: [{options}]",
   "operation.options.set.clear.flags_s": "清除标志: {value}",
   "operation.options.set.set.flags_s": "设置标志: {value}",
