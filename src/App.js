@@ -80,13 +80,8 @@ class App extends Component {
   setNetwork = (network, page) => {
     console.log(`NETWORK change: ${this.state.network} to ${network}`)
     storage.setItem('network', network)
-    this.setState(
-      {
-        network: network,
-        server: Server(network),
-      },
-      page ? () => (window.location.href = page) : reloadPage
-    )
+    this.setState({network: network, server: Server(network)})
+    reloadPage()
   }
 
   networkSwitcher = selectedNetwork => {
@@ -98,7 +93,7 @@ class App extends Component {
   languageSwitcher = event => {
     const newLanguage = event.target.lang
     storage.setItem('language', newLanguage)
-    this.setState({language: newLanguage}, reloadPage)
+    this.setState({language: newLanguage})
   }
 
   // @see HOCs.js withServer() to get this as props in any component
