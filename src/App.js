@@ -53,7 +53,6 @@ const getMessages = locale => {
   }
 }
 
-const reloadPage = () => window.location.reload(true)
 const isTestnetAddr = () => /^testnet\..*/.test(window.location.hostname)
 
 class App extends Component {
@@ -80,8 +79,8 @@ class App extends Component {
   setNetwork = (network, page) => {
     console.log(`NETWORK change: ${this.state.network} to ${network}`)
     storage.setItem('network', network)
-    this.setState({network: network, server: Server(network)})
-    reloadPage()
+    window.location.href =
+      network === networks.public ? HOME_PUBLIC : HOME_TESTNET
   }
 
   networkSwitcher = selectedNetwork => {
