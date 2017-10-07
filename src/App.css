@@ -73,6 +73,11 @@ table {
   background-color: black;
 }
 
+.navbar-default .navbar-nav > li.open > a.dropdown-toggle {
+  background-color: #222;
+  color: white;
+}
+
 .navbar-default .navbar-nav > li > a:hover {
   color: white;
 }

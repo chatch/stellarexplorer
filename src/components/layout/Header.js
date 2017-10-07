@@ -39,24 +39,29 @@ class Header extends React.Component {
                 <FormattedMessage id="home" />
               </NavItem>
             </LinkContainer>
-            <LinkContainer to="/operations">
-              <NavItem>
-                <FormattedMessage id="operations" />
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to="/txs">
-              <NavItem>
-                <FormattedMessage id="transactions" />
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to="/ledgers">
-              <NavItem>
-                <FormattedMessage id="ledgers" />
-              </NavItem>
-            </LinkContainer>
             <NavDropdown
-              id="basic-nav-dropdown"
-              title={formatMessage({id: 'more'})}
+              id="nav-dropdown-ledger"
+              title={formatMessage({id: 'ledger'})}
+            >
+              <LinkContainer to="/operations">
+                <NavItem>
+                  <FormattedMessage id="operations" />
+                </NavItem>
+              </LinkContainer>
+              <LinkContainer to="/txs">
+                <NavItem>
+                  <FormattedMessage id="transactions" />
+                </NavItem>
+              </LinkContainer>
+              <LinkContainer to="/ledgers">
+                <NavItem>
+                  <FormattedMessage id="ledgers" />
+                </NavItem>
+              </LinkContainer>
+            </NavDropdown>
+            <NavDropdown
+              id="nav-dropdown-account"
+              title={formatMessage({id: 'account'})}
             >
               <LinkContainer to="/anchors">
                 <MenuItem>
@@ -68,13 +73,18 @@ class Header extends React.Component {
                   <FormattedMessage id="exchanges" />
                 </MenuItem>
               </LinkContainer>
-              <MenuItem divider />
-              <MenuItem href="https://www.stellar.org/laboratory/">
-                Laboratory
-              </MenuItem>
+            </NavDropdown>
+            <NavDropdown
+              id="nav-dropdown-more"
+              title={formatMessage({id: 'more'})}
+            >
+              <MenuItem href="https://www.stellar.org">Stellar.org</MenuItem>
               <MenuItem href="https://stellarterm.com/">StellarTerm</MenuItem>
               <MenuItem href="https://dashboard.stellar.org/">
                 Stellar Dashboard
+              </MenuItem>
+              <MenuItem href="https://www.stellar.org/laboratory/">
+                Laboratory
               </MenuItem>
               <MenuItem href="http://stellar.network/">
                 Stellar Network

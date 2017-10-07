@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
+import {StrKey} from 'stellar-sdk'
 import AccountLink from '../shared/AccountLink'
 import snakeCase from 'lodash/snakeCase'
+import {isPublicKey, shortHash} from '../../lib/utils'
 
 const propTypes = {
   homeDomain: PropTypes.string,
@@ -33,41 +35,48 @@ const Option = ({msgId, value}) => {
 const OptionValue = ({optKey, value}) => {
   let valueEl = value
   if (value instanceof Array) valueEl = value.join(', ')
-  else if (optKey === 'inflationDest' || optKey === 'signerKey')
+  else if (
+    (optKey === 'signerKey' && isPublicKey(value)) ||
+    optKey === 'inflationDest'
+  ) {
     valueEl = <AccountLink account={value} />
-  else if (optKey === 'homeDomain')
-    valueEl = (
-      <a href={`http://${value}`}>
-        {value}
-      </a>
-    )
-  return (
-    <span>
-      {valueEl}
-    </span>
-  )
+  } else if (optKey === 'signerKey') {
+    // and !isPublicKey (#19)
+    const decodedValue =
+      value.charAt(0) === 'X'
+        ? StrKey.decodeSha256Hash(value).toString('hex')
+        : StrKey.decodePreAuthTx(value).toString('hex')
+    valueEl = <span title={decodedValue}>{shortHash(decodedValue)}</span>
+  } else if (optKey === 'homeDomain') {
+    valueEl = <a href={`http://${value}`}>{value}</a>
+  }
+  return <span>{valueEl}</span>
 }
 
-const OptionsList = props =>
+const OptionsList = props => (
   <span>
-    {Object.keys(props).filter(p => p in propTypes).map((prop, idx, all) =>
-      <span key={prop}>
-        <Option
-          msgId={dotCase(prop)}
-          value={<OptionValue optKey={prop} value={props[prop]} />}
-        />
-        {idx < all.length - 1 && ', '}
-      </span>
-    )}
+    {Object.keys(props)
+      .filter(p => p in propTypes)
+      .map((prop, idx, all) => (
+        <span key={prop}>
+          <Option
+            msgId={dotCase(prop)}
+            value={<OptionValue optKey={prop} value={props[prop]} />}
+          />
+          {idx < all.length - 1 && ', '}
+        </span>
+      ))}
   </span>
+)
 
-const SetOptions = props =>
+const SetOptions = props => (
   <FormattedMessage
     id="operation.options.set"
     values={{
       options: <OptionsList {...props} />,
     }}
   />
+)
 
 SetOptions.propTypes = propTypes
 

@@ -13,7 +13,7 @@ class Footer extends React.Component {
             <LumensRates />
           </Col>
           <Col mdOffset={2} md={3}>
-            Donate: hatch*fed.network
+            Donate: steexp*fed.network
           </Col>
           <Col mdOffset={3} md={1}>
             <a href="https://github.com/chatch/stellarexplorer">Github</a>

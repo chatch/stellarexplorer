@@ -54,7 +54,6 @@ const getMessages = locale => {
   }
 }
 
-const reloadPage = () => window.location.reload(true)
 const isTestnetAddr = () => /^testnet\..*/.test(window.location.hostname)
 
 class App extends Component {
@@ -81,13 +80,8 @@ class App extends Component {
   setNetwork = (network, page) => {
     console.log(`NETWORK change: ${this.state.network} to ${network}`)
     storage.setItem('network', network)
-    this.setState(
-      {
-        network: network,
-        server: Server(network),
-      },
-      page ? () => (window.location.href = page) : reloadPage
-    )
+    window.location.href =
+      network === networks.public ? HOME_PUBLIC : HOME_TESTNET
   }
 
   networkSwitcher = selectedNetwork => {
@@ -99,7 +93,7 @@ class App extends Component {
   languageSwitcher = event => {
     const newLanguage = event.target.lang
     storage.setItem('language', newLanguage)
-    this.setState({language: newLanguage}, reloadPage)
+    this.setState({language: newLanguage})
   }
 
   // @see HOCs.js withServer() to get this as props in any component

@@ -2,6 +2,7 @@ import truncate from 'lodash/truncate'
 import {sdk} from './stellar'
 
 const isPublicKey = keyStr => sdk.StrKey.isValidEd25519PublicKey(keyStr)
+// stellar federated address (eg. "stellar*fed.network")
 const isStellarAddress = addr => /^[^*,]*\*[a-z0-9-.]*$/i.test(addr)
 const isTxHash = hashStr => /^[0-9a-f]{64}$/i.test(hashStr)
 const shortHash = hash => truncate(hash, {length: 10})

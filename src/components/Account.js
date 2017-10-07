@@ -7,7 +7,7 @@ import Table from 'react-bootstrap/lib/Table'
 import Tab from 'react-bootstrap/lib/Tab'
 import Tabs from 'react-bootstrap/lib/Tabs'
 import {injectIntl, FormattedMessage} from 'react-intl'
-import {FederationServer} from 'stellar-sdk'
+import {FederationServer, StrKey} from 'stellar-sdk'
 import has from 'lodash/has'
 
 import knownAccounts from '../data/known_accounts'
@@ -152,7 +152,13 @@ const Signers = props =>
       {props.signers.map(signer =>
         <tr key={signer.public_key}>
           <td>
-            <AccountLink account={signer.public_key} />
+            {signer.type === 'ed25519_public_key' && (
+              <AccountLink account={signer.key} />
+            )}
+            {signer.type === 'sha256_hash' &&
+              StrKey.decodeSha256Hash(signer.key).toString('hex')}
+            {signer.type === 'preauth_tx' &&
+              StrKey.decodePreAuthTx(signer.key).toString('hex')}
           </td>
           <td>
             {signer.weight}
