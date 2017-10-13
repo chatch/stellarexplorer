@@ -12,7 +12,6 @@ it('feed fetched and stored at base root if no root configured', done => {
     })
     done()
   }, 50)
-  // store.
 })
 
 it('feed fetched and stored at specific root', done => {

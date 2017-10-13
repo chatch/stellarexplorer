@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pulls anchors list 1`] = `
+Array [
+  Object {
+    "activityScore": 10.917,
+    "code": "JPY",
+    "depth10_USD": 5027.37,
+    "depth10_XLM": 220045,
+    "domain": "vcbear.net",
+    "id": "JPY-GBVAOIACNSB7OVUXJYC5UE2D4YK2F7A24T7EE5YOMN4CE6GCHUTOUQXM",
+    "issuer": "GBVAOIACNSB7OVUXJYC5UE2D4YK2F7A24T7EE5YOMN4CE6GCHUTOUQXM",
+    "numAsks": 20,
+    "numBids": 20,
+    "numTrades24h": 111,
+    "price_USD": 0.0098641,
+    "price_XLM": 0.43175,
+    "slug": "JPY-vcbear.net",
+    "spread": 0.009,
+    "topTradePairSlug": "XLM-native/JPY-vcbear.net",
+    "volume24h_USD": 15507.47,
+    "volume24h_XLM": 678753.12,
+    "website": "https://vcbear.net/",
+  },
+]
+`;

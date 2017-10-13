@@ -1,0 +1,38 @@
+{
+  "_meta": {},
+  "assets": [
+    {
+      "id": "XLM-native",
+      "code": "XLM",
+      "issuer": null,
+      "domain": "native",
+      "slug": "XLM-native",
+      "website": "https://www.stellar.org/lumens/",
+      "price_XLM": 1,
+      "price_USD": 0.022847,
+      "volume24h_XLM": 2596242.83,
+      "volume24h_USD": 59316.35,
+      "activityScore": 100
+    },
+    {
+      "id": "JPY-GBVAOIACNSB7OVUXJYC5UE2D4YK2F7A24T7EE5YOMN4CE6GCHUTOUQXM",
+      "code": "JPY",
+      "issuer": "GBVAOIACNSB7OVUXJYC5UE2D4YK2F7A24T7EE5YOMN4CE6GCHUTOUQXM",
+      "domain": "vcbear.net",
+      "slug": "JPY-vcbear.net",
+      "website": "https://vcbear.net/",
+      "topTradePairSlug": "XLM-native/JPY-vcbear.net",
+      "numTrades24h": 111,
+      "spread": 0.009,
+      "price_XLM": 0.43175,
+      "price_USD": 0.0098641,
+      "volume24h_XLM": 678753.12,
+      "volume24h_USD": 15507.47,
+      "depth10_XLM": 220045,
+      "depth10_USD": 5027.37,
+      "numBids": 20,
+      "numAsks": 20,
+      "activityScore": 10.917
+    }
+  ]
+}
