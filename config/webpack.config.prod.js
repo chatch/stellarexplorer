@@ -317,7 +317,7 @@ module.exports = {
       runtimeCaching: [
         { // Requests for a single ledger, tx or operation are cached
           // heavily as they don't change once included in the ledger.
-          urlPattern: /^https:\/\/horizon(-testnet.)?\.stellar\.org\/[lot]+[^/]+\/[0-9a-f]/,
+          urlPattern: /^https:\/\/horizon(-testnet)?\.stellar\.org\/[lot]+[^/]+\/[0-9a-f]/,
           handler: 'cacheFirst',
           options: {
             cache: {
@@ -333,7 +333,7 @@ module.exports = {
           //  background it will update the cache with the latest.
           //  This short term caching speeds up quite a few use cases of
           //  navigating from list to list and item to item in a short time.
-          urlPattern: /^https:\/\/horizon(-testnet.)?\.stellar\.org\//,
+          urlPattern: /^https:\/\/horizon(-testnet)?\.stellar\.org\//,
           handler: 'fastest',
           options: {
             cache: {
