@@ -1,8 +1,11 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import {configure, shallow} from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
 import knownAccounts from '../../../data/known_accounts'
 import AccountLink from '../AccountLink'
+
+configure({ adapter: new Adapter() })
 
 const ACC_KNOWN = Object.keys(knownAccounts)[0]
 const ACC_UNKNOWN = 'GCGG3CIRBG2TTBR4HYZJ7JLDRFKZIYOAHFXRWLU62CA2QN52P2SUQNPJ'
@@ -10,12 +13,12 @@ const LABEL = 'Anchor'
 
 it('renders with label', () => {
   const link = shallow(<AccountLink label={LABEL} account={ACC_UNKNOWN} />)
-  expect(link.getNodes()).toMatchSnapshot()
+  expect(link.getElements()).toMatchSnapshot()
 })
 
 it('renders short account for label when no label property', () => {
   const link = shallow(<AccountLink account={ACC_UNKNOWN} />)
-  expect(link.getNodes()).toMatchSnapshot()
+  expect(link.getElements()).toMatchSnapshot()
 })
 
 it('renders anchor name in italics if account a known anchor', () => {
@@ -26,5 +29,5 @@ it('renders anchor name in italics if account a known anchor', () => {
 
   expect(nameEl.text()).toEqual(anchorName)
   expect(nameEl.props().style.fontStyle).toEqual('italic')
-  expect(link.getNodes()).toMatchSnapshot()
+  expect(link.getElements()).toMatchSnapshot()
 })
