@@ -14,6 +14,7 @@ import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Home from './components/Home'
 import NoMatch from './components/shared/NoMatch'
+import SponsoredLink from './components/shared/SponsoredLink'
 
 import Ledger from './components/Ledger'
 import Ledgers from './components/Ledgers'
@@ -116,6 +117,7 @@ class App extends Component {
               languageSwitcher={this.languageSwitcher}
             />
             <div id="main-content">
+              <SponsoredLink />
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/ledgers" component={Ledgers} />
