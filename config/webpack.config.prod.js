@@ -90,7 +90,7 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      
+
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -121,7 +121,7 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -149,7 +149,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+
               compact: true,
             },
           },
@@ -314,6 +314,56 @@ module.exports = {
       navigateFallbackWhitelist: [/^(?!\/__).*/],
       // Don't precache sourcemaps (they're large) and build asset manifest:
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+      runtimeCaching: [
+        { // Requests for a single ledger, tx or operation are cached
+          // heavily as they don't change once included in the ledger.
+          urlPattern: /^https:\/\/horizon(-testnet.)?\.stellar\.org\/[lot]+[^/]+\/[0-9a-f]/,
+          handler: 'cacheFirst',
+          options: {
+            cache: {
+              name: 'horizon-long-cache',
+              maxAgeSeconds: 30 * 24 * 60 * 60
+            },
+          },
+        },
+        { // All other horizon requests: lists of ops, txs, ledgers and account
+          //  requests are cached for a short time only and are fetched with
+          //  'fastest'. This means both cache and network will be fetched.
+          //  Cache will return first but when network is finished in the
+          //  background it will update the cache with the latest.
+          //  This short term caching speeds up quite a few use cases of
+          //  navigating from list to list and item to item in a short time.
+          urlPattern: /^https:\/\/horizon(-testnet.)?\.stellar\.org\//,
+          handler: 'fastest',
+          options: {
+            cache: {
+              name: 'horizon-short-cache',
+              maxAgeSeconds: 20
+            },
+          },
+        },
+        { // Cache the stellarterm directory for a couple of days as the asset
+          // lists don't change often
+          urlPattern: /^https:\/\/api\.stellarterm\.com\/v1\/ticker.json/,
+          handler: 'cacheFirst',
+          options: {
+            cache: {
+              name: 'price-cache',
+              maxAgeSeconds: 2 * 24 * 60 * 60
+            },
+          },
+        },
+        { // Cache price updates for 5 minutes
+          urlPattern: /^https:\/\/api\.coinmarketcap\.com\/v1\/ticker\/stellar\//,
+          handler: 'cacheFirst',
+          options: {
+            cache: {
+              name: 'price-cache',
+              maxAgeSeconds: 300
+            },
+          },
+        },
+      ]
     }),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical
