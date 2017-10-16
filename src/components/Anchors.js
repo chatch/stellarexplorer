@@ -16,52 +16,52 @@ const METADATA_PATH =
   'https://github.com/chatch/stellarexplorer/blob/master/src/data/anchors.js'
 
 // render list of currency codes, each code on a new line
-const CodesColumn = ({currencies}) =>
+const CodesColumn = ({currencies}) => (
   <span>
-    {Object.keys(currencies).map(code =>
-      <div>
-        {code}
-      </div>
-    )}
+    {Object.keys(currencies).map(code => <div key={code}>{code}</div>)}
   </span>
+)
 
 // render single issuer with link to account
-const Issuer = ({issuer}) =>
+const Issuer = ({issuer}) => (
   <span>
     <FormattedMessage id="issuer" />:&nbsp;
     <AccountLink account={issuer} hideKnown />
   </span>
+)
 
 // render 1 to n distributers with links to accounts
-const Distributers = ({distributers}) =>
+const Distributers = ({distributers}) => (
   <span>
     <FormattedMessage id="distributers" />:&nbsp;
-    {distributers.map(distAcc =>
-      <span>
+    {distributers.map(distAcc => (
+      <span key={distAcc}>
         <AccountLink account={distAcc} hideKnown />&nbsp;
       </span>
-    )}
+    ))}
   </span>
+)
 
 // render column of account details (known issuer and distributers), one row for each currency
-const AccountsColumn = ({currencies}) =>
+const AccountsColumn = ({currencies}) => (
   <span>
     {Object.keys(currencies).map(code => {
       const currency = currencies[code]
       const issuer = <Issuer issuer={currency.issuer} />
-      const distributers = has(currency, 'distributers')
-        ? <span>
-            ,&nbsp;<Distributers distributers={currency.distributers} />
-          </span>
-        : null
+      const distributers = has(currency, 'distributers') ? (
+        <span>
+          ,&nbsp;<Distributers distributers={currency.distributers} />
+        </span>
+      ) : null
       return (
-        <div>
+        <div key={code}>
           {issuer}
           {distributers}
         </div>
       )
     })}
   </span>
+)
 
 const Anchor = ({currencies, home, img, name, toml}) => {
   const homePage = `https://${home}`
@@ -74,13 +74,9 @@ const Anchor = ({currencies, home, img, name, toml}) => {
           </a>
         </Col>
         <Col md={3}>
+          <div>{name}</div>
           <div>
-            {name}
-          </div>
-          <div>
-            <a href={homePage}>
-              {homePage}
-            </a>
+            <a href={homePage}>{homePage}</a>
           </div>
           <div>
             <BadgeButton
@@ -100,13 +96,14 @@ const Anchor = ({currencies, home, img, name, toml}) => {
   )
 }
 
-const AnchorsList = () =>
+const AnchorsList = () => (
   <div>
     {Object.keys(anchors).map(name => {
       const anchor = anchors[name]
       return <Anchor key={name} name={name} {...anchor} />
     })}
   </div>
+)
 
 class Anchors extends React.Component {
   render() {
