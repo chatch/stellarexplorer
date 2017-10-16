@@ -348,11 +348,12 @@ module.exports = {
           handler: 'cacheFirst',
           options: {
             cache: {
-              name: 'price-cache',
+              name: 'directory-cache',
               maxAgeSeconds: 2 * 24 * 60 * 60
             },
           },
         },
+
         { // Cache price updates for 5 minutes
           urlPattern: /^https:\/\/api\.coinmarketcap\.com\/v1\/ticker\/stellar\//,
           handler: 'cacheFirst',
@@ -360,6 +361,16 @@ module.exports = {
             cache: {
               name: 'price-cache',
               maxAgeSeconds: 300
+            },
+          },
+        },
+        { // Cache sponsored link banner fetches for 6 hours
+          urlPattern: /^https:\/\/raw.githubusercontent.com\/chatch\/stellarexplorer\/master\/banner.json/,
+          handler: 'cacheFirst',
+          options: {
+            cache: {
+              name: 'banner-cache',
+              maxAgeSeconds: 6 * 60 * 60
             },
           },
         },

@@ -7,7 +7,7 @@ import FetchPonyfill from 'fetch-ponyfill'
 const fetch = FetchPonyfill().fetch
 
 const SPONSOR_LINK_JSON =
-  'https://ipfs.io/ipns/QmR4utZqnjJfteRLQrLNtBTXPd6HRqhc5qh5uLXVJY2ZyW'
+  'https://raw.githubusercontent.com/chatch/stellarexplorer/master/banner.json'
 
 const SponsoredLink = ({link}) =>
   <Grid>
