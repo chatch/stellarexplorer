@@ -7,6 +7,14 @@ export default {
     home: 'kraken.com',
     accounts: ['GA5XIGA5C7QTPTWXQHY6MCJRMTRZDOSHR6EFIBNDQTCQHG262N4GGKTM'],
   },
+  PapayaBot: {
+    home: 'papayabot.com',
+    accounts: ['GBR3RS2Z277FER476OFHFXQJRKYSQX4Z7XNWO65AN3QPRUANUASANG3L'],
+  },
+  PapayaSwap: {
+    home: 'swap.apay.io',
+    accounts: ['GBGVRE5DH6HGNYNLWQITKRQYGR4PWQEH6MOE5ELPY3I4XJPTZ7CVT4YW'],
+  },
   Poloniex: {
     home: 'poloniex.com',
     accounts: ['GCGNWKCJ3KHRLPM3TM6N7D3W5YKDJFL6A2YCXFXNMRTZ4Q66MEMZ6FI2'],

@@ -5,8 +5,10 @@ import PropTypes from 'prop-types'
 import {IntlProvider, addLocaleData} from 'react-intl'
 import en from 'react-intl/locale-data/en'
 import vi from 'react-intl/locale-data/vi'
+import ru from 'react-intl/locale-data/ru'
 import zh from 'react-intl/locale-data/zh'
 import enMessages from './languages/en'
+import ruMessages from './languages/ru'
 import viMessages from './languages/vi'
 import zhMessages from './languages/zh'
 
@@ -37,7 +39,7 @@ const HOME_PUBLIC = 'https://steexp.com'
 
 const storage = storageInit()
 
-addLocaleData([...en, ...vi, ...zh])
+addLocaleData([...en, ...ru, ...vi, ...zh])
 
 const initialLanguage =
   storage.getItem('language') || navigator.language || 'en'
@@ -47,6 +49,8 @@ const getMessages = locale => {
   switch (locale) {
     case 'vi':
       return viMessages
+    case 'ru':
+      return ruMessages
     case 'zh':
       return zhMessages
     default:

@@ -19,7 +19,7 @@ const LanguageSelector = ({
   selectedLanguage,
   switcher,
   intl: {formatMessage},
-}) =>
+}) => (
   <Dropdown id="Language-Selector">
     <Dropdown.Toggle style={styleLanguageSelector}>
       <img
@@ -35,6 +35,9 @@ const LanguageSelector = ({
       <MenuItem lang="zh" onClick={switcher}>
         中文
       </MenuItem>
+      <MenuItem lang="ru" onClick={switcher}>
+        Pусский
+      </MenuItem>
       <MenuItem lang="vi" onClick={switcher}>
         Tiếng Việt
       </MenuItem>
@@ -46,5 +49,6 @@ const LanguageSelector = ({
       </MenuItem>
     </Dropdown.Menu>
   </Dropdown>
+)
 
 export default injectIntl(LanguageSelector)
