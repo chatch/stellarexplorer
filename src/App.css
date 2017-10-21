@@ -2,7 +2,7 @@ body,
 .navbar {
   color: white;
   background-color: black !important;
-  font-family: "Noto Sans", "Noto Sans CJK {SC, TC}", sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans CJK {SC, TC}', sans-serif;
 }
 
 table {
@@ -28,7 +28,7 @@ table {
 }
 
 .monospace {
-  font-family: "Noto Sans Mono", monospace;
+  font-family: 'Noto Sans Mono', monospace;
 }
 
 /*
@@ -202,6 +202,10 @@ table {
   color: #fff;
 }
 
+.anchorRow td {
+  border-top: 0 !important;
+}
+
 div[id|='account-tabs-pane'] {
   padding: 15px;
 }
@@ -211,7 +215,7 @@ a[id|='account-tabs-tab'] {
 }
 
 a[id|='account-tabs-tab']:hover,
-a[id|='account-tabs-tab'][aria-selected=true] {
+a[id|='account-tabs-tab'][aria-selected='true'] {
   color: black !important;
 }
 

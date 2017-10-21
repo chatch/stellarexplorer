@@ -19,9 +19,4 @@ export default {
     home: 'btc38.com',
     accounts: ['GB7GRJ5DTE3AA2TCVHQS2LAD3D7NFG7YLTOEWEBVRNUUI2Q3TJ5UQIFM'],
   },
-  CoinSwitch: {
-    home: 'coinswitch.co',
-    accounts: [],
-    aggregator: true, // trades go through other exchanges so there are no accounts
-  },
 }

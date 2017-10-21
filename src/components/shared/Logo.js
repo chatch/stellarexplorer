@@ -1,18 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Logo = ({img, name}) => {
-  if (!img) img = `${name.toLowerCase()}.png`
+// 2 supported logo forms
+const squareDimensions = {height: 75, width: 75}
+const rectangleDimensions = {height: 40, width: 150}
+
+const Logo = ({name, src}) => {
+  const imgSrc = !src
+    ? `${process.env.PUBLIC_URL}/img/${name.toLowerCase()}.png`
+    : src
+  const isDirectoryLogo = imgSrc.startsWith('data:image')
+  const dimen = isDirectoryLogo ? squareDimensions : rectangleDimensions
   return (
     <span>
-      {img && <img src={`${process.env.PUBLIC_URL}/img/${img}`} alt={name} />}
+      <img src={imgSrc} alt={name} height={dimen.height} width={dimen.width} />
     </span>
   )
 }
 
 Logo.propTypes = {
-  img: PropTypes.string,
   name: PropTypes.string.isRequired,
+  src: PropTypes.string,
 }
 
 export default Logo

@@ -1,38 +1,22 @@
-import has from 'lodash/has'
-import isEmpty from 'lodash/isEmpty'
-
-import anchors from './anchors'
-import exchanges from './exchanges'
+import {anchors, destinations} from 'stellarterm-directory'
 
 const knownAccounts = {}
 
-Object.keys(anchors).forEach(anchorKey => {
-  const anchor = anchors[anchorKey]
-  Object.keys(anchor.currencies).forEach(code => {
-    const currency = anchor.currencies[code]
-
-    if (has(currency, 'issuer')) {
-      knownAccounts[currency.issuer] = anchor
-      knownAccounts[currency.issuer].name = anchorKey
-    }
-
-    if (has(currency, 'distributers') && currency.distributers.length > 0) {
-      currency.distributers.forEach(distributer => {
-        knownAccounts[distributer] = anchor
-        knownAccounts[distributer].name = anchorKey
-      })
-    }
+// Add all anchor issuing accounts
+Object.keys(anchors).forEach(domain => {
+  const anchor = anchors[domain]
+  Object.keys(anchor.assets).forEach(code => {
+    const asset = anchor.assets[code]
+    const issuer = asset.substring(asset.indexOf('-') + 1)
+    knownAccounts[issuer] = anchor
+    knownAccounts[issuer].img = anchor.logo
+    knownAccounts[issuer].type = 'issuer'
   })
 })
 
-Object.keys(exchanges).forEach(exchangeKey => {
-  const exchange = exchanges[exchangeKey]
-  if (!isEmpty(exchange.accounts)) {
-    exchange.accounts.forEach(account => {
-      knownAccounts[account] = exchange
-      knownAccounts[account].name = exchangeKey
-    })
-  }
+// Add all known destinations (includes exchanges trading addresses)
+Object.keys(destinations).forEach(addr => {
+  knownAccounts[addr] = {name: destinations[addr].name, type: 'destination'}
 })
 
 export default knownAccounts

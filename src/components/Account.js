@@ -49,24 +49,22 @@ const NameValueTable = ({data, decodeValue = false}) => {
         </tr>
       </thead>
       <tbody>
-        {Object.keys(data).map(key =>
+        {Object.keys(data).map(key => (
           <tr key={key}>
-            <td>
-              {key}
-            </td>
+            <td>{key}</td>
             <td>
               {typeof data[key] === 'boolean'
                 ? data[key].toString()
                 : decodeValue ? base64Decode(data[key]) : data[key]}
             </td>
           </tr>
-        )}
+        ))}
       </tbody>
     </Table>
   )
 }
 
-const balanceRow = bal =>
+const balanceRow = bal => (
   <tr key={bal.asset_code ? bal.asset_code : 'XLM'}>
     <td>
       <Asset
@@ -75,15 +73,12 @@ const balanceRow = bal =>
         issuer={bal.asset_issuer}
       />
     </td>
-    <td>
-      {bal.balance}
-    </td>
-    <td>
-      {bal.limit}
-    </td>
+    <td>{bal.balance}</td>
+    <td>{bal.limit}</td>
   </tr>
+)
 
-const Balances = props =>
+const Balances = props => (
   <Table>
     <thead>
       <tr>
@@ -98,12 +93,11 @@ const Balances = props =>
         </th>
       </tr>
     </thead>
-    <tbody>
-      {props.balances.map(balanceRow)}
-    </tbody>
+    <tbody>{props.balances.map(balanceRow)}</tbody>
   </Table>
+)
 
-const Thresholds = props =>
+const Thresholds = ({thresholds}) => (
   <Table>
     <thead>
       <tr>
@@ -120,20 +114,15 @@ const Thresholds = props =>
     </thead>
     <tbody>
       <tr>
-        <td>
-          {props.thresholds.low_threshold}
-        </td>
-        <td>
-          {props.thresholds.med_threshold}
-        </td>
-        <td>
-          {props.thresholds.high_threshold}
-        </td>
+        <td>{thresholds.low_threshold}</td>
+        <td>{thresholds.med_threshold}</td>
+        <td>{thresholds.high_threshold}</td>
       </tr>
     </tbody>
   </Table>
+)
 
-const Signers = props =>
+const Signers = props => (
   <Table>
     <thead>
       <tr>
@@ -149,7 +138,7 @@ const Signers = props =>
       </tr>
     </thead>
     <tbody>
-      {props.signers.map(signer =>
+      {props.signers.map(signer => (
         <tr key={signer.public_key}>
           <td>
             {signer.type === 'ed25519_public_key' && (
@@ -160,16 +149,13 @@ const Signers = props =>
             {signer.type === 'preauth_tx' &&
               StrKey.decodePreAuthTx(signer.key).toString('hex')}
           </td>
-          <td>
-            {signer.weight}
-          </td>
-          <td>
-            {signer.type}
-          </td>
+          <td>{signer.weight}</td>
+          <td>{signer.type}</td>
         </tr>
-      )}
+      ))}
     </tbody>
   </Table>
+)
 
 const Flags = ({flags}) => <NameValueTable data={flags} />
 const Data = ({data}) => <NameValueTable data={data} decodeValue />
@@ -187,46 +173,52 @@ const AccountSummaryPanel = ({
   const stellarAddr = stellarAddressFromURI()
   return (
     <Panel header={header}>
-      {has(knownAccounts, a.id) &&
-        <div style={{marginBottom: 10}}>
-          <Logo img={knownAccounts[a.id].img} name={knownAccounts[a.id].name} />
-        </div>}
       <Grid style={{paddingLeft: 0}}>
         <Row>
-          <Col md={3}>
-            <FormattedMessage id="key.public" />:
+          <Col md={10}>
+            <Row>
+              <Col md={3}>
+                <FormattedMessage id="key.public" />:
+              </Col>
+              <Col md={9}>{a.id}</Col>
+            </Row>
+            {stellarAddr && (
+              <Row>
+                <Col md={3}>
+                  <FormattedMessage id="stellar.address" />:
+                </Col>
+                <Col md={9}>{stellarAddr}</Col>
+              </Row>
+            )}
+            <Row>
+              <Col md={3}>
+                <FormattedMessage id="home.domain" />:
+              </Col>
+              <Col md={9}>
+                <a href={`http://${a.home_domain}`}>{a.home_domain}</a>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={3}>
+                <FormattedMessage id="inflation" />:
+              </Col>
+              <Col md={9}>
+                {a.inflation_destination && (
+                  <AccountLink account={a.inflation_destination} />
+                )}
+              </Col>
+            </Row>
           </Col>
-          <Col md={9}>
-            {a.id}
-          </Col>
-        </Row>
-        {stellarAddr &&
-          <Row>
-            <Col md={3}>
-              <FormattedMessage id="stellar.address" />:
+          {has(knownAccounts, a.id) && (
+            <Col md={2}>
+              <div style={{marginBottom: 10}}>
+                <Logo
+                  src={knownAccounts[a.id].img}
+                  name={knownAccounts[a.id].name}
+                />
+              </div>
             </Col>
-            <Col md={9}>
-              {stellarAddr}
-            </Col>
-          </Row>}
-        <Row>
-          <Col md={3}>
-            <FormattedMessage id="home.domain" />:
-          </Col>
-          <Col md={9}>
-            <a href={`http://${a.home_domain}`}>
-              {a.home_domain}
-            </a>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={3}>
-            <FormattedMessage id="inflation" />:
-          </Col>
-          <Col md={9}>
-            {a.inflation_destination &&
-              <AccountLink account={a.inflation_destination} />}
-          </Col>
+          )}
         </Row>
       </Grid>
     </Panel>

@@ -25,31 +25,28 @@ const Exchange = ({accounts, aggregator = false, home, name}) => {
           </a>
         </Col>
         <Col md={3}>
-          <a href={homePage}>
-            {homePage}
-          </a>
+          <a href={homePage}>{homePage}</a>
         </Col>
         <Col md={6}>
-          {aggregator === true && <span>Aggregator</span>}
-          {aggregator !== true &&
-            !isEmpty(accounts) &&
-            accounts.map(account =>
+          {!isEmpty(accounts) &&
+            accounts.map(account => (
               <span key={account}>
                 <AccountLink account={account} hideKnown={true} />&nbsp;
               </span>
-            )}
+            ))}
         </Col>
       </Row>
     </div>
   )
 }
 
-const ExchangesList = () =>
+const ExchangesList = () => (
   <div>
-    {Object.keys(exchanges).map(id =>
+    {Object.keys(exchanges).map(id => (
       <Exchange key={id} name={id} {...exchanges[id]} />
-    )}
+    ))}
   </div>
+)
 
 class Exchanges extends React.Component {
   render() {
