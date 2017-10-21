@@ -94,8 +94,14 @@ export default {
     },
   },
   Papaya: {
-    home: 'btc.papayame.com',
+    home: 'apay.io',
     currencies: {
+      BCH: {
+        issuer: 'GAEGOS7I6TYZSVHPSN76RSPIVL3SELATXZWLFO4DIAFYJF7MPAHFE7H4',
+        distributers: [
+          'GBVP63G6XS2DKGWYEM2AUWISWA7UJ23GURF5BJRUSMUSQBDJ2JSKVYWW',
+        ],
+      },
       BTC: {
         issuer: 'GAUTUYY2THLF7SGITDFMXJVYH3LHDSMGEAKSBU267M2K7A3W543CKUEF',
         distributers: [
@@ -108,14 +114,68 @@ export default {
           'GA7XRBMPWWIGOINPHEFLF2JMWKDP2ZAXNAWI6LWOWO4WWPFLEHNJWL5Y',
         ],
       },
+      ETH: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
+      BAT: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
       ICN: {
         issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
         distributers: [
           'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
         ],
       },
+      KIN: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
+      LINK: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
+      MTL: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
+      OMG: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
+      REP: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
+      SALT: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
+      ZRX: {
+        issuer: 'GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR',
+        distributers: [
+          'GDBWXSZDYO4C3EHYXRLCGU3NP55LUBEQO5K2RWIWWMXWVI57L7VUWSZA',
+        ],
+      },
     },
-    toml: 'https://btc.papayame.com/.well-known/stellar.toml',
+    toml: 'https://apay.io/.well-known/stellar.toml',
   },
   Cryptomover: {
     home: 'cryptomover.com',
