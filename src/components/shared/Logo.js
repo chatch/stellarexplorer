@@ -6,14 +6,20 @@ const squareDimensions = {height: 75, width: 75}
 const rectangleDimensions = {height: 40, width: 150}
 
 const Logo = ({name, src}) => {
-  console.log(`SRC:${src}`);
   const imgSrc = src
-    ? src : `${process.env.PUBLIC_URL}/img/${name.toLowerCase()}.png`
+    ? src
+    : `${process.env.PUBLIC_URL}/img/${name.toLowerCase()}.png`
   const isDirectoryLogo = imgSrc.startsWith('data:image')
   const dimen = isDirectoryLogo ? squareDimensions : rectangleDimensions
   return (
     <span>
-      <img src={imgSrc} alt={name} height={dimen.height} width={dimen.width} />
+      <img
+        src={imgSrc}
+        alt={name}
+        title={name}
+        height={dimen.height}
+        width={dimen.width}
+      />
     </span>
   )
 }

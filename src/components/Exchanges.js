@@ -17,26 +17,24 @@ const METADATA_PATH =
 const Exchange = ({accounts, home, name, logo}) => {
   const homePage = `https://${home}`
   return (
-    <div>
-      <Row style={{marginTop: 20, marginBottom: 20}}>
-        <Col md={3}>
-          <a href={homePage}>
-            <Logo name={name} src={logo} />
-          </a>
-        </Col>
-        <Col md={3}>
-          <a href={homePage}>{homePage}</a>
-        </Col>
-        <Col md={6}>
-          {!isEmpty(accounts) &&
-            accounts.map(account => (
-              <span key={account}>
-                <AccountLink account={account} hideKnown={true} />&nbsp;
-              </span>
-            ))}
-        </Col>
-      </Row>
-    </div>
+    <Row style={{marginTop: 30, marginBottom: 30}}>
+      <Col md={5}>
+        <a href={homePage}>
+          <Logo name={name} src={logo} />
+        </a>
+      </Col>
+      <Col md={5}>
+        <a href={homePage}>{homePage}</a>
+      </Col>
+      <Col md={2}>
+        {!isEmpty(accounts) &&
+          accounts.map(account => (
+            <span key={account}>
+              <AccountLink account={account} hideKnown={true} />&nbsp;
+            </span>
+          ))}
+      </Col>
+    </Row>
   )
 }
 
@@ -58,9 +56,11 @@ class Exchanges extends React.Component {
     return (
       <Grid>
         <Row>
-          <Panel header={header}>
-            <ExchangesList />
-          </Panel>
+          <Col mdOffset={3} md={6}>
+            <Panel header={header}>
+              <ExchangesList />
+            </Panel>
+          </Col>
         </Row>
         <Row />
       </Grid>
