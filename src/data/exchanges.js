@@ -13,12 +13,12 @@ export default {
   PapayaBot: {
     home: 'papayabot.com',
     accounts: ['GBR3RS2Z277FER476OFHFXQJRKYSQX4Z7XNWO65AN3QPRUANUASANG3L'],
-    logo: apayLogo
+    logo: apayLogo,
   },
   PapayaSwap: {
     home: 'swap.apay.io',
     accounts: ['GBGVRE5DH6HGNYNLWQITKRQYGR4PWQEH6MOE5ELPY3I4XJPTZ7CVT4YW'],
-    logo: apayLogo
+    logo: apayLogo,
   },
   Poloniex: {
     home: 'poloniex.com',
@@ -31,5 +31,13 @@ export default {
   BTC38: {
     home: 'btc38.com',
     accounts: ['GB7GRJ5DTE3AA2TCVHQS2LAD3D7NFG7YLTOEWEBVRNUUI2Q3TJ5UQIFM'],
+  },
+  BitcoinIndonesia: {
+    home: 'bitcoin.co.id',
+    accounts: ['GC4KAS6W2YCGJGLP633A6F6AKTCV4WSLMTMIQRSEQE5QRRVKSX7THV6S'],
+  },
+  Exrates: {
+    home: 'lk.exrates.me',
+    accounts: ['GBKTJSNUSR6OCXA5WDWGT33MNSCNQHOBQUBYC7TVS7BOXDKWFNHI4QNH'],
   },
 }

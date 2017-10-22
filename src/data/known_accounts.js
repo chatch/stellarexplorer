@@ -50,15 +50,17 @@ Object.keys(destinations).forEach(addr => {
 // Add from local exchanges list also which adds some extra info)
 Object.keys(exchanges).forEach(name => {
   const exchange = exchanges[name]
-  exchanges[name].accounts.forEach(addr => {
-    if (!has(knownAccounts, addr)) {
-      knownAccounts[addr] = {name: name, type: 'exchange'}
-    }
-    if (!has(knownAccounts[addr], 'website'))
-      knownAccounts[addr].website = exchange.home
-    if (!has(knownAccounts[addr], 'logo'))
-      knownAccounts[addr].logo = exchange.logo
-  })
+  if (exchange.accounts && exchange.accounts.length > 0) {
+    exchange.accounts.forEach(addr => {
+      if (!has(knownAccounts, addr)) {
+        knownAccounts[addr] = {name: name, type: 'exchange'}
+      }
+      if (!has(knownAccounts[addr], 'website'))
+        knownAccounts[addr].website = exchange.home
+      if (!has(knownAccounts[addr], 'logo'))
+        knownAccounts[addr].logo = exchange.logo
+    })
+  }
 })
 
 export default knownAccounts
