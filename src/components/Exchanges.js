@@ -18,7 +18,7 @@ const Exchange = ({accounts, home, name, logo}) => {
   const homePage = `https://${home}`
   return (
     <Row style={{marginTop: 30, marginBottom: 30}}>
-      <Col md={5}>
+      <Col md={4}>
         <a href={homePage}>
           <Logo name={name} src={logo} />
         </a>
@@ -33,6 +33,7 @@ const Exchange = ({accounts, home, name, logo}) => {
               <AccountLink account={account} hideKnown={true} />&nbsp;
             </span>
           ))}
+        {name === 'StellarTerm' && <span>Decentralized</span>}
       </Col>
     </Row>
   )
