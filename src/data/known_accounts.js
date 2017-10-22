@@ -1,5 +1,6 @@
 import has from 'lodash/has'
 import directory from './directory'
+import exchanges from './exchanges'
 const {anchors, destinations} = directory
 
 // TODO: remove this if PR https://github.com/irisli/stellarterm/pull/91
@@ -33,7 +34,7 @@ Object.keys(anchors).forEach(domain => {
     const asset = anchor.assets[code]
     const issuer = asset.substring(asset.indexOf('-') + 1)
     knownAccounts[issuer] = anchor
-    knownAccounts[issuer].img = anchor.logo
+    knownAccounts[issuer].logo = anchor.logo
     knownAccounts[issuer].name = has(anchorDisplayNames, domain)
       ? anchorDisplayNames[domain]
       : domain
@@ -44,6 +45,20 @@ Object.keys(anchors).forEach(domain => {
 // Add all known destinations (includes exchanges trading addresses)
 Object.keys(destinations).forEach(addr => {
   knownAccounts[addr] = {name: destinations[addr].name, type: 'destination'}
+})
+
+// Add from local exchanges list also which adds some extra info)
+Object.keys(exchanges).forEach(name => {
+  const exchange = exchanges[name]
+  exchanges[name].accounts.forEach(addr => {
+    if (!has(knownAccounts, addr)) {
+      knownAccounts[addr] = {name: name, type: 'exchange'}
+    }
+    if (!has(knownAccounts[addr], 'website'))
+      knownAccounts[addr].website = exchange.home
+    if (!has(knownAccounts[addr], 'logo'))
+      knownAccounts[addr].logo = exchange.logo
+  })
 })
 
 export default knownAccounts

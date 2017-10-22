@@ -1,3 +1,6 @@
+import directory from '../data/directory'
+const apayLogo = directory.anchors['apay.io'].logo
+
 export default {
   Changelly: {
     home: 'changelly.com',
@@ -10,10 +13,12 @@ export default {
   PapayaBot: {
     home: 'papayabot.com',
     accounts: ['GBR3RS2Z277FER476OFHFXQJRKYSQX4Z7XNWO65AN3QPRUANUASANG3L'],
+    logo: apayLogo
   },
   PapayaSwap: {
     home: 'swap.apay.io',
     accounts: ['GBGVRE5DH6HGNYNLWQITKRQYGR4PWQEH6MOE5ELPY3I4XJPTZ7CVT4YW'],
+    logo: apayLogo
   },
   Poloniex: {
     home: 'poloniex.com',

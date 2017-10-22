@@ -213,7 +213,7 @@ const AccountSummaryPanel = ({
             <Col md={2}>
               <div style={{marginBottom: 10}}>
                 <Logo
-                  src={knownAccounts[a.id].img}
+                  src={knownAccounts[a.id].logo}
                   name={knownAccounts[a.id].name}
                 />
               </div>
