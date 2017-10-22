@@ -5,12 +5,14 @@ import Row from 'react-bootstrap/lib/Row'
 import Table from 'react-bootstrap/lib/Table'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import PropTypes from 'prop-types'
-import {anchors} from 'stellarterm-directory'
 
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
 import BadgeButton from './shared/BadgeButton'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
+
+import directory from '../data/directory'
+const {anchors} = directory
 
 const METADATA_PATH =
   'https://github.com/irisli/stellarterm/blob/master/directory/directory.json'

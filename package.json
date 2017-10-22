@@ -60,7 +60,6 @@
     "react-router-dom": "^4.2.2",
     "recompose": "^0.26.0",
     "stellar-sdk": "chatch/js-stellar-sdk#upgrade_dependencies",
-    "stellarterm-directory": "0.0.3",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.5.9",

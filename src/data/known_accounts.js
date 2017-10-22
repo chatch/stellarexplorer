@@ -1,5 +1,6 @@
 import has from 'lodash/has'
-import {anchors, destinations} from 'stellarterm-directory'
+import directory from './directory'
+const {anchors, destinations} = directory
 
 // TODO: remove this if PR https://github.com/irisli/stellarterm/pull/91
 // is merged as it adds display names to the directory
