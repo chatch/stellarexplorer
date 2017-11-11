@@ -1,7 +1,7 @@
 {
   "name": "stellarexplorer",
   "description": "Ledger explorer for the Stellar network",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "Apache-2.0",
   "author": "Chris Hatch",
   "homepage": "https://steexp.com",
@@ -9,13 +9,7 @@
   "bugs": {
     "url": "https://github.com/chatch/stellarexplorer/issues"
   },
-  "keywords": [
-    "stellar",
-    "react",
-    "ledger",
-    "block explorer",
-    "blockchain"
-  ],
+  "keywords": ["stellar", "react", "ledger", "block explorer", "blockchain"],
   "engines": {
     "node": "6.x.x"
   },
@@ -82,9 +76,7 @@
     "analyze": "source-map-explorer build/static/js/main.*"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx}"],
     "setupFiles": [
       "<rootDir>/config/polyfills.js",
       "<rootDir>/config/animationShim.js"
@@ -100,25 +92,14 @@
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
       "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
-    ],
+    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     },
-    "moduleFileExtensions": [
-      "web.js",
-      "js",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node"
-    ]
+    "moduleFileExtensions": ["web.js", "js", "json", "web.jsx", "jsx", "node"]
   },
   "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "presets": ["react-app"]
   },
   "eslintConfig": {
     "extends": "react-app"
