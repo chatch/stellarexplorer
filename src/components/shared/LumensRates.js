@@ -23,6 +23,9 @@ class LumensRatesContainer extends React.Component {
         console.error(`stack: [${err.stack}]`)
       })
   }
+  shouldComponentUpdate() {
+    return true
+  }
   render() {
     if (!this.state) return null
     return <LumensRates {...this.state} />
@@ -41,11 +44,7 @@ class LumensRates extends React.Component {
     const style = {
       color: positive ? 'green' : 'red',
     }
-    return (
-      <span style={style}>
-        {valueStr}
-      </span>
-    )
+    return <span style={style}>{valueStr}</span>
   }
 
   render() {
