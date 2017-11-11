@@ -49,13 +49,11 @@ class WrappedServer extends sdk.Server {
 
   loadEffects({account, op, tx, limit}) {
     const builder = this.effects()
-    console.log(`account: ${account}`)
     if (account) builder.forAccount(account)
     if (op) builder.forOperation(op)
     if (tx) builder.forTransaction(tx)
     builder.limit(limit)
     builder.order('desc')
-    console.log(`builder: ${builder}`)
     return builder.call()
   }
 }

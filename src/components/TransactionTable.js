@@ -4,24 +4,11 @@ import Table from 'react-bootstrap/lib/Table'
 import {Link} from 'react-router-dom'
 import {FormattedRelative, FormattedMessage} from 'react-intl'
 import {withSpinner} from './shared/Spinner'
-import {shortHash} from '../lib/utils'
+import TransactionHash from './shared/TransactionHash'
 
 class TransactionRow extends React.Component {
   static defaultProps = {
     compact: true,
-  }
-
-  renderTxHash() {
-    const {hash: txHash, compact} = this.props
-    const hashLabel = compact ? shortHash(txHash) : txHash
-    const className = !compact ? 'monospace' : ''
-    return (
-      <span title={txHash} className={className}>
-        <Link to={`/tx/${txHash}`}>
-          {hashLabel}
-        </Link>
-      </span>
-    )
   }
 
   render() {
@@ -29,18 +16,17 @@ class TransactionRow extends React.Component {
     return (
       <tr>
         <td>
-          {this.renderTxHash()}
+          <TransactionHash
+            hash={this.props.hash}
+            compact={this.props.compact}
+          />
         </td>
         <td>
           <FormattedRelative value={time} />
         </td>
+        <td>{opCount}</td>
         <td>
-          {opCount}
-        </td>
-        <td>
-          <Link to={`/ledger/${ledger}`}>
-            {ledger}
-          </Link>
+          <Link to={`/ledger/${ledger}`}>{ledger}</Link>
         </td>
       </tr>
     )
@@ -79,13 +65,13 @@ class TransactionTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.records.map(tx =>
+          {this.props.records.map(tx => (
             <TransactionRow
               key={tx.hash}
               compact={this.props.compact}
               {...tx}
             />
-          )}
+          ))}
         </tbody>
       </Table>
     )
