@@ -16,6 +16,9 @@
   "data": "资料",
   "distributers": "经销商",
 
+  "effect": "影响",
+  "effects": "影响",
+
   "error.cant.find": "找不到 \"{searchStr}\"",
   "error.nothing.found": "没有东西在 \"{path}\"",
 

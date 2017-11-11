@@ -16,6 +16,9 @@
   "data": "Данные",
   "distributers": "Дистрибьютор(ы)",
 
+  "effect": "эффект",
+  "effects": "эффекты",
+
   "error.cant.find": "Не удалось найти \"{searchStr}\"",
   "error.nothing.found": "Ничего не найдено в \"{path}\"",
 

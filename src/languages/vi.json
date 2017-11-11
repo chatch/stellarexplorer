@@ -16,6 +16,9 @@
   "data": "Dữ liệu",
   "distributers": "Nhà phân phối",
 
+  "effect": "hiệu ứng",
+  "effects": "hiệu ứng",
+
   "error.cant.find": "Không thể tìm thấy \"{searchStr}\"",
   "error.nothing.found": "Không có gì tồn tại ở \"{path}\"",
 
