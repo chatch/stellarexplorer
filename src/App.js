@@ -29,13 +29,14 @@ import Exchanges from './components/Exchanges'
 import Operations from './components/Operations'
 
 import {networks, Server} from './lib/stellar'
+import {hostnameToNetwork} from './lib/stellar/networks'
 import {storageInit} from './lib/utils'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
-const HOME_TESTNET = 'https://testnet.steexp.com'
 const HOME_PUBLIC = 'https://steexp.com'
+const HOME_TESTNET = 'https://testnet.steexp.com'
 
 const storage = storageInit()
 
@@ -58,8 +59,6 @@ const getMessages = locale => {
   }
 }
 
-const isTestnetAddr = () => /^testnet\..*/.test(window.location.hostname)
-
 class App extends Component {
   state = {
     language: initialLanguage,
@@ -68,26 +67,20 @@ class App extends Component {
   }
 
   componentWillMount() {
-    // handle direct to testnet links in the form testnet.steexp.com/*
-    // and handle switch back to public when testnet is not in the domain
-    if (isTestnetAddr()) {
-      if (this.state.network !== networks.test) {
-        this.setNetwork(networks.test)
-      }
-    } else {
-      if (this.state.network !== networks.public) {
-        this.setNetwork(networks.public)
-      }
-    }
+    // Derive network from the hostname.
+    // Network setting determines which horizon instance to pull data from.
+    const network = hostnameToNetwork(window.location.hostname)
+    if (this.state.network !== network)
+      this.setNetwork(network, window.location.href)
   }
 
-  setNetwork = (network, page) => {
+  setNetwork = (network, href) => {
     console.log(`NETWORK change: ${this.state.network} to ${network}`)
     storage.setItem('network', network)
-    window.location.href =
-      network === networks.public ? HOME_PUBLIC : HOME_TESTNET
+    window.location.href = href
   }
 
+  // network switcher buttons in the header - public or testnet switch
   networkSwitcher = selectedNetwork => {
     const newHome =
       selectedNetwork === networks.public ? HOME_PUBLIC : HOME_TESTNET
