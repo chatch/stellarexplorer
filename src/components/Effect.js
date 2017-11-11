@@ -16,6 +16,15 @@ const effectBaseProps = [
   'pagingToken',
 ]
 
+const accountProps = [
+  'assetIssuer',
+  'boughtAssetIssuer',
+  'publicKey',
+  'seller',
+  'soldAssetIssuer',
+  'trustor',
+]
+
 class Effect extends React.Component {
   state = {}
 
@@ -42,7 +51,7 @@ class Effect extends React.Component {
                 let value = effect[key]
                 if (value === '') value = '<empty>'
 
-                if (key === 'publicKey' || key === 'assetIssuer')
+                if (accountProps.indexOf(key) !== -1)
                   value = <AccountLink account={value} />
                 else if (key === 'homeDomain') value = <a href={key}>{value}</a>
 
