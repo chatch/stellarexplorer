@@ -227,6 +227,30 @@ const AccountSummaryPanel = ({
 }
 
 class Account extends React.Component {
+  state = {
+    key: 'balances',
+  }
+
+  componentDidMount() {
+    this.handleURIHash()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.handleURIHash()
+  }
+
+  handleURIHash() {
+    if (has(window.location, 'hash') && window.location.hash.length > 1) {
+      const tab = window.location.hash.substring(1) // string after '#'
+      this.setState({key: tab})
+    }
+  }
+
+  handleSelect(key) {
+    window.location.hash = `#${key}`
+    this.setState({key})
+  }
+
   render() {
     const {formatMessage} = this.props.intl
     const a = this.props.account
@@ -242,14 +266,18 @@ class Account extends React.Component {
         </Row>
         <Row>
           <Tabs
-            defaultActiveKey={1}
             id="account-tabs"
+            activeKey={this.state.key}
+            onSelect={this.handleSelect}
             style={{border: '1px solid #ddd', borderRadius: 4}}
           >
-            <Tab eventKey={1} title={formatMessage({id: 'balances'})}>
+            <Tab eventKey="balances" title={formatMessage({id: 'balances'})}>
               <Balances balances={a.balances} />
             </Tab>
-            <Tab eventKey={2} title={formatMessage({id: 'operations'})}>
+            <Tab
+              eventKey="operations"
+              title={formatMessage({id: 'operations'})}
+            >
               <OperationList
                 key={a.id}
                 account={a.id}
@@ -258,7 +286,10 @@ class Account extends React.Component {
                 usePaging
               />
             </Tab>
-            <Tab eventKey={3} title={formatMessage({id: 'transactions'})}>
+            <Tab
+              eventKey="transactions"
+              title={formatMessage({id: 'transactions'})}
+            >
               <TransactionTable
                 key={a.id}
                 account={a.id}
@@ -267,19 +298,22 @@ class Account extends React.Component {
                 usePaging
               />
             </Tab>
-            <Tab eventKey={4} title={formatMessage({id: 'effects'})}>
+            <Tab eventKey="effects" title={formatMessage({id: 'effects'})}>
               <EffectList key={a.id} account={a.id} limit={20} usePaging />
             </Tab>
-            <Tab eventKey={5} title={formatMessage({id: 'signing'})}>
+            <Tab eventKey="signing" title={formatMessage({id: 'signing'})}>
               <Signers signers={a.signers} />
             </Tab>
-            <Tab eventKey={6} title={formatMessage({id: 'thresholds'})}>
+            <Tab
+              eventKey="thresholds"
+              title={formatMessage({id: 'thresholds'})}
+            >
               <Thresholds thresholds={a.thresholds} />
             </Tab>
-            <Tab eventKey={7} title={formatMessage({id: 'flags'})}>
+            <Tab eventKey="flags" title={formatMessage({id: 'flags'})}>
               <Flags flags={a.flags} />
             </Tab>
-            <Tab eventKey={8} title={formatMessage({id: 'data'})}>
+            <Tab eventKey="data" title={formatMessage({id: 'data'})}>
               <Data data={a.data_attr} />
             </Tab>
           </Tabs>
