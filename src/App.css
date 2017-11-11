@@ -219,9 +219,12 @@ a[id|='account-tabs-tab'][aria-selected='true'] {
   color: black !important;
 }
 
-.operation,
-.effect {
+.operation {
   margin-bottom: 5px !important;
+}
+
+.effect {
+  margin-bottom: 10px !important;
 }
 
 .spinner {
