@@ -16,6 +16,9 @@
   "data": "Data",
   "distributers": "Distributer(s)",
 
+  "effect": "Effect",
+  "effects": "Effects",
+
   "error.cant.find": "Couldn't find \"{searchStr}\"",
   "error.nothing.found": "Nothing exists at \"{path}\"",
 

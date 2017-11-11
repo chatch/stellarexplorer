@@ -29,6 +29,7 @@ class WrappedServer extends sdk.Server {
   //
 
   accountURL = id => `${this.serverURL}accounts/${id}`
+  effectURL = id => `${this.serverURL}effects/${id}`
   ledgerURL = id => `${this.serverURL}ledgers/${id}`
   opURL = id => `${this.serverURL}operations/${id}`
   txURL = id => `${this.serverURL}transactions/${id}`
@@ -37,12 +38,24 @@ class WrappedServer extends sdk.Server {
   // Data fetching utilities
   //
 
-  loadOperations({account, limit, tx}) {
+  loadOperations({account, tx, limit}) {
     const builder = this.operations()
     if (tx) builder.forTransaction(tx)
     if (account) builder.forAccount(account)
     builder.limit(limit)
     builder.order('desc')
+    return builder.call()
+  }
+
+  loadEffects({account, op, tx, limit}) {
+    const builder = this.effects()
+    console.log(`account: ${account}`)
+    if (account) builder.forAccount(account)
+    if (op) builder.forOperation(op)
+    if (tx) builder.forTransaction(tx)
+    builder.limit(limit)
+    builder.order('desc')
+    console.log(`builder: ${builder}`)
     return builder.call()
   }
 }

@@ -24,6 +24,7 @@ import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
 import Asset from './shared/Asset'
+import EffectList from './EffectList'
 import OperationList from './OperationList'
 import TransactionTable from './TransactionTableContainer'
 
@@ -266,16 +267,19 @@ class Account extends React.Component {
                 usePaging
               />
             </Tab>
-            <Tab eventKey={4} title={formatMessage({id: 'signing'})}>
+            <Tab eventKey={4} title={formatMessage({id: 'effects'})}>
+              <EffectList key={a.id} account={a.id} limit={20} usePaging />
+            </Tab>
+            <Tab eventKey={5} title={formatMessage({id: 'signing'})}>
               <Signers signers={a.signers} />
             </Tab>
-            <Tab eventKey={5} title={formatMessage({id: 'thresholds'})}>
+            <Tab eventKey={6} title={formatMessage({id: 'thresholds'})}>
               <Thresholds thresholds={a.thresholds} />
             </Tab>
-            <Tab eventKey={6} title={formatMessage({id: 'flags'})}>
+            <Tab eventKey={7} title={formatMessage({id: 'flags'})}>
               <Flags flags={a.flags} />
             </Tab>
-            <Tab eventKey={7} title={formatMessage({id: 'data'})}>
+            <Tab eventKey={8} title={formatMessage({id: 'data'})}>
               <Data data={a.data_attr} />
             </Tab>
           </Tabs>

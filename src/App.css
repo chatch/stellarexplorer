@@ -219,7 +219,8 @@ a[id|='account-tabs-tab'][aria-selected='true'] {
   color: black !important;
 }
 
-.operation {
+.operation,
+.effect {
   margin-bottom: 5px !important;
 }
 
