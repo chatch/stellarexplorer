@@ -7,7 +7,8 @@ import AccountLink from '../AccountLink'
 
 configure({ adapter: new Adapter() })
 
-const ACC_KNOWN = Object.keys(knownAccounts)[0]
+
+const ACC_KNOWN = Object.keys(knownAccounts).find(key => knownAccounts[key].displayName === 'NaoBTC')
 const ACC_UNKNOWN = 'GCGG3CIRBG2TTBR4HYZJ7JLDRFKZIYOAHFXRWLU62CA2QN52P2SUQNPJ'
 const LABEL = 'Anchor'
 
