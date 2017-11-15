@@ -65,7 +65,7 @@ const Anchor = ({assets, domain, displayName, logo, website}) => {
           {displayName}
         </div>
         <div>
-          <a href={website}>{website}</a>
+          <a href={website} target="_blank">{website}</a>
         </div>
         <div>
           <BadgeButton label="server.toml" url={toml} />

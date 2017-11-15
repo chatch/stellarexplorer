@@ -19,12 +19,12 @@ const Exchange = ({accounts, home, name, logo}) => {
   return (
     <Row style={{marginTop: 30, marginBottom: 30}}>
       <Col md={4}>
-        <a href={homePage}>
+        <a href={homePage} target="_blank">
           <Logo name={name} src={logo} />
         </a>
       </Col>
       <Col md={5}>
-        <a href={homePage}>{homePage}</a>
+        <a href={homePage} target="_blank">{homePage}</a>
       </Col>
       <Col md={2}>
         {!isEmpty(accounts) &&

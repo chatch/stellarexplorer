@@ -196,7 +196,7 @@ const AccountSummaryPanel = ({
                 <FormattedMessage id="home.domain" />:
               </Col>
               <Col md={9}>
-                <a href={`http://${a.home_domain}`}>{a.home_domain}</a>
+                <a href={`https://${a.home_domain}`} target="_blank">{a.home_domain}</a>
               </Col>
             </Row>
             <Row>
