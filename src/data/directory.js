@@ -3,6 +3,27 @@
 // (stellarterm/directory) so just copy the json straight to here for now ...
 export default {
   "anchors": {
+    "smartlands.io": {
+      "name": "smartlands.io",
+      "displayName": "Smartlands",
+      "website": "https://smartlands.io",
+      "logo": "data:image/png;base64, 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",
+      "assets": {
+        "SLT": "SLT-GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP"
+      },
+      "color": "#35AB62"
+    },
+    "stronghold.co": {
+      "name": "stronghold.co",
+      "displayName": "Stronghold",
+      "website": "https://stronghold.co",
+      "logo": "data:image/png;base64, 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",
+      "assets": {
+        "BTC": "BTC-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
+        "ETH": "ETH-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG"
+      },
+      "color": "#13ce66"
+    },
     "naobtc.com": {
       "name": "naobtc.com",
       "displayName": "NaoBTC",
@@ -88,6 +109,16 @@ export default {
       },
       "color": "#6f39fc"
     },
+    "flutterwave.com": {
+      "name": "flutterwave.com",
+      "displayName": "Flutterwave",
+      "website": "https://flutterwave.com/",
+      "logo": "data:image/png;base64, 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",
+      "assets": {
+        "NGN": "NGN-GCC4YLCR7DDWFCIPTROQM7EB2QMFD35XRWEQVIQYJQHVW6VE5MJZXIGW"
+      },
+      "color": "#febe12"
+    },
     "gft.network": {
       "name": "gft.network",
       "displayName": "GFT",
@@ -149,7 +180,7 @@ export default {
       "name": "golix.io",
       "displayName": "Golix",
       "website": "https://golix.io/",
-      "logo": "data:image/png;base64, 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",
+      "logo": "data:image/png;base64, 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",
       "assets": {
         "USD": "USD-GCYK67DDGBOANS6UODJ62QWGLEB2A7JQ3XUV25HCMLT7CI23PMMK3W6R",
         "BTC": "BTC-GCYK67DDGBOANS6UODJ62QWGLEB2A7JQ3XUV25HCMLT7CI23PMMK3W6R"
@@ -173,38 +204,84 @@ export default {
   "destinations": {
     "GA5XIGA5C7QTPTWXQHY6MCJRMTRZDOSHR6EFIBNDQTCQHG262N4GGKTM": {
       "name": "Kraken",
-      "requiredMemoType": "MEMO_ID"
+      "requiredMemoType": "MEMO_ID",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
     },
     "GCGNWKCJ3KHRLPM3TM6N7D3W5YKDJFL6A2YCXFXNMRTZ4Q66MEMZ6FI2": {
       "name": "Poloniex",
-      "requiredMemoType": "MEMO_ID"
+      "requiredMemoType": "MEMO_ID",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
     },
     "GB6YPGW5JFMMP2QB2USQ33EUWTXVL4ZT5ITUNCY3YKVWOJPP57CANOF3": {
       "name": "Bittrex",
-      "requiredMemoType": "MEMO_TEXT"
+      "requiredMemoType": "MEMO_TEXT",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
     },
     "GB7GRJ5DTE3AA2TCVHQS2LAD3D7NFG7YLTOEWEBVRNUUI2Q3TJ5UQIFM": {
       "name": "BTC38",
-      "requiredMemoType": "MEMO_ID"
+      "requiredMemoType": "MEMO_ID",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
     },
     "GBV4ZDEPNQ2FKSPKGJP2YKDAIZWQ2XKRQD4V4ACH3TCTFY6KPY3OAVS7": {
       "name": "Changelly",
-      "requiredMemoType": "MEMO_ID"
+      "requiredMemoType": "MEMO_ID",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
     },
     "GBR3RS2Z277FER476OFHFXQJRKYSQX4Z7XNWO65AN3QPRUANUASANG3L": {
       "name": "PapayaBot",
-      "requiredMemoType": "MEMO_TEXT"
+      "requiredMemoType": "MEMO_TEXT",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
     },
     "GBGVRE5DH6HGNYNLWQITKRQYGR4PWQEH6MOE5ELPY3I4XJPTZ7CVT4YW": {
       "name": "PapayaSwap",
-      "requiredMemoType": "MEMO_TEXT"
+      "requiredMemoType": "MEMO_TEXT",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
     },
     "GBQWA6DU6OXHH4AVTFCONQ76LHEWQVZAW7SFSW4PPCAI2NX4MJDZUYDW": {
       "name": "Piiko",
-      "requiredMemoType": "MEMO_TEXT"
+      "requiredMemoType": "MEMO_TEXT",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
+    },
+    "GBKTJSNUSR6OCXA5WDWGT33MNSCNQHOBQUBYC7TVS7BOXDKWFNHI4QNH": {
+      "name": "Exrates",
+      "requiredMemoType": "MEMO_TEXT",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
+    },
+    "GC4KAS6W2YCGJGLP633A6F6AKTCV4WSLMTMIQRSEQE5QRRVKSX7THV6S": {
+      "name": "BitcoinIndonesia",
+      "requiredMemoType": "MEMO_TEXT",
+      "mergeOpAccepted": false,
+      "pathPaymentAccepted": false
     }
   },
   "assets": {
+    "SLT-GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP": {
+      "code": "SLT",
+      "issuer": "GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP",
+      "domain": "smartlands.io",
+      "instructions": "https://smartlands.io"
+    },
+    "BTC-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG": {
+      "code": "BTC",
+      "issuer": "GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
+      "domain": "stronghold.co",
+      "instructions": "https://stronghold.co/send-receive-bitcoin.html"
+    },
+    "ETH-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG": {
+      "code": "ETH",
+      "issuer": "GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
+      "domain": "stronghold.co",
+      "instructions": "https://stronghold.co/send-receive-ethereum.html"
+    },
     "BTC-GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH": {
       "code": "BTC",
       "issuer": "GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH",
@@ -334,6 +411,11 @@ export default {
       "issuer": "GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH",
       "domain": "mobius.network"
     },
+    "NGN-GCC4YLCR7DDWFCIPTROQM7EB2QMFD35XRWEQVIQYJQHVW6VE5MJZXIGW": {
+      "code": "NGN",
+      "issuer": "GCC4YLCR7DDWFCIPTROQM7EB2QMFD35XRWEQVIQYJQHVW6VE5MJZXIGW",
+      "domain": "flutterwave.com"
+    },
     "GFT-GAAZUE4PKMKLA7QC2MPUIUXY7BZK2WUCK7Q5EELSDLK4FE3X4DZTSCKN": {
       "code": "GFT",
       "issuer": "GAAZUE4PKMKLA7QC2MPUIUXY7BZK2WUCK7Q5EELSDLK4FE3X4DZTSCKN",
@@ -402,6 +484,13 @@ export default {
     }
   },
   "issuers": {
+    "GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP": {
+      "SLT": "SLT-GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP"
+    },
+    "GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG": {
+      "BTC": "BTC-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
+      "ETH": "ETH-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG"
+    },
     "GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH": {
       "BTC": "BTC-GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH"
     },
@@ -449,6 +538,9 @@ export default {
     },
     "GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH": {
       "MOBI": "MOBI-GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH"
+    },
+    "GCC4YLCR7DDWFCIPTROQM7EB2QMFD35XRWEQVIQYJQHVW6VE5MJZXIGW": {
+      "NGN": "NGN-GCC4YLCR7DDWFCIPTROQM7EB2QMFD35XRWEQVIQYJQHVW6VE5MJZXIGW"
     },
     "GAAZUE4PKMKLA7QC2MPUIUXY7BZK2WUCK7Q5EELSDLK4FE3X4DZTSCKN": {
       "GFT": "GFT-GAAZUE4PKMKLA7QC2MPUIUXY7BZK2WUCK7Q5EELSDLK4FE3X4DZTSCKN"
@@ -501,46 +593,6 @@ export default {
         "issuer": "GBVAOIACNSB7OVUXJYC5UE2D4YK2F7A24T7EE5YOMN4CE6GCHUTOUQXM"
       }
     },
-    "XLM-native/XRP-vcbear.net": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "XRP",
-        "issuer": "GA7FCCMTTSUIC37PODEL6EOOSPDRILP6OQI5FWCWDDVDBLJV72W6RINZ"
-      }
-    },
-    "XLM-native/BTC-naobtc.com": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "BTC",
-        "issuer": "GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH"
-      }
-    },
-    "XLM-native/XEL-naobtc.com": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "XEL",
-        "issuer": "GAXELY4AOIRVONF7V25BUPDNKZYIVT6CWURG7R2I6NQU26IQSQODBVCS"
-      }
-    },
-    "XLM-native/BTC-vcbear.net": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "BTC",
-        "issuer": "GDXTJEK4JZNSTNQAWA53RZNS2GIKTDRPEUWDXELFMKU52XNECNVDVXDI"
-      }
-    },
     "XLM-native/EURT-tempo.eu.com": {
       "baseBuying": {
         "code": "XLM",
@@ -561,184 +613,14 @@ export default {
         "issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S"
       }
     },
-    "XLM-native/MOBI-mobius.network": {
+    "XLM-native/HKDC-cryptomover.com": {
       "baseBuying": {
         "code": "XLM",
         "issuer": null
       },
       "counterSelling": {
-        "code": "MOBI",
-        "issuer": "GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH"
-      }
-    },
-    "XLM-native/BCH-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "BCH",
-        "issuer": "GAEGOS7I6TYZSVHPSN76RSPIVL3SELATXZWLFO4DIAFYJF7MPAHFE7H4"
-      }
-    },
-    "XLM-native/BTC-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "BTC",
-        "issuer": "GAUTUYY2THLF7SGITDFMXJVYH3LHDSMGEAKSBU267M2K7A3W543CKUEF"
-      }
-    },
-    "XLM-native/LTC-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "LTC",
-        "issuer": "GC5LOR3BK6KIOK7GKAUD5EGHQCMFOGHJTC7I3ELB66PTDFXORC2VM5LP"
-      }
-    },
-    "XLM-native/ETH-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "ETH",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/BAT-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "BAT",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/ICN-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "ICN",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/OMG-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "OMG",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/REP-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "REP",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/ZRX-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "ZRX",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/KIN-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "KIN",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/LINK-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "LINK",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/MTL-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "MTL",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/SALT-apay.io": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "SALT",
-        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "XLM-native/NGN-tonaira.com": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "NGN",
-        "issuer": "GCLRUZDCWBHS7VIFCT43BARPP63BHR32HMEVKXYQODA5BU6SIGFK4HL2"
-      }
-    },
-    "XLM-native/GFT-gft.network": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "GFT",
-        "issuer": "GAAZUE4PKMKLA7QC2MPUIUXY7BZK2WUCK7Q5EELSDLK4FE3X4DZTSCKN"
-      }
-    },
-    "XLM-native/EQD-equid.co": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
-        "code": "EQD",
-        "issuer": "GCGEQJR3E5BVMQYSNCHPO6NPP3KOT4VVZHIOLSRSNLE2GFY7EWVSLLTN"
-      }
-    },
-    "BTC-naobtc.com/EQD-equid.co": {
-      "baseBuying": {
-        "code": "BTC",
-        "issuer": "GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH"
-      },
-      "counterSelling": {
-        "code": "EQD",
-        "issuer": "GCGEQJR3E5BVMQYSNCHPO6NPP3KOT4VVZHIOLSRSNLE2GFY7EWVSLLTN"
+        "code": "HKDC",
+        "issuer": "GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3"
       }
     },
     "EURT-tempo.eu.com/PHP-coins.asia": {
@@ -761,6 +643,256 @@ export default {
         "issuer": "GBUQWP3BOUZX34TOND2QV7QQ7K7VJTG6VSE7WMLBTMDJLLAW7YKGU6EP"
       }
     },
+    "XLM-native/NGN-flutterwave.com": {
+      "baseBuying": {
+        "code": "XLM",
+        "issuer": null
+      },
+      "counterSelling": {
+        "code": "NGN",
+        "issuer": "GCC4YLCR7DDWFCIPTROQM7EB2QMFD35XRWEQVIQYJQHVW6VE5MJZXIGW"
+      }
+    },
+    "XLM-native/NGN-tonaira.com": {
+      "baseBuying": {
+        "code": "XLM",
+        "issuer": null
+      },
+      "counterSelling": {
+        "code": "NGN",
+        "issuer": "GCLRUZDCWBHS7VIFCT43BARPP63BHR32HMEVKXYQODA5BU6SIGFK4HL2"
+      }
+    },
+    "XLM-native/BTC-stronghold.co": {
+      "baseBuying": {
+        "code": "XLM",
+        "issuer": null
+      },
+      "counterSelling": {
+        "code": "BTC",
+        "issuer": "GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG"
+      }
+    },
+    "XLM-native/BTC-naobtc.com": {
+      "baseBuying": {
+        "code": "XLM",
+        "issuer": null
+      },
+      "counterSelling": {
+        "code": "BTC",
+        "issuer": "GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH"
+      }
+    },
+    "XLM-native/BTC-apay.io": {
+      "baseBuying": {
+        "code": "XLM",
+        "issuer": null
+      },
+      "counterSelling": {
+        "code": "BTC",
+        "issuer": "GAUTUYY2THLF7SGITDFMXJVYH3LHDSMGEAKSBU267M2K7A3W543CKUEF"
+      }
+    },
+    "XLM-native/BTC-vcbear.net": {
+      "baseBuying": {
+        "code": "XLM",
+        "issuer": null
+      },
+      "counterSelling": {
+        "code": "BTC",
+        "issuer": "GDXTJEK4JZNSTNQAWA53RZNS2GIKTDRPEUWDXELFMKU52XNECNVDVXDI"
+      }
+    },
+    "XRP-vcbear.net/XLM-native": {
+      "baseBuying": {
+        "code": "XRP",
+        "issuer": "GA7FCCMTTSUIC37PODEL6EOOSPDRILP6OQI5FWCWDDVDBLJV72W6RINZ"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "ETH-stronghold.co/XLM-native": {
+      "baseBuying": {
+        "code": "ETH",
+        "issuer": "GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "XEL-naobtc.com/XLM-native": {
+      "baseBuying": {
+        "code": "XEL",
+        "issuer": "GAXELY4AOIRVONF7V25BUPDNKZYIVT6CWURG7R2I6NQU26IQSQODBVCS"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "MOBI-mobius.network/XLM-native": {
+      "baseBuying": {
+        "code": "MOBI",
+        "issuer": "GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "BCH-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "BCH",
+        "issuer": "GAEGOS7I6TYZSVHPSN76RSPIVL3SELATXZWLFO4DIAFYJF7MPAHFE7H4"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "LTC-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "LTC",
+        "issuer": "GC5LOR3BK6KIOK7GKAUD5EGHQCMFOGHJTC7I3ELB66PTDFXORC2VM5LP"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "ETH-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "ETH",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "BAT-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "BAT",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "ICN-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "ICN",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "OMG-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "OMG",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "REP-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "REP",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "ZRX-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "ZRX",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "KIN-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "KIN",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "LINK-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "LINK",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "MTL-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "MTL",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "SALT-apay.io/XLM-native": {
+      "baseBuying": {
+        "code": "SALT",
+        "issuer": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "SLT-smartlands.io/XLM-native": {
+      "baseBuying": {
+        "code": "SLT",
+        "issuer": "GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "GFT-gft.network/XLM-native": {
+      "baseBuying": {
+        "code": "GFT",
+        "issuer": "GAAZUE4PKMKLA7QC2MPUIUXY7BZK2WUCK7Q5EELSDLK4FE3X4DZTSCKN"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "EQD-equid.co/XLM-native": {
+      "baseBuying": {
+        "code": "EQD",
+        "issuer": "GCGEQJR3E5BVMQYSNCHPO6NPP3KOT4VVZHIOLSRSNLE2GFY7EWVSLLTN"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
     "SEED-collective21.org/XLM-native": {
       "baseBuying": {
         "code": "SEED",
@@ -771,64 +903,54 @@ export default {
         "issuer": null
       }
     },
-    "XLM-native/CM3-cryptomover.com": {
+    "CM3-cryptomover.com/XLM-native": {
       "baseBuying": {
-        "code": "XLM",
-        "issuer": null
-      },
-      "counterSelling": {
         "code": "CM3",
         "issuer": "GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3"
-      }
-    },
-    "XLM-native/CM10-cryptomover.com": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
       },
       "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "CM10-cryptomover.com/XLM-native": {
+      "baseBuying": {
         "code": "CM10",
         "issuer": "GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3"
-      }
-    },
-    "XLM-native/CME-cryptomover.com": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
       },
       "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "CME-cryptomover.com/XLM-native": {
+      "baseBuying": {
         "code": "CME",
         "issuer": "GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3"
-      }
-    },
-    "XLM-native/CM3x2-cryptomover.com": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
       },
       "counterSelling": {
+        "code": "XLM",
+        "issuer": null
+      }
+    },
+    "CM3x2-cryptomover.com/XLM-native": {
+      "baseBuying": {
         "code": "CM3x2",
         "issuer": "GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3"
-      }
-    },
-    "XLM-native/HKDC-cryptomover.com": {
-      "baseBuying": {
-        "code": "XLM",
-        "issuer": null
       },
       "counterSelling": {
-        "code": "HKDC",
-        "issuer": "GA4BYMUO5D7OLGVJWZ2D5FCWU7SB63FNZ4QUU574SMNA6ELK5TZD3SO3"
-      }
-    },
-    "XLM-native/XLQ-liquido.i-server.org": {
-      "baseBuying": {
         "code": "XLM",
         "issuer": null
-      },
-      "counterSelling": {
+      }
+    },
+    "XLQ-liquido.i-server.org/XLM-native": {
+      "baseBuying": {
         "code": "XLQ",
         "issuer": "GD2RRX6BKVTORZ6RIMBLWFVUOAYOLTS2QFJQUQPXLI3PBHR3TMLQNGZX"
+      },
+      "counterSelling": {
+        "code": "XLM",
+        "issuer": null
       }
     }
   },

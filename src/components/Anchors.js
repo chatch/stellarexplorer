@@ -51,7 +51,7 @@ const TradeColumn = ({assets, domain}) => (
   </span>
 )
 
-const Anchor = ({assets, domain, logo, website}) => {
+const Anchor = ({assets, domain, displayName, logo, website}) => {
   const toml = `https://${domain}/.well-known/stellar.toml`
   return (
     <tr className="anchorRow">
@@ -61,6 +61,9 @@ const Anchor = ({assets, domain, logo, website}) => {
         </a>
       </td>
       <td className="anchorLinkCol">
+        <div>
+          {displayName}
+        </div>
         <div>
           <a href={website}>{website}</a>
         </div>
@@ -123,6 +126,7 @@ class Anchors extends React.Component {
                         key={domain}
                         assets={anchor.assets}
                         domain={domain}
+                        displayName={anchor.displayName}
                         logo={anchor.logo}
                         website={anchor.website}
                       />
