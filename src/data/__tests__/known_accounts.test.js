@@ -1,27 +1,41 @@
 import accounts from '../known_accounts'
-import has from 'lodash/has'
+import {isPublicKey} from '../../lib/utils'
 
-const ISSUER_ACCOUNT_1 =
-  'GCLRUZDCWBHS7VIFCT43BARPP63BHR32HMEVKXYQODA5BU6SIGFK4HL2'
-const ISSUER_ACCOUNT_2 =
-  'GDXTJEK4JZNSTNQAWA53RZNS2GIKTDRPEUWDXELFMKU52XNECNVDVXDI'
+const findByName = name => {
+  const addr = Object.keys(accounts).find(key => accounts[key].name === name)
+  return {addr, account: accounts[addr]}
+}
 
-const EXCHANGE_ACCOUNT_1 =
-  'GCGNWKCJ3KHRLPM3TM6N7D3W5YKDJFL6A2YCXFXNMRTZ4Q66MEMZ6FI2'
+const isLogo = value => value.startsWith('data:image/png;base64')
 
-it('anchors issuer accounts are included', () => {
-  expect(has(accounts, ISSUER_ACCOUNT_1)).toBe(true)
-  expect(accounts[ISSUER_ACCOUNT_1].name).toBe('Tonaira')
-  expect(accounts[ISSUER_ACCOUNT_1].website).toBe('https://tonaira.com/')
-  expect(accounts[ISSUER_ACCOUNT_1].type).toBe('issuer')
+it('anchor account included', () => {
+  const {addr: tonairaAddr, account: tonaira} = findByName('Tonaira')
+  expect(isPublicKey(tonairaAddr)).toBe(true)
+  expect(tonaira.name).toBe('Tonaira')
+  expect(tonaira.website).toBe('https://tonaira.com/')
+  expect(tonaira.type).toBe('issuer')
+  expect(isLogo(tonaira.logo)).toBe(true)
 
-  expect(has(accounts, ISSUER_ACCOUNT_2)).toBe(true)
-  expect(accounts[ISSUER_ACCOUNT_2].name).toBe('VCBear')
-  expect(accounts[ISSUER_ACCOUNT_2].website).toBe('https://vcbear.net/')
+  // check basics of another
+  const {addr: vcbearAddr, account: vcbear} = findByName('VCBear')
+  expect(isPublicKey(vcbearAddr)).toBe(true)
+  expect(vcbear).toBeDefined()
+  expect(vcbear.name).toBe('VCBear')
+  expect(vcbear.website).toBe('https://vcbear.net/')
 })
 
-it('exchange accounts are included', () => {
-  expect(has(accounts, EXCHANGE_ACCOUNT_1)).toBe(true)
-  expect(accounts[EXCHANGE_ACCOUNT_1].name).toBe('Poloniex')
-  expect(accounts[EXCHANGE_ACCOUNT_1].type).toBe('destination')
+it('standard exchange accounts are included', () => {
+  const {addr: poloniexAddr, account: poloniex} = findByName('Poloniex')
+  expect(isPublicKey(poloniexAddr)).toBe(true)
+  expect(poloniex).toBeDefined()
+  expect(poloniex.name).toBe('Poloniex')
+  expect(poloniex.website).toBe('poloniex.com')
+  expect(poloniex.type).toBe('destination')
+  expect(poloniex.logo).toBeUndefined() // not set uses default path
+})
+
+it('exchange accounts with logo override sets logo', () => {
+  const {addr: papayaAddr, account: papaya} = findByName('PapayaBot')
+  expect(isPublicKey(papayaAddr)).toBe(true)
+  expect(isLogo(papaya.logo)).toBe(true)
 })
