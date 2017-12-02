@@ -3,11 +3,11 @@
   <ShortName>Stellar Explorer</ShortName>
   <Description>Ledger explorer for the Stellar Network</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/png">favicon.ico</Image>
-  <Url type="text/html" method="get" template="/search/{searchTerms}" />
+  <Image width="16" height="16" type="image/png">https://steexp.com/favicon.ico</Image>
+  <Url type="text/html" method="get" template="https://steexp.com/search/{searchTerms}" />
   <Url
     type="application/opensearchdescription+xml"
     rel="self"
-    template="https://steexp.com/search.xml"
+    template="/search.xml"
   />
 </OpenSearchDescription>
