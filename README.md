@@ -19,6 +19,8 @@ Account Effects|[/account/stellar*fed.network#effects](https://steexp.com/accoun
 Account Operations|[/account/stellar*fed.network#operations](https://steexp.com/account/stellar*fed.network#operations)
 Transaction|[/tx/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071](https://steexp.com/tx/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071)
 Ledger|[/ledger/10000000](https://steexp.com/ledger/10000000)
+Search for Federated address|[/search/steexp*fed.network](https://steexp.com/search/steexp*fed.network)
+Search for Ledger|[/search/10000000](https://steexp.com/search/10000000)
 
 ## Exploring Private / Local Development Networks<a name="private-networks"></a>
 
