@@ -3,5 +3,10 @@
   "routes": {
     "/**": "index.html"
   },
-  "https_only": true
+  "https_only": true,
+  "headers": {
+    "/search.xml": {
+      "Content-Type": "application/opensearchdescription+xml"
+    }
+  }
 }
