@@ -15,7 +15,7 @@ class SearchBox extends React.Component {
 
     const searchBox = event.target.firstElementChild
     const searchStr = searchBox.value.trim()
-    console.log(searchStr)
+    console.log(`searchStr: ${searchStr}`)
 
     if (isPublicKey(searchStr)) {
       this.props.history.push(`/account/${searchStr}`)

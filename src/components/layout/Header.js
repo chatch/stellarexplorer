@@ -79,16 +79,29 @@ class Header extends React.Component {
               title={formatMessage({id: 'more'})}
             >
               <MenuItem href="https://www.stellar.org">Stellar.org</MenuItem>
+              <MenuItem divider />
               <MenuItem href="https://stellarterm.com/">StellarTerm</MenuItem>
-              <MenuItem href="https://dashboard.stellar.org/">
-                Stellar Dashboard
+              <MenuItem href="https://lupoex.com/">LuPoEx</MenuItem>
+              <MenuItem href="https://interstellar.exchange/">
+                InterStellar
               </MenuItem>
+              <MenuItem divider />
+              <MenuItem href="https://dashboard.stellar.org/">
+                Dashboard
+              </MenuItem>
+              <MenuItem href="http://stellar.network/">Network</MenuItem>
               <MenuItem href="https://www.stellar.org/laboratory/">
                 Laboratory
               </MenuItem>
-              <MenuItem href="http://stellar.network/">
-                Stellar Network
+              <MenuItem href="https://github.com/stellar/docs/blob/master/validators.md">
+                Validators
               </MenuItem>
+              <MenuItem divider />
+              <MenuItem href="https://galactictalk.org">Galactic Talk</MenuItem>
+              <MenuItem href="https://www.reddit.com/r/Stellar/">
+                Reddit
+              </MenuItem>
+              <MenuItem href="https://stellar-public.slack.com">Slack</MenuItem>
             </NavDropdown>
           </Nav>
           <Navbar.Form pullRight>

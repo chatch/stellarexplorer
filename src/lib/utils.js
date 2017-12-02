@@ -29,13 +29,20 @@ const handleFetchDataFailure = id => e => {
   console.error(msg)
   console.error(`Raw Error: ${e}`)
 
+  let errorURI
+  console.error(`typeof status: ${typeof status}`)
+
   if (status === 404) {
     let redirectURI = '/error/not-found'
+    console.log(`JERE`)
     if (id) redirectURI += `/${id}`
-    window.location.href = redirectURI
+    errorURI = redirectURI
+  } else if (e.message === 'Network Error') {
+    errorURI = `/error/general/network`
   } else {
-    window.location.href = `/error/not-found/${id}`
+    errorURI = `/error/general/${id}`
   }
+  window.location.href = errorURI
 }
 
 const storageInit = () => {

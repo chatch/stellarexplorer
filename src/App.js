@@ -15,7 +15,8 @@ import zhMessages from './languages/zh'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Home from './components/Home'
-import NoMatch from './components/shared/NoMatch'
+import NoMatchError from './components/shared/NoMatchError'
+import Error from './components/shared/Error'
 import SponsoredLink from './components/shared/SponsoredLink'
 
 import Ledger from './components/Ledger'
@@ -126,8 +127,9 @@ class App extends Component {
                 <Route path="/account/:id" component={Account} />
                 <Route path="/anchors" component={Anchors} />
                 <Route path="/exchanges" component={Exchanges} />
-                <Route path="/error/not-found/:id" component={NoMatch} />
-                <Route component={NoMatch} />
+                <Route path="/error/not-found/:id" component={NoMatchError} />
+                <Route path="/error/general/:id" component={Error} />
+                <Route component={Error} />
               </Switch>
             </div>
             <Footer />
