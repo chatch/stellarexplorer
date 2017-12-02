@@ -5,18 +5,17 @@ import {injectIntl} from 'react-intl'
 import {isPublicKey, isStellarAddress, isTxHash} from '../../lib/utils'
 
 class SearchBox extends React.Component {
+  state = {
+    fromBox: true,
+  }
+
   noMatch = searchStr => {
     console.log(`unknown search string [${searchStr}]`)
     window.location.href = `/error/not-found/${searchStr}`
   }
 
-  search = event => {
-    event.preventDefault()
-
-    const searchBox = event.target.firstElementChild
-    const searchStr = searchBox.value.trim()
+  search = searchStr => {
     console.log(`searchStr: ${searchStr}`)
-
     if (isPublicKey(searchStr)) {
       this.props.history.push(`/account/${searchStr}`)
     } else if (isTxHash(searchStr)) {
@@ -30,7 +29,22 @@ class SearchBox extends React.Component {
     }
   }
 
+  searchHandler = event => {
+    event.preventDefault()
+    const searchBox = event.target.firstElementChild
+    const searchStr = searchBox.value.trim()
+    this.search(searchStr)
+  }
+
+  componentDidMount() {
+    const id = this.props.match.params.id
+    if (id && id.length > 0) {
+      this.search(id)
+    }
+  }
+
   render() {
+    if (this.state.fromBox === false) return null // URI search
     const {formatMessage} = this.props.intl
     return (
       <form onSubmit={this.search}>

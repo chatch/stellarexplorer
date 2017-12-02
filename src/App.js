@@ -17,6 +17,7 @@ import Footer from './components/layout/Footer'
 import Home from './components/Home'
 import NoMatchError from './components/shared/NoMatchError'
 import Error from './components/shared/Error'
+import SearchBox from './components/layout/SearchBox'
 import SponsoredLink from './components/shared/SponsoredLink'
 
 import Ledger from './components/Ledger'
@@ -127,6 +128,7 @@ class App extends Component {
                 <Route path="/account/:id" component={Account} />
                 <Route path="/anchors" component={Anchors} />
                 <Route path="/exchanges" component={Exchanges} />
+                <Route path="/search/:id" component={SearchBox} />
                 <Route path="/error/not-found/:id" component={NoMatchError} />
                 <Route path="/error/general/:id" component={Error} />
                 <Route component={Error} />

@@ -1,0 +1,12 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Stellar Explorer</ShortName>
+  <Description>Ledger explorer for the Stellar Network</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16" type="image/png">favicon.ico</Image>
+  <Url type="text/html" method="get" template="/search/{searchTerms}" />
+  <Url
+    type="application/opensearchdescription+xml"
+    rel="self"
+    template="https://steexp.com/search.xml"
+  />
+</OpenSearchDescription>
