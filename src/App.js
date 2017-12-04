@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import {IntlProvider, addLocaleData} from 'react-intl'
@@ -17,7 +22,6 @@ import Footer from './components/layout/Footer'
 import Home from './components/Home'
 import NoMatchError from './components/shared/NoMatchError'
 import Error from './components/shared/Error'
-import SearchBox from './components/layout/SearchBox'
 import SponsoredLink from './components/shared/SponsoredLink'
 
 import Ledger from './components/Ledger'
@@ -33,6 +37,7 @@ import Operations from './components/Operations'
 import {networks, Server} from './lib/stellar'
 import {hostnameToNetwork} from './lib/stellar/networks'
 import {storageInit} from './lib/utils'
+import {searchStrToPath} from './lib/search'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
@@ -128,7 +133,13 @@ class App extends Component {
                 <Route path="/account/:id" component={Account} />
                 <Route path="/anchors" component={Anchors} />
                 <Route path="/exchanges" component={Exchanges} />
-                <Route path="/search/:id" component={SearchBox} />
+                <Route
+                  path="/search/:id"
+                  render={({match}) => {
+                    const searchStr = match.params.id
+                    return <Redirect to={searchStrToPath(searchStr)} />
+                  }}
+                />
                 <Route path="/error/not-found/:id" component={NoMatchError} />
                 <Route path="/error/general/:id" component={Error} />
                 <Route component={Error} />

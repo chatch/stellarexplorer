@@ -31,8 +31,6 @@ const handleFetchDataFailure = id => e => {
   console.error(`Raw Error: ${e}`)
 
   let errorURI
-  console.error(`typeof status: ${typeof status}`)
-
   if (status === 404) {
     let redirectURI = '/error/not-found'
     if (id) redirectURI += `/${id}`
