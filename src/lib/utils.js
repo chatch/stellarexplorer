@@ -13,6 +13,7 @@ const isDefInt = (obj, key) => {
 }
 
 const base64Decode = value => Buffer.from(value, 'base64').toString()
+const base64DecodeToHex = value => Buffer.from(value, 'base64').toString('hex')
 
 const handleFetchDataFailure = id => e => {
   let status
@@ -34,7 +35,6 @@ const handleFetchDataFailure = id => e => {
 
   if (status === 404) {
     let redirectURI = '/error/not-found'
-    console.log(`JERE`)
     if (id) redirectURI += `/${id}`
     errorURI = redirectURI
   } else if (e.message === 'Network Error') {
@@ -61,6 +61,7 @@ const storageInit = () => {
 
 export {
   base64Decode,
+  base64DecodeToHex,
   handleFetchDataFailure,
   isDefInt,
   isPublicKey,

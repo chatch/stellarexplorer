@@ -11,8 +11,9 @@ import {
   injectIntl,
 } from 'react-intl'
 import PropTypes from 'prop-types'
+import {MemoHash, MemoReturn} from 'stellar-sdk'
 
-import {handleFetchDataFailure} from '../lib/utils'
+import {base64DecodeToHex, handleFetchDataFailure} from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import OperationList from './OperationList'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -35,7 +36,6 @@ class Transaction extends React.Component {
     const {formatMessage} = this.props.intl
 
     if (!id) return null
-
     return (
       <Grid>
         <Row>
@@ -51,9 +51,7 @@ class Transaction extends React.Component {
                   <td>
                     <FormattedMessage id="hash" />
                   </td>
-                  <td>
-                    {id}
-                  </td>
+                  <td>{id}</td>
                 </tr>
                 <tr>
                   <td>
@@ -68,18 +66,14 @@ class Transaction extends React.Component {
                   <td>
                     <FormattedMessage id="fee" />
                   </td>
-                  <td>
-                    {fee} stroops
-                  </td>
+                  <td>{fee} stroops</td>
                 </tr>
                 <tr>
                   <td>
                     <FormattedMessage id="ledger" />
                   </td>
                   <td>
-                    <Link to={`/ledger/${ledger}`}>
-                      {ledger}
-                    </Link>
+                    <Link to={`/ledger/${ledger}`}>{ledger}</Link>
                   </td>
                 </tr>
                 <tr>
@@ -87,7 +81,9 @@ class Transaction extends React.Component {
                     <FormattedMessage id="memo" /> ({memoTypeToLabel[memoType]})
                   </td>
                   <td>
-                    {memo}
+                    {memoType === MemoHash || memoType === MemoReturn
+                      ? base64DecodeToHex(memo)
+                      : memo}
                   </td>
                 </tr>
               </tbody>
