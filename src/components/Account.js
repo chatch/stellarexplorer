@@ -66,7 +66,7 @@ const NameValueTable = ({data, decodeValue = false}) => {
 }
 
 const balanceRow = bal => (
-  <tr key={bal.asset_code ? bal.asset_code : 'XLM'}>
+  <tr key={bal.asset_code ? `${bal.asset_code}-${bal.asset_issuer}` : 'XLM'}>
     <td>
       <Asset
         type={bal.asset_type}
@@ -196,7 +196,9 @@ const AccountSummaryPanel = ({
                 <FormattedMessage id="home.domain" />:
               </Col>
               <Col md={9}>
-                <a href={`https://${a.home_domain}`} target="_blank">{a.home_domain}</a>
+                <a href={`https://${a.home_domain}`} target="_blank">
+                  {a.home_domain}
+                </a>
               </Col>
             </Row>
             <Row>
