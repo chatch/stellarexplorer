@@ -2,7 +2,6 @@ import React from 'react'
 import Grid from 'react-bootstrap/lib/Grid'
 import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
-import Col from 'react-bootstrap/lib/Col'
 import Table from 'react-bootstrap/lib/Table'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import PropTypes from 'prop-types'
@@ -61,11 +60,11 @@ const Anchor = ({assets, domain, displayName, logo, website}) => {
         </a>
       </td>
       <td className="anchorLinkCol">
+        <div>{displayName}</div>
         <div>
-          {displayName}
-        </div>
-        <div>
-          <a href={website} target="_blank">{website}</a>
+          <a href={website} target="_blank">
+            {website}
+          </a>
         </div>
         <div>
           <BadgeButton label="server.toml" url={toml} />
@@ -102,40 +101,38 @@ class Anchors extends React.Component {
     return (
       <Grid>
         <Row>
-          <Col mdOffset={2} md={8}>
-            <Panel header={header}>
-              <Table>
-                <thead>
-                  <tr>
-                    <th />
-                    <th />
-                    <th>
-                      <FormattedMessage id="asset" />
-                    </th>
-                    <th>
-                      <FormattedMessage id="issuer" />
-                    </th>
-                    <th>StellarTerm</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.keys(anchors).map(domain => {
-                    const anchor = anchors[domain]
-                    return (
-                      <Anchor
-                        key={domain}
-                        assets={anchor.assets}
-                        domain={domain}
-                        displayName={anchor.displayName}
-                        logo={anchor.logo}
-                        website={anchor.website}
-                      />
-                    )
-                  })}
-                </tbody>
-              </Table>
-            </Panel>
-          </Col>
+          <Panel header={header}>
+            <Table>
+              <thead>
+                <tr>
+                  <th />
+                  <th />
+                  <th>
+                    <FormattedMessage id="asset" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="issuer" />
+                  </th>
+                  <th>StellarTerm</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(anchors).map(domain => {
+                  const anchor = anchors[domain]
+                  return (
+                    <Anchor
+                      key={domain}
+                      assets={anchor.assets}
+                      domain={domain}
+                      displayName={anchor.displayName}
+                      logo={anchor.logo}
+                      website={anchor.website}
+                    />
+                  )
+                })}
+              </tbody>
+            </Table>
+          </Panel>
         </Row>
       </Grid>
     )

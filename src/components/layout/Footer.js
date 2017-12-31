@@ -12,11 +12,29 @@ class Footer extends React.Component {
           <Col md={3}>
             <LumensRates />
           </Col>
-          <Col mdOffset={2} md={3}>
-            Donate: steexp*fed.network
+          <Col mdOffset={7} md={2}>
+            <a href="https://github.com/chatch/stellarexplorer">
+              <img
+                src={`${process.env.PUBLIC_URL}/img/gh.svg`}
+                alt="github"
+                height={20}
+                width={20}
+              />
+              Source Code
+            </a>
           </Col>
-          <Col mdOffset={3} md={1}>
-            <a href="https://github.com/chatch/stellarexplorer">Github</a>
+        </Row>
+        <Row>
+          <Col mdOffset={10} md={2}>
+            <a href="https://stellar.org">
+              <img
+                src={`${process.env.PUBLIC_URL}/favicon.ico`}
+                alt="stellar"
+                height={20}
+                width={20}
+              />
+              Stellar.org
+            </a>
           </Col>
         </Row>
       </Grid>

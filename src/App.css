@@ -16,8 +16,7 @@ table {
 }
 
 #main-content {
-  padding-top: 70px;
-  /* because navbar has fixed top */
+  margin: 10px 15px;
 }
 
 #footer {
@@ -25,6 +24,10 @@ table {
   margin-top: 35px;
   margin-bottom: 20px;
   padding-top: 10px;
+}
+
+#footer img {
+  margin-right: 10px;
 }
 
 .monospace {
@@ -158,19 +161,23 @@ table {
 }
 
 @media (min-width: 768px) {
-  .Search-box {
-    width: 250px !important;
-  }
-}
-
-@media (min-width: 992px) {
-  .Search-box {
-    width: 350px !important;
+  #Search-Container {
+    padding-top: 10px;
   }
 }
 
 #Language-Selector > span.caret {
   color: #777 !important;
+}
+
+#Search-Container {
+  padding: 60px 15px 8px 15px;
+  border-bottom: 1px solid;
+}
+
+.glyphicon-search {
+  height: 20px;
+  width: 20px;
 }
 
 .Network-Selector {

@@ -23,12 +23,12 @@ const Exchange = ({accounts, home, name, logo, decentralized = false}) => {
           <Logo name={name} src={logo} />
         </a>
       </Col>
-      <Col md={5}>
+      <Col md={5} style={{marginTop: 11}}>
         <a href={homeLink} target="_blank">
           {home}
         </a>
       </Col>
-      <Col md={2}>
+      <Col md={2} style={{marginTop: 11}}>
         {!isEmpty(accounts) &&
           accounts.map(account => (
             <span key={account}>
@@ -71,11 +71,9 @@ class Exchanges extends React.Component {
     return (
       <Grid>
         <Row>
-          <Col mdOffset={3} md={6}>
-            <Panel header={header}>
-              <ExchangesList />
-            </Panel>
-          </Col>
+          <Panel header={header}>
+            <ExchangesList />
+          </Panel>
         </Row>
         <Row />
       </Grid>

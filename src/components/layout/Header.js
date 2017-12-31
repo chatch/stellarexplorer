@@ -2,8 +2,6 @@ import React from 'react'
 import Nav from 'react-bootstrap/lib/Nav'
 import Navbar from 'react-bootstrap/lib/Navbar'
 import NavItem from 'react-bootstrap/lib/NavItem'
-import NavDropdown from 'react-bootstrap/lib/NavDropdown'
-import FormGroup from 'react-bootstrap/lib/FormGroup'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
@@ -11,7 +9,6 @@ import {FormattedMessage, injectIntl} from 'react-intl'
 
 import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
-import SearchBox from './SearchBox'
 import logoImg from '../../img/logo.png'
 
 class Header extends React.Component {
@@ -33,77 +30,6 @@ class Header extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav>
-            <LinkContainer to="/">
-              <NavItem>
-                <FormattedMessage id="home" />
-              </NavItem>
-            </LinkContainer>
-            <NavDropdown
-              id="nav-dropdown-ledger"
-              title={formatMessage({id: 'ledger'})}
-            >
-              <LinkContainer to="/operations">
-                <NavItem>
-                  <FormattedMessage id="operations" />
-                </NavItem>
-              </LinkContainer>
-              <LinkContainer to="/txs">
-                <NavItem>
-                  <FormattedMessage id="transactions" />
-                </NavItem>
-              </LinkContainer>
-              <LinkContainer to="/ledgers">
-                <NavItem>
-                  <FormattedMessage id="ledgers" />
-                </NavItem>
-              </LinkContainer>
-            </NavDropdown>
-            <NavDropdown
-              id="nav-dropdown-account"
-              title={formatMessage({id: 'account'})}
-            >
-              <LinkContainer to="/anchors">
-                <MenuItem>
-                  <FormattedMessage id="anchors" />
-                </MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/exchanges">
-                <MenuItem>
-                  <FormattedMessage id="exchanges" />
-                </MenuItem>
-              </LinkContainer>
-            </NavDropdown>
-            <NavDropdown
-              id="nav-dropdown-more"
-              title={formatMessage({id: 'more'})}
-            >
-              <MenuItem href="https://www.stellar.org">Stellar.org</MenuItem>
-              <MenuItem divider />
-              <MenuItem href="https://stellarterm.com/">StellarTerm</MenuItem>
-              <MenuItem href="https://lupoex.com/">LuPoEx</MenuItem>
-              <MenuItem href="https://interstellar.exchange/">
-                InterStellar
-              </MenuItem>
-              <MenuItem divider />
-              <MenuItem href="https://dashboard.stellar.org/">
-                Dashboard
-              </MenuItem>
-              <MenuItem href="http://stellar.network/">Network</MenuItem>
-              <MenuItem href="https://www.stellar.org/laboratory/">
-                Laboratory
-              </MenuItem>
-              <MenuItem href="https://github.com/stellar/docs/blob/master/validators.md">
-                Validators
-              </MenuItem>
-              <MenuItem divider />
-              <MenuItem href="https://galactictalk.org">Galactic Talk</MenuItem>
-              <MenuItem href="https://www.reddit.com/r/Stellar/">
-                Reddit
-              </MenuItem>
-              <MenuItem href="https://stellar-public.slack.com">Slack</MenuItem>
-            </NavDropdown>
-          </Nav>
           <Navbar.Form pullRight>
             <LanguageSelector
               language={this.props.language}
@@ -116,11 +42,33 @@ class Header extends React.Component {
               switcher={this.props.networkSwitcher}
             />
           </Navbar.Form>
-          <Navbar.Form pullRight>
-            <FormGroup>
-              <SearchBox />
-            </FormGroup>
-          </Navbar.Form>
+          <Nav pullRight>
+            <LinkContainer to="/operations">
+              <NavItem>
+                <FormattedMessage id="operations" />
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/txs">
+              <NavItem>
+                <FormattedMessage id="transactions" />
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/ledgers">
+              <NavItem>
+                <FormattedMessage id="ledgers" />
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/anchors">
+              <MenuItem>
+                <FormattedMessage id="anchors" />
+              </MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/exchanges">
+              <MenuItem>
+                <FormattedMessage id="exchanges" />
+              </MenuItem>
+            </LinkContainer>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     )

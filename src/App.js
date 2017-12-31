@@ -20,6 +20,7 @@ import zhMessages from './languages/zh'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Home from './components/Home'
+import SearchBox from './components/layout/SearchBox'
 import NoMatchError from './components/shared/NoMatchError'
 import Error from './components/shared/Error'
 import SponsoredLink from './components/shared/SponsoredLink'
@@ -120,6 +121,9 @@ class App extends Component {
               language={this.state.language}
               languageSwitcher={this.languageSwitcher}
             />
+            <div id="Search-Container">
+              <SearchBox />
+            </div>
             <div id="main-content">
               <SponsoredLink />
               <Switch>
