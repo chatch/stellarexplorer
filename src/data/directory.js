@@ -1,4 +1,5 @@
-import directory from 'stellarterm-directory/directory.json'
+//import directory from 'stellarterm-directory/directory.json'
+import directory from './directory.json'
 
 // adds / overrides:
 directory.anchors['funtracker.site'] = {

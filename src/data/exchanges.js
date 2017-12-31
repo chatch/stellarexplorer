@@ -1,9 +1,35 @@
 import directory from '../data/directory'
 const apayLogo = directory.anchors['apay.io'].logo
+const rippleFoxLogo = directory.anchors['ripplefox.com'].logo
 
-export default {
+const decentralized = {
   StellarTerm: {
     home: 'stellarterm.com',
+  },
+  LuPoEx: {
+    home: 'lupoex.com',
+  },
+  InterStellar: {
+    home: 'interstellar.exchange',
+  },
+  Qryptos: {
+    home: 'qryptos.com',
+  },
+}
+
+const centralized = {
+  Binance: {
+    home: 'binance.com',
+    accounts: ['GCO2IP3MJNUOKS4PUDI4C7LGGMQDJGXG3COYX3WSB4HHNAHKYV5YL3VC'],
+  },
+  BitcoinIndonesia: {
+    home: 'bitcoin.co.id',
+    accounts: ['GC4KAS6W2YCGJGLP633A6F6AKTCV4WSLMTMIQRSEQE5QRRVKSX7THV6S'],
+  },
+  Ripplefox: {
+    home: 'ripplefox.com',
+    accounts: ['GCLDH6L6FBLTD3H3B23D6TIFVVTFBLZMNBC3ZOI6FGI5GPQROL4FOXIN'],
+    logo: rippleFoxLogo,
   },
   Poloniex: {
     home: 'poloniex.com',
@@ -13,21 +39,25 @@ export default {
     home: 'bittrex.com',
     accounts: ['GB6YPGW5JFMMP2QB2USQ33EUWTXVL4ZT5ITUNCY3YKVWOJPP57CANOF3'],
   },
-  BTC38: {
-    home: 'btc38.com',
-    accounts: ['GB7GRJ5DTE3AA2TCVHQS2LAD3D7NFG7YLTOEWEBVRNUUI2Q3TJ5UQIFM'],
-  },
   Kraken: {
     home: 'kraken.com',
     accounts: ['GA5XIGA5C7QTPTWXQHY6MCJRMTRZDOSHR6EFIBNDQTCQHG262N4GGKTM'],
   },
+  OKEX: {
+    home: 'okex.com',
+    accounts: ['GBOEEVARKVASOQSSXCAHNTGJTVALJE2QM3AQQ2K3VXACQ6JJREQRJZKB'],
+  },
+  AEX: {
+    home: 'aex.com',
+    accounts: ['GDZCEWJ5TVXUTFH6V5CVDQDE43KRXYUFRHKI7X64EWMVOVYYZJFWIFQ2'],
+  },
+  BTC38: {
+    home: 'btc38.com',
+    accounts: ['GB7GRJ5DTE3AA2TCVHQS2LAD3D7NFG7YLTOEWEBVRNUUI2Q3TJ5UQIFM'],
+  },
   Changelly: {
     home: 'changelly.com',
     accounts: ['GBV4ZDEPNQ2FKSPKGJP2YKDAIZWQ2XKRQD4V4ACH3TCTFY6KPY3OAVS7'],
-  },
-  BitcoinIndonesia: {
-    home: 'bitcoin.co.id',
-    accounts: ['GC4KAS6W2YCGJGLP633A6F6AKTCV4WSLMTMIQRSEQE5QRRVKSX7THV6S'],
   },
   Exrates: {
     home: 'lk.exrates.me',
@@ -44,3 +74,5 @@ export default {
     logo: apayLogo,
   },
 }
+
+export {decentralized, centralized}

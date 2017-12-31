@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/lib/Col'
 import {injectIntl} from 'react-intl'
 import isEmpty from 'lodash/isEmpty'
 
-import exchanges from '../data/exchanges'
+import {decentralized, centralized} from '../data/exchanges'
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -14,17 +14,19 @@ import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 const METADATA_PATH =
   'https://github.com/chatch/stellarexplorer/blob/master/src/data/exchanges.js'
 
-const Exchange = ({accounts, home, name, logo}) => {
-  const homePage = `https://${home}`
+const Exchange = ({accounts, home, name, logo, decentralized = false}) => {
+  const homeLink = `https://${home}`
   return (
     <Row style={{marginTop: 30, marginBottom: 30}}>
       <Col md={4}>
-        <a href={homePage} target="_blank">
+        <a href={homeLink} target="_blank">
           <Logo name={name} src={logo} />
         </a>
       </Col>
       <Col md={5}>
-        <a href={homePage} target="_blank">{homePage}</a>
+        <a href={homeLink} target="_blank">
+          {home}
+        </a>
       </Col>
       <Col md={2}>
         {!isEmpty(accounts) &&
@@ -33,7 +35,7 @@ const Exchange = ({accounts, home, name, logo}) => {
               <AccountLink account={account} hideKnown={true} />&nbsp;
             </span>
           ))}
-        {name === 'StellarTerm' && <span>Decentralized</span>}
+        {decentralized && <span>Decentralized</span>}
       </Col>
     </Row>
   )
@@ -41,9 +43,21 @@ const Exchange = ({accounts, home, name, logo}) => {
 
 const ExchangesList = () => (
   <div>
-    {Object.keys(exchanges).map(id => (
-      <Exchange key={id} name={id} {...exchanges[id]} />
-    ))}
+    <div>
+      {Object.keys(decentralized).map(id => (
+        <Exchange key={id} name={id} {...decentralized[id]} decentralized />
+      ))}
+    </div>
+    <Row style={{marginTop: 30, marginBottom: 30}}>
+      <Col md={12}>
+        <hr />
+      </Col>
+    </Row>
+    <div>
+      {Object.keys(centralized).map(id => (
+        <Exchange key={id} name={id} {...centralized[id]} />
+      ))}
+    </div>
   </div>
 )
 
