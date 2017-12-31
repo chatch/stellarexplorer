@@ -12,9 +12,6 @@ const decentralized = {
   InterStellar: {
     home: 'interstellar.exchange',
   },
-  Qryptos: {
-    home: 'qryptos.com',
-  },
 }
 
 const centralized = {
@@ -54,6 +51,10 @@ const centralized = {
   BTC38: {
     home: 'btc38.com',
     accounts: ['GB7GRJ5DTE3AA2TCVHQS2LAD3D7NFG7YLTOEWEBVRNUUI2Q3TJ5UQIFM'],
+  },
+  Qryptos: {
+    home: 'qryptos.com',
+    accounts: ['GA7OPN4A3JNHLPHPEWM4PJDOYYDYNZOM7ES6YL3O7NC3PRY3V3UX6ANM'],
   },
   Changelly: {
     home: 'changelly.com',
