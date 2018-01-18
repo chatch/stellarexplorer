@@ -96,7 +96,7 @@
   "operation.payment": "Оплата {amount} {asset} на {recipient}",
   "operation.payment.path": " конвертируя {asset} макс {max}",
   "operation.trust": "Доверие {trustee} выпускающему {assetCode}",
-  "operation.trust.allow": "Авторизация {authorize}",
+  "operation.trust.allow": " [authorize: {authorize}]",
   "operation.trust.change": " с лимитом {limit}",
 
   "optional": "Необязательно",

@@ -74,7 +74,8 @@
   "operation.manage.data.remove": "删除键{name}",
   "operation.manage.data.set": "设置键{name}",
   "operation.manage.data.set.to": ":{value}",
-  "operation.offer.remove": "撤销价: 卖 {sellingAsset} 买 {buyingAsset} @ {price}",
+  "operation.offer.remove":
+    "撤销价: 卖 {sellingAsset} 买 {buyingAsset} @ {price}",
   "operation.offer.sell":
     "卖报价: {amount} 卖 {sellingAsset} 买 {buyingAsset} @ {price}",
   "operation.offer.update":
@@ -93,7 +94,7 @@
   "operation.payment": "支付 {amount} {asset} 给 {recipient}",
   "operation.payment.path": "路径 {asset} 最大 {max}",
   "operation.trust": "信托 {trustee} 发行 {assetCode}",
-  "operation.trust.allow": "授权{授权}",
+  "operation.trust.allow": " [authorize: {authorize}]",
   "operation.trust.change": "与限制{limit}",
 
   "optional": "选填",

@@ -95,7 +95,7 @@
   "operation.payment": "Thanh toán {amount} {asset} đến {recipient}",
   "operation.payment.path": "Đường dẫn {asset} tối đa {max}",
   "operation.trust": "Tin tưởng {trustee} phát hành {assetCode}",
-  "operation.trust.allow": "Ủy quyền {authorize}",
+  "operation.trust.allow": " [authorize: {authorize}]",
   "operation.trust.change": " với giới hạn {limit}",
 
   "optional": "Không bắt buộc",

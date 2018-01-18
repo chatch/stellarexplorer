@@ -99,7 +99,7 @@
   "operation.payment": "Pay {amount} {asset} to {recipient}",
   "operation.payment.path": " path {asset} max {max}",
   "operation.trust": "Trust {trustee} issuing {assetCode}",
-  "operation.trust.allow": "Authorize {authorize}",
+  "operation.trust.allow": " [authorize: {authorize}]",
   "operation.trust.change": " with limit {limit}",
 
   "optional": "Optional",
