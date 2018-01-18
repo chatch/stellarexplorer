@@ -7,4 +7,8 @@ export default {
     name: 'futuretense.io',
     website: 'https://pool.futuretense.io/',
   },
+  GCCD6AJOYZCUAQLX32ZJF2MKFFAUJ53PVCFQI3RHWKL3V47QYE2BNAUT: {
+    name: 'Lumenaut',
+    website: 'https://lumenaut.net/',
+  },
 }
