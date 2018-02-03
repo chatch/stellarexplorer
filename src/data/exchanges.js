@@ -6,8 +6,8 @@ const decentralized = {
   StellarTerm: {
     home: 'stellarterm.com',
   },
-  LuPoEx: {
-    home: 'lupoex.com',
+  Stellarport: {
+    home: 'stellarport.io',
   },
   InterStellar: {
     home: 'interstellar.exchange',
