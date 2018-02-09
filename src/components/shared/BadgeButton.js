@@ -5,11 +5,14 @@ const BadgeButton = ({label, url}) =>
   <a href={url} type="application/hal+json">
     <span
       style={{
-        fontSize: '0.8em',
-        backgroundColor: 'white',
-        borderRadius: '3px',
-        color: 'black',
-        padding: 3,
+          border-radius: 60px,
+          color: white,
+          padding: 4px 12px 4px,
+          font-weight: 500,
+          background-color: #01c0c8,
+          font-size: 14px,
+          font-weight: 400,
+          transition: all .18s ease-in-out
       }}
     >
       {label}
