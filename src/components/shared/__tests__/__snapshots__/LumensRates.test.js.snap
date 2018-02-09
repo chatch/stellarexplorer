@@ -9,7 +9,7 @@ Array [
     <span
         style={
             Object {
-                "color": "red",
+                "color": "#fb9678",
               }
         }
     >
@@ -28,7 +28,7 @@ Array [
     <span
         style={
             Object {
-                "color": "green",
+                "color": "#00c292",
               }
         }
     >
