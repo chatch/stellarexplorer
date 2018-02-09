@@ -42,7 +42,7 @@ class Header extends React.Component {
               switcher={this.props.networkSwitcher}
             />
           </Navbar.Form>
-          <Nav pullRight>
+          <Nav>
             <LinkContainer to="/operations">
               <NavItem>
                 <FormattedMessage id="operations" />
