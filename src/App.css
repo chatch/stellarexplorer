@@ -37,6 +37,7 @@ table {
 
 .monospace {
   font-family: 'Noto Sans Mono', monospace;
+  word-break: break-all;
 }
 
 /*
