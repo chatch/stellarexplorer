@@ -52,7 +52,7 @@ class LumensRates extends React.PureComponent {
     const positive = this.isPositive(change)
     const valueStr = `${positive ? '+' : ''}${this.props.change}%`
     const style = {
-      color: positive ? 'green' : 'red',
+      color: positive ? '#00c292' : '#fb9678',
     }
     return <span style={style}>{valueStr}</span>
   }
