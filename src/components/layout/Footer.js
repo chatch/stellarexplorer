@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import LumensRates from '../shared/LumensRates'
 
-class Footer extends React.Component {
+class Footer extends React.PureComponent {
   render() {
     return (
       <Grid id="footer">

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import AccountLink from '../shared/AccountLink'
 import JSONButton from '../shared/JSONButton'
-import TransactionTime from '../shared/TransactionTime'
+import TimeSynchronisedFormattedRelative from '../shared/TimeSynchronizedFormattedRelative'
 
 import AccountMerge from './AccountMerge'
 import AllowTrust from './AllowTrust'
@@ -39,28 +39,25 @@ const SubOperation = ({op}) => {
   return <SubOpComponent {...op} />
 }
 
-const txLinkToHash = link => {
-  const uri = 'transactions/'
-  return link.substring(link.indexOf(uri) + uri.length)
-}
-
-const Operation = ({compact, op, opURLFn}) => {
+const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
   const acc =
-    op.type !== 'account_merge'
-      ? <AccountLink account={op.sourceAccount} />
-      : <span title={op.sourceAccount}>
-          {op.sourceAccount.substring(0, 4)}
-        </span>
+    op.type !== 'account_merge' ? (
+      <AccountLink account={op.sourceAccount} />
+    ) : (
+      <span title={op.sourceAccount}>{op.sourceAccount.substring(0, 4)}</span>
+    )
+
   return (
     <Row key={op.id} className="operation">
-      <Col md={2}>
-        {acc}
-      </Col>
+      <Col md={2}>{acc}</Col>
       <Col md={6}>
         <SubOperation op={op} />
       </Col>
       <Col md={3}>
-        <TransactionTime id={txLinkToHash(op.links.transaction.href)} />
+        <TimeSynchronisedFormattedRelative
+          initialNow={parentRenderTimestamp}
+          value={op.time}
+        />
       </Col>
       <Col md={1}>
         <JSONButton url={opURLFn(op.id)} />
@@ -82,6 +79,7 @@ Operation.propTypes = {
     type: PropTypes.oneOf(opTypes).isRequired,
   }).isRequired,
   opURLFn: PropTypes.func.isRequired,
+  parentRenderTimestamp: PropTypes.number,
 }
 
 export default Operation

@@ -30,15 +30,14 @@ EffectList.propTypes = {
   server: PropTypes.object.isRequired,
 }
 
-const rspRecsToProps = records =>
-  records.map(r => mapKeys(r, (v, k) => camelCase(k)))
+const rspRecToPropsRec = record => mapKeys(record, (v, k) => camelCase(k))
 
 const fetchRecords = props =>
   props.server.loadEffects({account: props.account, limit: props.limit})
 
 const enhance = compose(
   withPaging(),
-  withDataFetchingContainer(fetchRecords, rspRecsToProps),
+  withDataFetchingContainer(fetchRecords, rspRecToPropsRec),
   withSpinner()
 )
 

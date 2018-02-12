@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Table from 'react-bootstrap/lib/Table'
 import {Link} from 'react-router-dom'
-import {FormattedRelative, FormattedMessage} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import {withSpinner} from './shared/Spinner'
+import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormattedRelative'
 import TransactionHash from './shared/TransactionHash'
 
 class TransactionRow extends React.Component {
@@ -12,7 +13,7 @@ class TransactionRow extends React.Component {
   }
 
   render() {
-    const {ledger, opCount, time} = this.props
+    const {ledger, parentRenderTimestamp, opCount, time} = this.props
     return (
       <tr>
         <td>
@@ -22,7 +23,10 @@ class TransactionRow extends React.Component {
           />
         </td>
         <td>
-          <FormattedRelative value={time} />
+          <TimeSynchronisedFormattedRelative
+            initialNow={parentRenderTimestamp}
+            value={time}
+          />
         </td>
         <td>{opCount}</td>
         <td>
@@ -37,6 +41,7 @@ TransactionRow.propTypes = {
   compact: PropTypes.bool,
   hash: PropTypes.string,
   ledger: PropTypes.number,
+  parentRenderTimestamp: PropTypes.number,
   opCount: PropTypes.number,
   time: PropTypes.string,
 }
@@ -69,6 +74,7 @@ class TransactionTable extends React.Component {
             <TransactionRow
               key={tx.hash}
               compact={this.props.compact}
+              parentRenderTimestamp={this.props.parentRenderTimestamp}
               {...tx}
             />
           ))}
@@ -80,6 +86,7 @@ class TransactionTable extends React.Component {
 
 TransactionTable.propTypes = {
   compact: PropTypes.bool,
+  parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array.isRequired,
 }
 

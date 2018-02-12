@@ -3,14 +3,13 @@ import {withPaging} from './shared/Paging'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
 import LedgerTable from './LedgerTable'
 
-const rspRecsToProps = records =>
-  records.map(rspRec => {
-    return {
-      sequence: rspRec.sequence,
-      time: rspRec.closed_at,
-      txCount: rspRec.transaction_count,
-    }
-  })
+const rspRecToPropsRec = rspRec => {
+  return {
+    sequence: rspRec.sequence,
+    time: new Date(rspRec.closed_at).valueOf(),
+    txCount: rspRec.transaction_count,
+  }
+}
 
 const fetchRecords = props => {
   const builder = props.server.ledgers()
@@ -19,8 +18,10 @@ const fetchRecords = props => {
   return builder.call()
 }
 
+const callBuilder = props => props.server.ledgers()
+
 const enhance = compose(
   withPaging(),
-  withDataFetchingContainer(fetchRecords, rspRecsToProps)
+  withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder)
 )
 export default enhance(LedgerTable)

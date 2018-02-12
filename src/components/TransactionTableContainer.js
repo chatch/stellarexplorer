@@ -4,15 +4,14 @@ import {withDataFetchingContainer} from './shared/DataFetchingContainer'
 import {isDefInt, isPublicKey} from '../lib/utils'
 import TransactionTable from './TransactionTable'
 
-const rspRecsToProps = records =>
-  records.map(rspRec => {
-    return {
-      hash: rspRec.hash,
-      ledger: rspRec.ledger_attr,
-      opCount: rspRec.operation_count,
-      time: rspRec.created_at,
-    }
-  })
+const rspRecToPropsRec = rspRec => {
+  return {
+    hash: rspRec.hash,
+    ledger: rspRec.ledger_attr,
+    opCount: rspRec.operation_count,
+    time: rspRec.created_at,
+  }
+}
 
 const fetchRecords = props => {
   const builder = props.server.transactions()
@@ -23,9 +22,11 @@ const fetchRecords = props => {
   return builder.call()
 }
 
+const callBuilder = props => props.server.transactions()
+
 const enhance = compose(
   withPaging(),
-  withDataFetchingContainer(fetchRecords, rspRecsToProps)
+  withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder)
 )
 
 export default enhance(TransactionTable)

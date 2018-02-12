@@ -1,9 +1,10 @@
 import React from 'react'
 import Table from 'react-bootstrap/lib/Table'
 import {Link} from 'react-router-dom'
-import {FormattedRelative, FormattedMessage} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import {withSpinner} from './shared/Spinner'
+import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormattedRelative'
 
 const LedgerRow = props => (
   <tr>
@@ -11,19 +12,23 @@ const LedgerRow = props => (
       <Link to={`/ledger/${props.sequence}`}>{props.sequence}</Link>
     </td>
     <td>
-      <FormattedRelative value={props.time} />
+      <TimeSynchronisedFormattedRelative
+        initialNow={props.parentRenderTimestamp}
+        value={props.time}
+      />
     </td>
     <td>{props.txCount}</td>
   </tr>
 )
 
 LedgerRow.propTypes = {
+  parentRenderTimestamp: PropTypes.number,
   sequence: PropTypes.number,
   txCount: PropTypes.number,
   time: PropTypes.string,
 }
 
-class LedgerTable extends React.Component {
+class LedgerTable extends React.PureComponent {
   render() {
     return (
       <Table
@@ -46,6 +51,7 @@ class LedgerTable extends React.Component {
             <LedgerRow
               key={ledger.sequence}
               sequence={ledger.sequence}
+              parentRenderTimestamp={this.props.parentRenderTimestamp}
               time={ledger.time}
               txCount={ledger.txCount}
             />
@@ -57,6 +63,7 @@ class LedgerTable extends React.Component {
 }
 
 LedgerTable.propTypes = {
+  parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array,
 }
 

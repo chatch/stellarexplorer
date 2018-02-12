@@ -1,3 +1,5 @@
+import {join} from 'path'
+import {tmpdir} from 'os'
 import truncate from 'lodash/truncate'
 import {sdk} from './stellar'
 
@@ -46,8 +48,6 @@ const handleFetchDataFailure = id => e => {
 const storageInit = () => {
   let storage
   if (typeof localStorage === 'undefined' || localStorage === null) {
-    const tmpdir = require('os').tmpdir
-    const join = require('path').join
     const storagePath = join(tmpdir(), 'steexp')
     const LocalStorage = require('node-localstorage').LocalStorage
     storage = new LocalStorage(storagePath)

@@ -4,15 +4,27 @@ import FetchPonyfill from 'fetch-ponyfill'
 const fetch = FetchPonyfill().fetch
 
 const FEED_URL = 'https://api.coinmarketcap.com/v1/ticker/stellar/'
+const UPDATE_INTERVAL = 5 * 60 * 1000
 
-class LumensRatesContainer extends React.Component {
+class LumensRatesContainer extends React.PureComponent {
   componentDidMount() {
+    this.updatePrice()
+    this.intervalId = setInterval(
+      () => this.updatePrice.bind(this),
+      UPDATE_INTERVAL
+    )
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId)
+  }
+
+  updatePrice() {
     fetch(FEED_URL)
       .then(rsp => rsp.json())
       .then(rspJson => {
         const lumens = rspJson[0]
         const newState = {
-          btc: lumens.price_btc,
           change: lumens.percent_change_24h,
           usd: lumens.price_usd,
         }
@@ -23,16 +35,14 @@ class LumensRatesContainer extends React.Component {
         console.error(`stack: [${err.stack}]`)
       })
   }
-  shouldComponentUpdate() {
-    return true
-  }
+
   render() {
     if (!this.state) return null
     return <LumensRates {...this.state} />
   }
 }
 
-class LumensRates extends React.Component {
+class LumensRates extends React.PureComponent {
   isPositive(changeNumStr) {
     const asFloat = Number.parseFloat(changeNumStr)
     return Number.isNaN(asFloat) === false && Number(asFloat) >= 0

@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import isFunction from 'lodash/isFunction'
+import has from 'lodash/has'
 import {withServer} from './HOCs'
 import {handleFetchDataFailure} from '../../lib/utils'
 
@@ -8,42 +10,62 @@ const propTypesContainer = {
   page: PropTypes.number,
   usePaging: PropTypes.bool,
   refresh: PropTypes.bool,
-  refreshRate: PropTypes.number,
   server: PropTypes.object,
 }
 
+/**
+ * Wrap a component with Horizon data fetching abilities.
+ 
+ * @param fetchDataFn {Function => Promise} Function that makes a call to the 
+ *          server requesting the required data. Returns a Promise resolving to 
+ *          the result data.
+ * @param rspRecToPropsRecFn {Function} Converts from server response record 
+ *          format to some other format that the consuming container expects.
+ * @param callBuilderFn {Function => CallBuilder} Function that returns a 
+ *          CallBuilder instance for the type of data being requested. This 
+ *          CallBuilder is used to setup a stream() to receive updates.
+ */
 const withDataFetchingContainer = (
   fetchDataFn,
-  rspRecsToPropsFn
+  rspRecToPropsRecFn,
+  callBuilderFn
 ) => Component => {
   const dataFetchingContainerClass = class extends React.Component {
     static defaultProps = {
       limit: 5,
       page: 0,
       refresh: false,
-      refreshRate: 15000,
       usePaging: false,
     }
 
     state = {
+      cursor: 0,
       isLoading: true,
       records: [],
+      streamCloseFn: undefined,
     }
 
     componentDidMount() {
       this.fetchData(fetchDataFn(this.props))
-      if (this.props.refresh === true && this.props.usePaging === false) {
-        // don't refresh data on paging views
-        this.timerID = setInterval(
-          () => this.fetchData(fetchDataFn(this.props)),
-          this.props.refreshRate
-        )
-      }
     }
 
     componentDidUpdate(prevProps) {
-      if (this.props.page === prevProps.page) return
+      // fetched data and page hasn't changed
+      if (this.props.page === prevProps.page) {
+        // setup new records stream if refresh on and stream hasn't yet been
+        // initialised
+        if (
+          this.props.refresh === true &&
+          this.props.usePaging === false &&
+          !isFunction(this.state.streamCloseFn) &&
+          isFunction(callBuilderFn)
+        ) {
+          this.createStream()
+        }
+        return
+      }
 
+      // next / prev page - fetch new page data
       if (this.props.page > prevProps.page) this.fetchData(this.state.next())
       else if (this.props.page < prevProps.page)
         this.fetchData(this.state.prev())
@@ -52,11 +74,13 @@ const withDataFetchingContainer = (
     }
 
     componentWillUnmount() {
-      if (this.timerID) {
-        clearInterval(this.timerID)
-        delete this.timerID
-      }
+      if (isFunction(this.state.streamCloseFn)) this.state.streamCloseFn()
     }
+
+    /*
+     * One time data fetching - these functions pull the first page of data 
+     *    when the component is first loaded
+     */
 
     fetchData(fetchDataPromise) {
       fetchDataPromise
@@ -72,12 +96,60 @@ const withDataFetchingContainer = (
     }
 
     responseToState(rsp) {
+      const cursor =
+        rsp.records.length > 0 && has(rsp.records[0], 'paging_token')
+          ? rsp.records[0].paging_token
+          : 0
+      if (cursor === 0) {
+        console.error('NO CURSOR ... ')
+      }
       return {
         isLoading: false,
         next: rsp.next,
         prev: rsp.prev,
-        records: rspRecsToPropsFn(rsp.records),
+        records: rsp.records.map(rspRecToPropsRecFn),
+        cursor,
+        parentRenderTimestamp: Date.now(),
       }
+    }
+
+    /*
+     * Stream data fetching - these functions take over after the first initial 
+     *    page of data is loaded above. Horizon server pushes events into 
+     *    onStreamNewRecord below
+     */
+
+    createStream() {
+      if (!isFunction(callBuilderFn) || this.state.cursor <= 0) return
+
+      const streamCloseFn = callBuilderFn(this.props)
+        .order('asc')
+        .cursor(this.state.cursor)
+        .stream({
+          onmessage: this.onStreamNewRecord.bind(this),
+          onerror: this.onStreamError.bind(this),
+        })
+
+      this.setState({streamCloseFn})
+    }
+
+    onStreamNewRecord(newRecordFromServer) {
+      const newRecord = rspRecToPropsRecFn(newRecordFromServer)
+      const records = [...this.state.records] // new array instead of mutating the existing one
+
+      const insertIdx = records.findIndex(rec => rec.time < newRecord.time)
+      records.splice(insertIdx, 0, newRecord)
+      records.splice(-1, 1)
+
+      this.setState({
+        records,
+        parentRenderTimestamp: Date.now(), // reset the latest render time
+      })
+    }
+
+    onStreamError(error) {
+      console.error(`Stream Error:`)
+      console.error(error)
     }
 
     render() {
@@ -85,6 +157,7 @@ const withDataFetchingContainer = (
         <Component
           isLoading={this.state.isLoading}
           records={this.state.records}
+          parentRenderTimestamp={this.state.parentRenderTimestamp}
           {...this.props}
         />
       )

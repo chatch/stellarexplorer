@@ -10,7 +10,7 @@ import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
 import Operation from './operations/Operation'
 
-const OperationList = props =>
+const OperationList = props => (
   <div style={{marginLeft: 5, marginRight: 20}}>
     {props.records.map(op => {
       return (
@@ -19,25 +19,32 @@ const OperationList = props =>
           compact={props.compact}
           op={op}
           opURLFn={props.server.opURL}
+          parentRenderTimestamp={props.parentRenderTimestamp}
         />
       )
     })}
   </div>
+)
 
 OperationList.propTypes = {
   compact: PropTypes.bool,
+  parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array.isRequired,
   server: PropTypes.object.isRequired,
 }
 
-const rspRecsToProps = records =>
-  records.map(r => mapKeys(r, (v, k) => camelCase(k)))
+const rspRecToPropsRec = record => {
+  record.time = record.created_at
+  return mapKeys(record, (v, k) => camelCase(k))
+}
 
 const fetchRecords = props => props.server.loadOperations(props)
 
+const callBuilder = props => props.server.operations()
+
 const enhance = compose(
   withPaging(),
-  withDataFetchingContainer(fetchRecords, rspRecsToProps),
+  withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder),
   withSpinner()
 )
 

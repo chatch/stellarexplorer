@@ -1,8 +1,8 @@
 import React from 'react'
 import MDSpinner from 'react-md-spinner'
 import {withEither} from './HOCs'
-//  color="#14b4e6" size="80" margin="4px"
-const Spinner = () =>
+
+const Spinner = () => (
   <div className="spinner center-block">
     <MDSpinner
       size="80"
@@ -12,6 +12,7 @@ const Spinner = () =>
       color3="#50e3c2"
     />
   </div>
+)
 
 const isLoading = props => props.isLoading === true
 
