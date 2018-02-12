@@ -50,10 +50,10 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
   return (
     <Row key={op.id} className="operation">
       <Col md={2}>{acc}</Col>
-      <Col md={6}>
+      <Col md={7}>
         <SubOperation op={op} />
       </Col>
-      <Col md={3}>
+      <Col md={2}>
         <TimeSynchronisedFormattedRelative
           initialNow={parentRenderTimestamp}
           value={op.time}

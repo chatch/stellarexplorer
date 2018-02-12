@@ -41,7 +41,9 @@ const addAnchors = (accounts, anchors) => {
 // Add all known destinations in directory (this includes exchanges trading addresses)
 const addDestinations = (accounts, destinations) => {
   Object.keys(destinations).forEach(addr => {
-    accounts[addr] = {name: destinations[addr].name, type: 'destination'}
+    // if not already added
+    if (!has(accounts, addr))
+      accounts[addr] = {name: destinations[addr].name, type: 'destination'}
   })
 }
 
@@ -51,11 +53,18 @@ const addExchanges = (accounts, exchanges) => {
     const exchange = exchanges[name]
     if (exchange.accounts && exchange.accounts.length > 0) {
       exchange.accounts.forEach(addr => {
+        // if exchange address not already in known accounts list
         if (!has(accounts, addr)) {
-          accounts[addr] = {name: name, type: 'exchange'}
+          accounts[addr] = {name, type: 'exchange'}
         }
+
+        // override name with displayName defined in exchanges directory
+        if (has(exchange, 'displayName'))
+          accounts[addr].name = exchange.displayName
+
         if (!has(accounts[addr], 'website'))
           accounts[addr].website = exchange.home
+
         if (!has(accounts[addr], 'logo')) accounts[addr].logo = exchange.logo
       })
     }

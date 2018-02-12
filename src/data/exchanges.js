@@ -20,6 +20,7 @@ const centralized = {
     accounts: ['GCO2IP3MJNUOKS4PUDI4C7LGGMQDJGXG3COYX3WSB4HHNAHKYV5YL3VC'],
   },
   BitcoinIndonesia: {
+    displayName: 'Bitcoin.co.id',
     home: 'bitcoin.co.id',
     accounts: ['GC4KAS6W2YCGJGLP633A6F6AKTCV4WSLMTMIQRSEQE5QRRVKSX7THV6S'],
   },

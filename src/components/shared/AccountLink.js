@@ -9,17 +9,15 @@ const AccountLink = ({account, label, hideKnown = false}) => {
   let accLabel = label
   if (!accLabel) {
     accLabel =
-      has(knownAccounts, account) && !hideKnown
-        ? <span style={{fontStyle: 'italic'}}>
-            {knownAccounts[account].name}
-          </span>
-        : account.substring(0, 4)
+      has(knownAccounts, account) && !hideKnown ? (
+        <span style={{fontStyle: 'italic'}}>{knownAccounts[account].name}</span>
+      ) : (
+        account.substring(0, 4)
+      )
   }
   return (
     <span title={account}>
-      <Link to={`/account/${account}`}>
-        {accLabel}
-      </Link>
+      <Link to={`/account/${account}`}>{accLabel}</Link>
     </span>
   )
 }
