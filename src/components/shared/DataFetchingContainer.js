@@ -5,6 +5,9 @@ import has from 'lodash/has'
 import {withServer} from './HOCs'
 import {handleFetchDataFailure} from '../../lib/utils'
 
+// Timeout the streaming after 5 minutes. At least until the issue #40 is done
+const STREAM_TIMEOUT = 5 * 60 * 1000
+
 const propTypesContainer = {
   limit: PropTypes.number,
   page: PropTypes.number,
@@ -129,6 +132,11 @@ const withDataFetchingContainer = (
           onmessage: this.onStreamNewRecord.bind(this),
           onerror: this.onStreamError.bind(this),
         })
+
+      setTimeout(() => {
+        this.state.streamCloseFn()
+        console.log(`stream stopped. see issue #40`)
+      }, STREAM_TIMEOUT)
 
       this.setState({streamCloseFn})
     }
