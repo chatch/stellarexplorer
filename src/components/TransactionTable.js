@@ -23,10 +23,12 @@ class TransactionRow extends React.Component {
           />
         </td>
         <td>
-          <TimeSynchronisedFormattedRelative
-            initialNow={parentRenderTimestamp}
-            value={time}
-          />
+          <span title={time}>
+            <TimeSynchronisedFormattedRelative
+              initialNow={parentRenderTimestamp}
+              value={time}
+            />
+          </span>
         </td>
         <td>{opCount}</td>
         <td>

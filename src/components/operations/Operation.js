@@ -54,10 +54,12 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
         <SubOperation op={op} />
       </Col>
       <Col md={2}>
-        <TimeSynchronisedFormattedRelative
-          initialNow={parentRenderTimestamp}
-          value={op.time}
-        />
+        <span title={op.time}>
+          <TimeSynchronisedFormattedRelative
+            initialNow={parentRenderTimestamp}
+            value={op.time}
+          />
+        </span>
       </Col>
       <Col md={1}>
         <JSONButton url={opURLFn(op.id)} />
@@ -77,6 +79,7 @@ Operation.propTypes = {
     links: PropTypes.object.isRequired,
     sourceAccount: PropTypes.string.isRequired,
     type: PropTypes.oneOf(opTypes).isRequired,
+    time: PropTypes.string,
   }).isRequired,
   opURLFn: PropTypes.func.isRequired,
   parentRenderTimestamp: PropTypes.number,

@@ -12,10 +12,12 @@ const LedgerRow = props => (
       <Link to={`/ledger/${props.sequence}`}>{props.sequence}</Link>
     </td>
     <td>
-      <TimeSynchronisedFormattedRelative
-        initialNow={props.parentRenderTimestamp}
-        value={props.time}
-      />
+      <span title={props.time}>
+        <TimeSynchronisedFormattedRelative
+          initialNow={props.parentRenderTimestamp}
+          value={props.time}
+        />
+      </span>
     </td>
     <td>{props.txCount}</td>
   </tr>

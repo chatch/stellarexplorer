@@ -6,7 +6,7 @@ import LedgerTable from './LedgerTable'
 const rspRecToPropsRec = rspRec => {
   return {
     sequence: rspRec.sequence,
-    time: new Date(rspRec.closed_at).valueOf(),
+    time: rspRec.closed_at,
     txCount: rspRec.transaction_count,
   }
 }
