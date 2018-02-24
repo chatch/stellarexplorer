@@ -10,12 +10,13 @@ import OperationList from './OperationList'
 import TransactionTable from './TransactionTableContainer'
 import Title from './shared/TitleWithLink'
 
-const panelHeader = (title, viewAllLabel, viewAllLink) =>
+const panelHeader = (title, viewAllLabel, viewAllLink) => (
   <Title
     rightLinkAddr={viewAllLink}
     rightLinkLabel={viewAllLabel}
     title={title}
   />
+)
 
 class Home extends React.Component {
   render() {
@@ -32,7 +33,7 @@ class Home extends React.Component {
                 '/operations'
               )}
             >
-              <OperationList compact limit={20} refresh />
+              <OperationList compact limit={25} refresh />
             </Panel>
           </Col>
           <Col md={4}>
@@ -43,7 +44,7 @@ class Home extends React.Component {
                 '/txs'
               )}
             >
-              <TransactionTable compact fill limit={5} refresh />
+              <TransactionTable compact fill limit={10} refresh />
             </Panel>
             <Panel
               header={panelHeader(
@@ -52,7 +53,7 @@ class Home extends React.Component {
                 '/ledgers'
               )}
             >
-              <LedgerTable fill limit={5} refresh />
+              <LedgerTable fill limit={10} refresh />
             </Panel>
           </Col>
         </Row>
