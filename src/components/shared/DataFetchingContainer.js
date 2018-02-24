@@ -5,8 +5,8 @@ import has from 'lodash/has'
 import {withServer} from './HOCs'
 import {handleFetchDataFailure} from '../../lib/utils'
 
-// Timeout the streaming after 5 minutes. At least until the issue #40 is done
-const STREAM_TIMEOUT = 5 * 60 * 1000
+// Timeout the streaming after 3 minutes. At least until the issue #40 is done
+const STREAM_TIMEOUT = 3 * 60 * 1000
 
 const propTypesContainer = {
   limit: PropTypes.number,
@@ -160,7 +160,7 @@ const withDataFetchingContainer = (
     //       js-stellar-sdk reconnects each stream every 30 - 50 seconds or so
     //       so we see 1 or 2 each minute for each stream.
     onStreamError(error) {
-      console.error(`Stream Error:`)
+      console.error(`stream error (most likely horizon #119):`)
       console.error(error)
     }
 
