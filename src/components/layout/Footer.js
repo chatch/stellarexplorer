@@ -28,7 +28,7 @@ class Footer extends React.PureComponent {
           <Col mdOffset={10} md={2}>
             <a href="https://stellar.org">
               <img
-                src={`${process.env.PUBLIC_URL}/favicon.ico`}
+                src={`${process.env.PUBLIC_URL}/stellar.ico`}
                 alt="stellar"
                 height={20}
                 width={20}
