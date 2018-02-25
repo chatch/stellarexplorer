@@ -91,7 +91,10 @@ class Transaction extends React.Component {
           </Panel>
         </Row>
         <Row>
-          <h3>{`Operations (${opCount})`}</h3>
+          <h3>
+            <FormattedMessage id="operations" />
+            {` (${opCount})`}
+          </h3>
           <Grid>
             <OperationTable limit={opCount} tx={id} />
           </Grid>
