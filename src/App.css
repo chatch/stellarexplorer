@@ -1,4 +1,5 @@
-body, .navbar {
+body,
+.navbar {
   color: #96a2b4;
   background-color: #3c4452 !important;
   font-family: 'Noto Sans', 'Noto Sans CJK {SC, TC}', sans-serif;
@@ -33,8 +34,6 @@ table {
   margin-right: 10px;
 }
 
-
-
 .monospace {
   font-family: 'Noto Sans Mono', monospace;
   word-break: break-all;
@@ -47,11 +46,13 @@ table {
 .brand-text {
   color: white;
   font-size: 18px;
+  position: relative;
+  top: 1px;
 }
 
 .panel,
 .panel-heading {
-  background-color: #383F4B;
+  background-color: #383f4b;
   color: #96a2b4;
   border: none;
 }
@@ -63,7 +64,7 @@ table {
 }
 
 .panel-default > .panel-heading {
-  background-color: #383F4B;
+  background-color: #383f4b;
   color: #dce2ec;
   padding-left: 20px;
   padding-top: 20px;
@@ -72,26 +73,30 @@ table {
 .panel-heading .pull-right {
   color: #fb9678 !important;
   text-decoration: none !important;
-  transition: all .18s ease-in-out;
+  transition: all 0.18s ease-in-out;
 }
 
 .panel-heading .pull-right:hover {
   color: #fa6f46 !important;
 }
 
-#transaction-table, #ledger-table {
+#transaction-table,
+#ledger-table {
   font-size: 14px !important;
 }
 
-#transaction-table thead, #ledger-table thead {
-  color : #dce2ec;
+#transaction-table thead,
+#ledger-table thead {
+  color: #dce2ec;
 }
 
-#transaction-table tbody, #ledger-table tbody {
-  color : #96a2b4;
+#transaction-table tbody,
+#ledger-table tbody {
+  color: #96a2b4;
 }
 
-#transaction-table > tbody > tr > td, #ledger-table > tbody > tr > td {
+#transaction-table > tbody > tr > td,
+#ledger-table > tbody > tr > td {
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid #4c5667;
@@ -102,11 +107,11 @@ table {
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #383F4B;
+  background-color: #383f4b;
 }
 
 .table > tbody > tr:hover {
-  background-color: rgba(0,0,0,.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .navbar-default {
@@ -126,7 +131,7 @@ table {
 }
 
 .navbar-default .dropdown-menu > li > a:hover {
-  background-color: rgba(0,0,0,.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -155,8 +160,9 @@ table {
   border-radius: 0;
 }
 
-.navbar-default .navbar-collapse, .navbar-default .navbar-form {
-  border-color: rgba(120,130,140,.28);
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: rgba(120, 130, 140, 0.28);
 }
 
 /*
@@ -226,31 +232,31 @@ table {
 
 #Search-Container input {
   border: none;
-    font-size: 13px;
-    color: #4c5667;
-    padding-left: 20px;
-    padding-right: 20px;
-    background: rgba(255,255,255,.9);
-    box-shadow: none;
-    height: 30px;
-    font-weight: 600;
-    width: 370px;
-    display: inline-block;
-    line-height: 30px;
-    margin-top: 15px;
-    border-radius: 40px;
-    transition: .5s ease-out;
-  }
+  font-size: 13px;
+  color: #4c5667;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none;
+  height: 30px;
+  font-weight: 600;
+  width: 370px;
+  display: inline-block;
+  line-height: 30px;
+  margin-top: 15px;
+  border-radius: 40px;
+  transition: 0.5s ease-out;
+}
 
-  #Search-Container .input-group-addon {
-    position: absolute;
-    top: 15px;
-    right: 17px;
-    color: #4c5667;
-    z-index: 4;
-    background: transparent;
-    border: none;
-  }
+#Search-Container .input-group-addon {
+  position: absolute;
+  top: 15px;
+  right: 17px;
+  color: #4c5667;
+  z-index: 4;
+  background: transparent;
+  border: none;
+}
 
 .glyphicon-search {
   height: 20px;
@@ -275,7 +281,7 @@ table {
   color: white;
   cursor: pointer;
   display: inline-block;
-  padding: .8rem 1.2rem;
+  padding: 0.8rem 1.2rem;
 }
 
 .Network-Selector button:focus {
@@ -295,7 +301,7 @@ table {
   opacity: 0.8;
   background: #08b5e5;
   color: white;
-  transition: all .18s ease-in-out;
+  transition: all 0.18s ease-in-out;
 }
 
 .anchorRow {
@@ -312,14 +318,14 @@ table {
 
 .anchorRow .anchorLinkCol a span {
   text-decoration: none;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   border-radius: 60px !important;
   padding: 4px 12px 4px !important;
   font-weight: 500;
   font-size: 14px !important;
   background-color: #fec107 !important;
   color: white !important;
-  transition: all .18s ease-in-out;
+  transition: all 0.18s ease-in-out;
 }
 
 .anchorRow .anchorLinkCol a span:hover {
@@ -327,14 +333,13 @@ table {
 }
 
 #account-tabs {
-  border: 1px solid #383F4B !important;
+  border: 1px solid #383f4b !important;
   border-radius: 0 !important;
-  background: #383F4B;
+  background: #383f4b;
 }
 
 #account-tabs .nav-tabs {
-  border: 1px solid #383F4B !important;
-
+  border: 1px solid #383f4b !important;
 }
 
 #account-tabs .nav-tabs li {
@@ -389,13 +394,13 @@ a[id|='account-tabs-tab'][aria-selected='true'] {
 }
 
 .operation .col-md-2 span a {
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   border-radius: 60px;
   padding: 4px 12px 4px;
   font-weight: 500;
   background-color: #03a9f3;
   color: white;
-  transition: all .18s ease-in-out;
+  transition: all 0.18s ease-in-out;
 }
 
 .operation .col-md-2 span a:hover {
@@ -424,10 +429,11 @@ a[id|='account-tabs-tab'][aria-selected='true'] {
   background-color: #353c48;
   color: #96a2b4;
   border-radius: 0;
-  border-color: rgba(120,130,140,.28);
+  border-color: rgba(120, 130, 140, 0.28);
 }
 
-.pager li a:hover, .pager li a:focus  {
+.pager li a:hover,
+.pager li a:focus {
   background-color: #3c4452;
 }
 
@@ -455,7 +461,7 @@ a:hover {
 
 .col-md-1 a span:hover {
   background-color: #01a8af !important;
-  transition: all .18s ease-in-out;
+  transition: all 0.18s ease-in-out;
 }
 
 .col-md-1 a:hover {
@@ -470,7 +476,7 @@ a:hover {
   background-color: #01c0c8 !important;
   font-size: 14px !important;
   font-weight: 400 !important;
-  transition: all .18s ease-in-out;
+  transition: all 0.18s ease-in-out;
 }
 
 .green-blue-button:hover {
