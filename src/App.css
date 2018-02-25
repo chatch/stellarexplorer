@@ -209,6 +209,9 @@ table {
   #Search-Container {
     padding-top: 10px;
   }
+  #Search-Container input {
+    width: 420px !important;
+  }
 }
 
 #Language-Selector > span.caret {
@@ -231,7 +234,7 @@ table {
     box-shadow: none;
     height: 30px;
     font-weight: 600;
-    width: 420px;
+    width: 370px;
     display: inline-block;
     line-height: 30px;
     margin-top: 15px;
