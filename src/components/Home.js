@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/lib/Col'
 import {injectIntl} from 'react-intl'
 
 import LedgerTable from './LedgerTableContainer'
-import OperationList from './OperationList'
+import OperationTable from './OperationTable'
 import TransactionTable from './TransactionTableContainer'
 import Title from './shared/TitleWithLink'
 
@@ -33,7 +33,7 @@ class Home extends React.Component {
                 '/operations'
               )}
             >
-              <OperationList compact limit={25} refresh />
+              <OperationTable compact fill limit={25} refresh />
             </Panel>
           </Col>
           <Col md={4}>

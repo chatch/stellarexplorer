@@ -1,6 +1,4 @@
 import React from 'react'
-import Col from 'react-bootstrap/lib/Col'
-import Row from 'react-bootstrap/lib/Row'
 import PropTypes from 'prop-types'
 
 import AccountLink from '../shared/AccountLink'
@@ -48,23 +46,23 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
     )
 
   return (
-    <Row key={op.id} className="operation">
-      <Col md={2}>{acc}</Col>
-      <Col md={7}>
+    <tr key={op.id} className="operation">
+      <td className="op-from">{acc}</td>
+      <td>
         <SubOperation op={op} />
-      </Col>
-      <Col md={2}>
+      </td>
+      <td>
         <span title={op.time}>
           <TimeSynchronisedFormattedRelative
             initialNow={parentRenderTimestamp}
             value={op.time}
           />
         </span>
-      </Col>
-      <Col md={1}>
+      </td>
+      <td>
         <JSONButton url={opURLFn(op.id)} />
-      </Col>
-    </Row>
+      </td>
+    </tr>
   )
 }
 

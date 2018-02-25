@@ -15,7 +15,7 @@ import {MemoHash, MemoReturn} from 'stellar-sdk'
 
 import {base64DecodeToHex, handleFetchDataFailure} from '../lib/utils'
 import {withServer} from './shared/HOCs'
-import OperationList from './OperationList'
+import OperationTable from './OperationTable'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 const memoTypeToLabel = {
@@ -93,7 +93,7 @@ class Transaction extends React.Component {
         <Row>
           <h3>{`Operations (${opCount})`}</h3>
           <Grid>
-            <OperationList limit={opCount} tx={id} />
+            <OperationTable limit={opCount} tx={id} />
           </Grid>
         </Row>
       </Grid>

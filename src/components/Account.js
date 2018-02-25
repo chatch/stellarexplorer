@@ -25,7 +25,7 @@ import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
 import Asset from './shared/Asset'
 import EffectList from './EffectList'
-import OperationList from './OperationList'
+import OperationTable from './OperationTable'
 import TransactionTable from './TransactionTableContainer'
 
 const stellarAddressFromURI = () => {
@@ -280,7 +280,7 @@ class Account extends React.Component {
               eventKey="operations"
               title={formatMessage({id: 'operations'})}
             >
-              <OperationList
+              <OperationTable
                 key={a.id}
                 account={a.id}
                 compact={false}

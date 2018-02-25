@@ -81,22 +81,26 @@ table {
 }
 
 #transaction-table,
-#ledger-table {
+#ledger-table,
+#operation-table {
   font-size: 14px !important;
 }
 
 #transaction-table thead,
-#ledger-table thead {
+#ledger-table thead,
+#operation-table thead {
   color: #dce2ec;
 }
 
 #transaction-table tbody,
-#ledger-table tbody {
+#ledger-table tbody,
+#operation-table tbody {
   color: #96a2b4;
 }
 
 #transaction-table > tbody > tr > td,
-#ledger-table > tbody > tr > td {
+#ledger-table > tbody > tr > td,
+#operation-table > tbody > tr > td {
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid #4c5667;
@@ -393,7 +397,7 @@ a[id|='account-tabs-tab'][aria-selected='true'] {
   padding-left: 0px;
 }
 
-.operation .col-md-2 span a {
+.operation td.op-from a {
   letter-spacing: 0.05em;
   border-radius: 60px;
   padding: 4px 12px 4px;
