@@ -1,7 +1,7 @@
 {
   "name": "stellarexplorer",
   "description": "Ledger explorer for the Stellar network",
-  "version": "1.0.3",
+  "version": "1.0.4-beta",
   "license": "Apache-2.0",
   "author": "Chris Hatch",
   "homepage": "https://steexp.com",
@@ -51,7 +51,7 @@
     "promise": "8.0.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
-    "react-bootstrap": "^0.32.1",
+    "react-bootstrap": "^0.31.5",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dev-utils": "^4.1.0",
     "react-dom": "^16.0.0",

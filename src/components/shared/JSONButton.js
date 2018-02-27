@@ -1,6 +1,12 @@
 import React from 'react'
-import BadgeButton from './BadgeButton'
+import BackendResourceBadgeButton from './BackendResourceBadgeButton'
 
-const JSONButton = ({url}) => <BadgeButton label="JSON" url={url} />
+/**
+ * 'JSON' button that when clicked will show the contents of the backend JSON
+ * resource at 'url'.
+ */
+const JSONButton = ({url}) => (
+  <BackendResourceBadgeButton label="JSON" url={url} />
+)
 
 export default JSONButton

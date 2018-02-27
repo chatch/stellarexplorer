@@ -1,13 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, Modal} from 'react-bootstrap'
 import CopyToClipboard from 'react-copy-to-clipboard'
+
+import Button from 'react-bootstrap/lib/Button'
+import FormControl from 'react-bootstrap/lib/FormControl'
+import Glyphicon from 'react-bootstrap/lib/Glyphicon'
+import Modal from 'react-bootstrap/lib/Modal'
 
 import FetchPonyfill from 'fetch-ponyfill'
 const fetch = FetchPonyfill().fetch
 
-const BadgeButton = ({handleClickFn, label}) => (
-  <Button
+/**
+ * Button that reveals a backend resouce at 'url' when clicked.
+ *
+ * Used to show the underlying JSON that a view was rendered with OR for
+ * showing a related resource, eg. an anchor's server.toml file.
+ */
+const BackendResourceBadgeButton = ({handleClickFn, label, url}) => (
+  <a
+    href={url}
     onClick={handleClickFn}
     style={{
       borderRadius: '60px',
@@ -20,12 +31,13 @@ const BadgeButton = ({handleClickFn, label}) => (
     }}
   >
     {label}
-  </Button>
+  </a>
 )
 
-BadgeButton.propTypes = {
+BackendResourceBadgeButton.propTypes = {
   handleClickFn: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 }
 
 class ClipboardCopyButton extends React.Component {
@@ -56,48 +68,58 @@ ClipboardCopyButton.propTypes = {
   text: PropTypes.string.isRequired,
 }
 
-const ShowResourceModal = ({handleCloseFn, resourceStr, show}) => (
+const ResourceModal = ({handleCloseFn, resourceStr, resourceUrl, show}) => (
   <Modal show={show} onHide={handleCloseFn}>
-    <Modal.Header closeButton>
-      <Modal.Title>Contract ShowResource</Modal.Title>
-    </Modal.Header>
     <Modal.Body>
-      <ClipboardCopyButton text={resourceStr} />
-      <textarea
+      <div>
+        <ClipboardCopyButton text={resourceStr} />
+        <Button
+          style={{float: 'right'}}
+          onClick={handleCloseFn}
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </Button>
+      </div>
+      <div>
+        <span>{resourceUrl} &#xe205;</span>
+        <br />
+        <Glyphicon
+          glyph="copy"
+          style={{paddingTop: 3}}
+          onClick={this.searchHandler}
+        />
+      </div>
+      <FormControl
+        componentClass="textarea"
         cols="58"
         rows="20"
         defaultValue={resourceStr}
         style={{marginTop: '1em'}}
       />
     </Modal.Body>
-    <Modal.Footer>
-      <Button onClick={handleCloseFn}>Close</Button>
-    </Modal.Footer>
   </Modal>
 )
 
-ShowResourceModal.propTypes = {
+ResourceModal.propTypes = {
   handleCloseFn: PropTypes.func.isRequired,
   resourceStr: PropTypes.string.isRequired,
+  resourceUrl: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
 }
 
-class ShowResourceModalContainer extends React.Component {
-  state = {resourceStr: 'some long string of stuff'}
+class ResourceModalContainer extends React.Component {
+  state = {resourceStr: '', show: false}
 
   componentDidMount() {
     fetch(this.props.url)
       .then(rsp => rsp.text())
-      .then(rspStr => {
-        // if json ....
-        //const ppJson = JSON.stringify(json, null, 2)
-        console.log(`fetched rsp: ${rspStr.substring(0, 20)}`)
+      .then(rspStr =>
         this.setState({
           resourceStr: rspStr,
           show: true,
         })
-        return null
-      })
+      )
       .catch(err =>
         console.error(
           `Failed to fetch resource [${this.props.url}] Err: [${err}]`
@@ -107,8 +129,9 @@ class ShowResourceModalContainer extends React.Component {
 
   render() {
     return (
-      <ShowResourceModal
+      <ResourceModal
         handleCloseFn={this.props.handleCloseFn}
+        resourceUrl={this.props.url}
         resourceStr={this.state.resourceStr}
         show={this.props.show}
       />
@@ -116,17 +139,19 @@ class ShowResourceModalContainer extends React.Component {
   }
 }
 
-ShowResourceModalContainer.propTypes = {
+ResourceModalContainer.propTypes = {
   handleCloseFn: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
   url: PropTypes.string.isRequired,
 }
 
-class BadgeButtonWithResourceModal extends React.Component {
+class BackendResourceBadgeButtonWithResourceModal extends React.Component {
   constructor(props, context) {
     super(props, context)
 
-    this.handleBadgeButtonClick = this.handleBadgeButtonClick.bind(this)
+    this.handleBackendResourceBadgeButtonClick = this.handleBackendResourceBadgeButtonClick.bind(
+      this
+    )
     this.handleClose = this.handleClose.bind(this)
 
     this.state = {
@@ -138,30 +163,32 @@ class BadgeButtonWithResourceModal extends React.Component {
     this.setState({show: false})
   }
 
-  handleBadgeButtonClick() {
+  handleBackendResourceBadgeButtonClick(event) {
+    event.preventDefault()
     this.setState({show: true})
   }
 
   render() {
     return (
-      <div>
-        <BadgeButton
+      <span>
+        <BackendResourceBadgeButton
           label={this.props.label}
-          handleClickFn={this.handleBadgeButtonClick}
+          handleClickFn={this.handleBackendResourceBadgeButtonClick}
+          url={this.props.url}
         />
-        <ShowResourceModalContainer
+        <ResourceModalContainer
           handleCloseFn={this.handleClose}
           show={this.state.show}
           url={this.props.url}
         />
-      </div>
+      </span>
     )
   }
 }
 
-BadgeButtonWithResourceModal.propTypes = {
+BackendResourceBadgeButtonWithResourceModal.propTypes = {
   label: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
 }
 
-export default BadgeButtonWithResourceModal
+export default BackendResourceBadgeButtonWithResourceModal

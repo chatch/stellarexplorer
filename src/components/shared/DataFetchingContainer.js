@@ -135,7 +135,6 @@ const withDataFetchingContainer = (
 
       setTimeout(() => {
         this.state.streamCloseFn()
-        console.log(`stream stopped. see issue #40`)
       }, STREAM_TIMEOUT)
 
       this.setState({streamCloseFn})

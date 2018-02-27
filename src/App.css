@@ -320,7 +320,7 @@ table {
   padding-bottom: 10px;
 }
 
-.anchorRow .anchorLinkCol a span {
+.anchorRow .anchorLinkCol span a {
   text-decoration: none;
   letter-spacing: 0.05em;
   border-radius: 60px !important;
@@ -332,7 +332,7 @@ table {
   transition: all 0.18s ease-in-out;
 }
 
-.anchorRow .anchorLinkCol a span:hover {
+.anchorRow .anchorLinkCol span a:hover {
   background-color: #fece3a !important;
 }
 

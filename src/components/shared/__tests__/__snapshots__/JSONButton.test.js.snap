@@ -2,7 +2,7 @@
 
 exports[`renders button with given url 1`] = `
 Array [
-  <BadgeButton
+  <BackendResourceBadgeButtonWithResourceModal
     label="JSON"
     url="https://somebackend.xyz/resource/12345"
 />,

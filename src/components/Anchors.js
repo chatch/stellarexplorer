@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
-import BadgeButton from './shared/BadgeButton'
+import BackendResourceBadgeButton from './shared/BackendResourceBadgeButton'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 import directory from '../data/directory'
@@ -67,7 +67,7 @@ const Anchor = ({assets, domain, displayName, logo, website}) => {
           </a>
         </div>
         <div>
-          <BadgeButton label="server.toml" url={toml} />
+          <BackendResourceBadgeButton label="server.toml" url={toml} />
         </div>
       </td>
       <td>
