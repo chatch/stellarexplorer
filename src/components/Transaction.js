@@ -45,7 +45,7 @@ class Transaction extends React.Component {
               urlFn(id)
             )}
           >
-            <Table className="table-hover table-condensed" fill>
+            <Table>
               <tbody>
                 <tr>
                   <td>
