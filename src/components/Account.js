@@ -74,8 +74,12 @@ const balanceRow = bal => (
         issuer={bal.asset_issuer}
       />
     </td>
-    <td>{bal.balance}</td>
-    <td>{bal.limit}</td>
+    <td>
+      <span style={{wordBreak: 'break-all'}}>{bal.balance}</span>
+    </td>
+    <td>
+      <span style={{wordBreak: 'break-all'}}>{bal.limit}</span>
+    </td>
   </tr>
 )
 
@@ -181,7 +185,9 @@ const AccountSummaryPanel = ({
               <Col md={3}>
                 <FormattedMessage id="key.public" />:
               </Col>
-              <Col md={9}>{a.id}</Col>
+              <Col md={9}>
+                <span style={{wordBreak: 'break-all'}}>{a.id}</span>
+              </Col>
             </Row>
             {stellarAddr && (
               <Row>

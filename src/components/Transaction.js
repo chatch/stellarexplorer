@@ -51,7 +51,9 @@ class Transaction extends React.Component {
                   <td>
                     <FormattedMessage id="hash" />
                   </td>
-                  <td>{id}</td>
+                  <td>
+                    <span style={{wordBreak: 'break-all'}}>{id}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>

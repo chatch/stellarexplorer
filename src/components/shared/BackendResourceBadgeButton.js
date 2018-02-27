@@ -85,7 +85,7 @@ const ResourceModalBody = ({handleCloseFn, isJson, show, text, url}) => (
         <span aria-hidden="true">&times;</span>
       </Button>
     </div>
-    <div style={{marginTop: 20, marginBottom: 20}}>
+    <div style={{marginTop: 20, marginBottom: 20, wordBreak: 'break-all'}}>
       <a href={url} target="_blank">
         {url}
       </a>
