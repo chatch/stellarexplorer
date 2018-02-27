@@ -15,7 +15,7 @@ import directory from '../data/directory'
 const {anchors} = directory
 
 const METADATA_PATH =
-  'https://github.com/irisli/stellarterm/blob/master/directory/directory.json'
+  'https://raw.githubusercontent.com/irisli/stellarterm/master/directory/directory.json'
 
 const tradeURL = (assetCode, issuerDomain) =>
   `https://stellarterm.com/#exchange/XLM-native/${assetCode}-${issuerDomain}`
