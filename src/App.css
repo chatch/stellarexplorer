@@ -80,27 +80,19 @@ table {
   color: #fa6f46 !important;
 }
 
-#transaction-table,
-#ledger-table,
-#operation-table {
+[id*='-table'] {
   font-size: 14px !important;
 }
 
-#transaction-table thead,
-#ledger-table thead,
-#operation-table thead {
+[id*='-table'] thead {
   color: #dce2ec;
 }
 
-#transaction-table tbody,
-#ledger-table tbody,
-#operation-table tbody {
+[id*='-table'] tbody {
   color: #96a2b4;
 }
 
-#transaction-table > tbody > tr > td,
-#ledger-table > tbody > tr > td,
-#operation-table > tbody > tr > td {
+[id*='-table'] > tbody > tr > td {
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid #4c5667;

@@ -7,14 +7,14 @@ import {FormattedMessage} from 'react-intl'
 import mapKeys from 'lodash/mapKeys'
 import camelCase from 'lodash/camelCase'
 
+import Operation from './operations/Operation'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
 import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
-import Operation from './operations/Operation'
 
-const OperationTable = props => (
+const PaymentTable = ({compact, server, parentRenderTimestamp, records}) => (
   <Table
-    id="operation-table"
+    id="payment-table"
     className="table-striped table-hover table-condensed"
   >
     <thead>
@@ -23,9 +23,9 @@ const OperationTable = props => (
           <FormattedMessage id="account" />
         </th>
         <th>
-          <FormattedMessage id="operation" />
+          <FormattedMessage id="payment" />
         </th>
-        {props.compact === false && (
+        {compact === false && (
           <th>
             <FormattedMessage id="transaction" />
           </th>
@@ -37,22 +37,20 @@ const OperationTable = props => (
       </tr>
     </thead>
     <tbody>
-      {props.records.map(op => {
-        return (
-          <Operation
-            key={op.id}
-            compact={props.compact}
-            op={op}
-            opURLFn={props.server.opURL}
-            parentRenderTimestamp={props.parentRenderTimestamp}
-          />
-        )
-      })}
+      {records.map(payment => (
+        <Operation
+          key={payment.id}
+          compact={compact}
+          op={payment}
+          opURLFn={server.opURL}
+          parentRenderTimestamp={parentRenderTimestamp}
+        />
+      ))}
     </tbody>
   </Table>
 )
 
-OperationTable.propTypes = {
+PaymentTable.propTypes = {
   compact: PropTypes.bool,
   parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array.isRequired,
@@ -64,9 +62,16 @@ const rspRecToPropsRec = record => {
   return mapKeys(record, (v, k) => camelCase(k))
 }
 
-const fetchRecords = props => props.server.loadOperations(props)
+const fetchRecords = ({account, tx, limit, server}) => {
+  const builder = server.payments()
+  if (tx) builder.forTransaction(tx)
+  if (account) builder.forAccount(account)
+  builder.limit(limit)
+  builder.order('desc')
+  return builder.call()
+}
 
-const callBuilder = props => props.server.operations()
+const callBuilder = props => props.server.payments()
 
 const enhance = compose(
   withPaging(),
@@ -74,4 +79,4 @@ const enhance = compose(
   withSpinner()
 )
 
-export default enhance(OperationTable)
+export default enhance(PaymentTable)
