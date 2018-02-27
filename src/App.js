@@ -41,6 +41,7 @@ import {storageInit} from './lib/utils'
 import {searchStrToPath} from './lib/search'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'react-json-pretty/src/JSONPretty.monikai.css'
 import './App.css'
 
 const HOME_PUBLIC = 'https://steexp.com'

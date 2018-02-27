@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CopyToClipboard from 'react-copy-to-clipboard'
-
+import JSONPretty from 'react-json-pretty'
 import Button from 'react-bootstrap/lib/Button'
-import FormControl from 'react-bootstrap/lib/FormControl'
-import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import Modal from 'react-bootstrap/lib/Modal'
+
+import {withSpinner} from '../shared/Spinner'
 
 import FetchPonyfill from 'fetch-ponyfill'
 const fetch = FetchPonyfill().fetch
@@ -56,7 +56,11 @@ class ClipboardCopyButton extends React.Component {
     return (
       <CopyToClipboard text={this.props.text} onCopy={this.handleClickCopy}>
         <span>
-          <Button bsStyle="primary">Copy</Button>
+          <Button
+            style={{backgroundColor: '#08b5e5', color: 'white', border: 0}}
+          >
+            Copy
+          </Button>
           {this.state.copied && <span style={{marginLeft: 5}}>Copied!</span>}
         </span>
       </CopyToClipboard>
@@ -68,74 +72,110 @@ ClipboardCopyButton.propTypes = {
   text: PropTypes.string.isRequired,
 }
 
-const ResourceModal = ({handleCloseFn, resourceStr, resourceUrl, show}) => (
-  <Modal show={show} onHide={handleCloseFn}>
-    <Modal.Body>
-      <div>
-        <ClipboardCopyButton text={resourceStr} />
-        <Button
-          style={{float: 'right'}}
-          onClick={handleCloseFn}
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </Button>
-      </div>
-      <div>
-        <span>{resourceUrl} &#xe205;</span>
-        <br />
-        <Glyphicon
-          glyph="copy"
-          style={{paddingTop: 3}}
-          onClick={this.searchHandler}
-        />
-      </div>
-      <FormControl
-        componentClass="textarea"
-        cols="58"
-        rows="20"
-        defaultValue={resourceStr}
-        style={{marginTop: '1em'}}
-      />
+const ResourceModalBody = ({handleCloseFn, isJson, show, text, url}) => (
+  <div>
+    <div>
+      <ClipboardCopyButton text={text} />
+      <Button
+        bsSize="sm"
+        style={{float: 'right', backgroundColor: '#96a2b4'}}
+        onClick={handleCloseFn}
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </Button>
+    </div>
+    <div style={{marginTop: 20, marginBottom: 20}}>
+      <a href={url} target="_blank">
+        {url}
+      </a>
+    </div>
+    <div>
+      {isJson ? <JSONPretty id="json-pretty" json={text} /> : <pre>{text}</pre>}
+    </div>
+  </div>
+)
+
+const ResourceModalBodyWithSpinner = withSpinner()(ResourceModalBody)
+
+const ResourceModal = props => (
+  <Modal show={props.show} onHide={props.handleCloseFn}>
+    <Modal.Body style={{backgroundColor: '#383f4b'}}>
+      <ResourceModalBodyWithSpinner {...props} />
     </Modal.Body>
   </Modal>
 )
 
 ResourceModal.propTypes = {
   handleCloseFn: PropTypes.func.isRequired,
-  resourceStr: PropTypes.string.isRequired,
-  resourceUrl: PropTypes.string.isRequired,
+  isJson: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 }
 
 class ResourceModalContainer extends React.Component {
-  state = {resourceStr: '', show: false}
+  state = {
+    fetchFailed: false,
+    isJson: false,
+    isLoading: true,
+    show: false,
+    text: '',
+  }
+
+  isJsonResponse(rsp) {
+    return (
+      rsp.headers.has('content-type') &&
+      rsp.headers.get('content-type').indexOf('json') !== -1
+    )
+  }
 
   componentDidMount() {
     fetch(this.props.url)
-      .then(rsp => rsp.text())
-      .then(rspStr =>
+      .then(rsp => Promise.all([rsp.text(), this.isJsonResponse(rsp)]))
+      .then(([text, isJson]) =>
         this.setState({
-          resourceStr: rspStr,
+          text,
+          isLoading: false,
+          isJson,
           show: true,
         })
       )
-      .catch(err =>
+      .catch(err => {
         console.error(
           `Failed to fetch resource [${this.props.url}] Err: [${err}]`
         )
-      )
+        this.setState({
+          fetchFailed: true,
+          isLoading: false,
+        })
+      })
   }
 
   render() {
-    return (
-      <ResourceModal
-        handleCloseFn={this.props.handleCloseFn}
-        resourceUrl={this.props.url}
-        resourceStr={this.state.resourceStr}
-        show={this.props.show}
-      />
-    )
+    if (this.state.fetchFailed) {
+      return (
+        <ResourceModal
+          handleCloseFn={this.props.handleCloseFn}
+          isJson={false}
+          isLoading={false}
+          show={true}
+          text="Fetch resource failed ... Try the link above."
+          url={this.props.url}
+        />
+      )
+    } else {
+      return (
+        <ResourceModal
+          handleCloseFn={this.props.handleCloseFn}
+          isJson={this.state.isJson}
+          isLoading={this.state.isLoading}
+          show={this.props.show}
+          text={this.state.text}
+          url={this.props.url}
+        />
+      )
+    }
   }
 }
 
@@ -149,9 +189,7 @@ class BackendResourceBadgeButtonWithResourceModal extends React.Component {
   constructor(props, context) {
     super(props, context)
 
-    this.handleBackendResourceBadgeButtonClick = this.handleBackendResourceBadgeButtonClick.bind(
-      this
-    )
+    this.handleClick = this.handleClick.bind(this)
     this.handleClose = this.handleClose.bind(this)
 
     this.state = {
@@ -163,7 +201,7 @@ class BackendResourceBadgeButtonWithResourceModal extends React.Component {
     this.setState({show: false})
   }
 
-  handleBackendResourceBadgeButtonClick(event) {
+  handleClick(event) {
     event.preventDefault()
     this.setState({show: true})
   }
@@ -173,14 +211,16 @@ class BackendResourceBadgeButtonWithResourceModal extends React.Component {
       <span>
         <BackendResourceBadgeButton
           label={this.props.label}
-          handleClickFn={this.handleBackendResourceBadgeButtonClick}
+          handleClickFn={this.handleClick}
           url={this.props.url}
         />
-        <ResourceModalContainer
-          handleCloseFn={this.handleClose}
-          show={this.state.show}
-          url={this.props.url}
-        />
+        {this.state.show && (
+          <ResourceModalContainer
+            handleCloseFn={this.handleClose}
+            show={this.state.show}
+            url={this.props.url}
+          />
+        )}
       </span>
     )
   }
