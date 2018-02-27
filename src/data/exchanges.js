@@ -12,6 +12,16 @@ const decentralized = {
   InterStellar: {
     home: 'interstellar.exchange',
   },
+  PapayaBot: {
+    home: 'papayabot.com',
+    accounts: ['GBR3RS2Z277FER476OFHFXQJRKYSQX4Z7XNWO65AN3QPRUANUASANG3L'],
+    logo: apayLogo,
+  },
+  PapayaSwap: {
+    home: 'swap.apay.io',
+    accounts: ['GBGVRE5DH6HGNYNLWQITKRQYGR4PWQEH6MOE5ELPY3I4XJPTZ7CVT4YW'],
+    logo: apayLogo,
+  },
 }
 
 const centralized = {
@@ -64,16 +74,6 @@ const centralized = {
   Exrates: {
     home: 'lk.exrates.me',
     accounts: ['GBKTJSNUSR6OCXA5WDWGT33MNSCNQHOBQUBYC7TVS7BOXDKWFNHI4QNH'],
-  },
-  PapayaBot: {
-    home: 'papayabot.com',
-    accounts: ['GBR3RS2Z277FER476OFHFXQJRKYSQX4Z7XNWO65AN3QPRUANUASANG3L'],
-    logo: apayLogo,
-  },
-  PapayaSwap: {
-    home: 'swap.apay.io',
-    accounts: ['GBGVRE5DH6HGNYNLWQITKRQYGR4PWQEH6MOE5ELPY3I4XJPTZ7CVT4YW'],
-    logo: apayLogo,
   },
 }
 
