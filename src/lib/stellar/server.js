@@ -33,7 +33,6 @@ class WrappedServer extends sdk.Server {
   ledgerURL = id => `${this.serverURL}ledgers/${id}`
   opURL = id => `${this.serverURL}operations/${id}`
   txURL = id => `${this.serverURL}transactions/${id}`
-  paymentURL = id => `${this.serverURL}payments/${id}`
 
   //
   // Data fetching utilities

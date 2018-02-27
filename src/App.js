@@ -35,6 +35,7 @@ import Anchors from './components/Anchors'
 import Exchanges from './components/Exchanges'
 import Operations from './components/Operations'
 import Payments from './components/Payments'
+import Trades from './components/Trades'
 
 import {networks, Server} from './lib/stellar'
 import {hostnameToNetwork} from './lib/stellar/networks'
@@ -130,16 +131,17 @@ class App extends Component {
               <SponsoredLink />
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route path="/ledgers" component={Ledgers} />
-                <Route path="/ledger/:id" component={Ledger} />
-                <Route path="/txs" component={Transactions} />
-                <Route path="/tx/:id" component={Transaction} />
-                <Route path="/operations" component={Operations} />
                 <Route path="/accounts" component={Accounts} />
                 <Route path="/account/:id" component={Account} />
-                <Route path="/payments" component={Payments} />
                 <Route path="/anchors" component={Anchors} />
                 <Route path="/exchanges" component={Exchanges} />
+                <Route path="/ledgers" component={Ledgers} />
+                <Route path="/ledger/:id" component={Ledger} />
+                <Route path="/operations" component={Operations} />
+                <Route path="/payments" component={Payments} />
+                <Route path="/trades" component={Trades} />
+                <Route path="/txs" component={Transactions} />
+                <Route path="/tx/:id" component={Transaction} />
                 <Route
                   path="/search/:id"
                   render={({match}) => {
