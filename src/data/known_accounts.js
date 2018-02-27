@@ -2,7 +2,10 @@ import has from 'lodash/has'
 import PropTypes from 'prop-types'
 
 import distributers from './distributers'
-import {centralized as exchanges} from './exchanges'
+import {
+  centralized as centralizedExchanges,
+  decentralized as decentralizedExchanges,
+} from './exchanges'
 import inflationPools from './inflation_pools'
 import directory from './directory'
 const {anchors, destinations} = directory
@@ -103,7 +106,8 @@ const knownAccounts = {}
 
 addAnchors(knownAccounts, anchors)
 addDestinations(knownAccounts, destinations)
-addExchanges(knownAccounts, exchanges)
+addExchanges(knownAccounts, centralizedExchanges)
+addExchanges(knownAccounts, decentralizedExchanges)
 addDistributers(knownAccounts, distributers)
 addInflationPools(knownAccounts, inflationPools)
 

@@ -35,7 +35,7 @@ const Exchange = ({accounts, home, name, logo, decentralized = false}) => {
               <AccountLink account={account} hideKnown={true} />&nbsp;
             </span>
           ))}
-        {decentralized && <span>Decentralized</span>}
+        {isEmpty(accounts) && decentralized && <span>Decentralized</span>}
       </Col>
     </Row>
   )
