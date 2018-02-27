@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from 'react-bootstrap/lib/Nav'
 import Navbar from 'react-bootstrap/lib/Navbar'
+import NavDropdown from 'react-bootstrap/lib/NavDropdown'
 import NavItem from 'react-bootstrap/lib/NavItem'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 import {Link} from 'react-router-dom'
@@ -58,6 +59,9 @@ class Header extends React.Component {
                 <FormattedMessage id="ledgers" />
               </NavItem>
             </LinkContainer>
+
+            <li className="divider-vertical" />
+
             <LinkContainer to="/anchors">
               <MenuItem>
                 <FormattedMessage id="anchors" />
@@ -68,6 +72,35 @@ class Header extends React.Component {
                 <FormattedMessage id="exchanges" />
               </MenuItem>
             </LinkContainer>
+
+            <li className="divider-vertical" />
+
+            <NavDropdown
+              eventKey={3}
+              title={formatMessage({id: 'more'})}
+              id="basic-nav-dropdown"
+            >
+              <LinkContainer to="/assets">
+                <MenuItem>
+                  <FormattedMessage id="assets" />
+                </MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/payments">
+                <MenuItem>
+                  <FormattedMessage id="payments" />
+                </MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/trades">
+                <MenuItem>
+                  <FormattedMessage id="trades" />
+                </MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/offers">
+                <MenuItem>
+                  <FormattedMessage id="offers" />
+                </MenuItem>
+              </LinkContainer>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

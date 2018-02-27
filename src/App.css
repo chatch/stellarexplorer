@@ -164,6 +164,13 @@ table {
   border-radius: 0;
 }
 
+ul.navbar-nav .divider-vertical {
+  height: 20px;
+  width: 1px;
+  margin: 17px 10px;
+  border-right: 1px solid #96a2b4;
+}
+
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
   border-color: rgba(120, 130, 140, 0.28);
@@ -221,6 +228,9 @@ table {
   }
   #Search-Container input {
     width: 420px !important;
+  }
+  .divider-vertical {
+    display: none;
   }
 }
 
