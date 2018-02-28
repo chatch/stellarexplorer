@@ -26,6 +26,19 @@ class Footer extends React.PureComponent {
         </Row>
         <Row>
           <Col mdOffset={10} md={2}>
+            <a href="https://github.com/chatch/stellarexplorer/issues">
+              <img
+                src={`${process.env.PUBLIC_URL}/img/support.svg`}
+                alt="support"
+                height={20}
+                width={20}
+              />
+              Support
+            </a>
+          </Col>
+        </Row>
+        <Row>
+          <Col mdOffset={10} md={2}>
             <a href="https://stellar.org">
               <img
                 src={`${process.env.PUBLIC_URL}/stellar.ico`}
