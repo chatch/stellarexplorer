@@ -37,17 +37,15 @@ const OperationTable = props => (
       </tr>
     </thead>
     <tbody>
-      {props.records.map(op => {
-        return (
-          <Operation
-            key={op.id}
-            compact={props.compact}
-            op={op}
-            opURLFn={props.server.opURL}
-            parentRenderTimestamp={props.parentRenderTimestamp}
-          />
-        )
-      })}
+      {props.records.map(op => (
+        <Operation
+          key={op.id}
+          compact={props.compact}
+          op={op}
+          opURLFn={props.server.opURL}
+          parentRenderTimestamp={props.parentRenderTimestamp}
+        />
+      ))}
     </tbody>
   </Table>
 )
@@ -64,7 +62,14 @@ const rspRecToPropsRec = record => {
   return mapKeys(record, (v, k) => camelCase(k))
 }
 
-const fetchRecords = props => props.server.loadOperations(props)
+const fetchRecords = ({account, limit, server, tx}) => {
+  const builder = server.operations()
+  if (tx) builder.forTransaction(tx)
+  if (account) builder.forAccount(account)
+  builder.limit(limit)
+  builder.order('desc')
+  return builder.call()
+}
 
 const callBuilder = props => props.server.operations()
 

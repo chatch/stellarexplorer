@@ -33,29 +33,6 @@ class WrappedServer extends sdk.Server {
   ledgerURL = id => `${this.serverURL}ledgers/${id}`
   opURL = id => `${this.serverURL}operations/${id}`
   txURL = id => `${this.serverURL}transactions/${id}`
-
-  //
-  // Data fetching utilities
-  //
-
-  loadOperations({account, tx, limit}) {
-    const builder = this.operations()
-    if (tx) builder.forTransaction(tx)
-    if (account) builder.forAccount(account)
-    builder.limit(limit)
-    builder.order('desc')
-    return builder.call()
-  }
-
-  loadEffects({account, op, tx, limit}) {
-    const builder = this.effects()
-    if (account) builder.forAccount(account)
-    if (op) builder.forOperation(op)
-    if (tx) builder.forTransaction(tx)
-    builder.limit(limit)
-    builder.order('desc')
-    return builder.call()
-  }
 }
 
 const Server = network => new WrappedServer(network)
