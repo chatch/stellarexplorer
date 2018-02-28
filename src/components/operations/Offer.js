@@ -1,7 +1,29 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
+
+import AccountLink from '../shared/AccountLink'
 import Asset from '../shared/Asset'
+
+const BuyingAsset = ({buyingAssetCode, buyingAssetIssuer, buyingAssetType}) => (
+  <Asset
+    code={buyingAssetCode}
+    issuer={buyingAssetIssuer}
+    type={buyingAssetType}
+  />
+)
+
+const SellingAsset = ({
+  sellingAssetCode,
+  sellingAssetIssuer,
+  sellingAssetType,
+}) => (
+  <Asset
+    code={sellingAssetCode}
+    issuer={sellingAssetIssuer}
+    type={sellingAssetType}
+  />
+)
 
 const offerType = (amount, offerId) => {
   let type = ''
@@ -11,42 +33,37 @@ const offerType = (amount, offerId) => {
   return type
 }
 
-const Offer = ({
-  amount,
-  buyingAssetCode,
-  buyingAssetIssuer,
-  buyingAssetType,
-  offerId,
-  price,
-  sellingAssetCode,
-  sellingAssetIssuer,
-  sellingAssetType,
-}) => {
+const Offer = props => {
+  const {amount, offerId, price} = props
   const msgId = `operation.offer.${offerType(amount, offerId)}`
   return (
     <FormattedMessage
       id={msgId}
       values={{
         amount: amount,
-        buyingAsset: (
-          <Asset
-            code={buyingAssetCode}
-            issuer={buyingAssetIssuer}
-            type={buyingAssetType}
-          />
-        ),
+        buyingAsset: <BuyingAsset {...props} />,
         price: price,
-        sellingAsset: (
-          <Asset
-            code={sellingAssetCode}
-            issuer={sellingAssetIssuer}
-            type={sellingAssetType}
-          />
-        ),
+        sellingAsset: <SellingAsset {...props} />,
       }}
     />
   )
 }
+
+const OfferRow = props => (
+  <tr key={props.id} className="trade">
+    <td className="account-badge">
+      <AccountLink account={props.seller} />
+    </td>
+    <td>
+      <SellingAsset {...props} />
+    </td>
+    <td>
+      <BuyingAsset {...props} />
+    </td>
+    <td>{props.amount}</td>
+    <td>{props.price}</td>
+  </tr>
+)
 
 Offer.propTypes = {
   amount: PropTypes.string,
@@ -55,9 +72,10 @@ Offer.propTypes = {
   buyingAssetType: PropTypes.string.isRequired,
   offerId: PropTypes.number.isRequired,
   price: PropTypes.string.isRequired,
+  seller: PropTypes.string,
   sellingAssetCode: PropTypes.string,
   sellingAssetIssuer: PropTypes.string,
   sellingAssetType: PropTypes.string.isRequired,
 }
 
-export default Offer
+export {Offer as default, OfferRow}

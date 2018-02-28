@@ -27,6 +27,7 @@ import Asset from './shared/Asset'
 import EffectList from './EffectList'
 import OperationTable from './OperationTable'
 import TransactionTable from './TransactionTableContainer'
+import OfferTable from './OfferTable'
 
 const stellarAddressFromURI = () => {
   if (!window || !window.location || !window.location.pathname) return
@@ -303,6 +304,15 @@ class Account extends React.Component {
                 account={a.id}
                 compact={false}
                 limit={10}
+                usePaging
+              />
+            </Tab>
+            <Tab eventKey="offers" title={formatMessage({id: 'offers'})}>
+              <OfferTable
+                key={a.id}
+                account={a.id}
+                compact={false}
+                limit={50}
                 usePaging
               />
             </Tab>
