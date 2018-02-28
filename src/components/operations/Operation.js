@@ -48,7 +48,7 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
 
   return (
     <tr key={op.id} className="operation">
-      <td className="op-from">{acc}</td>
+      <td className="account-badge">{acc}</td>
       <td>
         <SubOperation op={op} />
       </td>

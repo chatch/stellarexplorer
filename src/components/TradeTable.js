@@ -16,28 +16,44 @@ import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormatte
 
 const Trade = ({trade, parentRenderTimestamp}) => {
   const Base = (
-    <div>
-      <AccountLink account={trade.baseAccount} /> {trade.baseAmount}{' '}
+    <span>
+      {trade.baseAmount}{' '}
       <Asset
         code={trade.baseAssetCode}
         issuer={trade.baseAssetIssuer}
         type={trade.baseAssetType}
       />
-    </div>
+    </span>
   )
+
   const Counter = (
-    <div>
-      <AccountLink account={trade.counterAccount} /> {trade.counterAmount}{' '}
+    <span>
+      {trade.counterAmount}{' '}
       <Asset
         code={trade.counterAssetCode}
         issuer={trade.counterAssetIssuer}
         type={trade.counterAssetType}
       />
-    </div>
+    </span>
   )
+
   return (
     <tr key={trade.id} className="trade">
+      <td className="account-badge">
+        <AccountLink
+          account={
+            trade.baseIsSeller ? trade.baseAccount : trade.counterAccount
+          }
+        />
+      </td>
       <td>{trade.baseIsSeller ? Base : Counter}</td>
+      <td className="account-badge">
+        <AccountLink
+          account={
+            trade.baseIsSeller ? trade.counterAccount : trade.baseAccount
+          }
+        />
+      </td>
       <td>{trade.baseIsSeller ? Counter : Base}</td>
       <td>
         <span title={trade.time}>
@@ -56,15 +72,20 @@ const TradeTable = ({compact, server, parentRenderTimestamp, records}) => (
     <thead>
       <tr>
         <th>
-          <FormattedMessage id="Sell" />
+          <FormattedMessage id="seller" />
         </th>
         <th>
-          <FormattedMessage id="Buy" />
+          <FormattedMessage id="amount" />
+        </th>
+        <th>
+          <FormattedMessage id="buyer" />
+        </th>
+        <th>
+          <FormattedMessage id="amount" />
         </th>
         <th>
           <FormattedMessage id="time" />
         </th>
-        <th />
       </tr>
     </thead>
     <tbody>

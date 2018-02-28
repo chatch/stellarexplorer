@@ -385,21 +385,7 @@ a[id|='account-tabs-tab'][aria-selected='true'] {
   color: #01c0c8 !important;
 }
 
-.operation {
-  margin: 0px !important;
-  min-height: 60px;
-}
-
-/* .operation:hover {
-  background: rgba(0,0,0,.1);
-} */
-
-.operation div {
-  margin-top: 10px;
-  padding-left: 0px;
-}
-
-.operation td.op-from a {
+.account-badge a {
   letter-spacing: 0.05em;
   border-radius: 60px;
   padding: 4px 12px 4px;
@@ -409,8 +395,18 @@ a[id|='account-tabs-tab'][aria-selected='true'] {
   transition: all 0.18s ease-in-out;
 }
 
-.operation .col-md-2 span a:hover {
-  background-color: #0397da;
+.account-badge span a:hover {
+  color: white;
+}
+
+.operation {
+  margin: 0px !important;
+  min-height: 60px;
+}
+
+.operation div {
+  margin-top: 10px;
+  padding-left: 0px;
 }
 
 .effect {
