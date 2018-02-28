@@ -1,5 +1,6 @@
 {
   "account": "Account",
+  "accounts": "Accounts",
   "account.id": "Account ID",
   "account.network.label": "Network",
   "amount": "Amount",
@@ -13,6 +14,7 @@
   "balances": "Balances",
   "buy": "Buy",
   "buyer": "Buyer",
+  "code": "Code",
   "contact.address.label": "Address",
   "currency": "Currency",
 
@@ -41,6 +43,7 @@
 
   "inflation": "Inflation Destination",
   "invalid.account": "Account is invalid",
+  "issued": "issued",
   "issuer": "Issuer",
   "language.selector": "Language Selector",
   "latest.ledgers": "Latest Ledgers",

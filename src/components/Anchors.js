@@ -53,13 +53,13 @@ const TradeColumn = ({assets, domain}) => (
 const Anchor = ({assets, domain, displayName, logo, website}) => {
   const toml = `https://${domain}/.well-known/stellar.toml`
   return (
-    <tr className="anchorRow">
+    <tr className="directoryRow">
       <td>
-        <a href={website}>
+        <a href={website} target="_blank">
           <Logo name={domain} src={logo} />
         </a>
       </td>
-      <td className="anchorLinkCol">
+      <td className="anchorLinkCol stellarToml">
         <div>{displayName}</div>
         <div>
           <a href={website} target="_blank">

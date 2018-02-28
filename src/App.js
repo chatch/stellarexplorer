@@ -36,6 +36,7 @@ import Exchanges from './components/Exchanges'
 import Operations from './components/Operations'
 import Payments from './components/Payments'
 import Trades from './components/Trades'
+import Assets from './components/Assets'
 
 import {networks, Server} from './lib/stellar'
 import {hostnameToNetwork} from './lib/stellar/networks'
@@ -43,7 +44,7 @@ import {storageInit} from './lib/utils'
 import {searchStrToPath} from './lib/search'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'react-json-pretty/src/JSONPretty.monikai.css'
+import 'react-json-pretty/src/JSONPretty.1337.css'
 import './App.css'
 
 const HOME_PUBLIC = 'https://steexp.com'
@@ -133,6 +134,7 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <Route path="/accounts" component={Accounts} />
                 <Route path="/account/:id" component={Account} />
+                <Route path="/assets" component={Assets} />
                 <Route path="/anchors" component={Anchors} />
                 <Route path="/exchanges" component={Exchanges} />
                 <Route path="/ledgers" component={Ledgers} />

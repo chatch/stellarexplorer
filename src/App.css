@@ -174,7 +174,7 @@ ul.navbar-nav .divider-vertical {
  * see this link for details about this css:
  *   https://stackoverflow.com/questions/18192082/bootstrap-3-navbar-collapse
  */
-@media (max-width: 920px) {
+@media (max-width: 1116px) {
   .navbar-header {
     float: none;
   }
@@ -210,6 +210,9 @@ ul.navbar-nav .divider-vertical {
   .collapsing {
     overflow: hidden !important;
   }
+  .divider-vertical {
+    display: none !important;
+  }
 }
 
 /*************************************************************/
@@ -220,9 +223,6 @@ ul.navbar-nav .divider-vertical {
   }
   #Search-Container input {
     width: 420px !important;
-  }
-  .divider-vertical {
-    display: none;
   }
 }
 
@@ -310,19 +310,7 @@ ul.navbar-nav .divider-vertical {
   transition: all 0.18s ease-in-out;
 }
 
-.anchorRow {
-  border-bottom: 1px solid #4c5667;
-}
-
-.anchorRow td {
-  border-top: 0 !important;
-}
-
-.anchorRow td div {
-  padding-bottom: 10px;
-}
-
-.anchorRow .anchorLinkCol span a {
+.stellarToml span a {
   text-decoration: none;
   letter-spacing: 0.05em;
   border-radius: 60px !important;
@@ -334,7 +322,19 @@ ul.navbar-nav .divider-vertical {
   transition: all 0.18s ease-in-out;
 }
 
-.anchorRow .anchorLinkCol span a:hover {
+.directoryRow {
+  border-bottom: 1px solid #4c5667;
+}
+
+.directoryRow td {
+  border-top: 0 !important;
+}
+
+.directoryRow td div {
+  padding-bottom: 10px;
+}
+
+.directoryRow .anchorLinkCol span a:hover {
   background-color: #fece3a !important;
 }
 
