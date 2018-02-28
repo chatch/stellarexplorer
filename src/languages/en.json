@@ -134,6 +134,7 @@
   "settings.trustlines": "Trustlines",
   "signers": "Signers",
   "signing": "Signing",
+  "source.account": "Source",
   "stellar.address": "Stellar Address",
   "stellar": "Stellar",
 

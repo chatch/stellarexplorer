@@ -94,6 +94,7 @@ class Transaction extends React.Component {
         </Row>
         <Row>
           <h3>
+            <a id="operations-table" aria-hidden="true" />
             <FormattedMessage id="operations" />
             {` (${opCount})`}
           </h3>

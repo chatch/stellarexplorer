@@ -63,9 +63,7 @@ class Ledger extends React.Component {
               <tbody>
                 <tr>
                   <td>#</td>
-                  <td>
-                    {seq}
-                  </td>
+                  <td>{seq}</td>
                 </tr>
                 <tr>
                   <td>
@@ -80,56 +78,49 @@ class Ledger extends React.Component {
                   <td>
                     <FormattedMessage id="hash" />
                   </td>
-                  <td>
-                    {hash}
-                  </td>
+                  <td>{hash}</td>
                 </tr>
                 <tr>
                   <td>
                     <FormattedMessage id="prevHash" />
                   </td>
                   <td>
-                    <Link to={`/ledger/${prevSeq}`}>
-                      {prevHash}
-                    </Link>
+                    <Link to={`/ledger/${prevSeq}`}>{prevHash}</Link>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <FormattedMessage id="protocolVersion" />
                   </td>
-                  <td>
-                    {protocol}
-                  </td>
+                  <td>{protocol}</td>
                 </tr>
-                {opCount === 0 &&
+                {opCount === 0 && (
                   <tr>
                     <td>
                       <FormattedMessage id="transactions" />
                     </td>
-                    <td>
-                      {txCount}
-                    </td>
-                  </tr>}
+                    <td>{txCount}</td>
+                  </tr>
+                )}
                 <tr>
                   <td>
                     <FormattedMessage id="operations" />
                   </td>
-                  <td>
-                    {opCount}
-                  </td>
+                  <td>{opCount}</td>
                 </tr>
               </tbody>
             </Table>
           </Panel>
         </Row>
-        {opCount > 0 &&
+        {opCount > 0 && (
           <Row>
             <h3>
+              <a id="txs-table" aria-hidden="true" />
               <FormattedMessage id="transactions" />&nbsp;({txCount})
             </h3>
             <TransactionTable compact={false} refresh={false} ledger={seq} />
-          </Row>}
+          </Row>
+        )}
       </Grid>
     )
   }
@@ -161,13 +152,13 @@ class LedgerContainer extends React.Component {
   }
 
   render() {
-    return this.state.seq === 0
-      ? null
-      : <Ledger
-          urlFn={this.props.server.ledgerURL}
-          {...this.state}
-          {...this.props}
-        />
+    return this.state.seq === 0 ? null : (
+      <Ledger
+        urlFn={this.props.server.ledgerURL}
+        {...this.state}
+        {...this.props}
+      />
+    )
   }
 }
 

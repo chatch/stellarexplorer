@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Table from 'react-bootstrap/lib/Table'
 import {Link} from 'react-router-dom'
 import {FormattedMessage} from 'react-intl'
+
+import AccountLink from './shared/AccountLink'
 import {withSpinner} from './shared/Spinner'
 import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormattedRelative'
 import TransactionHash from './shared/TransactionHash'
@@ -13,14 +15,30 @@ class TransactionRow extends React.Component {
   }
 
   render() {
-    const {ledger, parentRenderTimestamp, opCount, time} = this.props
+    const {
+      compact,
+      hash,
+      sourceAccount,
+      ledger,
+      parentRenderTimestamp,
+      opCount,
+      time,
+    } = this.props
     return (
       <tr>
         <td>
-          <TransactionHash
-            hash={this.props.hash}
-            compact={this.props.compact}
-          />
+          <TransactionHash hash={hash} compact={compact} />
+        </td>
+        {compact === false && (
+          <td className="account-badge">
+            <AccountLink account={sourceAccount} />
+          </td>
+        )}
+        <td>
+          <Link to={`/ledger/${ledger}`}>{ledger}</Link>
+        </td>
+        <td>
+          <Link to={`/tx/${hash}#operations-table`}>{opCount}</Link>
         </td>
         <td>
           <span title={time}>
@@ -30,22 +48,19 @@ class TransactionRow extends React.Component {
             />
           </span>
         </td>
-        <td>{opCount}</td>
-        <td>
-          <Link to={`/ledger/${ledger}`}>{ledger}</Link>
-        </td>
       </tr>
     )
   }
 }
 
 TransactionRow.propTypes = {
-  compact: PropTypes.bool,
-  hash: PropTypes.string,
-  ledger: PropTypes.number,
-  parentRenderTimestamp: PropTypes.number,
-  opCount: PropTypes.number,
-  time: PropTypes.string,
+  compact: PropTypes.bool.isRequired,
+  hash: PropTypes.string.isRequired,
+  ledger: PropTypes.number.isRequired,
+  parentRenderTimestamp: PropTypes.number.isRequired,
+  sourceAccount: PropTypes.string.isRequired,
+  opCount: PropTypes.number.isRequired,
+  time: PropTypes.string.isRequired,
 }
 
 class TransactionTable extends React.Component {
@@ -58,16 +73,21 @@ class TransactionTable extends React.Component {
         <thead>
           <tr>
             <th>#</th>
+            {this.props.compact === false && (
+              <th>
+                <FormattedMessage id="source.account" />
+              </th>
+            )}
             <th>
-              <FormattedMessage id="time" />
+              <FormattedMessage id="ledger" />
             </th>
             <th>
               <FormattedMessage
-                id={this.props.compact === true ? 'ops' : 'operations'}
+                id={this.props.compact ? 'ops' : 'operations'}
               />
             </th>
             <th>
-              <FormattedMessage id="ledger" />
+              <FormattedMessage id="time" />
             </th>
           </tr>
         </thead>

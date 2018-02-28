@@ -12,6 +12,13 @@ const LedgerRow = props => (
       <Link to={`/ledger/${props.sequence}`}>{props.sequence}</Link>
     </td>
     <td>
+      {props.txCount > 0 ? (
+        <Link to={`/ledger/${props.sequence}#txs-table`}>{props.txCount}</Link>
+      ) : (
+        props.txCount
+      )}
+    </td>
+    <td>
       <span title={props.time}>
         <TimeSynchronisedFormattedRelative
           initialNow={props.parentRenderTimestamp}
@@ -19,7 +26,6 @@ const LedgerRow = props => (
         />
       </span>
     </td>
-    <td>{props.txCount}</td>
   </tr>
 )
 
@@ -41,10 +47,10 @@ class LedgerTable extends React.PureComponent {
           <tr>
             <th>#</th>
             <th>
-              <FormattedMessage id="time" />
+              <FormattedMessage id="transactions" />
             </th>
             <th>
-              <FormattedMessage id="transactions" />
+              <FormattedMessage id="time" />
             </th>
           </tr>
         </thead>
