@@ -135,6 +135,10 @@ table {
   margin-top: 2px;
 }
 
+.navbar-default .navbar-nav > li > a:focus {
+  color: #96a2b4;
+}
+
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:hover {
