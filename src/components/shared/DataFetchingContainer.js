@@ -104,7 +104,7 @@ const withDataFetchingContainer = (
           ? rsp.records[0].paging_token
           : 0
       if (cursor === 0) {
-        console.error('NO CURSOR ... ')
+        console.warn('no cursor')
       }
       return {
         isLoading: false,

@@ -29,7 +29,7 @@ class WrappedServer extends sdk.Server {
   //
 
   accountURL = id => `${this.serverURL}accounts/${id}`
-  effectURL = id => `${this.serverURL}effects/${id}`
+  effectURL = id => `${this.serverURL}operations/${id}/effects`
   ledgerURL = id => `${this.serverURL}ledgers/${id}`
   opURL = id => `${this.serverURL}operations/${id}`
   txURL = id => `${this.serverURL}transactions/${id}`

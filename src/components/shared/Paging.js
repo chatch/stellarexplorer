@@ -23,7 +23,6 @@ const withPaging = () => Component => {
     // let children dynamically hide the paging controls
     // eg. if a result set is 0 or small
     handleHide = () => {
-      console.log(`handleHide called!`)
       this.setState({hide: true})
     }
 

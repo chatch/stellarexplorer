@@ -24,7 +24,7 @@ import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
 import Asset from './shared/Asset'
-import EffectList from './EffectList'
+import EffectTable from './EffectTable'
 import OperationTable from './OperationTable'
 import TransactionTable from './TransactionTableContainer'
 import OfferTable from './OfferTable'
@@ -238,6 +238,14 @@ const AccountSummaryPanel = ({
 class Account extends React.Component {
   state = {
     key: 'balances',
+    renderEffects: false,
+  }
+
+  constructor(props, context) {
+    super(props, context)
+    this.handleURIHash = this.handleURIHash.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
+    this.setNewState = this.setNewState.bind(this)
   }
 
   componentDidMount() {
@@ -248,21 +256,28 @@ class Account extends React.Component {
     this.handleURIHash()
   }
 
+  setNewState(tabKey) {
+    const newState = {key: tabKey}
+    if (tabKey === 'effects') newState.renderEffects = true
+    this.setState(newState)
+  }
+
   handleURIHash() {
     if (has(window.location, 'hash') && window.location.hash.length > 1) {
       const tab = window.location.hash.substring(1) // string after '#'
-      this.setState({key: tab})
+      this.setNewState(tab)
     }
   }
 
   handleSelect(key) {
     window.location.hash = `#${key}`
-    this.setState({key})
+    this.setNewState(key)
   }
 
   render() {
     const {formatMessage} = this.props.intl
     const a = this.props.account
+    console.log(`shjoweff: ${JSON.stringify(this.state)}`)
     return (
       <Grid>
         <Row>
@@ -317,7 +332,16 @@ class Account extends React.Component {
               />
             </Tab>
             <Tab eventKey="effects" title={formatMessage({id: 'effects'})}>
-              <EffectList key={a.id} account={a.id} limit={20} usePaging />
+              {// OPTIMISATION: render on focus only as it hits the server for every effect
+              this.state.renderEffects === true && (
+                <EffectTable
+                  key={a.id}
+                  account={a.id}
+                  limit={20}
+                  showAccount={false}
+                  usePaging
+                />
+              )}
             </Tab>
             <Tab eventKey="signing" title={formatMessage({id: 'signing'})}>
               <Signers signers={a.signers} />

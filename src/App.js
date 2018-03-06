@@ -37,6 +37,7 @@ import Operations from './components/Operations'
 import Payments from './components/Payments'
 import Trades from './components/Trades'
 import Assets from './components/Assets'
+import Effects from './components/Effects'
 
 import {networks, Server} from './lib/stellar'
 import {hostnameToNetwork} from './lib/stellar/networks'
@@ -136,6 +137,7 @@ class App extends Component {
                 <Route path="/account/:id" component={Account} />
                 <Route path="/assets" component={Assets} />
                 <Route path="/anchors" component={Anchors} />
+                <Route path="/effects" component={Effects} />
                 <Route path="/exchanges" component={Exchanges} />
                 <Route path="/ledgers" component={Ledgers} />
                 <Route path="/ledger/:id" component={Ledger} />

@@ -85,6 +85,11 @@ class Header extends React.Component {
               title={formatMessage({id: 'more'})}
               id="basic-nav-dropdown"
             >
+              <LinkContainer to="/effects">
+                <MenuItem>
+                  <FormattedMessage id="effects" />
+                </MenuItem>
+              </LinkContainer>
               <LinkContainer to="/payments">
                 <MenuItem>
                   <FormattedMessage id="payments" />

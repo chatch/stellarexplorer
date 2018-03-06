@@ -6,6 +6,7 @@ import has from 'lodash/has'
 import knownAccounts from '../../data/known_accounts'
 
 const AccountLink = ({account, label, hideKnown = false}) => {
+  if (!account || account == null) return null
   let accLabel = label
   if (!accLabel) {
     accLabel =
