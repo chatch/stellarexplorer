@@ -74,8 +74,7 @@ class Effect extends React.Component {
   componentDidMount() {
     this.props.effect
       .operation()
-      .then(eff => eff.transaction())
-      .then(tx => this.setState({tx: tx}))
+      .then(op => this.setState({tx: op.transaction_hash, time: op.created_at}))
   }
 
   render() {
@@ -97,14 +96,14 @@ class Effect extends React.Component {
         </td>
         <td>
           {this.state.tx != null && (
-            <TransactionHash hash={this.state.tx.hash} compact={true} />
+            <TransactionHash hash={this.state.tx} compact={true} />
           )}
         </td>
         <td>
           {this.state.tx != null && (
             <TimeSynchronisedFormattedRelative
               initialNow={this.props.parentRenderTimestamp}
-              value={this.state.tx.created_at}
+              value={this.state.time}
             />
           )}
         </td>
