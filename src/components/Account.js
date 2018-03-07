@@ -219,6 +219,12 @@ const AccountSummaryPanel = ({
                 )}
               </Col>
             </Row>
+            <Row>
+              <Col md={3}>
+                <FormattedMessage id="subentry.count" />:
+              </Col>
+              <Col md={9}>{a.subentry_count}</Col>
+            </Row>
           </Col>
           {has(knownAccounts, a.id) && (
             <Col md={2}>
