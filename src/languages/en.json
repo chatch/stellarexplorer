@@ -12,6 +12,7 @@
 
   "balance": "Balance",
   "balances": "Balances",
+  "bought": "Bought",
   "buy": "Buy",
   "buyer": "Buyer",
   "code": "Code",
@@ -139,6 +140,7 @@
   "settings.trustlines": "Trustlines",
   "signers": "Signers",
   "signing": "Signing",
+  "sold": "Sold",
   "source.account": "Source",
   "stellar.address": "Stellar Address",
   "stellar": "Stellar",

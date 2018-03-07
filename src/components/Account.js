@@ -28,6 +28,7 @@ import EffectTable from './EffectTable'
 import OperationTable from './OperationTable'
 import TransactionTable from './TransactionTableContainer'
 import OfferTable from './OfferTable'
+import PaymentTable from './PaymentTable'
 
 const stellarAddressFromURI = () => {
   if (!window || !window.location || !window.location.pathname) return
@@ -277,7 +278,6 @@ class Account extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
     const a = this.props.account
-    console.log(`shjoweff: ${JSON.stringify(this.state)}`)
     return (
       <Grid>
         <Row>
@@ -297,6 +297,36 @@ class Account extends React.Component {
           >
             <Tab eventKey="balances" title={formatMessage({id: 'balances'})}>
               <Balances balances={a.balances} />
+            </Tab>
+            <Tab eventKey="payments" title={formatMessage({id: 'payments'})}>
+              <PaymentTable
+                key={a.id}
+                account={a.id}
+                compact={false}
+                limit={20}
+                usePaging
+              />
+            </Tab>
+            <Tab eventKey="offers" title={formatMessage({id: 'offers'})}>
+              <OfferTable
+                key={a.id}
+                account={a.id}
+                compact={false}
+                limit={20}
+                usePaging
+              />
+            </Tab>
+            <Tab eventKey="effects" title={formatMessage({id: 'effects'})}>
+              {// OPTIMISATION: render on focus only as it hits the server for every effect
+              this.state.renderEffects === true && (
+                <EffectTable
+                  key={a.id}
+                  account={a.id}
+                  limit={20}
+                  showAccount={false}
+                  usePaging
+                />
+              )}
             </Tab>
             <Tab
               eventKey="operations"
@@ -318,39 +348,26 @@ class Account extends React.Component {
                 key={a.id}
                 account={a.id}
                 compact={false}
-                limit={10}
+                limit={20}
                 usePaging
               />
-            </Tab>
-            <Tab eventKey="offers" title={formatMessage({id: 'offers'})}>
-              <OfferTable
-                key={a.id}
-                account={a.id}
-                compact={false}
-                limit={50}
-                usePaging
-              />
-            </Tab>
-            <Tab eventKey="effects" title={formatMessage({id: 'effects'})}>
-              {// OPTIMISATION: render on focus only as it hits the server for every effect
-              this.state.renderEffects === true && (
-                <EffectTable
-                  key={a.id}
-                  account={a.id}
-                  limit={20}
-                  showAccount={false}
-                  usePaging
-                />
-              )}
             </Tab>
             <Tab eventKey="signing" title={formatMessage({id: 'signing'})}>
-              <Signers signers={a.signers} />
-            </Tab>
-            <Tab
-              eventKey="thresholds"
-              title={formatMessage({id: 'thresholds'})}
-            >
-              <Thresholds thresholds={a.thresholds} />
+              <Row>
+                <Col md={7}>
+                  <Signers signers={a.signers} />
+                </Col>
+                <Col
+                  md={3}
+                  mdOffset={1}
+                  style={{border: '1px solid white', marginTop: 30}}
+                >
+                  <h4>
+                    <FormattedMessage id="thresholds" />
+                  </h4>
+                  <Thresholds thresholds={a.thresholds} />
+                </Col>
+              </Row>
             </Tab>
             <Tab eventKey="flags" title={formatMessage({id: 'flags'})}>
               <Flags flags={a.flags} />

@@ -130,12 +130,29 @@ class ResourceModalContainer extends React.Component {
     )
   }
 
+  /**
+   * Support filtering JSON responses.
+   *
+   * If filterFn property is a function then run it on the records[] in the
+   * response.
+   */
+  filter(rspText, isJson) {
+    let text = rspText
+    if (isJson === true && typeof this.props.filterFn === 'function') {
+      const records = JSON.parse(rspText)['_embedded'].records
+      text = this.props.filterFn(records)
+      // if not found then revert to the original source
+      if (text == null) text = rspText
+    }
+    return text
+  }
+
   componentDidMount() {
     fetch(this.props.url)
       .then(rsp => Promise.all([rsp.text(), this.isJsonResponse(rsp)]))
       .then(([text, isJson]) =>
         this.setState({
-          text,
+          text: this.filter(text, isJson),
           isLoading: false,
           isJson,
           show: true,
@@ -180,6 +197,7 @@ class ResourceModalContainer extends React.Component {
 }
 
 ResourceModalContainer.propTypes = {
+  filterFn: PropTypes.func,
   handleCloseFn: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
   url: PropTypes.string.isRequired,
@@ -216,6 +234,7 @@ class BackendResourceBadgeButtonWithResourceModal extends React.Component {
         />
         {this.state.show && (
           <ResourceModalContainer
+            filterFn={this.props.filterFn}
             handleCloseFn={this.handleClose}
             show={this.state.show}
             url={this.props.url}
@@ -227,6 +246,7 @@ class BackendResourceBadgeButtonWithResourceModal extends React.Component {
 }
 
 BackendResourceBadgeButtonWithResourceModal.propTypes = {
+  filterFn: PropTypes.func,
   label: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
 }
