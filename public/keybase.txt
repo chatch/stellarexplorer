@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/hatcho
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://steexp.com
+  * I am hatcho (https://keybase.io/hatcho) on keybase.
+  * I have a public key ASDtbjzryDm6YQ-5vO2o_BF6Yl5oC7okAMMS93r7Q737dgo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120ed6e3cebc839ba610fb9bceda8fc117a625e680bba2400c312f77afb43bdfb760a",
+      "host": "keybase.io",
+      "kid": "0120ed6e3cebc839ba610fb9bceda8fc117a625e680bba2400c312f77afb43bdfb760a",
+      "uid": "d96a76cbcb4201e12a57e4e49dcb0119",
+      "username": "hatcho"
+    },
+    "merkle_root": {
+      "ctime": 1520561532,
+      "hash": "b99c33ab998bfa13b1bad2878935ddf6c469398afaa649719f3ce275c4fffe9b0d012b52cd2bf93316132f64e3cf93e9993bb7af40473512294a8e06b83cfd6f",
+      "hash_meta": "e8db7ee421c9d18074438408ddc9bf6eda1c22cb90a689003a39c8f0f9e6d2cc",
+      "seqno": 2207243
+    },
+    "service": {
+      "hostname": "steexp.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.45"
+  },
+  "ctime": 1520561558,
+  "expire_in": 504576000,
+  "prev": "69fa22ec427264cc4c748a5968e2040c77f26877d5623530f176e4b95f555722",
+  "seqno": 27,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg7W4868g5umEPubztqPwRemJeaAu6JADDEvd6+0O9+3YKp3BheWxvYWTFA0F7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwZWQ2ZTNjZWJjODM5YmE2MTBmYjliY2VkYThmYzExN2E2MjVlNjgwYmJhMjQwMGMzMTJmNzdhZmI0M2JkZmI3NjBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwZWQ2ZTNjZWJjODM5YmE2MTBmYjliY2VkYThmYzExN2E2MjVlNjgwYmJhMjQwMGMzMTJmNzdhZmI0M2JkZmI3NjBhIiwidWlkIjoiZDk2YTc2Y2JjYjQyMDFlMTJhNTdlNGU0OWRjYjAxMTkiLCJ1c2VybmFtZSI6ImhhdGNobyJ9LCJtZXJrbGVfcm9vdCI6eyJjdGltZSI6MTUyMDU2MTUzMiwiaGFzaCI6ImI5OWMzM2FiOTk4YmZhMTNiMWJhZDI4Nzg5MzVkZGY2YzQ2OTM5OGFmYWE2NDk3MTlmM2NlMjc1YzRmZmZlOWIwZDAxMmI1MmNkMmJmOTMzMTYxMzJmNjRlM2NmOTNlOTk5M2JiN2FmNDA0NzM1MTIyOTRhOGUwNmI4M2NmZDZmIiwiaGFzaF9tZXRhIjoiZThkYjdlZTQyMWM5ZDE4MDc0NDM4NDA4ZGRjOWJmNmVkYTFjMjJjYjkwYTY4OTAwM2EzOWM4ZjBmOWU2ZDJjYyIsInNlcW5vIjoyMjA3MjQzfSwic2VydmljZSI6eyJob3N0bmFtZSI6InN0ZWV4cC5jb20iLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC40NSJ9LCJjdGltZSI6MTUyMDU2MTU1OCwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsInByZXYiOiI2OWZhMjJlYzQyNzI2NGNjNGM3NDhhNTk2OGUyMDQwYzc3ZjI2ODc3ZDU2MjM1MzBmMTc2ZTRiOTVmNTU1NzIyIiwic2Vxbm8iOjI3LCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQKxlvj1cfV1LDmPpx9QGYi4Eq+lQvd74RyhO7vkT5S7T/PXi8NZYgV4B3D7rwc7tJXGWlqAYIhNF0BBNq+wGjgGoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCDivpnD9HIcReygIp+BCTpD/5uwZfd8RBMBfphEws2pQaN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/hatcho
+
+==================================================================
