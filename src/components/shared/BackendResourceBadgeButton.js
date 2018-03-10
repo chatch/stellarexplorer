@@ -18,17 +18,9 @@ const fetch = FetchPonyfill().fetch
  */
 const BackendResourceBadgeButton = ({handleClickFn, label, url}) => (
   <a
+    className="backend-resource-badge-button"
     href={url}
     onClick={handleClickFn}
-    style={{
-      borderRadius: '60px',
-      color: 'white',
-      padding: '4px 12px 4px',
-      backgroundColor: '#01c0c8',
-      fontSize: '14px',
-      fontWeight: '400',
-      transition: 'all .18s ease-in-out',
-    }}
   >
     {label}
   </a>
