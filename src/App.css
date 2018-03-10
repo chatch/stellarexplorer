@@ -518,8 +518,13 @@ Mobile Rules
     width: 100%;
   }
 
+  [id*='-table'] {
+    font-size: 12px !important;
+  }
+
   .account-badge a {
     padding: 4px 7px;
+    font-size: 12px;
   }
 
   .backend-resource-badge-button {
