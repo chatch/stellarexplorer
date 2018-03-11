@@ -117,7 +117,9 @@ class Ledger extends React.Component {
                     <FormattedNumber value={baseFee} /> stroops
                   </DetailRow>
                   <DetailRow label="Base Reserve">
-                    {baseInStroops ? stroopsToLumens(baseReserve) : baseReserve}{' '}
+                    {baseInStroops
+                      ? stroopsToLumens(baseReserve)
+                      : Number(baseReserve)}{' '}
                     XLM
                   </DetailRow>
                   <DetailRow label="Max Transactions">
