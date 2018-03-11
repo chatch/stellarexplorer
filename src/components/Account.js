@@ -38,7 +38,8 @@ const stellarAddressFromURI = () => {
 }
 
 const NameValueTable = ({data, decodeValue = false}) => {
-  if (!data || Object.keys(data).length === 0) return <div>No Data</div>
+  if (!data || Object.keys(data).length === 0)
+    return <div style={{marginTop: 20, marginBottom: 20}}>No Data</div>
   return (
     <Table>
       <thead>
@@ -319,6 +320,7 @@ class Account extends React.Component {
                 account={a.id}
                 compact={false}
                 limit={20}
+                showSeller={false}
                 usePaging
               />
             </Tab>
@@ -355,6 +357,7 @@ class Account extends React.Component {
                 account={a.id}
                 compact={false}
                 limit={20}
+                showSource={false}
                 usePaging
               />
             </Tab>

@@ -51,9 +51,11 @@ const Offer = props => {
 
 const OfferRow = props => (
   <tr key={props.id} className="trade">
-    <td className="account-badge">
-      <AccountLink account={props.seller} />
-    </td>
+    {props.showSeller === true && (
+      <td className="account-badge">
+        <AccountLink account={props.seller} />
+      </td>
+    )}
     <td>
       <SellingAsset {...props} />
     </td>
@@ -76,6 +78,7 @@ Offer.propTypes = {
   sellingAssetCode: PropTypes.string,
   sellingAssetIssuer: PropTypes.string,
   sellingAssetType: PropTypes.string.isRequired,
+  showSeller: PropTypes.bool,
 }
 
 export {Offer as default, OfferRow}

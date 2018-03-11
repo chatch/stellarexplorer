@@ -13,6 +13,10 @@ import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
 
 class OfferTable extends React.Component {
+  static defaultProps = {
+    showSeller: true,
+  }
+
   componentDidMount() {
     if (this.props.records.length <= this.props.limit) {
       this.props.hidePagingFn()
@@ -20,7 +24,7 @@ class OfferTable extends React.Component {
   }
 
   render() {
-    const records = this.props.records
+    const {records, showSeller} = this.props
     if (records.length === 0) return <div>No Offers</div>
     return (
       <Table
@@ -29,9 +33,11 @@ class OfferTable extends React.Component {
       >
         <thead>
           <tr>
-            <th>
-              <FormattedMessage id="seller" />
-            </th>
+            {showSeller && (
+              <th>
+                <FormattedMessage id="seller" />
+              </th>
+            )}
             <th>
               <FormattedMessage id="sell" />
             </th>
@@ -60,6 +66,7 @@ class OfferTable extends React.Component {
               sellingAssetCode={offer.selling.asset_code}
               sellingAssetIssuer={offer.selling.asset_issuer}
               sellingAssetType={offer.selling.asset_type}
+              showSeller={showSeller}
             />
           ))}
         </tbody>
@@ -72,6 +79,7 @@ OfferTable.propTypes = {
   compact: PropTypes.bool,
   records: PropTypes.array.isRequired,
   server: PropTypes.object.isRequired,
+  showSeller: PropTypes.bool,
 }
 
 const rspRecToPropsRec = record => {

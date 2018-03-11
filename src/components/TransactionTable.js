@@ -10,11 +10,6 @@ import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormatte
 import TransactionHash from './shared/TransactionHash'
 
 class TransactionRow extends React.Component {
-  static defaultProps = {
-    compact: true,
-    showLedger: true,
-  }
-
   render() {
     const {
       compact,
@@ -24,6 +19,7 @@ class TransactionRow extends React.Component {
       parentRenderTimestamp,
       opCount,
       showLedger,
+      showSource,
       time,
     } = this.props
     return (
@@ -31,7 +27,7 @@ class TransactionRow extends React.Component {
         <td>
           <TransactionHash hash={hash} compact={compact} />
         </td>
-        {compact === false && (
+        {showSource === true && (
           <td className="account-badge">
             <AccountLink account={sourceAccount} />
           </td>
@@ -64,12 +60,20 @@ TransactionRow.propTypes = {
   parentRenderTimestamp: PropTypes.number.isRequired,
   sourceAccount: PropTypes.string.isRequired,
   opCount: PropTypes.number.isRequired,
+  showLedger: PropTypes.bool,
+  showSource: PropTypes.bool,
   time: PropTypes.string.isRequired,
 }
 
 class TransactionTable extends React.Component {
+  static defaultProps = {
+    compact: true,
+    showLedger: true,
+    showSource: true,
+  }
+
   render() {
-    const {compact, parentRenderTimestamp, showLedger} = this.props
+    const {compact, parentRenderTimestamp, showLedger, showSource} = this.props
     return (
       <Table
         id="transaction-table"
@@ -78,7 +82,7 @@ class TransactionTable extends React.Component {
         <thead>
           <tr>
             <th>#</th>
-            {compact === false && (
+            {showSource === true && (
               <th>
                 <FormattedMessage id="source.account" />
               </th>
@@ -103,6 +107,7 @@ class TransactionTable extends React.Component {
               compact={compact}
               parentRenderTimestamp={parentRenderTimestamp}
               showLedger={showLedger}
+              showSource={showSource}
               {...tx}
             />
           ))}
@@ -117,6 +122,7 @@ TransactionTable.propTypes = {
   parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array.isRequired,
   showLedger: PropTypes.bool,
+  showSource: PropTypes.bool,
 }
 
 export default withSpinner()(TransactionTable)
