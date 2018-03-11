@@ -12,15 +12,20 @@ import {
   FormattedMessage,
   FormattedTime,
 } from 'react-intl'
+import has from 'lodash/has'
 
-import {handleFetchDataFailure, shortHash} from '../lib/utils'
+import {handleFetchDataFailure, shortHash, stroopsToLumens} from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import TransactionTable from './TransactionTableContainer'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
-const STROOPS_PER_LUMEN = 10000000
+const ledgerHash = hash => shortHash(hash, 20)
 
 const responseToState = rsp => {
+  // NOTE: as at 11 March 2018 testnet horizon returns base values in stroops
+  //        but mainnet returns in lumens. so handling both until all are moved
+  //        to stroops.
+  const baseInStroops = has(rsp, 'base_fee_in_stroops')
   return {
     seq: rsp.sequence,
     time: rsp.closed_at,
@@ -32,9 +37,11 @@ const responseToState = rsp => {
     protocol: rsp.protocol_version,
     totalCoins: rsp.total_coins, // maybe display these on the front page ...?
     feePool: rsp.fee_pool,
-    baseFee: rsp.base_fee_in_stroops,
-    baseReserve: rsp.base_reserve_in_stroops,
     maxTxSetSize: rsp.max_tx_set_size,
+
+    baseInStroops,
+    baseFee: baseInStroops ? rsp.base_fee_in_stroops : rsp.base_fee,
+    baseReserve: baseInStroops ? rsp.base_reserve_in_stroops : rsp.base_reserve,
   }
 }
 
@@ -50,6 +57,7 @@ const DetailRow = ({label, children}) => (
 class Ledger extends React.Component {
   render() {
     const {
+      baseInStroops,
       baseFee,
       baseReserve,
       feePool,
@@ -88,12 +96,12 @@ class Ledger extends React.Component {
                     <FormattedTime value={time} />
                   </DetailRow>
                   <DetailRow label="hash">
-                    <span title={hash}>{shortHash(hash, 20)}</span>
+                    <span title={hash}>{ledgerHash(hash)}</span>
                   </DetailRow>
                   <DetailRow label="prevHash">
                     <span title={prevHash}>
                       <Link to={`/ledger/${prevSeq}`}>
-                        {shortHash(prevHash, 20)}
+                        {ledgerHash(prevHash)}
                       </Link>
                     </span>
                   </DetailRow>
@@ -109,7 +117,8 @@ class Ledger extends React.Component {
                     <FormattedNumber value={baseFee} /> stroops
                   </DetailRow>
                   <DetailRow label="Base Reserve">
-                    {baseReserve / STROOPS_PER_LUMEN} XLM
+                    {baseInStroops ? stroopsToLumens(baseReserve) : baseReserve}{' '}
+                    XLM
                   </DetailRow>
                   <DetailRow label="Max Transactions">
                     {maxTxSetSize} per ledger

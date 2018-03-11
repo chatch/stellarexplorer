@@ -3,6 +3,9 @@ import {tmpdir} from 'os'
 import truncate from 'lodash/truncate'
 import {sdk} from './stellar'
 
+const STROOPS_PER_LUMEN = 10000000
+const stroopsToLumens = stroops => stroops / STROOPS_PER_LUMEN
+
 const isPublicKey = keyStr => sdk.StrKey.isValidEd25519PublicKey(keyStr)
 // stellar federated address (eg. "stellar*fed.network")
 const isStellarAddress = addr => /^[^*,]*\*[a-z0-9-.]*$/i.test(addr)
@@ -67,4 +70,5 @@ export {
   isTxHash,
   shortHash,
   storageInit,
+  stroopsToLumens,
 }
