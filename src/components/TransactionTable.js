@@ -12,6 +12,7 @@ import TransactionHash from './shared/TransactionHash'
 class TransactionRow extends React.Component {
   static defaultProps = {
     compact: true,
+    showLedger: true,
   }
 
   render() {
@@ -22,6 +23,7 @@ class TransactionRow extends React.Component {
       ledger,
       parentRenderTimestamp,
       opCount,
+      showLedger,
       time,
     } = this.props
     return (
@@ -34,9 +36,11 @@ class TransactionRow extends React.Component {
             <AccountLink account={sourceAccount} />
           </td>
         )}
-        <td>
-          <Link to={`/ledger/${ledger}`}>{ledger}</Link>
-        </td>
+        {showLedger === true && (
+          <td>
+            <Link to={`/ledger/${ledger}`}>{ledger}</Link>
+          </td>
+        )}
         <td>
           <Link to={`/tx/${hash}#operations-table`}>{opCount}</Link>
         </td>
@@ -65,6 +69,7 @@ TransactionRow.propTypes = {
 
 class TransactionTable extends React.Component {
   render() {
+    const {compact, parentRenderTimestamp, showLedger} = this.props
     return (
       <Table
         id="transaction-table"
@@ -73,18 +78,18 @@ class TransactionTable extends React.Component {
         <thead>
           <tr>
             <th>#</th>
-            {this.props.compact === false && (
+            {compact === false && (
               <th>
                 <FormattedMessage id="source.account" />
               </th>
             )}
+            {showLedger === true && (
+              <th>
+                <FormattedMessage id="ledger" />
+              </th>
+            )}
             <th>
-              <FormattedMessage id="ledger" />
-            </th>
-            <th>
-              <FormattedMessage
-                id={this.props.compact ? 'ops' : 'operations'}
-              />
+              <FormattedMessage id={compact ? 'ops' : 'operations'} />
             </th>
             <th>
               <FormattedMessage id="time" />
@@ -95,8 +100,9 @@ class TransactionTable extends React.Component {
           {this.props.records.map(tx => (
             <TransactionRow
               key={tx.hash}
-              compact={this.props.compact}
-              parentRenderTimestamp={this.props.parentRenderTimestamp}
+              compact={compact}
+              parentRenderTimestamp={parentRenderTimestamp}
+              showLedger={showLedger}
               {...tx}
             />
           ))}
@@ -110,6 +116,7 @@ TransactionTable.propTypes = {
   compact: PropTypes.bool,
   parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array.isRequired,
+  showLedger: PropTypes.bool,
 }
 
 export default withSpinner()(TransactionTable)

@@ -12,7 +12,7 @@ class Transactions extends React.Component {
       <Grid>
         <Row>
           <Panel header={formatMessage({id: 'transactions'})}>
-            <TransactionTable usePaging compact={false} limit={20} />
+            <TransactionTable usePaging showLedger compact={false} limit={20} />
           </Panel>
         </Row>
       </Grid>

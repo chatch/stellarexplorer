@@ -118,7 +118,12 @@ class Ledger extends React.Component {
               <a id="txs-table" aria-hidden="true" />
               <FormattedMessage id="transactions" />&nbsp;({txCount})
             </h3>
-            <TransactionTable compact={false} refresh={false} ledger={seq} />
+            <TransactionTable
+              compact={false}
+              ledger={seq}
+              refresh={false}
+              showLedger={false}
+            />
           </Row>
         )}
       </Grid>

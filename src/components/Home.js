@@ -44,7 +44,7 @@ class Home extends React.Component {
                 '/txs'
               )}
             >
-              <TransactionTable compact fill limit={10} refresh />
+              <TransactionTable compact showLedger fill limit={10} refresh />
             </Panel>
             <Panel
               header={panelHeader(
