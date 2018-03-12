@@ -488,3 +488,47 @@ a:hover {
 .green-blue-button:hover {
   background-color: #01a8af !important;
 }
+
+.backend-resource-badge-button {
+  border-radius: 60px;
+  color: white;
+  padding: 4px 12px 4px;
+  background-color: #01c0c8;
+  font-size: 14px;
+  font-weight: 400;
+  transition: all .18s ease-in-out;
+}
+
+/*
+Mobile Rules
+*/
+
+
+@media only screen and (max-width: 600px) {
+  #Search-Container .input-group {
+    width: 100%;
+  }
+
+  #Search-Container input {
+    font-size: 12px;
+    width: 100%;
+  }
+  
+  #operation-table {
+    table-layout: fixed;
+  }
+
+  [id*='-table'] {
+    font-size: 12px !important;
+  }
+
+  .account-badge a {
+    padding: 4px 7px;
+    font-size: 12px;
+  }
+
+  .backend-resource-badge-button {
+    font-size: 12px;
+    padding: 4px 7px;
+  }
+}
