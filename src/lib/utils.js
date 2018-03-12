@@ -3,11 +3,14 @@ import {tmpdir} from 'os'
 import truncate from 'lodash/truncate'
 import {sdk} from './stellar'
 
+const STROOPS_PER_LUMEN = 10000000
+const stroopsToLumens = stroops => stroops / STROOPS_PER_LUMEN
+
 const isPublicKey = keyStr => sdk.StrKey.isValidEd25519PublicKey(keyStr)
 // stellar federated address (eg. "stellar*fed.network")
 const isStellarAddress = addr => /^[^*,]*\*[a-z0-9-.]*$/i.test(addr)
 const isTxHash = hashStr => /^[0-9a-f]{64}$/i.test(hashStr)
-const shortHash = hash => truncate(hash, {length: 10})
+const shortHash = (hash, length = 10) => truncate(hash, {length})
 
 const isDefInt = (obj, key) => {
   if (!obj || !key || obj.hasOwnProperty(key) === false) return false
@@ -67,4 +70,5 @@ export {
   isTxHash,
   shortHash,
   storageInit,
+  stroopsToLumens,
 }

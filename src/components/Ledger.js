@@ -1,4 +1,5 @@
 import React from 'react'
+import Col from 'react-bootstrap/lib/Col'
 import Grid from 'react-bootstrap/lib/Grid'
 import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
@@ -7,16 +8,24 @@ import {Link} from 'react-router-dom'
 import {
   injectIntl,
   FormattedDate,
-  FormattedTime,
+  FormattedNumber,
   FormattedMessage,
+  FormattedTime,
 } from 'react-intl'
+import has from 'lodash/has'
 
-import {handleFetchDataFailure} from '../lib/utils'
+import {handleFetchDataFailure, shortHash, stroopsToLumens} from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import TransactionTable from './TransactionTableContainer'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
+const ledgerHash = hash => shortHash(hash, 20)
+
 const responseToState = rsp => {
+  // NOTE: as at 11 March 2018 testnet horizon returns base values in stroops
+  //        but mainnet returns in lumens. so handling both until all are moved
+  //        to stroops.
+  const baseInStroops = has(rsp, 'base_fee_in_stroops')
   return {
     seq: rsp.sequence,
     time: rsp.closed_at,
@@ -28,22 +37,39 @@ const responseToState = rsp => {
     protocol: rsp.protocol_version,
     totalCoins: rsp.total_coins, // maybe display these on the front page ...?
     feePool: rsp.fee_pool,
-    baseFee: rsp.base_fee,
-    baseReserve: rsp.base_reserve,
     maxTxSetSize: rsp.max_tx_set_size,
+
+    baseInStroops,
+    baseFee: baseInStroops ? rsp.base_fee_in_stroops : rsp.base_fee,
+    baseReserve: baseInStroops ? rsp.base_reserve_in_stroops : rsp.base_reserve,
   }
 }
+
+const DetailRow = ({label, children}) => (
+  <tr>
+    <td>
+      <FormattedMessage id={label} />
+    </td>
+    <td>{children}</td>
+  </tr>
+)
 
 class Ledger extends React.Component {
   render() {
     const {
+      baseInStroops,
+      baseFee,
+      baseReserve,
+      feePool,
       hash,
+      maxTxSetSize,
       opCount,
       prevHash,
       prevSeq,
       protocol,
       seq,
       time,
+      totalCoins,
       txCount,
       urlFn,
     } = this.props
@@ -55,61 +81,60 @@ class Ledger extends React.Component {
         <Row>
           <Panel
             header={titleWithJSONButton(
-              formatMessage({id: 'ledger'}),
+              <span>
+                {formatMessage({id: 'ledger'})}{' '}
+                <span className="secondary-heading">{seq}</span>
+              </span>,
               urlFn(seq)
             )}
           >
-            <Table>
-              <tbody>
-                <tr>
-                  <td>#</td>
-                  <td>{seq}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <FormattedMessage id="time" />
-                  </td>
-                  <td>
-                    <FormattedDate value={time} />&nbsp;
+            <Col md={6}>
+              <Table>
+                <tbody>
+                  <DetailRow label="time">
+                    <FormattedDate value={time} />{' '}
                     <FormattedTime value={time} />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <FormattedMessage id="hash" />
-                  </td>
-                  <td>{hash}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <FormattedMessage id="prevHash" />
-                  </td>
-                  <td>
-                    <Link to={`/ledger/${prevSeq}`}>{prevHash}</Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <FormattedMessage id="protocolVersion" />
-                  </td>
-                  <td>{protocol}</td>
-                </tr>
-                {opCount === 0 && (
-                  <tr>
-                    <td>
-                      <FormattedMessage id="transactions" />
-                    </td>
-                    <td>{txCount}</td>
-                  </tr>
-                )}
-                <tr>
-                  <td>
-                    <FormattedMessage id="operations" />
-                  </td>
-                  <td>{opCount}</td>
-                </tr>
-              </tbody>
-            </Table>
+                  </DetailRow>
+                  <DetailRow label="hash">
+                    <span title={hash}>{ledgerHash(hash)}</span>
+                  </DetailRow>
+                  <DetailRow label="prevHash">
+                    <span title={prevHash}>
+                      <Link to={`/ledger/${prevSeq}`}>
+                        {ledgerHash(prevHash)}
+                      </Link>
+                    </span>
+                  </DetailRow>
+                  <DetailRow label="transactions">{txCount}</DetailRow>
+                  <DetailRow label="operations">{opCount}</DetailRow>
+                </tbody>
+              </Table>
+            </Col>
+            <Col md={6}>
+              <Table>
+                <tbody>
+                  <DetailRow label="Base Fee">
+                    <FormattedNumber value={baseFee} /> stroops
+                  </DetailRow>
+                  <DetailRow label="Base Reserve">
+                    {baseInStroops
+                      ? stroopsToLumens(baseReserve)
+                      : Number(baseReserve)}{' '}
+                    XLM
+                  </DetailRow>
+                  <DetailRow label="Max Transactions">
+                    {maxTxSetSize} per ledger
+                  </DetailRow>
+                  <DetailRow label="Fee Pool">
+                    <FormattedNumber value={feePool} /> XLM
+                  </DetailRow>
+                  <DetailRow label="Total Coins">
+                    <FormattedNumber value={totalCoins} /> XLM
+                  </DetailRow>
+                  <DetailRow label="protocolVersion">{protocol}</DetailRow>
+                </tbody>
+              </Table>
+            </Col>
           </Panel>
         </Row>
         {opCount > 0 && (
@@ -118,7 +143,12 @@ class Ledger extends React.Component {
               <a id="txs-table" aria-hidden="true" />
               <FormattedMessage id="transactions" />&nbsp;({txCount})
             </h3>
-            <TransactionTable compact={false} refresh={false} ledger={seq} />
+            <TransactionTable
+              compact={false}
+              ledger={seq}
+              refresh={false}
+              showLedger={false}
+            />
           </Row>
         )}
       </Grid>

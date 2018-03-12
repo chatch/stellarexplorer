@@ -6,8 +6,8 @@ import Table from 'react-bootstrap/lib/Table'
 import {Link} from 'react-router-dom'
 import {
   FormattedDate,
-  FormattedTime,
   FormattedMessage,
+  FormattedTime,
   injectIntl,
 } from 'react-intl'
 import PropTypes from 'prop-types'
@@ -41,20 +41,16 @@ class Transaction extends React.Component {
         <Row>
           <Panel
             header={titleWithJSONButton(
+              <span>
+                {formatMessage({id: 'transaction'})}{' '}
+                <span className="secondary-heading">{id}</span>
+              </span>,
               formatMessage({id: 'transaction.details'}),
               urlFn(id)
             )}
           >
             <Table>
               <tbody>
-                <tr>
-                  <td>
-                    <FormattedMessage id="hash" />
-                  </td>
-                  <td>
-                    <span style={{wordBreak: 'break-all'}}>{id}</span>
-                  </td>
-                </tr>
                 <tr>
                   <td>
                     <FormattedMessage id="time" />
@@ -80,7 +76,10 @@ class Transaction extends React.Component {
                 </tr>
                 <tr>
                   <td>
-                    <FormattedMessage id="memo" /> ({memoTypeToLabel[memoType]})
+                    <FormattedMessage id="memo" />{' '}
+                    <span className="secondary-heading">
+                      ({memoTypeToLabel[memoType]})
+                    </span>
                   </td>
                   <td>
                     {memoType === MemoHash || memoType === MemoReturn

@@ -10,10 +10,6 @@ import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormatte
 import TransactionHash from './shared/TransactionHash'
 
 class TransactionRow extends React.Component {
-  static defaultProps = {
-    compact: true,
-  }
-
   render() {
     const {
       compact,
@@ -22,6 +18,8 @@ class TransactionRow extends React.Component {
       ledger,
       parentRenderTimestamp,
       opCount,
+      showLedger,
+      showSource,
       time,
     } = this.props
     return (
@@ -29,14 +27,16 @@ class TransactionRow extends React.Component {
         <td>
           <TransactionHash hash={hash} compact={compact} />
         </td>
-        {compact === false && (
+        {showSource === true && (
           <td className="account-badge">
             <AccountLink account={sourceAccount} />
           </td>
         )}
-        <td>
-          <Link to={`/ledger/${ledger}`}>{ledger}</Link>
-        </td>
+        {showLedger === true && (
+          <td>
+            <Link to={`/ledger/${ledger}`}>{ledger}</Link>
+          </td>
+        )}
         <td>
           <Link to={`/tx/${hash}#operations-table`}>{opCount}</Link>
         </td>
@@ -60,11 +60,20 @@ TransactionRow.propTypes = {
   parentRenderTimestamp: PropTypes.number.isRequired,
   sourceAccount: PropTypes.string.isRequired,
   opCount: PropTypes.number.isRequired,
+  showLedger: PropTypes.bool,
+  showSource: PropTypes.bool,
   time: PropTypes.string.isRequired,
 }
 
 class TransactionTable extends React.Component {
+  static defaultProps = {
+    compact: true,
+    showLedger: true,
+    showSource: true,
+  }
+
   render() {
+    const {compact, parentRenderTimestamp, showLedger, showSource} = this.props
     return (
       <Table
         id="transaction-table"
@@ -73,18 +82,18 @@ class TransactionTable extends React.Component {
         <thead>
           <tr>
             <th>#</th>
-            {this.props.compact === false && (
+            {showSource === true && (
               <th>
                 <FormattedMessage id="source.account" />
               </th>
             )}
+            {showLedger === true && (
+              <th>
+                <FormattedMessage id="ledger" />
+              </th>
+            )}
             <th>
-              <FormattedMessage id="ledger" />
-            </th>
-            <th>
-              <FormattedMessage
-                id={this.props.compact ? 'ops' : 'operations'}
-              />
+              <FormattedMessage id={compact ? 'ops' : 'operations'} />
             </th>
             <th>
               <FormattedMessage id="time" />
@@ -95,8 +104,10 @@ class TransactionTable extends React.Component {
           {this.props.records.map(tx => (
             <TransactionRow
               key={tx.hash}
-              compact={this.props.compact}
-              parentRenderTimestamp={this.props.parentRenderTimestamp}
+              compact={compact}
+              parentRenderTimestamp={parentRenderTimestamp}
+              showLedger={showLedger}
+              showSource={showSource}
               {...tx}
             />
           ))}
@@ -110,6 +121,8 @@ TransactionTable.propTypes = {
   compact: PropTypes.bool,
   parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array.isRequired,
+  showLedger: PropTypes.bool,
+  showSource: PropTypes.bool,
 }
 
 export default withSpinner()(TransactionTable)

@@ -80,6 +80,12 @@ table {
   color: #fa6f46 !important;
 }
 
+.secondary-heading {
+  color: #96a2b4;
+  font-size: small;
+  overflow-wrap: break-word;
+}
+
 [id*='-table'] {
   font-size: 14px !important;
 }

@@ -5,7 +5,14 @@ import {
   isStellarAddress,
   isTxHash,
   shortHash,
+  stroopsToLumens,
 } from '../utils'
+
+it('stroopsToLumens converts correctly', () => {
+  expect(stroopsToLumens(100)).toBe(0.00001)
+  expect(stroopsToLumens(5000000)).toBe(0.5)
+  expect(stroopsToLumens(5000000000)).toBe(500)
+})
 
 it('isDefInt checks for defined int correctly', () => {
   expect(isDefInt()).toBe(false)
