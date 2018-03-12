@@ -23,11 +23,12 @@ Local: http://localhost:3000
 
 ### Directory
 
-| Resource  | URI                                        |
-| --------- | ------------------------------------------ |
-| Assets    | [/assets](https://steexp.com/assets)       |
-| Anchors   | [/anchors](https://steexp.com/anchors)     |
-| Exchanges | [/exchanges](https://steexp.com/exchanges) |
+| Resource        | URI                                        |
+| --------------- | ------------------------------------------ |
+| Assets          | [/assets](https://steexp.com/assets)       |
+| Anchors         | [/anchors](https://steexp.com/anchors)     |
+| Exchanges       | [/exchanges](https://steexp.com/exchanges) |
+| Inflation Pools | [/pools](https://steexp.com/pools)         |
 
 ### Accounts
 
@@ -52,14 +53,14 @@ Local: http://localhost:3000
 
 ### Search
 
-| Resource           | URI                                                                                                                                                                    |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Federated address  | [/search/steexp\*fed.network](https://steexp.com/search/steexp*fed.network)                                                                                            |
-| Public address     | [/search/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX](https://steexp.com/search/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX)                 |
-| Ledger             | [/search/10000000](https://steexp.com/search/10000000)                                                                                                                 |
-| Transaction        | [/search/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071](https://steexp.com/search/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071) |
-| Asset Code [SOON]  | [/search/MOBI](https://steexp.com/search/MOBI)                                                                                                                         |
-| Anchor Name [SOON] | [/search/ripplefox](https://steexp.com/search/ripplefox)                                                                                                               |
+| Resource          | URI                                                                                                                                                                    |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Federated address | [/search/steexp\*fed.network](https://steexp.com/search/steexp*fed.network)                                                                                            |
+| Public address    | [/search/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX](https://steexp.com/search/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX)                 |
+| Ledger            | [/search/10000000](https://steexp.com/search/10000000)                                                                                                                 |
+| Transaction       | [/search/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071](https://steexp.com/search/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071) |
+| Asset Code        | [/search/MOBI](https://steexp.com/search/MOBI)                                                                                                                         |
+| Anchor Name       | [/search/ripplefox](https://steexp.com/search/ripplefox)                                                                                                               |
 
 ### Misc
 
@@ -67,6 +68,7 @@ Local: http://localhost:3000
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Transaction | [/tx/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071](https://steexp.com/tx/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071) |
 | Ledger      | [/ledger/10000000](https://steexp.com/ledger/10000000)                                                                                                         |
+| Anchor      | [/anchor/apay.io](https://steexp.com/anchor/apay.io)                                                                                                           |
 
 ## Exploring Private / Local Development Networks<a name="private-networks"></a>
 
