@@ -7,7 +7,6 @@ import {FormattedMessage, injectIntl} from 'react-intl'
 import PropTypes from 'prop-types'
 
 import AccountLink from './shared/AccountLink'
-import Logo from './shared/Logo'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 import pools from '../data/inflation_pools.json'
