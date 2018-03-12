@@ -64,7 +64,7 @@ class Anchor extends React.Component {
           </Panel>
         </Row>
 
-        <Row>
+        <Row style={{marginLeft: 10, marginRight: 10}}>
           <h3>
             <FormattedMessage id="assets" />
           </h3>
