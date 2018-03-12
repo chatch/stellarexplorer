@@ -100,6 +100,11 @@ class Header extends React.Component {
                   <FormattedMessage id="trades" />
                 </MenuItem>
               </LinkContainer>
+              <LinkContainer to="/pools">
+                <MenuItem>
+                  <FormattedMessage id="inflation.pools" />
+                </MenuItem>
+              </LinkContainer>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

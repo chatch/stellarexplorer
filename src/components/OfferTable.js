@@ -25,7 +25,10 @@ class OfferTable extends React.Component {
 
   render() {
     const {records, showSeller} = this.props
-    if (records.length === 0) return <div>No Offers</div>
+
+    if (records.length === 0)
+      return <div style={{marginTop: 20, marginBottom: 20}}>No Offers</div>
+
     return (
       <Table
         id="offer-table"

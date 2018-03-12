@@ -39,6 +39,7 @@ import Payments from './components/Payments'
 import Trades from './components/Trades'
 import Assets from './components/Assets'
 import Effects from './components/Effects'
+import InflationPools from './components/InflationPools'
 
 import {networks, Server} from './lib/stellar'
 import {hostnameToNetwork} from './lib/stellar/networks'
@@ -148,6 +149,7 @@ class App extends Component {
                 <Route path="/trades" component={Trades} />
                 <Route path="/txs" component={Transactions} />
                 <Route path="/tx/:id" component={Transaction} />
+                <Route path="/pools" component={InflationPools} />
                 <Route
                   path="/search/:id"
                   render={({match}) => {
