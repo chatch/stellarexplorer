@@ -12,14 +12,14 @@ Local: http://localhost:3000
 
 ### Lists
 
-| Resource       | URI                                          |
-| -------------- | -------------------------------------------- |
-| Operations     | [/operations](https://steexp.com/operations) |
-| Transactions   | [/txs](https://steexp.com/txs)               |
-| Ledgers        | [/ledgers](https://steexp.com/ledgers)       |
-| Payments       | [/payments](https://steexp.com/payments)     |
-| Trades         | [/trades](https://steexp.com/trades)         |
-| Effects [SOON] | [/effects](https://steexp.com/effects)       |
+| Resource     | URI                                          |
+| ------------ | -------------------------------------------- |
+| Operations   | [/operations](https://steexp.com/operations) |
+| Transactions | [/txs](https://steexp.com/txs)               |
+| Ledgers      | [/ledgers](https://steexp.com/ledgers)       |
+| Payments     | [/payments](https://steexp.com/payments)     |
+| Trades       | [/trades](https://steexp.com/trades)         |
+| Effects      | [/effects](https://steexp.com/effects)       |
 
 ### Directory
 
@@ -40,12 +40,14 @@ Local: http://localhost:3000
 
 | Resource         | URI                                                                                                       |
 | ---------------- | --------------------------------------------------------------------------------------------------------- |
+| Balances Tab     | [/account/stellar\*fed.network#balances](https://steexp.com/account/stellar*fed.network#balances)         |
+| Payments Tab     | [/account/stellar\*fed.network#payments](https://steexp.com/account/stellar*fed.network#payments)         |
+| Offers Tab       | [/account/stellar\*fed.network#offers](https://steexp.com/account/stellar*fed.network#offers)             |
+| Effects Tab      | [/account/stellar\*fed.network#effects](https://steexp.com/account/stellar*fed.network#effects)           |
 | Operations Tab   | [/account/stellar\*fed.network#operations](https://steexp.com/account/stellar*fed.network#operations)     |
 | Transactions Tab | [/account/stellar\*fed.network#transactions](https://steexp.com/account/stellar*fed.network#transactions) |
-| Effects Tab      | [/account/stellar\*fed.network#effects](https://steexp.com/account/stellar*fed.network#effects)           |
 | Signing Tab      | [/account/stellar\*fed.network#signing](https://steexp.com/account/stellar*fed.network#signing)           |
 | Flags Tab        | [/account/stellar\*fed.network#flags](https://steexp.com/account/stellar*fed.network#flags)               |
-| Thresholds Tab   | [/account/stellar\*fed.network#thresholds](https://steexp.com/account/stellar*fed.network#thresholds)     |
 | Data Tab         | [/account/stellar\*fed.network#data](https://steexpcom/account/stellar*fed.network#data)                  |
 
 ### Search
