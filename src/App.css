@@ -39,6 +39,15 @@ table {
   word-break: break-all;
 }
 
+#home .panel-heading {
+  padding-left: 0px;
+}
+
+#home .panel {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 /*
  * Bootstrap components and styles
  */

@@ -23,7 +23,7 @@ class Home extends React.Component {
     const {formatMessage} = this.props.intl
     const viewAllStr = formatMessage({id: 'view.all'})
     return (
-      <Grid>
+      <Grid id="home">
         <Row>
           <Col md={8}>
             <Panel
