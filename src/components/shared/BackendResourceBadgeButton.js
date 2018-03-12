@@ -117,8 +117,9 @@ class ResourceModalContainer extends React.Component {
 
   isJsonResponse(rsp) {
     return (
-      rsp.headers.has('content-type') &&
-      rsp.headers.get('content-type').indexOf('json') !== -1
+      this.props.url.endsWith('.json') ||
+      (rsp.headers.has('content-type') &&
+        rsp.headers.get('content-type').indexOf('json') !== -1)
     )
   }
 
