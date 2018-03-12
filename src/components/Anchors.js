@@ -4,11 +4,12 @@ import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import Table from 'react-bootstrap/lib/Table'
 import {FormattedMessage, injectIntl} from 'react-intl'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
-import BackendResourceBadgeButton from './shared/BackendResourceBadgeButton'
+import StellarTomlBadge from './shared/StellarTomlBadge'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 import directory from '../data/directory'
@@ -51,23 +52,24 @@ const TradeColumn = ({assets, domain}) => (
 )
 
 const Anchor = ({assets, domain, displayName, logo, website}) => {
-  const toml = `https://${domain}/.well-known/stellar.toml`
   return (
     <tr className="directoryRow">
       <td>
-        <a href={website} target="_blank">
+        <Link to={`/anchor/${domain}`}>
           <Logo name={domain} src={logo} />
-        </a>
+        </Link>
       </td>
-      <td className="anchorLinkCol stellarToml">
-        <div>{displayName}</div>
+      <td className="anchorLinkCol">
+        <div>
+          <Link to={`/anchor/${domain}`}>{displayName}</Link>
+        </div>
         <div>
           <a href={website} target="_blank">
             {website}
           </a>
         </div>
         <div>
-          <BackendResourceBadgeButton label="server.toml" url={toml} />
+          <StellarTomlBadge domain={domain} />
         </div>
       </td>
       <td>

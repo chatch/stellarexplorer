@@ -31,6 +31,7 @@ import Transaction from './components/Transaction'
 import Transactions from './components/Transactions'
 import Account from './components/Account'
 import Accounts from './components/Accounts'
+import Anchor from './components/Anchor'
 import Anchors from './components/Anchors'
 import Exchanges from './components/Exchanges'
 import Operations from './components/Operations'
@@ -137,6 +138,7 @@ class App extends Component {
                 <Route path="/account/:id" component={Account} />
                 <Route path="/assets" component={Assets} />
                 <Route path="/anchors" component={Anchors} />
+                <Route path="/anchor/:id" component={Anchor} />
                 <Route path="/effects" component={Effects} />
                 <Route path="/exchanges" component={Exchanges} />
                 <Route path="/ledgers" component={Ledgers} />

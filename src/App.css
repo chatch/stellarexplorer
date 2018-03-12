@@ -320,7 +320,7 @@ ul.navbar-nav .divider-vertical {
   transition: all 0.18s ease-in-out;
 }
 
-.stellarToml span a {
+.stellarToml a {
   text-decoration: none;
   letter-spacing: 0.05em;
   border-radius: 60px !important;
@@ -502,13 +502,12 @@ a:hover {
   background-color: #01c0c8;
   font-size: 14px;
   font-weight: 400;
-  transition: all .18s ease-in-out;
+  transition: all 0.18s ease-in-out;
 }
 
 /*
 Mobile Rules
 */
-
 
 @media only screen and (max-width: 600px) {
   #Search-Container .input-group {
@@ -519,7 +518,7 @@ Mobile Rules
     font-size: 12px;
     width: 100%;
   }
-  
+
   #operation-table {
     table-layout: fixed;
   }
