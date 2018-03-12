@@ -489,10 +489,6 @@ a:hover {
   background-color: #01a8af !important;
 }
 
-#operation-table {
-  table-layout: fixed;
-}
-
 .backend-resource-badge-button {
   border-radius: 60px;
   color: white;
@@ -516,6 +512,10 @@ Mobile Rules
   #Search-Container input {
     font-size: 12px;
     width: 100%;
+  }
+  
+  #operation-table {
+    table-layout: fixed;
   }
 
   [id*='-table'] {
