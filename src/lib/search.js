@@ -50,9 +50,7 @@ const searchStrToPath = searchStr => {
   // search by anchor name (exact or substring)
   const nameMatch = searchAnchorName(str)
   if (nameMatch.length > 0) {
-    console.log(nameMatch[0])
-    return null
-    // return `/account/${nameMatch[0].issuer}`
+    return `/anchor/${nameMatch[0]}`
   }
 
   return `/error/not-found/${searchStr}`

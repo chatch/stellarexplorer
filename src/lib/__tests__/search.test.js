@@ -61,4 +61,9 @@ describe('searchStrToPath', () => {
       '/account/GBVAOIACNSB7OVUXJYC5UE2D4YK2F7A24T7EE5YOMN4CE6GCHUTOUQXM'
     )
   })
+
+  it('returns /anchor/<domain> for matching anchor substrings', () => {
+    expect(searchStrToPath('bear')).toEqual('/anchor/vcbear.net')
+    expect(searchStrToPath('fox')).toEqual('/anchor/ripplefox.com')
+  })
 })

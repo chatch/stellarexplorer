@@ -80,19 +80,21 @@ class Anchor extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {Object.keys(anchor.assets).map(code => (
-                <tr key={code}>
-                  <td>{code}</td>
-                  <td>
-                    <AccountLink
-                      account={anchor.assets[code].substring(
-                        anchor.assets[code].indexOf('-') + 1
-                      )}
-                      hideKnown
-                    />
-                  </td>
-                </tr>
-              ))}
+              {Object.keys(anchor.assets)
+                .sort()
+                .map(code => (
+                  <tr key={code}>
+                    <td>{code}</td>
+                    <td>
+                      <AccountLink
+                        account={anchor.assets[code].substring(
+                          anchor.assets[code].indexOf('-') + 1
+                        )}
+                        hideKnown
+                      />
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </Row>
