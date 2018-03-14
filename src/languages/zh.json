@@ -94,7 +94,7 @@
   "operation.payment": "支付 {amount} {asset} 给 {recipient}",
   "operation.payment.path": "路径 {asset} 最大 {max}",
   "operation.trust": "信托 {trustee} 发行 {assetCode}",
-  "operation.trust.allow": " [authorize: {authorize}]",
+  "operation.trust.allow": " [authorize: {authorize}, trustor: {trustor}]",
   "operation.trust.change": "与限制{limit}",
 
   "optional": "选填",
