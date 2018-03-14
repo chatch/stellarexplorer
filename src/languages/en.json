@@ -127,7 +127,7 @@
   "recipient": "Recipient",
   "remove": "Remove",
 
-  "search.placeHolder": "Search by Ledger / Acct. ID / Transaction #",
+  "search.placeHolder": "Search by Account / Transaction / Anchor / ...",
   "sell": "Sell",
   "seller": "Seller",
   "sell.offers": "Sell offers",

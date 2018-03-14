@@ -8,30 +8,119 @@ import {injectIntl} from 'react-intl'
 import {searchStrToPath} from '../../lib/search'
 
 const HelpModal = props => (
-  <Modal show={props.show} onHide={props.handleCloseFn}>
+  <Modal id="help-modal" show={props.show} onHide={props.handleCloseFn}>
     <Modal.Header closeButton>
-      <Modal.Title id="contained-modal-title-lg">Search Help</Modal.Title>
+      <Modal.Title id="contained-modal-title-lg" style={{color: '#dce2ec'}}>
+        Search Help
+      </Modal.Title>
     </Modal.Header>
-    <Modal.Body style={{color: '#dce2ec'}}>
+    <Modal.Body style={{color: '#96a2b4'}}>
+      <h4>Search By:</h4>
+      <br />
       <div>
-        Search By:
-        <ul>
-          <li>Stellar address</li>
-          <li>Asset code</li>
-          <li>Anchor name</li>
-          <li>Public account</li>
-          <li>Transaction Hash</li>
-          <li>Ledger Number</li>
-        </ul>
+        <h5>Stellar Address</h5>
+        Also called a{' '}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.stellar.org/developers/guides/concepts/federation.html#stellar-addresses"
+        >
+          Stellar federated address
+        </a>
+        <img
+          src={`${process.env.PUBLIC_URL}/search/search_stellar_address.png`}
+          alt="search by ledger"
+        />
       </div>
       <div>
-        <h4>Stellar address</h4>
-        Search by public address here
+        <h5>Account ID</h5>
+        Also called a Public Key or Public Address
+        <img
+          src={`${process.env.PUBLIC_URL}/search/search_account_public.png`}
+          alt="search by public account address"
+          width="100%"
+        />
       </div>
       <div>
-        <h4>Asset code</h4>
-        If there is only one asset for the matching code the issuer account page
-        is shown. If there is more then one then select the asset from the list.
+        <h5>Anchor Name</h5>
+        <div>
+          as listed on the{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://steexp.com/anchors"
+          >
+            Anchors Page
+          </a>
+        </div>
+        <div>
+          <br />
+          Full name:<br />
+          <img
+            src={`${process.env.PUBLIC_URL}/search/search_anchor_name_full.png`}
+            alt="search by anchor full name"
+          />
+        </div>
+        <div style={{marginTop: 20}}>
+          Partial name:<br />
+          <img
+            src={`${
+              process.env.PUBLIC_URL
+            }/search/search_anchor_name_partial.png`}
+            alt="search by anchor partial name"
+          />
+        </div>
+      </div>
+      <div>
+        <h5>Asset Code</h5>
+        Search by code will load the account page of the{' '}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.stellar.org/developers/guides/concepts/assets.html#anchors-issuing-assets"
+        >
+          Asset Issuer
+        </a>.
+        <img
+          src={`${process.env.PUBLIC_URL}/search/search_asset.png`}
+          alt="search by asset code"
+        />
+      </div>
+      <div>
+        <h5>Transaction Hash</h5>
+        <img
+          src={`${process.env.PUBLIC_URL}/search/search_tx_hash.png`}
+          alt="search by transaction hash"
+          width="100%"
+        />
+      </div>
+      <div>
+        <h5>Ledger</h5>
+        <img
+          src={`${process.env.PUBLIC_URL}/search/search_ledger.png`}
+          alt="search by ledger"
+        />
+      </div>
+      <hr />
+      <h4>OpenSearch:</h4>
+      <div>
+        Stellar Explorer supports{' '}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch"
+        >
+          OpenSearch
+        </a>. This allows you to search directly from your browser search box or
+        search bar. You should see something like the following when you
+        navigate to Stellar Explorer then open the search box. Install it from
+        there:
+        <br />
+        <img
+          src="https://user-images.githubusercontent.com/1477978/33513399-8cf8ac52-d774-11e7-9585-ddc5467a5a2d.png"
+          alt="search by transaction hash"
+          width="80%"
+        />
       </div>
     </Modal.Body>
   </Modal>
