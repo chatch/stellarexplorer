@@ -48,12 +48,8 @@ table {
   padding-right: 15px;
 }
 
-#resourceModal .close {
-  color: white;
-}
-
-#resourceModal .modal-header,
-#resourceModal .modal-body {
+.modal-header,
+.modal-body {
   background-color: #383f4b;
 }
 
@@ -196,6 +192,11 @@ ul.navbar-nav .divider-vertical {
   border-color: rgba(120, 130, 140, 0.28);
 }
 
+.break {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
 /*
  * Change the navbar collapse point. Collapse at higher widths then the default.
  *
@@ -244,13 +245,25 @@ ul.navbar-nav .divider-vertical {
 }
 
 /*************************************************************/
-
 @media (min-width: 768px) {
   #Search-Container {
     padding-top: 10px;
   }
   #Search-Container input {
-    width: 420px !important;
+    width: 610px !important;
+  }
+  #Search-Container .glyphicon-info-sign {
+    position: relative;
+    left: 45px;
+    top: -5px;
+    font-size: 31px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+@media (max-width: 767px) {
+  #Search-Container .glyphicon-info-sign {
+    display: none;
   }
 }
 
@@ -295,6 +308,7 @@ ul.navbar-nav .divider-vertical {
 .glyphicon-search {
   height: 20px;
   width: 20px;
+  background-color: #edeef0;
   padding-top: 0px !important;
   cursor: pointer;
 }

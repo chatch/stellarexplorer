@@ -66,7 +66,7 @@ ClipboardCopyButton.propTypes = {
 
 const ResourceModalBody = ({handleCloseFn, isJson, show, text, url}) => (
   <div>
-    <div style={{marginBottom: 15, wordBreak: 'break-all'}}>
+    <div className="break" style={{marginBottom: 15}}>
       <a href={url} target="_blank">
         {url}
       </a>

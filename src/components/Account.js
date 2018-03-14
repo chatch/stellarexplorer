@@ -78,10 +78,10 @@ const balanceRow = bal => (
       />
     </td>
     <td>
-      <span style={{wordBreak: 'break-all'}}>{bal.balance}</span>
+      <span className="break">{bal.balance}</span>
     </td>
     <td>
-      <span style={{wordBreak: 'break-all'}}>{bal.limit}</span>
+      <span className="break">{bal.limit}</span>
     </td>
   </tr>
 )
@@ -189,7 +189,7 @@ const AccountSummaryPanel = ({
                 <FormattedMessage id="key.public" />:
               </Col>
               <Col md={9}>
-                <span style={{wordBreak: 'break-all'}}>{a.id}</span>
+                <span className="break">{a.id}</span>
               </Col>
             </Row>
             {stellarAddr && (

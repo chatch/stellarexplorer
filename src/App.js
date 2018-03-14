@@ -128,9 +128,7 @@ class App extends Component {
               language={this.state.language}
               languageSwitcher={this.languageSwitcher}
             />
-            <div id="Search-Container">
-              <SearchBox />
-            </div>
+            <SearchBox />
             <div id="main-content">
               <SponsoredLink />
               <Switch>
