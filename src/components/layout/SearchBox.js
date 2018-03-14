@@ -73,14 +73,6 @@ const HelpModal = props => (
       </div>
       <div>
         <h5>Asset Code</h5>
-        Search by code will load the account page of the{' '}
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.stellar.org/developers/guides/concepts/assets.html#anchors-issuing-assets"
-        >
-          Asset Issuer
-        </a>.
         <img
           src={`${process.env.PUBLIC_URL}/search/search_asset.png`}
           alt="search by asset code"

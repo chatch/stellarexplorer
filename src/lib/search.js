@@ -18,7 +18,7 @@ const lcIncludes = (str1, str2) =>
 
 const searchAssetCode = code =>
   Object.keys(assets)
-    .filter(key => lcEquals(assets[key].code, code))
+    .filter(key => lcEquals(assets[key].code, code.toUpperCase()))
     .map(key => assets[key])
 
 const searchAnchorName = name =>
@@ -44,7 +44,7 @@ const searchStrToPath = searchStr => {
   // search by asset code
   const codeMatch = searchAssetCode(str)
   if (codeMatch.length > 0) {
-    return `/account/${codeMatch[0].issuer}`
+    return `/asset/${str.toUpperCase()}`
   }
 
   // search by anchor name (exact or substring)

@@ -136,6 +136,7 @@ class App extends Component {
                 <Route path="/accounts" component={Accounts} />
                 <Route path="/account/:id" component={Account} />
                 <Route path="/assets" component={Assets} />
+                <Route path="/asset/:id" component={Assets} />
                 <Route path="/anchors" component={Anchors} />
                 <Route path="/anchor/:id" component={Anchor} />
                 <Route path="/effects" component={Effects} />

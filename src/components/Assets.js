@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/lib/Row'
 import Table from 'react-bootstrap/lib/Table'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import PropTypes from 'prop-types'
+import has from 'lodash/has'
 
 import AccountLink from './shared/AccountLink'
 import BackendResourceBadgeButton from './shared/BackendResourceBadgeButton'
@@ -30,14 +31,14 @@ const Asset = ({code, domain, issuer}) => {
       <td>
         <AccountLink account={issuer} hideKnown />
       </td>
-      <td className="stellarToml">
+      <td>
         <div>{anchor.name}</div>
         <div>
           <a href={anchor.website} target="_blank">
             {anchor.website}
           </a>
         </div>
-        <div>
+        <div className="stellarToml">
           <BackendResourceBadgeButton
             label="server.toml"
             url={`https://${domain}/.well-known/stellar.toml`}
@@ -55,12 +56,21 @@ Asset.propTypes = {
 
 class Assets extends React.Component {
   render() {
-    if (!assets) return null
     const {formatMessage} = this.props.intl
     const header = titleWithJSONButton(
       formatMessage({id: 'assets'}),
       METADATA_PATH
     )
+
+    // if we have a code from /asset/<code> then show only assets with code
+    // starting with <code>; otherwise show all assets (/assets)
+    const allAssetKeys = Object.keys(assets)
+    const assetKeys = has(this.props, 'match.params.id')
+      ? allAssetKeys.filter(k =>
+          k.startsWith(this.props.match.params.id.toUpperCase())
+        )
+      : allAssetKeys
+
     return (
       <Grid>
         <Row>
@@ -81,12 +91,10 @@ class Assets extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(assets)
-                  .sort()
-                  .map(key => {
-                    const asset = assets[key]
-                    return <Asset key={key} {...asset} />
-                  })}
+                {assetKeys.sort().map(key => {
+                  const asset = assets[key]
+                  return <Asset key={key} {...asset} />
+                })}
               </tbody>
             </Table>
           </Panel>
