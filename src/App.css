@@ -48,6 +48,15 @@ table {
   padding-right: 15px;
 }
 
+#resourceModal .close {
+  color: white;
+}
+
+#resourceModal .modal-header,
+#resourceModal .modal-body {
+  background-color: #383f4b;
+}
+
 /*
  * Bootstrap components and styles
  */

@@ -66,18 +66,7 @@ ClipboardCopyButton.propTypes = {
 
 const ResourceModalBody = ({handleCloseFn, isJson, show, text, url}) => (
   <div>
-    <div>
-      <ClipboardCopyButton text={text} />
-      <Button
-        bsSize="sm"
-        style={{float: 'right', backgroundColor: '#96a2b4'}}
-        onClick={handleCloseFn}
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </Button>
-    </div>
-    <div style={{marginTop: 20, marginBottom: 20, wordBreak: 'break-all'}}>
+    <div style={{marginBottom: 15, wordBreak: 'break-all'}}>
       <a href={url} target="_blank">
         {url}
       </a>
@@ -91,8 +80,11 @@ const ResourceModalBody = ({handleCloseFn, isJson, show, text, url}) => (
 const ResourceModalBodyWithSpinner = withSpinner()(ResourceModalBody)
 
 const ResourceModal = props => (
-  <Modal show={props.show} onHide={props.handleCloseFn}>
-    <Modal.Body style={{backgroundColor: '#383f4b'}}>
+  <Modal id="resourceModal" show={props.show} onHide={props.handleCloseFn}>
+    <Modal.Header closeButton>
+      <ClipboardCopyButton text={props.text} />
+    </Modal.Header>
+    <Modal.Body>
       <ResourceModalBodyWithSpinner {...props} />
     </Modal.Body>
   </Modal>
