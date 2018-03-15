@@ -5,7 +5,9 @@ import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger'
 import Tooltip from 'react-bootstrap/lib/Tooltip'
 import CopyToClipboard from 'react-copy-to-clipboard'
 
-const CopyIcon = <Glyphicon glyph="copy" style={{marginLeft: 10}} />
+const CopyIcon = (
+  <Glyphicon glyph="copy" style={{fontSize: 'small', marginLeft: 5}} />
+)
 const TooltipCopy = <Tooltip id="tooltip-copy">Copy to Clipboard</Tooltip>
 const TooltipCopied = (
   <Tooltip id="tooltip-copied" className="in">

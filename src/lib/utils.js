@@ -20,6 +20,9 @@ const isDefInt = (obj, key) => {
 const base64Decode = value => Buffer.from(value, 'base64').toString()
 const base64DecodeToHex = value => Buffer.from(value, 'base64').toString('hex')
 
+// Extract asset issuer address from keys in the form <code>-<issuer>
+const assetKeyToIssuer = key => key.substring(key.indexOf('-') + 1)
+
 const handleFetchDataFailure = id => e => {
   let status
   if (e.data && e.data.status) status = e.data.status
@@ -61,6 +64,7 @@ const storageInit = () => {
 }
 
 export {
+  assetKeyToIssuer,
   base64Decode,
   base64DecodeToHex,
   handleFetchDataFailure,

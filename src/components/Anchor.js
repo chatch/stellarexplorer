@@ -7,9 +7,12 @@ import {injectIntl, FormattedMessage} from 'react-intl'
 import has from 'lodash/has'
 
 import AccountLink from './shared/AccountLink'
+import ClipboardCopy from './shared/ClipboardCopy'
 import Logo from './shared/Logo'
 import NewWindowIcon from './shared/NewWindowIcon'
 import StellarTomlBadge from './shared/StellarTomlBadge'
+
+import {assetKeyToIssuer} from '../lib/utils'
 
 import directory from '../data/directory'
 const {anchors} = directory
@@ -53,8 +56,8 @@ class Anchor extends React.Component {
                     <div style={{marginTop: 10}}>
                       <a href={anchor.website} target="_blank">
                         {anchor.website}
+                        <NewWindowIcon />
                       </a>
-                      <NewWindowIcon />
                     </div>
                     <div style={{marginTop: 15}}>
                       <StellarTomlBadge domain={domain} />
@@ -84,19 +87,18 @@ class Anchor extends React.Component {
             <tbody>
               {Object.keys(anchor.assets)
                 .sort()
-                .map(code => (
-                  <tr key={code}>
-                    <td>{code}</td>
-                    <td>
-                      <AccountLink
-                        account={anchor.assets[code].substring(
-                          anchor.assets[code].indexOf('-') + 1
-                        )}
-                        hideKnown
-                      />
-                    </td>
-                  </tr>
-                ))}
+                .map(code => {
+                  const issuer = assetKeyToIssuer(anchor.assets[code])
+                  return (
+                    <tr key={code}>
+                      <td>{code}</td>
+                      <td>
+                        <AccountLink account={issuer} hideKnown />
+                        <ClipboardCopy text={issuer} />
+                      </td>
+                    </tr>
+                  )
+                })}
             </tbody>
           </Table>
         </Row>

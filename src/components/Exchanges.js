@@ -27,8 +27,8 @@ const Exchange = ({accounts, home, name, logo, decentralized = false}) => {
       <td>
         <a href={homeLink} target="_blank">
           {home}
+          <NewWindowIcon />
         </a>
-        <NewWindowIcon />
       </td>
       <td>
         {!isEmpty(accounts) &&

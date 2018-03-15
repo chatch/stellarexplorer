@@ -22,8 +22,8 @@ const Pool = ({account, name, website}) => {
       <td>
         <a href={website} target="_blank">
           {website}
+          <NewWindowIcon />
         </a>
-        <NewWindowIcon />
       </td>
       <td>
         <AccountLink account={account} hideKnown />

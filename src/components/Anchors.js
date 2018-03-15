@@ -8,10 +8,13 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import AccountLink from './shared/AccountLink'
+import ClipboardCopy from './shared/ClipboardCopy'
 import Logo from './shared/Logo'
 import NewWindowIcon from './shared/NewWindowIcon'
 import StellarTomlBadge from './shared/StellarTomlBadge'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
+
+import {assetKeyToIssuer} from '../lib/utils'
 
 import directory from '../data/directory'
 const {anchors} = directory
@@ -29,14 +32,15 @@ const AssetCodeColumn = ({assets}) => (
 
 const IssuerColumn = ({assets}) => (
   <span>
-    {Object.keys(assets).map(code => (
-      <div key={code}>
-        <AccountLink
-          account={assets[code].substring(assets[code].indexOf('-') + 1)}
-          hideKnown
-        />
-      </div>
-    ))}
+    {Object.keys(assets).map(code => {
+      const issuer = assetKeyToIssuer(assets[code])
+      return (
+        <div key={code}>
+          <AccountLink account={issuer} hideKnown />
+          <ClipboardCopy text={issuer} />
+        </div>
+      )
+    })}
   </span>
 )
 
@@ -67,8 +71,8 @@ const Anchor = ({assets, domain, displayName, logo, website}) => {
         <div>
           <a href={website} target="_blank">
             {website}
+            <NewWindowIcon />
           </a>
-          <NewWindowIcon />
         </div>
         <div>
           <StellarTomlBadge domain={domain} />

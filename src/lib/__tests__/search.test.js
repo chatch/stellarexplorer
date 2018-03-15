@@ -54,12 +54,8 @@ describe('searchStrToPath', () => {
   })
 
   it('returns /account/<issuer> for matching asset codes', () => {
-    expect(searchStrToPath('MOBI')).toEqual(
-      '/account/GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH'
-    )
-    expect(searchStrToPath('JPY')).toEqual(
-      '/account/GBVAOIACNSB7OVUXJYC5UE2D4YK2F7A24T7EE5YOMN4CE6GCHUTOUQXM'
-    )
+    expect(searchStrToPath('MOBI')).toEqual('/asset/MOBI')
+    expect(searchStrToPath('JPY')).toEqual('/asset/JPY')
   })
 
   it('returns /anchor/<domain> for matching anchor substrings', () => {

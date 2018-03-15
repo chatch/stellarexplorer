@@ -70,8 +70,8 @@ const ResourceModalBody = ({handleCloseFn, isJson, show, text, url}) => (
     <div className="break" style={{marginBottom: 15}}>
       <a href={url} target="_blank">
         {url}
+        <NewWindowIcon />
       </a>
-      <NewWindowIcon />
     </div>
     <div>
       {isJson ? <JSONPretty id="json-pretty" json={text} /> : <pre>{text}</pre>}

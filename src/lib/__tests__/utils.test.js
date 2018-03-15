@@ -1,4 +1,5 @@
 import {
+  assetKeyToIssuer,
   base64Decode,
   isDefInt,
   isPublicKey,
@@ -7,6 +8,19 @@ import {
   shortHash,
   stroopsToLumens,
 } from '../utils'
+
+it('assetKeyToIssuer extracts correctly', () => {
+  expect(
+    assetKeyToIssuer(
+      'NGN-GCLRUZDCWBHS7VIFCT43BARPP63BHR32HMEVKXYQODA5BU6SIGFK4HL2'
+    )
+  ).toBe('GCLRUZDCWBHS7VIFCT43BARPP63BHR32HMEVKXYQODA5BU6SIGFK4HL2')
+  expect(
+    assetKeyToIssuer(
+      'MOBI-GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH'
+    )
+  ).toBe('GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH')
+})
 
 it('stroopsToLumens converts correctly', () => {
   expect(stroopsToLumens(100)).toBe(0.00001)

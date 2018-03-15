@@ -15,6 +15,7 @@ import {
 import has from 'lodash/has'
 
 import {handleFetchDataFailure, shortHash, stroopsToLumens} from '../lib/utils'
+import ClipboardCopy from './shared/ClipboardCopy'
 import {withServer} from './shared/HOCs'
 import TransactionTable from './TransactionTableContainer'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -84,6 +85,7 @@ class Ledger extends React.Component {
               <span>
                 {formatMessage({id: 'ledger'})}{' '}
                 <span className="secondary-heading">{seq}</span>
+                <ClipboardCopy text={seq} />
               </span>,
               urlFn(seq)
             )}

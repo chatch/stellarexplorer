@@ -9,6 +9,7 @@ import has from 'lodash/has'
 
 import AccountLink from './shared/AccountLink'
 import BackendResourceBadgeButton from './shared/BackendResourceBadgeButton'
+import ClipboardCopy from './shared/ClipboardCopy'
 import Logo from './shared/Logo'
 import NewWindowIcon from './shared/NewWindowIcon'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -31,14 +32,15 @@ const Asset = ({code, domain, issuer}) => {
       <td style={{color: 'white'}}>{code}</td>
       <td>
         <AccountLink account={issuer} hideKnown />
+        <ClipboardCopy text={issuer} />
       </td>
       <td>
         <div>{anchor.name}</div>
         <div>
           <a href={anchor.website} target="_blank">
             {anchor.website}
+            <NewWindowIcon />
           </a>
-          <NewWindowIcon />
         </div>
         <div className="stellarToml">
           <BackendResourceBadgeButton
