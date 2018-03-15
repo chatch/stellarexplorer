@@ -22,13 +22,14 @@ import {withSpinner} from './shared/Spinner'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 import AccountLink from './shared/AccountLink'
-import Logo from './shared/Logo'
 import Asset from './shared/Asset'
+import ClipboardCopy from './shared/ClipboardCopy'
 import EffectTable from './EffectTable'
+import Logo from './shared/Logo'
 import OperationTable from './OperationTable'
-import TransactionTable from './TransactionTableContainer'
 import OfferTable from './OfferTable'
 import PaymentTable from './PaymentTable'
+import TransactionTable from './TransactionTableContainer'
 
 const stellarAddressFromURI = () => {
   if (!window || !window.location || !window.location.pathname) return
@@ -190,6 +191,7 @@ const AccountSummaryPanel = ({
               </Col>
               <Col md={9}>
                 <span className="break">{a.id}</span>
+                <ClipboardCopy text={a.id} />
               </Col>
             </Row>
             {stellarAddr && (

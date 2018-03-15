@@ -12,6 +12,8 @@
 
   "balance": "Balance",
   "balances": "Balances",
+  "base.fee": "Base Fee",
+  "base.reserve": "Base Reserve",
   "bought": "Bought",
   "buy": "Buy",
   "buyer": "Buyer",
@@ -37,6 +39,7 @@
   "fed.protocol": "Federation Protocol",
   "fed.url": "Federation URL",
   "fee": "Fee",
+  "fee.pool": "Fee Pool",
   "flags": "Flags",
 
   "hash": "Hash",
@@ -61,6 +64,7 @@
   "key": "Key",
   "key.public": "Public Key",
 
+  "max.transactions": "Max Transactions",
   "memo": "Memo",
   "memotype": "Memo Type",
   "memotype.id": "ID",
@@ -152,7 +156,8 @@
   "threshold.medium": "Medium",
   "threshold.high": "High",
   "time": "Time",
-  "title": "Stellar English",
+  "title": "Stellar Explorer",
+  "total.coins": "Total Coins",
   "trade": "Trade",
   "trades": "Trades",
   "translate.help": "Help Translate",

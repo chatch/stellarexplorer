@@ -113,22 +113,22 @@ class Ledger extends React.Component {
             <Col md={6}>
               <Table>
                 <tbody>
-                  <DetailRow label="Base Fee">
+                  <DetailRow label="base.fee">
                     <FormattedNumber value={baseFee} /> stroops
                   </DetailRow>
-                  <DetailRow label="Base Reserve">
+                  <DetailRow label="base.reserve">
                     {baseInStroops
                       ? stroopsToLumens(baseReserve)
                       : Number(baseReserve)}{' '}
                     XLM
                   </DetailRow>
-                  <DetailRow label="Max Transactions">
+                  <DetailRow label="max.transactions">
                     {maxTxSetSize} per ledger
                   </DetailRow>
-                  <DetailRow label="Fee Pool">
+                  <DetailRow label="fee.pool">
                     <FormattedNumber value={feePool} /> XLM
                   </DetailRow>
-                  <DetailRow label="Total Coins">
+                  <DetailRow label="total.coins">
                     <FormattedNumber value={totalCoins} /> XLM
                   </DetailRow>
                   <DetailRow label="protocolVersion">{protocol}</DetailRow>

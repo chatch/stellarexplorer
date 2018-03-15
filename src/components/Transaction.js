@@ -14,6 +14,7 @@ import PropTypes from 'prop-types'
 import {MemoHash, MemoReturn} from 'stellar-sdk'
 
 import {base64DecodeToHex, handleFetchDataFailure} from '../lib/utils'
+import ClipboardCopy from './shared/ClipboardCopy'
 import {withServer} from './shared/HOCs'
 import OperationTable from './OperationTable'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -44,6 +45,7 @@ class Transaction extends React.Component {
               <span>
                 {formatMessage({id: 'transaction'})}{' '}
                 <span className="secondary-heading">{id}</span>
+                <ClipboardCopy text={id} />
               </span>,
               formatMessage({id: 'transaction.details'}),
               urlFn(id)
