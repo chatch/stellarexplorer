@@ -5,6 +5,7 @@ import JSONPretty from 'react-json-pretty'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
+import NewWindowIcon from '../shared/NewWindowIcon'
 import {withSpinner} from '../shared/Spinner'
 
 import FetchPonyfill from 'fetch-ponyfill'
@@ -70,6 +71,7 @@ const ResourceModalBody = ({handleCloseFn, isJson, show, text, url}) => (
       <a href={url} target="_blank">
         {url}
       </a>
+      <NewWindowIcon />
     </div>
     <div>
       {isJson ? <JSONPretty id="json-pretty" json={text} /> : <pre>{text}</pre>}

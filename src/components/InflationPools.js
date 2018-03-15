@@ -7,6 +7,7 @@ import {FormattedMessage, injectIntl} from 'react-intl'
 import PropTypes from 'prop-types'
 
 import AccountLink from './shared/AccountLink'
+import NewWindowIcon from './shared/NewWindowIcon'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 import pools from '../data/inflation_pools.json'
@@ -22,6 +23,7 @@ const Pool = ({account, name, website}) => {
         <a href={website} target="_blank">
           {website}
         </a>
+        <NewWindowIcon />
       </td>
       <td>
         <AccountLink account={account} hideKnown />

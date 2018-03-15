@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
+import NewWindowIcon from './shared/NewWindowIcon'
 import StellarTomlBadge from './shared/StellarTomlBadge'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
@@ -67,6 +68,7 @@ const Anchor = ({assets, domain, displayName, logo, website}) => {
           <a href={website} target="_blank">
             {website}
           </a>
+          <NewWindowIcon />
         </div>
         <div>
           <StellarTomlBadge domain={domain} />

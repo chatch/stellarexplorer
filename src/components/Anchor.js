@@ -8,6 +8,7 @@ import has from 'lodash/has'
 
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
+import NewWindowIcon from './shared/NewWindowIcon'
 import StellarTomlBadge from './shared/StellarTomlBadge'
 
 import directory from '../data/directory'
@@ -53,6 +54,7 @@ class Anchor extends React.Component {
                       <a href={anchor.website} target="_blank">
                         {anchor.website}
                       </a>
+                      <NewWindowIcon />
                     </div>
                     <div style={{marginTop: 15}}>
                       <StellarTomlBadge domain={domain} />

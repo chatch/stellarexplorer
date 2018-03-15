@@ -9,6 +9,7 @@ import isEmpty from 'lodash/isEmpty'
 import {decentralized, centralized} from '../data/exchanges'
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
+import NewWindowIcon from './shared/NewWindowIcon'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 const METADATA_PATH =
@@ -27,6 +28,7 @@ const Exchange = ({accounts, home, name, logo, decentralized = false}) => {
         <a href={homeLink} target="_blank">
           {home}
         </a>
+        <NewWindowIcon />
       </td>
       <td>
         {!isEmpty(accounts) &&

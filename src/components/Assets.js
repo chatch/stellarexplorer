@@ -10,6 +10,7 @@ import has from 'lodash/has'
 import AccountLink from './shared/AccountLink'
 import BackendResourceBadgeButton from './shared/BackendResourceBadgeButton'
 import Logo from './shared/Logo'
+import NewWindowIcon from './shared/NewWindowIcon'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 import directory from '../data/directory'
@@ -37,6 +38,7 @@ const Asset = ({code, domain, issuer}) => {
           <a href={anchor.website} target="_blank">
             {anchor.website}
           </a>
+          <NewWindowIcon />
         </div>
         <div className="stellarToml">
           <BackendResourceBadgeButton
