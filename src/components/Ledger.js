@@ -85,7 +85,7 @@ class Ledger extends React.Component {
               <span>
                 {formatMessage({id: 'ledger'})}{' '}
                 <span className="secondary-heading">{seq}</span>
-                <ClipboardCopy text={seq} />
+                <ClipboardCopy text={String(seq)} />
               </span>,
               urlFn(seq)
             )}

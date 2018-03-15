@@ -6,9 +6,10 @@ import {sdk} from './stellar'
 const STROOPS_PER_LUMEN = 10000000
 const stroopsToLumens = stroops => stroops / STROOPS_PER_LUMEN
 
-const isPublicKey = keyStr => sdk.StrKey.isValidEd25519PublicKey(keyStr)
 // stellar federated address (eg. "stellar*fed.network")
 const isStellarAddress = addr => /^[^*,]*\*[a-z0-9-.]*$/i.test(addr)
+const isPublicKey = keyStr => sdk.StrKey.isValidEd25519PublicKey(keyStr)
+const isSecretKey = keyStr => sdk.StrKey.isValidEd25519SecretSeed(keyStr)
 const isTxHash = hashStr => /^[0-9a-f]{64}$/i.test(hashStr)
 const shortHash = (hash, length = 10) => truncate(hash, {length})
 
@@ -70,6 +71,7 @@ export {
   handleFetchDataFailure,
   isDefInt,
   isPublicKey,
+  isSecretKey,
   isStellarAddress,
   isTxHash,
   shortHash,

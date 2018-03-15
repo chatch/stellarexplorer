@@ -5,7 +5,9 @@ import InputGroup from 'react-bootstrap/lib/InputGroup'
 import Modal from 'react-bootstrap/lib/Modal'
 import {withRouter} from 'react-router'
 import {injectIntl} from 'react-intl'
+
 import {searchStrToPath} from '../../lib/search'
+import {isSecretKey} from '../../lib/utils'
 
 const HelpModal = props => (
   <Modal id="help-modal" show={props.show} onHide={props.handleCloseFn}>
@@ -143,6 +145,10 @@ class SearchBox extends React.Component {
     event.preventDefault()
     const matchPath = searchStrToPath(this.state.searchStr)
     this.props.history.push(matchPath)
+    // #62 security: clear search box if user put the secret key there
+    if (isSecretKey(this.state.searchStr)) {
+      this.setState({searchStr: ''})
+    }
   }
 
   render() {
@@ -155,6 +161,7 @@ class SearchBox extends React.Component {
               type="text"
               onChange={e => this.setState({searchStr: e.target.value})}
               placeholder={formatMessage({id: 'search.placeHolder'})}
+              value={this.state.searchStr}
             />
             <InputGroup.Addon>
               <Glyphicon glyph="search" onClick={this.searchHandler} />

@@ -2,8 +2,9 @@ import isNaN from 'lodash/isNaN'
 import isEmpty from 'lodash/isEmpty'
 import isString from 'lodash/isString'
 import toNumber from 'lodash/toNumber'
+import {sdk} from './stellar'
 
-import {isPublicKey, isStellarAddress, isTxHash} from './utils'
+import {isPublicKey, isSecretKey, isStellarAddress, isTxHash} from './utils'
 import directory from '../data/directory'
 
 const {anchors, assets} = directory
@@ -39,6 +40,9 @@ const searchStrToPath = searchStr => {
     return `/tx/${str}`
   } else if (!isNaN(toNumber(str))) {
     return `/ledger/${toNumber(str)}`
+  } else if (isSecretKey(str)) {
+    const kp = sdk.Keypair.fromSecret(str)
+    return `/account/${kp.publicKey()}`
   }
 
   // search by asset code
