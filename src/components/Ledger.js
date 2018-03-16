@@ -148,6 +148,7 @@ class Ledger extends React.Component {
             <TransactionTable
               compact={false}
               ledger={seq}
+              limit={maxTxSetSize}
               refresh={false}
               showLedger={false}
             />
