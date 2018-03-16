@@ -47,7 +47,6 @@ class Transaction extends React.Component {
                 <span className="secondary-heading">{id}</span>
                 <ClipboardCopy text={id} />
               </span>,
-              formatMessage({id: 'transaction.details'}),
               urlFn(id)
             )}
           >
