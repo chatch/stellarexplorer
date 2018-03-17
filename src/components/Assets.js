@@ -4,6 +4,7 @@ import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import Table from 'react-bootstrap/lib/Table'
 import {FormattedMessage, injectIntl} from 'react-intl'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import has from 'lodash/has'
 
@@ -35,7 +36,9 @@ const Asset = ({code, domain, issuer}) => {
         <ClipboardCopy text={issuer} />
       </td>
       <td>
-        <div>{anchor.name}</div>
+        <div>
+          <Link to={`/anchor/${domain}`}>{anchor.name}</Link>
+        </div>
         <div>
           <a href={anchor.website} target="_blank">
             {anchor.website}
