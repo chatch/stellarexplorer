@@ -18,7 +18,7 @@ class OfferTable extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.records.length <= this.props.limit) {
+    if (this.props.page === 0 && this.props.records.length < this.props.limit) {
       this.props.hidePagingFn()
     }
   }
@@ -96,11 +96,9 @@ const fetchRecords = ({account, limit, server}) => {
   return builder.call()
 }
 
-const callBuilder = props => props.server.offers()
-
 const enhance = compose(
   withPaging(),
-  withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder),
+  withDataFetchingContainer(fetchRecords, rspRecToPropsRec),
   withSpinner()
 )
 
