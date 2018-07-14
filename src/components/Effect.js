@@ -6,6 +6,7 @@ import truncate from 'lodash/truncate'
 import Offer from './operations/Offer'
 import AccountLink from './shared/AccountLink'
 import Asset from './shared/Asset'
+import FormattedAmount from './shared/FormattedAmount'
 import JSONButton from './shared/JSONButton'
 import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormattedRelative'
 import TransactionHash from './shared/TransactionHash'
@@ -20,7 +21,7 @@ const AccountCreated = ({account, startingBalance}) => (
     {'; '}
     <FormattedMessage id="balance" />
     {': '}
-    {startingBalance}
+    <FormattedAmount amount={startingBalance} />
   </span>
 )
 
@@ -72,7 +73,8 @@ const Amount = ({
         {': '}
       </span>
     )}
-    {amount} <Asset code={assetCode} type={assetType} issuer={assetIssuer} />
+    <FormattedAmount amount={amount} />{' '}
+    <Asset code={assetCode} type={assetType} issuer={assetIssuer} />
   </span>
 )
 
@@ -213,14 +215,13 @@ const EffectDetails = ({effect, op}) => {
 }
 
 class Effect extends React.Component {
-  state = {op: null, txHash: null, time: null}
+  state = {op: null, txHash: null}
 
   componentDidMount() {
     this.props.effect.operation().then(op =>
       this.setState({
         op: op,
         txHash: op.transaction_hash,
-        time: op.created_at,
       })
     )
   }
@@ -259,12 +260,10 @@ class Effect extends React.Component {
           )}
         </td>
         <td>
-          {this.state.time != null && (
-            <TimeSynchronisedFormattedRelative
-              initialNow={this.props.parentRenderTimestamp}
-              value={this.state.time}
-            />
-          )}
+          <TimeSynchronisedFormattedRelative
+            initialNow={this.props.parentRenderTimestamp}
+            value={effect.createdAt}
+          />
         </td>
         <td>
           <JSONButton
@@ -283,6 +282,7 @@ Effect.propTypes = {
     links: propTypes.object.isRequired,
     account: propTypes.string.isRequired,
     type: propTypes.string.isRequired,
+    created_at: propTypes.string.isRequired,
   }).isRequired,
   effectURLFn: propTypes.func.isRequired,
   parentRenderTimestamp: propTypes.number,
