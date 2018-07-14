@@ -1,7 +1,14 @@
 import {join} from 'path'
 import {tmpdir} from 'os'
+import BigNumber from 'bignumber.js'
 import truncate from 'lodash/truncate'
 import {sdk} from './stellar'
+
+// Amounts in Stellar don't go below 7 decimals
+// So setting the EXPONENTIAL_AT to 8 here ensures all toString() will show the
+// numbers in full form. eg. 0.0000001 (not 1e7) which is what we want for
+// formatAmount().
+BigNumber.config({EXPONENTIAL_AT: 8})
 
 const STROOPS_PER_LUMEN = 10000000
 const stroopsToLumens = stroops => stroops / STROOPS_PER_LUMEN
@@ -64,10 +71,15 @@ const storageInit = () => {
   return storage
 }
 
+const formatAmount = amount => {
+  return new BigNumber(amount).toString()
+}
+
 export {
   assetKeyToIssuer,
   base64Decode,
   base64DecodeToHex,
+  formatAmount,
   handleFetchDataFailure,
   isDefInt,
   isPublicKey,

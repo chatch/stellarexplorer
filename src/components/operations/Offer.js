@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import AccountLink from '../shared/AccountLink'
 import Asset from '../shared/Asset'
+import FormattedAmount from '../shared/FormattedAmount'
 
 const BuyingAsset = ({buyingAssetCode, buyingAssetIssuer, buyingAssetType}) => (
   <Asset
@@ -40,9 +41,9 @@ const Offer = props => {
     <FormattedMessage
       id={msgId}
       values={{
-        amount: amount,
+        amount: <FormattedAmount amount={amount} />,
         buyingAsset: <BuyingAsset {...props} />,
-        price: price,
+        price: <FormattedAmount amount={price} />,
         sellingAsset: <SellingAsset {...props} />,
       }}
     />

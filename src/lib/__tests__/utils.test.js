@@ -1,6 +1,7 @@
 import {
   assetKeyToIssuer,
   base64Decode,
+  formatAmount,
   isDefInt,
   isPublicKey,
   isStellarAddress,
@@ -99,4 +100,23 @@ it('shortHash shortens hash', () => {
 it('base64Decode decodes', () => {
   expect(base64Decode('aW5kb25lc2lhbg==')).toBe('indonesian')
   expect(base64Decode('6ams6ams6JmO6JmO')).toBe('马马虎虎')
+})
+
+it('formatAmount strips trailling 0s after decimal only', () => {
+  const expectUnchanged = amount => expect(formatAmount(amount)).toBe(amount)
+
+  expectUnchanged('0')
+  expectUnchanged('1')
+  expectUnchanged('100')
+  expectUnchanged('0.1')
+  expectUnchanged('0.0000001')
+  expectUnchanged('100.1')
+
+  const expectFmt = (amount, newAmount) =>
+    expect(formatAmount(amount)).toBe(newAmount)
+
+  expectFmt('1.00000', '1')
+  expectFmt('1.10', '1.1')
+  expectFmt('1.002000', '1.002')
+  expectFmt('100.0', '100')
 })
