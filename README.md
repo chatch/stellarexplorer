@@ -44,6 +44,7 @@ Local: http://localhost:3000
 | Balances Tab     | [/account/stellar\*fed.network#balances](https://steexp.com/account/stellar*fed.network#balances)         |
 | Payments Tab     | [/account/stellar\*fed.network#payments](https://steexp.com/account/stellar*fed.network#payments)         |
 | Offers Tab       | [/account/stellar\*fed.network#offers](https://steexp.com/account/stellar*fed.network#offers)             |
+| Trades Tab       | [/account/stellar\*fed.network#trades](https://steexp.com/account/stellar*fed.network#trades)             |
 | Effects Tab      | [/account/stellar\*fed.network#effects](https://steexp.com/account/stellar*fed.network#effects)           |
 | Operations Tab   | [/account/stellar\*fed.network#operations](https://steexp.com/account/stellar*fed.network#operations)     |
 | Transactions Tab | [/account/stellar\*fed.network#transactions](https://steexp.com/account/stellar*fed.network#transactions) |

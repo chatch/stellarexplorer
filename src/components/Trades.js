@@ -12,7 +12,7 @@ class Trades extends React.Component {
       <Grid>
         <Row>
           <Panel header={formatMessage({id: 'trades'})}>
-            <TradeTable compact={false} limit={50} usePaging />
+            <TradeTable limit={50} usePaging />
           </Panel>
         </Row>
       </Grid>

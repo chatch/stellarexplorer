@@ -25,10 +25,12 @@ import AccountLink from './shared/AccountLink'
 import Asset from './shared/Asset'
 import ClipboardCopy from './shared/ClipboardCopy'
 import EffectTable from './EffectTable'
+import FormattedAmount from './shared/FormattedAmount'
 import Logo from './shared/Logo'
 import OperationTable from './OperationTable'
 import OfferTable from './OfferTable'
 import PaymentTable from './PaymentTable'
+import TradeTable from './TradeTable'
 import TransactionTable from './TransactionTableContainer'
 
 const stellarAddressFromURI = () => {
@@ -60,7 +62,9 @@ const NameValueTable = ({data, decodeValue = false}) => {
             <td>
               {typeof data[key] === 'boolean'
                 ? data[key].toString()
-                : decodeValue ? base64Decode(data[key]) : data[key]}
+                : decodeValue
+                  ? base64Decode(data[key])
+                  : data[key]}
             </td>
           </tr>
         ))}
@@ -79,7 +83,9 @@ const balanceRow = bal => (
       />
     </td>
     <td>
-      <span className="break">{bal.balance}</span>
+      <span className="break">
+        <FormattedAmount amount={bal.balance} />
+      </span>
     </td>
     <td>
       <span className="break">{bal.limit}</span>
@@ -326,6 +332,9 @@ class Account extends React.Component {
                 showSeller={false}
                 usePaging
               />
+            </Tab>
+            <Tab eventKey="trades" title={formatMessage({id: 'trades'})}>
+              <TradeTable key={a.id} account={a.id} limit={20} usePaging />
             </Tab>
             <Tab eventKey="effects" title={formatMessage({id: 'effects'})}>
               {// OPTIMISATION: render on focus only as it hits the server for every effect

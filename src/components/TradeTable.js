@@ -8,16 +8,19 @@ import mapKeys from 'lodash/mapKeys'
 import camelCase from 'lodash/camelCase'
 
 import AccountLink from './shared/AccountLink'
+import FormattedAmount from './shared/FormattedAmount'
 import Asset from './shared/Asset'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
 import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
 import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormattedRelative'
 
-const Trade = ({trade, parentRenderTimestamp}) => {
+import {isPublicKey} from '../lib/utils'
+
+const Trade = ({account, singleAccountView, trade, parentRenderTimestamp}) => {
   const Base = (
     <span>
-      {trade.baseAmount}{' '}
+      <FormattedAmount amount={trade.baseAmount} />{' '}
       <Asset
         code={trade.baseAssetCode}
         issuer={trade.baseAssetIssuer}
@@ -28,7 +31,7 @@ const Trade = ({trade, parentRenderTimestamp}) => {
 
   const Counter = (
     <span>
-      {trade.counterAmount}{' '}
+      <FormattedAmount amount={trade.counterAmount} />{' '}
       <Asset
         code={trade.counterAssetCode}
         issuer={trade.counterAssetIssuer}
@@ -37,24 +40,34 @@ const Trade = ({trade, parentRenderTimestamp}) => {
     </span>
   )
 
+  let baseFirst
+  let account1, account2
+
+  if (singleAccountView) {
+    const accountIsBase = account === trade.baseAccount
+    baseFirst = !accountIsBase // account's bought asset first
+    account1 = account
+    account2 = accountIsBase ? trade.counterAccount : trade.baseAccount
+  } else {
+    baseFirst = trade.baseIsSeller
+    account1 = trade.baseAccount
+    account2 = trade.counterAccount
+  }
+
   return (
     <tr key={trade.id} className="trade">
-      <td className="account-badge">
-        <AccountLink
-          account={
-            trade.baseIsSeller ? trade.baseAccount : trade.counterAccount
-          }
-        />
+      <td>
+        <span className="account-badge">
+          <AccountLink account={account1} />
+        </span>
       </td>
-      <td>{trade.baseIsSeller ? Base : Counter}</td>
-      <td className="account-badge">
-        <AccountLink
-          account={
-            trade.baseIsSeller ? trade.counterAccount : trade.baseAccount
-          }
-        />
+      <td>{baseFirst ? Base : Counter}</td>
+      <td>
+        <span className="account-badge">
+          <AccountLink account={account2} />
+        </span>
       </td>
-      <td>{trade.baseIsSeller ? Counter : Base}</td>
+      <td>{baseFirst ? Counter : Base}</td>
       <td>
         <span title={trade.time}>
           <TimeSynchronisedFormattedRelative
@@ -67,45 +80,68 @@ const Trade = ({trade, parentRenderTimestamp}) => {
   )
 }
 
-const TradeTable = ({compact, server, parentRenderTimestamp, records}) => (
-  <Table id="trade-table" className="table-striped table-hover table-condensed">
-    <thead>
-      <tr>
-        <th>
-          <FormattedMessage id="seller" />
-        </th>
-        <th>
-          <FormattedMessage id="amount" />
-        </th>
-        <th>
-          <FormattedMessage id="buyer" />
-        </th>
-        <th>
-          <FormattedMessage id="amount" />
-        </th>
-        <th>
-          <FormattedMessage id="time" />
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      {records.map(trade => (
-        <Trade
-          key={trade.id}
-          compact={compact}
-          trade={trade}
-          parentRenderTimestamp={parentRenderTimestamp}
-        />
-      ))}
-    </tbody>
-  </Table>
-)
+Trade.propTypes = {
+  parentRenderTimestamp: PropTypes.number,
+  trade: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    baseIsSeller: PropTypes.bool.isRequired,
+    baseAccount: PropTypes.string.isRequired,
+    counterAccount: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+  }).isRequired,
+  account: PropTypes.string,
+  singleAccountView: PropTypes.bool,
+}
+
+const TradeTable = ({server, parentRenderTimestamp, account, records}) => {
+  const singleAccountView = isPublicKey(account)
+  return (
+    <Table
+      id="trade-table"
+      className="table-striped table-hover table-condensed"
+    >
+      <thead>
+        <tr>
+          <th>
+            <FormattedMessage id="account" />
+            {' 1'}
+          </th>
+          <th>
+            <FormattedMessage id="bought" />
+          </th>
+          <th>
+            <FormattedMessage id="account" />
+            {' 2'}
+          </th>
+          <th>
+            <FormattedMessage id="bought" />
+          </th>
+          <th>
+            <FormattedMessage id="time" />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {records.map(trade => (
+          <Trade
+            key={trade.id}
+            trade={trade}
+            account={account}
+            singleAccountView={singleAccountView}
+            parentRenderTimestamp={parentRenderTimestamp}
+          />
+        ))}
+      </tbody>
+    </Table>
+  )
+}
 
 TradeTable.propTypes = {
-  compact: PropTypes.bool,
   parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array.isRequired,
   server: PropTypes.object.isRequired,
+  account: PropTypes.string,
+  accountView: PropTypes.bool,
 }
 
 const rspRecToPropsRec = record => {
