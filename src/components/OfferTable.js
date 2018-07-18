@@ -9,8 +9,10 @@ import camelCase from 'lodash/camelCase'
 
 import {OfferRow as Offer} from './operations/Offer'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
+import {withDataFetchingAllContainer} from './shared/DataFetchingAllContainer'
 import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
+import CSVExport from './shared/CSVExport'
 
 class OfferTable extends React.Component {
   static defaultProps = {
@@ -30,6 +32,7 @@ class OfferTable extends React.Component {
       return <div style={{marginTop: 20, marginBottom: 20}}>No Offers</div>
 
     return (
+      <div>
       <Table
         id="offer-table"
         className="table-striped table-hover table-condensed"
@@ -74,6 +77,10 @@ class OfferTable extends React.Component {
           ))}
         </tbody>
       </Table>
+      <div className="text-center" id="csv-export">
+        <ExportToCSVComponent {...this.props} />
+      </div>
+    </div>
     )
   }
 }
@@ -95,6 +102,10 @@ const fetchRecords = ({account, limit, server}) => {
   builder.order('desc')
   return builder.call()
 }
+
+const callBuilder = props => props.server.offers()
+
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
 
 const enhance = compose(
   withPaging(),

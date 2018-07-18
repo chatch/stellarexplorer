@@ -1,8 +1,11 @@
+import React from 'react'
 import {compose} from 'recompose'
 import {withPaging} from './shared/Paging'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
+import {withDataFetchingAllContainer} from './shared/DataFetchingAllContainer'
 import {isDefInt, isPublicKey} from '../lib/utils'
 import TransactionTable from './TransactionTable'
+import CSVExport from './shared/CSVExport'
 
 const rspRecToPropsRec = rspRec => {
   return {
@@ -30,4 +33,15 @@ const enhance = compose(
   withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder)
 )
 
-export default enhance(TransactionTable)
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
+
+const wrapHOC = (Component) => (props) => (
+  <div>
+    <div><Component {...props}/></div>
+    <div className="text-center" id="csv-export">
+      <ExportToCSVComponent {...props} />
+    </div>
+  </div>
+);
+
+export default enhance(wrapHOC(TransactionTable))

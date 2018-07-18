@@ -19,6 +19,13 @@
   "buyer": "Buyer",
   "code": "Code",
   "contact.address.label": "Address",
+
+  "csv-export": "Export data as CSV",
+  "csv-export.complete": "Fetching of {count} entries complete!",
+  "csv-export.no-records": "There were no records to be fetched.",
+  "csv-export.fetching": "Fetching…",
+  "csv-export.fetched": "Fetched {count} records so far.",
+
   "currency": "Currency",
 
   "data": "Data",
