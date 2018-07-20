@@ -38,9 +38,11 @@ const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuil
 const wrapHOC = (Component) => (props) => (
   <div>
     <div><Component {...props}/></div>
-    <div className="text-center" id="csv-export">
-      <ExportToCSVComponent {...props} />
-    </div>
+    { !props.noCSVExport && (
+      <div className="text-center" id="csv-export">
+        <ExportToCSVComponent {...props} />
+      </div>
+    ) }
   </div>
 );
 
