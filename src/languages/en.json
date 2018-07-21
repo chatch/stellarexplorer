@@ -25,6 +25,7 @@
   "csv-export.no-records": "There were no records to be fetched.",
   "csv-export.fetching": "Fetching…",
   "csv-export.fetched": "Fetched {count} records so far.",
+  "csv-export.limit-exceeded": "You reached the export limit of {count} entries. There are more records to fetch, but to prevent browser memory issues we don't support exporting more.",
 
   "currency": "Currency",
 

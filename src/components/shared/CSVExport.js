@@ -25,10 +25,15 @@ class CSVExport extends React.Component {
       return (
           <div>
             {this.props.isExportingFinished === true ? (
-              <FormattedMessage
-                id={this.props.fetchedRecords.length > 0 ? 'csv-export.complete': 'csv-export.no-records'}
-                values={{count: has(this.props, 'fetchedRecords') && this.props.fetchedRecords.length}}
-                />
+              this.props.exportLimitExceeded === true ? (
+                <FormattedMessage
+                  id="csv-export.limit-exceeded"
+                  values={{count: has(this.props, 'fetchedRecords') && this.props.fetchedRecords.length}} />
+              ) : (
+                <FormattedMessage
+                  id={this.props.fetchedRecords.length > 0 ? 'csv-export.complete': 'csv-export.no-records'}
+                  values={{count: has(this.props, 'fetchedRecords') && this.props.fetchedRecords.length}} />
+              )
             ) : (
               <div>
                 <FormattedMessage id="csv-export.fetching" /> | <FormattedMessage id="csv-export.fetched" values={{count: this.props.fetchedRecords.length}} />

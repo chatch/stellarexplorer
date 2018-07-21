@@ -22,6 +22,12 @@ const propTypesContainer = {
   server: PropTypes.object,
 }
 
+// there is a hard limitation of how many records can be exported.
+// this limitation is here to prevent browser memory overload and
+// the export from running extremely long (e.g. because someone
+// accidentally tries to export all of horizon).
+const EXPORT_LIMIT = 20000;
+
 /**
  * Wrap a component with Horizon data fetching abilities.
 
@@ -55,6 +61,7 @@ const withDataFetchingAllContainer = (
       cursor: 0,
       wasExportStarted: false,
       isExportingFinished: false,
+      exportLimitExceeded: false,
       fetchedRecords: [],
     }
 
@@ -79,8 +86,11 @@ const withDataFetchingAllContainer = (
           return null;
         })
         .then(() => {
-          if (this.state.cursor === 0 && this.state.fetchedRecords.length > 0) {
-            this.setState({isExportingFinished: true});
+          const exportLimitExceeded = this.state.fetchedRecords.length >= EXPORT_LIMIT;
+          const endReached = this.state.cursor === 0 && this.state.fetchedRecords.length > 0;
+          if (endReached || exportLimitExceeded) {
+            var newState = {isExportingFinished: true, exportLimitExceeded};
+            this.setState(newState);
             var csvData = new Parser().parse(this.state.fetchedRecords);
             const autoByteOrderMark = true;
             saveAs(new Blob([ '\ufeff', csvData ],
@@ -130,6 +140,7 @@ const withDataFetchingAllContainer = (
           <Component
             wasExportStarted={this.state.wasExportStarted}
             isExportingFinished={this.state.isExportingFinished}
+            exportLimitExceeded={this.state.exportLimitExceeded}
             onClick={() => {
               const newState = {limit: 100, wasExportStarted: true};
               this.setState(newState);
