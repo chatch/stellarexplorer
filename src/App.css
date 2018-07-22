@@ -416,6 +416,15 @@ ul.navbar-nav .divider-vertical {
   border-top: 1px solid #96a2b4;
 }
 
+#csv-export {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#csv-export button {
+  border: none;
+}
+
 div[id|='account-tabs-pane'] {
   padding: 15px;
 }

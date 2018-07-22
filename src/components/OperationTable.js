@@ -8,11 +8,14 @@ import mapKeys from 'lodash/mapKeys'
 import camelCase from 'lodash/camelCase'
 
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
+import {withDataFetchingAllContainer} from './shared/DataFetchingAllContainer'
 import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
 import Operation from './operations/Operation'
+import CSVExport from './shared/CSVExport'
 
 const OperationTable = props => (
+  <div>
   <Table
     id="operation-table"
     className="table-striped table-hover table-condensed"
@@ -48,6 +51,12 @@ const OperationTable = props => (
       ))}
     </tbody>
   </Table>
+  { !props.noCSVExport && (
+    <div className="text-center" id="csv-export">
+      <ExportToCSVComponent {...props} />
+    </div>
+    ) }
+  </div>
 )
 
 OperationTable.propTypes = {
@@ -72,6 +81,8 @@ const fetchRecords = ({account, limit, server, tx}) => {
 }
 
 const callBuilder = props => props.server.operations()
+
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
 
 const enhance = compose(
   withPaging(),

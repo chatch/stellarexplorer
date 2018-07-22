@@ -9,10 +9,13 @@ import camelCase from 'lodash/camelCase'
 
 import Operation from './operations/Operation'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
+import {withDataFetchingAllContainer} from './shared/DataFetchingAllContainer'
 import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
+import CSVExport from './shared/CSVExport'
 
-const PaymentTable = ({compact, server, parentRenderTimestamp, records}) => (
+const PaymentTable = ({compact, server, parentRenderTimestamp, records, account}) => (
+  <div>
   <Table
     id="payment-table"
     className="table-striped table-hover table-condensed"
@@ -48,6 +51,10 @@ const PaymentTable = ({compact, server, parentRenderTimestamp, records}) => (
       ))}
     </tbody>
   </Table>
+  <div className="text-center" id="csv-export">
+    <ExportToCSVComponent server={server} account={account} />
+  </div>
+  </div>
 )
 
 PaymentTable.propTypes = {
@@ -72,6 +79,8 @@ const fetchRecords = ({account, tx, limit, server}) => {
 }
 
 const callBuilder = props => props.server.payments()
+
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
 
 const enhance = compose(
   withPaging(),

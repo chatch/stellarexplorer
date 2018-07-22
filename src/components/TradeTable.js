@@ -11,9 +11,11 @@ import AccountLink from './shared/AccountLink'
 import FormattedAmount from './shared/FormattedAmount'
 import Asset from './shared/Asset'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
+import {withDataFetchingAllContainer} from './shared/DataFetchingAllContainer'
 import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
 import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormattedRelative'
+import CSVExport from './shared/CSVExport'
 
 import {isPublicKey} from '../lib/utils'
 
@@ -96,6 +98,7 @@ Trade.propTypes = {
 const TradeTable = ({server, parentRenderTimestamp, account, records}) => {
   const singleAccountView = isPublicKey(account)
   return (
+    <div>
     <Table
       id="trade-table"
       className="table-striped table-hover table-condensed"
@@ -133,6 +136,10 @@ const TradeTable = ({server, parentRenderTimestamp, account, records}) => {
         ))}
       </tbody>
     </Table>
+    <div className="text-center" id="csv-export">
+      <ExportToCSVComponent account={account} server={server} />
+    </div>
+    </div>
   )
 }
 
@@ -158,6 +165,8 @@ const fetchRecords = ({account, limit, server}) => {
 }
 
 const callBuilder = props => props.server.trades()
+
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
 
 const enhance = compose(
   withPaging(),

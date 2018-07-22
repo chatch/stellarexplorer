@@ -8,16 +8,20 @@ import mapKeys from 'lodash/mapKeys'
 import camelCase from 'lodash/camelCase'
 
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
+import {withDataFetchingAllContainer} from './shared/DataFetchingAllContainer'
 import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
 import Effect from './Effect'
+import CSVExport from './shared/CSVExport'
 
 const EffectTable = ({
   parentRenderTimestamp,
   records,
   server,
   showAccount = true,
+  account,
 }) => (
+  <div>
   <Table
     id="effect-table"
     className="table-striped table-hover table-condensed"
@@ -58,6 +62,10 @@ const EffectTable = ({
       })}
     </tbody>
   </Table>
+  <div className="text-center" id="csv-export">
+    <ExportToCSVComponent server={server} account={account} />
+  </div>
+  </div>
 )
 
 EffectTable.propTypes = {
@@ -84,5 +92,9 @@ const enhance = compose(
   withDataFetchingContainer(fetchRecords, rspRecToPropsRec),
   withSpinner()
 )
+
+const callBuilder = props => props.server.effects()
+
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
 
 export default enhance(EffectTable)

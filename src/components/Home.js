@@ -33,7 +33,7 @@ class Home extends React.Component {
                 '/operations'
               )}
             >
-              <OperationTable compact fill limit={25} refresh />
+              <OperationTable compact fill limit={25} refresh noCSVExport={true} />
             </Panel>
           </Col>
           <Col md={4}>
@@ -51,6 +51,7 @@ class Home extends React.Component {
                 refresh
                 showLedger
                 showSource={false}
+                noCSVExport={true}
               />
             </Panel>
             <Panel
