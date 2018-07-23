@@ -4,6 +4,13 @@ import URI from 'urijs'
 import {LedgerCallBuilder} from 'stellar-sdk/lib/ledger_call_builder'
 import {OperationCallBuilder} from 'stellar-sdk/lib/operation_call_builder'
 import {TransactionCallBuilder} from 'stellar-sdk/lib/transaction_call_builder'
+import {PaymentCallBuilder} from 'stellar-sdk/lib/payment_call_builder'
+import {OfferCallBuilder} from 'stellar-sdk/lib/offer_call_builder'
+import {EffectCallBuilder} from 'stellar-sdk/lib/effect_call_builder'
+import {AccountCallBuilder} from 'stellar-sdk/lib/account_call_builder'
+import {AssetsCallBuilder} from 'stellar-sdk/lib/assets_call_builder'
+import {TradesCallBuilder} from 'stellar-sdk/lib/trades_call_builder'
+
 
 /* ----------------------------------------------------------
  *
@@ -67,15 +74,21 @@ const pagingCalls = {
   ledgers: LedgerCallBuilder,
   operations: OperationCallBuilder,
   transactions: TransactionCallBuilder,
+  payments: PaymentCallBuilder,
+  effects: EffectCallBuilder,
+  offers: OfferCallBuilder,
+  assets: AssetsCallBuilder,
+  trades: TradesCallBuilder,
+  accounts: AccountCallBuilder,
 }
 
 Object.keys(pagingCalls).forEach(
   callName =>
-    (sdk.Server.prototype[callName] = function() {
+    (sdk.Server.prototype[callName] = function(...params) {
       const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
         pagingCalls[callName]
       )
-      return new WrappedClass(URI(this.serverURL))
+      return new WrappedClass(URI(this.serverURL), ...params)
     })
 )
 
