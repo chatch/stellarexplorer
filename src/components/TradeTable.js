@@ -95,52 +95,66 @@ Trade.propTypes = {
   singleAccountView: PropTypes.bool,
 }
 
-const TradeTable = ({server, parentRenderTimestamp, account, records}) => {
-  const singleAccountView = isPublicKey(account)
-  return (
-    <div>
-    <Table
-      id="trade-table"
-      className="table-striped table-hover table-condensed"
-    >
-      <thead>
-        <tr>
-          <th>
-            <FormattedMessage id="account" />
-            {' 1'}
-          </th>
-          <th>
-            <FormattedMessage id="bought" />
-          </th>
-          <th>
-            <FormattedMessage id="account" />
-            {' 2'}
-          </th>
-          <th>
-            <FormattedMessage id="bought" />
-          </th>
-          <th>
-            <FormattedMessage id="time" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {records.map(trade => (
-          <Trade
-            key={trade.id}
-            trade={trade}
-            account={account}
-            singleAccountView={singleAccountView}
-            parentRenderTimestamp={parentRenderTimestamp}
-          />
-        ))}
-      </tbody>
-    </Table>
-    <div className="text-center" id="csv-export">
-      <ExportToCSVComponent account={account} server={server} />
-    </div>
-    </div>
-  )
+class TradeTable extends React.Component {
+  componentDidMount() {
+    if (this.props.page === 0 && this.props.records.length < this.props.limit) {
+      this.props.hidePagingFn()
+    }
+  }
+
+  render() {
+    const {server, parentRenderTimestamp, account, records} = this.props
+
+    if (records.length === 0)
+      return <div style={{marginTop: 20, marginBottom: 20}}>No Trades</div>
+
+    const singleAccountView = isPublicKey(account)
+
+    return (
+      <div>
+        <Table
+          id="trade-table"
+          className="table-striped table-hover table-condensed"
+        >
+          <thead>
+            <tr>
+              <th>
+                <FormattedMessage id="account" />
+                {' 1'}
+              </th>
+              <th>
+                <FormattedMessage id="bought" />
+              </th>
+              <th>
+                <FormattedMessage id="account" />
+                {' 2'}
+              </th>
+              <th>
+                <FormattedMessage id="bought" />
+              </th>
+              <th>
+                <FormattedMessage id="time" />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {records.map(trade => (
+              <Trade
+                key={trade.id}
+                trade={trade}
+                account={account}
+                singleAccountView={singleAccountView}
+                parentRenderTimestamp={parentRenderTimestamp}
+              />
+            ))}
+          </tbody>
+        </Table>
+        <div className="text-center" id="csv-export">
+          <ExportToCSVComponent account={account} server={server} />
+        </div>
+      </div>
+    )
+  }
 }
 
 TradeTable.propTypes = {
@@ -166,7 +180,10 @@ const fetchRecords = ({account, limit, server}) => {
 
 const callBuilder = props => props.server.trades()
 
-const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
+const ExportToCSVComponent = withDataFetchingAllContainer(
+  fetchRecords,
+  callBuilder
+)(CSVExport)
 
 const enhance = compose(
   withPaging(),
