@@ -41,6 +41,10 @@
   "error.network":
     "Network error occurred. Check your connection or check the browser console for messages.",
   "error.unknown": "Apologies, something went wrong ... ",
+  "error.occurred": "An error occurred: ",
+  "error.insecure-network": "The horizon address is insecure!",
+  "error.insecure-network.uri": "The horizon address \"{uri}\" is insecure!",
+  "error.insecure-network.reason": "You probably tried to set a horizon address with the prefix \"http\" instead of \"https\". Stellar allows \"http\" only for testnets.",
 
   "exchanges": "Exchanges",
 
@@ -87,6 +91,15 @@
 
   "name": "Name",
   "network": "Network",
+  "network.current": "Current Network",
+  "network.set-custom": "Set Custom Network",
+  "network.address": "Network Address",
+  "network.choose": "Choose from the list:",
+  "network.or-custom": "…or enter a custom address:",
+  "network.change-here": "Set a different Network",
+  "network.public": "You are currently using this Public Horizon Instance:",
+  "network.test": "You are currently using this Testnet Horizon Instance:",
+  "network.local": "You are currently using this Local Horizon Instance:",
   "offer": "Offer",
   "offers": "Offers",
 
@@ -139,6 +152,7 @@
   "recipient": "Recipient",
   "remove": "Remove",
 
+  "save": "Save",
   "search.placeHolder": "Search by Account / Transaction / Anchor / ...",
   "sell": "Sell",
   "seller": "Seller",

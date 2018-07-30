@@ -1,8 +1,7 @@
 import sdk from './sdk'
 import networks from './networks'
-import has from 'lodash/has'
 
-const serverAddresses = {
+export const defaultNetworkAddresses = {
   public: 'https://horizon.stellar.org',
   test: 'https://horizon-testnet.stellar.org',
   local: 'http://localhost:8000',
@@ -14,14 +13,17 @@ const serverAddresses = {
  * direct use of sdk fluent api.
  */
 class WrappedServer extends sdk.Server {
-  constructor(network) {
-    if (!has(networks, network)) throw new Error(`network ${network} unknown`)
+  constructor(networkType, networkAddress, storage) {
+    if (networkType === networks.public) sdk.Network.usePublicNetwork()
+    else if (networkType === networks.test) sdk.Network.useTestNetwork()
 
-    if (network === networks.public) sdk.Network.usePublicNetwork()
-    else if (network === networks.test) sdk.Network.useTestNetwork()
-
-    // allowHttp: public/test use HTTPS; local can use HTTP
-    super(serverAddresses[network], {allowHttp: network === networks.local})
+    try {
+      // allowHttp: public/test use HTTPS; local can use HTTP
+      super(networkAddress, {allowHttp: networkType === networks.local})
+    } catch(err) {
+      storage.removeItem('networkAddress');
+      window.location.href = `/error/insecure-horizon-server/?${networkAddress}`;
+    };
   }
 
   //
@@ -35,6 +37,6 @@ class WrappedServer extends sdk.Server {
   txURL = id => `${this.serverURL}transactions/${id}`
 }
 
-const Server = network => new WrappedServer(network)
+const Server = (...args)=> new WrappedServer(...args)
 
 export default Server

@@ -1,25 +1,32 @@
 import React from 'react'
 import {networks} from '../../lib/stellar'
+import CustomNetworkButton from '../shared/CustomNetworkButton'
 
-const NetworkButton = ({network, selectedNetwork, switcher}) =>
+const NetworkButton = ({networkType, selectedNetworkType, switchNetworkType}) =>
   <button
-    className={network === selectedNetwork ? 'is-active' : 'is-inactive'}
-    onClick={e => switcher(network)}
+    className={networkType === selectedNetworkType ? 'is-active' : 'is-inactive'}
+    onClick={e => switchNetworkType(networkType)}
   >
-    {network.toUpperCase()}
+    {networkType.toUpperCase()}
   </button>
 
 const NetworkSelector = props =>
   <div className="Network-Selector">
-    {[networks.public, networks.test].map(network =>
+    {[networks.public, networks.test].map(networkType =>
       <NetworkButton
-        key={network}
-        hide={networks[network].hide}
-        network={network}
-        selectedNetwork={props.network}
-        switcher={props.switcher}
+        key={networkType}
+        hide={networks[networkType].hide}
+        networkType={networkType}
+        selectedNetworkType={props.networkType}
+        switchNetworkType={props.switchNetworkType}
       />
     )}
+    <CustomNetworkButton
+      key="custom-network"
+      networkAddress={props.networkAddress}
+      networkType={props.networkType}
+      setNetworkAddress={props.setNetworkAddress}
+    />
   </div>
 
 export default NetworkSelector

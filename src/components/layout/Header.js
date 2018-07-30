@@ -39,8 +39,10 @@ class Header extends React.Component {
           </Navbar.Form>
           <Navbar.Form pullRight>
             <NetworkSelector
-              network={this.props.network}
-              switcher={this.props.networkSwitcher}
+              networkAddress={this.props.networkAddress}
+              networkType={this.props.networkType}
+              switchNetworkType={this.props.switchNetworkType}
+              setNetworkAddress={this.props.setNetworkAddress}
             />
           </Navbar.Form>
           <Nav>

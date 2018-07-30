@@ -61,6 +61,12 @@ table {
 .modal-body img {
   margin-top: 10px;
 }
+.modal-body input[type=text] {
+  width: 100%;
+}
+.modal-body input {
+  margin-bottom: 10px;
+}
 
 /*
  * Bootstrap components and styles
@@ -345,7 +351,7 @@ ul.navbar-nav .divider-vertical {
   outline: none;
 }
 
-.Network-Selector button:not(:first-child) {
+.Network-Selector button:not(:first-child), .Network-Selector span:not(:first-child) {
   margin-left: 5px;
 }
 
