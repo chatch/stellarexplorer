@@ -1,23 +1,23 @@
-import networks, {hostnameToNetwork} from '../networks'
+import networks, {hostnameToNetworkType} from '../networks'
 
 describe('hostnameToNetwork', () => {
-  it('detects network correctly from the hostname', () => {
+  it('detects network type correctly from the hostname', () => {
     // public network
-    expect(hostnameToNetwork('steexp.com')).toEqual(networks.public)
+    expect(hostnameToNetworkType('steexp.com')).toEqual(networks.public)
 
     // test network
-    expect(hostnameToNetwork('testnet.steexp.com')).toEqual(networks.test)
+    expect(hostnameToNetworkType('testnet.steexp.com')).toEqual(networks.test)
 
     // localhost for development
-    expect(hostnameToNetwork('localnet.local')).toEqual(networks.local)
-    expect(hostnameToNetwork('testnet.local')).toEqual(networks.test)
-    expect(hostnameToNetwork('publicnet.local')).toEqual(networks.public)
+    expect(hostnameToNetworkType('localnet.local')).toEqual(networks.local)
+    expect(hostnameToNetworkType('testnet.local')).toEqual(networks.test)
+    expect(hostnameToNetworkType('publicnet.local')).toEqual(networks.public)
 
     // unknown hosts default to local
-    expect(hostnameToNetwork()).toEqual(networks.local)
-    expect(hostnameToNetwork('')).toEqual(networks.local)
-    expect(hostnameToNetwork('localhost')).toEqual(networks.local)
-    expect(hostnameToNetwork('0.0.0.0')).toEqual(networks.local)
-    expect(hostnameToNetwork('not.steexp.com')).toEqual(networks.local)
+    expect(hostnameToNetworkType()).toEqual(networks.local)
+    expect(hostnameToNetworkType('')).toEqual(networks.local)
+    expect(hostnameToNetworkType('localhost')).toEqual(networks.local)
+    expect(hostnameToNetworkType('0.0.0.0')).toEqual(networks.local)
+    expect(hostnameToNetworkType('not.steexp.com')).toEqual(networks.local)
   })
 })

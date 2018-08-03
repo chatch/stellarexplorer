@@ -4,7 +4,7 @@ const networks = {
   local: 'local',
 }
 
-const hostnameToNetwork = hostname => {
+const hostnameToNetworkType = hostname => {
   if (hostname === 'steexp.com' || hostname === 'publicnet.local')
     return networks.public
   else if (hostname === 'testnet.steexp.com' || hostname === 'testnet.local')
@@ -12,4 +12,4 @@ const hostnameToNetwork = hostname => {
   else return networks.local
 }
 
-export {networks as default, hostnameToNetwork}
+export {networks as default, hostnameToNetworkType}
