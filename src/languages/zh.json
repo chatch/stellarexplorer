@@ -87,6 +87,15 @@
 
   "name": "名称",
   "network": "网络",
+  "network.current": "当前网络",
+  "network.set-custom": "设置自定义网络",
+  "network.address": "网络地址",
+  "network.choose": "从列表中选择:",
+  "network.or-custom": "...或输入自定义地址:",
+  "network.change-here": "设置不同的网络",
+  "network.public": "您目前正在使用此Public Horizon实例:",
+  "network.test": "您目前正在使用此Testnet Horizon实例:",
+  "network.local": "您目前正在使用此本地视野实例:",
   "offer": "挂单",
   "offers": "挂单",
 
