@@ -71,13 +71,18 @@ const rspRecToPropsRec = record => {
   return mapKeys(record, (v, k) => camelCase(k))
 }
 
-const fetchRecords = ({account, limit, server, tx}) => {
-  const builder = server.operations()
-  if (tx) builder.forTransaction(tx)
-  if (account) builder.forAccount(account)
-  builder.limit(limit)
-  builder.order('desc')
-  return builder.call()
+const fetchRecords = ({account, limit, server, tx, type}) => {
+  const getBuilder = () => {
+    const builder = server.operations()
+    if (tx) builder.forTransaction(tx)
+    if (account) builder.forAccount(account)
+    builder.limit(limit)
+    builder.order('desc')
+    return builder;
+  };
+
+  return getBuilder().call()
+}
 }
 
 const callBuilder = props => props.server.operations()
