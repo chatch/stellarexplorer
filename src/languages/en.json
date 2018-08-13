@@ -48,6 +48,10 @@
 
   "exchanges": "Exchanges",
 
+  "filter.for-operation-type": "Filter for Operation Type",
+  "filter-active.for": "Filter active for",
+  "filter.more-data-possibly-available": "There could be more records, but crawling was stopped after a certain limit because there is no way of knowing if there are more matches. Go to the next page to continue crawling.",
+
   "fed.protocol": "Federation Protocol",
   "fed.url": "Federation URL",
   "fee": "Fee",

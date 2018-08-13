@@ -133,6 +133,18 @@ table {
   border-top: 1px solid #4c5667;
 }
 
+.filter {
+  margin: 5px 0px 5px 0px;
+}
+
+.filter select {
+  margin: 0px 5px 5px 0px;
+}
+
+.filter .disclaimer {
+  color: rgb(3, 169, 243);
+}
+
 .form-control {
   font-size: 13px;
 }

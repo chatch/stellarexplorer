@@ -5,6 +5,7 @@ import AccountLink from '../shared/AccountLink'
 import JSONButton from '../shared/JSONButton'
 import TimeSynchronisedFormattedRelative from '../shared/TimeSynchronizedFormattedRelative'
 import TransactionHash from '../shared/TransactionHash'
+import OperationType from '../shared/OperationType'
 
 import AccountMerge from './AccountMerge'
 import AllowTrust from './AllowTrust'
@@ -57,6 +58,11 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
           <TransactionHash hash={op.transactionHash} compact={true} />
         </td>
       )}
+      {compact === false && (
+        <td>
+          <OperationType account={op.sourceAccount} type={op.type} compact={false} />
+        </td>
+      )}
       <td>
         <span title={op.time}>
           <TimeSynchronisedFormattedRelative
@@ -89,4 +95,4 @@ Operation.propTypes = {
   parentRenderTimestamp: PropTypes.number,
 }
 
-export default Operation
+export {Operation as default, opTypes}
