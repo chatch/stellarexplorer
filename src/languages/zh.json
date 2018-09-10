@@ -19,13 +19,14 @@
   "buyer": "买方",
   "code": "代码",
   "contact.address.label": "地址",
-  
+
   "csv-export": "导出数据为CSV",
   "csv-export.complete": "成功获取 {count} 条数据！",
   "csv-export.no-records": "没有数据可供获取",
   "csv-export.fetching": "获取中…",
   "csv-export.fetched": "已获取 {count} 条数据。",
-  "csv-export.limit-exceeded": "您已达到导出 {count} 条数据的上限。还有数据可以获取，但是为了防止浏览器因内存问题崩溃，我们不支持导出更多数据了。",
+  "csv-export.limit-exceeded":
+    "您已达到导出 {count} 条数据的上限。还有数据可以获取，但是为了防止浏览器因内存问题崩溃，我们不支持导出更多数据了。",
 
   "currency": "货币",
 
@@ -41,13 +42,16 @@
   "error.network":
     "出现网络错误。检查您的网络连接，或者查看浏览器控制台的信息。",
   "error.unknown": "很抱歉，发生了一些错误... ",
-  
+
   "exchanges": "交易所",
 
   "fed.protocol": "联邦协议",
   "fed.url": "联邦协议 URL",
   "fee": "费用",
   "fee.pool": "费用池",
+  "filter-active.for": "筛选活动的",
+  "filter.for-operation-type": "筛选操作",
+  "filter.more-data-possibly-available": "可能还有记录, 不过爬虫达到了极限",
   "flags": "标记",
 
   "hash": "哈希",
@@ -71,7 +75,7 @@
 
   "key": "键值",
   "key.public": "公钥",
-  
+
   "max.transactions": "最大交易",
   "memo": "备注",
   "memotype": "备注类型",
@@ -103,9 +107,9 @@
   "operations": "操作",
   "ops": "操作",
 
-  "operation.account.create": 
-    "创建账户 {account} 余额 {balance}",
+  "operation.account.create": "创建账户 {account} 余额 {balance}",
   "operation.account.merge": "账户合并到 {account}",
+  "operation.bump": "Bumped sequence to {sequence}",
   "operation.inflation": "通胀运行",
   "operation.manage.data.remove": "删除键值{name}",
   "operation.manage.data.set": "设置键值{name}",

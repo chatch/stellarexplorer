@@ -9,6 +9,7 @@ import OperationType from '../shared/OperationType'
 
 import AccountMerge from './AccountMerge'
 import AllowTrust from './AllowTrust'
+import BumpSequence from './BumpSequence'
 import ChangeTrust from './ChangeTrust'
 import CreateAccount from './CreateAccount'
 import Inflation from './Inflation'
@@ -21,6 +22,7 @@ import SetOptions from './SetOptions'
 const opTypeComponentMap = {
   account_merge: AccountMerge,
   allow_trust: AllowTrust,
+  bump_sequence: BumpSequence,
   change_trust: ChangeTrust,
   create_account: CreateAccount,
   create_passive_offer: Offer,
@@ -60,7 +62,11 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
       )}
       {compact === false && (
         <td>
-          <OperationType account={op.sourceAccount} type={op.type} compact={false} />
+          <OperationType
+            account={op.sourceAccount}
+            type={op.type}
+            compact={false}
+          />
         </td>
       )}
       <td>
