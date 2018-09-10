@@ -132,7 +132,7 @@
   "operation.options.set.low.threshold": "阈值低: {value}",
   "operation.options.set.med.threshold": "阈值中: {value}",
   "operation.payment": "支付 {amount} {asset} 至 {recipient}",
-  "operation.payment.path": "路径 {asset} 最大 {max}",
+  "operation.payment.path": " [ 源: {amount} {asset}]",
   "operation.trust": "信任 {trustee} 发行 {assetCode}",
   "operation.trust.allow": " [authorize: {authorize}, trustor: {trustor}]",
   "operation.trust.change": "至限额 {limit}",

@@ -94,7 +94,7 @@
   "operation.options.set.low.threshold": "Нижний уровень: {value}",
   "operation.options.set.med.threshold": "Средний уровень: {value}",
   "operation.payment": "Оплата {amount} {asset} на {recipient}",
-  "operation.payment.path": " конвертируя {asset} макс {max}",
+  "operation.payment.path": " [ источник: {amount} {asset}]",
   "operation.trust": "Доверие {trustee} выпускающему {assetCode}",
   "operation.trust.allow": " [authorize: {authorize}, trustor: {trustor}]",
   "operation.trust.change": " с лимитом {limit}",

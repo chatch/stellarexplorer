@@ -93,7 +93,7 @@
   "operation.options.set.low.threshold": "Threshold thấp: {value}",
   "operation.options.set.med.threshold": "Threshold Medium: {value}",
   "operation.payment": "Thanh toán {amount} {asset} đến {recipient}",
-  "operation.payment.path": "Đường dẫn {asset} tối đa {max}",
+  "operation.payment.path": " [ nguồn: {amount} {asset}]",
   "operation.trust": "Tin tưởng {trustee} phát hành {assetCode}",
   "operation.trust.allow": " [authorize: {authorize}, trustor: {trustor}]",
   "operation.trust.change": " với giới hạn {limit}",
