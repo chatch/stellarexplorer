@@ -64,8 +64,8 @@ const initialLanguage =
 
 // Derive network type from the hostname.
 // Network settings determine which horizon instance to pull data from.
-const networkType = hostnameToNetworkType(window.location.hostname);
-const networkAddress = storage.getItem('networkAddress') || defaultNetworkAddresses[networkType];
+const networkType = hostnameToNetworkType(window.location.hostname)
+const networkAddress = storage.getItem('networkAddress') || defaultNetworkAddresses[networkType]
 
 const getMessages = locale => {
   switch (locale) {
@@ -98,14 +98,14 @@ class App extends Component {
     console.log(`NETWORK change: ${this.state.networkAddress} to ${networkAddress}`)
     storage.setItem('networkAddress', networkAddress)
 
-    if (!href) href = window.location.origin;
+    if (!href) href = window.location.origin
     window.location.href = href
   }
 
   // network switcher buttons in the header - public or testnet switch
   switchNetworkType = (networkType) => {
     window.location.href = networkType === networks.public ?
-      HOME_PUBLIC : HOME_TESTNET;
+      HOME_PUBLIC : HOME_TESTNET
   }
 
   languageSwitcher = event => {

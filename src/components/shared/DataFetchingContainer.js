@@ -159,7 +159,7 @@ const withDataFetchingContainer = (
     //       js-stellar-sdk reconnects each stream every 30 - 50 seconds or so
     //       so we see 1 or 2 each minute for each stream.
     onStreamError(error) {
-      console.error(`stream error (most likely horizon #119):`)
+      console.error('stream error (most likely horizon #119):')
       console.error(error)
     }
 

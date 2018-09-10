@@ -105,7 +105,7 @@ const fetchRecords = ({account, limit, server}) => {
 
 const callBuilder = props => props.server.offers()
 
-const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport)
 
 const enhance = compose(
   withPaging(),

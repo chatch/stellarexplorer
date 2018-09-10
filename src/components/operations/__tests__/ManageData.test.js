@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16'
 
 import ManageData from '../ManageData'
 
-configure({ adapter: new Adapter() })
+configure({adapter: new Adapter()})
 
 it('decodes ordinary string values', () => {
   const link = shallow(<ManageData name="lang" value="aW5kb25lc2lhbg==" />)

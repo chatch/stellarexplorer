@@ -6,13 +6,13 @@ import extend from 'lodash/extend'
 import has from 'lodash/has'
 import mapKeys from 'lodash/mapKeys'
 import omit from 'lodash/omit'
-import {Parser} from 'json2csv';
+import {Parser} from 'json2csv'
 
 import {withServer} from './HOCs'
 import {handleFetchDataFailure} from '../../lib/utils'
 
-import filesaver from '../../lib/filesaver';
-var saveAs = filesaver.saveAs;
+import filesaver from '../../lib/filesaver'
+var saveAs = filesaver.saveAs
 
 const propTypesContainer = {
   limit: PropTypes.number,
@@ -26,7 +26,7 @@ const propTypesContainer = {
 // this limitation is here to prevent browser memory overload and
 // the export from running extremely long (e.g. because someone
 // accidentally tries to export all of horizon).
-const EXPORT_LIMIT = 20000;
+const EXPORT_LIMIT = 20000
 
 /**
  * Wrap a component with Horizon data fetching abilities.
@@ -45,8 +45,8 @@ const withDataFetchingAllContainer = (
   callBuilderFn
 ) => Component => {
   const rspRecToPropsRecFn = record => {
-    record = mapKeys(record, (v, k) => camelCase(k));
-    return omit(record, ['links', 'pagingToken']);
+    record = mapKeys(record, (v, k) => camelCase(k))
+    return omit(record, ['links', 'pagingToken'])
   }
 
   const dataFetchingContainerClass = class extends React.Component {
@@ -67,12 +67,12 @@ const withDataFetchingAllContainer = (
 
     componentDidMount() {
       this.fetchDataFn = (state) => {
-        this.fetchData(state.next());
+        this.fetchData(state.next())
       }
     }
 
     componentWillUnmount() {
-      this.fetchDataFn = null;
+      this.fetchDataFn = null
     }
 
     /*
@@ -82,32 +82,32 @@ const withDataFetchingAllContainer = (
       fetchDataPromise
         .then(r => this.responseToState(r))
         .then(newState => {
-          this.setState(newState);
-          return null;
+          this.setState(newState)
+          return null
         })
         .then(() => {
-          const exportLimitExceeded = this.state.fetchedRecords.length >= EXPORT_LIMIT;
-          const endReached = this.state.cursor === 0 && this.state.fetchedRecords.length > 0;
+          const exportLimitExceeded = this.state.fetchedRecords.length >= EXPORT_LIMIT
+          const endReached = this.state.cursor === 0 && this.state.fetchedRecords.length > 0
           if (endReached || exportLimitExceeded) {
-            var newState = {isExportingFinished: true, exportLimitExceeded};
-            this.setState(newState);
-            var csvData = new Parser().parse(this.state.fetchedRecords);
-            const autoByteOrderMark = true;
+            var newState = {isExportingFinished: true, exportLimitExceeded}
+            this.setState(newState)
+            var csvData = new Parser().parse(this.state.fetchedRecords)
+            const autoByteOrderMark = true
             saveAs(new Blob([ '\ufeff', csvData ],
-                   { type: 'text/csv;charset=utf-8' }),
-                   'stellar-export.csv', autoByteOrderMark);
-            return;
+                   {type: 'text/csv;charset=utf-8'}),
+                   'stellar-export.csv', autoByteOrderMark)
+            return
           }
 
           const isEndReached = this.state.cursor === 0 &&
-                               this.state.fetchedRecords.length === 0;
+                               this.state.fetchedRecords.length === 0
           if (this.state.wasExportStarted && isEndReached) {
-            this.setState({isExportingFinished: true});
-            return;
+            this.setState({isExportingFinished: true})
+            return
           }
 
           if (this.state.wasExportStarted && this.fetchDataFn !== null && this.state.cursor !== 0) {
-            this.fetchDataFn(this.state);
+            this.fetchDataFn(this.state)
           }
         })
         .catch(e => {
@@ -142,11 +142,11 @@ const withDataFetchingAllContainer = (
             isExportingFinished={this.state.isExportingFinished}
             exportLimitExceeded={this.state.exportLimitExceeded}
             onClick={() => {
-              const newState = {limit: 100, wasExportStarted: true};
-              this.setState(newState);
+              const newState = {limit: 100, wasExportStarted: true}
+              this.setState(newState)
 
-              var initial = extend({}, this.props, newState);
-              this.fetchData(fetchDataFn(initial));
+              var initial = extend({}, this.props, newState)
+              this.fetchData(fetchDataFn(initial))
             }}
             fetchedRecords={this.state.fetchedRecords}
             parentRenderTimestamp={this.state.parentRenderTimestamp}

@@ -95,6 +95,6 @@ const enhance = compose(
 
 const callBuilder = props => props.server.effects()
 
-const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport)
 
 export default enhance(EffectTable)

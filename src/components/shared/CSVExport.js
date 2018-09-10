@@ -49,4 +49,4 @@ class CSVExport extends React.Component {
   }
 }
 
-export default CSVExport;
+export default CSVExport

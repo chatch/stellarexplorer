@@ -21,8 +21,8 @@ class WrappedServer extends sdk.Server {
       // allowHttp: public/test use HTTPS; local can use HTTP
       super(networkAddress, {allowHttp: networkType === networks.local})
     } catch(err) {
-      storage.removeItem('networkAddress');
-      window.location.href = `/error/insecure-horizon-server/?${networkAddress}`;
+      storage.removeItem('networkAddress')
+      window.location.href = `/error/insecure-horizon-server/?${networkAddress}`
     };
   }
 

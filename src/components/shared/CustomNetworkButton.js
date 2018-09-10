@@ -7,7 +7,7 @@ const networkAddresses = [
   'https://horizon.stellar.org',
   'https://stellar-api.wancloud.io',
   'https://api.chinastellar.com',
-];
+]
 
 /**
  * Button that reveals modal window where the Horizon server address can
@@ -112,9 +112,9 @@ class CustomNetworkButtonWithResourceModal extends React.Component {
 
     this.handleClick = this.handleClick.bind(this)
     this.handleClose = this.handleClose.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDropdownChange = this.handleDropdownChange.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDropdownChange = this.handleDropdownChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
 
     this.state = {
       show: false,
@@ -124,25 +124,25 @@ class CustomNetworkButtonWithResourceModal extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
 
-    const input = this.state.inputValue;
-    const dropdown = this.state.dropdownValue;
-    const newNetworkAddress = dropdown !== '' ? dropdown : input;
+    const input = this.state.inputValue
+    const dropdown = this.state.dropdownValue
+    const newNetworkAddress = dropdown !== '' ? dropdown : input
     if (newNetworkAddress !== this.props.networkAddress) {
-      this.props.setNetworkAddress(newNetworkAddress);
+      this.props.setNetworkAddress(newNetworkAddress)
     }
   }
 
   handleDropdownChange(event) {
-    const newNetworkAddress = event.target.value;
-    this.setState({dropdownValue: newNetworkAddress});
-    this.props.setNetworkAddress(newNetworkAddress);
+    const newNetworkAddress = event.target.value
+    this.setState({dropdownValue: newNetworkAddress})
+    this.props.setNetworkAddress(newNetworkAddress)
   }
 
   handleInputChange(event) {
-    const newNetworkAddress = event.target.value;
-    this.setState({inputValue: newNetworkAddress});
+    const newNetworkAddress = event.target.value
+    this.setState({inputValue: newNetworkAddress})
   }
 
   handleClose() {

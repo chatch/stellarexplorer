@@ -36,7 +36,7 @@ const handleFetchDataFailure = id => e => {
   if (e.data && e.data.status) status = e.data.status
   else if (e.response && e.response.status) status = e.response.status
 
-  let msg = `Failed to fetch data:`
+  let msg = 'Failed to fetch data:'
   if (status) msg += `\n\tStatus: [${status}]`
   if (e.response && e.response.status)
     msg += `\n\tStatus: [${e.response.status}]`
@@ -52,7 +52,7 @@ const handleFetchDataFailure = id => e => {
     if (id) redirectURI += `/${id}`
     errorURI = redirectURI
   } else if (e.message === 'Network Error') {
-    errorURI = `/error/general/network`
+    errorURI = '/error/general/network'
   } else {
     errorURI = `/error/general/${id}`
   }

@@ -33,7 +33,7 @@ const enhance = compose(
   withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder)
 )
 
-const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport);
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport)
 
 const wrapHOC = (Component) => (props) => (
   <div>
@@ -44,6 +44,6 @@ const wrapHOC = (Component) => (props) => (
       </div>
     ) }
   </div>
-);
+)
 
 export default enhance(wrapHOC(TransactionTable))

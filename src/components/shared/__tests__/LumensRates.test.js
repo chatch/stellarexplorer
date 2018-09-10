@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16'
 
 import {LumensRates} from '../LumensRates'
 
-configure({ adapter: new Adapter() })
+configure({adapter: new Adapter()})
 
 it('render positive change in rate', () => {
   const rate = shallow(<LumensRates change="2.1" usd="0.020" />)

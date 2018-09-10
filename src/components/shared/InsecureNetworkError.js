@@ -5,7 +5,7 @@ import {FormattedMessage} from 'react-intl'
 
 class InsecureNetworkError extends React.Component {
   render() {
-    const uri = this.props.location.search.replace('?', '');
+    const uri = this.props.location.search.replace('?', '')
     return (
       <Grid>
         <Row>
