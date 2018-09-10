@@ -31,7 +31,7 @@ const AccountFlagsUpdated = ({
 }) => (
   <span>
     <FormattedMessage id="flags" />
-    {`: `}
+    {': '}
     {authRequiredFlag != null && (
       <span>auth_required_flag={String(authRequiredFlag)}; </span>
     )}
@@ -44,7 +44,7 @@ const AccountFlagsUpdated = ({
 const AccountHomeDomainUpdated = ({homeDomain}) => (
   <span>
     <FormattedMessage id="home.domain" />
-    {`: `}
+    {': '}
     <a href={`https://${homeDomain}`} target="_blank">
       {homeDomain}
     </a>
@@ -102,6 +102,8 @@ const Data = ({op, type}) => {
     </div>
   )
 }
+
+const SequenceBumped = ({newSeq}) => <span>{newSeq}</span>
 
 const Signer = ({publicKey, weight}) => (
   <span>
@@ -191,6 +193,7 @@ const effectTypeComponentMap = {
   account_thresholds_updated: Thresholds,
   account_home_domain_updated: AccountHomeDomainUpdated,
   account_flags_updated: AccountFlagsUpdated,
+  sequence_bumped: SequenceBumped,
   signer_created: Signer,
   signer_removed: Signer,
   signer_updated: Signer,
