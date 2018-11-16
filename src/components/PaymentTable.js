@@ -33,6 +33,11 @@ const PaymentTable = ({compact, server, parentRenderTimestamp, records, account}
             <FormattedMessage id="transaction" />
           </th>
         )}
+        {compact === false && (
+          <th>
+            <FormattedMessage id="type" />
+          </th>
+        )}
         <th>
           <FormattedMessage id="time" />
         </th>
