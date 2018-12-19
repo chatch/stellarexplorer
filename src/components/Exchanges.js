@@ -7,6 +7,7 @@ import {FormattedMessage, injectIntl} from 'react-intl'
 import isEmpty from 'lodash/isEmpty'
 
 import {decentralized, centralized} from '../data/exchanges'
+import {setTitle} from '../lib/utils'
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
 import NewWindowIcon from './shared/NewWindowIcon'
@@ -16,6 +17,7 @@ const METADATA_PATH =
   'https://raw.githubusercontent.com/chatch/stellarexplorer/master/src/data/exchanges.json'
 
 const Exchange = ({accounts, home, name, logo, decentralized = false}) => {
+  setTitle(`Exchanges`)
   const homeLink = `https://${home}`
   return (
     <tr className="directoryRow">

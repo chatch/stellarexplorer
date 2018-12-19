@@ -16,6 +16,7 @@ import {
   handleFetchDataFailure,
   isPublicKey,
   isStellarAddress,
+  setTitle,
 } from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import {withSpinner} from './shared/Spinner'
@@ -181,11 +182,14 @@ const AccountSummaryPanel = ({
   formatMessageFn,
   knownAccounts,
 }) => {
+  setTitle(`Account ${a.id}`)
+
   const header = titleWithJSONButton(
     formatMessageFn({id: 'account'}),
     accountUrl
   )
   const stellarAddr = stellarAddressFromURI()
+
   return (
     <Panel header={header}>
       <Grid style={{paddingLeft: 0}}>

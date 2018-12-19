@@ -37,18 +37,26 @@
       g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
     })();
 
+    /* track route changes */
     (function (history) {
       var pushState = history.pushState;
       history.pushState = function (state) {
         if (typeof history.onpushstate == "function") {
           history.onpushstate({ state: state });
         }
-        const pushedUrl = arguments[2]
+        var pushedUrl = arguments[2];
         _paq.push(['setCustomUrl', pushedUrl]);
         _paq.push(['trackPageView']);
         return pushState.apply(history, arguments);
       };
     })(window.history);
+
+    /* track hash changes - mostly tab clicks */
+    window.addEventListener('hashchange', function () {
+      var hashUrl = '/account/' + window.location.hash.substr(1);
+      _paq.push(['setCustomUrl', hashUrl]);
+      _paq.push(['trackPageView']);
+    })
   </script>
 </head>
 

@@ -6,6 +6,7 @@ import Table from 'react-bootstrap/lib/Table'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import PropTypes from 'prop-types'
 
+import {setTitle} from '../lib/utils'
 import AccountLink from './shared/AccountLink'
 import NewWindowIcon from './shared/NewWindowIcon'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -40,6 +41,7 @@ Pool.propTypes = {
 
 class Pools extends React.Component {
   render() {
+    setTitle(`Inflation Pools`)
     const {formatMessage} = this.props.intl
     const header = titleWithJSONButton(
       formatMessage({id: 'inflation.pools'}),

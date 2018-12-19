@@ -4,9 +4,11 @@ import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import {injectIntl} from 'react-intl'
 import TradeTable from './TradeTable'
+import { setTitle} from '../lib/utils'
 
 class Trades extends React.Component {
   render() {
+    setTitle('Trades')
     const {formatMessage} = this.props.intl
     return (
       <Grid>

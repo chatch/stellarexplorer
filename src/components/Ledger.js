@@ -14,7 +14,7 @@ import {
 } from 'react-intl'
 import has from 'lodash/has'
 
-import {handleFetchDataFailure, shortHash, stroopsToLumens} from '../lib/utils'
+import {handleFetchDataFailure, setTitle, shortHash, stroopsToLumens} from '../lib/utils'
 import ClipboardCopy from './shared/ClipboardCopy'
 import {withServer} from './shared/HOCs'
 import TransactionTable from './TransactionTableContainer'
@@ -23,6 +23,7 @@ import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 const ledgerHash = hash => shortHash(hash, 20)
 
 const responseToState = rsp => {
+  setTitle(`Ledger ${rsp.sequence}`)
   // NOTE: as at 11 March 2018 testnet horizon returns base values in stroops
   //        but mainnet returns in lumens. so handling both until all are moved
   //        to stroops.

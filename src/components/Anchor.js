@@ -12,13 +12,14 @@ import Logo from './shared/Logo'
 import NewWindowIcon from './shared/NewWindowIcon'
 import StellarTomlBadge from './shared/StellarTomlBadge'
 
-import {assetKeyToIssuer} from '../lib/utils'
+import {assetKeyToIssuer, setTitle} from '../lib/utils'
 
 import directory from '../data/directory'
 const {anchors} = directory
 
 class Anchor extends React.Component {
   render() {
+
     const {formatMessage} = this.props.intl
 
     const id = this.props.match.params.id
@@ -27,6 +28,8 @@ class Anchor extends React.Component {
     const name = has(anchor, 'displayName') ? anchor.displayName : anchor.name
 
     if (!anchor || anchor == null) return null
+
+    setTitle(`Anchor ${name}`)
 
     return (
       <Grid>

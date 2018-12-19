@@ -75,6 +75,8 @@ const formatAmount = amount => {
   return new BigNumber(amount).toString()
 }
 
+const setTitle = subTitle => document.title = `Stellar Explorer | ${subTitle}`
+
 export {
   assetKeyToIssuer,
   base64Decode,
@@ -86,6 +88,7 @@ export {
   isSecretKey,
   isStellarAddress,
   isTxHash,
+  setTitle,
   shortHash,
   storageInit,
   stroopsToLumens,

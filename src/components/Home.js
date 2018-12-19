@@ -8,6 +8,7 @@ import {injectIntl} from 'react-intl'
 import LedgerTable from './LedgerTableContainer'
 import OperationTable from './OperationTable'
 import TransactionTable from './TransactionTableContainer'
+import {setTitle} from '../lib/utils'
 import Title from './shared/TitleWithLink'
 
 const panelHeader = (title, viewAllLabel, viewAllLink) => (
@@ -20,6 +21,7 @@ const panelHeader = (title, viewAllLabel, viewAllLink) => (
 
 class Home extends React.Component {
   render() {
+    setTitle('Home')
     const {formatMessage} = this.props.intl
     const viewAllStr = formatMessage({id: 'view.all'})
     return (

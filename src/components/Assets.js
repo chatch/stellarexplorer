@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import has from 'lodash/has'
 
+import {setTitle} from '../lib/utils'
 import AccountLink from './shared/AccountLink'
 import BackendResourceBadgeButton from './shared/BackendResourceBadgeButton'
 import ClipboardCopy from './shared/ClipboardCopy'
@@ -22,6 +23,7 @@ const METADATA_PATH =
   'https://raw.githubusercontent.com/irisli/stellarterm/master/directory/directory.json'
 
 const Asset = ({code, domain, issuer}) => {
+  setTitle(`Assets`)
   const anchor = anchors[domain]
   return (
     <tr className="directoryRow">

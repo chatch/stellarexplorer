@@ -13,7 +13,7 @@ import {
 import PropTypes from 'prop-types'
 import {MemoHash, MemoReturn} from 'stellar-sdk'
 
-import {base64DecodeToHex, handleFetchDataFailure} from '../lib/utils'
+import {base64DecodeToHex, handleFetchDataFailure, setTitle} from '../lib/utils'
 import ClipboardCopy from './shared/ClipboardCopy'
 import {withServer} from './shared/HOCs'
 import OperationTable from './OperationTable'
@@ -34,9 +34,12 @@ class Transaction extends React.Component {
 
   render() {
     const {id, urlFn, fee, ledger, memoType, memo, opCount, time} = this.props
+    if (!id) return null
+    
+    setTitle(`Transaction ${id}`)
+    
     const {formatMessage} = this.props.intl
 
-    if (!id) return null
     return (
       <Grid>
         <Row>

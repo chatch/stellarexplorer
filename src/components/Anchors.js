@@ -14,7 +14,7 @@ import NewWindowIcon from './shared/NewWindowIcon'
 import StellarTomlBadge from './shared/StellarTomlBadge'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
-import {assetKeyToIssuer} from '../lib/utils'
+import {assetKeyToIssuer, setTitle} from '../lib/utils'
 
 import directory from '../data/directory'
 const {anchors} = directory
@@ -101,6 +101,7 @@ Anchor.propTypes = {
 class Anchors extends React.Component {
   render() {
     if (!anchors) return null
+    setTitle(`Anchors`)
     const {formatMessage} = this.props.intl
     const header = titleWithJSONButton(
       formatMessage({id: 'anchors'}),

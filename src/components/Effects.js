@@ -4,9 +4,11 @@ import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import {injectIntl} from 'react-intl'
 import EffectTable from './EffectTable'
+import {setTitle} from '../lib/utils'
 
 class Effects extends React.Component {
   render() {
+    setTitle(`Effects`)
     const {formatMessage} = this.props.intl
     return (
       <Grid>

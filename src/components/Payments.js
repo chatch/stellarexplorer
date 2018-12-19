@@ -4,10 +4,12 @@ import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import {injectIntl} from 'react-intl'
 import PaymentTable from './PaymentTable'
+import { setTitle} from '../lib/utils'
 
 class Payments extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
+    setTitle('Payments')
     return (
       <Grid>
         <Row>
