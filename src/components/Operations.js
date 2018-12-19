@@ -4,7 +4,7 @@ import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import {injectIntl} from 'react-intl'
 import OperationTable from './OperationTable'
-import { setTitle} from '../lib/utils'
+import {setTitle} from '../lib/utils'
 
 class Operations extends React.Component {
   render() {
