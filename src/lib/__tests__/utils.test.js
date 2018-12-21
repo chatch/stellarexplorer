@@ -111,6 +111,8 @@ it('formatAmount strips trailling 0s after decimal only', () => {
   expectUnchanged('0.1')
   expectUnchanged('0.0000001')
   expectUnchanged('100.1')
+  expectUnchanged('1234567.1234567')
+  expectUnchanged('12345678901234567890.1234567')
 
   const expectFmt = (amount, newAmount) =>
     expect(formatAmount(amount)).toBe(newAmount)
