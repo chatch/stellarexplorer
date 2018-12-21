@@ -88,8 +88,6 @@ Navigate to http://testnet.local:3000 or http://publicnet.local:3000 to select t
 
 ## Development
 
-NOTE: use npm instead of yarn to install the dependencies - see [#15](https://github.com/chatch/stellarexplorer/issues/15) for details
-
 See the section [Exploring Private / Local Development Networks](#private-networks) for connecting to different backend networks. By default steexp will look for a local instance of horizon.
 
 Start:
