@@ -17,7 +17,7 @@
     "blockchain"
   ],
   "engines": {
-    "node": "8.x.x"
+    "node": "10.x.x"
   },
   "dependencies": {
     "autoprefixer": "7.1.2",

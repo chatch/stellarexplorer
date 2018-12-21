@@ -2,9 +2,9 @@ dist: trusty
 language: node_js
 node_js:
   - lts/*
-  - 6
   - node
 cache:
+  - node
   directories:
     - node_modules
 script:
