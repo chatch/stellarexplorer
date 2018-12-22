@@ -14,12 +14,8 @@ import {
 } from 'react-intl'
 import has from 'lodash/has'
 
-import {
-  handleFetchDataFailure,
-  setTitle,
-  shortHash,
-  stroopsToLumens,
-} from '../lib/utils'
+import {stroopsToLumens} from '../lib/stellar/utils'
+import {handleFetchDataFailure, setTitle, shortHash} from '../lib/utils'
 import ClipboardCopy from './shared/ClipboardCopy'
 import {withServer} from './shared/HOCs'
 import TransactionTable from './TransactionTableContainer'

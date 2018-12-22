@@ -2,7 +2,6 @@ import {join} from 'path'
 import {tmpdir} from 'os'
 import BigNumber from 'bignumber.js'
 import truncate from 'lodash/truncate'
-import {sdk} from './stellar'
 
 // Amounts in Stellar don't go below 7 decimals
 // So setting the EXPONENTIAL_AT to 8 here ensures all toString() will show the
@@ -10,14 +9,6 @@ import {sdk} from './stellar'
 // formatAmount().
 BigNumber.config({EXPONENTIAL_AT: 20})
 
-const STROOPS_PER_LUMEN = 10000000
-const stroopsToLumens = stroops => stroops / STROOPS_PER_LUMEN
-
-// stellar federated address (eg. "stellar*fed.network")
-const isStellarAddress = addr => /^[^*,]*\*[a-z0-9-.]*$/i.test(addr)
-const isPublicKey = keyStr => sdk.StrKey.isValidEd25519PublicKey(keyStr)
-const isSecretKey = keyStr => sdk.StrKey.isValidEd25519SecretSeed(keyStr)
-const isTxHash = hashStr => /^[0-9a-f]{64}$/i.test(hashStr)
 const shortHash = (hash, length = 10) => truncate(hash, {length})
 
 const isDefInt = (obj, key) => {
@@ -75,7 +66,7 @@ const formatAmount = amount => {
   return new BigNumber(amount).toString()
 }
 
-const setTitle = subTitle => document.title = `Stellar Explorer | ${subTitle}`
+const setTitle = subTitle => (document.title = `Stellar Explorer | ${subTitle}`)
 
 export {
   assetKeyToIssuer,
@@ -84,12 +75,7 @@ export {
   formatAmount,
   handleFetchDataFailure,
   isDefInt,
-  isPublicKey,
-  isSecretKey,
-  isStellarAddress,
-  isTxHash,
   setTitle,
   shortHash,
   storageInit,
-  stroopsToLumens,
 }

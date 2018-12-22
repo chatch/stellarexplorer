@@ -4,7 +4,12 @@ import isString from 'lodash/isString'
 import toNumber from 'lodash/toNumber'
 import {sdk} from './stellar'
 
-import {isPublicKey, isSecretKey, isStellarAddress, isTxHash} from './utils'
+import {
+  isPublicKey,
+  isSecretKey,
+  isStellarAddress,
+  isTxHash,
+} from './stellar/utils'
 import directory from '../data/directory'
 
 const {anchors, assets} = directory

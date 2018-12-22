@@ -7,7 +7,7 @@ import {withRouter} from 'react-router'
 import {injectIntl} from 'react-intl'
 
 import {searchStrToPath} from '../../lib/search'
-import {isSecretKey} from '../../lib/utils'
+import {isSecretKey} from '../../lib/stellar/utils'
 
 const HelpModal = props => (
   <Modal id="help-modal" show={props.show} onHide={props.handleCloseFn}>
@@ -57,14 +57,16 @@ const HelpModal = props => (
         </div>
         <div>
           <br />
-          Full name:<br />
+          Full name:
+          <br />
           <img
             src={`${process.env.PUBLIC_URL}/search/search_anchor_name_full.png`}
             alt="search by anchor full name"
           />
         </div>
         <div style={{marginTop: 20}}>
-          Partial name:<br />
+          Partial name:
+          <br />
           <img
             src={`${
               process.env.PUBLIC_URL
@@ -105,7 +107,8 @@ const HelpModal = props => (
           href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch"
         >
           OpenSearch
-        </a>. This allows you to search directly from your browser search box or
+        </a>
+        . This allows you to search directly from your browser search box or
         search bar. You should see something like the following when you
         navigate to Stellar Explorer then open the search box. Install it from
         there:

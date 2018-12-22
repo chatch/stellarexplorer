@@ -4,7 +4,8 @@ import {FormattedMessage} from 'react-intl'
 import {StrKey} from 'stellar-sdk'
 import AccountLink from '../shared/AccountLink'
 import snakeCase from 'lodash/snakeCase'
-import {isPublicKey, shortHash} from '../../lib/utils'
+import {isPublicKey} from '../../lib/stellar/utils'
+import {shortHash} from '../../lib/utils'
 
 const propTypes = {
   homeDomain: PropTypes.string,

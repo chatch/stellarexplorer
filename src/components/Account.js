@@ -11,13 +11,8 @@ import {FederationServer, StrKey} from 'stellar-sdk'
 import has from 'lodash/has'
 
 import knownAccounts from '../data/known_accounts'
-import {
-  base64Decode,
-  handleFetchDataFailure,
-  isPublicKey,
-  isStellarAddress,
-  setTitle,
-} from '../lib/utils'
+import {isPublicKey, isStellarAddress} from '../lib/stellar/utils'
+import {base64Decode, handleFetchDataFailure, setTitle} from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import {withSpinner} from './shared/Spinner'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -64,8 +59,8 @@ const NameValueTable = ({data, decodeValue = false}) => {
               {typeof data[key] === 'boolean'
                 ? data[key].toString()
                 : decodeValue
-                  ? base64Decode(data[key])
-                  : data[key]}
+                ? base64Decode(data[key])
+                : data[key]}
             </td>
           </tr>
         ))}

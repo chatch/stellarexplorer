@@ -17,7 +17,7 @@ import {withSpinner} from './shared/Spinner'
 import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormattedRelative'
 import CSVExport from './shared/CSVExport'
 
-import {isPublicKey} from '../lib/utils'
+import {isPublicKey} from '../lib/stellar/utils'
 
 const Trade = ({account, singleAccountView, trade, parentRenderTimestamp}) => {
   const Base = (
