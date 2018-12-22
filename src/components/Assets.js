@@ -29,7 +29,7 @@ const Asset = ({code, domain, issuer}) => {
     <tr className="directoryRow">
       <td>
         <a href={anchor.website} target="_blank">
-          <Logo name={domain} src={anchor.logo} />
+          <Logo name={domain} type="anchor" />
         </a>
       </td>
       <td style={{color: 'white'}}>{code}</td>

@@ -5,7 +5,7 @@ import distributers from './distributers'
 import {
   centralized as centralizedExchanges,
   decentralized as decentralizedExchanges,
-} from './exchanges'
+} from './exchanges.json'
 import inflationPools from './inflation_pools'
 import directory from './directory'
 const {anchors, destinations} = directory

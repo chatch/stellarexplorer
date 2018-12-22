@@ -19,7 +19,6 @@ const {anchors} = directory
 
 class Anchor extends React.Component {
   render() {
-
     const {formatMessage} = this.props.intl
 
     const id = this.props.match.params.id
@@ -47,7 +46,7 @@ class Anchor extends React.Component {
                 <tr>
                   <td>
                     <a href={anchor.website} target="_blank">
-                      <Logo name={domain} src={anchor.logo} />
+                      <Logo name={domain} type="anchor" />
                     </a>
                   </td>
                   <td>

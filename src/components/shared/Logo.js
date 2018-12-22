@@ -5,12 +5,16 @@ import PropTypes from 'prop-types'
 const squareDimensions = {height: 75, width: 75}
 const rectangleDimensions = {height: 40, width: 150}
 
-const Logo = ({name, src}) => {
-  const imgSrc = src
-    ? src
-    : `${process.env.PUBLIC_URL}/img/${name.toLowerCase()}.png`
-  const isDirectoryLogo = imgSrc.startsWith('data:image')
-  const dimen = isDirectoryLogo ? squareDimensions : rectangleDimensions
+// exchange image from anchor image
+const imagesInBoth = ['papayabot', 'papayaswap', 'ripplefox']
+
+const Logo = ({name, type = 'anchor'}) => {
+  const nameLower = name.toLowerCase()
+  const imgSrc = `${process.env.PUBLIC_URL}/img/${nameLower}.png`
+  const dimen =
+    type === 'anchor' || imagesInBoth.indexOf(nameLower) !== -1
+      ? squareDimensions
+      : rectangleDimensions
   return (
     <span>
       <img
@@ -26,7 +30,7 @@ const Logo = ({name, src}) => {
 
 Logo.propTypes = {
   name: PropTypes.string.isRequired,
-  src: PropTypes.string,
+  type: PropTypes.string,
 }
 
 export default Logo

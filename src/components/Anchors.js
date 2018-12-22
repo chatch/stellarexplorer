@@ -60,12 +60,12 @@ const TradeColumn = ({assets, domain}) => (
   </span>
 )
 
-const Anchor = ({assets, domain, displayName, logo, website}) => {
+const Anchor = ({assets, domain, displayName, website}) => {
   return (
     <tr className="directoryRow">
       <td>
         <Link to={`/anchor/${domain}`}>
-          <Logo name={domain} src={logo} />
+          <Logo name={domain} type="anchor" />
         </Link>
       </td>
       <td className="anchorLinkCol">
@@ -98,7 +98,6 @@ const Anchor = ({assets, domain, displayName, logo, website}) => {
 Anchor.propTypes = {
   assets: PropTypes.object.isRequired,
   domain: PropTypes.string.isRequired,
-  logo: PropTypes.string,
   website: PropTypes.string.isRequired,
 }
 
@@ -138,7 +137,6 @@ class Anchors extends React.Component {
                       assets={anchor.assets}
                       domain={domain}
                       displayName={anchor.displayName}
-                      logo={anchor.logo}
                       website={anchor.website}
                     />
                   )

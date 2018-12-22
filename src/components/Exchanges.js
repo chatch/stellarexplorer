@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/lib/Table'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import isEmpty from 'lodash/isEmpty'
 
-import {decentralized, centralized} from '../data/exchanges'
+import {decentralized, centralized} from '../data/exchanges.json'
 import {setTitle} from '../lib/utils'
 import AccountLink from './shared/AccountLink'
 import Logo from './shared/Logo'
@@ -16,14 +16,14 @@ import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 const METADATA_PATH =
   'https://raw.githubusercontent.com/chatch/stellarexplorer/master/src/data/exchanges.json'
 
-const Exchange = ({accounts, home, name, logo, decentralized = false}) => {
+const Exchange = ({accounts, home, name, decentralized = false}) => {
   setTitle('Exchanges')
   const homeLink = `https://${home}`
   return (
     <tr className="directoryRow">
       <td>
         <a href={homeLink} target="_blank">
-          <Logo name={name} src={logo} />
+          <Logo name={name} type="exchange" />
         </a>
       </td>
       <td>
