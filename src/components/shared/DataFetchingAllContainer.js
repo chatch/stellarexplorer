@@ -6,13 +6,16 @@ import extend from 'lodash/extend'
 import has from 'lodash/has'
 import mapKeys from 'lodash/mapKeys'
 import omit from 'lodash/omit'
-import {Parser} from 'json2csv'
 
 import {withServer} from './HOCs'
 import {handleFetchDataFailure} from '../../lib/utils'
+import {exportCSV} from '../../lib/csv'
 
-import filesaver from '../../lib/filesaver'
-var saveAs = filesaver.saveAs
+// there is a hard limitation of how many records can be exported.
+// this limitation is here to prevent browser memory overload and
+// the export from running extremely long (e.g. because someone
+// accidentally tries to export all of horizon).
+const EXPORT_LIMIT = 20000
 
 const propTypesContainer = {
   limit: PropTypes.number,
@@ -22,12 +25,6 @@ const propTypesContainer = {
   server: PropTypes.object,
 }
 
-// there is a hard limitation of how many records can be exported.
-// this limitation is here to prevent browser memory overload and
-// the export from running extremely long (e.g. because someone
-// accidentally tries to export all of horizon).
-const EXPORT_LIMIT = 20000
-
 /**
  * Wrap a component with Horizon data fetching abilities.
 
@@ -36,14 +33,8 @@ const EXPORT_LIMIT = 20000
  *          the result data.
  * @param rspRecToPropsRecFn {Function} Converts from server response record
  *          format to some other format that the consuming container expects.
- * @param callBuilderFn {Function => CallBuilder} Function that returns a
- *          CallBuilder instance for the type of data being requested. This
- *          CallBuilder is used to setup a stream() to receive updates.
  */
-const withDataFetchingAllContainer = (
-  fetchDataFn,
-  callBuilderFn
-) => Component => {
+const withDataFetchingAllContainer = fetchDataFn => Component => {
   const rspRecToPropsRecFn = record => {
     record = mapKeys(record, (v, k) => camelCase(k))
     return omit(record, ['links', 'pagingToken'])
@@ -66,7 +57,7 @@ const withDataFetchingAllContainer = (
     }
 
     componentDidMount() {
-      this.fetchDataFn = (state) => {
+      this.fetchDataFn = state => {
         this.fetchData(state.next())
       }
     }
@@ -86,27 +77,29 @@ const withDataFetchingAllContainer = (
           return null
         })
         .then(() => {
-          const exportLimitExceeded = this.state.fetchedRecords.length >= EXPORT_LIMIT
-          const endReached = this.state.cursor === 0 && this.state.fetchedRecords.length > 0
+          const exportLimitExceeded =
+            this.state.fetchedRecords.length >= EXPORT_LIMIT
+          const endReached =
+            this.state.cursor === 0 && this.state.fetchedRecords.length > 0
           if (endReached || exportLimitExceeded) {
+            exportCSV(this.state.fetchedRecords)
             var newState = {isExportingFinished: true, exportLimitExceeded}
             this.setState(newState)
-            var csvData = new Parser().parse(this.state.fetchedRecords)
-            const autoByteOrderMark = true
-            saveAs(new Blob([ '\ufeff', csvData ],
-                   {type: 'text/csv;charset=utf-8'}),
-                   'stellar-export.csv', autoByteOrderMark)
             return
           }
 
-          const isEndReached = this.state.cursor === 0 &&
-                               this.state.fetchedRecords.length === 0
+          const isEndReached =
+            this.state.cursor === 0 && this.state.fetchedRecords.length === 0
           if (this.state.wasExportStarted && isEndReached) {
             this.setState({isExportingFinished: true})
             return
           }
 
-          if (this.state.wasExportStarted && this.fetchDataFn !== null && this.state.cursor !== 0) {
+          if (
+            this.state.wasExportStarted &&
+            this.fetchDataFn !== null &&
+            this.state.cursor !== 0
+          ) {
             this.fetchDataFn(this.state)
           }
         })
@@ -128,7 +121,9 @@ const withDataFetchingAllContainer = (
       return {
         next: rsp.next,
         prev: rsp.prev,
-        fetchedRecords: this.state.fetchedRecords.concat(rsp.records.map(rspRecToPropsRecFn)),
+        fetchedRecords: this.state.fetchedRecords.concat(
+          rsp.records.map(rspRecToPropsRecFn)
+        ),
         cursor,
         parentRenderTimestamp: Date.now(),
       }

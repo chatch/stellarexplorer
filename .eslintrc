@@ -3,21 +3,9 @@
   "rules": {
     "react/jsx-wrap-multilines": "off",
     "jsx-a11y/anchor-has-content": "off",
-    "comma-dangle": [
-      "warn",
-      "always-multiline"
-    ],
-    "object-curly-spacing": [
-      "warn",
-      "never"
-    ],
-    // "quotes": [
-    //   "warn",
-    //   "backtick"
-    // ],
-    "semi": [
-      "warn",
-      "never"
-    ]
+    "comma-dangle": ["warn", "always-multiline"],
+    "object-curly-spacing": ["warn", "never"],
+    "quotes": ["warn", "single"],
+    "semi": ["warn", "never"]
   }
 }

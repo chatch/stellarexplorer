@@ -33,16 +33,20 @@ const enhance = compose(
   withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder)
 )
 
-const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport)
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords)(
+  CSVExport
+)
 
-const wrapHOC = (Component) => (props) => (
+const wrapHOC = Component => props => (
   <div>
-    <div><Component {...props}/></div>
-    { !props.noCSVExport && (
+    <div>
+      <Component {...props} />
+    </div>
+    {!props.noCSVExport && (
       <div className="text-center" id="csv-export">
         <ExportToCSVComponent {...props} />
       </div>
-    ) }
+    )}
   </div>
 )
 

@@ -14,51 +14,57 @@ import {withPaging} from './shared/Paging'
 import {withSpinner} from './shared/Spinner'
 import CSVExport from './shared/CSVExport'
 
-const PaymentTable = ({compact, server, parentRenderTimestamp, records, account}) => (
+const PaymentTable = ({
+  compact,
+  server,
+  parentRenderTimestamp,
+  records,
+  account,
+}) => (
   <div>
-  <Table
-    id="payment-table"
-    className="table-striped table-hover table-condensed"
-  >
-    <thead>
-      <tr>
-        <th>
-          <FormattedMessage id="account" />
-        </th>
-        <th>
-          <FormattedMessage id="payment" />
-        </th>
-        {compact === false && (
+    <Table
+      id="payment-table"
+      className="table-striped table-hover table-condensed"
+    >
+      <thead>
+        <tr>
           <th>
-            <FormattedMessage id="transaction" />
+            <FormattedMessage id="account" />
           </th>
-        )}
-        {compact === false && (
           <th>
-            <FormattedMessage id="type" />
+            <FormattedMessage id="payment" />
           </th>
-        )}
-        <th>
-          <FormattedMessage id="time" />
-        </th>
-        <th />
-      </tr>
-    </thead>
-    <tbody>
-      {records.map(payment => (
-        <Operation
-          key={payment.id}
-          compact={compact}
-          op={payment}
-          opURLFn={server.opURL}
-          parentRenderTimestamp={parentRenderTimestamp}
-        />
-      ))}
-    </tbody>
-  </Table>
-  <div className="text-center" id="csv-export">
-    <ExportToCSVComponent server={server} account={account} />
-  </div>
+          {compact === false && (
+            <th>
+              <FormattedMessage id="transaction" />
+            </th>
+          )}
+          {compact === false && (
+            <th>
+              <FormattedMessage id="type" />
+            </th>
+          )}
+          <th>
+            <FormattedMessage id="time" />
+          </th>
+          <th />
+        </tr>
+      </thead>
+      <tbody>
+        {records.map(payment => (
+          <Operation
+            key={payment.id}
+            compact={compact}
+            op={payment}
+            opURLFn={server.opURL}
+            parentRenderTimestamp={parentRenderTimestamp}
+          />
+        ))}
+      </tbody>
+    </Table>
+    <div className="text-center" id="csv-export">
+      <ExportToCSVComponent server={server} account={account} />
+    </div>
   </div>
 )
 
@@ -85,7 +91,9 @@ const fetchRecords = ({account, tx, limit, server}) => {
 
 const callBuilder = props => props.server.payments()
 
-const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords, callBuilder)(CSVExport)
+const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords)(
+  CSVExport
+)
 
 const enhance = compose(
   withPaging(),
