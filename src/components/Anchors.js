@@ -27,7 +27,11 @@ const tradeURL = (assetCode, issuerDomain) =>
 
 // render list of asset codes, each code on a new line
 const AssetCodeColumn = ({assets}) => (
-  <span>{Object.keys(assets).map(code => <div key={code}>{code}</div>)}</span>
+  <span>
+    {Object.keys(assets).map(code => (
+      <div key={code}>{code}</div>
+    ))}
+  </span>
 )
 
 const IssuerColumn = ({assets}) => (
@@ -101,7 +105,7 @@ Anchor.propTypes = {
 class Anchors extends React.Component {
   render() {
     if (!anchors) return null
-    setTitle(`Anchors`)
+    setTitle('Anchors')
     const {formatMessage} = this.props.intl
     const header = titleWithJSONButton(
       formatMessage({id: 'anchors'}),

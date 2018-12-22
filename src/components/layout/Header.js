@@ -46,6 +46,9 @@ class Header extends React.Component {
             />
           </Navbar.Form>
           <Nav>
+            <LinkContainer to="/graphs">
+              <NavItem>Graphs (beta)</NavItem>
+            </LinkContainer>
             <LinkContainer to="/operations">
               <NavItem>
                 <FormattedMessage id="operations" />

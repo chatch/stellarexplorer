@@ -41,7 +41,7 @@ Pool.propTypes = {
 
 class Pools extends React.Component {
   render() {
-    setTitle(`Inflation Pools`)
+    setTitle('Inflation Pools')
     const {formatMessage} = this.props.intl
     const header = titleWithJSONButton(
       formatMessage({id: 'inflation.pools'}),

@@ -17,7 +17,7 @@ const METADATA_PATH =
   'https://raw.githubusercontent.com/chatch/stellarexplorer/master/src/data/exchanges.json'
 
 const Exchange = ({accounts, home, name, logo, decentralized = false}) => {
-  setTitle(`Exchanges`)
+  setTitle('Exchanges')
   const homeLink = `https://${home}`
   return (
     <tr className="directoryRow">
@@ -36,7 +36,8 @@ const Exchange = ({accounts, home, name, logo, decentralized = false}) => {
         {!isEmpty(accounts) &&
           accounts.map(account => (
             <span key={account}>
-              <AccountLink account={account} hideKnown={true} />&nbsp;
+              <AccountLink account={account} hideKnown={true} />
+              &nbsp;
             </span>
           ))}
         {isEmpty(accounts) && decentralized && <span>Decentralized</span>}

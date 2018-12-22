@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactLoadable from 'react-loadable'
 import {
   BrowserRouter as Router,
   Redirect,
@@ -24,23 +25,8 @@ import SearchBox from './components/layout/SearchBox'
 import NoMatchError from './components/shared/NoMatchError'
 import InsecureNetworkError from './components/shared/InsecureNetworkError'
 import Error from './components/shared/Error'
+import {Spinner} from './components/shared/Spinner'
 import SponsoredLink from './components/shared/SponsoredLink'
-
-import Ledger from './components/Ledger'
-import Ledgers from './components/Ledgers'
-import Transaction from './components/Transaction'
-import Transactions from './components/Transactions'
-import Account from './components/Account'
-import Accounts from './components/Accounts'
-import Anchor from './components/Anchor'
-import Anchors from './components/Anchors'
-import Exchanges from './components/Exchanges'
-import Operations from './components/Operations'
-import Payments from './components/Payments'
-import Trades from './components/Trades'
-import Assets from './components/Assets'
-import Effects from './components/Effects'
-import InflationPools from './components/InflationPools'
 
 import {networks, Server} from './lib/stellar'
 import {hostnameToNetworkType} from './lib/stellar/networks'
@@ -65,7 +51,8 @@ const initialLanguage =
 // Derive network type from the hostname.
 // Network settings determine which horizon instance to pull data from.
 const networkType = hostnameToNetworkType(window.location.hostname)
-const networkAddress = storage.getItem('networkAddress') || defaultNetworkAddresses[networkType]
+const networkAddress =
+  storage.getItem('networkAddress') || defaultNetworkAddresses[networkType]
 
 const getMessages = locale => {
   switch (locale) {
@@ -79,6 +66,34 @@ const getMessages = locale => {
       return enMessages
   }
 }
+
+/*
+ * Dyanmically loaded components
+ */
+
+const Loadable = componentStr =>
+  ReactLoadable({
+    loader: () => import(`./components/${componentStr}`),
+    loading() {
+      return <Spinner />
+    },
+  })
+
+const Account = Loadable('Account')
+const Accounts = Loadable('Accounts')
+const Anchor = Loadable('Anchor')
+const Anchors = Loadable('Anchors')
+const Assets = Loadable('Assets')
+const Effects = Loadable('Effects')
+const Exchanges = Loadable('Exchanges')
+const InflationPools = Loadable('InflationPools')
+const Ledger = Loadable('Ledger')
+const Ledgers = Loadable('Ledgers')
+const Operations = Loadable('Operations')
+const Payments = Loadable('Payments')
+const Trades = Loadable('Trades')
+const Transaction = Loadable('Transaction')
+const Transactions = Loadable('Transactions')
 
 class App extends Component {
   state = {
@@ -95,7 +110,9 @@ class App extends Component {
   }
 
   setNetworkAddress = (networkAddress, href) => {
-    console.log(`NETWORK change: ${this.state.networkAddress} to ${networkAddress}`)
+    console.log(
+      `NETWORK change: ${this.state.networkAddress} to ${networkAddress}`
+    )
     storage.setItem('networkAddress', networkAddress)
 
     if (!href) href = window.location.origin
@@ -103,9 +120,9 @@ class App extends Component {
   }
 
   // network switcher buttons in the header - public or testnet switch
-  switchNetworkType = (networkType) => {
-    window.location.href = networkType === networks.public ?
-      HOME_PUBLIC : HOME_TESTNET
+  switchNetworkType = networkType => {
+    window.location.href =
+      networkType === networks.public ? HOME_PUBLIC : HOME_TESTNET
   }
 
   languageSwitcher = event => {
@@ -164,7 +181,10 @@ class App extends Component {
                     return <Redirect to={searchStrToPath(searchStr)} />
                   }}
                 />
-                <Route path="/error/insecure-horizon-server" component={InsecureNetworkError} />
+                <Route
+                  path="/error/insecure-horizon-server"
+                  component={InsecureNetworkError}
+                />
                 <Route path="/error/not-found/:id" component={NoMatchError} />
                 <Route path="/error/general/:id" component={Error} />
                 <Route component={Error} />

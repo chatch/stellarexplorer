@@ -14,7 +14,12 @@ import {
 } from 'react-intl'
 import has from 'lodash/has'
 
-import {handleFetchDataFailure, setTitle, shortHash, stroopsToLumens} from '../lib/utils'
+import {
+  handleFetchDataFailure,
+  setTitle,
+  shortHash,
+  stroopsToLumens,
+} from '../lib/utils'
 import ClipboardCopy from './shared/ClipboardCopy'
 import {withServer} from './shared/HOCs'
 import TransactionTable from './TransactionTableContainer'
@@ -144,7 +149,8 @@ class Ledger extends React.Component {
           <Row>
             <h3>
               <a id="txs-table" aria-hidden="true" />
-              <FormattedMessage id="transactions" />&nbsp;({txCount})
+              <FormattedMessage id="transactions" />
+              &nbsp;({txCount})
             </h3>
             <TransactionTable
               compact={false}

@@ -23,7 +23,7 @@ const METADATA_PATH =
   'https://raw.githubusercontent.com/irisli/stellarterm/master/directory/directory.json'
 
 const Asset = ({code, domain, issuer}) => {
-  setTitle(`Assets`)
+  setTitle('Assets')
   const anchor = anchors[domain]
   return (
     <tr className="directoryRow">

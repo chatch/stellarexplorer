@@ -8,7 +8,7 @@ import {setTitle} from '../lib/utils'
 
 class Ledgers extends React.Component {
   render() {
-  setTitle(`Ledgers`)
+    setTitle('Ledgers')
     const {formatMessage} = this.props.intl
     return (
       <Grid>

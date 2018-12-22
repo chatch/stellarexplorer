@@ -8,7 +8,7 @@ import {setTitle} from '../lib/utils'
 
 class Effects extends React.Component {
   render() {
-    setTitle(`Effects`)
+    setTitle('Effects')
     const {formatMessage} = this.props.intl
     return (
       <Grid>
