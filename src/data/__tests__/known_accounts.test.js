@@ -1,12 +1,10 @@
 import accounts from '../known_accounts'
-import {isPublicKey} from '../../lib/utils'
+import {isPublicKey} from '../../lib/stellar/utils'
 
 const findByName = name => {
   const addr = Object.keys(accounts).find(key => accounts[key].name === name)
   return {addr, account: accounts[addr]}
 }
-
-const isLogo = value => value.startsWith('data:image/png;base64')
 
 it('anchor account included', () => {
   const {addr: tonairaAddr, account: tonaira} = findByName('Tonaira')
@@ -14,7 +12,6 @@ it('anchor account included', () => {
   expect(tonaira.name).toBe('Tonaira')
   expect(tonaira.website).toBe('https://tonaira.com/')
   expect(tonaira.type).toBe('issuer')
-  expect(isLogo(tonaira.logo)).toBe(true)
 
   // check basics of another
   const {addr: vcbearAddr, account: vcbear} = findByName('VCBear')
@@ -31,11 +28,9 @@ it('standard exchange accounts are included', () => {
   expect(poloniex.name).toBe('Poloniex')
   expect(poloniex.website).toBe('poloniex.com')
   expect(poloniex.type).toBe('destination')
-  expect(poloniex.logo).toBeUndefined() // not set uses default path
 })
 
 it('exchange accounts with logo override sets logo', () => {
-  const {addr: papayaAddr, account: papaya} = findByName('PapayaBot')
+  const {addr: papayaAddr} = findByName('PapayaBot')
   expect(isPublicKey(papayaAddr)).toBe(true)
-  expect(isLogo(papaya.logo)).toBe(true)
 })

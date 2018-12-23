@@ -7,15 +7,15 @@ Array [
     0.025
      
     <span
-        style={
-            Object {
-                "color": "#fb9678",
-              }
+      style={
+        Object {
+          "color": "#fb9678",
         }
+      }
     >
-        -1.52%
+      -1.52%
     </span>
-</span>,
+  </span>,
 ]
 `;
 
@@ -26,14 +26,14 @@ Array [
     0.020
      
     <span
-        style={
-            Object {
-                "color": "#00c292",
-              }
+      style={
+        Object {
+          "color": "#00c292",
         }
+      }
     >
-        +2.1%
+      +2.1%
     </span>
-</span>,
+  </span>,
 ]
 `;

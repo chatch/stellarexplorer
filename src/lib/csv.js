@@ -11,7 +11,6 @@ const jsonToCSV = records => {
       columns.push(...newKeys)
     }
   })
-  console.log(columns)
 
   // map col name to col idx
   const colToIdx = columns.reduce((accumulated, curCol, curIdx) => {
@@ -21,11 +20,12 @@ const jsonToCSV = records => {
 
   // build and return csv string from array of column values
   const toCsvString = stringArr =>
-    stringArr.map(
-      (val, idx) =>
-        `"${typeof val === 'object' ? JSON.stringify(val) : val}"${
-          idx === stringArr.length - 1 ? ',' : ''
-        }`
+    stringArr.reduce(
+      (accumulated, val, idx) =>
+        (accumulated += `"${
+          typeof val === 'object' ? JSON.stringify(val) : val
+        }"${idx < stringArr.length - 1 ? ',' : ''}`),
+      ''
     )
 
   const numCols = columns.length
