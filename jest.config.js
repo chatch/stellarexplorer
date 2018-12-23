@@ -8,6 +8,7 @@ module.exports = {
     '<rootDir>/src/**/__tests__/**/*.js?(x)',
     '<rootDir>/src/**/?(*.)(spec|test).js?(x)',
   ],
+  testPathIgnorePatterns: ['/__data__/'],
   testEnvironment: 'node',
   testURL: 'http://localhost',
   transform: {

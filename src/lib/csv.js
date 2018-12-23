@@ -1,5 +1,15 @@
 import {saveAs} from './filesaver'
 
+// build and return csv string from array of column values
+const toCsvString = stringArr =>
+  stringArr.reduce(
+    (accumulated, val, idx) =>
+      (accumulated += `"${
+        typeof val === 'object' ? JSON.stringify(val).replace(/"/g, '""') : val
+      }"${idx < stringArr.length - 1 ? ',' : ''}`),
+    ''
+  )
+
 const jsonToCSV = records => {
   const columns = []
   // get list of all columns across all records (as some record lists contain mixed structures)
@@ -17,16 +27,6 @@ const jsonToCSV = records => {
     accumulated[curCol] = curIdx
     return accumulated
   }, {})
-
-  // build and return csv string from array of column values
-  const toCsvString = stringArr =>
-    stringArr.reduce(
-      (accumulated, val, idx) =>
-        (accumulated += `"${
-          typeof val === 'object' ? JSON.stringify(val) : val
-        }"${idx < stringArr.length - 1 ? ',' : ''}`),
-      ''
-    )
 
   const numCols = columns.length
   const headerCsv = toCsvString(columns)

@@ -11,7 +11,6 @@ const PathPayment = props => {
       type={props.sourceAssetType}
     />
   )
-  console.log(sourceAsset)
   return (
     <Payment {...props}>
       <FormattedMessage
