@@ -2,7 +2,7 @@ body,
 .navbar {
   color: #96a2b4;
   background-color: #3c4452 !important;
-  font-family: 'Noto Sans', 'Noto Sans CJK {SC, TC}', sans-serif;
+  font-family: "Noto Sans", "Noto Sans CJK {SC, TC}", sans-serif;
 }
 
 hr {
@@ -35,7 +35,7 @@ table {
 }
 
 .monospace {
-  font-family: 'Noto Sans Mono', monospace;
+  font-family: "Noto Sans Mono", monospace;
   word-break: break-all;
 }
 
@@ -61,7 +61,7 @@ table {
 .modal-body img {
   margin-top: 10px;
 }
-.modal-body input[type=text] {
+.modal-body input[type="text"] {
   width: 100%;
 }
 .modal-body input {
@@ -115,19 +115,19 @@ table {
   overflow-wrap: break-word;
 }
 
-[id*='-table'] {
+[id*="-table"] {
   font-size: 14px !important;
 }
 
-[id*='-table'] thead {
+[id*="-table"] thead {
   color: #dce2ec;
 }
 
-[id*='-table'] tbody {
+[id*="-table"] tbody {
   color: #96a2b4;
 }
 
-[id*='-table'] > tbody > tr > td {
+[id*="-table"] > tbody > tr > td {
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid #4c5667;
@@ -363,7 +363,8 @@ ul.navbar-nav .divider-vertical {
   outline: none;
 }
 
-.Network-Selector button:not(:first-child), .Network-Selector span:not(:first-child) {
+.Network-Selector button:not(:first-child),
+.Network-Selector span:not(:first-child) {
   margin-left: 5px;
 }
 
@@ -443,15 +444,15 @@ ul.navbar-nav .divider-vertical {
   border: none;
 }
 
-div[id|='account-tabs-pane'] {
+div[id|="account-tabs-pane"] {
   padding: 15px;
 }
 
-a[id|='account-tabs-tab'] {
+a[id|="account-tabs-tab"] {
   color: #96a2b4;
 }
 
-a[id|='account-tabs-tab']:hover {
+a[id|="account-tabs-tab"]:hover {
   color: #01c0c8 !important;
   background-color: #3c4452 !important;
   border: 1px solid #3c4452;
@@ -459,7 +460,7 @@ a[id|='account-tabs-tab']:hover {
   border-color: #3c4452 !important;
 }
 
-a[id|='account-tabs-tab'][aria-selected='true'] {
+a[id|="account-tabs-tab"][aria-selected="true"] {
   color: #01c0c8 !important;
 }
 
@@ -573,6 +574,14 @@ a:hover {
   transition: all 0.18s ease-in-out;
 }
 
+.c3-axis-y .tick,
+.c3-axis-x .tick,
+.c3-axis-x-label,
+.c3-axis-y-label,
+.c3-legend-item text {
+  stroke: white !important;
+}
+
 /*
 Mobile Rules
 */
@@ -591,7 +600,7 @@ Mobile Rules
     table-layout: fixed;
   }
 
-  [id*='-table'] {
+  [id*="-table"] {
     font-size: 12px !important;
   }
 

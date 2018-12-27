@@ -86,6 +86,7 @@ const Anchors = Loadable('Anchors')
 const Assets = Loadable('Assets')
 const Effects = Loadable('Effects')
 const Exchanges = Loadable('Exchanges')
+const Graphs = Loadable('Graphs')
 const InflationPools = Loadable('InflationPools')
 const Ledger = Loadable('Ledger')
 const Ledgers = Loadable('Ledgers')
@@ -166,6 +167,7 @@ class App extends Component {
                 <Route path="/anchor/:id" component={Anchor} />
                 <Route path="/effects" component={Effects} />
                 <Route path="/exchanges" component={Exchanges} />
+                <Route path="/graphs" component={Graphs} />
                 <Route path="/ledgers" component={Ledgers} />
                 <Route path="/ledger/:id" component={Ledger} />
                 <Route path="/operations" component={Operations} />
