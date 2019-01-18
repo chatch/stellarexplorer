@@ -1,3 +1,4 @@
 {
-  "message": "The test network will be reset on January 30th, 2019. See <a href=\"https://www.stellar.org/developers/guides/concepts/test-net.html#best-practices-for-using-testnet\">here</a> for more information."
+  "message": "<span style=\"font-size: larger;\">\uD83D\uDCA1</span>&nbsp;&nbsp;<span style=\"color: white; font-weight: bold;\">Testnet</span> will be reset on January 30th, 2019. See <a href=\"https://www.stellar.org/developers/guides/concepts/test-net.html#best-practices-for-using-testnet\" target=\"_blank\">here</a> for more information.",
+  "expiry": 1548806400000
 }

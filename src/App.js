@@ -26,7 +26,7 @@ import NoMatchError from './components/shared/NoMatchError'
 import InsecureNetworkError from './components/shared/InsecureNetworkError'
 import Error from './components/shared/Error'
 import {Spinner} from './components/shared/Spinner'
-import SponsoredLink from './components/shared/SponsoredLink'
+import InfoBanner from './components/shared/InfoBanner'
 
 import {networks, Server} from './lib/stellar'
 import {hostnameToNetworkType} from './lib/stellar/networks'
@@ -154,8 +154,8 @@ class App extends Component {
               languageSwitcher={this.languageSwitcher}
             />
             <SearchBox />
+            <InfoBanner />
             <div id="main-content">
-              <SponsoredLink />
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/accounts" component={Accounts} />
