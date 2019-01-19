@@ -1,83 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      rel="search"
+      href="%PUBLIC_URL%/search.xml"
+      title="Stellar Explorer"
+      type="application/opensearchdescription+xml"
+    />
+    <title>Stellar Explorer</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <link rel="search" href="%PUBLIC_URL%/search.xml" title="Stellar Explorer" type="application/opensearchdescription+xml">
-  <title>Stellar Explorer</title>
-
-  <style type="text/css">
-    body {
-      background-color: #3c4452 !important;
-    }
-
-    #loading-indicator {
-      width: 100%;
-      height: 100%;
-      color: #07a2cc;
-      font-size: 1.6em;
-      text-align: center;
-      margin-top: 20%;
-    }
-  </style>
-
-  <script type="text/javascript">
-    var _paq = _paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function () {
-      var u = "https://steexp.matomo.cloud/";
-      _paq.push(['setTrackerUrl', u + 'piwik.php']);
-      _paq.push(['setSiteId', '1']);
-      var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-      g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
-    })();
-
-    /* track route changes */
-    (function (history) {
-      var pushState = history.pushState;
-      history.pushState = function (state) {
-        if (typeof history.onpushstate == "function") {
-          history.onpushstate({ state: state });
-        }
-        var pushedUrl = arguments[2];
-        _paq.push(['setCustomUrl', pushedUrl]);
-        _paq.push(['trackPageView']);
-        return pushState.apply(history, arguments);
-      };
-    })(window.history);
-
-    /* track hash changes - mostly tab clicks */
-    window.addEventListener('hashchange', function () {
-      var hashUrl = '/account/' + window.location.hash.substr(1);
-      _paq.push(['setCustomUrl', hashUrl]);
-      _paq.push(['trackPageView']);
-    })
-  </script>
-</head>
-
-<body>
-  <div id="root">
-    <div id="loading-indicator"></div>
-  </div>
-
-  <script type="text/javascript">
-    var count = 0;
-    const loadingIndicator = setInterval(() => {
-      const indicator = document.getElementById('loading-indicator');
-      if (!indicator) {
-        clearInterval(loadingIndicator);
-        return;
+    <style type="text/css">
+      body {
+        background-color: #3c4452 !important;
       }
 
-      count++;
-      indicator.innerHTML = new Array(count % 10).join('.');
-    }, 100);
-  </script>
-</body>
+      #loading-indicator {
+        width: 100%;
+        height: 100%;
+        color: #07a2cc;
+        font-size: 1.6em;
+        text-align: center;
+        margin-top: 20%;
+      }
+    </style>
 
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(["trackPageView"]);
+      _paq.push(["enableLinkTracking"]);
+      (function() {
+        var u = "//68.183.160.62:38000/";
+        _paq.push(["setTrackerUrl", u + "piwik.php"]);
+        _paq.push(["setSiteId", "1"]);
+        var d = document,
+          g = d.createElement("script"),
+          s = d.getElementsByTagName("script")[0];
+        g.type = "text/javascript";
+        g.async = true;
+        g.defer = true;
+        g.src = u + "piwik.js";
+        s.parentNode.insertBefore(g, s);
+      })();
+
+      /* track route changes */
+      (function(history) {
+        var pushState = history.pushState;
+        history.pushState = function(state) {
+          if (typeof history.onpushstate == "function") {
+            history.onpushstate({ state: state });
+          }
+          var pushedUrl = arguments[2];
+          _paq.push(["setCustomUrl", pushedUrl]);
+          _paq.push(["trackPageView"]);
+          return pushState.apply(history, arguments);
+        };
+      })(window.history);
+
+      /* track hash changes - mostly tab clicks */
+      window.addEventListener("hashchange", function() {
+        var hashUrl = "/account/" + window.location.hash.substr(1);
+        _paq.push(["setCustomUrl", hashUrl]);
+        _paq.push(["trackPageView"]);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="root"><div id="loading-indicator"></div></div>
+
+    <script type="text/javascript">
+      var count = 0;
+      const loadingIndicator = setInterval(() => {
+        const indicator = document.getElementById("loading-indicator");
+        if (!indicator) {
+          clearInterval(loadingIndicator);
+          return;
+        }
+
+        count++;
+        indicator.innerHTML = new Array(count % 10).join(".");
+      }, 100);
+    </script>
+  </body>
 </html>
