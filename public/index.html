@@ -37,7 +37,7 @@
       _paq.push(["trackPageView"]);
       _paq.push(["enableLinkTracking"]);
       (function() {
-        var u = "//68.183.160.62:38000/";
+        var u = "http://68.183.160.62:38000/";
         _paq.push(["setTrackerUrl", u + "piwik.php"]);
         _paq.push(["setSiteId", "1"]);
         var d = document,
@@ -75,7 +75,6 @@
 
   <body>
     <div id="root"><div id="loading-indicator"></div></div>
-
     <script type="text/javascript">
       var count = 0;
       const loadingIndicator = setInterval(() => {
@@ -84,7 +83,6 @@
           clearInterval(loadingIndicator);
           return;
         }
-
         count++;
         indicator.innerHTML = new Array(count % 10).join(".");
       }, 100);
