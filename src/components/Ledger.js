@@ -151,7 +151,7 @@ class Ledger extends React.Component {
             <TransactionTable
               compact={false}
               ledger={seq}
-              limit={maxTxSetSize}
+              limit="200" // horizon limit
               refresh={false}
               showLedger={false}
             />

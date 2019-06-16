@@ -36,7 +36,7 @@
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "recompose": "^0.26.0",
-    "stellar-sdk": "^0.11.0",
+    "stellar-sdk": "^1.0.3",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {

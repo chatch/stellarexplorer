@@ -25,10 +25,13 @@ const opTypeComponentMap = {
   bump_sequence: BumpSequence,
   change_trust: ChangeTrust,
   create_account: CreateAccount,
-  create_passive_offer: Offer,
+  create_passive_offer: Offer, // < Protocol 11
+  create_passive_sell_offer: Offer,
   inflation: Inflation,
   manage_data: ManageData,
-  manage_offer: Offer,
+  manage_offer: Offer, // < Protocol 11
+  manage_buy_offer: Offer,
+  manage_sell_offer: Offer,
   path_payment: PathPayment,
   payment: Payment,
   set_options: SetOptions,
