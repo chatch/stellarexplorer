@@ -25,8 +25,7 @@
   "csv-export.no-records": "There were no records to be fetched.",
   "csv-export.fetching": "Fetching…",
   "csv-export.fetched": "Fetched {count} records so far.",
-  "csv-export.limit-exceeded":
-    "You reached the export limit of {count} entries. There are more records to fetch, but to prevent browser memory issues we don't support exporting more.",
+  "csv-export.limit-exceeded": "You reached the export limit of {count} entries. There are more records to fetch, but to prevent browser memory issues we don't support exporting more.",
 
   "currency": "Currency",
 
@@ -39,14 +38,12 @@
 
   "error.cant.find": "Couldn't find \"{searchStr}\"",
   "error.nothing.found": "Nothing exists at \"{path}\"",
-  "error.network":
-    "Network error occurred. Check your connection or check the browser console for messages.",
+  "error.network": "Network error occurred. Check your connection or check the browser console for messages.",
   "error.unknown": "Apologies, something went wrong ... ",
   "error.occurred": "An error occurred: ",
   "error.insecure-network": "The horizon address is insecure!",
   "error.insecure-network.uri": "The horizon address \"{uri}\" is insecure!",
-  "error.insecure-network.reason":
-    "You probably tried to set a horizon address with the prefix \"http\" instead of \"https\". Stellar allows \"http\" only for testnets.",
+  "error.insecure-network.reason": "You probably tried to set a horizon address with the prefix \"http\" instead of \"https\". Stellar allows \"http\" only for testnets.",
 
   "exchanges": "Exchanges",
 
@@ -56,8 +53,7 @@
   "fee.pool": "Fee Pool",
   "filter-active.for": "Filter active for",
   "filter.for-operation-type": "Filter for Operation Type",
-  "filter.more-data-possibly-available":
-    "There could be more records, but crawling was stopped after a certain limit because there is no way of knowing if there are more matches. Go to the next page to continue crawling.",
+  "filter.more-data-possibly-available": "There could be more records, but crawling was stopped after a certain limit because there is no way of knowing if there are more matches. Go to the next page to continue crawling.",
   "flags": "Flags",
 
   "hash": "Hash",
@@ -113,20 +109,16 @@
   "operations": "Operations",
   "ops": "Ops",
 
-  "operation.account.create":
-    "Created Account {account} with balance {balance}",
+  "operation.account.create": "Created Account {account} with balance {balance}",
   "operation.account.merge": "Account merged into {account}",
   "operation.bump": "Bumped sequence to {sequence}",
   "operation.inflation": "Inflation run",
   "operation.manage.data.remove": "Remove Key {name}",
   "operation.manage.data.set": "Set Key {name}",
   "operation.manage.data.set.to": " to {value}",
-  "operation.offer.remove":
-    "Remove Offer: {sellingAsset} for {buyingAsset} @ {price}",
-  "operation.offer.sell":
-    "Sell Offer: {amount} {sellingAsset} for {buyingAsset} @ {price}",
-  "operation.offer.update":
-    "Update Offer: {amount} {sellingAsset} for {buyingAsset} @ {price}",
+  "operation.offer.remove": "Remove Offer: {sellingAsset} for {buyingAsset} @ {price}",
+  "operation.offer.sell": "Sell Offer: {amount} {sellingAsset} for {buyingAsset} @ {price}",
+  "operation.offer.update": "Update Offer: {amount} {sellingAsset} for {buyingAsset} @ {price}",
   "operation.options.set": "Set Options: [{options}]",
   "operation.options.set.clear.flags_s": "Clear Flags: {value}",
   "operation.options.set.set.flags_s": "Set Flags: {value}",
@@ -192,6 +184,7 @@
   "translate.help": "Help Translate",
   "transaction": "Transaction",
   "transactions": "Transactions",
+  "transactions.failed": "Transactions Failed",
   "transaction.details": "Transaction Details",
   "trust": "Trust",
   "trust.limit": "Trust Limit",

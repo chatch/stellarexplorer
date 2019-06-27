@@ -32,7 +32,8 @@ const responseToState = rsp => {
   return {
     seq: rsp.sequence,
     time: rsp.closed_at,
-    txCount: rsp.transaction_count,
+    txCountSuccessful: rsp.successful_transaction_count,
+    txCountFailed: rsp.failed_transaction_count,
     opCount: rsp.operation_count,
     hash: rsp.hash,
     prevHash: rsp.prev_hash,
@@ -73,7 +74,8 @@ class Ledger extends React.Component {
       seq,
       time,
       totalCoins,
-      txCount,
+      txCountSuccessful,
+      txCountFailed,
       urlFn,
     } = this.props
 
@@ -109,8 +111,13 @@ class Ledger extends React.Component {
                       </Link>
                     </span>
                   </DetailRow>
-                  <DetailRow label="transactions">{txCount}</DetailRow>
                   <DetailRow label="operations">{opCount}</DetailRow>
+                  <DetailRow label="transactions.failed">
+                    {txCountFailed}
+                  </DetailRow>
+                  <DetailRow label="max.transactions">
+                    {maxTxSetSize} per ledger
+                  </DetailRow>
                 </tbody>
               </Table>
             </Col>
@@ -125,9 +132,6 @@ class Ledger extends React.Component {
                       ? stroopsToLumens(baseReserve)
                       : Number(baseReserve)}{' '}
                     XLM
-                  </DetailRow>
-                  <DetailRow label="max.transactions">
-                    {maxTxSetSize} per ledger
                   </DetailRow>
                   <DetailRow label="fee.pool">
                     <FormattedNumber value={feePool} /> XLM
@@ -146,7 +150,7 @@ class Ledger extends React.Component {
             <h3>
               <a id="txs-table" aria-hidden="true" />
               <FormattedMessage id="transactions" />
-              &nbsp;({txCount})
+              &nbsp;({txCountSuccessful})
             </h3>
             <TransactionTable
               compact={false}
