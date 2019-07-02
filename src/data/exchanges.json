@@ -98,8 +98,8 @@
         "GBKTJSNUSR6OCXA5WDWGT33MNSCNQHOBQUBYC7TVS7BOXDKWFNHI4QNH"
       ]
     },
-    "ExchangeRates.Pro - price comparison": {
-      "home": "exchangerates.pro",
+    "ExchangeRatesPro": {
+      "home": "exchangerates.pro/?to_currency=XLM",
       "accounts": [
         "GBS5UF7PMUJNSIIFZCD34JDHEDHHQDNKAQFPZSAML6EV2A4YH3DAEBKJ"
       ]
