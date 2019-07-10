@@ -1,5 +1,8 @@
 {
   "decentralized": {
+    "FireflyWallet": {
+      "home": "wallet.fchain.io"
+    },
     "StellarX": {
       "home": "stellarx.com"
     },
