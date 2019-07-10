@@ -1,12 +1,12 @@
 {
   "anchors": {
-      "fchain.io": {
+    "fchain.io": {
       "name": "fchain.io",
       "displayName": "Fchain",
       "website": "https://fchain.io/",
 
       "assets": {
-    	"BTC": "BTC-GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH",
+        "BTC": "BTC-GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH",
         "BCH": "BCH-GBCHK4TINAK6KXTD4BBWWKR5BI2OKJ7C7HYX55BJ5I4KHNQMTL5UXBCH",
         "ETH": "ETH-GBETHKBL5TCUTQ3JPDIYOZ5RDARTMHMEKIO2QZQ7IOZ4YC5XV3C2IKYU",
         "STM": "STM-GCMS2VO5ANJCESJBZVC3INFSETS3K4UWMU47W7KSQ2BYASEQAN4NUSTM",
@@ -50,16 +50,6 @@
       },
       "color": "#454ca4"
     },
-    "tontinetrust.com": {
-      "name": "tontinetrust.com",
-      "displayName": "TON Money",
-      "website": "https://tontinetrust.com",
-
-      "assets": {
-        "TON": "TON-GBFJGO46OV6E2QS2ZUMCF256ZL4BFOZWFHULRNLPSPW47HH5HFAKJTON"
-      },
-      "color": "#2975bf"
-    },
     "cryptotari.io": {
       "name": "cryptotari.io",
       "displayName": "TARI",
@@ -100,17 +90,8 @@
         "ETH": "ETH-GDGKBRCPW4C3ENNC5C64PE6U33MG52GBKFXOK5P3OSWF74DAOXRXV6OJ",
         "BTC": "BTC-GDGKBRCPW4C3ENNC5C64PE6U33MG52GBKFXOK5P3OSWF74DAOXRXV6OJ"
       },
-      "color": "#523b83"
-    },
-    "superlumen.org": {
-      "name": "superlumen.org",
-      "displayName": "Superlumens",
-      "website": "https://www.superlumen.org/",
-
-      "assets": {
-        "SLM": "SLM-GCEGERI7COJYNNID6CYSKS5DPPLGCCLPTOSCDD2LG5SJIVWM5ISUPERI"
-      },
-      "color": "#1c4664"
+      "color": "#523b83",
+      "defunct": true
     },
     "smartlands.io": {
       "name": "smartlands.io",
@@ -121,16 +102,6 @@
         "SLT": "SLT-GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP"
       },
       "color": "#35AB62"
-    },
-    "old.repocoin.io": {
-      "name": "old.repocoin.io",
-      "displayName": "Repocoin",
-      "website": "https://old.repocoin.io",
-
-      "assets": {
-        "REPO": "REPO-GDPB3BGHJAHAKVIWUNLST7N6OGZ73W6AUAI7QDZJW26LEWL46VDAKBH6"
-      },
-      "color": "#192854"
     },
     "repocoin.io": {
       "name": "repocoin.io",
@@ -160,7 +131,8 @@
       "assets": {
         "CHRC": "CHRC-GBRPTWEZTUKYM6VJXLHXBFI23M2GSY3TCVIQSZKFQLMOJXH7VPDGKBDP"
       },
-      "color": "#1c4664"
+      "color": "#1c4664",
+      "defunct": true
     },
     "irene.energy": {
       "name": "irene.energy",
@@ -170,7 +142,8 @@
       "assets": {
         "TELLUS": "TELLUS-GBBRMEXJMS3L7Y3DZZ2AHBD545GZ72OAEHHEFKGZAHHASHGWMHK5P6PL"
       },
-      "color": "#38909a"
+      "color": "#38909a",
+      "defunct": true
     },
     "stronghold.co": {
       "name": "stronghold.co",
@@ -238,16 +211,6 @@
       },
       "color": "#363187"
     },
-    "old.sureremit.co": {
-      "name": "old.sureremit.co",
-      "displayName": "SureRemit OLD",
-      "website": "https://old.sureremit.co",
-
-      "assets": {
-        "RMT": "RMT-GCVWTTPADC5YB5AYDKJCTUYSCJ7RKPGE4HT75NIZOUM4L7VRTS5EKLFN"
-      },
-      "color": "#dc5126"
-    },
     "ripplefox.com": {
       "name": "ripplefox.com",
       "displayName": "RippleFox",
@@ -300,53 +263,6 @@
       },
       "color": "#febe12"
     },
-    "collective21.org": {
-      "name": "collective21.org",
-      "displayName": "Collective21",
-      "website": "https://collective21.org/",
-
-      "assets": {
-        "SEED": "SEED-GDPFSEBZO2W4TLWZO7FIMMG3QONHXYVF6LUULI6HUJS6PJLE4TRZEXLF"
-      },
-      "color": "#3abfce"
-    },
-    "liquido.i-server.org": {
-      "name": "liquido.i-server.org",
-      "displayName": "Liquido",
-      "website": "https://liquido.i-server.org/",
-
-      "assets": {
-        "XLQ": "XLQ-GD2RRX6BKVTORZ6RIMBLWFVUOAYOLTS2QFJQUQPXLI3PBHR3TMLQNGZX"
-      }
-    },
-    "moni.com": {
-      "name": "moni.com",
-      "displayName": "MONI",
-      "website": "https://moni.com/",
-
-      "assets": {
-        "EUR": "EUR-GAKBPBDMW6CTRDCXNAPSVJZ6QAN3OBNRG6CWI27FGDQT2ZJJEMDRXPKK"
-      }
-    },
-    "tonaira.com": {
-      "name": "tonaira.com",
-      "displayName": "Tonaira",
-      "website": "https://tonaira.com/",
-
-      "assets": {
-        "NGN": "NGN-GCLRUZDCWBHS7VIFCT43BARPP63BHR32HMEVKXYQODA5BU6SIGFK4HL2"
-      },
-      "color": "#82be37"
-    },
-    "equid.co": {
-      "name": "equid.co",
-      "displayName": "eQuid",
-      "website": "https://equid.co/",
-
-      "assets": {
-        "EQD": "EQD-GCGEQJR3E5BVMQYSNCHPO6NPP3KOT4VVZHIOLSRSNLE2GFY7EWVSLLTN"
-      }
-    },
     "xirkle.com": {
       "name": "xirkle.com",
       "displayName": "Xirkle",
@@ -356,16 +272,6 @@
         "XIR": "XIR-GAO4DADCRAHA35GD6J3KUNOB5ELZE5D6CGPSJX2WBMEQV7R2M4PGKJL5"
       },
       "color": "#ffbb00"
-    },
-    "golix.io": {
-      "name": "golix.io",
-      "displayName": "Golix",
-      "website": "https://golix.io/",
-
-      "assets": {
-        "USD": "USD-GCYK67DDGBOANS6UODJ62QWGLEB2A7JQ3XUV25HCMLT7CI23PMMK3W6R",
-        "BTC": "BTC-GCYK67DDGBOANS6UODJ62QWGLEB2A7JQ3XUV25HCMLT7CI23PMMK3W6R"
-      }
     },
     "cryptomover.com": {
       "name": "cryptomover.com",
@@ -391,6 +297,38 @@
       },
       "color": "#4b914e"
     },
+    "collective21.org": {
+      "name": "collective21.org",
+      "displayName": "Collective21",
+      "website": "https://collective21.org/",
+
+      "assets": {
+        "SEED": "SEED-GDPFSEBZO2W4TLWZO7FIMMG3QONHXYVF6LUULI6HUJS6PJLE4TRZEXLF"
+      },
+      "color": "#3abfce",
+      "defunct": true
+    },
+    "moni.com": {
+      "name": "moni.com",
+      "displayName": "MONI",
+      "website": "https://moni.com/",
+
+      "assets": {
+        "EUR": "EUR-GAKBPBDMW6CTRDCXNAPSVJZ6QAN3OBNRG6CWI27FGDQT2ZJJEMDRXPKK"
+      },
+      "defunct": true
+    },
+    "golix.io": {
+      "name": "golix.io",
+      "displayName": "Golix",
+      "website": "https://golix.io/",
+
+      "assets": {
+        "USD": "USD-GCYK67DDGBOANS6UODJ62QWGLEB2A7JQ3XUV25HCMLT7CI23PMMK3W6R",
+        "BTC": "BTC-GCYK67DDGBOANS6UODJ62QWGLEB2A7JQ3XUV25HCMLT7CI23PMMK3W6R"
+      },
+      "defunct": true
+    },
     "anclax.com": {
       "name": "anclax.com",
       "displayName": "AnclaX",
@@ -399,7 +337,8 @@
       "assets": {
         "COP": "COP-GAEDLNMCQZOSLY7Y4NW3DTEWQEVVCXYYMBDNGPPGBMQH4GFYECBI7YVK"
       },
-      "color": "#eeeeee"
+      "color": "#eeeeee",
+      "defunct": true
     },
     "astral9.io": {
       "name": "astral9.io",
@@ -409,7 +348,41 @@
       "assets": {
         "XA9": "XA9-GAUWES2POH347NNJGRI4OBM34LMOCMWSTZ3RAOZMOBH4PFVBWFMHLNTC"
       },
-      "color": "#000000"
+      "color": "#000000",
+      "defunct": true
+    },
+    "old.sureremit.co": {
+      "name": "old.sureremit.co",
+      "displayName": "SureRemit OLD",
+      "website": "https://old.sureremit.co",
+
+      "assets": {
+        "RMT": "RMT-GCVWTTPADC5YB5AYDKJCTUYSCJ7RKPGE4HT75NIZOUM4L7VRTS5EKLFN"
+      },
+      "color": "#dc5126",
+      "defunct": true
+    },
+
+    "tonaira.com": {
+      "name": "tonaira.com",
+      "displayName": "Tonaira",
+      "website": "https://tonaira.com/",
+
+      "assets": {
+        "NGN": "NGN-GCLRUZDCWBHS7VIFCT43BARPP63BHR32HMEVKXYQODA5BU6SIGFK4HL2"
+      },
+      "color": "#82be37",
+      "defunct": true
+    },
+    "equid.co": {
+      "name": "equid.co",
+      "displayName": "eQuid",
+      "website": "https://equid.co/",
+
+      "assets": {
+        "EQD": "EQD-GCGEQJR3E5BVMQYSNCHPO6NPP3KOT4VVZHIOLSRSNLE2GFY7EWVSLLTN"
+      },
+      "defunct": true
     },
     "winsome.gift": {
       "name": "winsome.gift",
@@ -419,7 +392,8 @@
       "assets": {
         "WIN": "WIN-GCNHYZLBCSVZHSQJ2DOIBHYBF4J24DJYGS5QKURX4AGSLBK6SDJOYWIN"
       },
-      "color": "#4671c4"
+      "color": "#4671c4",
+      "defunct": true
     },
     "cowrie.exchange": {
       "name": "cowrie.exchange",
@@ -440,6 +414,48 @@
         "XPR": "XPR-GAZPKDTEZ5UM3BF4E7FL7EMXRMLH76F2TNVXRLOF6SCVXOFWSPCEWFI5"
       },
       "color": "#35c982"
+    },
+    "tontinetrust.com": {
+      "name": "tontinetrust.com",
+      "displayName": "TON Money",
+      "website": "https://tontinetrust.com",
+
+      "assets": {
+        "TON": "TON-GBFJGO46OV6E2QS2ZUMCF256ZL4BFOZWFHULRNLPSPW47HH5HFAKJTON"
+      },
+      "color": "#2975bf"
+    },
+    "superlumen.org": {
+      "name": "superlumen.org",
+      "displayName": "Superlumens",
+      "website": "https://www.superlumen.org/",
+
+      "assets": {
+        "SLM": "SLM-GCEGERI7COJYNNID6CYSKS5DPPLGCCLPTOSCDD2LG5SJIVWM5ISUPERI"
+      },
+      "color": "#1c4664",
+      "defunct": true
+    },
+    "liquido.i-server.org": {
+      "name": "liquido.i-server.org",
+      "displayName": "Liquido",
+      "website": "https://liquido.i-server.org/",
+
+      "assets": {
+        "XLQ": "XLQ-GD2RRX6BKVTORZ6RIMBLWFVUOAYOLTS2QFJQUQPXLI3PBHR3TMLQNGZX"
+      },
+      "defunct": true
+    },
+    "old.repocoin.io": {
+      "name": "old.repocoin.io",
+      "displayName": "Repocoin",
+      "website": "https://old.repocoin.io",
+
+      "assets": {
+        "REPO": "REPO-GDPB3BGHJAHAKVIWUNLST7N6OGZ73W6AUAI7QDZJW26LEWL46VDAKBH6"
+      },
+      "color": "#192854",
+      "defunct": true
     }
   },
   "destinations": {

@@ -131,6 +131,7 @@ class Anchors extends React.Component {
               <tbody>
                 {Object.keys(anchors).map(domain => {
                   const anchor = anchors[domain]
+                  if (anchor.defunct && anchor.defunct === true) return null
                   return (
                     <Anchor
                       key={domain}
