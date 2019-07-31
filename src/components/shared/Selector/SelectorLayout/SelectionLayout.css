@@ -1,0 +1,13 @@
+.selector-layout-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  float: left;
+  color: #96a2b4;
+  background: transparent;
+  margin-bottom: 10px;
+}
+
+.selector-layout-container span {
+  font-weight: bold;
+}

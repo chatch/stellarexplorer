@@ -134,11 +134,10 @@ table {
 }
 
 .filter {
+  display: flex;
+flex-direction: column;
   margin: 5px 0px 5px 0px;
-}
 
-.filter select {
-  margin: 0px 5px 5px 0px;
 }
 
 .filter .disclaimer {

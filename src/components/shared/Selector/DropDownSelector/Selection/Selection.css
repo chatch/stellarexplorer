@@ -1,0 +1,31 @@
+
+.selected-container {
+  transition: .2s;
+  width: 215px;
+  height: 43px;
+  border: 1px solid rgba(120, 130, 140, 0.28);
+  border-radius: 30px;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+
+}
+
+.selected-container:hover{
+  background-color: #3c4452;
+}
+
+.selected-container .selected-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.selected-container .glyphicon {
+  padding-right: 10px;
+  transition: .1s;
+}
+.selected-container span {
+  padding-left: 15px;
+  line-height: 43px;
+  font-weight: normal;
+}

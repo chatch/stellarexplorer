@@ -1,0 +1,24 @@
+.select-drawer {
+  position: absolute;
+  top: 43px;
+  overflow: hidden;
+  width: calc(100%);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-bottom: 1px solid rgba(120, 130, 140, 0.28);;
+  border-right: 1px solid rgba(120, 130, 140, 0.28);;
+  border-left: 1px solid rgba(120, 130, 140, 0.28);;
+  z-index: 2;
+  color:#00c292;
+}
+
+
+.select-drawer .drawer-slide-enter {
+  margin-top: -100%;
+}
+
+.select-drawer .drawer-slide-enter-active {
+  margin-top: 0;
+  transition: margin-top 300ms ease-out;
+}
+

@@ -15,23 +15,18 @@ import {withSpinner} from './shared/Spinner'
 import {default as Operation, opTypes} from './operations/Operation'
 import {filterFor} from './shared/OperationType'
 import CSVExport from './shared/CSVExport'
+import Selector from './shared/Selector/Selector'
 
-const filterFn = event => {
-  filterFor(event.target.value)
+const filterFn = value => {
+  filterFor(value)
 }
 
 const OperationTable = props => (
   <div>
     {props.compact === false && (
       <div className="filter">
-        <FormattedMessage id="filter.for-operation-type" />:
-        <select onChange={filterFn} defaultValue={getOperationTypeFilter()}>
-          <option />
-          {opTypes.map(type => (
-            <option>{type}</option>
-          ))}
-        </select>
-        <br />
+        <Selector options={opTypes} setSelection={filterFn} placeHolderId={'filter.for-operation-type'} selected={getOperationTypeFilter()}/>
+
         {getOperationTypeFilter() && this.possiblyMoreDataAvailable && (
           <span className="disclaimer">
             <FormattedMessage id="filter.more-data-possibly-available" />
