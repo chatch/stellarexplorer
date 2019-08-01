@@ -9,7 +9,7 @@ const hostnameToNetworkType = hostname => {
     return networks.public
   else if (hostname === 'testnet.steexp.com' || hostname === 'testnet.local')
     return networks.test
-  else return networks.test
+  else return networks.local
 }
 
 export {networks as default, hostnameToNetworkType}
