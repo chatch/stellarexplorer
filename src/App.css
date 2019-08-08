@@ -203,6 +203,10 @@ table {
   color: white;
 }
 
+.navbar-default .navbar-nav > li:first-child {
+  z-index: 1;
+}
+
 .nav-tabs > li > a {
   border-radius: 0;
 }
@@ -272,34 +276,14 @@ ul.navbar-nav .divider-vertical {
 }
 
 /*************************************************************/
-@media (min-width: 768px) {
-  #Search-Container {
-    padding-top: 50px !important;
-  }
-  #Search-Container input {
-    width: 620px !important;
-  }
-  #Search-Container .glyphicon-info-sign {
-    position: relative;
-    left: 35px;
-    top: 0px;
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.9);
-  }
-}
-
-@media (max-width: 767px) {
-  #Search-Container .glyphicon-info-sign {
-    display: none;
-  }
-}
 
 #Language-Selector > span.caret {
   color: #dce2ec !important;
 }
 
 #Search-Container {
-  padding: 46px 15px 10px 15px;
+  padding: 10px 15px 10px 15px;
+  margin-top: 50px;
   background-color: #4c5667;
 }
 
@@ -316,14 +300,12 @@ ul.navbar-nav .divider-vertical {
   width: 370px;
   display: inline-block;
   line-height: 30px;
-  margin-top: 15px;
   border-radius: 40px;
   transition: 0.5s ease-out;
 }
 
 #Search-Container .input-group-addon {
   position: absolute;
-  top: 15px;
   right: 17px;
   color: #4c5667;
   z-index: 4;
@@ -331,6 +313,33 @@ ul.navbar-nav .divider-vertical {
   border: none;
 }
 
+@media (min-width: 768px) {
+  #Search-Container {
+    margin-top: 50px !important;
+  }
+  #Search-Container input {
+    width: 620px !important;
+  }
+  #Search-Container .glyphicon-info-sign {
+    position: relative;
+    left: 35px;
+    top: 0px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+@media (min-width: 1270px) {
+  #Search-Container {
+    padding-top: 15px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  #Search-Container .glyphicon-info-sign {
+    display: none;
+  }
+}
 .glyphicon-search {
   height: 20px;
   width: 20px;
@@ -344,6 +353,7 @@ ul.navbar-nav .divider-vertical {
 }
 
 .Network-Selector {
+  z-index: 2;
   position: relative;
 }
 
@@ -355,7 +365,7 @@ ul.navbar-nav .divider-vertical {
   color: white;
   cursor: pointer;
   display: inline-block;
-  padding: 0.8rem 1.2rem;
+  padding: 8px 12px;
 }
 
 .Network-Selector button:focus {

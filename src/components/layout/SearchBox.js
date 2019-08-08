@@ -1,8 +1,13 @@
 import React from 'react'
+
+import Col from 'react-bootstrap/lib/Col'
+import Grid from 'react-bootstrap/lib/Grid'
+import Row from 'react-bootstrap/lib/Row'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import InputGroup from 'react-bootstrap/lib/InputGroup'
 import Modal from 'react-bootstrap/lib/Modal'
+
 import {withRouter} from 'react-router'
 import {injectIntl} from 'react-intl'
 
@@ -157,7 +162,9 @@ class SearchBox extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
     return (
-      <div id="Search-Container">
+      <Grid>
+      <Row>
+        <Col id="Search-Container">
         <form onSubmit={this.searchHandler}>
           <InputGroup>
             <FormControl
@@ -181,7 +188,9 @@ class SearchBox extends React.Component {
         {this.state.show && (
           <HelpModal handleCloseFn={this.handleClose} show={this.state.show} />
         )}
-      </div>
+      </Col>
+    </Row>
+  </Grid>
     )
   }
 }

@@ -32,60 +32,64 @@
     </style>
 
     <script type="text/javascript">
-      var _paq = _paq || [];
+      var _paq = _paq || []
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      _paq.push(["trackPageView"]);
-      _paq.push(["enableLinkTracking"]);
-      (function() {
-        var u = "//matomo.steexp.com/";
-        _paq.push(["setTrackerUrl", u + "piwik.php"]);
-        _paq.push(["setSiteId", "1"]);
+      _paq.push(["trackPageView"])
+      _paq.push(["enableLinkTracking"])
+      ;(function() {
+        var u = "//matomo.steexp.com/"
+        _paq.push(["setTrackerUrl", u + "piwik.php"])
+        _paq.push(["setSiteId", "1"])
         var d = document,
           g = d.createElement("script"),
-          s = d.getElementsByTagName("script")[0];
-        g.type = "text/javascript";
-        g.async = true;
-        g.defer = true;
-        g.src = u + "piwik.js";
-        s.parentNode.insertBefore(g, s);
-      })();
+          s = d.getElementsByTagName("script")[0]
+        g.type = "text/javascript"
+        g.async = true
+        g.defer = true
+        g.src = u + "piwik.js"
+        s.parentNode.insertBefore(g, s)
+      })()
 
       /* track route changes */
-      (function(history) {
-        var pushState = history.pushState;
+      ;(function(history) {
+        var pushState = history.pushState
         history.pushState = function(state) {
           if (typeof history.onpushstate == "function") {
-            history.onpushstate({ state: state });
+            history.onpushstate({ state: state })
           }
-          var pushedUrl = arguments[2];
-          _paq.push(["setCustomUrl", pushedUrl]);
-          _paq.push(["trackPageView"]);
-          return pushState.apply(history, arguments);
-        };
-      })(window.history);
+          var pushedUrl = arguments[2]
+          _paq.push(["setCustomUrl", pushedUrl])
+          _paq.push(["trackPageView"])
+          return pushState.apply(history, arguments)
+        }
+      })(window.history)
 
       /* track hash changes - mostly tab clicks */
       window.addEventListener("hashchange", function() {
-        var hashUrl = "/account/" + window.location.hash.substr(1);
-        _paq.push(["setCustomUrl", hashUrl]);
-        _paq.push(["trackPageView"]);
-      });
+        var hashUrl = "/account/" + window.location.hash.substr(1)
+        _paq.push(["setCustomUrl", hashUrl])
+        _paq.push(["trackPageView"])
+      })
     </script>
   </head>
 
   <body>
     <div id="root"><div id="loading-indicator"></div></div>
     <script type="text/javascript">
-      var count = 0;
+      var count = 0
       const loadingIndicator = setInterval(() => {
-        const indicator = document.getElementById("loading-indicator");
+        const indicator = document.getElementById("loading-indicator")
         if (!indicator) {
-          clearInterval(loadingIndicator);
-          return;
+          clearInterval(loadingIndicator)
+          return
         }
-        count++;
-        indicator.innerHTML = new Array(count % 10).join(".");
-      }, 100);
+        count++
+        indicator.innerHTML = new Array(count % 10).join(".")
+      }, 100)
     </script>
+    <script
+      src="https://codefund.io/properties/382/funder.js"
+      async="async"
+    ></script>
   </body>
 </html>
