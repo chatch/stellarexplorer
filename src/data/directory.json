@@ -151,10 +151,13 @@
       "website": "https://stronghold.co",
 
       "assets": {
+        "SHX": "SHX-GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH",
+        "USD": "USD-GBSTRUSD7IRX73RQZBL3RQUH6KS3O4NYFY3QCALDLZD77XMZOPWAVTUK",
         "BTC": "BTC-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
         "ETH": "ETH-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
-        "XLM": "XLM-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
-        "USD": "USD-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG"
+        "LTC": "LTC-GCSTRLTC73UVXIYPHYTTQUUSDTQU2KQW5VKCE4YCMEHWF44JKDMQAL23",
+        "XRP": "XRP-GBSTRXRPA7ALGIXDYBHQ6WYWY2NAHLSF64Q3W5DKAPZNMRHKQL6FYXUA",
+        "NZD": "NZD-GCSTRNZDFRJEHYI3JIVZEO4DHXI2HBRRSZG7OVRT4BAM2SYHBGNGL5T2"
       },
       "color": "#13ce66"
     },
@@ -732,6 +735,12 @@
       "instructions": "https://irene.energy",
       "type": "token"
     },
+    "SHX-GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH": {
+      "code": "SHX",
+      "issuer": "GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH",
+      "domain": "stronghold.co",
+      "instructions": "https://stronghold.co/send-receive-bitcoin.html"
+    },
     "BTC-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG": {
       "code": "BTC",
       "issuer": "GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
@@ -744,18 +753,26 @@
       "domain": "stronghold.co",
       "instructions": "https://stronghold.co/send-receive-ethereum.html"
     },
-    "XLM-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG": {
-      "code": "XLM",
-      "issuer": "GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
-      "domain": "stronghold.co",
-      "instructions": "https://stronghold.co/send-receive-lumens.html",
-      "unlisted": true
-    },
-    "USD-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG": {
+    "USD-GBSTRUSD7IRX73RQZBL3RQUH6KS3O4NYFY3QCALDLZD77XMZOPWAVTUK": {
       "code": "USD",
-      "issuer": "GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
+      "issuer": "GBSTRUSD7IRX73RQZBL3RQUH6KS3O4NYFY3QCALDLZD77XMZOPWAVTUK",
       "domain": "stronghold.co",
-      "instructions": "https://stronghold.co"
+      "instructions": "https://stronghold.co",
+      "notes": "retired USD"
+    },
+    "LTC-GCSTRLTC73UVXIYPHYTTQUUSDTQU2KQW5VKCE4YCMEHWF44JKDMQAL23": {
+      "code": "LTC",
+      "issuer": "GCSTRLTC73UVXIYPHYTTQUUSDTQU2KQW5VKCE4YCMEHWF44JKDMQAL23",
+      "domain": "stronghold.co",
+      "instructions": "https://stronghold.co",
+      "notes": "retired LTC"
+    },
+    "XRP-GCSTRXRP73UVXIYPHYTTQUUSDTQU2KQW5VKCE4YCMEHWF44JKDMQAL23": {
+      "code": "XRP",
+      "issuer": "GBSTRXRPA7ALGIXDYBHQ6WYWY2NAHLSF64Q3W5DKAPZNMRHKQL6FYXUA",
+      "domain": "stronghold.co",
+      "instructions": "https://stronghold.co",
+      "notes": "retired XRP"
     },
     "BTC-GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH": {
       "code": "BTC",
