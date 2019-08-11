@@ -28,7 +28,7 @@ const OperationTable = props => (
         <select onChange={filterFn} defaultValue={getOperationTypeFilter()}>
           <option />
           {opTypes.map(type => (
-            <option>{type}</option>
+            <option key={type}>{type}</option>
           ))}
         </select>
         <br />

@@ -155,7 +155,7 @@ class Ledger extends React.Component {
             <TransactionTable
               compact={false}
               ledger={seq}
-              limit="200" // horizon limit
+              limit={200} // horizon limit
               refresh={false}
               showLedger={false}
             />

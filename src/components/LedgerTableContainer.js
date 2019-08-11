@@ -7,7 +7,8 @@ const rspRecToPropsRec = rspRec => {
   return {
     sequence: rspRec.sequence,
     time: rspRec.closed_at,
-    txCount: rspRec.transaction_count,
+    txCountSuccessful: rspRec.successful_transaction_count,
+    txCountFailed: rspRec.failed_transaction_count,
   }
 }
 

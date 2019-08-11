@@ -63,7 +63,7 @@ class Home extends React.Component {
                 '/ledgers'
               )}
             >
-              <LedgerTable fill limit={10} refresh />
+              <LedgerTable fill limit={10} refresh compact />
             </Panel>
           </Col>
         </Row>

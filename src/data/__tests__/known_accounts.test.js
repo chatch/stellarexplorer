@@ -27,7 +27,7 @@ it('standard exchange accounts are included', () => {
   expect(poloniex).toBeDefined()
   expect(poloniex.name).toBe('Poloniex')
   expect(poloniex.website).toBe('poloniex.com')
-  expect(poloniex.type).toBe('destination')
+  expect(poloniex.type).toBe('exchange')
 })
 
 it('exchange accounts with logo override sets logo', () => {

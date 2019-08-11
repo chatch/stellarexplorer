@@ -285,7 +285,7 @@ Effect.propTypes = {
     links: propTypes.object.isRequired,
     account: propTypes.string.isRequired,
     type: propTypes.string.isRequired,
-    created_at: propTypes.string.isRequired,
+    created_at: propTypes.string,
   }).isRequired,
   effectURLFn: propTypes.func.isRequired,
   parentRenderTimestamp: propTypes.number,

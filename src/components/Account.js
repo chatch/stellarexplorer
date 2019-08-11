@@ -150,7 +150,7 @@ const Signers = props => (
     </thead>
     <tbody>
       {props.signers.map(signer => (
-        <tr key={signer.public_key}>
+        <tr key={signer.key}>
           <td>
             {signer.type === 'ed25519_public_key' && (
               <AccountLink account={signer.key} />

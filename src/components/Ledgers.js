@@ -14,7 +14,7 @@ class Ledgers extends React.Component {
       <Grid>
         <Row>
           <Panel header={formatMessage({id: 'ledgers'})}>
-            <LedgerTable usePaging limit={20} />
+            <LedgerTable usePaging compact={false} limit={20} />
           </Panel>
         </Row>
       </Grid>

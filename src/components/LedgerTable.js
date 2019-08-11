@@ -12,11 +12,14 @@ const LedgerRow = props => (
       <Link to={`/ledger/${props.sequence}`}>{props.sequence}</Link>
     </td>
     <td>
-      {props.txCount > 0 ? (
-        <Link to={`/ledger/${props.sequence}#txs-table`}>{props.txCount}</Link>
+      {props.txCountSuccessful > 0 ? (
+        <Link to={`/ledger/${props.sequence}#txs-table`}>{props.txCountSuccessful}</Link>
       ) : (
-        props.txCount
-      )}
+        props.txCountSuccessful
+      )} 
+      {props.compact === false && (<span>{' '}successful</span>)} 
+       {' '}/ {props.txCountFailed} 
+       {props.compact === false && (<span>{' '}failed</span>)}
     </td>
     <td>
       <span title={props.time}>
@@ -30,9 +33,11 @@ const LedgerRow = props => (
 )
 
 LedgerRow.propTypes = {
+  compact: PropTypes.bool,
   parentRenderTimestamp: PropTypes.number,
   sequence: PropTypes.number,
-  txCount: PropTypes.number,
+  txCountSuccessful: PropTypes.number,
+  txCountFailed: PropTypes.number,
   time: PropTypes.string,
 }
 
@@ -57,11 +62,13 @@ class LedgerTable extends React.PureComponent {
         <tbody>
           {this.props.records.map(ledger => (
             <LedgerRow
+              compact={this.props.compact}
               key={ledger.sequence}
               sequence={ledger.sequence}
               parentRenderTimestamp={this.props.parentRenderTimestamp}
               time={ledger.time}
-              txCount={ledger.txCount}
+              txCountSuccessful={ledger.txCountSuccessful}
+              txCountFailed={ledger.txCountFailed}
             />
           ))}
         </tbody>
@@ -71,6 +78,7 @@ class LedgerTable extends React.PureComponent {
 }
 
 LedgerTable.propTypes = {
+  compact: PropTypes.bool,
   parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array,
 }
