@@ -12,7 +12,7 @@ const Logo = ({name, type = 'anchor'}) => {
   const nameLower = name.toLowerCase()
   const imgSrc = `${process.env.PUBLIC_URL}/img/${nameLower}.png`
   const dimen =
-    type === 'anchor' || imagesInBoth.indexOf(nameLower) !== -1
+    type !== 'exchange' || imagesInBoth.indexOf(nameLower) !== -1
       ? squareDimensions
       : rectangleDimensions
   return (

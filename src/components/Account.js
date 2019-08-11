@@ -235,12 +235,12 @@ const AccountSummaryPanel = ({
             </Row>
           </Col>
           {has(knownAccounts, a.id) &&
-            knownAccounts[a.id].type !== 'inflation_pools' && (
+            knownAccounts[a.id].logo && (
               <Col md={2}>
                 <div style={{marginBottom: 10}}>
                   <Logo
-                    src={knownAccounts[a.id].logo}
-                    name={knownAccounts[a.id].name}
+                    type={knownAccounts[a.id].type}
+                    name={knownAccounts[a.id].logo}
                   />
                 </div>
               </Col>

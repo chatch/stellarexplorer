@@ -37,6 +37,7 @@ const addAnchors = (accounts, anchors) => {
       accounts[issuer] = anchor
       accounts[issuer].name = anchor.displayName
       accounts[issuer].type = 'issuer'
+      accounts[issuer].logo = domain
     })
   })
 }
@@ -68,7 +69,7 @@ const addExchanges = (accounts, exchanges) => {
         if (!has(accounts[addr], 'website'))
           accounts[addr].website = exchange.home
 
-        if (!has(accounts[addr], 'logo')) accounts[addr].logo = exchange.logo
+        if (!has(accounts[addr], 'logo')) accounts[addr].logo = accounts[addr].name.toLowerCase()
       })
     }
   })
@@ -105,11 +106,11 @@ const validateRecords = accounts => {
 const knownAccounts = {}
 
 addAnchors(knownAccounts, anchors)
-addDestinations(knownAccounts, destinations)
 addExchanges(knownAccounts, centralizedExchanges)
 addExchanges(knownAccounts, decentralizedExchanges)
 addDistributers(knownAccounts, distributers)
 addInflationPools(knownAccounts, inflationPools)
+addDestinations(knownAccounts, destinations)
 
 validateRecords(knownAccounts)
 
