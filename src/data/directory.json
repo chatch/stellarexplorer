@@ -19,6 +19,129 @@
         "WICC": "WICC-GACKZW62KSR37PEVRN6RUO2GKRONUZ5OHDUAEXJ3HFF3UN4RGDFEIIUU"
       }
     },
+    "sureremit.co": {
+      "name": "sureremit.co",
+      "displayName": "SureRemit",
+      "website": "https://sureremit.co",
+
+      "assets": {
+        "RMT": "RMT-GDEGOXPCHXWFYY234D2YZSPEJ24BX42ESJNVHY5H7TWWQSYRN5ZKZE3N"
+      }
+    },
+    "smartlands.io": {
+      "name": "smartlands.io",
+      "displayName": "Smartlands",
+      "website": "https://smartlands.io",
+
+      "assets": {
+        "SLT": "SLT-GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP"
+      }
+    },
+    "anchorusd.com": {
+      "name": "anchorusd.com",
+      "displayName": "AnchorUSD",
+      "website": "https://anchorusd.com",
+
+      "assets": {
+        "USD": "USD-GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
+      }
+    },
+    "thewwallet.com": {
+      "name": "thewwallet.com",
+      "displayName": "White Wallet",
+      "website": "https://thewwallet.com",
+
+      "assets": {
+        "WSD": "WSD-GDSVWEA7XV6M5XNLODVTPCGMAJTNBLZBXOFNQD3BNPNYALEYBNT6CE2V"
+      }
+    },
+    "token.io": {
+      "name": "token.io",
+      "displayName": "TokenIO",
+      "website": "https://x.token.io",
+
+      "assets": {
+        "USD": "USD-GDSRCV5VTM3U7Y3L6DFRP3PEGBNQMGOWSRTGSBWX6Z3H6C7JHRI4XFJP"
+      }
+    },
+    "interstellar.exchange": {
+      "name": "interstellar.exchange",
+      "displayName": "Interstellar",
+      "website": "https://interstellar.exchange",
+
+      "assets": {
+        "ISX": "ISX-GD5Y5Q44JXBANL4LWS53O6RYGOJCLH7P5EFOIUX5KWGN2GG3QHI5T72E",
+        "BTC": "BTC-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+        "LTC": "LTC-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+        "ETH": "ETH-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+        "XRP": "XRP-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+        "XAF": "XAF-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P"
+      }
+    },
+    "stronghold.co": {
+      "name": "stronghold.co",
+      "displayName": "Stronghold",
+      "website": "https://stronghold.co",
+
+      "assets": {
+        "SHX": "SHX-GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH",
+        "USD": "USD-GBSTRUSD7IRX73RQZBL3RQUH6KS3O4NYFY3QCALDLZD77XMZOPWAVTUK",
+        "BTC": "BTC-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
+        "ETH": "ETH-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
+        "LTC": "LTC-GCSTRLTC73UVXIYPHYTTQUUSDTQU2KQW5VKCE4YCMEHWF44JKDMQAL23",
+        "XRP": "XRP-GBSTRXRPA7ALGIXDYBHQ6WYWY2NAHLSF64Q3W5DKAPZNMRHKQL6FYXUA",
+        "NZD": "NZD-GCSTRNZDFRJEHYI3JIVZEO4DHXI2HBRRSZG7OVRT4BAM2SYHBGNGL5T2"
+      }
+    },
+    "ripplefox.com": {
+      "name": "ripplefox.com",
+      "displayName": "RippleFox",
+      "website": "https://ripplefox.com/anchor/",
+
+      "assets": {
+        "CNY": "CNY-GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX"
+      }
+    },
+    "apay.io": {
+      "name": "apay.io",
+      "displayName": "apay.io",
+      "website": "https://apay.io/",
+
+      "assets": {
+        "BCH": "BCH-GAEGOS7I6TYZSVHPSN76RSPIVL3SELATXZWLFO4DIAFYJF7MPAHFE7H4",
+        "BTC": "BTC-GAUTUYY2THLF7SGITDFMXJVYH3LHDSMGEAKSBU267M2K7A3W543CKUEF",
+        "LTC": "LTC-GC5LOR3BK6KIOK7GKAUD5EGHQCMFOGHJTC7I3ELB66PTDFXORC2VM5LP",
+        "ICN": "ICN-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "ETH": "ETH-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "BAT": "BAT-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "OMG": "OMG-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "REP": "REP-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "ZRX": "ZRX-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "KIN": "KIN-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "LINK": "LINK-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "MTL": "MTL-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "SALT": "SALT-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
+      }
+    },
+    "mobius.network": {
+      "name": "mobius.network",
+      "displayName": "Mobius",
+      "website": "https://mobius.network/",
+
+      "assets": {
+        "MOBI": "MOBI-GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH"
+      }
+    },
+    "naobtc.com": {
+      "name": "naobtc.com",
+      "displayName": "NaoBTC",
+      "website": "https://naobtc.com/",
+
+      "assets": {
+        "BTC": "BTC-GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH",
+        "XEL": "XEL-GAXELY4AOIRVONF7V25BUPDNKZYIVT6CWURG7R2I6NQU26IQSQODBVCS"
+      }
+    },
     "ximcoin.com": {
       "name": "ximcoin.com",
       "displayName": "XIM",
@@ -85,15 +208,6 @@
       },
       "defunct": true
     },
-    "smartlands.io": {
-      "name": "smartlands.io",
-      "displayName": "Smartlands",
-      "website": "https://smartlands.io",
-
-      "assets": {
-        "SLT": "SLT-GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP"
-      }
-    },
     "repocoin.io": {
       "name": "repocoin.io",
       "displayName": "Repocoin",
@@ -132,31 +246,6 @@
       },
       "defunct": true
     },
-    "stronghold.co": {
-      "name": "stronghold.co",
-      "displayName": "Stronghold",
-      "website": "https://stronghold.co",
-
-      "assets": {
-        "SHX": "SHX-GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH",
-        "USD": "USD-GBSTRUSD7IRX73RQZBL3RQUH6KS3O4NYFY3QCALDLZD77XMZOPWAVTUK",
-        "BTC": "BTC-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
-        "ETH": "ETH-GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG",
-        "LTC": "LTC-GCSTRLTC73UVXIYPHYTTQUUSDTQU2KQW5VKCE4YCMEHWF44JKDMQAL23",
-        "XRP": "XRP-GBSTRXRPA7ALGIXDYBHQ6WYWY2NAHLSF64Q3W5DKAPZNMRHKQL6FYXUA",
-        "NZD": "NZD-GCSTRNZDFRJEHYI3JIVZEO4DHXI2HBRRSZG7OVRT4BAM2SYHBGNGL5T2"
-      }
-    },
-    "naobtc.com": {
-      "name": "naobtc.com",
-      "displayName": "NaoBTC",
-      "website": "https://naobtc.com/",
-
-      "assets": {
-        "BTC": "BTC-GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH",
-        "XEL": "XEL-GAXELY4AOIRVONF7V25BUPDNKZYIVT6CWURG7R2I6NQU26IQSQODBVCS"
-      }
-    },
     "vcbear.net": {
       "name": "vcbear.net",
       "displayName": "VCBear",
@@ -177,6 +266,16 @@
         "PHP": "PHP-GBUQWP3BOUZX34TOND2QV7QQ7K7VJTG6VSE7WMLBTMDJLLAW7YKGU6EP"
       }
     },
+
+    "wirexapp.com": {
+      "name": "wirexapp.com",
+      "displayName": "WireX",
+      "website": "https://wirexapp.com/",
+
+      "assets": {
+        "WXT": "WXT-GASBLVHS5FOABSDNW5SPPH3QRJYXY5JHA2AOA2QHH2FJLZBRXSG4SWXT"
+      }
+    },
     "tempo.eu.com": {
       "name": "tempo.eu.com",
       "displayName": "TEMPO",
@@ -184,54 +283,6 @@
 
       "assets": {
         "EURT": "EURT-GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S"
-      }
-    },
-    "sureremit.co": {
-      "name": "sureremit.co",
-      "displayName": "SureRemit",
-      "website": "https://sureremit.co",
-
-      "assets": {
-        "RMT": "RMT-GDEGOXPCHXWFYY234D2YZSPEJ24BX42ESJNVHY5H7TWWQSYRN5ZKZE3N"
-      }
-    },
-    "ripplefox.com": {
-      "name": "ripplefox.com",
-      "displayName": "RippleFox",
-      "website": "https://ripplefox.com/anchor/",
-
-      "assets": {
-        "CNY": "CNY-GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX"
-      }
-    },
-    "apay.io": {
-      "name": "apay.io",
-      "displayName": "apay.io",
-      "website": "https://apay.io/",
-
-      "assets": {
-        "BCH": "BCH-GAEGOS7I6TYZSVHPSN76RSPIVL3SELATXZWLFO4DIAFYJF7MPAHFE7H4",
-        "BTC": "BTC-GAUTUYY2THLF7SGITDFMXJVYH3LHDSMGEAKSBU267M2K7A3W543CKUEF",
-        "LTC": "LTC-GC5LOR3BK6KIOK7GKAUD5EGHQCMFOGHJTC7I3ELB66PTDFXORC2VM5LP",
-        "ICN": "ICN-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
-        "ETH": "ETH-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
-        "BAT": "BAT-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
-        "OMG": "OMG-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
-        "REP": "REP-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
-        "ZRX": "ZRX-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
-        "KIN": "KIN-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
-        "LINK": "LINK-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
-        "MTL": "MTL-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
-        "SALT": "SALT-GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR"
-      }
-    },
-    "mobius.network": {
-      "name": "mobius.network",
-      "displayName": "Mobius",
-      "website": "https://mobius.network/",
-
-      "assets": {
-        "MOBI": "MOBI-GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH"
       }
     },
     "flutterwave.com": {
@@ -499,65 +550,103 @@
     }
   },
   "assets": {
+    "ISX-GD5Y5Q44JXBANL4LWS53O6RYGOJCLH7P5EFOIUX5KWGN2GG3QHI5T72E": {
+      "code": "ISX",
+      "issuer": "GD5Y5Q44JXBANL4LWS53O6RYGOJCLH7P5EFOIUX5KWGN2GG3QHI5T72E",
+      "domain": "interstellar.exchange"
+    },
+    "BTC-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P": {
+      "code": "BTC",
+      "issuer": "GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+      "domain": "interstellar.exchange"
+    },
+    "LTC-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P": {
+      "code": "LTC",
+      "issuer": "GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+      "domain": "interstellar.exchange"
+    },
+    "ETH-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P": {
+      "code": "ETH",
+      "issuer": "GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+      "domain": "interstellar.exchange"
+    },
+    "XRP-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P": {
+      "code": "XRP",
+      "issuer": "GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+      "domain": "interstellar.exchange"
+    },
+    "XAF-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P": {
+      "code": "XAF",
+      "issuer": "GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+      "domain": "interstellar.exchange"
+    },
+    "USD-GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX": {
+      "code": "USD",
+      "issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX",
+      "domain": "anchorusd.com",
+      "stablecoin": true
+    },
+    "WSD-GDSVWEA7XV6M5XNLODVTPCGMAJTNBLZBXOFNQD3BNPNYALEYBNT6CE2V": {
+      "code": "WSD",
+      "issuer": "GDSVWEA7XV6M5XNLODVTPCGMAJTNBLZBXOFNQD3BNPNYALEYBNT6CE2V",
+      "domain": "thewwallet.com",
+      "stablecoin": true
+    },
+    "USD-GDSRCV5VTM3U7Y3L6DFRP3PEGBNQMGOWSRTGSBWX6Z3H6C7JHRI4XFJP": {
+      "code": "USD",
+      "issuer": "GDSRCV5VTM3U7Y3L6DFRP3PEGBNQMGOWSRTGSBWX6Z3H6C7JHRI4XFJP",
+      "domain": "token.io",
+      "stablecoin": true
+    },
     "XIM-GBZ35ZJRIKJGYH5PBKLKOZ5L6EXCNTO7BKIL7DAVVDFQ2ODJEEHHJXIM": {
       "code": "XIM",
       "issuer": "GBZ35ZJRIKJGYH5PBKLKOZ5L6EXCNTO7BKIL7DAVVDFQ2ODJEEHHJXIM",
-      "domain": "ximcoin.com",
-      "type": "token"
+      "domain": "ximcoin.com"
     },
     "TERN-GDGQDVO6XPFSY4NMX75A7AOVYCF5JYGW2SHCJJNWCQWIDGOZB53DGP6C": {
       "code": "TERN",
       "issuer": "GDGQDVO6XPFSY4NMX75A7AOVYCF5JYGW2SHCJJNWCQWIDGOZB53DGP6C",
-      "domain": "ternio.io",
-      "type": "token"
+      "domain": "ternio.io"
     },
     "SIX-GDMS6EECOH6MBMCP3FYRYEVRBIV3TQGLOFQIPVAITBRJUMTI6V7A2X6Z": {
       "code": "SIX",
       "issuer": "GDMS6EECOH6MBMCP3FYRYEVRBIV3TQGLOFQIPVAITBRJUMTI6V7A2X6Z",
-      "domain": "six.network",
-      "type": "token"
+      "domain": "six.network"
     },
     "TON-GBFJGO46OV6E2QS2ZUMCF256ZL4BFOZWFHULRNLPSPW47HH5HFAKJTON": {
       "code": "TON",
       "issuer": "GBFJGO46OV6E2QS2ZUMCF256ZL4BFOZWFHULRNLPSPW47HH5HFAKJTON",
-      "domain": "tontinetrust.com",
-      "type": "token"
+      "domain": "tontinetrust.com"
     },
     "TARI-GD7UVDDJHJYKUXB4SJFIC6VJDQ4YADQCMRN3KLHJFV4H6NIUAEREVCO7": {
       "code": "TARI",
       "issuer": "GD7UVDDJHJYKUXB4SJFIC6VJDQ4YADQCMRN3KLHJFV4H6NIUAEREVCO7",
-      "domain": "cryptotari.io",
-      "type": "token"
+      "domain": "cryptotari.io"
     },
     "FRAS-GC75WHUIMU7LV6WURMCA5GGF2S5FWFOK7K5VLR2WGRKWKZQAJQEBM53M": {
       "code": "FRAS",
       "issuer": "GC75WHUIMU7LV6WURMCA5GGF2S5FWFOK7K5VLR2WGRKWKZQAJQEBM53M",
-      "domain": "frasindo.com",
-      "type": "token"
+      "domain": "frasindo.com"
     },
     "PEDI-GBVUDZLMHTLMZANLZB6P4S4RYF52MVWTYVYXTQ2EJBPBX4DZI2SDOLLY": {
       "code": "PEDI",
       "issuer": "GBVUDZLMHTLMZANLZB6P4S4RYF52MVWTYVYXTQ2EJBPBX4DZI2SDOLLY",
-      "domain": "pedity.com",
-      "type": "token"
+      "domain": "pedity.com"
     },
     "SLT-GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP": {
       "code": "SLT",
       "issuer": "GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP",
-      "domain": "smartlands.io",
-      "type": "token"
+      "domain": "smartlands.io"
     },
     "REPO-GCZNF24HPMYTV6NOEHI7Q5RJFFUI23JKUKY3H3XTQAFBQIBOHD5OXG3B": {
       "code": "REPO",
       "issuer": "GCZNF24HPMYTV6NOEHI7Q5RJFFUI23JKUKY3H3XTQAFBQIBOHD5OXG3B",
-      "domain": "repocoin.io",
-      "type": "token"
+      "domain": "repocoin.io"
     },
     "STEM-GAFXX2VJE2EGLLY3EFA2BQXJADAZTNR7NC7IJ6LFYPSCLE7AI3AK3B3M": {
       "code": "STEM",
       "issuer": "GAFXX2VJE2EGLLY3EFA2BQXJADAZTNR7NC7IJ6LFYPSCLE7AI3AK3B3M",
-      "domain": "stemchain.io",
-      "type": "token"
+      "domain": "stemchain.io"
     },
     "SHX-GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH": {
       "code": "SHX",
@@ -630,8 +719,7 @@
     "RMT-GDEGOXPCHXWFYY234D2YZSPEJ24BX42ESJNVHY5H7TWWQSYRN5ZKZE3N": {
       "code": "RMT",
       "issuer": "GDEGOXPCHXWFYY234D2YZSPEJ24BX42ESJNVHY5H7TWWQSYRN5ZKZE3N",
-      "domain": "sureremit.co",
-      "type": "token"
+      "domain": "sureremit.co"
     },
     "CNY-GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX": {
       "code": "CNY",
@@ -706,8 +794,7 @@
     "MOBI-GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH": {
       "code": "MOBI",
       "issuer": "GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH",
-      "domain": "mobius.network",
-      "type": "token"
+      "domain": "mobius.network"
     },
     "NGN-GCC4YLCR7DDWFCIPTROQM7EB2QMFD35XRWEQVIQYJQHVW6VE5MJZXIGW": {
       "code": "NGN",
@@ -717,8 +804,7 @@
     "XIR-GAO4DADCRAHA35GD6J3KUNOB5ELZE5D6CGPSJX2WBMEQV7R2M4PGKJL5": {
       "code": "XIR",
       "issuer": "GAO4DADCRAHA35GD6J3KUNOB5ELZE5D6CGPSJX2WBMEQV7R2M4PGKJL5",
-      "domain": "xirkle.com",
-      "type": "token"
+      "domain": "xirkle.com"
     },
     "CM3-GDU2FEL6THGGOFDHHP4I5FHNWY4S2SXYUBCEDB5ZREMD6UFRT4SYWSW2": {
       "code": "CM3",
@@ -753,14 +839,12 @@
     "NGNT-GAWODAROMJ33V5YDFY3NPYTHVYQG7MJXVJ2ND3AOGIHYRWINES6ACCPD": {
       "code": "NGNT",
       "issuer": "GAWODAROMJ33V5YDFY3NPYTHVYQG7MJXVJ2ND3AOGIHYRWINES6ACCPD",
-      "domain": "cowrie.exchange",
-      "type": "token"
+      "domain": "cowrie.exchange"
     },
     "XPR-GAZPKDTEZ5UM3BF4E7FL7EMXRMLH76F2TNVXRLOF6SCVXOFWSPCEWFI5": {
       "code": "XPR",
       "issuer": "GAZPKDTEZ5UM3BF4E7FL7EMXRMLH76F2TNVXRLOF6SCVXOFWSPCEWFI5",
-      "domain": "pr.network",
-      "type": "token"
+      "domain": "pr.network"
     }
   }
 }
