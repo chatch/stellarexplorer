@@ -93,7 +93,16 @@
         "NZD": "NZD-GCSTRNZDFRJEHYI3JIVZEO4DHXI2HBRRSZG7OVRT4BAM2SYHBGNGL5T2"
       }
     },
-    "ripplefox.com": {
+    "lapo.io": {
+      "name": "lapo.io",
+      "displayName": "Lapo",
+      "website": "https://lapo.io",
+
+      "assets": {
+        "LAX": "LAX-GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW"
+      }
+    },
+     "ripplefox.com": {
       "name": "ripplefox.com",
       "displayName": "RippleFox",
       "website": "https://ripplefox.com/anchor/",
@@ -276,6 +285,16 @@
         "WXT": "WXT-GASBLVHS5FOABSDNW5SPPH3QRJYXY5JHA2AOA2QHH2FJLZBRXSG4SWXT"
       }
     },
+    "jetmint.org": {
+      "name": "jetmint.org",
+      "displayName": "Jetmint",
+      "website": "https://jetmint.org",
+
+      "assets": {
+        "XYZ": "XYZ-GCQHDR2KSCVNULFX3C2NKFEXNJEUELJVMQAN3OCLAM5KXG4DWQSRMXYZ"
+      }
+    },
+ 
     "tempo.eu.com": {
       "name": "tempo.eu.com",
       "displayName": "TEMPO",
@@ -550,6 +569,16 @@
     }
   },
   "assets": {
+    "LAX-GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW":{
+      "code": "LAX",
+      "issuer": "GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW",
+      "domain": "lapo.io"
+    },
+    "XYZ-GCQHDR2KSCVNULFX3C2NKFEXNJEUELJVMQAN3OCLAM5KXG4DWQSRMXYZ":{
+      "code": "XYZ",
+      "issuer": "GCQHDR2KSCVNULFX3C2NKFEXNJEUELJVMQAN3OCLAM5KXG4DWQSRMXYZ",
+      "domain": "jetmint.org"
+    },
     "ISX-GD5Y5Q44JXBANL4LWS53O6RYGOJCLH7P5EFOIUX5KWGN2GG3QHI5T72E": {
       "code": "ISX",
       "issuer": "GD5Y5Q44JXBANL4LWS53O6RYGOJCLH7P5EFOIUX5KWGN2GG3QHI5T72E",
