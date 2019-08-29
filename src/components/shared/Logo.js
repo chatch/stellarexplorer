@@ -6,7 +6,7 @@ const squareDimensions = {height: 75, width: 75}
 const rectangleDimensions = {height: 40, width: 150}
 
 // exchange image from anchor image
-const imagesInBoth = ['papayabot', 'papayaswap', 'ripplefox']
+const imagesInBoth = ['coinhatch', 'papayabot', 'papayaswap', 'ripplefox']
 
 const Logo = ({name, type = 'anchor'}) => {
   const nameLower = name.toLowerCase()
