@@ -29,4 +29,12 @@ export default {
     'funtracker.site',
     'FUNT'
   ),
+  GBF6JDOF7SKMKMSMXHBHLYBRMLZF5QF6YNGXWM3NMX3H3HDJ7VVPCHQR: issuer(
+    'nrvcoin.in',
+    'NRV'
+  ),
+  GBNDDA3CJ6WDRE36TDGDNTTVV3QET7MRDINP3HUMIKBPQBKQGITZ73T5: issuer(
+    'nrvcoin.in',
+    'NRV'
+  )
 }

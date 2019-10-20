@@ -55,6 +55,15 @@
         "WSD": "WSD-GDSVWEA7XV6M5XNLODVTPCGMAJTNBLZBXOFNQD3BNPNYALEYBNT6CE2V"
       }
     },
+    "nrvcoin.in": {
+      "name": "nrvcoin.in",
+      "displayName": "NRV Coin",
+      "website": "https://nrvcoin.in",
+
+      "assets": {
+        "NRV": "NRV-GANRAE2FXMIU4V7CPLXFHWZNGCCSW7WEVBN2P3ZWA7FWWVED6OJSKKX2"
+      }
+    },
     "token.io": {
       "name": "token.io",
       "displayName": "TokenIO",
@@ -102,7 +111,7 @@
         "LAX": "LAX-GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW"
       }
     },
-     "ripplefox.com": {
+    "ripplefox.com": {
       "name": "ripplefox.com",
       "displayName": "RippleFox",
       "website": "https://ripplefox.com/anchor/",
@@ -294,7 +303,7 @@
         "XYZ": "XYZ-GCQHDR2KSCVNULFX3C2NKFEXNJEUELJVMQAN3OCLAM5KXG4DWQSRMXYZ"
       }
     },
- 
+
     "tempo.eu.com": {
       "name": "tempo.eu.com",
       "displayName": "TEMPO",
@@ -569,15 +578,20 @@
     }
   },
   "assets": {
-    "LAX-GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW":{
+    "LAX-GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW": {
       "code": "LAX",
       "issuer": "GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW",
       "domain": "lapo.io"
     },
-    "XYZ-GCQHDR2KSCVNULFX3C2NKFEXNJEUELJVMQAN3OCLAM5KXG4DWQSRMXYZ":{
+    "XYZ-GCQHDR2KSCVNULFX3C2NKFEXNJEUELJVMQAN3OCLAM5KXG4DWQSRMXYZ": {
       "code": "XYZ",
       "issuer": "GCQHDR2KSCVNULFX3C2NKFEXNJEUELJVMQAN3OCLAM5KXG4DWQSRMXYZ",
       "domain": "jetmint.org"
+    },
+    "NRV-GANRAE2FXMIU4V7CPLXFHWZNGCCSW7WEVBN2P3ZWA7FWWVED6OJSKKX2": {
+      "code": "NRV",
+      "issuer": "GANRAE2FXMIU4V7CPLXFHWZNGCCSW7WEVBN2P3ZWA7FWWVED6OJSKKX2",
+      "domain": "nrvcoin.in"
     },
     "ISX-GD5Y5Q44JXBANL4LWS53O6RYGOJCLH7P5EFOIUX5KWGN2GG3QHI5T72E": {
       "code": "ISX",
