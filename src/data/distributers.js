@@ -36,5 +36,5 @@ export default {
   GBNDDA3CJ6WDRE36TDGDNTTVV3QET7MRDINP3HUMIKBPQBKQGITZ73T5: issuer(
     'nrvcoin.in',
     'NRV'
-  )
+  ),
 }
