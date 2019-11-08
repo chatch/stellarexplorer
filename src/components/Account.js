@@ -219,16 +219,6 @@ const AccountSummaryPanel = ({
             </Row>
             <Row>
               <Col md={3}>
-                <FormattedMessage id="inflation" />:
-              </Col>
-              <Col md={9}>
-                {a.inflation_destination && (
-                  <AccountLink account={a.inflation_destination} />
-                )}
-              </Col>
-            </Row>
-            <Row>
-              <Col md={3}>
                 <FormattedMessage id="subentry.count" />:
               </Col>
               <Col md={9}>{a.subentry_count}</Col>

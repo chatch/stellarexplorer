@@ -23,12 +23,11 @@ Local: http://localhost:3000
 
 ### Directory
 
-| Resource        | URI                                        |
-| --------------- | ------------------------------------------ |
-| Assets          | [/assets](https://steexp.com/assets)       |
-| Anchors         | [/anchors](https://steexp.com/anchors)     |
-| Exchanges       | [/exchanges](https://steexp.com/exchanges) |
-| Inflation Pools | [/pools](https://steexp.com/pools)         |
+| Resource  | URI                                        |
+| --------- | ------------------------------------------ |
+| Assets    | [/assets](https://steexp.com/assets)       |
+| Anchors   | [/anchors](https://steexp.com/anchors)     |
+| Exchanges | [/exchanges](https://steexp.com/exchanges) |
 
 ### Accounts
 

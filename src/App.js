@@ -86,7 +86,6 @@ const Anchors = Loadable('Anchors')
 const Assets = Loadable('Assets')
 const Effects = Loadable('Effects')
 const Exchanges = Loadable('Exchanges')
-const InflationPools = Loadable('InflationPools')
 const Ledger = Loadable('Ledger')
 const Ledgers = Loadable('Ledgers')
 const Operations = Loadable('Operations')
@@ -173,7 +172,6 @@ class App extends Component {
                 <Route path="/trades" component={Trades} />
                 <Route path="/txs" component={Transactions} />
                 <Route path="/tx/:id" component={Transaction} />
-                <Route path="/pools" component={InflationPools} />
                 <Route
                   path="/search/:id"
                   render={({match}) => {
