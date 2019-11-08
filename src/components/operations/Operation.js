@@ -15,24 +15,37 @@ import CreateAccount from './CreateAccount'
 import Inflation from './Inflation'
 import ManageData from './ManageData'
 import Offer from './Offer'
-import PathPayment from './PathPayment'
+import PathPaymentStrictSend from './PathPaymentStrictSend'
+import PathPaymentStrictReceive from './PathPaymentStrictReceive'
 import Payment from './Payment'
 import SetOptions from './SetOptions'
 
+// TODO: can remove some of the below maps after renames in Horizon v0.25
+// see comments in code here: https://github.com/stellar/go/blob/d01f442ec0d3911bd73a0ad70cf593a3fea64dde/protocols/horizon/operations/main.go#L16
 const opTypeComponentMap = {
   account_merge: AccountMerge,
   allow_trust: AllowTrust,
   bump_sequence: BumpSequence,
   change_trust: ChangeTrust,
   create_account: CreateAccount,
-  create_passive_offer: Offer, // < Protocol 11
+
   create_passive_sell_offer: Offer,
+  // NOTE: can be removed in future after rename:
+  create_passive_offer: Offer, // < Protocol 11
+
   inflation: Inflation,
   manage_data: ManageData,
-  manage_offer: Offer, // < Protocol 11
+
   manage_buy_offer: Offer,
   manage_sell_offer: Offer,
-  path_payment: PathPayment,
+  // NOTE: can be removed in future after rename:
+  manage_offer: Offer, // < Protocol 11
+  
+  path_payment_strict_send: PathPaymentStrictSend,
+  path_payment_strict_receive: PathPaymentStrictReceive,
+  // NOTE: can be removed in future after rename:
+  path_payment: PathPaymentStrictReceive,
+  
   payment: Payment,
   set_options: SetOptions,
 }
