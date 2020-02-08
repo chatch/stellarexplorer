@@ -4,7 +4,6 @@
       "name": "fchain.io",
       "displayName": "Fchain",
       "website": "https://fchain.io/",
-
       "assets": {
         "BTC": "BTC-GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH",
         "BCH": "BCH-GBCHK4TINAK6KXTD4BBWWKR5BI2OKJ7C7HYX55BJ5I4KHNQMTL5UXBCH",
@@ -23,7 +22,6 @@
       "name": "sureremit.co",
       "displayName": "SureRemit",
       "website": "https://sureremit.co",
-
       "assets": {
         "RMT": "RMT-GDEGOXPCHXWFYY234D2YZSPEJ24BX42ESJNVHY5H7TWWQSYRN5ZKZE3N"
       }
@@ -32,7 +30,6 @@
       "name": "smartlands.io",
       "displayName": "Smartlands",
       "website": "https://smartlands.io",
-
       "assets": {
         "SLT": "SLT-GCKA6K5PCQ6PNF5RQBF7PQDJWRHO6UOGFMRLK3DYHDOI244V47XKQ4GP"
       }
@@ -41,7 +38,6 @@
       "name": "anchorusd.com",
       "displayName": "AnchorUSD",
       "website": "https://anchorusd.com",
-
       "assets": {
         "USD": "USD-GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
       }
@@ -50,7 +46,6 @@
       "name": "thewwallet.com",
       "displayName": "White Wallet",
       "website": "https://thewwallet.com",
-
       "assets": {
         "WSD": "WSD-GDSVWEA7XV6M5XNLODVTPCGMAJTNBLZBXOFNQD3BNPNYALEYBNT6CE2V"
       }
@@ -59,7 +54,6 @@
       "name": "nrvcoin.in",
       "displayName": "NRV Coin",
       "website": "https://nrvcoin.in",
-
       "assets": {
         "NRV": "NRV-GANRAE2FXMIU4V7CPLXFHWZNGCCSW7WEVBN2P3ZWA7FWWVED6OJSKKX2"
       }
@@ -68,7 +62,6 @@
       "name": "token.io",
       "displayName": "TokenIO",
       "website": "https://x.token.io",
-
       "assets": {
         "USD": "USD-GDSRCV5VTM3U7Y3L6DFRP3PEGBNQMGOWSRTGSBWX6Z3H6C7JHRI4XFJP"
       }
@@ -77,7 +70,6 @@
       "name": "interstellar.exchange",
       "displayName": "Interstellar",
       "website": "https://interstellar.exchange",
-
       "assets": {
         "ISX": "ISX-GD5Y5Q44JXBANL4LWS53O6RYGOJCLH7P5EFOIUX5KWGN2GG3QHI5T72E",
         "BTC": "BTC-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
@@ -91,7 +83,6 @@
       "name": "stronghold.co",
       "displayName": "Stronghold",
       "website": "https://stronghold.co",
-
       "assets": {
         "SHX": "SHX-GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH",
         "USD": "USD-GBSTRUSD7IRX73RQZBL3RQUH6KS3O4NYFY3QCALDLZD77XMZOPWAVTUK",
@@ -106,7 +97,6 @@
       "name": "lapo.io",
       "displayName": "Lapo",
       "website": "https://lapo.io",
-
       "assets": {
         "LAX": "LAX-GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW"
       }
@@ -115,7 +105,6 @@
       "name": "ripplefox.com",
       "displayName": "RippleFox",
       "website": "https://ripplefox.com/anchor/",
-
       "assets": {
         "CNY": "CNY-GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX"
       }
@@ -124,7 +113,6 @@
       "name": "apay.io",
       "displayName": "apay.io",
       "website": "https://apay.io/",
-
       "assets": {
         "BCH": "BCH-GAEGOS7I6TYZSVHPSN76RSPIVL3SELATXZWLFO4DIAFYJF7MPAHFE7H4",
         "BTC": "BTC-GAUTUYY2THLF7SGITDFMXJVYH3LHDSMGEAKSBU267M2K7A3W543CKUEF",
@@ -145,7 +133,6 @@
       "name": "mobius.network",
       "displayName": "Mobius",
       "website": "https://mobius.network/",
-
       "assets": {
         "MOBI": "MOBI-GA6HCMBLTZS5VYYBCATRBRZ3BZJMAFUDKYYF6AH6MVCMGWMRDNSWJPIH"
       }
@@ -154,17 +141,23 @@
       "name": "naobtc.com",
       "displayName": "NaoBTC",
       "website": "https://naobtc.com/",
-
       "assets": {
         "BTC": "BTC-GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH",
         "XEL": "XEL-GAXELY4AOIRVONF7V25BUPDNKZYIVT6CWURG7R2I6NQU26IQSQODBVCS"
+      }
+    },
+    "ntokens.com": {
+      "name": "ntokens.com",
+      "displayName": "nTokens",
+      "website": "https://ntokens.com/",
+      "assets": {
+        "BRL": "BRL-GDVKY2GU2DRXWTBEYJJWSFXIGBZV6AZNBVVSUHEPZI54LIS6BA7DVVSP"
       }
     },
     "ximcoin.com": {
       "name": "ximcoin.com",
       "displayName": "XIM",
       "website": "https://ximcoin.com",
-
       "assets": {
         "XIM": "XIM-GBZ35ZJRIKJGYH5PBKLKOZ5L6EXCNTO7BKIL7DAVVDFQ2ODJEEHHJXIM"
       }
@@ -173,7 +166,6 @@
       "name": "ternio.io",
       "displayName": "TERN",
       "website": "https://ternio.io",
-
       "assets": {
         "TERN": "TERN-GDGQDVO6XPFSY4NMX75A7AOVYCF5JYGW2SHCJJNWCQWIDGOZB53DGP6C"
       }
@@ -182,7 +174,6 @@
       "name": "six.network",
       "displayName": "SIX",
       "website": "https://six.network",
-
       "assets": {
         "SIX": "SIX-GDMS6EECOH6MBMCP3FYRYEVRBIV3TQGLOFQIPVAITBRJUMTI6V7A2X6Z"
       }
@@ -191,7 +182,6 @@
       "name": "cryptotari.io",
       "displayName": "TARI",
       "website": "https://cryptotari.io",
-
       "assets": {
         "TARI": "TARI-GD7UVDDJHJYKUXB4SJFIC6VJDQ4YADQCMRN3KLHJFV4H6NIUAEREVCO7"
       }
@@ -200,7 +190,6 @@
       "name": "frasindo.com",
       "displayName": "Frasindo",
       "website": "https://frasindo.com",
-
       "assets": {
         "FRAS": "FRAS-GC75WHUIMU7LV6WURMCA5GGF2S5FWFOK7K5VLR2WGRKWKZQAJQEBM53M"
       }
@@ -209,7 +198,6 @@
       "name": "pedity.com",
       "displayName": "Pedity",
       "website": "https://pedity.com",
-
       "assets": {
         "PEDI": "PEDI-GBVUDZLMHTLMZANLZB6P4S4RYF52MVWTYVYXTQ2EJBPBX4DZI2SDOLLY"
       }
@@ -218,7 +206,6 @@
       "name": "nezly.com",
       "displayName": "Nezly",
       "website": "https://nezly.com",
-
       "assets": {
         "NEZ": "NEZ-GDGKBRCPW4C3ENNC5C64PE6U33MG52GBKFXOK5P3OSWF74DAOXRXV6OJ",
         "ETH": "ETH-GDGKBRCPW4C3ENNC5C64PE6U33MG52GBKFXOK5P3OSWF74DAOXRXV6OJ",
@@ -230,7 +217,6 @@
       "name": "repocoin.io",
       "displayName": "Repocoin",
       "website": "https://repocoin.io",
-
       "assets": {
         "REPO": "REPO-GCZNF24HPMYTV6NOEHI7Q5RJFFUI23JKUKY3H3XTQAFBQIBOHD5OXG3B"
       }
@@ -239,7 +225,6 @@
       "name": "stemchain.io",
       "displayName": "STEMchain",
       "website": "https://stemchain.io",
-
       "assets": {
         "STEM": "STEM-GAFXX2VJE2EGLLY3EFA2BQXJADAZTNR7NC7IJ6LFYPSCLE7AI3AK3B3M"
       }
@@ -248,7 +233,6 @@
       "name": "charnatoken.top",
       "displayName": "Charna Token",
       "website": "https://charnatoken.top",
-
       "assets": {
         "CHRC": "CHRC-GBRPTWEZTUKYM6VJXLHXBFI23M2GSY3TCVIQSZKFQLMOJXH7VPDGKBDP"
       },
@@ -258,7 +242,6 @@
       "name": "irene.energy",
       "displayName": "TELLUS",
       "website": "https://irene.energy",
-
       "assets": {
         "TELLUS": "TELLUS-GBBRMEXJMS3L7Y3DZZ2AHBD545GZ72OAEHHEFKGZAHHASHGWMHK5P6PL"
       },
@@ -268,7 +251,6 @@
       "name": "vcbear.net",
       "displayName": "VCBear",
       "website": "https://vcbear.net/",
-
       "assets": {
         "JPY": "JPY-GBVAOIACNSB7OVUXJYC5UE2D4YK2F7A24T7EE5YOMN4CE6GCHUTOUQXM",
         "XRP": "XRP-GA7FCCMTTSUIC37PODEL6EOOSPDRILP6OQI5FWCWDDVDBLJV72W6RINZ",
@@ -279,17 +261,14 @@
       "name": "coins.asia",
       "displayName": "coins.asia",
       "website": "https://coins.asia/",
-
       "assets": {
         "PHP": "PHP-GBUQWP3BOUZX34TOND2QV7QQ7K7VJTG6VSE7WMLBTMDJLLAW7YKGU6EP"
       }
     },
-
     "wirexapp.com": {
       "name": "wirexapp.com",
       "displayName": "WireX",
       "website": "https://wirexapp.com/",
-
       "assets": {
         "WXT": "WXT-GASBLVHS5FOABSDNW5SPPH3QRJYXY5JHA2AOA2QHH2FJLZBRXSG4SWXT"
       }
@@ -298,17 +277,14 @@
       "name": "jetmint.org",
       "displayName": "Jetmint",
       "website": "https://jetmint.org",
-
       "assets": {
         "XYZ": "XYZ-GCQHDR2KSCVNULFX3C2NKFEXNJEUELJVMQAN3OCLAM5KXG4DWQSRMXYZ"
       }
     },
-
     "tempo.eu.com": {
       "name": "tempo.eu.com",
       "displayName": "TEMPO",
       "website": "https://tempo.eu.com/",
-
       "assets": {
         "EURT": "EURT-GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S"
       }
@@ -317,7 +293,6 @@
       "name": "flutterwave.com",
       "displayName": "Flutterwave",
       "website": "https://flutterwave.com/",
-
       "assets": {
         "NGN": "NGN-GCC4YLCR7DDWFCIPTROQM7EB2QMFD35XRWEQVIQYJQHVW6VE5MJZXIGW"
       }
@@ -326,7 +301,6 @@
       "name": "xirkle.com",
       "displayName": "Xirkle",
       "website": "https://xirkle.com/",
-
       "assets": {
         "XIR": "XIR-GAO4DADCRAHA35GD6J3KUNOB5ELZE5D6CGPSJX2WBMEQV7R2M4PGKJL5"
       }
@@ -335,7 +309,6 @@
       "name": "cryptomover.com",
       "displayName": "Cryptomover",
       "website": "https://cryptomover.com/",
-
       "assets": {
         "CM3": "CM3-GDU2FEL6THGGOFDHHP4I5FHNWY4S2SXYUBCEDB5ZREMD6UFRT4SYWSW2",
         "CM10": "CM10-GDBCHKTHJUKDGSIQSTBUXFWVP3QVART5LED6KRZQ5X4Z5WLT4BGYXWCI",
@@ -348,7 +321,6 @@
       "name": "thefutbolcoin.io",
       "displayName": "TFC",
       "website": "https://thefutbolcoin.io/",
-
       "assets": {
         "TFC": "TFC-GDS3XDJAA4VY6MJYASIGSIMPHZ7AQNZ54RKLWT7MWCOU5YKYEVCNLVS3"
       }
@@ -357,7 +329,6 @@
       "name": "collective21.org",
       "displayName": "Collective21",
       "website": "https://collective21.org/",
-
       "assets": {
         "SEED": "SEED-GDPFSEBZO2W4TLWZO7FIMMG3QONHXYVF6LUULI6HUJS6PJLE4TRZEXLF"
       },
@@ -367,7 +338,6 @@
       "name": "moni.com",
       "displayName": "MONI",
       "website": "https://moni.com/",
-
       "assets": {
         "EUR": "EUR-GAKBPBDMW6CTRDCXNAPSVJZ6QAN3OBNRG6CWI27FGDQT2ZJJEMDRXPKK"
       },
@@ -377,7 +347,6 @@
       "name": "golix.io",
       "displayName": "Golix",
       "website": "https://golix.io/",
-
       "assets": {
         "USD": "USD-GCYK67DDGBOANS6UODJ62QWGLEB2A7JQ3XUV25HCMLT7CI23PMMK3W6R",
         "BTC": "BTC-GCYK67DDGBOANS6UODJ62QWGLEB2A7JQ3XUV25HCMLT7CI23PMMK3W6R"
@@ -388,7 +357,6 @@
       "name": "anclax.com",
       "displayName": "AnclaX",
       "website": "https://anclax.com",
-
       "assets": {
         "COP": "COP-GAEDLNMCQZOSLY7Y4NW3DTEWQEVVCXYYMBDNGPPGBMQH4GFYECBI7YVK"
       },
@@ -398,7 +366,6 @@
       "name": "astral9.io",
       "displayName": "XA9",
       "website": "https://astral9.io",
-
       "assets": {
         "XA9": "XA9-GAUWES2POH347NNJGRI4OBM34LMOCMWSTZ3RAOZMOBH4PFVBWFMHLNTC"
       },
@@ -408,18 +375,15 @@
       "name": "old.sureremit.co",
       "displayName": "SureRemit OLD",
       "website": "https://old.sureremit.co",
-
       "assets": {
         "RMT": "RMT-GCVWTTPADC5YB5AYDKJCTUYSCJ7RKPGE4HT75NIZOUM4L7VRTS5EKLFN"
       },
       "defunct": true
     },
-
     "tonaira.com": {
       "name": "tonaira.com",
       "displayName": "Tonaira",
       "website": "https://tonaira.com/",
-
       "assets": {
         "NGN": "NGN-GCLRUZDCWBHS7VIFCT43BARPP63BHR32HMEVKXYQODA5BU6SIGFK4HL2"
       },
@@ -429,7 +393,6 @@
       "name": "equid.co",
       "displayName": "eQuid",
       "website": "https://equid.co/",
-
       "assets": {
         "EQD": "EQD-GCGEQJR3E5BVMQYSNCHPO6NPP3KOT4VVZHIOLSRSNLE2GFY7EWVSLLTN"
       },
@@ -439,7 +402,6 @@
       "name": "winsome.gift",
       "displayName": "WIN",
       "website": "https://winsome.gift",
-
       "assets": {
         "WIN": "WIN-GCNHYZLBCSVZHSQJ2DOIBHYBF4J24DJYGS5QKURX4AGSLBK6SDJOYWIN"
       },
@@ -449,7 +411,6 @@
       "name": "cowrie.exchange",
       "displayName": "Cowrie Exchange",
       "website": "https://cowrie.exchange",
-
       "assets": {
         "NGNT": "NGNT-GAWODAROMJ33V5YDFY3NPYTHVYQG7MJXVJ2ND3AOGIHYRWINES6ACCPD"
       }
@@ -458,7 +419,6 @@
       "name": "pr.network",
       "displayName": "XPR",
       "website": "https://pr.network",
-
       "assets": {
         "XPR": "XPR-GAZPKDTEZ5UM3BF4E7FL7EMXRMLH76F2TNVXRLOF6SCVXOFWSPCEWFI5"
       }
@@ -467,7 +427,6 @@
       "name": "tontinetrust.com",
       "displayName": "TON Money",
       "website": "https://tontinetrust.com",
-
       "assets": {
         "TON": "TON-GBFJGO46OV6E2QS2ZUMCF256ZL4BFOZWFHULRNLPSPW47HH5HFAKJTON"
       }
@@ -476,7 +435,6 @@
       "name": "superlumen.org",
       "displayName": "Superlumens",
       "website": "https://www.superlumen.org/",
-
       "assets": {
         "SLM": "SLM-GCEGERI7COJYNNID6CYSKS5DPPLGCCLPTOSCDD2LG5SJIVWM5ISUPERI"
       },
@@ -486,7 +444,6 @@
       "name": "liquido.i-server.org",
       "displayName": "Liquido",
       "website": "https://liquido.i-server.org/",
-
       "assets": {
         "XLQ": "XLQ-GD2RRX6BKVTORZ6RIMBLWFVUOAYOLTS2QFJQUQPXLI3PBHR3TMLQNGZX"
       },
@@ -496,7 +453,6 @@
       "name": "old.repocoin.io",
       "displayName": "Repocoin",
       "website": "https://old.repocoin.io",
-
       "assets": {
         "REPO": "REPO-GDPB3BGHJAHAKVIWUNLST7N6OGZ73W6AUAI7QDZJW26LEWL46VDAKBH6"
       },
@@ -578,6 +534,11 @@
     }
   },
   "assets": {
+    "BRL-GDVKY2GU2DRXWTBEYJJWSFXIGBZV6AZNBVVSUHEPZI54LIS6BA7DVVSP": {
+      "code": "BRL",
+      "issuer": "GDVKY2GU2DRXWTBEYJJWSFXIGBZV6AZNBVVSUHEPZI54LIS6BA7DVVSP",
+      "domain": "ntokens.com"
+    },
     "LAX-GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW": {
       "code": "LAX",
       "issuer": "GAZZB5KPOWEWK4C5S5H5B6YPR2EQMUIJEFFBNQ6MWYYAG7DOEELBOHLW",
