@@ -36,7 +36,7 @@
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "recompose": "^0.26.0",
-    "stellar-sdk": "^3.1.2",
+    "stellar-sdk": "^4.0.1",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
@@ -80,14 +80,6 @@
     "webpack": "3.5.1",
     "webpack-dev-server": "2.8.2",
     "webpack-manifest-plugin": "1.2.1"
-  },
-  "resolutions__notes__": [
-    "Overriding stellar-base/crc version here due to production build failure",
-    "Longer term solution is to upgrade the react build scripts",
-    "Although this project has been ejected ..."
-  ],
-  "resolutions": {
-    "stellar-sdk/stellar-base/crc": "3.5.0"
   },
   "scripts": {
     "start": "node scripts/start.js",

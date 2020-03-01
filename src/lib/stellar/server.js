@@ -14,9 +14,6 @@ export const defaultNetworkAddresses = {
  */
 class WrappedServer extends sdk.Server {
   constructor(networkType, networkAddress, storage) {
-    if (networkType === networks.public) sdk.Network.usePublicNetwork()
-    else if (networkType === networks.test) sdk.Network.useTestNetwork()
-
     try {
       // allowHttp: public/test use HTTPS; local can use HTTP
       super(networkAddress, {allowHttp: networkType === networks.local})

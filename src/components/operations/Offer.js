@@ -73,7 +73,7 @@ Offer.propTypes = {
   buyingAssetCode: PropTypes.string,
   buyingAssetIssuer: PropTypes.string,
   buyingAssetType: PropTypes.string.isRequired,
-  offerId: PropTypes.number.isRequired,
+  offerId: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   seller: PropTypes.string,
   sellingAssetCode: PropTypes.string,
