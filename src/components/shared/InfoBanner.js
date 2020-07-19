@@ -12,10 +12,14 @@ import Row from 'react-bootstrap/lib/Row'
 //   'https://raw.githubusercontent.com/chatch/stellarexplorer/master/banner.json'
 
 const InfoBanner = ({message}) => (
-  <Grid>
+  <Grid style={{marginBottom: 0}}>
     <Row>
-      <Col style={{marginTop: 15, marginBottom: 5, paddingLeft: 15}}>
-      <div id="codefund"></div>
+      <Col style={{marginTop: 0, marginBottom: 0, paddingLeft: 0}}>
+        <div class="dark" data-ea-publisher="steexp" data-ea-type="text"></div>
+  {/*
+        <div class="dark" data-ea-publisher="steexp" data-ea-type="image"></div> 
+   */}
+
   {/* <span id="banner-message" dangerouslySetInnerHTML={{__html: message}} /> */}
       </Col>
     </Row>
