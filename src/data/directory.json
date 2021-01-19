@@ -440,14 +440,13 @@
       },
       "defunct": true
     },
-    "liquido.i-server.org": {
-      "name": "liquido.i-server.org",
+    "liquido.ml": {
+      "name": "liquido.ml",
       "displayName": "Liquido",
-      "website": "https://liquido.i-server.org/",
+      "website": "https://liquido.ml/",
       "assets": {
         "XLQ": "XLQ-GD2RRX6BKVTORZ6RIMBLWFVUOAYOLTS2QFJQUQPXLI3PBHR3TMLQNGZX"
-      },
-      "defunct": true
+      }
     },
     "old.repocoin.io": {
       "name": "old.repocoin.io",
