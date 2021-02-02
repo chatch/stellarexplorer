@@ -134,6 +134,7 @@
   "operation.trust": "Trust {trustee} issuing {assetCode}",
   "operation.trust.allow": " [authorize: {authorize}, trustor: {trustor}]",
   "operation.trust.change": " with limit {limit}",
+  "operation.unrecognized": "Operation {type}",
 
   "optional": "Optional",
   "order.amount": "Amount",
