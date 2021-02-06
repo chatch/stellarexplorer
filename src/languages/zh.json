@@ -130,6 +130,7 @@
   "operation.trust": "信任 {trustee} 发行 {assetCode}",
   "operation.trust.allow": " [authorize: {authorize}, trustor: {trustor}]",
   "operation.trust.change": "至限额 {limit}",
+  "operation.unregoznied": "操作 {type}",
 
   "optional": "可选",
   "order.amount": "数量",

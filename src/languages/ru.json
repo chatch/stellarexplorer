@@ -98,6 +98,7 @@
   "operation.trust": "Доверие {trustee} выпускающему {assetCode}",
   "operation.trust.allow": " [authorize: {authorize}, trustor: {trustor}]",
   "operation.trust.change": " с лимитом {limit}",
+  "operation.unregoznied": "Операция {type}",
 
   "optional": "Необязательно",
   "order.amount": "Сумма",

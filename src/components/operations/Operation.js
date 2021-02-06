@@ -18,6 +18,7 @@ import Offer from './Offer'
 import PathPayment from './PathPayment'
 import Payment from './Payment'
 import SetOptions from './SetOptions'
+import Unrecognized from './Unrecognized'
 
 const opTypeComponentMap = {
   account_merge: AccountMerge,
@@ -47,7 +48,7 @@ const opTypeComponentMap = {
 const opTypes = Object.keys(opTypeComponentMap)
 
 const SubOperation = ({op}) => {
-  const SubOpComponent = opTypeComponentMap[op.type]
+  const SubOpComponent = opTypeComponentMap[op.type] || Unrecognized
   return <SubOpComponent {...op} />
 }
 
