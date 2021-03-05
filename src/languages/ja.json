@@ -106,7 +106,7 @@
 
   "operation": "操作",
   "operations": "操作",
-  "ops": "Ops",
+  "ops": "操作",
 
   "operation.account.create": "作成されたアカウント{account}に残高は{balance}",
   "operation.account.merge": "アカウント{account}にマージ",
