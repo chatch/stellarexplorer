@@ -1,9 +1,9 @@
 {
   "name": "stellarexplorer",
   "description": "Ledger explorer for the Stellar network",
-  "version": "1.0.16",
+  "version": "1.1.0",
   "license": "Apache-2.0",
-  "author": "Chris Hatch",
+  "author": "Chris Hatch <hatch@tuta.io>",
   "homepage": "https://steexp.com",
   "repository": "chatch/stellarexplorer",
   "bugs": {
@@ -71,7 +71,7 @@
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
-    "react-dev-utils": "^11.0.4",
+    "react-dev-utils": "^4.1.0",
     "react-test-renderer": "^16.0.0",
     "source-map-explorer": "^1.6.0",
     "style-loader": "0.18.2",
