@@ -32,14 +32,26 @@ const LanguageSelector = ({
       <MenuItem lang="en" onClick={switcher}>
         English
       </MenuItem>
-      <MenuItem lang="zh" onClick={switcher}>
-        中文
+      <MenuItem lang="zh-Hans" onClick={switcher}>
+        中文 (简体)
+      </MenuItem>
+      <MenuItem lang="zh-Hant" onClick={switcher}>
+        中文 (繁體)
       </MenuItem>
       <MenuItem lang="ru" onClick={switcher}>
         Pусский
       </MenuItem>
       <MenuItem lang="vi" onClick={switcher}>
         Tiếng Việt
+      </MenuItem>
+      <MenuItem lang="fr" onClick={switcher}>
+        Français
+      </MenuItem>
+      <MenuItem lang="ur" onClick={switcher}>
+        اردو
+      </MenuItem>
+      <MenuItem lang="ja" onClick={switcher}>
+        日本語
       </MenuItem>
       <MenuItem
         onClick={onClickTranslateHelp}
