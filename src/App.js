@@ -11,6 +11,7 @@ import PropTypes from 'prop-types'
 import {IntlProvider, addLocaleData} from 'react-intl'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
+import hi from 'react-intl/locale-data/hi'
 import ja from 'react-intl/locale-data/ja'
 import ru from 'react-intl/locale-data/ru'
 import ur from 'react-intl/locale-data/ur'
@@ -18,6 +19,7 @@ import vi from 'react-intl/locale-data/vi'
 import zh from 'react-intl/locale-data/zh'
 import enMessages from './languages/en'
 import frMessages from './languages/fr'
+import hiMessages from './languages/hi'
 import jaMessages from './languages/ja'
 import ruMessages from './languages/ru'
 import urMessages from './languages/ur'
@@ -53,6 +55,7 @@ const storage = storageInit()
 addLocaleData([
   ...en,
   ...fr,
+  ...hi,
   ...ja,
   ...ru,
   ...ur,
@@ -73,6 +76,8 @@ const getMessages = locale => {
   switch (locale) {
     case 'fr':
       return frMessages
+    case 'hi':
+      return hiMessages
     case 'ja':
       return jaMessages
     case 'ru':

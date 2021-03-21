@@ -50,6 +50,9 @@ const LanguageSelector = ({
       <MenuItem lang="ur" onClick={switcher}>
         اردو
       </MenuItem>
+      <MenuItem lang="hi" onClick={switcher}>
+        हिन्दी
+      </MenuItem>
       <MenuItem lang="ja" onClick={switcher}>
         日本語
       </MenuItem>
