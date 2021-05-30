@@ -22,7 +22,7 @@
   "dependencies": {
     "fetch-ponyfill": "^4.1.0",
     "node-localstorage": "^1.3.0",
-    "promise": "8.0.1",
+    "promise": "8.1.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
