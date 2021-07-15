@@ -1,6 +1,7 @@
 import {
-  isPublicKey,
   isFederatedAddress,
+  isMuxedAddress,
+  isPublicKey,
   isTxHash,
   stroopsToLumens,
 } from '../../stellar/utils'
@@ -54,3 +55,25 @@ it('isTxHash identifies a valid transaction hash', () => {
     isTxHash('ddeff3d3b8455f8173ef4d63e6650625734207fd351d2b9eeeaf0e38ffe1064b')
   ).toBe(true)
 })
+
+it('isMuxedAddress identifies a valid key', () => {
+  expect(isMuxedAddress()).toBe(false)
+  expect(isMuxedAddress('')).toBe(false)
+  expect(isMuxedAddress(null)).toBe(false)
+
+  // same length as valid key and looks valid but is not
+  expect(
+    isMuxedAddress('MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4MX')
+  ).toBe(false)
+
+  // valid public key is not a valid mutex address
+  expect(
+    isMuxedAddress('GBQHXMAVPD3AKY5PWFCBVT3NFIXGE345FVZLL4JXKTVSFT5FKMEV5QIX')
+  ).toBe(false)
+
+  // valid
+  expect(
+    isMuxedAddress('MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4M')
+  ).toBe(true)
+})
+

@@ -4,8 +4,9 @@ import {Link} from 'react-router-dom'
 import has from 'lodash/has'
 import {MuxedAccount} from 'stellar-sdk'
 
-import {shortAddress} from '../../lib/utils'
 import knownAccounts from '../../data/known_accounts'
+import {isMuxedAddress} from '../../lib/stellar/utils'
+import {shortAddress} from '../../lib/utils'
 
 const AccountLinkSimple = ({title, subPath, label}) => (
   <span title={title}>
@@ -37,9 +38,9 @@ const MuxedAccountLink = ({address, label, hideKnown}) => {
   const muxedAddress = muxedAccount.accountId()
   return (
     <span>
-      <AccountLinkSimple 
+      <AccountLinkSimple
         title={`Muxed Address: ${muxedAddress}`}
-        subPath={`${publicAddress}?muxed=${muxedAddress}`}
+        subPath={muxedAddress}
         label={shortAddress(muxedAddress)}
       />-
         <BaseAccountLink 
@@ -52,8 +53,7 @@ const MuxedAccountLink = ({address, label, hideKnown}) => {
 }
 
 const AccountLink = ({account, label, hideKnown = false}) => {
-  const isMuxedAccount = account.startsWith('M')
-  if  (isMuxedAccount) {
+  if (isMuxedAddress(account)) {
     return (
       <MuxedAccountLink 
         address={account}
