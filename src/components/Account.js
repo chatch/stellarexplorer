@@ -253,10 +253,6 @@ class Account extends React.Component {
 
   constructor(props, context) {
     super(props, context)
-    console.log('here')
-    console.log(this.props)
-
-
     this.handleURIHash = this.handleURIHash.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.setNewState = this.setNewState.bind(this)
