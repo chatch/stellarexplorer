@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {shortAddress} from '../../lib/utils'
+
 import AccountLink from '../shared/AccountLink'
 import JSONButton from '../shared/JSONButton'
 import TimeSynchronisedFormattedRelative from '../shared/TimeSynchronizedFormattedRelative'
@@ -57,7 +59,7 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
     op.type !== 'account_merge' ? (
       <AccountLink account={op.sourceAccount} />
     ) : (
-      <span title={op.sourceAccount}>{op.sourceAccount.substring(0, 4)}</span>
+      <span title={op.sourceAccount}>{shortAddress(op.sourceAccount)}</span>
     )
 
   return (
