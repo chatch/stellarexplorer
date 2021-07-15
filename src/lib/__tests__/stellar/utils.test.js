@@ -1,6 +1,6 @@
 import {
   isPublicKey,
-  isStellarAddress,
+  isFederatedAddress,
   isTxHash,
   stroopsToLumens,
 } from '../../stellar/utils'
@@ -32,16 +32,16 @@ it('isPublicKey identifies a valid key', () => {
   ).toBe(true)
 })
 
-it('isStellarAddress identifies a valid stellar address', () => {
-  expect(isStellarAddress()).toBe(false)
-  expect(isStellarAddress('')).toBe(false)
-  expect(isStellarAddress(null)).toBe(false)
+it('isFederatedAddress identifies a valid stellar address', () => {
+  expect(isFederatedAddress()).toBe(false)
+  expect(isFederatedAddress('')).toBe(false)
+  expect(isFederatedAddress(null)).toBe(false)
 
-  expect(isStellarAddress('comma,forbidden*stellar.org')).toBe(false)
-  expect(isStellarAddress('two*asterisk*stellar.org')).toBe(false)
+  expect(isFederatedAddress('comma,forbidden*stellar.org')).toBe(false)
+  expect(isFederatedAddress('two*asterisk*stellar.org')).toBe(false)
 
-  expect(isStellarAddress('jed*stellar.org')).toBe(true)
-  expect(isStellarAddress('hatch1234*some-domain-888.a.b.c')).toBe(true)
+  expect(isFederatedAddress('jed*stellar.org')).toBe(true)
+  expect(isFederatedAddress('hatch1234*some-domain-888.a.b.c')).toBe(true)
 })
 
 it('isTxHash identifies a valid transaction hash', () => {

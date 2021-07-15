@@ -7,11 +7,10 @@ import Table from 'react-bootstrap/lib/Table'
 import Tab from 'react-bootstrap/lib/Tab'
 import Tabs from 'react-bootstrap/lib/Tabs'
 import {injectIntl, FormattedMessage} from 'react-intl'
-import {FederationServer, StrKey} from 'stellar-sdk'
+import {FederationServer, MuxedAccount, StrKey} from 'stellar-sdk'
 import has from 'lodash/has'
-
 import knownAccounts from '../data/known_accounts'
-import {isPublicKey, isStellarAddress} from '../lib/stellar/utils'
+import {isPublicKey, isFederatedAddress} from '../lib/stellar/utils'
 import {base64Decode, handleFetchDataFailure, setTitle} from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import {withSpinner} from './shared/Spinner'
@@ -33,7 +32,22 @@ const stellarAddressFromURI = () => {
   if (!window || !window.location || !window.location.pathname) return
   const path = window.location.pathname
   const lastPath = path.substring(path.lastIndexOf('/') + 1)
-  return isStellarAddress(lastPath) ? lastPath : undefined
+  return isFederatedAddress(lastPath) ? lastPath : undefined
+}
+
+const getMuxedAddressFromRequest = () => {
+  if (window && window.location && window.location.search) {
+    const params = new URLSearchParams(window.location.search)
+    const muxedParam = params.get('muxed')
+    if (muxedParam) {
+      try {
+        const muxedAccount = MuxedAccount.fromAddress(muxedParam, '1')
+        return muxedAccount.accountId()
+      } catch(err) {
+        console.warn('invalid muxed address in request. skipping ...')
+      }
+    }
+  }
 }
 
 const NameValueTable = ({data, decodeValue = false}) => {
@@ -168,6 +182,17 @@ const Signers = props => (
   </Table>
 )
 
+const MuxedAccountInfoPanel = ({
+  address,
+}) => {
+  return (
+    <Panel>
+
+      Notice about muxed {address}
+    </Panel>
+  )
+}
+
 const Flags = ({flags}) => <NameValueTable data={flags} />
 const Data = ({data}) => <NameValueTable data={data} decodeValue />
 
@@ -283,8 +308,14 @@ class Account extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
     const a = this.props.account
+    const muxedAddress = getMuxedAddressFromRequest()
     return (
       <Grid>
+        {muxedAddress && 
+        <Row>
+          <MuxedAccountInfoPanel address={muxedAddress}/>
+        </Row>
+        }
         <Row>
           <AccountSummaryPanel
             account={a}
@@ -409,7 +440,7 @@ class AccountContainer extends React.Component {
 
   loadAccount(accountId) {
     if (isPublicKey(accountId)) this.loadAccountByKey(accountId)
-    else if (isStellarAddress(accountId))
+    else if (isFederatedAddress(accountId))
       this.loadAccountByStellarAddress(accountId)
     else
       handleFetchDataFailure(accountId)(

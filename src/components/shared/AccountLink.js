@@ -23,7 +23,11 @@ const BaseAccountLink = ({address, label, hideKnown}) => {
     accLabel = shortAddress(address)
   }
   return (
-    <AccountLinkSimple title={address} subPath={address} label={accLabel} />
+    <AccountLinkSimple 
+      title={`Base Address: ${address}`}
+      subPath={address}
+      label={accLabel}
+    />
   )
 }
 
@@ -34,16 +38,15 @@ const MuxedAccountLink = ({address, label, hideKnown}) => {
   return (
     <span>
       <AccountLinkSimple 
-        title={muxedAddress}
+        title={`Muxed Address: ${muxedAddress}`}
         subPath={`${publicAddress}?muxed=${muxedAddress}`}
         label={shortAddress(muxedAddress)}
-      />&nbsp;(
+      />-
         <BaseAccountLink 
           address={publicAddress}
           label={label}
           hideKnown={hideKnown}
         />
-      )
     </span>
   )
 }
@@ -75,4 +78,4 @@ AccountLink.propTypes = {
   label: PropTypes.string,
 }
 
-export default AccountLink
+export {AccountLink as default, BaseAccountLink, MuxedAccountLink}

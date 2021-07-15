@@ -57,7 +57,7 @@ const SubOperation = ({op}) => {
 const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
   const acc =
     op.type !== 'account_merge' ? (
-      <AccountLink account={op.sourceAccount} />
+      <AccountLink account={op.sourceAccountMuxed ? op.sourceAccountMuxed : op.sourceAccount} />
     ) : (
       <span title={op.sourceAccount}>{shortAddress(op.sourceAccount)}</span>
     )

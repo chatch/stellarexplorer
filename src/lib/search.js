@@ -7,7 +7,7 @@ import {sdk} from './stellar'
 import {
   isPublicKey,
   isSecretKey,
-  isStellarAddress,
+  isFederatedAddress,
   isTxHash,
 } from './stellar/utils'
 import directory from '../data/directory'
@@ -39,7 +39,7 @@ const searchStrToPath = searchStr => {
 
   const str = searchStr.trim()
 
-  if (isPublicKey(str) || isStellarAddress(str)) {
+  if (isPublicKey(str) || isFederatedAddress(str)) {
     return `/account/${str}`
   } else if (isTxHash(str)) {
     return `/tx/${str}`
