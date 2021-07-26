@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {shortAddress} from '../../lib/utils'
+
 import AccountLink from '../shared/AccountLink'
 import JSONButton from '../shared/JSONButton'
 import TimeSynchronisedFormattedRelative from '../shared/TimeSynchronizedFormattedRelative'
@@ -53,11 +55,23 @@ const SubOperation = ({op}) => {
 }
 
 const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
+  let opAccount
+  
+  if (op.fromMuxed) {
+    opAccount = op.fromMuxed
+  } else if (op.from) {
+    opAccount = op.from
+  } else if (op.sourceAccountMuxed) {
+    opAccount = op.sourceAccountMuxed
+  } else {
+    opAccount = op.sourceAccount
+  }
+
   const acc =
     op.type !== 'account_merge' ? (
-      <AccountLink account={op.sourceAccount} />
+      <AccountLink account={opAccount} />
     ) : (
-      <span title={op.sourceAccount}>{op.sourceAccount.substring(0, 4)}</span>
+      <span title={opAccount}>{shortAddress(opAccount)}</span>
     )
 
   return (
@@ -74,7 +88,6 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
       {compact === false && (
         <td>
           <OperationType
-            account={op.sourceAccount}
             type={op.type}
             compact={false}
           />

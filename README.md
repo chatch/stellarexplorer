@@ -31,10 +31,11 @@ Local: http://localhost:3000
 
 ### Accounts
 
-| Resource             | URI                                                                                                                                                      |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| by Federated address | [/account/stellar\*fed.network](https://steexp.com/account/stellar*fed.network)                                                                          |
+| Resource             | URI |
+| -------------------- | --- |
+| by Federated address | [/account/stellar\*fed.network](https://steexp.com/account/stellar*fed.network) |
 | by Public address    | [/account/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX](https://steexp.com/account/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX) |
+| by Multiplexed address    | [/account/MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4M](https://steexp.com/account/MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4M) |
 
 #### Tabs
 
@@ -53,24 +54,25 @@ Local: http://localhost:3000
 
 ### Search
 
-| Resource              | URI                                                                                                                                                                    |
+| Resource              | URI |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Federated address     | [/search/steexp\*fed.network](https://steexp.com/search/steexp*fed.network)                                                                                            |
-| Public address        | [/search/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX](https://steexp.com/search/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX)                 |
-| Ledger                | [/search/10000000](https://steexp.com/search/10000000)                                                                                                                 |
+| Federated address     | [/search/steexp\*fed.network](https://steexp.com/search/steexp*fed.network) |
+| Public address        | [/search/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX](https://steexp.com/search/GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX) |
+| Multiplexed address        | [/search/MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4M](https://steexp.com/search/MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4M) |
+| Ledger                | [/search/10000000](https://steexp.com/search/10000000) |
 | Transaction           | [/search/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071](https://steexp.com/search/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071) |
-| Asset Code            | [/search/NGN](https://steexp.com/search/NGN)                                                                                                                           |
-| Anchor Name           | [/search/ripplefox](https://steexp.com/search/ripplefox)                                                                                                               |
-| Anchor Name (Partial) | [/search/fox](https://steexp.com/search/fox)                                                                                                                           |
+| Asset Code            | [/search/NGN](https://steexp.com/search/NGN) |
+| Anchor Name           | [/search/ripplefox](https://steexp.com/search/ripplefox) |
+| Anchor Name (Partial) | [/search/fox](https://steexp.com/search/fox) |
 
 ### Misc
 
-| Resource    | URI                                                                                                                                                            |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Resource    | URI |
+| ----------- | --- |
 | Transaction | [/tx/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071](https://steexp.com/tx/26a568681712a44a515b2c90dcfaadb3ed2c40dc60254638407937bee4767071) |
-| Ledger      | [/ledger/10000000](https://steexp.com/ledger/10000000)                                                                                                         |
-| Anchor      | [/anchor/apay.io](https://steexp.com/anchor/apay.io)                                                                                                           |
-| Asset       | [/asset/NGN](https://steexp.com/asset/NGN)                                                                                                                     |
+| Ledger      | [/ledger/10000000](https://steexp.com/ledger/10000000) |
+| Anchor      | [/anchor/apay.io](https://steexp.com/anchor/apay.io) |
+| Asset       | [/asset/NGN](https://steexp.com/asset/NGN) |
 
 ## Exploring Private / Local Development Networks<a name="private-networks"></a>
 
