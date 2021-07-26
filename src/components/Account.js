@@ -1,5 +1,6 @@
 import React from 'react'
 import Col from 'react-bootstrap/lib/Col'
+import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import Grid from 'react-bootstrap/lib/Grid'
 import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
@@ -166,8 +167,16 @@ const MuxedAccountInfoPanel = ({
 }) => {
   return (
     <Panel>
-
-      Notice about muxed {address}
+      <Glyphicon
+        glyph="info-sign"
+        onClick={this.handleClick}
+      />
+      &nbsp;
+      NOTE: This view shows the base account of the multiplexed account
+      &nbsp;
+      <span style={{color: 'white', overflowWrap: 'break-word'}}>
+        {address}
+      </span>
     </Panel>
   )
 }
@@ -199,7 +208,7 @@ const AccountSummaryPanel = ({
                 <FormattedMessage id="key.public" />:
               </Col>
               <Col md={9}>
-                <span className="break">{a.id}</span>
+                <span className="break" style={{color: 'white'}}>{a.id}</span>
                 <ClipboardCopy text={a.id} />
               </Col>
             </Row>

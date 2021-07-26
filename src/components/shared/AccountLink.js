@@ -8,9 +8,12 @@ import knownAccounts from '../../data/known_accounts'
 import {isMuxedAddress} from '../../lib/stellar/utils'
 import {shortAddress} from '../../lib/utils'
 
-const AccountLinkSimple = ({title, subPath, label}) => (
-  <span title={title}>
-    <Link to={`/account/${subPath}`}>{label}</Link>
+const AccountLinkSimple = ({title, subPath, label, isSecondary = false}) => (
+  <span title={title}
+  >
+    <Link 
+  style={{backgroundColor: isSecondary ? 'white' :undefined}}
+  to={`/account/${subPath}`}>{label} {isSecondary}</Link>
   </span>
 )
 
@@ -36,19 +39,18 @@ const MuxedAccountLink = ({address, label, hideKnown}) => {
   const muxedAccount = MuxedAccount.fromAddress(address, '1')
   const publicAddress = muxedAccount.account.accountId()
   const muxedAddress = muxedAccount.accountId()
+  const labelRendered = <span>{shortAddress(muxedAddress)}
+    <span style={{fontSize: 'smaller'}}>
+      {` [${shortAddress(publicAddress)}]`}
+    </span>
+  </span>
   return (
-    <span>
       <AccountLinkSimple
+        // isSecondary="true"
         title={`Muxed Address: ${muxedAddress}`}
         subPath={muxedAddress}
-        label={shortAddress(muxedAddress)}
-      />-
-        <BaseAccountLink 
-          address={publicAddress}
-          label={label}
-          hideKnown={hideKnown}
-        />
-    </span>
+        label={labelRendered}
+      />
   )
 }
 
