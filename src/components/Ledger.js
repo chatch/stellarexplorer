@@ -106,7 +106,7 @@ class Ledger extends React.Component {
                   </DetailRow>
                   <DetailRow label="prevHash">
                     <span title={prevHash}>
-                      <Link to={`/ledger/${prevSeq}`}>
+                      <Link to={`/block/${prevSeq}`}>
                         {ledgerHash(prevHash)}
                       </Link>
                     </span>
@@ -131,13 +131,13 @@ class Ledger extends React.Component {
                     {baseInStroops
                       ? stroopsToLumens(baseReserve)
                       : Number(baseReserve)}{' '}
-                    XLM
+                    test-π
                   </DetailRow>
                   <DetailRow label="fee.pool">
-                    <FormattedNumber value={feePool} /> XLM
+                    <FormattedNumber value={feePool} /> test-π
                   </DetailRow>
                   <DetailRow label="total.coins">
-                    <FormattedNumber value={totalCoins} /> XLM
+                    <FormattedNumber value={totalCoins} /> test-π
                   </DetailRow>
                   <DetailRow label="protocolVersion">{protocol}</DetailRow>
                 </tbody>
