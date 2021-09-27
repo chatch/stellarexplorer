@@ -64,7 +64,7 @@ const NameValueTable = ({data, decodeValue = false}) => {
 }
 
 const balanceRow = bal => (
-  <tr key={bal.asset_code ? `${bal.asset_code}-${bal.asset_issuer}` : 'XLM'}>
+  <tr key={bal.asset_code ? `${bal.asset_code}-${bal.asset_issuer}` : 'test-π'}>
     <td>
       <Asset
         type={bal.asset_type}
