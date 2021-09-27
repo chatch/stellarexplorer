@@ -9,11 +9,11 @@ import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormatte
 const LedgerRow = props => (
   <tr>
     <td>
-      <Link to={`/ledger/${props.sequence}`}>{props.sequence}</Link>
+      <Link to={`/block/${props.sequence}`}>{props.sequence}</Link>
     </td>
     <td>
       {props.txCountSuccessful > 0 ? (
-        <Link to={`/ledger/${props.sequence}#txs-table`}>{props.txCountSuccessful}</Link>
+        <Link to={`/block/${props.sequence}#txs-table`}>{props.txCountSuccessful}</Link>
       ) : (
         props.txCountSuccessful
       )} 
