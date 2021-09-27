@@ -75,7 +75,7 @@ class Transaction extends React.Component {
                     <FormattedMessage id="ledger" />
                   </td>
                   <td>
-                    <Link to={`/ledger/${ledger}`}>{ledger}</Link>
+                    <Link to={`/block/${ledger}`}>{ledger}</Link>
                   </td>
                 </tr>
                 <tr>

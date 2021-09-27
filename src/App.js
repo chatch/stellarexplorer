@@ -198,8 +198,8 @@ class App extends Component {
                 <Route path="/anchor/:id" component={Anchor} />
                 <Route path="/effects" component={Effects} />
                 <Route path="/exchanges" component={Exchanges} />
-                <Route path="/ledgers" component={Ledgers} />
-                <Route path="/ledger/:id" component={Ledger} />
+                <Route path="/blocks" component={Ledgers} />
+                <Route path="/block/:id" component={Ledger} />
                 <Route path="/operations" component={Operations} />
                 <Route path="/payments" component={Payments} />
                 <Route path="/trades" component={Trades} />

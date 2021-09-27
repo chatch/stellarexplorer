@@ -34,7 +34,7 @@ class TransactionRow extends React.Component {
         )}
         {showLedger === true && (
           <td>
-            <Link to={`/ledger/${ledger}`}>{ledger}</Link>
+            <Link to={`/block/${ledger}`}>{ledger}</Link>
           </td>
         )}
         <td>

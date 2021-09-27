@@ -59,7 +59,7 @@ class Header extends React.Component {
                 <FormattedMessage id="transactions" />
               </NavItem>
             </LinkContainer>
-            <LinkContainer to="/ledgers">
+            <LinkContainer to="/blocks">
               <NavItem>
                 <FormattedMessage id="ledgers" />
               </NavItem>
