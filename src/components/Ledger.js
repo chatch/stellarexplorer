@@ -131,13 +131,13 @@ class Ledger extends React.Component {
                     {baseInStroops
                       ? stroopsToLumens(baseReserve)
                       : Number(baseReserve)}{' '}
-                    test-π
+                    Test-π
                   </DetailRow>
                   <DetailRow label="fee.pool">
-                    <FormattedNumber value={feePool} /> test-π
+                    <FormattedNumber value={feePool} /> Test-π
                   </DetailRow>
                   <DetailRow label="total.coins">
-                    <FormattedNumber value={totalCoins} /> test-π
+                    <FormattedNumber value={totalCoins} /> Test-π
                   </DetailRow>
                   <DetailRow label="protocolVersion">{protocol}</DetailRow>
                 </tbody>
