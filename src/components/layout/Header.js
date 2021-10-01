@@ -67,24 +67,6 @@ class Header extends React.Component {
 
             <li className="divider-vertical" />
 
-            <LinkContainer to="/assets">
-              <MenuItem>
-                <FormattedMessage id="assets" />
-              </MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/anchors">
-              <MenuItem>
-                <FormattedMessage id="anchors" />
-              </MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/exchanges">
-              <MenuItem>
-                <FormattedMessage id="exchanges" />
-              </MenuItem>
-            </LinkContainer>
-
-            <li className="divider-vertical" />
-
             <NavDropdown
               eventKey={3}
               title={formatMessage({id: 'more'})}
