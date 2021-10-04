@@ -105,7 +105,7 @@
   "offers": "Offres",
 
   "operation": "Opération",
-  "operations": "Opérations",
+  "operations": "Paiements",
   "ops": "Ops",
 
   "operation.account.create": "Compte {account} crée avec le solde de {balance}",

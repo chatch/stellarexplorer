@@ -101,7 +101,7 @@
   "offers": "挂单",
 
   "operation": "操作",
-  "operations": "操作",
+  "operations": "付款",
   "ops": "操作",
 
   "operation.account.create": "创建账户 {account} 余额 {balance}",

@@ -1,9 +1,9 @@
 import React from 'react'
 import Nav from 'react-bootstrap/lib/Nav'
 import Navbar from 'react-bootstrap/lib/Navbar'
-import NavDropdown from 'react-bootstrap/lib/NavDropdown'
+// import NavDropdown from 'react-bootstrap/lib/NavDropdown'
 import NavItem from 'react-bootstrap/lib/NavItem'
-import MenuItem from 'react-bootstrap/lib/MenuItem'
+// import MenuItem from 'react-bootstrap/lib/MenuItem'
 import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 import {FormattedMessage, injectIntl} from 'react-intl'
@@ -49,7 +49,7 @@ class Header extends React.Component {
             {/* <LinkContainer to="/graphs">
               <NavItem>Graphs (beta)</NavItem>
             </LinkContainer> */}
-            <LinkContainer to="/operations">
+            <LinkContainer to="/payments">
               <NavItem>
                 <FormattedMessage id="operations" />
               </NavItem>

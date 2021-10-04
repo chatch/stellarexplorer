@@ -105,7 +105,7 @@
   "offers": "オファー",
 
   "operation": "操作",
-  "operations": "操作",
+  "operations": "支払い",
   "ops": "操作",
 
   "operation.account.create": "作成されたアカウント{account}に残高は{balance}",
