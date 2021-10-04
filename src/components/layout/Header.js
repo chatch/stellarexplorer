@@ -1,9 +1,9 @@
 import React from 'react'
 import Nav from 'react-bootstrap/lib/Nav'
 import Navbar from 'react-bootstrap/lib/Navbar'
-import NavDropdown from 'react-bootstrap/lib/NavDropdown'
+// import NavDropdown from 'react-bootstrap/lib/NavDropdown'
 import NavItem from 'react-bootstrap/lib/NavItem'
-import MenuItem from 'react-bootstrap/lib/MenuItem'
+// import MenuItem from 'react-bootstrap/lib/MenuItem'
 import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 import {FormattedMessage, injectIntl} from 'react-intl'
@@ -49,11 +49,16 @@ class Header extends React.Component {
             {/* <LinkContainer to="/graphs">
               <NavItem>Graphs (beta)</NavItem>
             </LinkContainer> */}
-            <LinkContainer to="/operations">
+            {/* <LinkContainer to="/operations">
               <NavItem>
                 <FormattedMessage id="operations" />
               </NavItem>
-            </LinkContainer>
+            </LinkContainer> */}
+            <LinkContainer to="/payments">
+                <NavItem>
+                  <FormattedMessage id="payments" />
+                </NavItem>
+              </LinkContainer>
             <LinkContainer to="/txs">
               <NavItem>
                 <FormattedMessage id="transactions" />
@@ -65,6 +70,22 @@ class Header extends React.Component {
               </NavItem>
             </LinkContainer>
 
+            {/* <li className="divider-vertical" />
+            <LinkContainer to="/assets">
+              <MenuItem>
+                <FormattedMessage id="assets" />
+              </MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/anchors">
+              <MenuItem>
+                <FormattedMessage id="anchors" />
+              </MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/exchanges">
+              <MenuItem>
+                <FormattedMessage id="exchanges" />
+              </MenuItem>
+            </LinkContainer>
             <li className="divider-vertical" />
 
             <NavDropdown
@@ -87,7 +108,7 @@ class Header extends React.Component {
                   <FormattedMessage id="trades" />
                 </MenuItem>
               </LinkContainer>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -24,7 +24,7 @@ const HelpModal = props => (
     <Modal.Body style={{color: '#96a2b4'}}>
       <h4>Search By:</h4>
       <br />
-      <div>
+      {/* <div>
         <h5>Stellar Address</h5>
         Also called a{' '}
         <a
@@ -38,7 +38,7 @@ const HelpModal = props => (
           src={`${process.env.PUBLIC_URL}/search/search_stellar_address.png`}
           alt="search by ledger"
         />
-      </div>
+      </div> */}
       <div>
         <h5>Account ID</h5>
         Also called a Public Key or Public Address
@@ -49,7 +49,7 @@ const HelpModal = props => (
         />
       </div>
       <div>
-        <h5>Anchor Name</h5>
+        {/* <h5>Anchor Name</h5>
         <div>
           as listed on the{' '}
           <a
@@ -59,7 +59,7 @@ const HelpModal = props => (
           >
             Anchors Page
           </a>
-        </div>
+        </div> */}
         <div>
           <br />
           Full name:
@@ -80,13 +80,13 @@ const HelpModal = props => (
           />
         </div>
       </div>
-      <div>
+      {/* <div>
         <h5>Asset Code</h5>
         <img
           src={`${process.env.PUBLIC_URL}/search/search_asset.png`}
           alt="search by asset code"
         />
-      </div>
+      </div> */}
       <div>
         <h5>Transaction Hash</h5>
         <img

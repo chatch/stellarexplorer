@@ -4,7 +4,7 @@ import {networks} from '../../lib/stellar'
 const NetworkButton = ({networkType, selectedNetworkType, switchNetworkType}) =>
   <button
     className={networkType === selectedNetworkType ? 'is-active' : 'is-inactive'}
-    onClick={e => switchNetworkType(networkType)}
+    // onClick={e => switchNetworkType(networkType)}
   >
     {networkType.toUpperCase()}
   </button>
