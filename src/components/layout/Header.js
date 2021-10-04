@@ -65,6 +65,22 @@ class Header extends React.Component {
               </NavItem>
             </LinkContainer>
 
+            {/* <li className="divider-vertical" />
+            <LinkContainer to="/assets">
+              <MenuItem>
+                <FormattedMessage id="assets" />
+              </MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/anchors">
+              <MenuItem>
+                <FormattedMessage id="anchors" />
+              </MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/exchanges">
+              <MenuItem>
+                <FormattedMessage id="exchanges" />
+              </MenuItem>
+            </LinkContainer>
             <li className="divider-vertical" />
 
             <NavDropdown
@@ -87,7 +103,7 @@ class Header extends React.Component {
                   <FormattedMessage id="trades" />
                 </MenuItem>
               </LinkContainer>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
