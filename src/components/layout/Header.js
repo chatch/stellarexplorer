@@ -49,11 +49,16 @@ class Header extends React.Component {
             {/* <LinkContainer to="/graphs">
               <NavItem>Graphs (beta)</NavItem>
             </LinkContainer> */}
-            <LinkContainer to="/payments">
+            {/* <LinkContainer to="/operations">
               <NavItem>
                 <FormattedMessage id="operations" />
               </NavItem>
-            </LinkContainer>
+            </LinkContainer> */}
+            <LinkContainer to="/payments">
+                <NavItem>
+                  <FormattedMessage id="payments" />
+                </NavItem>
+              </LinkContainer>
             <LinkContainer to="/txs">
               <NavItem>
                 <FormattedMessage id="transactions" />

@@ -101,7 +101,7 @@
   "offers": "掛單",
 
   "operation": "操作",
-  "operations": "付款",
+  "operations": "操作",
   "ops": "操作",
 
   "operation.account.create": "創建帳戶 {account} 餘額 {balance}",

@@ -66,7 +66,7 @@
   "offer": "Phục vụ",
 
   "operation": "Hoạt động",
-  "operations": "Thanh toán",
+  "operations": "Hoạt động",
   "ops": "Ops",
 
   "operation.account.create": "Đã tạo Tài khoản {account} với số dư {balance}",
