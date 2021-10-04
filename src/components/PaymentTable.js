@@ -35,12 +35,12 @@ const PaymentTable = ({
             <FormattedMessage id="payment" />
           </th>
           {compact === false && (
-            <th>
+            <th class="block-json">
               <FormattedMessage id="transaction" />
             </th>
           )}
           {compact === false && (
-            <th>
+            <th class="block-json">
               <FormattedMessage id="type" />
             </th>
           )}

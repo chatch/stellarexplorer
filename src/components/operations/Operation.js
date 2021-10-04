@@ -81,19 +81,19 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
         <SubOperation op={op} />
       </td>
       {compact === false && (
-        <td>
+        <td class = "block-json">
           <TransactionHash hash={op.transactionHash} compact={true} />
         </td>
       )}
       {compact === false && (
-        <td>
+        <td class = "block-json">
           <OperationType
             type={op.type}
             compact={false}
           />
         </td>
       )}
-      <td>
+      <td > 
         <span title={op.time}>
           <TimeSynchronisedFormattedRelative
             initialNow={parentRenderTimestamp}
@@ -101,7 +101,7 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
           />
         </span>
       </td>
-      <td class = "block-json">
+      <td class>
         <JSONButton url={opURLFn(op.id)} />
       </td>
     </tr>
