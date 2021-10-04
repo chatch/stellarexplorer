@@ -631,4 +631,8 @@ Mobile Rules
     font-size: 12px;
     padding: 4px 7px;
   }
+
+  .block-json {
+    display: none;
+  }
 }
