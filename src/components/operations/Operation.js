@@ -81,12 +81,12 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
         <SubOperation op={op} />
       </td>
       {compact === false && (
-        <td class = "block-json">
+        <td class = "block-column">
           <TransactionHash hash={op.transactionHash} compact={true} />
         </td>
       )}
       {compact === false && (
-        <td class = "block-json">
+        <td class = "block-column">
           <OperationType
             type={op.type}
             compact={false}
