@@ -48,8 +48,8 @@ const HelpModal = props => (
           width="100%"
         />
       </div>
-      <div>
-        {/* <h5>Anchor Name</h5>
+      {/* <div>
+        <h5>Anchor Name</h5>
         <div>
           as listed on the{' '}
           <a
@@ -59,7 +59,7 @@ const HelpModal = props => (
           >
             Anchors Page
           </a>
-        </div> */}
+        </div>
         <div>
           <br />
           Full name:
@@ -80,7 +80,7 @@ const HelpModal = props => (
           />
         </div>
       </div>
-      {/* <div>
+      <div>
         <h5>Asset Code</h5>
         <img
           src={`${process.env.PUBLIC_URL}/search/search_asset.png`}
