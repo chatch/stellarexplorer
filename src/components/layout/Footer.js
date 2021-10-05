@@ -14,7 +14,18 @@ class Footer extends React.PureComponent {
               // Disable rates for now, it doesn't refresh correctly: <LumensRates/>
             }
           </Col>
-          <Col mdOffset={7} md={2}>
+          <Col mdOffset={10} md={3}>
+          <img
+                src={`${process.env.PUBLIC_URL}/img/gh.svg`}
+                alt="github"
+                height={20}
+                width={20}
+              /> Fork of 
+            <a href="https://github.com/chatch/stellarexplorer" style ={{paddingLeft:'5px'}}>
+              stellarexplorer
+            </a>
+          </Col>
+          {/* <Col mdOffset={7} md={2}>
             <a href="https://github.com/chatch/stellarexplorer">
               <img
                 src={`${process.env.PUBLIC_URL}/img/gh.svg`}
@@ -24,9 +35,9 @@ class Footer extends React.PureComponent {
               />
               Source Code
             </a>
-          </Col>
+          </Col> */}
         </Row>
-        <Row>
+        {/* <Row>
           <Col mdOffset={10} md={2}>
             <a href="https://github.com/chatch/stellarexplorer/issues">
               <img
@@ -51,7 +62,7 @@ class Footer extends React.PureComponent {
               Stellar.org
             </a>
           </Col>
-        </Row>
+        </Row> */}
       </Grid>
     )
   }

@@ -71,7 +71,9 @@ table {
 /*
  * Bootstrap components and styles
  */
-
+.pi-text {
+  color:rgb(3, 235, 243);
+}
 .brand-text {
   color: white;
   font-size: 18px;
@@ -630,5 +632,9 @@ Mobile Rules
   .backend-resource-badge-button {
     font-size: 12px;
     padding: 4px 7px;
+  }
+
+  .block-column {
+    display: none;
   }
 }
