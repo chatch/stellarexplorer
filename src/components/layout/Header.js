@@ -26,7 +26,7 @@ class Header extends React.Component {
                 alt={formatMessage({id: 'logo'})}
               /> */}
               <span className="pi-text"> pi </span>
-              <span className="brand-text">explorer</span>
+              <span className="brand-text">blockexplorer</span>
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle />
