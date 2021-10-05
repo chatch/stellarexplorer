@@ -71,7 +71,9 @@ table {
 /*
  * Bootstrap components and styles
  */
-
+.pi-text {
+  color:rgb(3, 235, 243);
+}
 .brand-text {
   color: white;
   font-size: 18px;
