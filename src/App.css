@@ -486,12 +486,12 @@ ul.navbar-nav .divider-vertical {
 
 #csv-export button {
   border: none;
-  background-color: #9e3fa3;
+  background-color: #503b9d;
   transition: all 0.3s;
 }
 
 #csv-export button:hover {
-  background-color: #5f2063;
+  background-color: #542270;
 }
 
 div[id|="account-tabs-pane"] {
