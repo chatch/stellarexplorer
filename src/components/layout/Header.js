@@ -25,7 +25,7 @@ class Header extends React.Component {
                 className="App-logo"
                 alt={formatMessage({id: 'logo'})}
               />
-              <span className="pi-text"> pi </span>
+              <span className="pi-text"> Pi </span>
               <span className="brand-text">blockexplorer</span>
             </Link>
           </Navbar.Brand>
