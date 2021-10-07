@@ -69,7 +69,7 @@ class Transaction extends React.Component {
                     <FormattedMessage id="fee" />
                   </td>
                   {/* <td>{fee} stroops</td> */}
-                  <td>{fee} 0.0.1 Test-π</td>
+                  <td>{fee} 0.01 Test-π</td>
 
                 </tr>
                 <tr>

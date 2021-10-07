@@ -125,7 +125,7 @@ class Ledger extends React.Component {
               <Table>
                 <tbody>
                   <DetailRow label="base.fee">
-                    <FormattedNumber value={baseFee} /> 0.0.1 Test-π
+                    <FormattedNumber value={baseFee} /> 0.01 Test-π
                   </DetailRow>
                   <DetailRow label="base.reserve">
                     {baseInStroops
