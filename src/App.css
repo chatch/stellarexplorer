@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Poppins:wght@400;500;600&display=swap");
+
 body,
 .navbar {
-  color:black;
+  color: black;
   background-color: rgb(238, 238, 238) !important;
-  font-family: "Noto Sans", "Noto Sans CJK {SC, TC}", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 hr {
@@ -14,9 +16,11 @@ table {
 }
 
 .App-logo {
-  height: 20px;
+  height: 30px;
   float: left;
-  margin-right: 6px;
+  margin-right: 4px;
+  position: relative;
+  top: -4.5px;
 }
 
 #main-content {
@@ -72,7 +76,7 @@ table {
  * Bootstrap components and styles
  */
 .pi-text {
-  color:rgb(3, 235, 243);
+  color: #fbb44a;
 }
 .brand-text {
   color: white;
@@ -93,8 +97,10 @@ table {
 
 .panel-heading {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 550;
   text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.5px;
 }
 
 .panel-default > .panel-heading {
@@ -128,10 +134,19 @@ table {
 
 [id*="-table"] thead {
   color: #96a2b4;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.5px;
+  font-weight: 400;
 }
 
 [id*="-table"] tbody {
   color: black;
+}
+
+[id*="-table"] > tbody > tr > td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid #4c5667;
 }
 
 [id*="-table"] > tbody > tr > td {
@@ -157,13 +172,12 @@ table {
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color:white;
+  background-color: white;
 }
 
 .table > tbody > tr:hover {
   /* background-color: rgba(0, 0, 0, 0.1); */
   background-color: white;
-
 }
 
 .navbar-default {
@@ -186,18 +200,21 @@ table {
 
 .navbar-default .dropdown-menu > li > a:hover {
   background-color: transparent;
-  color: #fece3a !important;
+  color: #fbb44a !important;
 }
 
 .navbar-default .navbar-nav > li > a {
   color: white;
+  text-transform: uppercase;
+  font-size: 11.5px;
   margin-top: 2px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .navbar-default .navbar-nav > li > a:focus {
   /* color: #96a2b4; */
   color: white;
-
 }
 
 .navbar-default .navbar-nav > .active > a,
@@ -378,7 +395,7 @@ ul.navbar-nav .divider-vertical {
 .Network-Selector button {
   font-size: 14px;
   background: #08b5e5;
-  border: 1px solid #08b5e5;
+  border: 1px solid #fbb44a;
   border-radius: 60px;
   color: white;
   cursor: pointer;
@@ -402,7 +419,7 @@ ul.navbar-nav .divider-vertical {
 
 .Network-Selector .is-inactive:hover {
   opacity: 0.8;
-  background: #08b5e5;
+  background: #fbb44a;
   color: white;
   transition: all 0.18s ease-in-out;
 }
@@ -455,7 +472,7 @@ ul.navbar-nav .divider-vertical {
 
 #account-tabs .nav-tabs > li.active > a {
   /* border-bottom: 2px solid white; */
-  color: #01c0c8;
+  color: #0147c8;
 }
 
 #account-tabs .table > tbody > tr > td {
@@ -469,6 +486,12 @@ ul.navbar-nav .divider-vertical {
 
 #csv-export button {
   border: none;
+  background-color: #503b9d;
+  transition: all 0.3s;
+}
+
+#csv-export button:hover {
+  background-color: #542270;
 }
 
 div[id|="account-tabs-pane"] {
@@ -480,15 +503,15 @@ a[id|="account-tabs-tab"] {
 }
 
 a[id|="account-tabs-tab"]:hover {
-  color: #01c0c8 !important;
-  background-color:white !important;
+  color: #fbb44a !important;
+  background-color: white !important;
   border: 1px solid white;
   /* border-bottom: 2px solid #01c0c8 !important; */
   border-color: white !important;
 }
 
 a[id|="account-tabs-tab"][aria-selected="true"] {
-  color: #01c0c8 !important;
+  color: #fbb44a !important;
   border: 1px solid white !important;
 }
 
@@ -497,7 +520,7 @@ a[id|="account-tabs-tab"][aria-selected="true"] {
   border-radius: 60px;
   padding: 4px 12px 4px;
   font-weight: 500;
-  background-color: #03a9f3;
+  background-color: #a34ea7;
   color: white;
   transition: all 0.18s ease-in-out;
 }
@@ -536,7 +559,7 @@ a[id|="account-tabs-tab"][aria-selected="true"] {
 
 .pager li a {
   background-color: #fc8b3a;
-  color: rgba(0,0,0,0.87);
+  color: rgba(0, 0, 0, 0.87);
   border-radius: 0;
   /* border-color: rgba(120, 130, 140, 0.28); */
 }
@@ -547,11 +570,11 @@ a[id|="account-tabs-tab"][aria-selected="true"] {
 }
 
 a {
-  color: #00c292;
+  color: #612365;
 }
 
 a:hover {
-  color: #008f6c;
+  color: #da9123;
   text-decoration: none;
 }
 
@@ -577,6 +600,10 @@ a:hover {
   text-decoration: none !important;
 }
 
+#transaction-table #source.account {
+  color: #a34ea7;
+}
+
 .green-blue-button {
   border-radius: 60px !important;
   color: white !important;
@@ -596,7 +623,7 @@ a:hover {
   border-radius: 60px;
   color: white;
   padding: 4px 12px 4px;
-  background-color: #01c0c8;
+  background-color: lightgray;
   font-size: 14px;
   font-weight: 400;
   transition: all 0.18s ease-in-out;

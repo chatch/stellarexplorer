@@ -105,7 +105,7 @@ const HelpModal = props => (
       <hr />
       <h4>OpenSearch:</h4>
       <div>
-        Stellar Explorer supports{' '}
+        Pi Blockexplorer supports{' '}
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -115,7 +115,7 @@ const HelpModal = props => (
         </a>
         . This allows you to search directly from your browser search box or
         search bar. You should see something like the following when you
-        navigate to Stellar Explorer then open the search box. Install it from
+        navigate to Pi Blockexplorer then open the search box. Install it from
         there:
         <br />
         <img
