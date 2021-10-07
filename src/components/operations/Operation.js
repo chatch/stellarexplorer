@@ -101,9 +101,9 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
           />
         </span>
       </td>
-      <td class>
+      {/* <td class>
         <JSONButton url={opURLFn(op.id)} />
-      </td>
+      </td> */}
     </tr>
   )
 }
