@@ -25,7 +25,8 @@ const LedgerRow = props => (
       <span title={props.time}>
         <TimeSynchronisedFormattedRelative
           initialNow={props.parentRenderTimestamp}
-          value={props.time}
+          time={props.time}
+          hash={props.hash}
         />
       </span>
     </td>
