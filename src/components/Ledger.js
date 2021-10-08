@@ -116,7 +116,7 @@ class Ledger extends React.Component {
                     {txCountFailed}
                   </DetailRow>
                   <DetailRow label="max.transactions">
-                    {maxTxSetSize} per ledger
+                    {maxTxSetSize} per block
                   </DetailRow>
                 </tbody>
               </Table>
@@ -125,7 +125,7 @@ class Ledger extends React.Component {
               <Table>
                 <tbody>
                   <DetailRow label="base.fee">
-                    <FormattedNumber value={baseFee} /> stroops
+                    <FormattedNumber value={baseFee * 1e-7} /> Test-π
                   </DetailRow>
                   <DetailRow label="base.reserve">
                     {baseInStroops
