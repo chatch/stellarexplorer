@@ -64,7 +64,6 @@ const OperationTable = props => (
           <th>
             <FormattedMessage id="time" />
           </th>
-          <th />
         </tr>
       </thead>
       <tbody>

@@ -6,7 +6,7 @@ import langSelectImg from '../../img/lang-select.png'
 
 const onClickTranslateHelp = () => {
   window.location.href =
-    'https://github.com/chatch/stellarexplorer/tree/master/src/languages'
+    'https://github.com/pi-apps/pi-explorer/tree/master/src/languages'
 }
 
 const styleLanguageSelector = {

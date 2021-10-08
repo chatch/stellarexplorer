@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {shortAddress} from '../../lib/utils'
 
 import AccountLink from '../shared/AccountLink'
-import JSONButton from '../shared/JSONButton'
+// import JSONButton from '../shared/JSONButton'
 import TimeSynchronisedFormattedRelative from '../shared/TimeSynchronizedFormattedRelative'
 import TransactionHash from '../shared/TransactionHash'
 import OperationType from '../shared/OperationType'
@@ -79,31 +79,33 @@ const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
       <td className="account-badge">{acc}</td>
       <td>
         <SubOperation op={op} />
+
       </td>
       {compact === false && (
-        <td>
+        <td class = "block-column">
           <TransactionHash hash={op.transactionHash} compact={true} />
         </td>
       )}
       {compact === false && (
-        <td>
+        <td class = "block-column">
           <OperationType
             type={op.type}
             compact={false}
           />
         </td>
       )}
-      <td>
+      <td > 
         <span title={op.time}>
           <TimeSynchronisedFormattedRelative
-            initialNow={parentRenderTimestamp}
-            value={op.time}
+            // initialNow={parentRenderTimestamp}
+            time={op.time}
+            hash={op.transactionHash}
           />
         </span>
       </td>
-      <td>
+      {/* <td class>
         <JSONButton url={opURLFn(op.id)} />
-      </td>
+      </td> */}
     </tr>
   )
 }

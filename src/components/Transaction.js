@@ -68,7 +68,9 @@ class Transaction extends React.Component {
                   <td>
                     <FormattedMessage id="fee" />
                   </td>
-                  <td>{fee} stroops</td>
+                  {/* <td>{fee} stroops</td> */}
+                  <td>{fee * 1e-7} Test-π</td>
+
                 </tr>
                 <tr>
                   <td>
@@ -148,7 +150,8 @@ class TransactionContainer extends React.Component {
     return (
       <TransactionIntl
         id={tx.id}
-        fee={tx.fee_paid}
+        // fee={tx.fee_paid}
+        fee={tx.fee_charged}
         ledger={tx.ledger_attr}
         memoType={tx.memo_type}
         memo={tx.memo}
