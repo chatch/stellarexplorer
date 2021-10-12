@@ -175,7 +175,7 @@ class App extends Component {
         locale={this.state.language}
         messages={getMessages(this.state.language)}
       >
-        <Router basename="">
+        <Router basename="/blockexplorer">
           <div className="App">
             <Header
               networkAddress={this.state.networkAddress}
