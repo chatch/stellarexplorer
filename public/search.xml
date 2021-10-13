@@ -3,7 +3,7 @@
   <ShortName>Blockexplorer</ShortName>
   <Description>Blockexplorer for the Pi Network</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/png">https://minepi.com/blockexplorer/favicon-32x32.png</Image>
+  <Image width="32" height="32" type="image/png">https://minepi.com/blockexplorer/favicon-32x32.png</Image>
   <Url type="text/html" method="get" template="https://minepi.com/blockexplorer/search/{searchTerms}" />
   <Url
     type="application/opensearchdescription+xml"
