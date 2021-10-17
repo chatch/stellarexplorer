@@ -42,6 +42,15 @@
         "USD": "USD-GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
       }
     },
+    "api.anclap.com": {
+      "name": "api.anclap.com",
+      "displayName": "Anclap",
+      "website": "https://anclap.com",
+      "assets": {
+        "ARS": "ARS-GCYE7C77EB5AWAA25R5XMWNI2EDOKTTFTTPZKM2SR5DI4B4WFD52DARS",
+        "PEN": "PEN-GA4TDPNUCZPTOHB3TKUYMDCRVATXKEADH7ZEYEBWJKQKE2UBFCYNBPEN"
+      }
+    },
     "thewwallet.com": {
       "name": "thewwallet.com",
       "displayName": "White Wallet",
@@ -534,6 +543,16 @@
     }
   },
   "assets": {
+    "ARS-GCYE7C77EB5AWAA25R5XMWNI2EDOKTTFTTPZKM2SR5DI4B4WFD52DARS": {
+      "code": "ARS",
+      "issuer": "GCYE7C77EB5AWAA25R5XMWNI2EDOKTTFTTPZKM2SR5DI4B4WFD52DARS",
+      "domain": "api.anclap.com"
+    },
+    "PEN-GA4TDPNUCZPTOHB3TKUYMDCRVATXKEADH7ZEYEBWJKQKE2UBFCYNBPEN": {
+      "code": "PEN",
+      "issuer": "GA4TDPNUCZPTOHB3TKUYMDCRVATXKEADH7ZEYEBWJKQKE2UBFCYNBPEN",
+      "domain": "api.anclap.com"
+    },
     "BRL-GDVKY2GU2DRXWTBEYJJWSFXIGBZV6AZNBVVSUHEPZI54LIS6BA7DVVSP": {
       "code": "BRL",
       "issuer": "GDVKY2GU2DRXWTBEYJJWSFXIGBZV6AZNBVVSUHEPZI54LIS6BA7DVVSP",
