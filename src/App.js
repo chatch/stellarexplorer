@@ -65,9 +65,12 @@ addLocaleData([
   ...vi,
   ...zh,
 ])
-
-const initialLanguage =
+const locales = ['en', 'fr', 'hi', 'id', 'ja', 'ru', 'ur', 'vi', 'zh-Hans', 'zh-Hant'];
+let initialLanguage =
   storage.getItem('language') || navigator.language || 'en'
+if(!locales.includes(initialLanguage) ){
+  initialLanguage = 'en'
+}
 
 // Derive network type from the hostname.
 // Network settings determine which horizon instance to pull data from.
