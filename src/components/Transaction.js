@@ -104,7 +104,7 @@ class Transaction extends React.Component {
             {` (${opCount})`}
           </h3>
           <Grid>
-            <OperationTable limit={opCount} tx={id} />
+            <OperationTable limit={opCount} tx={id} is_transaction={true}/>
           </Grid>
         </Row>
       </Grid>
