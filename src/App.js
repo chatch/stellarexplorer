@@ -18,6 +18,8 @@ import ru from 'react-intl/locale-data/ru'
 import ur from 'react-intl/locale-data/ur'
 import vi from 'react-intl/locale-data/vi'
 import zh from 'react-intl/locale-data/zh'
+import ha from 'react-intl/locale-data/ha'
+
 import enMessages from './languages/en'
 import frMessages from './languages/fr'
 import hiMessages from './languages/hi'
@@ -28,6 +30,8 @@ import urMessages from './languages/ur'
 import viMessages from './languages/vi'
 import zhHansMessages from './languages/zh-Hans.json'
 import zhHantMessages from './languages/zh-Hant.json'
+import haMessages from './languages/hau.json'
+
 
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
@@ -64,8 +68,9 @@ addLocaleData([
   ...ur,
   ...vi,
   ...zh,
+  ...ha,
 ])
-const locales = ['en', 'fr', 'hi', 'id', 'ja', 'ru', 'ur', 'vi', 'zh-Hans', 'zh-Hant']
+const locales = ['en', 'fr', 'hi', 'id', 'ja', 'ru', 'ur', 'vi', 'zh-Hans', 'zh-Hant', 'ha']
 let initialLanguage =
   storage.getItem('language') || navigator.language || 'en'
 if(!locales.includes(initialLanguage) ){
@@ -98,6 +103,8 @@ const getMessages = locale => {
       return zhHansMessages
     case 'zh-Hant':
       return zhHantMessages
+    case 'ha':
+      return haMessages
     default:
       return enMessages
   }
