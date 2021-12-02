@@ -35,7 +35,9 @@
   "effect": "Efeito",
   "effects": "Efeitos",
 
-  "error.cant.find": "Não foi possível encontrar \"{searchStr} \ ": "Não existe nada em \"{path} \ ": "Network Ocorreu um erro de rede. Verifique sua conexão ou verifique se há mensagens no console do navegador. " ,
+  "error.cant.find": "Não foi possível encontrar \"{searchStr} \"",
+  "error.nothing.found": "Não existe nada em \"{path}\"",
+  "error.network": "Network Ocorreu um erro de rede. Verifique sua conexão ou verifique se há mensagens no console do navegador. " ,
   "error.unknown": "Desculpas, algo deu errado ...",
   "error.occurred": "Ocorreu um erro: ",
   "error.insecure-network": "O endereço do horizonte é inseguro!",
@@ -61,7 +63,7 @@
   "invalid.account": "conta inválida",
   "issued": "Emitido",
   "issuer": "Emissor",
-  "language.selector": "Seletor de idioma,"
+  "language.selector": "Seletor de idioma",
   "latest.ledgers": "Últimos blocos",
   "latest.operations": "Últimas Operações",
   "latest.payments": "Últimos pagamentos",
