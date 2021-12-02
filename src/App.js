@@ -20,6 +20,8 @@ import vi from 'react-intl/locale-data/vi'
 import zh from 'react-intl/locale-data/zh'
 import ha from 'react-intl/locale-data/ha'
 import it from 'react-intl/locale-data/it'
+import ne from 'react-intl/locale-data/ne'
+
 
 
 import enMessages from './languages/en'
@@ -34,6 +36,7 @@ import zhHansMessages from './languages/zh-Hans.json'
 import zhHantMessages from './languages/zh-Hant.json'
 import haMessages from './languages/hau.json'
 import itMessages from './languages/it'
+import neMessages from './languages/ne'
 
 
 
@@ -74,8 +77,9 @@ addLocaleData([
   ...zh,
   ...ha,
   ...it,
+  ...ne,
 ])
-const locales = ['en', 'fr', 'hi', 'id', 'ja', 'ru', 'ur', 'vi', 'zh-Hans', 'zh-Hant', 'ha', 'it']
+const locales = ['en', 'fr', 'hi', 'id', 'ja', 'ru', 'ur', 'vi', 'zh-Hans', 'zh-Hant', 'ha', 'it', 'ne']
 let initialLanguage =
   storage.getItem('language') || navigator.language || 'en'
 if(!locales.includes(initialLanguage) ){
@@ -112,6 +116,8 @@ const getMessages = locale => {
       return haMessages
     case 'it':
       return itMessages
+    case 'ne':
+      return neMessages
     default:
       return enMessages
   }
