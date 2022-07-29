@@ -1,1 +1,1 @@
-https://api.testnet.minepi.com/accounts/GDNDEI3B7PZCHUBXEFDE6G2F2J2DWEXFLDTBCYCGH7O2ECA36A4QTAIO
+https://api.testnet.minepi.com/operations/6039144924983297/effects?limit=200&order=desc
