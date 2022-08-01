@@ -1,4 +1,4 @@
-import React from 'react'
+mport React from 'react'
 import PropTypes from 'prop-types'
 import {compose} from 'recompose'
 import Table from 'react-bootstrap/lib/Table'
@@ -14,20 +14,7 @@ import CSVExport from './shared/CSVExport'
 const EffectTable = ({
   parentRenderTimestamp,
   records,
-  server,
-  showAccount = true,
-  account,
-}) => (
-  <div>
-    <Table
-      id="effect-table"
-      className="table-striped table-hover table-condensed"
-    >
-      <thead>
-        <tr>
-          {showAccount && (
-            <th>
-              <FormattedMessage id="account" />
+	@@ -34,9 +31,9 @@ const EffectTable = ({
             </th>
           )}
           <th>
