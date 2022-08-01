@@ -64,7 +64,6 @@ const EffectTable = ({
     </div>
   </div>
 )
-
 EffectTable.propTypes = {
   parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array.isRequired,
@@ -75,9 +74,7 @@ const rspRecToPropsRec = record => mapKeys(record, (v, k) => camelCase(k))
 const fetchRecords = ({account, limit, op, server, tx}) => {
   const builder = server.effects()
   if (account) builder.forAccount(account)
-  if (op) builder.forOperation(op)
-  if (tx) builder.forTransaction(tx)
-  builder.limit(limit)
+	@@ -86,7 +81,6 @@ const fetchRecords = ({account, limit, op, server, tx}) => {
   builder.order('desc')
   return builder.call()
 }
@@ -86,9 +83,7 @@ const enhance = compose(
   withDataFetchingContainer(fetchRecords, rspRecToPropsRec),
   withSpinner()
 )
-
 const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords)(
   CSVExport
 )
-
 export default enhance(EffectTable)
