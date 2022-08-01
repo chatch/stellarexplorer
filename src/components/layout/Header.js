@@ -46,7 +46,69 @@ class Header extends React.Component {
           <Nav>
             {/* <LinkContainer to="/graphs">
               <NavItem>Graphs (beta)</NavItem>
-            </LinkContainer> */}
+                          </LinkContainer> */}
             <LinkContainer to="/operations">
               <NavItem>
                 <FormattedMessage id="operations" />
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/txs">
+              <NavItem>
+                <FormattedMessage id="transactions" />
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/ledgers">
+              <NavItem>
+                <FormattedMessage id="ledgers" />
+              </NavItem>
+            </LinkContainer>
+            <li className="divider-vertical" />
+            <LinkContainer to="/assets">
+              <MenuItem>
+                <FormattedMessage id="assets" />
+              </MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/anchors">
+              <MenuItem>
+                <FormattedMessage id="anchors" />
+              </MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/exchanges">
+              <MenuItem>
+                <FormattedMessage id="exchanges" />
+              </MenuItem>
+ </LinkContainer>
+            <li className="divider-vertical" />
+            <NavDropdown
+              eventKey={3}
+              title={formatMessage({id: 'more'})}
+              id="basic-nav-dropdown"
+            >
+              <LinkContainer to="/effects">
+                <MenuItem>
+                  <FormattedMessage id="effects" />
+                </MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/payments">
+                <MenuItem>
+                  <FormattedMessage id="payments" />
+                </MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/trades">
+                <MenuItem>
+                  <FormattedMessage id="trades" />
+                </MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/pools">
+                <MenuItem>
+                  <FormattedMessage id="inflation.pools" />
+                </MenuItem>
+              </LinkContainer>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    )
+  }
+}
+export default injectIntl(Header)
