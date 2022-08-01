@@ -11,13 +11,10 @@ COPY . .
 # Copy our node modules specification
 COPY ./package.json .
 COPY ./package-lock.json .
-
 # Install node modules and build assets
 RUN npm install
-
 #Copy all files from current directory to working dir in image
 COPY . .
-
 # Create a build of the app
 RUN npm run build
 
