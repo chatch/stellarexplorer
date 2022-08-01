@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import {compose} from 'recompose'
 import Table from 'react-bootstrap/lib/Table'
 import {FormattedMessage} from 'react-intl'
-
 import filter from 'lodash/filter'
 import mapKeys from 'lodash/mapKeys'
 import camelCase from 'lodash/camelCase'
-
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
 import {withDataFetchingAllContainer} from './shared/DataFetchingAllContainer'
 import {withPaging} from './shared/Paging'
@@ -15,11 +13,9 @@ import {withSpinner} from './shared/Spinner'
 import {default as Operation, opTypes} from './operations/Operation'
 import {filterFor} from './shared/OperationType'
 import CSVExport from './shared/CSVExport'
-
 const filterFn = event => {
   filterFor(event.target.value)
 }
-
 const OperationTable = props => (
   <div>
     {props.compact === false && (
@@ -36,13 +32,7 @@ const OperationTable = props => (
           <span className="disclaimer">
             <FormattedMessage id="filter.more-data-possibly-available" />
           </span>
-        )}
-      </div>
-    )}
-    <Table
-      id="operation-table"
-      className="table-striped table-hover table-condensed"
-    >
+	@@ -46,12 +46,12 @@ const OperationTable = props => (
       <thead>
         <tr>
           <th>
@@ -55,12 +45,7 @@ const OperationTable = props => (
             <th>
               <FormattedMessage id="transaction" />
             </th>
-          )}
-          {props.compact === false && (
-            <th>
-              <FormattedMessage id="type" />
-            </th>
-          )}
+	@@ -64,6 +64,7 @@ const OperationTable = props => (
           <th>
             <FormattedMessage id="time" />
           </th>
@@ -68,27 +53,14 @@ const OperationTable = props => (
         </tr>
       </thead>
       <tbody>
-        {props.records.map(op => (
-          <Operation
-            key={op.id}
-            compact={props.compact}
+	@@ -74,7 +75,6 @@ const OperationTable = props => (
             op={op}
             opURLFn={props.server.opURL}
             parentRenderTimestamp={props.parentRenderTimestamp}
           />
         ))}
       </tbody>
-    </Table>
-    {!props.noCSVExport && (
-      <div className="text-center" id="csv-export">
-        <ExportToCSVComponent {...props} />
-      </div>
-    )}
-  </div>
-)
-
-OperationTable.propTypes = {
-  compact: PropTypes.bool,
+	@@ -92,14 +92,11 @@ OperationTable.propTypes = {
   parentRenderTimestamp: PropTypes.number,
   records: PropTypes.array.isRequired,
   server: PropTypes.object.isRequired,
@@ -100,9 +72,7 @@ const rspRecToPropsRec = record => {
 const fetchRecords = ({account, limit, server, tx, type}) => {
   const getBuilder = () => {
     const builder = server.operations()
-    if (tx) builder.forTransaction(tx)
-    if (account) builder.forAccount(account)
-    builder.limit(limit)
+	@@ -109,11 +106,10 @@ const fetchRecords = ({account, limit, server, tx, type}) => {
     builder.order('desc')
     return builder
   }
@@ -113,30 +83,14 @@ const fetchRecords = ({account, limit, server, tx, type}) => {
       getBuilder,
       filterForType,
       limit,
-      undefined,
-      0,
-      0,
-      0
-    )
+	@@ -125,7 +121,6 @@ const fetchRecords = ({account, limit, server, tx, type}) => {
   }
   return getBuilder().call()
 }
 const getOperationTypeFilter = () => {
   const opTypeFilter = window.location.search.match(/opTypeFilter=([a-z_]*)/)
   if (opTypeFilter && opTypeFilter[1]) {
-    return opTypeFilter[1]
-  }
-}
-
-let cursors = []
-let currentCursor = 0
-const fetchUntilEnoughDataToDisplay = (
-  getBuilder,
-  filterForType,
-  limit,
-  accumulatedRsp,
-  totalFetchedRecs,
-  cursor
+	@@ -145,25 +140,24 @@ const fetchUntilEnoughDataToDisplay = (
 ) => {
   const builder = cursor ? getBuilder().cursor(cursor) : getBuilder()
 
@@ -161,22 +115,7 @@ const fetchUntilEnoughDataToDisplay = (
       accumulatedRsp.records.length < limit &&
       records.length > 0 &&
       totalFetchedRecs < maxTotalRecordsToFetch
-    ) {
-      return fetchUntilEnoughDataToDisplay(
-        getBuilder,
-        filterForType,
-        limit,
-        accumulatedRsp,
-        totalFetchedRecs,
-        cursor
-      )
-    } else {
-      // there is no way for us to know how many occurrences exist for a
-      // certain type. for example, somebody could create a filter for ops
-      // of type 'foo'. if the total operations dataset is very large, but
-      // contains only one record of type 'foo' then we would recursively need
-      // to fetch the entire operations dataset, because we want to fill up
-      // the page to the maximum of records and we don't know when to stop
+	@@ -186,7 +180,7 @@ const fetchUntilEnoughDataToDisplay = (
       // fetching records.
       const lessRecordsThanLimitReady = accumulatedRsp.records.length < limit
       const isMoreDataAvailable = cursor !== 0
@@ -184,12 +123,7 @@ const fetchUntilEnoughDataToDisplay = (
         totalFetchedRecs >= maxTotalRecordsToFetch &&
         isMoreDataAvailable &&
         lessRecordsThanLimitReady
-      ) {
-        this.possiblyMoreDataAvailable = true
-      }
-
-      // the prev cursor stays the same, but the next cursor has to be set for the
-      // latest rsp.next, so that if the user presses next the filtering would
+	@@ -199,12 +193,10 @@ const fetchUntilEnoughDataToDisplay = (
       // continue from where we stopped last.
       accumulatedRsp.next = (...props) => {
         if (records.length === 0) return Promise.resolve(rsp)
@@ -200,13 +134,7 @@ const fetchUntilEnoughDataToDisplay = (
           getBuilder,
           filterForType,
           limit,
-          undefined,
-          0,
-          newCursor
-        )
-      }
-
-      accumulatedRsp.prev = (...props) => {
+	@@ -218,7 +210,7 @@ const fetchUntilEnoughDataToDisplay = (
         if (records.length === 0) return Promise.resolve(rsp)
 
         let oldCursor = cursors.pop()
@@ -214,24 +142,14 @@ const fetchUntilEnoughDataToDisplay = (
           getBuilder,
           filterForType,
           limit,
-          undefined,
-          0,
-          oldCursor
-        )
-      }
-
-      return Promise.resolve(accumulatedRsp)
-    }
-  })
+	@@ -234,7 +226,6 @@ const fetchUntilEnoughDataToDisplay = (
 }
 
 const callBuilder = props => props.server.operations()
 const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords)(
   CSVExport
 )
-
-const enhance = compose(
-  withPaging(),
+	@@ -244,5 +235,4 @@ const enhance = compose(
   withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder),
   withSpinner()
 )
