@@ -9,17 +9,14 @@ import CSVExport from './shared/CSVExport'
 const rspRecToPropsRec = rspRec => {
   return {
     hash: rspRec.hash,
-    ledger: rspRec.ledger_attr,
-    opCount: rspRec.operation_count,
-    sourceAccount: rspRec.source_account,
+	@@ -17,7 +15,6 @@ const rspRecToPropsRec = rspRec => {
     time: rspRec.created_at,
   }
 }
 const fetchRecords = props => {
   const builder = props.server.transactions()
   if (isDefInt(props, 'ledger')) builder.forLedger(props.ledger)
-  if (isPublicKey(props.account)) builder.forAccount(props.account)
-  builder.limit(props.limit)
+	@@ -26,21 +23,17 @@ const fetchRecords = props => {
   builder.order('desc')
   return builder.call()
 }
@@ -43,5 +40,4 @@ const wrapHOC = Component => props => (
     )}
   </div>
 )
-
 export default enhance(wrapHOC(TransactionTable))
