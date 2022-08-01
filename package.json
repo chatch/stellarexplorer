@@ -32,7 +32,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.0.0",
     
-    "react-json-pretty": "^1.7.
+    "react-json-pretty":
     
     "react-md-spinner": "^0.2.4",
     "react-router": "^4.2.0",
@@ -96,4 +96,3 @@
       "react-app"
     ]
   }
-}
