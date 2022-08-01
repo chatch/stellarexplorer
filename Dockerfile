@@ -5,9 +5,6 @@
 FROM node:13-alpine AS base
 # Set working directory
 WORKDIR /home/app
-
-# Copy all files from current directory to working dir in image
-COPY . .
 # Copy our node modules specification
 COPY ./package.json .
 COPY ./package-lock.json .
@@ -17,7 +14,6 @@ RUN npm install
 COPY . .
 # Create a build of the app
 RUN npm run build
-
 # nginx state for serving content
 FROM nginx:alpine
 EXPOSE 80
@@ -28,5 +24,6 @@ RUN rm -rf ./*
 # Copy static assets from builder stage
 COPY --from=base /home/app/build .
 COPY ./docker/nginx-defaults.conf /etc/nginx/conf.d/default.conf
+
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
