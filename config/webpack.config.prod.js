@@ -314,34 +314,7 @@ module.exports = {
       navigateFallbackWhitelist: [/^(?!\/__).*/],
       // Don't precache sourcemaps (they're large) and build asset manifest:
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-      runtimeCaching: [
-        { // Cache the stellarterm directory for a couple of days as the asset
-          // lists don't change often
-          urlPattern: /^https:\/\/api\.stellarterm\.com\/v1\/ticker.json/,
-          handler: 'cacheFirst',
-          options: {
-            cache: {
-              name: 'directory-cache',
-              maxAgeSeconds: 2 * 24 * 60 * 60
-            },
-          },
-        },
-
-        { // Cache price updates for 5 minutes
-          urlPattern: /^https:\/\/api\.coinmarketcap\.com\/v1\/ticker\/stellar\//,
-          handler: 'cacheFirst',
-          options: {
-            cache: {
-              name: 'price-cache',
-              maxAgeSeconds: 300
-            },
-          },
-        },
-        { // Cache sponsored link banner fetches for 6 hours
-          urlPattern: /^https:\/\/raw.githubusercontent.com\/chatch\/stellarexplorer\/master\/banner.json/,
-          handler: 'cacheFirst',
-          options: {
-            cache: {
+      runtimeCaching:
               name: 'banner-cache',
               maxAgeSeconds: 6 * 60 * 60
             },
