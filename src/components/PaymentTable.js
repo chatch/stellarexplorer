@@ -6,7 +6,6 @@ import {FormattedMessage} from 'react-intl'
 import filter from 'lodash/filter'
 import mapKeys from 'lodash/mapKeys'
 import camelCase from 'lodash/camelCase'
-
 import Operation from './operations/Operation'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
 import {withDataFetchingAllContainer} from './shared/DataFetchingAllContainer'
@@ -44,10 +43,7 @@ const PaymentTable = ({
               <FormattedMessage id="type" />
             </th>
           )}
-          <th>
-            <FormattedMessage id="time" />
-          </th>
-          <th />
+	@@ -45,19 +51,19 @@ const PaymentTable = props =>(
         </tr>
       </thead>
       <tbody>
@@ -67,10 +63,7 @@ const PaymentTable = ({
     </div>
   </div>
 )
-
-PaymentTable.propTypes = {
-  compact: PropTypes.bool,
-  parentRenderTimestamp: PropTypes.number,
+	@@ -68,147 +74,20 @@ PaymentTable.propTypes = {
   records: PropTypes.array.isRequired,
   server: PropTypes.object.isRequired,
 }
@@ -91,9 +84,7 @@ const callBuilder = props => props.server.payments()
 const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords)(
   CSVExport
 )
-
-const enhance = compose(
-  withPaging(),
+	@@ -218,5 +97,4 @@ const enhance = compose(
   withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder),
   withSpinner()
 )
