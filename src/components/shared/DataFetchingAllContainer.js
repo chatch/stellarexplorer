@@ -13,7 +13,6 @@ import {exportCSV} from '../../lib/csv'
 // the export from running extremely long (e.g. because someone
 // accidentally tries to export all of horizon).
 const EXPORT_LIMIT = 20000
-
 const propTypesContainer = {
   limit: PropTypes.number,
   page: PropTypes.number,
@@ -90,20 +89,14 @@ const withDataFetchingAllContainer = fetchDataFn => Component => {
             this.state.wasExportStarted &&
             this.fetchDataFn !== null &&
             this.state.cursor !== 0
-          ) {
-            this.fetchDataFn(this.state)
-          }
-        })
-        .catch(e => {
-          handleFetchDataFailure()(e)
+	@@ -108,7 +99,6 @@ const withDataFetchingAllContainer = fetchDataFn => Component => {
           this.setState({wasExportStarted: false})
         })
     }
     responseToState(rsp) {
       const cursor =
         rsp.records.length > 0 && has(rsp.records[0], 'paging_token')
-          ? rsp.records[0].paging_token
-          : 0
+	@@ -117,18 +107,16 @@ const withDataFetchingAllContainer = fetchDataFn => Component => {
       if (cursor === 0) {
         console.warn('no cursor')
       }
@@ -120,21 +113,14 @@ const withDataFetchingAllContainer = fetchDataFn => Component => {
     render() {
       return (
         <div>
-          <Component
-            wasExportStarted={this.state.wasExportStarted}
-            isExportingFinished={this.state.isExportingFinished}
-            exportLimitExceeded={this.state.exportLimitExceeded}
+	@@ -139,7 +127,6 @@ const withDataFetchingAllContainer = fetchDataFn => Component => {
             onClick={() => {
               const newState = {limit: 100, wasExportStarted: true}
               this.setState(newState)
               var initial = extend({}, this.props, newState)
               this.fetchData(fetchDataFn(initial))
             }}
-            fetchedRecords={this.state.fetchedRecords}
-            parentRenderTimestamp={this.state.parentRenderTimestamp}
-            {...this.props}
-          />
-        </div>
+	@@ -151,10 +138,7 @@ const withDataFetchingAllContainer = fetchDataFn => Component => {
       )
     }
   }
