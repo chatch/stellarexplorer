@@ -31,7 +31,11 @@ class OfferTable extends React.Component {
           id="offer-table"
           className="table-striped table-hover table-condensed"
         >
-	@@ -45,9 +39,9 @@ class OfferTable extends React.Component {
+          <thead>
+            <tr>
+              {showSeller && (
+                <th>
+                  <FormattedMessage id="seller" />
                 </th>
               )}
               <th>
@@ -41,7 +45,36 @@ class OfferTable extends React.Component {
                 <FormattedMessage id="buy" />
               </th>
               <th>
-	@@ -84,25 +78,21 @@ class OfferTable extends React.Component {
+                <FormattedMessage id="amount" />
+              </th>
+              <th>
+                <FormattedMessage id="price" />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {records.map(offer => (
+              <Offer
+                key={offer.id}
+                offerId={offer.id}
+                amount={offer.amount}
+                price={offer.price}
+                seller={offer.seller}
+                buyingAssetCode={offer.buying.asset_code}
+                buyingAssetIssuer={offer.buying.asset_issuer}
+                buyingAssetType={offer.buying.asset_type}
+                sellingAssetCode={offer.selling.asset_code}
+                sellingAssetIssuer={offer.selling.asset_issuer}
+                sellingAssetType={offer.selling.asset_type}
+                showSeller={showSeller}
+              />
+            ))}
+          </tbody>
+        </Table>
+        <div className="text-center" id="csv-export">
+          <ExportToCSVComponent {...this.props} />
+        </div>
+      </div>
     )
   }
 }
