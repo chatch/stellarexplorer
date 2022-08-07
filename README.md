@@ -1,3 +1,4 @@
+{
 #  Stellar Explorer
  [! [ Trạng thái bản dựng ] (https://travis-ci.org/chatch/stellarexplorer.svg?branch=master)] (https://travis-ci.org/chatch/stellarexplorer)
  Một công cụ khám phá sổ cái cho [ Stellar ] (https://stellar.org).
