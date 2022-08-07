@@ -84,4 +84,5 @@ Sử dụng ngôn ngữ chọn ở góc trên cùng bên phải để thay đổ
 Các dịch tập tin ở đây:
 https://github.com/chatch/stellarexplorer/tree/master/src/languages
 Gửi yêu cầu kéo với mới ngôn ngữ hoặc ngôn ngữ lỗi sửa chữa ở đó.
+
 }
