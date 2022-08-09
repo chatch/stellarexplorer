@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import {compose} from 'recompose'
 import Table from 'react-bootstrap/lib/Table'
 import {FormattedMessage} from 'react-intl'
-
+import filter from 'lodash/filter'
 import mapKeys from 'lodash/mapKeys'
 import camelCase from 'lodash/camelCase'
-
 import Operation from './operations/Operation'
 import {withDataFetchingContainer} from './shared/DataFetchingContainer'
 import {withDataFetchingAllContainer} from './shared/DataFetchingAllContainer'
@@ -22,19 +21,19 @@ const PaymentTable = ({
   account,
 }) => (
   <div>
-    <Table
+          <th>
+           <Table
       id="payment-table"
       className="table-striped table-hover table-condensed"
     >
       <thead>
         <tr>
-          <th>
-            <FormattedMessage id="account" />
+                <FormattedMessage id="account" />
           </th>
-          <th>
-            <FormattedMessage id="payment" />
+            </th>
+                 <FormattedMessage id="payment" />
           </th>
-          {compact === false && (
+                {compact === false && (
             <th>
               <FormattedMessage id="transaction" />
             </th>
@@ -44,10 +43,7 @@ const PaymentTable = ({
               <FormattedMessage id="type" />
             </th>
           )}
-          <th>
-            <FormattedMessage id="time" />
-          </th>
-          <th />
+	@@ -45,19 +51,19 @@ const PaymentTable = props =>(
         </tr>
       </thead>
       <tbody>
@@ -67,19 +63,14 @@ const PaymentTable = ({
     </div>
   </div>
 )
-
-PaymentTable.propTypes = {
-  compact: PropTypes.bool,
-  parentRenderTimestamp: PropTypes.number,
+	@@ -68,147 +74,20 @@ PaymentTable.propTypes = {
   records: PropTypes.array.isRequired,
   server: PropTypes.object.isRequired,
 }
-
 const rspRecToPropsRec = record => {
   record.time = record.created_at
   return mapKeys(record, (v, k) => camelCase(k))
 }
-
 const fetchRecords = ({account, tx, limit, server}) => {
   const builder = server.payments()
   if (tx) builder.forTransaction(tx)
@@ -90,15 +81,11 @@ const fetchRecords = ({account, tx, limit, server}) => {
 }
 
 const callBuilder = props => props.server.payments()
-
 const ExportToCSVComponent = withDataFetchingAllContainer(fetchRecords)(
   CSVExport
 )
-
-const enhance = compose(
-  withPaging(),
+	@@ -218,5 +97,4 @@ const enhance = compose(
   withDataFetchingContainer(fetchRecords, rspRecToPropsRec, callBuilder),
   withSpinner()
 )
-
 export default enhance(PaymentTable)

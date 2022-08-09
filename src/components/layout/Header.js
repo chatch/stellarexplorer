@@ -7,11 +7,9 @@ import MenuItem from 'react-bootstrap/lib/MenuItem'
 import {Link} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 import {FormattedMessage, injectIntl} from 'react-intl'
-
 import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
 import logoImg from '../../img/logo.png'
-
 class Header extends React.Component {
   render() {
     const {formatMessage} = this.props.intl
@@ -48,7 +46,7 @@ class Header extends React.Component {
           <Nav>
             {/* <LinkContainer to="/graphs">
               <NavItem>Graphs (beta)</NavItem>
-            </LinkContainer> */}
+                          </LinkContainer> */}
             <LinkContainer to="/operations">
               <NavItem>
                 <FormattedMessage id="operations" />
@@ -64,9 +62,7 @@ class Header extends React.Component {
                 <FormattedMessage id="ledgers" />
               </NavItem>
             </LinkContainer>
-
             <li className="divider-vertical" />
-
             <LinkContainer to="/assets">
               <MenuItem>
                 <FormattedMessage id="assets" />
@@ -81,10 +77,8 @@ class Header extends React.Component {
               <MenuItem>
                 <FormattedMessage id="exchanges" />
               </MenuItem>
-            </LinkContainer>
-
+ </LinkContainer>
             <li className="divider-vertical" />
-
             <NavDropdown
               eventKey={3}
               title={formatMessage({id: 'more'})}
@@ -105,6 +99,11 @@ class Header extends React.Component {
                   <FormattedMessage id="trades" />
                 </MenuItem>
               </LinkContainer>
+              <LinkContainer to="/pools">
+                <MenuItem>
+                  <FormattedMessage id="inflation.pools" />
+                </MenuItem>
+              </LinkContainer>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -112,5 +111,4 @@ class Header extends React.Component {
     )
   }
 }
-
 export default injectIntl(Header)
