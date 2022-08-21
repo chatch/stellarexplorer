@@ -5,22 +5,14 @@ import Asset from '../shared/Asset'
 import AccountLink from '../shared/AccountLink'
 import FormattedAmount from '../shared/FormattedAmount'
 
-const Payment = ({
-  amount,
-  assetCode,
-  assetIssuer,
-  assetType,
-  children,
-  to,
-  toMuxed,
-}) => (
+const Payment = ({amount, assetCode, assetIssuer, assetType, children, to}) => (
   <span>
     <FormattedMessage
       id="operation.payment"
       values={{
         amount: <FormattedAmount amount={amount} />,
         asset: <Asset code={assetCode} issuer={assetIssuer} type={assetType} />,
-        recipient: <AccountLink account={toMuxed ? toMuxed : to} />,
+        recipient: <AccountLink account={to} />,
       }}
     />
     {children}
@@ -33,7 +25,6 @@ Payment.propTypes = {
   assetIssuer: PropTypes.string,
   assetType: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
-  toMuxed: PropTypes.string,
 }
 
 export default Payment
