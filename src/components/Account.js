@@ -1,6 +1,5 @@
 import React from 'react'
 import Col from 'react-bootstrap/lib/Col'
-import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import Grid from 'react-bootstrap/lib/Grid'
 import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
@@ -8,11 +7,11 @@ import Table from 'react-bootstrap/lib/Table'
 import Tab from 'react-bootstrap/lib/Tab'
 import Tabs from 'react-bootstrap/lib/Tabs'
 import {injectIntl, FormattedMessage} from 'react-intl'
-import {FederationServer, MuxedAccount, StrKey} from 'stellar-sdk'
+import {FederationServer, StrKey} from 'stellar-sdk'
 import has from 'lodash/has'
 
 import knownAccounts from '../data/known_accounts'
-import {isFederatedAddress, isMuxedAddress, isPublicKey} from '../lib/stellar/utils'
+import {isPublicKey, isStellarAddress} from '../lib/stellar/utils'
 import {base64Decode, handleFetchDataFailure, setTitle} from '../lib/utils'
 import {withServer} from './shared/HOCs'
 import {withSpinner} from './shared/Spinner'
@@ -29,6 +28,13 @@ import OfferTable from './OfferTable'
 import PaymentTable from './PaymentTable'
 import TradeTable from './TradeTable'
 import TransactionTable from './TransactionTableContainer'
+
+const stellarAddressFromURI = () => {
+  if (!window || !window.location || !window.location.pathname) return
+  const path = window.location.pathname
+  const lastPath = path.substring(path.lastIndexOf('/') + 1)
+  return isStellarAddress(lastPath) ? lastPath : undefined
+}
 
 const NameValueTable = ({data, decodeValue = false}) => {
   if (!data || Object.keys(data).length === 0)
@@ -162,32 +168,12 @@ const Signers = props => (
   </Table>
 )
 
-const MuxedAccountInfoPanel = ({
-  address,
-}) => {
-  return (
-    <Panel>
-      <Glyphicon
-        glyph="info-sign"
-        onClick={this.handleClick}
-      />
-      &nbsp;
-      NOTE: This view shows the base account of the multiplexed account
-      &nbsp;
-      <span style={{color: 'white', overflowWrap: 'break-word'}}>
-        {address}
-      </span>
-    </Panel>
-  )
-}
-
 const Flags = ({flags}) => <NameValueTable data={flags} />
 const Data = ({data}) => <NameValueTable data={data} decodeValue />
 
 const AccountSummaryPanel = ({
   account: a,
   accountUrl,
-  federatedAddress,
   formatMessageFn,
   knownAccounts,
 }) => {
@@ -197,6 +183,7 @@ const AccountSummaryPanel = ({
     formatMessageFn({id: 'account'}),
     accountUrl
   )
+  const stellarAddr = stellarAddressFromURI()
 
   return (
     <Panel header={header}>
@@ -208,16 +195,16 @@ const AccountSummaryPanel = ({
                 <FormattedMessage id="key.public" />:
               </Col>
               <Col md={9}>
-                <span className="break" style={{color: 'white'}}>{a.id}</span>
+                <span className="break">{a.id}</span>
                 <ClipboardCopy text={a.id} />
               </Col>
             </Row>
-            {federatedAddress && (
+            {stellarAddr && (
               <Row>
                 <Col md={3}>
                   <FormattedMessage id="stellar.address" />:
                 </Col>
-                <Col md={9}>{federatedAddress}</Col>
+                <Col md={9}>{stellarAddr}</Col>
               </Row>
             )}
             <Row>
@@ -298,16 +285,10 @@ class Account extends React.Component {
     const a = this.props.account
     return (
       <Grid>
-        {this.props.muxedAddress && 
-        <Row>
-          <MuxedAccountInfoPanel address={this.props.muxedAddress}/>
-        </Row>
-        }
         <Row>
           <AccountSummaryPanel
             account={a}
             accountUrl={this.props.urlFn(a.id)}
-            federatedAddress={this.props.federatedAddress}
             formatMessageFn={formatMessage}
             knownAccounts={knownAccounts}
           />
@@ -414,10 +395,8 @@ const AccountWithSpinner = withSpinner()(Account)
 
 class AccountContainer extends React.Component {
   state = {
-    isLoading: true,
     account: null,
-    federatedAddress: null,
-    muxedAddress: null,
+    isLoading: true,
   }
 
   componentDidMount() {
@@ -429,62 +408,40 @@ class AccountContainer extends React.Component {
   }
 
   loadAccount(accountId) {
-    if (isPublicKey(accountId)) {
-      this.loadAccountByKey(accountId)
-    } else if (isFederatedAddress(accountId)) {
-      this.loadAccountByFederatedAddress(accountId)
-    } else if (isMuxedAddress(accountId)) {
-      this.loadAccountByMuxedAddress(accountId)
-    } else {
+    if (isPublicKey(accountId)) this.loadAccountByKey(accountId)
+    else if (isStellarAddress(accountId))
+      this.loadAccountByStellarAddress(accountId)
+    else
       handleFetchDataFailure(accountId)(
         new Error(`Unrecognized account: ${accountId}`)
       )
-    }
+  }
+
+  loadAccountByStellarAddress(stellarAddr) {
+    const [name, domain] = stellarAddr.split('*')
+    FederationServer.createForDomain(domain)
+      .then(fed => fed.resolveAddress(name))
+      .then(acc => this.loadAccount(acc.account_id))
+      .catch(handleFetchDataFailure(stellarAddr))
   }
 
   loadAccountByKey(accountId) {
-    this.loadAccountFromServer(accountId).then(res => {
-      this.setState({account: res, isLoading: false})
-      return null
-    })
-    .catch(handleFetchDataFailure(accountId))
-  }
-
-  loadAccountByFederatedAddress(address) {
-    const [name, domain] = address.split('*')
-    FederationServer.createForDomain(domain)
-      .then(fed => fed.resolveAddress(name))
-      .then(acc => this.loadAccountFromServer(acc.account_id))
-      .then(account => {
-        this.setState({account, federatedAddress: address, isLoading: false})
-        return null
-      })
-      .catch(handleFetchDataFailure(address))
-  }
-
-  loadAccountByMuxedAddress(address) {
-    const muxedAccount = MuxedAccount.fromAddress(address, '1')
-    const publicAddress = muxedAccount.account.accountId()
-    this.loadAccountFromServer(publicAddress).then(account => { 
-      this.setState({account, muxedAddress: address, isLoading: false})
-      return null
-    })
-  }
-
-  loadAccountFromServer(accountId) {
-    return this.props.server
+    this.props.server
       .accounts()
       .accountId(accountId)
       .call()
+      .then(res => {
+        this.setState({account: res, isLoading: false})
+        return null
+      })
+      .catch(handleFetchDataFailure(accountId))
   }
 
   render() {
     return (
       <AccountWithSpinner
-        isLoading={this.state.isLoading}
         account={this.state.account}
-        federatedAddress={this.state.federatedAddress}
-        muxedAddress={this.state.muxedAddress}
+        isLoading={this.state.isLoading}
         urlFn={this.props.server.accountURL}
         {...this.props}
       />
