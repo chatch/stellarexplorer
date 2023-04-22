@@ -50,6 +50,7 @@ import './App.css'
 
 const HOME_PUBLIC = 'https://steexp.com'
 const HOME_TESTNET = 'https://testnet.steexp.com'
+const HOME_FUTURENET = 'https://futurenet.steexp.com'
 
 const storage = storageInit()
 
@@ -150,10 +151,17 @@ class App extends Component {
     window.location.href = href
   }
 
-  // network switcher buttons in the header - public or testnet switch
+  // network switcher buttons in the header
   switchNetworkType = networkType => {
-    window.location.href =
-      networkType === networks.public ? HOME_PUBLIC : HOME_TESTNET
+    let href = HOME_PUBLIC
+    if (window.location.hostname.endsWith('.local')) {
+      href = `http://${networkType}net.local:3000`
+    } else if (networkType === networks.test) {
+      href = HOME_TESTNET
+    } else if (networkType === networks.future) {
+      href = HOME_FUTURENET
+    }
+    window.location.href = href
   }
 
   languageSwitcher = event => {
