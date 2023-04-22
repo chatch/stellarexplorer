@@ -1,4 +1,4 @@
-import sdk from 'stellar-sdk'
+import sdk from 'soroban-client'
 import URI from 'urijs'
 
 import {LedgerCallBuilder} from 'stellar-sdk/lib/ledger_call_builder'
@@ -92,4 +92,12 @@ Object.keys(pagingCalls).forEach(
     })
 )
 
-export default sdk
+export {
+  FederationServer,
+  MemoHash,
+  MemoReturn,
+  MuxedAccount,
+  StrKey,
+} from 'soroban-client'
+
+export default sdk 

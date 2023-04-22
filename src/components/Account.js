@@ -8,7 +8,7 @@ import Table from 'react-bootstrap/lib/Table'
 import Tab from 'react-bootstrap/lib/Tab'
 import Tabs from 'react-bootstrap/lib/Tabs'
 import {injectIntl, FormattedMessage} from 'react-intl'
-import {FederationServer, MuxedAccount, StrKey} from 'stellar-sdk'
+import {FederationServer, MuxedAccount, StrKey} from '../lib/stellar/sdk'
 import has from 'lodash/has'
 
 import knownAccounts from '../data/known_accounts'

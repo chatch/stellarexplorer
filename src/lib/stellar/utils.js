@@ -1,4 +1,4 @@
-import {StrKey} from 'stellar-base/lib/strkey'
+import {StrKey} from './sdk'
 
 const STROOPS_PER_LUMEN = 10000000
 const stroopsToLumens = stroops => stroops / STROOPS_PER_LUMEN

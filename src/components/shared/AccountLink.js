@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import has from 'lodash/has'
-import {MuxedAccount} from 'stellar-sdk'
+import {MuxedAccount} from '../../lib/stellar/sdk'
 
 import knownAccounts from '../../data/known_accounts'
 import {isMuxedAddress} from '../../lib/stellar/utils'

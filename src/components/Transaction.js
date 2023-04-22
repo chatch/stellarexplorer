@@ -11,7 +11,7 @@ import {
   injectIntl,
 } from 'react-intl'
 import PropTypes from 'prop-types'
-import {MemoHash, MemoReturn} from 'stellar-sdk'
+import {MemoHash, MemoReturn} from '../lib/stellar/sdk'
 
 import {base64DecodeToHex, handleFetchDataFailure, setTitle} from '../lib/utils'
 import ClipboardCopy from './shared/ClipboardCopy'

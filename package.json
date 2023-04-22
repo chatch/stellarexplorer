@@ -36,7 +36,8 @@
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "recompose": "^0.26.0",
-    "stellar-sdk": "8.2.3",
+    "soroban-client": "0.5.0",
+    "stellar-sdk": "^10.4.1",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
@@ -77,6 +78,7 @@
     "source-map-explorer": "^1.6.0",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
+    "tslib": "^2.5.0",
     "url-loader": "0.5.9",
     "webpack": "3.5.1",
     "webpack-dev-server": "2.8.2",
