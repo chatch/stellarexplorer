@@ -12,6 +12,7 @@ describe('hostnameToNetwork', () => {
     expect(hostnameToNetworkType('localnet.local')).toEqual(networks.local)
     expect(hostnameToNetworkType('testnet.local')).toEqual(networks.test)
     expect(hostnameToNetworkType('publicnet.local')).toEqual(networks.public)
+    expect(hostnameToNetworkType('futurenet.local')).toEqual(networks.future)
 
     // unknown hosts default to local
     expect(hostnameToNetworkType()).toEqual(networks.local)

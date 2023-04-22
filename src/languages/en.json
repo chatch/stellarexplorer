@@ -100,6 +100,7 @@
   "network.change-here": "Set a different Network",
   "network.public": "You are currently using this Public Horizon Instance:",
   "network.test": "You are currently using this Testnet Horizon Instance:",
+  "network.future": "You are currently using this Futurenet Horizon Instance:",
   "network.local": "You are currently using this Local Horizon Instance:",
   "offer": "Offer",
   "offers": "Offers",

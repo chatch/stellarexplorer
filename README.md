@@ -83,9 +83,10 @@ Alternatively you can run locally connecting to the testnet or public network ho
 ```
 127.0.1.1  testnet.local     # for steexp use testnet horizon
 127.0.1.1  publicnet.local   # for steexp use mainnet horizon
+127.0.1.1  futurenet.local   # for steexp use future horizon
 ```
 
-Navigate to http://testnet.local:3000 or http://publicnet.local:3000 to select the network your interesting in exploring.
+Navigate to http://testnet.local:3000, http://futurenet.local:3000 or http://publicnet.local:3000 to select the network your interesting in exploring.
 
 ## Development
 

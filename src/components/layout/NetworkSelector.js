@@ -12,7 +12,7 @@ const NetworkButton = ({networkType, selectedNetworkType, switchNetworkType}) =>
 
 const NetworkSelector = props =>
   <div className="Network-Selector">
-    {[networks.public, networks.test].map(networkType =>
+    {[networks.public, networks.test, networks.future].map(networkType =>
       <NetworkButton
         key={networkType}
         hide={networks[networkType].hide}
