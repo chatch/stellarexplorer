@@ -38,7 +38,7 @@ import InsecureNetworkError from './components/shared/InsecureNetworkError'
 import Error from './components/shared/Error'
 import {Spinner} from './components/shared/Spinner'
 
-import {networks, Server} from './lib/stellar'
+import {networks, Server, SorobanServer} from './lib/stellar'
 import {hostnameToNetworkType} from './lib/stellar/networks'
 import {defaultNetworkAddresses} from './lib/stellar/server'
 import {storageInit} from './lib/utils'
@@ -54,17 +54,7 @@ const HOME_FUTURENET = 'https://futurenet.steexp.com'
 
 const storage = storageInit()
 
-addLocaleData([
-  ...en,
-  ...fr,
-  ...hi,
-  ...id,
-  ...ja,
-  ...ru,
-  ...ur,
-  ...vi,
-  ...zh,
-])
+addLocaleData([...en, ...fr, ...hi, ...id, ...ja, ...ru, ...ur, ...vi, ...zh])
 
 const initialLanguage =
   storage.getItem('language') || navigator.language || 'en'
@@ -75,7 +65,7 @@ const networkType = hostnameToNetworkType(window.location.hostname)
 const networkAddress =
   storage.getItem('networkAddress') || defaultNetworkAddresses[networkType]
 
-const getMessages = locale => {
+const getMessages = (locale) => {
   switch (locale) {
     case 'fr':
       return frMessages
@@ -104,7 +94,7 @@ const getMessages = locale => {
  * Dyanmically loaded components
  */
 
-const Loadable = componentStr =>
+const Loadable = (componentStr) =>
   ReactLoadable({
     loader: () => import(`./components/${componentStr}`),
     loading() {
@@ -117,6 +107,7 @@ const Accounts = Loadable('Accounts')
 const Anchor = Loadable('Anchor')
 const Anchors = Loadable('Anchors')
 const Assets = Loadable('Assets')
+const Contract = Loadable('Contract')
 const Effects = Loadable('Effects')
 const Exchanges = Loadable('Exchanges')
 const Ledger = Loadable('Ledger')
@@ -133,6 +124,7 @@ class App extends Component {
     networkType: networkType,
     networkAddress: networkAddress,
     server: Server(networkType, networkAddress, storage),
+    sorobanServer: new SorobanServer(networkAddress),
   }
 
   componentWillMount() {
@@ -152,7 +144,7 @@ class App extends Component {
   }
 
   // network switcher buttons in the header
-  switchNetworkType = networkType => {
+  switchNetworkType = (networkType) => {
     let href = HOME_PUBLIC
     if (window.location.hostname.endsWith('.local')) {
       href = `http://${networkType}net.local:3000`
@@ -164,7 +156,7 @@ class App extends Component {
     window.location.href = href
   }
 
-  languageSwitcher = event => {
+  languageSwitcher = (event) => {
     const newLanguage = event.target.lang
     storage.setItem('language', newLanguage)
     this.setState({language: newLanguage})
@@ -172,7 +164,10 @@ class App extends Component {
 
   // @see HOCs.js withServer() to get this as props in any component
   getChildContext() {
-    return {server: this.state.server}
+    return {
+      server: this.state.server,
+      sorobanServer: this.state.sorobanServer,
+    }
   }
 
   render() {
@@ -202,6 +197,7 @@ class App extends Component {
                 <Route path="/asset/:id" component={Assets} />
                 <Route path="/anchors" component={Anchors} />
                 <Route path="/anchor/:id" component={Anchor} />
+                <Route path="/contract/:id" component={Contract} />
                 <Route path="/effects" component={Effects} />
                 <Route path="/exchanges" component={Exchanges} />
                 <Route path="/ledgers" component={Ledgers} />
@@ -237,6 +233,7 @@ class App extends Component {
 
 App.childContextTypes = {
   server: PropTypes.object,
+  sorobanServer: PropTypes.object,
 }
 
 export default App

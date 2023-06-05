@@ -12,5 +12,6 @@ const withEither = (
 
 // @see App.js which puts this stellar server handle on the context
 const withServer = getContext({server: PropTypes.object})
+const withSorobanServer = getContext({sorobanServer: PropTypes.object})
 
-export {withEither, withServer}
+export {withEither, withServer, withSorobanServer}
