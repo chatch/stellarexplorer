@@ -124,7 +124,7 @@ class App extends Component {
     networkType: networkType,
     networkAddress: networkAddress,
     server: Server(networkType, networkAddress, storage),
-    sorobanServer: new SorobanServer(networkAddress),
+    sorobanServer: new SorobanServer(networkType),
   }
 
   componentWillMount() {

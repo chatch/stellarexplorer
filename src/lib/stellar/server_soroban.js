@@ -27,11 +27,19 @@ const post = (url, method, ...params) => {
     })
 }
 
+export const rpcURIs = {
+    future: 'https://rpc-futurenet.stellar.org',
+    local: 'http://localhost:8000/soroban/rpc',
+  }
+
 class SorobanServer {
   serverURL
 
-  constructor(serverBaseURI) {
-    this.serverURL = `${serverBaseURI}/soroban/rpc`
+  constructor(networkType) {
+    this.serverURL = rpcURIs[networkType]
+    if (!this.serverURL) {
+        throw Error(`network ${networkType} does not yet have soroban support`)
+    }
   }
 
   getLedgerEntry(key) {

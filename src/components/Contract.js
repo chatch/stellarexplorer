@@ -49,7 +49,7 @@ const DetailRow = ({label, children}) => (
     <td>
       <FormattedMessage id={label} />
     </td>
-    <td>{children}</td>
+    <td style={{wordWrap:'break-word'}}>{children}</td>
   </tr>
 )
 
@@ -120,22 +120,18 @@ class ContractContainer extends React.Component {
         console.error('Failed to get wasm id')
         return
     }
-    const wasmIdString = wasmId.toString('base64')
-    console.log(`wasm id ${wasmIdString}`)
 
     const wasmCode = await getContractWasmCode(this.props.sorobanServer, wasmId)
     if (!wasmCode) {
         console.error('Failed to get wasm code')
         return
     }
-    const wasmCodeString = wasmCode.toString('base64')
-    console.log(`wasm code ${wasmCodeString}`)
 
     this.setState({
         id: contractInstance.contractId(),
         idHex: contractInstance.contractId('hex'),
-        wasmId: wasmIdString,
-        wasmCode: wasmCodeString,
+        wasmId: wasmId.toString('hex'),
+        wasmCode: wasmCode.toString('hex'),
     })
   }
 
