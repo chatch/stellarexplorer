@@ -5,6 +5,7 @@ import toNumber from 'lodash/toNumber'
 import {sdk} from './stellar'
 
 import {
+  isContractAddress,
   isFederatedAddress,
   isMuxedAddress,
   isPublicKey,
@@ -40,10 +41,16 @@ const searchStrToPath = searchStr => {
 
   const str = searchStr.trim()
 
+  // see stellar-base StrKey - new functions for isValid on a contract
+  //   prob copy over parts of that code
+  // see also stellar-base new Contract(address or bytes)
+  //
   if (isPublicKey(str) || isFederatedAddress(str) || isMuxedAddress(str)) {
     return `/account/${str}`
   } else if (isTxHash(str)) {
     return `/tx/${str}`
+  } else if (isContractAddress(str)) {
+    return `/contract/${str}`
   } else if (!isNaN(toNumber(str))) {
     return `/ledger/${toNumber(str)}`
   } else if (isSecretKey(str)) {

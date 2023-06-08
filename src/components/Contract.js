@@ -3,16 +3,14 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import Table from 'react-bootstrap/lib/Table'
-import {Link} from 'react-router-dom'
 import {
   injectIntl,
-  FormattedDate,
   FormattedMessage,
-  FormattedTime,
 } from 'react-intl'
 
+import {Contract as SorobanContract} from '../lib/stellar/contract'
 import {xdr} from '../lib/stellar'
-import {handleFetchDataFailure, setTitle, shortHash} from '../lib/utils'
+import {handleFetchDataFailure} from '../lib/utils'
 import ClipboardCopy from './shared/ClipboardCopy'
 import {withSorobanServer} from './shared/HOCs'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
@@ -59,12 +57,13 @@ class Contract extends React.Component {
   render() {
     const {
         id,
+        idHex,
         wasmId,
         wasmCode,
     } = this.props
 
     const {formatMessage} = this.props.intl
-
+    
     return (
       <Grid>
         <Row>
@@ -73,12 +72,14 @@ class Contract extends React.Component {
               <span>
                 {formatMessage({id: 'contract'})}{' '}
                 <span className="secondary-heading">{id}</span>
-                <ClipboardCopy text={String(id)} />
+                <ClipboardCopy text={id} />
               </span>
             )}
           >
             <Table>
               <tbody>
+                <DetailRow label="Id">{id}</DetailRow>
+                <DetailRow label="Id (hex)">{idHex}</DetailRow>
                 <DetailRow label="wasmId">{wasmId}</DetailRow>
                 <DetailRow label="wasmCode">{wasmCode}</DetailRow>
               </tbody>
@@ -105,8 +106,16 @@ class ContractContainer extends React.Component {
 
   async loadContract(contractId) {
     console.log('loadContract', contractId)
+    let contractInstance
+    try {
+        contractInstance = new SorobanContract(contractId)
+    } catch(error) {
+        // TODO: should be inside a utils function - see handleFetchDataFailure
+        //   and look to split out not found redirect into another function
+        window.location.href = `/error/not-found/${contractId}`
+    }
 
-    const wasmId = await getContractWasmId(this.props.sorobanServer, contractId)
+    const wasmId = await getContractWasmId(this.props.sorobanServer, contractInstance.contractId('hex'))
     if (!wasmId) {
         console.error('Failed to get wasm id')
         return
@@ -122,7 +131,12 @@ class ContractContainer extends React.Component {
     const wasmCodeString = wasmCode.toString('base64')
     console.log(`wasm code ${wasmCodeString}`)
 
-    this.setState({wasmId: wasmIdString, wasmCode: wasmCodeString})
+    this.setState({
+        id: contractInstance.contractId(),
+        idHex: contractInstance.contractId('hex'),
+        wasmId: wasmIdString,
+        wasmCode: wasmCodeString,
+    })
   }
 
   render() {

@@ -49,6 +49,30 @@ const HelpModal = props => (
         />
       </div>
       <div>
+        <h5>Transaction Hash</h5>
+        <img
+          src={`${process.env.PUBLIC_URL}/search/search_tx_hash.png`}
+          alt="search by transaction hash"
+          width="100%"
+        />
+      </div>
+      <div>
+        <h5>Contract Address or Hash</h5>
+{/* TODO add me */}
+        <img
+          src={`${process.env.PUBLIC_URL}/search/search_tx_hash.png`}
+          alt="search by transaction hash"
+          width="100%"
+        />
+      </div>
+      <div>
+        <h5>Ledger</h5>
+        <img
+          src={`${process.env.PUBLIC_URL}/search/search_ledger.png`}
+          alt="search by ledger"
+        />
+      </div>
+      <div>
         <h5>Anchor Name</h5>
         <div>
           as listed on the{' '}
@@ -85,21 +109,6 @@ const HelpModal = props => (
         <img
           src={`${process.env.PUBLIC_URL}/search/search_asset.png`}
           alt="search by asset code"
-        />
-      </div>
-      <div>
-        <h5>Transaction Hash</h5>
-        <img
-          src={`${process.env.PUBLIC_URL}/search/search_tx_hash.png`}
-          alt="search by transaction hash"
-          width="100%"
-        />
-      </div>
-      <div>
-        <h5>Ledger</h5>
-        <img
-          src={`${process.env.PUBLIC_URL}/search/search_ledger.png`}
-          alt="search by ledger"
         />
       </div>
       <hr />
