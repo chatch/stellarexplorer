@@ -20,6 +20,12 @@
   "code": "Code",
   "contact.address.label": "Address",
 
+  "contract": "Contract",
+  "contract.id.hex": "Id (hex)",
+  "contract.wasm.id": "Wasm Id",
+  "contract.wasm.bytecode": "Wasm Bytecode",
+  "contract.wasm.download": "Download Wasm File",
+
   "csv-export": "Export data as CSV",
   "csv-export.complete": "Fetching of {count} entries complete!",
   "csv-export.no-records": "There were no records to be fetched.",
@@ -153,7 +159,7 @@
   "remove": "Remove",
 
   "save": "Save",
-  "search.placeHolder": "Search by Account / Transaction / Anchor / ...",
+  "search.placeHolder": "Search by Account / Transaction / Contract / ...",
   "sell": "Sell",
   "seller": "Seller",
   "sell.offers": "Sell offers",

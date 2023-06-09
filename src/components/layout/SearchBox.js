@@ -58,10 +58,9 @@ const HelpModal = props => (
       </div>
       <div>
         <h5>Contract Address or Hash</h5>
-{/* TODO add me */}
         <img
-          src={`${process.env.PUBLIC_URL}/search/search_tx_hash.png`}
-          alt="search by transaction hash"
+          src={`${process.env.PUBLIC_URL}/search/search_contract.png`}
+          alt="search by contract address"
           width="100%"
         />
       </div>
