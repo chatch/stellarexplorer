@@ -21,10 +21,12 @@
   "contact.address.label": "Address",
 
   "contract": "Contract",
+  "contract.create.ledger": "Contract Creation Ledger",
   "contract.id.hex": "Id (hex)",
   "contract.wasm.id": "Wasm Id",
   "contract.wasm.bytecode": "Wasm Bytecode",
   "contract.wasm.download": "Download Wasm File",
+  "contract.wasm.upload.ledger": "Wasm Upload Ledger",
 
   "csv-export": "Export data as CSV",
   "csv-export.complete": "Fetching of {count} entries complete!",
@@ -118,6 +120,9 @@
   "operation.account.create": "Created Account {account} with balance {balance}",
   "operation.account.merge": "Account merged into {account}",
   "operation.bump": "Bumped sequence to {sequence}",
+  "operation.invoke.host.function.create-contract": "Contract [{type}]",
+  "operation.invoke.host.function.invoke-contract": "Contract [{type}]",
+  "operation.invoke.host.function.upload-wasm": "Contract [{type}] {parameters}",
   "operation.inflation": "Inflation run",
   "operation.manage.data.remove": "Remove Key {name}",
   "operation.manage.data.set": "Set Key {name}",

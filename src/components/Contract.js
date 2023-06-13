@@ -4,6 +4,7 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Panel from 'react-bootstrap/lib/Panel'
 import Row from 'react-bootstrap/lib/Row'
 import Table from 'react-bootstrap/lib/Table'
+import {Link} from 'react-router-dom'
 
 import {injectIntl, FormattedMessage} from 'react-intl'
 import {saveAs} from '../lib/filesaver'
@@ -32,34 +33,39 @@ const saveWasmFile = (contractId, wasmHexString) =>
     true // don't insert a byte order marker
   )
 
-const getContractWasmId = (server, contractId) => {
+const getContractWasmIdAndLedger = async (server, contractId) => {
   const ledgerKey = xdr.LedgerKey.contractData(
     new xdr.LedgerKeyContractData({
       contractId: Buffer.from(contractId, 'hex'),
       key: xdr.ScVal.scvLedgerKeyContractExecutable(),
     })
   )
-  return server
+  const entryData = await server
     .getLedgerEntry(ledgerKey)
-    .then((data) =>
-      xdr.LedgerEntryData.fromXDR(data.xdr, 'base64')
-        .contractData()
-        .val()
-        .exec()
-        .wasmId()
-    )
     .catch(handleFetchDataFailure(contractId))
+  const wasmIdLedger = entryData.lastModifiedLedgerSeq
+  const wasmId = xdr.LedgerEntryData.fromXDR(entryData.xdr, 'base64')
+    .contractData()
+    .val()
+    .exec()
+    .wasmId()
+  return {wasmId, wasmIdLedger}
 }
 
-const getContractWasmCode = (server, wasmId) => {
+const getContractWasmCode = async (server, wasmId) => {
   const ledgerKey = xdr.LedgerKey.contractCode(
     new xdr.LedgerKeyContractCode({
       hash: wasmId,
     })
   )
-  return server.getLedgerEntry(ledgerKey).then((data) => {
-    return xdr.LedgerEntryData.fromXDR(data.xdr, 'base64').contractCode().code()
-  })
+  const entryData = await server
+    .getLedgerEntry(ledgerKey)
+    .catch(handleFetchDataFailure)
+  const wasmCodeLedger = entryData.lastModifiedLedgerSeq
+  const wasmCode = xdr.LedgerEntryData.fromXDR(entryData.xdr, 'base64')
+    .contractCode()
+    .code()
+  return {wasmCode, wasmCodeLedger}
 }
 
 const DetailRow = ({label, children}) => (
@@ -73,7 +79,8 @@ const DetailRow = ({label, children}) => (
 
 class Contract extends React.Component {
   render() {
-    const {id, idHex, wasmId, wasmCode} = this.props
+    const {id, idHex, wasmId, wasmIdLedger, wasmCode, wasmCodeLedger} =
+      this.props
 
     const {formatMessage} = this.props.intl
 
@@ -97,22 +104,28 @@ class Contract extends React.Component {
                     <ClipboardCopy text={idHex} />
                   </span>
                 </DetailRow>
+                <DetailRow label="contract.create.ledger">
+                  <Link to={`/ledger/${wasmIdLedger}`}>{wasmIdLedger}</Link>
+                </DetailRow>
                 <DetailRow label="contract.wasm.id">
                   <span>
                     {wasmId}
                     <ClipboardCopy text={wasmId} />
                   </span>
                 </DetailRow>
+                    <DetailRow label="contract.wasm.upload.ledger">
+                      <Link to={`/ledger/${wasmCodeLedger}`}>{wasmCodeLedger}</Link>
+                    </DetailRow>
                 <DetailRow label="contract.wasm.bytecode">
                   <div id="wasm-code">
-                    <div>{truncate(wasmCode, {length:60})}</div>
+                    <div>{truncate(wasmCode, {length: 60})}</div>
                     <div>
                       <button
                         className="backend-resource-badge-button"
                         onClick={() => saveWasmFile(id, wasmCode)}
                         style={{border: 0, marginTop: '10px'}}
                       >
-                        <FormattedMessage id="contract.wasm.download"/>
+                        <FormattedMessage id="contract.wasm.download" />
                       </button>
                     </div>
                   </div>
@@ -153,7 +166,7 @@ class ContractContainer extends React.Component {
       window.location.href = `/error/not-found/${contractId}`
     }
 
-    const wasmId = await getContractWasmId(
+    const {wasmId, wasmIdLedger} = await getContractWasmIdAndLedger(
       this.props.sorobanServer,
       contractInstance.contractId('hex')
     )
@@ -162,7 +175,10 @@ class ContractContainer extends React.Component {
       return
     }
 
-    const wasmCode = await getContractWasmCode(this.props.sorobanServer, wasmId)
+    const {wasmCode, wasmCodeLedger} = await getContractWasmCode(
+      this.props.sorobanServer,
+      wasmId
+    )
     if (!wasmCode) {
       console.error('Failed to get wasm code')
       return
@@ -172,7 +188,9 @@ class ContractContainer extends React.Component {
       id: contractInstance.contractId(),
       idHex: contractInstance.contractId('hex'),
       wasmId: wasmId.toString('hex'),
+      wasmIdLedger,
       wasmCode: wasmCode.toString('hex'),
+      wasmCodeLedger,
       isLoading: false,
     })
   }
