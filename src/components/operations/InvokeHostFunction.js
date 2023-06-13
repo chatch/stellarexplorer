@@ -37,61 +37,64 @@ const invokeFunctionParamsRawtoRendered = (params) =>
       default:
         renderStr = p.value
     }
-    return {type: p.type, value: renderStr}
+    return {key: p.type, value: renderStr}
   })
 
 const renderContractParams = (
-  params // : ReadonlyArray<Record<'type'|'value', string>>
+  params // : ReadonlyArray<Record<'key'|'value', string>>
 ) =>
-  params.map(({type, value}) => (
-    <div>
-      &nbsp;&nbsp;&nbsp;&nbsp;{`  [${type}] `}
+  params.map(({key, value}, idx) => (
+    <span key={idx}>
+      &nbsp;&nbsp;&nbsp;&nbsp;{`  (${key}) `}
       <span title={value}>{truncate(value, {length: 60})}</span>
-      {'\n'}
-    </div>
+      <br/>
+    </span>
   ))
 
 const InvokeHostFunction = (props) => {
   const hostFn = props['hostFunctions'][0]
   if ('upload_wasm' === hostFn.type) {
+    // TODO: render parameters [hostFn.parameters] but havn't yet seen an op that has any ...
     return (
       <FormattedMessage
         id="operation.invoke.host.function.upload-wasm"
         values={{
           type: hostFn.type,
-          parameters: JSON.stringify(hostFn.parameters),
         }}
       />
     )
   } else if ('create_contract' === hostFn.type) {
-    return (
-      <div>
+      return (
+          <span>
         <FormattedMessage
           id="operation.invoke.host.function.create-contract"
           values={{
-            type: hostFn.type,
-          }}
-        />
-        :
+              type: hostFn.type,
+            }}
+            />
+        :<br/>
         {renderContractParams(
-          hostFn.parameters.map((p) => ({type: p.type, value: p[Object.keys(p).filter(p=>p !== 'type')[0]]}))
+            hostFn.parameters.map((p) => {
+              const singleKey = Object.keys(p).filter(p=>p !== 'type')[0]
+            return ({key: singleKey, value: p[singleKey]})
+            })
         )}
-      </div>
+      </span>
     )
   } else if ('invoke_contract' === hostFn.type) {
     return (
-      <div>
+      <span>
         <FormattedMessage
           id="operation.invoke.host.function.invoke-contract"
           values={{
             type: hostFn.type,
           }}
         />
-        :
+        :<br/>
         {renderContractParams(
           invokeFunctionParamsRawtoRendered(hostFn.parameters)
         )}
-      </div>
+      </span>
     )
   }
   return <span>{hostFn.type}</span>

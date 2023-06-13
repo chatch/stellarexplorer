@@ -82,6 +82,22 @@ const AssetWrap = ({assetType, assetCode, assetIssuer}) => (
   <Asset code={assetCode} type={assetType} issuer={assetIssuer} />
 )
 
+const ContractDebitCredit = ({amount, assetType, assetCode, assetIssuer, contract}) => (
+  <span>
+    <FormattedMessage id="contract" />
+    {': '}
+      <AccountLink account={contract} />
+      {'; '}
+    <Amount
+      amount={amount}
+      assetCode={assetCode}
+      assetType={assetType}
+      assetIssuer={assetIssuer}
+      showLabel={false}
+    />
+  </span>
+)
+
 const Data = ({op, type}) => {
   if (!op) return null
   return (
@@ -209,6 +225,8 @@ const effectTypeComponentMap = {
   data_created: Data,
   data_removed: Data,
   data_updated: Data,
+  contract_credited: ContractDebitCredit,
+  contract_debited: ContractDebitCredit,
 }
 
 const EffectDetails = ({effect, op}) => {
@@ -221,7 +239,7 @@ class Effect extends React.Component {
   state = {op: null, txHash: null}
 
   componentDidMount() {
-    this.props.effect.operation().then(op =>
+    this.props.effect.operation().then((op) =>
       this.setState({
         op: op,
         txHash: op.transaction_hash,
@@ -235,7 +253,7 @@ class Effect extends React.Component {
    */
   filterEffectsFn() {
     const effectId = this.props.effect.id
-    return recordsArr => {
+    return (recordsArr) => {
       const result = recordsArr.filter(({id}) => id === effectId)
       return result.length > 0 ? JSON.stringify(result[0], null, 2) : null
     }

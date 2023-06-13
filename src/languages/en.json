@@ -122,7 +122,7 @@
   "operation.bump": "Bumped sequence to {sequence}",
   "operation.invoke.host.function.create-contract": "Contract [{type}]",
   "operation.invoke.host.function.invoke-contract": "Contract [{type}]",
-  "operation.invoke.host.function.upload-wasm": "Contract [{type}] {parameters}",
+  "operation.invoke.host.function.upload-wasm": "Contract [{type}]",
   "operation.inflation": "Inflation run",
   "operation.manage.data.remove": "Remove Key {name}",
   "operation.manage.data.set": "Set Key {name}",
