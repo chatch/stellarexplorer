@@ -1,4 +1,5 @@
 import {
+  isContractAddress,
   isFederatedAddress,
   isMuxedAddress,
   isPublicKey,
@@ -77,3 +78,17 @@ it('isMuxedAddress identifies a valid key', () => {
   ).toBe(true)
 })
 
+it('isContractAddress identifies a valid smart contract address string', () => {
+    expect(isContractAddress()).toBe(false)
+    expect(isContractAddress('')).toBe(false)
+    expect(isContractAddress(null)).toBe(false)
+    expect(isContractAddress('ddefd')).toBe(false)
+
+    // following is valid contract address in hex but is not a contract address string (strkey)
+    expect(
+      isContractAddress('141272dccb4db1d14e117f0ff5456df584549154f9158bde6ed8f3edb53715b6')
+    ).toBe(false)
+
+    expect(isContractAddress('CA3D5KRYM6CB7OWQ6TWYRR3Z4T7GNZLKERYNZGGA5SOAOPIFY6YQGAXE')).toBe(true)
+  })
+  

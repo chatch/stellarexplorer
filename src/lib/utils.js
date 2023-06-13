@@ -37,7 +37,7 @@ const handleFetchDataFailure = id => e => {
   if (e.stack) msg += `\n\tStack: [${e.stack}]`
 
   console.error(msg)
-  console.error(`Raw Error: ${e}`)
+  console.error(`Raw Error: ${JSON.stringify(e, null, 2)}`)
 
   let errorURI
   if (status === 404) {

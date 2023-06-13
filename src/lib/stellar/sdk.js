@@ -1,4 +1,13 @@
-import sdk from 'soroban-client'
+// Reverting back to stellar-sdk until steexp stack is upgraded.
+//
+// soroban-client has ES2020 code (big number 'n' literals and others)
+//   and it's non trivial to upgrade babel/webpack here to make it
+//   work ...
+// 
+// TODO:
+//  import sdk from 'soroban-client'
+import sdk from 'stellar-sdk'
+
 import URI from 'urijs'
 
 import {LedgerCallBuilder} from 'stellar-sdk/lib/ledger_call_builder'
@@ -98,6 +107,8 @@ export {
   MemoReturn,
   MuxedAccount,
   StrKey,
-} from 'soroban-client'
+// TODO: see comment at top of file, restore to this after stack upgrade:
+// } from 'soroban-client'
+} from 'stellar-sdk'
 
 export default sdk 

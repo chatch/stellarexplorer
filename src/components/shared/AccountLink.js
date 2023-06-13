@@ -5,29 +5,40 @@ import has from 'lodash/has'
 import {MuxedAccount} from '../../lib/stellar/sdk'
 
 import knownAccounts from '../../data/known_accounts'
-import {isMuxedAddress} from '../../lib/stellar/utils'
+import {isContractAddress, isMuxedAddress} from '../../lib/stellar/utils'
 import {shortAddress} from '../../lib/utils'
 
-const AccountLinkSimple = ({title, subPath, label, isSecondary = false}) => (
-  <span title={title}
-  >
-    <Link 
-  style={{backgroundColor: isSecondary ? 'white' :undefined}}
-  to={`/account/${subPath}`}>{label} {isSecondary}</Link>
+const AccountLinkSimple = ({
+  title,
+  subPath,
+  label,
+  type,
+  isSecondary = false,
+}) => (
+  <span title={title}>
+    <Link
+      style={{backgroundColor: isSecondary ? 'white' : undefined}}
+      to={`/${type}/${subPath}`}
+    >
+      {label} {isSecondary}
+    </Link>
   </span>
 )
 
-const BaseAccountLink = ({address, label, hideKnown}) => {
+const BaseAccountLink = ({type = 'account', address, label, hideKnown}) => {
   let accLabel
   if (label) {
     accLabel = label
   } else if (has(knownAccounts, address) && !hideKnown) {
-    accLabel = <span style={{fontStyle: 'italic'}}>{knownAccounts[address].name}</span>
+    accLabel = (
+      <span style={{fontStyle: 'italic'}}>{knownAccounts[address].name}</span>
+    )
   } else {
     accLabel = shortAddress(address)
   }
   return (
-    <AccountLinkSimple 
+    <AccountLinkSimple
+      type={type}
       title={`Base Address: ${address}`}
       subPath={address}
       label={accLabel}
@@ -39,37 +50,41 @@ const MuxedAccountLink = ({address, label, hideKnown}) => {
   const muxedAccount = MuxedAccount.fromAddress(address, '1')
   const publicAddress = muxedAccount.account.accountId()
   const muxedAddress = muxedAccount.accountId()
-  const labelRendered = <span>{shortAddress(muxedAddress)}
-    <span style={{fontSize: 'smaller'}}>
-      {` [${shortAddress(publicAddress)}]`}
+  const labelRendered = (
+    <span>
+      {shortAddress(muxedAddress)}
+      <span style={{fontSize: 'smaller'}}>
+        {` [${shortAddress(publicAddress)}]`}
+      </span>
     </span>
-  </span>
+  )
   return (
-      <AccountLinkSimple
-        // isSecondary="true"
-        title={`Muxed Address: ${muxedAddress}`}
-        subPath={muxedAddress}
-        label={labelRendered}
-      />
+    <AccountLinkSimple
+      // isSecondary="true"
+      title={`Muxed Address: ${muxedAddress}`}
+      subPath={muxedAddress}
+      label={labelRendered}
+    />
   )
 }
 
 const AccountLink = ({account, label, hideKnown = false}) => {
   if (isMuxedAddress(account)) {
     return (
-      <MuxedAccountLink 
+      <MuxedAccountLink address={account} label={label} hideKnown={hideKnown} />
+    )
+  } else if (isContractAddress(account)) {
+    return (
+      <BaseAccountLink
+        type="contract"
         address={account}
         label={label}
         hideKnown={hideKnown}
       />
     )
-  } else  {
+  } else {
     return (
-      <BaseAccountLink
-        address={account}
-        label={label}
-        hideKnown={hideKnown}
-      />
+      <BaseAccountLink address={account} label={label} hideKnown={hideKnown} />
     )
   }
 }

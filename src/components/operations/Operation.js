@@ -15,6 +15,7 @@ import BumpSequence from './BumpSequence'
 import ChangeTrust from './ChangeTrust'
 import CreateAccount from './CreateAccount'
 import Inflation from './Inflation'
+import InvokeHostFunction from './InvokeHostFunction'
 import ManageData from './ManageData'
 import Offer from './Offer'
 import PathPayment from './PathPayment'
@@ -27,14 +28,16 @@ const opTypeComponentMap = {
   allow_trust: AllowTrust,
   bump_sequence: BumpSequence,
   change_trust: ChangeTrust,
-  create_account: CreateAccount,
 
+  create_account: CreateAccount,
   create_passive_sell_offer: Offer,
   create_passive_offer: Offer, // < Protocol 11
 
   inflation: Inflation,
-  manage_data: ManageData,
 
+  invoke_host_function: InvokeHostFunction,
+
+  manage_data: ManageData,
   manage_buy_offer: Offer,
   manage_sell_offer: Offer,
   manage_offer: Offer, // < Protocol 11
