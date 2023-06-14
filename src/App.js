@@ -124,7 +124,7 @@ class App extends Component {
     networkType: networkType,
     networkAddress: networkAddress,
     server: Server(networkType, networkAddress, storage),
-    sorobanServer: new SorobanServer(networkType),
+    sorobanServer: networkType === 'futurenet' ? new SorobanServer(networkType) : undefined,
   }
 
   componentWillMount() {
