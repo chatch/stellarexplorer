@@ -4,9 +4,11 @@
 
 A ledger explorer for [Stellar](https://stellar.org).
 
-Public: https://steexp.com
-Test: https://testnet.steexp.com
-Local: http://localhost:3000
+Deployments:
+- Public: https://steexp.com
+- Test: https://testnet.steexp.com
+- Futurenet: https://futurenet.steexp.com
+- Local: http://localhost:3000
 
 ## Resources
 
