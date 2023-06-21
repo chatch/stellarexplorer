@@ -1,6 +1,6 @@
 # Stellar Explorer
 
-[![Build Status](https://travis-ci.com/chatch/stellarexplorer.svg?branch=master)](https://travis-ci.com/chatch/stellarexplorer)
+[![Node.js CI](https://github.com/chatch/stellarexplorer/actions/workflows/node.js.yml/badge.svg)](https://github.com/chatch/stellarexplorer/actions/workflows/node.js.yml)
 
 A ledger explorer for [Stellar](https://stellar.org).
 
