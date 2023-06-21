@@ -11,5 +11,20 @@ it('renders button with given url', () => {
   const title = 'Ledger'
   const btn = shallow(<TitleWithJSONButton title={title} url={url} />)
   expect(btn.find('JSONButton').props().url).toEqual(url)
-  expect(btn.getElements()).toMatchSnapshot()
+  expect(btn.getElements()).toMatchInlineSnapshot(`
+    Array [
+      <div>
+        <span>
+          Ledger
+        </span>
+        <span
+          className="pull-right"
+        >
+          <JSONButton
+            url="https://somebackend.xyz/ledger/12345"
+          />
+        </span>
+      </div>,
+    ]
+  `)
 })

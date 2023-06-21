@@ -12,5 +12,12 @@ it('renders button with given url', () => {
   const btn = shallow(<JSONButton url={url} />)
   expect(btn.props().url).toEqual(url)
 
-  expect(btn.getElements()).toMatchSnapshot()
+  expect(btn.getElements()).toMatchInlineSnapshot(`
+    Array [
+      <BackendResourceBadgeButtonWithResourceModal
+        label="JSON"
+        url="https://somebackend.xyz/resource/12345"
+      />,
+    ]
+  `)
 })
