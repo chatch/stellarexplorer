@@ -1,4 +1,5 @@
 module.exports = {
+  reporters: ['default', 'jest-junit'],
   collectCoverageFrom: ['src/**/*.{js,jsx}'],
   setupFiles: [
     '<rootDir>/config/polyfills.js',
