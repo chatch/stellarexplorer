@@ -6,12 +6,13 @@ import {TitleWithJSONButton} from '../TitleWithJSONButton'
 
 configure({adapter: new Adapter()})
 
-it('renders button with given url', () => {
-  const url = 'https://somebackend.xyz/ledger/12345'
-  const title = 'Ledger'
-  const btn = shallow(<TitleWithJSONButton title={title} url={url} />)
-  expect(btn.find('JSONButton').props().url).toEqual(url)
-  expect(btn.getElements()).toMatchInlineSnapshot(`
+describe('TitleWithJSONButton', () => {
+  it('renders button with given url', () => {
+    const url = 'https://somebackend.xyz/ledger/12345'
+    const title = 'Ledger'
+    const btn = shallow(<TitleWithJSONButton title={title} url={url} />)
+    expect(btn.find('JSONButton').props().url).toEqual(url)
+    expect(btn.getElements()).toMatchInlineSnapshot(`
     Array [
       <div>
         <span>
@@ -27,4 +28,5 @@ it('renders button with given url', () => {
       </div>,
     ]
   `)
+  })
 })

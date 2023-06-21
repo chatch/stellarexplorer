@@ -6,13 +6,14 @@ import JSONButton from '../JSONButton'
 
 configure({adapter: new Adapter()})
 
-it('renders button with given url', () => {
-  const url = 'https://somebackend.xyz/resource/12345'
+describe('JSONButton', () => {
+  it('renders button with given url', () => {
+    const url = 'https://somebackend.xyz/resource/12345'
 
-  const btn = shallow(<JSONButton url={url} />)
-  expect(btn.props().url).toEqual(url)
+    const btn = shallow(<JSONButton url={url} />)
+    expect(btn.props().url).toEqual(url)
 
-  expect(btn.getElements()).toMatchInlineSnapshot(`
+    expect(btn.getElements()).toMatchInlineSnapshot(`
     Array [
       <BackendResourceBadgeButtonWithResourceModal
         label="JSON"
@@ -20,4 +21,5 @@ it('renders button with given url', () => {
       />,
     ]
   `)
+  })
 })
