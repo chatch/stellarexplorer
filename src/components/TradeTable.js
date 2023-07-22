@@ -59,15 +59,19 @@ const Trade = ({account, singleAccountView, trade, parentRenderTimestamp}) => {
   return (
     <tr key={trade.id} className="trade">
       <td>
-        <span className="account-badge">
-          <AccountLink account={account1} />
-        </span>
+        {account1 && 
+            <span className="account-badge">
+              <AccountLink account={account1} />
+            </span>
+        }
       </td>
       <td>{baseFirst ? Base : Counter}</td>
       <td>
-        <span className="account-badge">
-          <AccountLink account={account2} />
-        </span>
+        {account2 && 
+            <span className="account-badge">
+              <AccountLink account={account2} />
+            </span>
+        }
       </td>
       <td>{baseFirst ? Counter : Base}</td>
       <td>
@@ -87,8 +91,9 @@ Trade.propTypes = {
   trade: PropTypes.shape({
     id: PropTypes.string.isRequired,
     baseIsSeller: PropTypes.bool.isRequired,
-    baseAccount: PropTypes.string.isRequired,
-    counterAccount: PropTypes.string.isRequired,
+    // baseAccount and counterAccount may be blank for liquidity_pool trades (#518)
+    baseAccount: PropTypes.string,
+    counterAccount: PropTypes.string,
     time: PropTypes.string.isRequired,
   }).isRequired,
   account: PropTypes.string,
