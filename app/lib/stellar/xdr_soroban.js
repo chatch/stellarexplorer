@@ -1501,6 +1501,8 @@ xdr.struct("ContractDataEntry", [
 //   };
 //
 // ===========================================================================
+const SCVAL_LIMIT = 256000;
+
 xdr.struct("ContractCodeEntry", [
   ["ext", xdr.lookup("ExtensionPoint")],
   ["hash", xdr.lookup("Hash")],
@@ -8575,7 +8577,8 @@ xdr.union("ScAddress", {
 
 // === xdr source ============================================================
 //
-const SCVAL_LIMIT = 256000;
+// hatch: moved the following line up above first use
+// const SCVAL_LIMIT = 256000;
 //
 // ===========================================================================
 xdr.const("SCVAL_LIMIT", 256000);

@@ -22,7 +22,7 @@
     "sideEffects": false,
     "scripts": {
         "build": "remix build",
-        "dev": "remix dev -c 'node ./server.js'",
+        "dev": "remix dev",
         "start": "remix-serve build",
         "typecheck": "tsc"
     },
