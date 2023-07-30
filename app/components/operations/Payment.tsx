@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { FormattedMessage } from 'react-intl'
 import Asset from '../shared/Asset'
 import AccountLink from '../shared/AccountLink'
 import FormattedAmount from '../shared/FormattedAmount'
 
-export interface PaymentProps {
+export interface PaymentProps extends PropsWithChildren {
   id: string
   amount: string
   assetCode: string,
@@ -14,7 +14,6 @@ export interface PaymentProps {
   toMuxed: string
   sourceAccount: string
   time: string
-  children: React.JSX.Element
 }
 
 export default function Payment({

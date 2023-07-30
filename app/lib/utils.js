@@ -56,8 +56,9 @@ const storageInit = () => {
   let storage
   if (typeof localStorage === 'undefined' || localStorage === null) {
     const storagePath = join(tmpdir(), 'steexp')
-    const LocalStorage = require('node-localstorage').LocalStorage
-    storage = new LocalStorage(storagePath)
+    // TODO: change this ..
+    // const LocalStorage = require('node-localstorage').LocalStorage
+    storage = {}
   } else {
     storage = localStorage
   }

@@ -91,8 +91,8 @@ const redirectToNetworkType = (networkType: string) => {
 }
 
 const languageSwitcherFn = (setLanguage: Function) => (event: any) => {
-  const newLanguage = event.target.lang
-  storage.setItem('language', newLanguage)
+  const newLanguage = event.target.lang as string
+  (storage as Storage).setItem('language', newLanguage)
   setLanguage(newLanguage)
 }
 
@@ -176,7 +176,7 @@ export default function App() {
 
   // console.log(`root.userEffect3 complete with ${language} ${networkType} ${networkAddress}`)
 
-  const server = createHorizonServerHandle(networkType, networkAddress, storage)
+  const server = createHorizonServerHandle(networkType, networkAddress, storage as Storage)
   const sorobanServer = new SorobanServer(networkType)
 
 
@@ -203,7 +203,7 @@ export default function App() {
               <Header
                 networkAddress={networkAddress}
                 networkType={networkType}
-                setNetworkAddress={redirectToNetworkAddressFn(storage)}
+                setNetworkAddress={redirectToNetworkAddressFn(storage as Storage)}
                 switchNetworkType={redirectToNetworkType}
                 languageSwitcher={languageSwitcherFn(setLanguage)}
               />

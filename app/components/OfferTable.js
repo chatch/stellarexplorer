@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { compose } from "recompose";
 import Table from "react-bootstrap/Table";
 import { FormattedMessage } from "react-intl";
 
@@ -8,11 +7,6 @@ import mapKeys from "lodash/mapKeys";
 import camelCase from "lodash/camelCase";
 
 import { OfferRow as Offer } from "./operations/Offer";
-import { withDataFetchingContainer } from "./shared/DataFetchingContainer";
-import { withDataFetchingAllContainer } from "./shared/DataFetchingAllContainer";
-import { withPaging } from "./shared/Paging";
-import { withSpinner } from "./shared/Spinner";
-import CSVExport from "./shared/CSVExport";
 
 class OfferTable extends React.Component {
   static defaultProps = {
@@ -103,13 +97,5 @@ const fetchRecords = ({ account, limit, server }) => {
   return builder.call();
 };
 
-const ExportToCSVComponent =
-  withDataFetchingAllContainer(fetchRecords)(CSVExport);
-
-const enhance = compose(
-  withPaging(),
-  withDataFetchingContainer(fetchRecords, rspRecToPropsRec),
-  withSpinner()
-);
-
-export default enhance(OfferTable);
+// const ExportToCSVComponent =
+//   withDataFetchingAllContainer(fetchRecords)(CSVExport);

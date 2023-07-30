@@ -1,19 +1,15 @@
 import Table from "react-bootstrap/Table"
 import { FormattedMessage } from "react-intl"
 
-import Effect from "./Effect"
-import type { EffectProps } from "~/routes/effects._index"
-
+import Effect, { EffectProps } from "./Effect"
 
 interface EffectTableProps {
-  parentRenderTimestamp?: number,
   records: ReadonlyArray<EffectProps>,
   showAccount?: boolean,
   account?: any
 }
 
 export default function EffectTable({
-  parentRenderTimestamp,
   records,
   showAccount = true,
   account,
@@ -52,7 +48,6 @@ export default function EffectTable({
               <Effect
                 key={effect.id}
                 effect={effect}
-                parentRenderTimestamp={parentRenderTimestamp}
                 showAccount={showAccount}
               />
             )

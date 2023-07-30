@@ -7,17 +7,17 @@ import RelativeTime from "../shared/RelativeTime"
 import TransactionHash from "../shared/TransactionHash"
 
 import AccountMerge from "./AccountMerge"
-import AllowTrust from "./AllowTrust"
+import AllowTrust, { AllowTrustProps } from "./AllowTrust"
 import BumpSequence from "./BumpSequence"
 import ChangeTrust from "./ChangeTrust"
-import CreateAccount from "./CreateAccount"
+import CreateAccount, { CreateAccountProps } from "./CreateAccount"
 import Inflation from "./Inflation"
 import InvokeHostFunction from "./InvokeHostFunction"
-import ManageData from "./ManageData"
+import ManageData, { ManageDataProps } from "./ManageData"
 import Offer from "./Offer"
-import PathPayment from "./PathPayment"
+import PathPayment, { PathPaymentProps } from "./PathPayment"
 import Payment from "./Payment"
-import SetOptions from "./SetOptions"
+import SetOptions, { SetOptionsProps } from "./SetOptions"
 import Unrecognized from "./Unrecognized"
 
 const OperationTypeToComponentMap = {
@@ -49,16 +49,19 @@ const OperationTypeToComponentMap = {
 
 type OperationTypes = keyof typeof OperationTypeToComponentMap
 
-interface OperationRecordProps {
+interface OperationRecordProps extends AllowTrustProps, CreateAccountProps, ManageDataProps, PathPaymentProps, SetOptionsProps {
   id: string
-  links: Record<string, any>
+  type: OperationTypes
+  limit: number
   sourceAccount: string
   sourceAccountMuxed?: string
   from?: string
   fromMuxed?: string
   transactionHash?: string
-  type: OperationTypes
   time: string
+  into: string
+  bumpTo: number
+  hostFunctions: any
 }
 
 interface OperationProps {

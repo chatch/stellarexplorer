@@ -128,7 +128,13 @@ const operations = ({
     )
 }
 
-const effects = (server: HorizonServer, accountId?: string, operationId?: string, tx?: string, limit = 5) => {
+const effects = (
+    server: HorizonServer,
+    accountId?: string,
+    operationId?: string,
+    tx?: string,
+    limit = 5
+): Promise<ReadonlyArray<ServerApi.EffectRecord>> => {
     const builder: EffectCallBuilder = server.effects()
     if (accountId) builder.forAccount(accountId)
     if (operationId) builder.forOperation(operationId)
@@ -139,7 +145,7 @@ const effects = (server: HorizonServer, accountId?: string, operationId?: string
         (serverRsp) =>
             serverApiResponseToState(serverRsp, effectRspRecToPropsRec)
     ).then(stateProps =>
-        stateProps.records
+        stateProps.records as ReadonlyArray<ServerApi.EffectRecord>
     )
 }
 

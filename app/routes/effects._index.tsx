@@ -1,3 +1,5 @@
+import type { ServerApi } from "stellar-sdk"
+
 import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
@@ -13,17 +15,21 @@ import EffectTable from '../components/EffectTable'
 import { setTitle } from '../lib/utils'
 
 import { effects } from '~/lib/stellar/server_request_utils'
+import { EffectProps } from "~/components/Effect"
 
-// Type is actually just ServerApi.EffectRecord with all prop keys changed to
-// camel case
-export type EffectProps = Record<string, any>
-
-export const loader = async () => {
+export const loader = async (): Promise<any> => {
   const server = new HorizonServer(
     networks.future,
     defaultNetworkAddresses.future
   )
-  return effects(server).then(json)
+  return effects(server).then(effects => json(
+    effects.map(
+      (effect: ServerApi.EffectRecord) => ({
+        ...effect,
+        op: effect.operation ? effect.operation() : undefined
+      })
+    )
+  ))
 }
 
 export default function Effects() {
