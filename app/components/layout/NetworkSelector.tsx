@@ -19,7 +19,7 @@ const NetworkButton = ({ networkType, selectedNetworkType, switchNetworkType }: 
 interface NetworkSelectorProps {
   networkType: NetworkKey
   networkAddress: string
-  selectedNetworkType: string
+  selectedNetworkType?: string
   switchNetworkType: Function
   setNetworkAddress: Function
 }

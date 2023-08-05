@@ -9,10 +9,11 @@ import { LinkContainer } from 'react-router-bootstrap'
 import logoImg from '../../img/logo.png'
 import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
+import { NetworkKey } from '~/lib/stellar/networks'
 
 interface HeaderProps {
   networkAddress: string
-  networkType: string
+  networkType: NetworkKey
   setNetworkAddress: Function
   switchNetworkType: Function
   languageSwitcher: MouseEventHandler
@@ -27,7 +28,7 @@ export default function Header({
 }: HeaderProps) {
   const { formatMessage } = useIntl()
   return (
-    <Navbar collapseOnSelect expand="sm">
+    <Navbar collapseOnSelect expand="xxl" fixed="top">
       <Navbar.Brand href="/">
         <img
           src={logoImg}

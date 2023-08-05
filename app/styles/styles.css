@@ -2,7 +2,14 @@ body,
 .navbar {
   color: #96a2b4;
   background-color: #3c4452 !important;
-  font-family: "Noto Sans", "Noto Sans CJK {SC, TC}", sans-serif;
+  font-family: "Noto Sans",
+  "Noto Sans CJK {SC, TC}",
+  sans-serif;
+}
+
+.navbar {
+  padding: 0 15px 0 0;
+  border-bottom: 1px solid #96A2B4;
 }
 
 hr {
@@ -52,18 +59,23 @@ table {
 .modal-body {
   background-color: #383f4b;
 }
-.modal-body > div {
+
+.modal-body>div {
   margin-bottom: 40px;
 }
+
 .modal-body h5 {
   text-decoration: underline;
 }
+
 .modal-body img {
   margin-top: 10px;
 }
+
 .modal-body input[type="text"] {
   width: 100%;
 }
+
 .modal-body input {
   margin-bottom: 10px;
 }
@@ -72,15 +84,30 @@ table {
  * Bootstrap components and styles
  */
 
+.navbar-brand {
+  padding: 15px;
+  height: 50px;
+  line-height: 20px;
+}
+
+.navbar-toggler {
+  border-color: #ddd;
+  margin-right: 15px;
+}
+
+/* .navbar-toggler-icon { */
+/* not working - seems using a var() */
+/* color: #ddd; */
+/* } */
+
 .brand-text {
   color: white;
   font-size: 18px;
   position: relative;
-  top: 1px;
 }
 
-.panel,
-.panel-heading {
+.card,
+.card-heading {
   background-color: #383f4b;
   color: #96a2b4;
   border: none;
@@ -92,7 +119,7 @@ table {
   text-transform: uppercase;
 }
 
-.panel-default > .panel-heading {
+.panel-default>.panel-heading {
   background-color: #383f4b;
   color: #dce2ec;
   padding-left: 20px;
@@ -119,15 +146,15 @@ table {
   font-size: 14px !important;
 }
 
-[id*="-table"] thead {
-  color: #dce2ec;
+[id*="-table"] thead th {
+  color: #dce2ec !important;
 }
 
-[id*="-table"] tbody {
-  color: #96a2b4;
+[id*="-table"] tbody td {
+  color: #96a2b4 !important;
 }
 
-[id*="-table"] > tbody > tr > td {
+[id*="-table"]>tbody>tr>td {
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid #4c5667;
@@ -149,13 +176,16 @@ table {
   font-size: 13px;
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) {
+.table-striped>tbody>tr:nth-of-type(odd)>td,
+.table-striped>tbody>tr:nth-of-type(even)>td,
+.table-striped>thead>tr>th {
   background-color: #383f4b;
 }
 
-.table > tbody > tr:hover {
+.table>tbody>tr:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
 /* 
 .navbar-default {
   background-color: inherit;
@@ -177,12 +207,24 @@ table {
 .navbar-default .dropdown-menu > li > a:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
+*/
 
-.navbar-default .navbar-nav > li > a {
+.nav-link {
   color: #96a2b4;
   margin-top: 2px;
+  font-size: 14px;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
 }
 
+.nav-link:hover,
+.nav-link:focus {
+  background-color: #3c4452 !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+/*
 .navbar-default .navbar-nav > li > a:focus {
   color: #96a2b4;
 }
@@ -211,7 +253,7 @@ table {
 .nav-tabs > li > a {
   border-radius: 0;
 }
-
+*/
 .divider-vertical {
   height: 20px;
   width: 1px;
@@ -219,6 +261,7 @@ table {
   border-right: 1px solid #96a2b4;
 }
 
+/*
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
   border-color: rgba(120, 130, 140, 0.28);
@@ -235,7 +278,7 @@ table {
  * see this link for details about this css:
  *   https://stackoverflow.com/questions/18192082/bootstrap-3-navbar-collapse
  */
- /*
+/*
 @media (max-width: 1300px) {
   .navbar-header {
     float: none;
@@ -279,7 +322,7 @@ table {
 */
 /*************************************************************/
 
-#Language-Selector > span.caret {
+#Language-Selector>span.caret {
   color: #dce2ec !important;
 }
 
@@ -319,9 +362,11 @@ table {
   #Search-Container {
     margin-top: 50px !important;
   }
+
   #Search-Container input {
     width: 620px !important;
   }
+
   #Search-Container .glyphicon-info-sign {
     position: relative;
     left: 35px;
@@ -342,6 +387,7 @@ table {
     display: none;
   }
 }
+
 .glyphicon-search {
   height: 20px;
   width: 20px;
@@ -433,16 +479,16 @@ table {
   color: #96a2b4;
 }
 
-#account-tabs .nav-tabs > li > a {
+#account-tabs .nav-tabs>li>a {
   border-bottom: 2px solid;
 }
 
-#account-tabs .nav-tabs > li.active > a {
+#account-tabs .nav-tabs>li.active>a {
   border-bottom: 2px solid white;
   color: #01c0c8;
 }
 
-#account-tabs .table > tbody > tr > td {
+#account-tabs .table>tbody>tr>td {
   border-top: 1px solid #96a2b4;
 }
 
