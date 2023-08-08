@@ -93,74 +93,75 @@ export default function Ledger() {
       <Row>
         <Card>
           <CardHeader>
-            <TitleWithJSONButton title={formatMessage({ id: "ledger" })}
+            <TitleWithJSONButton
+              title={formatMessage({ id: "ledger" })}
+              titleSecondary={String(sequence)}
               url={`/ledgers/${id}`} />
-            {/* <span>
-                {}{" "}
-                <span className="secondary-heading">{id}</span>
-                <ClipboardCopy text={id} />
-              </span>,
-              urlFn(id) */}
           </CardHeader>
-          <Col md={6}>
-            <Table>
-              <tbody>
-                <DetailRow label="time">
-                  <FormattedDate value={time} />{" "}
-                  <FormattedTime value={time} />
-                </DetailRow>
-                <DetailRow label="hash">
-                  <span title={hash}>{ledgerHash(hash)}</span>
-                </DetailRow>
-                <DetailRow label="prevHash">
-                  <span title={prevHash}>
-                    <Link to={`/ledger/${prevSeq}`}>
-                      {ledgerHash(prevHash)}
-                    </Link>
-                  </span>
-                </DetailRow>
-                <DetailRow label="operations">{operationCount}</DetailRow>
-                <DetailRow label="transactions.failed">
-                  {failedTransactionCount}
-                </DetailRow>
-                <DetailRow label="max.transactions">
-                  {maxTxSetSize} per ledger
-                </DetailRow>
-              </tbody>
-            </Table>
-          </Col>
-          <Col md={6}>
-            <Table>
-              <tbody>
-                <DetailRow label="base.fee">
-                  <FormattedNumber value={baseFee} /> stroops
-                </DetailRow>
-                <DetailRow label="base.reserve">
-                  {baseFeeInStroops
-                    ? stroopsToLumens(baseReserve)
-                    : Number(baseReserve)}{" "}
-                  XLM
-                </DetailRow>
-                <DetailRow label="fee.pool">
-                  <FormattedNumber value={Number(feePool)} /> XLM
-                </DetailRow>
-                <DetailRow label="total.coins">
-                  <FormattedNumber value={Number(totalCoins)} /> XLM
-                </DetailRow>
-                <DetailRow label="protocolVersion">{protocolVersion}</DetailRow>
-              </tbody>
-            </Table>
-          </Col>
-
+          <Card.Body>
+            <Container>
+              <Row>
+                <Col md={6}>
+                  <Table>
+                    <tbody>
+                      <DetailRow label="time">
+                        <FormattedDate value={time} />{" "}
+                        <FormattedTime value={time} />
+                      </DetailRow>
+                      <DetailRow label="hash">
+                        <span title={hash}>{ledgerHash(hash)}</span>
+                      </DetailRow>
+                      <DetailRow label="prevHash">
+                        <span title={prevHash}>
+                          <Link to={`/ledger/${prevSeq}`}>
+                            {ledgerHash(prevHash)}
+                          </Link>
+                        </span>
+                      </DetailRow>
+                      <DetailRow label="operations">{operationCount}</DetailRow>
+                      <DetailRow label="transactions.failed">
+                        {failedTransactionCount}
+                      </DetailRow>
+                      <DetailRow label="max.transactions">
+                        {maxTxSetSize} per ledger
+                      </DetailRow>
+                    </tbody>
+                  </Table>
+                </Col>
+                <Col md={6}>
+                  <Table>
+                    <tbody>
+                      <DetailRow label="base.fee">
+                        <FormattedNumber value={baseFee} /> stroops
+                      </DetailRow>
+                      <DetailRow label="base.reserve">
+                        {baseFeeInStroops
+                          ? stroopsToLumens(baseReserve)
+                          : Number(baseReserve)}{" "}
+                        XLM
+                      </DetailRow>
+                      <DetailRow label="fee.pool">
+                        <FormattedNumber value={Number(feePool)} /> XLM
+                      </DetailRow>
+                      <DetailRow label="total.coins">
+                        <FormattedNumber value={Number(totalCoins)} /> XLM
+                      </DetailRow>
+                      <DetailRow label="protocolVersion">{protocolVersion}</DetailRow>
+                    </tbody>
+                  </Table>
+                </Col>
+              </Row>
+            </Container>
+          </Card.Body>
         </Card>
       </Row>
       {operationCount > 0 && (
         <Row>
-          <h3>
+          <h4>
             <a id="txs-table" aria-hidden="true" />
             <FormattedMessage id="transactions" />
             &nbsp;({successfulTransactionCount})
-          </h3>
+          </h4>
           {/* <TransactionTable
             compact={false}
             ledger={seq}

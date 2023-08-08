@@ -43,13 +43,15 @@ export default function Effects() {
           <CardHeader>
             <FormattedMessage id="effects" />
           </CardHeader>
-          <EffectTable
-            records={effects}
-          // showEffect
-          // showSource
-          // compact={false}
-          // limit={20}
-          />
+          <Card.Body>
+            <EffectTable
+              records={effects}
+            // showEffect
+            // showSource
+            // compact={false}
+            // limit={20}
+            />
+          </Card.Body>
         </Card>
       </Row>
     </Container>

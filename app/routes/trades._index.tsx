@@ -34,10 +34,12 @@ export default function Trades() {
           <CardHeader>
             <FormattedMessage id="trades" />
           </CardHeader>
-          <TradeTable
-            records={trades}
-          // limit={20}
-          />
+          <Card.Body>
+            <TradeTable
+              records={trades}
+            // limit={20}
+            />
+          </Card.Body>
         </Card>
       </Row>
     </Container>

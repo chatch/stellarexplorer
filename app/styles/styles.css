@@ -46,11 +46,11 @@ table {
   word-break: break-all;
 }
 
-#home .panel-heading {
+#home .card-header {
   padding-left: 0px;
 }
 
-#home .panel {
+#home .card {
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -90,15 +90,15 @@ table {
   line-height: 20px;
 }
 
-.navbar-toggler {
+.navbar-toggler-steexp {
   border-color: #ddd;
   margin-right: 15px;
+  padding: 2px 5px;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  /* color: white; */
 }
-
-/* .navbar-toggler-icon { */
-/* not working - seems using a var() */
-/* color: #ddd; */
-/* } */
 
 .brand-text {
   color: white;
@@ -106,33 +106,34 @@ table {
   position: relative;
 }
 
-.card,
-.card-heading {
+.card {
   background-color: #383f4b;
   color: #96a2b4;
   border: none;
+  margin-bottom: 30px;
 }
 
-.panel-heading {
+.card>.card-header {
   font-size: 15px;
   font-weight: 500;
   text-transform: uppercase;
 }
 
-.panel-default>.panel-heading {
+.card-default>.card-header {
   background-color: #383f4b;
   color: #dce2ec;
   padding-left: 20px;
   padding-top: 20px;
 }
 
-.panel-heading .pull-right {
+.card-header .pull-right {
+  float: right;
   color: #fb9678 !important;
   text-decoration: none !important;
   transition: all 0.18s ease-in-out;
 }
 
-.panel-heading .pull-right:hover {
+.card-header .pull-right:hover {
   color: #fa6f46 !important;
 }
 
@@ -160,6 +161,10 @@ table {
   border-top: 1px solid #4c5667;
 }
 
+.table td {
+  border-bottom: 0;
+}
+
 .filter {
   margin: 5px 0px 5px 0px;
 }
@@ -176,11 +181,22 @@ table {
   font-size: 13px;
 }
 
-.table-striped>tbody>tr:nth-of-type(odd)>td,
+/* .table-striped>tbody>tr:nth-of-type(odd)>td,
 .table-striped>tbody>tr:nth-of-type(even)>td,
 .table-striped>thead>tr>th {
   background-color: #383f4b;
+} */
+
+.card-body td {
+  color: #96a2b4 !important;
 }
+
+.table>tbody>tr:nth-of-type(odd)>td,
+.table>tbody>tr:nth-of-type(even)>td,
+.table>thead>tr>th {
+  background-color: #383f4b;
+}
+
 
 .table>tbody>tr:hover {
   background-color: rgba(0, 0, 0, 0.1);

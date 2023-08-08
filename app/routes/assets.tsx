@@ -69,31 +69,33 @@ export default function Assets() {
       <Row>
         <Card>
           <CardHeader>
-            <TitleWithJSONButton title={formatMessage({ id: "exchanges" })}
+            <TitleWithJSONButton title={formatMessage({ id: "assets" })}
               url={METADATA_URI} />
           </CardHeader>
-          <Table>
-            <thead>
-              <tr>
-                <th />
-                <th>
-                  <FormattedMessage id="code" />
-                </th>
-                <th>
-                  <FormattedMessage id="issuer" />
-                </th>
-                <th>
-                  <FormattedMessage id="anchor" />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(assets).sort().map((key) => {
-                const asset = assets[key]
-                return <Asset key={key} {...asset} />
-              })}
-            </tbody>
-          </Table>
+          <Card.Body>
+            <Table id="assets-table">
+              <thead>
+                <tr>
+                  <th />
+                  <th>
+                    <FormattedMessage id="code" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="issuer" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="anchor" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(assets).sort().map((key) => {
+                  const asset = assets[key]
+                  return <Asset key={key} {...asset} />
+                })}
+              </tbody>
+            </Table>
+          </Card.Body>
         </Card>
       </Row>
     </Container>

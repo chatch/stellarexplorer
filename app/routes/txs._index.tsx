@@ -36,12 +36,14 @@ export default function Transactions() {
           <CardHeader>
             <FormattedMessage id="transactions" />
           </CardHeader>
-          <TransactionTable
-            records={transactions}
-            showLedger
-            showSource
-            compact={false}
-          />
+          <Card.Body>
+            <TransactionTable
+              records={transactions}
+              showLedger
+              showSource
+              compact={false}
+            />
+          </Card.Body>
         </Card>
       </Row>
     </Container>

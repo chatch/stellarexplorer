@@ -17,6 +17,7 @@ import { base64DecodeToHex, setTitle } from '../lib/utils'
 import type { LoaderArgs } from "@remix-run/node"
 import { useLoaderData } from '@remix-run/react'
 import { transaction } from '~/lib/stellar/server_request_utils'
+import ClipboardCopy from '~/components/shared/ClipboardCopy'
 
 // Lookup memo type to a label
 const memoTypeToLabel: Record<string, string> = Object.freeze({
@@ -60,64 +61,62 @@ export default function Transaction() {
       <Row>
         <Card>
           <CardHeader>
-            <TitleWithJSONButton title={formatMessage({ id: "transaction" })}
+            <TitleWithJSONButton
+              title={formatMessage({ id: "transaction" })}
+              titleSecondary={id}
               url={`/transactions/${id}`} />
-            {/* <span>
-                {}{" "}
-                <span className="secondary-heading">{id}</span>
-                <ClipboardCopy text={id} />
-              </span>,
-              urlFn(id) */}
           </CardHeader>
-          <Table>
-            <tbody>
-              <tr>
-                <td>
-                  <FormattedMessage id="time" />
-                </td>
-                <td>
-                  <FormattedDate value={time} />
-                  &nbsp;
-                  <FormattedTime value={time} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <FormattedMessage id="fee" />
-                </td>
-                <td>{fee} stroops</td>
-              </tr>
-              <tr>
-                <td>
-                  <FormattedMessage id="ledger" />
-                </td>
-                <td>
-                  <Link to={`/ledger/${ledger}`}>{ledger}</Link>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <FormattedMessage id="memo" />{" "}
-                  <span className="secondary-heading">
-                    ({memoType && memoTypeToLabel[memoType]})
-                  </span>
-                </td>
-                <td>
-                  {memoType === MemoHash || memoType === MemoReturn
-                    ? base64DecodeToHex(memo)
-                    : memo}
-                </td>
-              </tr>
-            </tbody>
-          </Table>
+          <Card.Body>
+            <Table>
+              <tbody>
+                <tr>
+                  <td>
+                    <FormattedMessage id="time" />
+                  </td>
+                  <td>
+                    <FormattedDate value={time} />
+                    &nbsp;
+                    <FormattedTime value={time} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormattedMessage id="fee" />
+                  </td>
+                  <td>{fee} stroops</td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormattedMessage id="ledger" />
+                  </td>
+                  <td>
+                    <Link to={`/ledger/${ledger}`}>{ledger}</Link>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormattedMessage id="memo" />{" "}
+                    <span className="secondary-heading">
+                      ({memoType && memoTypeToLabel[memoType]})
+                    </span>
+                  </td>
+                  <td>
+                    {memoType === MemoHash || memoType === MemoReturn
+                      ? base64DecodeToHex(memo)
+                      : memo}
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Card.Body>
         </Card>
       </Row>
       <Row>
-        <h3>
+        <h4>
           <a id="operations-table" aria-hidden="true" />
           <FormattedMessage id="operations" />
           {` (${opCount})`}
-        </h3>
+        </h4>
         {/* <Container>
           <OperationTable limit={opCount} tx={id} />
         </Container> */}

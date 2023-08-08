@@ -34,10 +34,12 @@ export default function Operations() {
           <CardHeader>
             <FormattedMessage id="operations" />
           </CardHeader>
-          <OperationTable
-            records={operations}
-            compact={false}
-          />
+          <Card.Body>
+            <OperationTable
+              records={operations}
+              compact={false}
+            />
+          </Card.Body>
         </Card>
       </Row>
     </Container>

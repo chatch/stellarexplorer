@@ -36,10 +36,12 @@ export default function Ledgers() {
           <CardHeader>
             <FormattedMessage id="ledgers" />
           </CardHeader>
-          <LedgerTable
-            records={ledgers}
-            compact={false}
-          />
+          <Card.Body>
+            <LedgerTable
+              records={ledgers}
+              compact={false}
+            />
+          </Card.Body>
         </Card>
       </Row>
     </Container>

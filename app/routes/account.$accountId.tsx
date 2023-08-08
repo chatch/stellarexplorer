@@ -248,61 +248,63 @@ const AccountSummaryCard = ({
           accountUrl
         )}
       </CardHeader>
-      <Container style={{ paddingLeft: 0 }}>
-        <Row>
-          <Col md={10}>
-            <Row>
-              <Col md={3}>
-                <FormattedMessage id="key.public" />:
-              </Col>
-              <Col md={9}>
-                <span className="break" style={{ color: "white" }}>
-                  {account.id}
-                </span>
-                <ClipboardCopy text={account.id} />
-              </Col>
-            </Row>
-            {federatedAddress && (
+      <Card.Body>
+        <Container style={{ paddingLeft: 0 }}>
+          <Row>
+            <Col md={10}>
               <Row>
                 <Col md={3}>
-                  <FormattedMessage id="stellar.address" />:
+                  <FormattedMessage id="key.public" />:
                 </Col>
-                <Col md={9}>{federatedAddress}</Col>
+                <Col md={9}>
+                  <span className="break" style={{ color: "white" }}>
+                    {account.id}
+                  </span>
+                  <ClipboardCopy text={account.id} />
+                </Col>
               </Row>
-            )}
-            <Row>
-              <Col md={3}>
-                <FormattedMessage id="home.domain" />:
-              </Col>
-              <Col md={9}>
-                <a
-                  href={`https://${account.home_domain}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {account.home_domain}
-                </a>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={3}>
-                <FormattedMessage id="subentry.count" />:
-              </Col>
-              <Col md={9}>{account.subentry_count}</Col>
-            </Row>
-          </Col>
-          {has(knownAccounts, account.id) && knownAccounts[account.id].logo && (
-            <Col md={2}>
-              <div style={{ marginBottom: 10 }}>
-                <Logo
-                  type={knownAccounts[account.id].type}
-                  name={knownAccounts[account.id].logo}
-                />
-              </div>
+              {federatedAddress && (
+                <Row>
+                  <Col md={3}>
+                    <FormattedMessage id="stellar.address" />:
+                  </Col>
+                  <Col md={9}>{federatedAddress}</Col>
+                </Row>
+              )}
+              <Row>
+                <Col md={3}>
+                  <FormattedMessage id="home.domain" />:
+                </Col>
+                <Col md={9}>
+                  <a
+                    href={`https://${account.home_domain}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {account.home_domain}
+                  </a>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={3}>
+                  <FormattedMessage id="subentry.count" />:
+                </Col>
+                <Col md={9}>{account.subentry_count}</Col>
+              </Row>
             </Col>
-          )}
-        </Row>
-      </Container>
+            {has(knownAccounts, account.id) && knownAccounts[account.id].logo && (
+              <Col md={2}>
+                <div style={{ marginBottom: 10 }}>
+                  <Logo
+                    type={knownAccounts[account.id].type}
+                    name={knownAccounts[account.id].logo}
+                  />
+                </div>
+              </Col>
+            )}
+          </Row>
+        </Container>
+      </Card.Body>
     </Card>
   )
 }

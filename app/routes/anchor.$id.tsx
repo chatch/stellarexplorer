@@ -45,31 +45,33 @@ export default function Anchor() {
               <span className="secondary-heading">{name}</span>
             </span>
           </CardHeader>
-          <Table>
-            <tbody>
-              <tr>
-                <td>
-                  <a href={website} target="_blank" rel="noreferrer">
-                    <Logo name={name} type="anchor" />
-                  </a>
-                </td>
-                <td>
-                  <div>
-                    {displayName || name}
-                  </div>
-                  <div style={{ marginTop: 10 }}>
+          <Card.Body>
+            <Table id="anchor-table">
+              <tbody>
+                <tr>
+                  <td>
                     <a href={website} target="_blank" rel="noreferrer">
-                      {website}
-                      <NewWindowIcon />
+                      <Logo name={name} type="anchor" />
                     </a>
-                  </div>
-                  <div style={{ marginTop: 15 }}>
-                    <StellarTomlBadge domain={name} />
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
+                  </td>
+                  <td>
+                    <div>
+                      {displayName || name}
+                    </div>
+                    <div style={{ marginTop: 10 }}>
+                      <a href={website} target="_blank" rel="noreferrer">
+                        {website}
+                        <NewWindowIcon />
+                      </a>
+                    </div>
+                    <div style={{ marginTop: 15 }}>
+                      <StellarTomlBadge domain={name} />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Card.Body>
         </Card>
       </Row>
 
@@ -77,7 +79,7 @@ export default function Anchor() {
         <h3>
           <FormattedMessage id="assets" />
         </h3>
-        <Table>
+        <Table id="assets-table">
           <thead>
             <tr>
               <th>

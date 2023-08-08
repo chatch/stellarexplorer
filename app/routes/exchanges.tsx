@@ -81,42 +81,44 @@ export default function Exchanges() {
             <TitleWithJSONButton title={formatMessage({ id: "exchanges" })}
               url={METADATA_URI} />
           </CardHeader>
-          <h4 style={{ textDecoration: "underline" }}>Decentralized</h4>
-          <Table>
-            <TableHeader />
-            <tbody>
-              <tr>
-                <td />
-                <td />
-                <td />
-              </tr>
-              {Object.keys(decentralized).map((id) => (
-                <Exchange
-                  key={id}
-                  name={id}
-                  {...decentralized[id]}
-                  decentralized
-                />
-              ))}
-            </tbody>
-          </Table>
+          <Card.Body>
+            <h6 style={{ textDecoration: "underline" }}>Decentralized</h6>
+            <Table id="exchanges-table">
+              <TableHeader />
+              <tbody>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                {Object.keys(decentralized).map((id) => (
+                  <Exchange
+                    key={id}
+                    name={id}
+                    {...decentralized[id]}
+                    decentralized
+                  />
+                ))}
+              </tbody>
+            </Table>
 
-          <h4 style={{ marginTop: 70, textDecoration: "underline" }}>
-            Centralized
-          </h4>
-          <Table>
-            <TableHeader />
-            <tbody>
-              <tr>
-                <td />
-                <td />
-                <td />
-              </tr>
-              {Object.keys(centralized).map((id) => (
-                <Exchange key={id} name={id} {...centralized[id]} />
-              ))}
-            </tbody>
-          </Table>
+            <h6 style={{ marginTop: 70, textDecoration: "underline" }}>
+              Centralized
+            </h6>
+            <Table>
+              <TableHeader />
+              <tbody>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                {Object.keys(centralized).map((id) => (
+                  <Exchange key={id} name={id} {...centralized[id]} />
+                ))}
+              </tbody>
+            </Table>
+          </Card.Body>
         </Card>
       </Row>
     </Container>

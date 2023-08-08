@@ -115,36 +115,38 @@ export default function Anchors() {
             <TitleWithJSONButton title={formatMessage({ id: "anchors" })}
               url={METADATA_URI} />
           </CardHeader>
-          <Table>
-            <thead>
-              <tr>
-                <th />
-                <th />
-                <th>
-                  <FormattedMessage id="asset" />
-                </th>
-                <th>
-                  <FormattedMessage id="issuer" />
-                </th>
-                <th>StellarTerm</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(anchors).map((domain) => {
-                const anchor = anchors[domain]
-                if (anchor.defunct && anchor.defunct === true) return null
-                return (
-                  <Anchor
-                    key={domain}
-                    assets={anchor.assets}
-                    domain={domain}
-                    displayName={anchor.displayName}
-                    website={anchor.website}
-                  />
-                )
-              })}
-            </tbody>
-          </Table>
+          <Card.Body>
+            <Table id="anchors-table">
+              <thead>
+                <tr>
+                  <th />
+                  <th />
+                  <th>
+                    <FormattedMessage id="asset" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="issuer" />
+                  </th>
+                  <th>StellarTerm</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(anchors).map((domain) => {
+                  const anchor = anchors[domain]
+                  if (anchor.defunct && anchor.defunct === true) return null
+                  return (
+                    <Anchor
+                      key={domain}
+                      assets={anchor.assets}
+                      domain={domain}
+                      displayName={anchor.displayName}
+                      website={anchor.website}
+                    />
+                  )
+                })}
+              </tbody>
+            </Table>
+          </Card.Body>
         </Card>
       </Row>
     </Container>

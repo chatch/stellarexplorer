@@ -34,13 +34,15 @@ export default function Payments() {
           <CardHeader>
             <FormattedMessage id="payments" />
           </CardHeader>
-          <PaymentTable
-            records={payments}
-            // showPayment
-            // showSource
-            compact={false}
-          // limit={20}
-          />
+          <Card.Body>
+            <PaymentTable
+              records={payments}
+              // showPayment
+              // showSource
+              compact={false}
+            // limit={20}
+            />
+          </Card.Body>
         </Card>
       </Row>
     </Container>
