@@ -16,8 +16,9 @@ import { base64DecodeToHex, setTitle } from '../lib/utils'
 
 import type { LoaderArgs } from "@remix-run/node"
 import { useLoaderData } from '@remix-run/react'
-import { transaction } from '~/lib/stellar/server_request_utils'
+import { operations, transaction } from '~/lib/stellar/server_request_utils'
 import ClipboardCopy from '~/components/shared/ClipboardCopy'
+import OperationTable from '~/components/OperationTable'
 
 // Lookup memo type to a label
 const memoTypeToLabel: Record<string, string> = Object.freeze({
@@ -47,11 +48,14 @@ export const loader = async ({ params }: LoaderArgs) => {
     networks.future,
     defaultNetworkAddresses.future
   )
-  return transaction(server, params.txHash as string).then(json)
+  return Promise.all([
+    transaction(server, params.txHash as string),
+    operations({ server, tx: params.txHash, limit: 10 })
+  ]).then(json)
 }
 
 export default function Transaction() {
-  const { id, fee, ledger, memoType, memo, opCount, time }: Partial<TransactionProps> =
+  const [{ id, fee, ledger, memoType, memo, opCount, time }, operations]: [tx: Partial<TransactionProps>, operations: any] =
     useLoaderData<typeof loader>()
   const { formatMessage } = useIntl()
   if (!id) return null
@@ -64,7 +68,7 @@ export default function Transaction() {
             <TitleWithJSONButton
               title={formatMessage({ id: "transaction" })}
               titleSecondary={id}
-              url={`/transactions/${id}`} />
+              url={`https://horizon-futurenet.stellar.org/transactions/${id}`} />
           </CardHeader>
           <Card.Body>
             <Table>
@@ -112,14 +116,14 @@ export default function Transaction() {
         </Card>
       </Row>
       <Row>
-        <h4>
+        <h5>
           <a id="operations-table" aria-hidden="true" />
           <FormattedMessage id="operations" />
           {` (${opCount})`}
-        </h4>
-        {/* <Container>
-          <OperationTable limit={opCount} tx={id} />
-        </Container> */}
+        </h5>
+        <Container>
+          <OperationTable records={operations} compact />
+        </Container>
       </Row>
     </Container>
   )

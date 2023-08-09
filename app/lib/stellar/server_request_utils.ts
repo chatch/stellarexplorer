@@ -18,6 +18,7 @@ import type { TradesCallBuilder } from "stellar-sdk/lib/trades_call_builder"
 import { handleFetchDataFailure } from "../utils"
 import { isPublicKey, isFederatedAddress, isMuxedAddress } from "./utils"
 import type { AccountCallBuilder } from "stellar-sdk/lib/account_call_builder"
+import { TransactionCallBuilder } from "stellar-sdk/lib/transaction_call_builder"
 
 const ledgers = (server: HorizonServer, limit = 5) => {
     const callBuilder: LedgerCallBuilder = server.ledgers()
@@ -30,15 +31,18 @@ const ledgers = (server: HorizonServer, limit = 5) => {
     )
 }
 
-const ledger = (server: HorizonServer, ledgerId: string) => {
+const ledger = (server: HorizonServer, ledgerSeq: string) => {
     const callBuilder: CallBuilder<ServerApi.LedgerRecord> = server.
         ledgers().
-        ledger(ledgerId)
+        ledger(ledgerSeq)
     return callBuilder.call().then(ledgerRspRecToPropsRec)
 }
 
-const transactions = (server: HorizonServer, limit = 5) => {
-    const callBuilder: LedgerCallBuilder = server.transactions()
+const transactions = (server: HorizonServer, ledgerSeq?: string, limit = 5) => {
+    const callBuilder: TransactionCallBuilder = server.transactions()
+    if (ledgerSeq) {
+        callBuilder.forLedger(ledgerSeq)
+    }
     callBuilder.limit(limit)
     callBuilder.order('desc')
     return callBuilder.call().then((serverRsp) =>

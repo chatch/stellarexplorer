@@ -7,6 +7,8 @@ import Modal from "react-bootstrap/Modal"
 import NewWindowIcon from "./NewWindowIcon"
 
 import FetchPonyfill from "fetch-ponyfill"
+import { useLoaderData } from "@remix-run/react"
+import { LoaderArgs, json } from "@remix-run/node"
 
 const fetch = FetchPonyfill().fetch
 
@@ -91,80 +93,58 @@ interface ResourceModalContainerProps {
   url: string
 }
 
-function ResourceModalContainer({ filterFn, handleCloseFn, label, url }: ResourceModalContainerProps) {
-  const [show, setShow] = useState(false)
-  const [isJson, setIsJson] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [fetchFailed, setFetchFailed] = useState(false)
-  const [text, setText] = useState("")
+const isJsonResponse = (rsp: Response, url: string) => url.endsWith(".json") ||
+  (rsp.headers.has("content-type") &&
+    rsp.headers.get("content-type")?.indexOf("json") !== -1)
 
-  const isJsonResponse = (rsp: Response) => url.endsWith(".json") ||
-    (rsp.headers.has("content-type") &&
-      rsp.headers.get("content-type")?.indexOf("json") !== -1)
 
-  /**
-   * Support filtering JSON responses.
-   *
-   * If filterFn property is a function then run it on the records[] in the
-   * response.
-   */
-  const filter = (rspText: string, isJson: boolean) => {
-    let text = rspText
-    if (isJson === true && typeof filterFn === "function") {
-      const records = JSON.parse(rspText)["_embedded"].records
-      text = filterFn(records)
-      // if not found then revert to the original source
-      if (text == null) text = rspText
-    }
-    return text
+/**
+ * Support filtering JSON responses.
+ *
+ * If filterFn property is a function then run it on the records[] in the
+ * response.
+ */
+const filterRecords = (rspText: string, isJson: boolean, filterFn?: Function) => {
+  let text = rspText
+  if (isJson === true && typeof filterFn === "function") {
+    const records = JSON.parse(rspText)["_embedded"].records
+    text = filterFn(records)
+    // if not found then revert to the original source
+    if (text == null) text = rspText
   }
-
-  // componentDidMount() {
-  //   fetch(url)
-  //     .then((rsp) => Promise.all([rsp.text(), this.isJsonResponse(rsp)]))
-  //     .then(([text, isJson]) =>
-  //       this.setState({
-  //         text: this.filter(text, isJson),
-  //         isLoading: false,
-  //         isJson,
-  //         show: true,
-  //       })
-  //     )
-  //     .catch((err) => {
-  //       console.error(
-  //         `Failed to fetch resource [${url}] Err: [${err}]`
-  //       )
-  //       this.setState({
-  //         fetchFailed: true,
-  //         isLoading: false,
-  //       })
-  //     })
-  // }
-
-  if (fetchFailed) {
-    return (
-      <ResourceModal
-        handleCloseFn={handleCloseFn}
-        isJson={false}
-        show={true}
-        text="Fetch resource failed ... Try the link above."
-        url={url}
-      />
-    )
-  } else {
-    return (
-      <ResourceModal
-        handleCloseFn={handleCloseFn}
-        isJson={isJson}
-        show={show}
-        text={text}
-        url={url}
-      />
-    )
-  }
+  return text
 }
 
+export const loader = async ({ params }: LoaderArgs) => {
+  console.log(`ENTRY: ${params}`)
 
+  const url = params.url as string
+  return fetch(url).
+    then((rsp) => Promise.all([rsp.text().then(text => {
+      console.log(`TEXT: ${text}`)
+      return text
+    }), isJsonResponse(rsp, url)])).
+    then(result => json({ textRaw: result[0], isJson: result[1] }))
+}
+
+function ResourceModalContainer({ filterFn, handleCloseFn, label, url }: ResourceModalContainerProps) {
+  console.log(`ENTRY: ${url}`)
+
+  const { textRaw, isJson }: { textRaw: string, isJson: boolean } =
+    useLoaderData<typeof loader>()
+
+  const text = filterRecords(textRaw, isJson, filterFn)
+
+  return (
+    <ResourceModal
+      handleCloseFn={handleCloseFn}
+      isJson={isJson}
+      show
+      text={text}
+      url={url}
+    />
+  )
+}
 
 type BackendResourceBadgeButtonWithResourceModalProps = Omit<ResourceModalContainerProps, 'handleCloseFn'>
 

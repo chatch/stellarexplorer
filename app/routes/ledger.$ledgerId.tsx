@@ -14,7 +14,7 @@ import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 
 import type { LoaderArgs } from "@remix-run/node"
 import { useLoaderData } from '@remix-run/react'
-import { ledger } from '~/lib/stellar/server_request_utils'
+import { ledger, transactions } from '~/lib/stellar/server_request_utils'
 import TransactionTable from '~/components/TransactionTable'
 import { setTitle, shortHash } from '~/lib/utils'
 import { stroopsToLumens } from '~/lib/stellar/utils'
@@ -37,7 +37,11 @@ export const loader = async ({ params }: LoaderArgs) => {
     networks.future,
     defaultNetworkAddresses.future
   )
-  return ledger(server, params.ledgerId as string).then(json)
+  const ledgerSeq = params.ledgerId as string
+  return Promise.all([
+    ledger(server, ledgerSeq),
+    transactions(server, ledgerSeq)
+  ]).then(json)
 }
 
 export interface LedgerProps {
@@ -62,7 +66,7 @@ export interface LedgerProps {
 }
 
 export default function Ledger() {
-  const {
+  const [{
     id,
     baseFeeInStroops,
     baseFee,
@@ -79,7 +83,7 @@ export default function Ledger() {
     totalCoins,
     successfulTransactionCount,
     failedTransactionCount
-  }: LedgerProps =
+  }, transactions]: [LedgerProps, any] =
     useLoaderData<typeof loader>()
   const { formatMessage } = useIntl()
 
@@ -157,18 +161,17 @@ export default function Ledger() {
       </Row>
       {operationCount > 0 && (
         <Row>
-          <h4>
+          <h5>
             <a id="txs-table" aria-hidden="true" />
             <FormattedMessage id="transactions" />
             &nbsp;({successfulTransactionCount})
-          </h4>
-          {/* <TransactionTable
+          </h5>
+          <TransactionTable
+            records={transactions}
             compact={false}
-            ledger={seq}
-            limit={200} // horizon limit
-            refresh={false}
-            showLedger={false} */}
-          {/* /> */}
+            showLedger={false}
+            showSource
+          />
         </Row>
       )}
     </Container>
