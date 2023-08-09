@@ -167,7 +167,7 @@ export default function SearchBox() {
   return (
     <Container>
       <Row>
-        <Col id="Search-Container">
+        <Col id="search-container">
           <form onSubmit={searchHandler}>
             <InputGroup>
               <FormControl

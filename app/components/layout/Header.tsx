@@ -37,8 +37,9 @@ export default function Header({
         />
         <span className="brand-text">explorer</span>
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" bsPrefix="navbar-toggler-steexp"
-      />
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      {/* bsPrefix="navbar-toggler-steexp" */}
+
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
 

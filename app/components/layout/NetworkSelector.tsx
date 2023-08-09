@@ -25,7 +25,7 @@ interface NetworkSelectorProps {
 }
 
 const NetworkSelector = (props: NetworkSelectorProps) =>
-  <div className="Network-Selector">
+  <div className="network-selector">
     {[networks.public, networks.test, networks.future].map(networkType =>
       <NetworkButton
         key={networkType}

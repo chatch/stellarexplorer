@@ -17,7 +17,7 @@ const styleLanguageSelector = {
 export default function LanguageSelector({ switcher }: { switcher: React.MouseEventHandler<HTMLElement> }) {
   const { formatMessage } = useIntl()
   return (
-    <Dropdown id="Language-Selector">
+    <Dropdown id="language-selector">
       <Dropdown.Toggle style={styleLanguageSelector}>
         <img
           src={langSelectImg}
