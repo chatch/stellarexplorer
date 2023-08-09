@@ -26,7 +26,6 @@ function ClipboardCopy({ text }: { text: string }) {
   return (
     <OverlayTrigger
       delay={300}
-      // onMouseOut={handleMouseOutFn}
       overlay={copied ? TooltipCopied : TooltipCopy}
     >
       <CopyToClipboard text={text} onCopy={handleCopyFn}>

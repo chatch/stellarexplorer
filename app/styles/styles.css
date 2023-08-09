@@ -55,14 +55,28 @@ table {
   padding-right: 15px;
 }
 
+/* #help-modal .search-sub-heading { */
+
+#help-modal .search-sub-heading {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+#help-modal .search-desc {
+  font-size: 14px;
+}
+
 .modal-header,
 .modal-body {
   background-color: #383f4b;
 }
 
+/* 
 .modal-body>div {
   margin-bottom: 40px;
-}
+} */
 
 .modal-body h5 {
   text-decoration: underline;
@@ -342,13 +356,17 @@ table {
   color: #dce2ec !important;
 }
 
-#Search-Container {
+/* #Search-Container {
   padding: 10px 15px 10px 15px;
   margin-top: 50px;
   background-color: #4c5667;
 }
-
+*/
 #Search-Container input {
+  border-radius: 0;
+}
+
+/*
   border: none;
   font-size: 13px;
   color: #4c5667;
@@ -372,7 +390,7 @@ table {
   z-index: 4;
   background: transparent;
   border: none;
-}
+} */
 
 @media (min-width: 768px) {
   #Search-Container {
@@ -414,6 +432,11 @@ table {
 
 .glyphicon-search:hover {
   color: #99a3b4;
+}
+
+.fa-copy {
+  font-size: medium !important;
+  padding-left: 5px;
 }
 
 .Network-Selector {

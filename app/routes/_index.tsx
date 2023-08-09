@@ -51,7 +51,7 @@ export const loader = async () => {
   )
   return Promise.all([
     ledgers(server, LEDGER_RECORD_LIMIT),
-    transactions(server, TX_RECORD_LIMIT),
+    transactions(server, undefined, TX_RECORD_LIMIT),
     operations({ server, limit: OPERATION_RECORD_LIMIT }),
   ]).then(result =>
     json({

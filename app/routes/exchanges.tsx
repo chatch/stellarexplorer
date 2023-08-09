@@ -83,7 +83,7 @@ export default function Exchanges() {
           </CardHeader>
           <Card.Body>
             <h6 style={{ textDecoration: "underline" }}>Decentralized</h6>
-            <Table id="exchanges-table">
+            <Table id="dex-table">
               <TableHeader />
               <tbody>
                 <tr>
@@ -105,7 +105,7 @@ export default function Exchanges() {
             <h6 style={{ marginTop: 70, textDecoration: "underline" }}>
               Centralized
             </h6>
-            <Table>
+            <Table id="cex-table">
               <TableHeader />
               <tbody>
                 <tr>

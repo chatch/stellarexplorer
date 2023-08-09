@@ -22,7 +22,7 @@ export const loader = async () => {
     networks.future,
     defaultNetworkAddresses.future
   )
-  return transactions(server, RECORD_LIMIT).then(json)
+  return transactions(server, undefined, RECORD_LIMIT).then(json)
 }
 
 export default function Transactions() {

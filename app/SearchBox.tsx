@@ -7,7 +7,7 @@ import InputGroup from "react-bootstrap/InputGroup"
 import Modal from "react-bootstrap/Modal"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSearch, faInfo } from "@fortawesome/free-solid-svg-icons"
+import { faSearch, faCircleInfo } from "@fortawesome/free-solid-svg-icons"
 
 import { useIntl } from "react-intl"
 import { redirect } from "react-router-dom"
@@ -17,41 +17,42 @@ import { isSecretKey } from "./lib/stellar/utils"
 import { useState } from "react"
 
 const HelpModal = ({ showHelp, handleCloseFn }: { showHelp: boolean, handleCloseFn: () => void }) => (
-  <Modal id="help-modal" showHelp={showHelp} onHide={handleCloseFn}>
+  <Modal id="help-modal" show={showHelp} onHide={handleCloseFn}>
     <Modal.Header closeButton>
-      <Modal.Title id="contained-modal-title-lg" style={{ color: "#dce2ec" }}>
+      <Modal.Title>
         Search Help
       </Modal.Title>
     </Modal.Header>
     <Modal.Body style={{ color: "#96a2b4" }}>
-      <h4>Search By:</h4>
-      <br />
       <div>
-        <h5>Stellar Address</h5>
-        Also called a{" "}
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.stellar.org/developers/guides/concepts/federation.html#stellar-addresses"
-        >
-          Stellar federated address
-        </a>
-        <img
-          src="/search/search_stellar_address.png"
-          alt="search by ledger"
-        />
+        <div className="search-sub-heading">Stellar Address</div>
+        <div className="search-desc">Also called a{" "}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.stellar.org/developers/guides/concepts/federation.html#stellar-addresses"
+          >
+            Stellar federated address
+          </a>
+          <img
+            src="/search/search_stellar_address.png"
+            alt="search by ledger"
+          />
+        </div>
       </div>
       <div>
-        <h5>Account ID</h5>
-        Also called a Public Key or Public Address
-        <img
-          src="/search/search_account_public.png"
-          alt="search by public account address"
-          width="100%"
-        />
+        <div className="search-sub-heading">Account ID</div>
+        <div className="search-desc">
+          Also called a Public Key or Public Address
+          <img
+            src="/search/search_account_public.png"
+            alt="search by public account address"
+            width="100%"
+          />
+        </div>
       </div>
       <div>
-        <h5>Transaction Hash</h5>
+        <div className="search-sub-heading">Transaction Hash</div>
         <img
           src="/search/search_tx_hash.png"
           alt="search by transaction hash"
@@ -59,7 +60,7 @@ const HelpModal = ({ showHelp, handleCloseFn }: { showHelp: boolean, handleClose
         />
       </div>
       <div>
-        <h5>Contract Address or Hash</h5>
+        <div className="search-sub-heading">Contract Address or Hash</div>
         <img
           src="/search/search_contract.png"
           alt="search by contract address"
@@ -67,15 +68,15 @@ const HelpModal = ({ showHelp, handleCloseFn }: { showHelp: boolean, handleClose
         />
       </div>
       <div>
-        <h5>Ledger</h5>
+        <div className="search-sub-heading">Ledger</div>
         <img
           src="/search/search_ledger.png"
           alt="search by ledger"
         />
       </div>
+      <div className="search-sub-heading">Anchor Name</div>
       <div>
-        <h5>Anchor Name</h5>
-        <div>
+        <div className="search-desc">
           as listed on the{" "}
           <a
             target="_blank"
@@ -87,24 +88,25 @@ const HelpModal = ({ showHelp, handleCloseFn }: { showHelp: boolean, handleClose
         </div>
         <div>
           <br />
-          Full name:
+          <div className="search-desc">
+            <div>Full name:</div>
+            <img
+              src="/search/search_anchor_name_full.png"
+              alt="search by anchor full name"
+            />
+          </div>
           <br />
-          <img
-            src="/search/search_anchor_name_full.png"
-            alt="search by anchor full name"
-          />
-        </div>
-        <div style={{ marginTop: 20 }}>
-          Partial name:
-          <br />
-          <img
-            src="/search/search_anchor_name_partial.png"
-            alt="search by anchor partial name"
-          />
+          <div className="search-desc">
+            <div>Partial name:</div>
+            <img
+              src="/search/search_anchor_name_partial.png"
+              alt="search by anchor partial name"
+            />
+          </div>
         </div>
       </div>
       <div>
-        <h5>Asset Code</h5>
+        <div className="search-sub-heading">Asset Code</div>
         <img
           src="/search/search_asset.png"
           alt="search by asset code"
@@ -143,13 +145,12 @@ export default function SearchBox() {
   const [showHelp, setShowHelp] = useState(false)
 
   const handleCloseFn = () => setShowHelp(false)
-  const handleClickFn = (event: any) => {
-    event.preventDefault()
-    setShowHelp(true)
-  }
+  const handleClickFn = () => setShowHelp(true)
 
   const searchHandler = (event: any) => {
-    event.preventDefault()
+    console.log(`searchHandler entry`)
+
+    // event.preventDefault()
     const matchPath = searchStrToPath(searchStr)
 
     if (matchPath == null)
@@ -183,10 +184,9 @@ export default function SearchBox() {
                   onClick={searchHandler}
                 />
               </InputGroup.Text>
-              <InputGroup.Text>
+              <InputGroup.Text style={{ background: 'none', border: 0, color: 'white', fontSize: 20 }}>
                 <FontAwesomeIcon
-                  icon={faInfo}
-                  className="info-icon"
+                  icon={faCircleInfo}
                   onClick={handleClickFn}
                 />
               </InputGroup.Text>
