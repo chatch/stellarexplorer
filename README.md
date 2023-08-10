@@ -1,19 +1,14 @@
 # Stellar Explorer
-
-[![Node.js CI](https://github.com/chatch/stellarexplorer/actions/workflows/node.js.yml/badge.svg)](https://github.com/chatch/stellarexplorer/actions/workflows/node.js.yml)
-
+[![Node.js CI](https://github.com/stellarexplorer/actions/workflows/node.js.yml/badge.svg)](https://github.com/stellarexplorer/actions/workflows/node.js.yml)
 A ledger explorer for [Stellar](https://stellar.org).
-
 Deployments:
 - Public: https://steexp.com
 - Test: https://testnet.steexp.com
 - Futurenet: https://futurenet.steexp.com
-- Local: http://localhost:3000
-
+- Local: http://localhost
+conso 
 ## Resources
-
 ### Lists
-
 | Resource     | URI                                          |
 | ------------ | -------------------------------------------- |
 | Operations   | [/operations](https://steexp.com/operations) |
