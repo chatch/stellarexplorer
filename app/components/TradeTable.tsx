@@ -26,6 +26,7 @@ export interface TradeProps {
   counterAmount: string
 
   time: string
+  pagingToken: string
 };
 
 interface TradeComponentProps {

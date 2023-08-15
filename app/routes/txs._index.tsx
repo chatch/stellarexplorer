@@ -17,9 +17,12 @@ const RECORD_LIMIT = 20
 export const loader = allRecordsWithPagingLoader(`transactions`, RECORD_LIMIT)
 
 export default function Transactions() {
-  const { records, cursor }: { records: ReadonlyArray<TransactionProps>, cursor?: string } = useLoaderData<typeof loader>()
-  const { formatMessage } = useIntl()
+  const { records, cursor }: {
+    records: ReadonlyArray<TransactionProps>,
+    cursor?: string
+  } = useLoaderData<typeof loader>()
 
+  const { formatMessage } = useIntl()
   setTitle(formatMessage({ id: 'transactions' }))
 
   return (

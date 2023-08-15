@@ -27,22 +27,22 @@ interface PageOptions {
 }
 
 const ledgers = (server: HorizonServer, { limit = 5, cursor, order = 'desc' }: PageOptions) => {
-    const callBuilder: LedgerCallBuilder = server.ledgers()
+    const builder: LedgerCallBuilder = server.ledgers()
     if (cursor) {
-        callBuilder.cursor(cursor)
+        builder.cursor(cursor)
     }
-    callBuilder.limit(limit)
-    callBuilder.order(order)
-    return callBuilder.call().then((serverRsp) =>
+    builder.limit(limit)
+    builder.order(order)
+    return builder.call().then((serverRsp) =>
         serverApiResponseToState(serverRsp, ledgerRspRecToPropsRec)
     )
 }
 
 const ledger = (server: HorizonServer, ledgerSeq: string) => {
-    const callBuilder: CallBuilder<ServerApi.LedgerRecord> = server.
+    const builder: CallBuilder<ServerApi.LedgerRecord> = server.
         ledgers().
         ledger(ledgerSeq)
-    return callBuilder.call().then(ledgerRspRecToPropsRec)
+    return builder.call().then(ledgerRspRecToPropsRec)
 }
 
 const transactions = (server: HorizonServer, {
@@ -51,16 +51,16 @@ const transactions = (server: HorizonServer, {
     order = 'desc',
     limit = 5
 }: PageOptions & { ledgerSeq?: string }) => {
-    const callBuilder: TransactionCallBuilder = server.transactions()
+    const builder: TransactionCallBuilder = server.transactions()
     if (ledgerSeq) {
-        callBuilder.forLedger(ledgerSeq)
+        builder.forLedger(ledgerSeq)
     }
     if (cursor) {
-        callBuilder.cursor(cursor)
+        builder.cursor(cursor)
     }
-    callBuilder.limit(limit)
-    callBuilder.order(order)
-    return callBuilder.call().then((serverRsp) =>
+    builder.limit(limit)
+    builder.order(order)
+    return builder.call().then((serverRsp) =>
         serverApiResponseToState(serverRsp, transactionRspRecToPropsRec)
     )
 }
@@ -121,22 +121,25 @@ const loadAccountFromServer = (
     return builder.accountId(accountId).call().then(account => ({ account }))
 }
 
-const operations = ({
-    server,
-    accountId,
-    tx,
-    limit = 5
-}: {
+const operations = (
     server: HorizonServer,
-    accountId?: string,
-    tx?: string,
-    limit: number
-}) => {
+    {
+        accountId,
+        tx,
+        cursor,
+        order = 'desc',
+        limit = 5
+    }: PageOptions & { accountId?: string, tx?: string }
+) => {
     const builder: OperationCallBuilder = server.operations()
+
     if (tx) builder.forTransaction(tx)
     if (accountId) builder.forAccount(accountId)
+
+    if (cursor) builder.cursor(cursor)
     builder.limit(limit)
-    builder.order('desc')
+    builder.order(order)
+
     return builder.call().then(
         (serverRsp) =>
             serverApiResponseToState(serverRsp, operationRspRecToPropsRec)
@@ -145,40 +148,66 @@ const operations = ({
 
 const effects = (
     server: HorizonServer,
-    accountId?: string,
-    operationId?: string,
-    tx?: string,
-    limit = 5
+    {
+        accountId,
+        operationId,
+        tx,
+        cursor,
+        order = 'desc',
+        limit = 5
+    }: PageOptions & { accountId?: string, tx?: string, operationId?: string }
 ): Promise<ReadonlyArray<ServerApi.EffectRecord>> => {
     const builder: EffectCallBuilder = server.effects()
+
     if (accountId) builder.forAccount(accountId)
     if (operationId) builder.forOperation(operationId)
     if (tx) builder.forTransaction(tx)
+
+    if (cursor) builder.cursor(cursor)
     builder.limit(limit)
-    builder.order('desc')
+    builder.order(order)
+
     return builder.call().then(
         (serverRsp) =>
             serverApiResponseToState(serverRsp, effectRspRecToPropsRec) as ReadonlyArray<ServerApi.EffectRecord>
     )
 }
 
-const payments = (server: HorizonServer, accountId?: string, tx?: string, limit = 5) => {
+const payments = (server: HorizonServer, {
+    accountId,
+    tx,
+    cursor,
+    order = 'desc',
+    limit = 5
+}: PageOptions & { accountId?: string, tx?: string }) => {
     const builder: PaymentCallBuilder = server.payments()
+
     if (accountId) builder.forAccount(accountId)
     if (tx) builder.forTransaction(tx)
+
+    if (cursor) builder.cursor(cursor)
     builder.limit(limit)
-    builder.order('desc')
+    builder.order(order)
+
     return builder.call().then(
         (serverRsp) =>
             serverApiResponseToState(serverRsp, paymentRspRecToPropsRec)
     )
 }
 
-const trades = (server: HorizonServer, accountId?: string, limit = 5) => {
+const trades = (server: HorizonServer, {
+    accountId,
+    cursor,
+    order = 'desc',
+    limit = 5
+}: PageOptions & { accountId?: string }) => {
     const builder: TradesCallBuilder = server.trades()
     if (accountId) builder.forAccount(accountId)
+
+    if (cursor) builder.cursor(cursor)
     builder.limit(limit)
-    builder.order('desc')
+    builder.order(order)
+
     return builder.call().then(
         (serverRsp) =>
             serverApiResponseToState(serverRsp, tradeRspRecToPropsRec)

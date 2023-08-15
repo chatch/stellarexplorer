@@ -2,7 +2,17 @@ import { LoaderArgs, json } from "@remix-run/node"
 import { requestToServer } from "./stellar/server"
 import * as serverRequestUtils from "./stellar/server_request_utils"
 
-export const allRecordsWithPagingLoader = (serverReqFnName: 'ledgers' | 'transactions', limit: number) => ({ request }: LoaderArgs) => {
+type ServerReqFnName =
+    | 'ledgers'
+    | 'transactions'
+    | 'operations'
+    | 'payments'
+    | 'trades'
+
+export const allRecordsWithPagingLoader = (
+    serverReqFnName: ServerReqFnName,
+    limit: number
+) => ({ request }: LoaderArgs) => {
     const url = new URL(request.url)
     const cursor: string | undefined = url.searchParams.get("cursor") ?? undefined
     const order: string | undefined = url.searchParams.get("order") ?? undefined

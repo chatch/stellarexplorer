@@ -14,6 +14,7 @@ export interface PaymentProps extends PropsWithChildren {
   toMuxed: string
   sourceAccount: string
   time: string
+  pagingToken: string
 }
 
 export default function Payment({

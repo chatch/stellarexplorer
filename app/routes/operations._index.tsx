@@ -3,26 +3,24 @@ import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { requestToServer } from '~/lib/stellar/server'
-
-import { LoaderArgs, json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 
 import OperationTable from '../components/OperationTable'
 import { setTitle } from '../lib/utils'
 
-import type { OperationTableProps } from '../components/OperationTable'
-import { operations } from '~/lib/stellar/server_request_utils'
+import { allRecordsWithPagingLoader } from '~/lib/loader-util'
+import Paging from '~/components/shared/Paging'
 
-export const loader = ({ request }: LoaderArgs) => {
-  const server = requestToServer(request)
-  return operations({ server, limit: 30 }).then(json)
-}
+const RECORD_LIMIT = 30
+
+export const loader = allRecordsWithPagingLoader(`operations`, RECORD_LIMIT)
 
 export default function Operations() {
-  const operations: ReadonlyArray<OperationTableProps> = useLoaderData<typeof loader>()
+  const { records, cursor }: { records: ReadonlyArray<any>, cursor?: string } = useLoaderData<typeof loader>()
   const { formatMessage } = useIntl()
+
   setTitle(formatMessage({ id: 'operations' }))
+
   return (
     <Container>
       <Row>
@@ -31,10 +29,15 @@ export default function Operations() {
             <FormattedMessage id="operations" />
           </CardHeader>
           <Card.Body>
-            <OperationTable
-              records={operations}
-              compact={false}
-            />
+            <Paging
+              baseUrl='/operations'
+              records={records}
+              currentCursor={cursor}>
+              <OperationTable
+                records={records}
+                compact={false}
+              />
+            </Paging>
           </Card.Body>
         </Card>
       </Row>

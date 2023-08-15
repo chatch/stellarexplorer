@@ -68,13 +68,21 @@ const transactionRspRecToPropsRec = (rspRec: ServerApi.TransactionRecord): Trans
     pagingToken: rspRec.paging_token
 })
 
-const operationRspRecToPropsRec = (rspRec: ServerApi.OperationRecord): Record<string, any> => keysToCamelCasePlusTime(rspRec)
+const operationRspRecToPropsRec = (
+    rspRec: ServerApi.OperationRecord & { pagingToken: string }
+): Record<string, any> => keysToCamelCasePlusTime(rspRec)
 
-const effectRspRecToPropsRec = (rspRec: ServerApi.EffectRecord) => keysToCamelCase(rspRec)
+const effectRspRecToPropsRec = (
+    rspRec: ServerApi.EffectRecord
+) => keysToCamelCase(rspRec)
 
-const paymentRspRecToPropsRec = (rspRec: ServerApi.PaymentOperationRecord): Record<string, any> => keysToCamelCasePlusTime(rspRec)
+const paymentRspRecToPropsRec = (
+    rspRec: ServerApi.PaymentOperationRecord
+): Record<string, any> => keysToCamelCasePlusTime(rspRec)
 
-const tradeRspRecToPropsRec = (rspRec: ServerApi.TradeRecord): Record<string, any> => keysToCamelCasePlusTime(rspRec, `ledger_close_time`)
+const tradeRspRecToPropsRec = (
+    rspRec: ServerApi.TradeRecord
+): Record<string, any> => keysToCamelCasePlusTime(rspRec, `ledger_close_time`)
 
 /*
  * Helpers

@@ -18,7 +18,7 @@ import { EffectProps } from "~/components/Effect"
 
 export const loader = ({ request }: LoaderArgs): Promise<any> => {
   const server = requestToServer(request)
-  return effects(server).then(effects => json(
+  return effects(server, {}).then(effects => json(
     effects.map(
       (effect: ServerApi.EffectRecord) => ({
         ...effect,

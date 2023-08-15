@@ -48,7 +48,7 @@ export const loader = ({ request }: LoaderArgs) => {
   return Promise.all([
     ledgers(server, { limit: LEDGER_RECORD_LIMIT }),
     transactions(server, { limit: TX_RECORD_LIMIT }),
-    operations({ server, limit: OPERATION_RECORD_LIMIT }),
+    operations(server, { limit: OPERATION_RECORD_LIMIT }),
   ]).then(result =>
     json({
       ledgers: result[0],

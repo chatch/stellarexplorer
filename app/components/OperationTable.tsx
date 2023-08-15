@@ -11,9 +11,7 @@ const filterFn = (event: React.ChangeEvent<HTMLSelectElement>) => {
 
 export interface OperationTableProps {
   compact: boolean
-  // possiblyMoreDataAvailable: boolean
   records: ReadonlyArray<any>
-  // server: HorizonServer,
 };
 
 const getOperationTypeFilter = () => {
