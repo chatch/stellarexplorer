@@ -23,6 +23,7 @@ import it from 'react-intl/locale-data/it'
 import ne from 'react-intl/locale-data/ne'
 import pt from 'react-intl/locale-data/pt'
 
+import ar from 'react-intl/locale-data/ar'
 
 
 
@@ -40,7 +41,7 @@ import haMessages from './languages/hau.json'
 import itMessages from './languages/it'
 import neMessages from './languages/ne'
 import ptMessages from './languages/pt'
-import ptMessages from './languages/ar'
+import arMessages from './languages/ar'
 
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
