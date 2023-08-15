@@ -19,7 +19,7 @@ const serverApiResponseToState = (rsp: ServerApi.CollectionPage<
     ServerApi.TradeRecord |
     ServerApi.TransactionRecord
 >, rspRecordConverterFn: any) => {
-    console.log(`serverApiResponse ${JSON.stringify(rsp, null, 2)}`)
+    // console.log(`serverApiResponse ${JSON.stringify(rsp, null, 2)}`)
     const cursor =
         rsp.records.length > 0 && has(rsp.records[0], 'paging_token')
             ? rsp.records[0].paging_token

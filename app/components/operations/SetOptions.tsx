@@ -19,6 +19,19 @@ export interface SetOptionsProps {
   highThreshold: number
 }
 
+const SET_OPTION_PROP_STRINGS = [
+  'homeDomain',
+  'signerKey',
+  'signerWeight',
+  'masterKeyWeight',
+  'inflationDest',
+  'setFlagsS',
+  'clearFlagsS',
+  'lowThreshold',
+  'medThreshold',
+  'highThreshold',
+]
+
 const dotCase = (str: string): string => snakeCase(str).replace('_', '.')
 
 const Option = ({ msgId, value }: {
@@ -49,6 +62,7 @@ const OptionValue = ({ optKey, value }: {
   ) {
     valueEl = <AccountLink account={valueStr} />
   } else if (optKey === 'signerKey') {
+    console.log(`decodePreAuthTx valueStr: ${valueStr}`)
     // and !isPublicKey (#19)
     const decodedValue =
       valueStr.startsWith('X')
@@ -66,8 +80,7 @@ const OptionsList = (
 ): React.JSX.Element => (
   <span>
     {Object.keys(props)
-      // TODO: replace this as we don't have propTypes anymore:
-      // .filter(p => p in propTypes)
+      .filter(p => SET_OPTION_PROP_STRINGS.includes(p))
       .map((prop: string, idx: number, all) => {
         const propVal: string | number | ReadonlyArray<string> = props[prop] as string
         return (

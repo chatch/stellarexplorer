@@ -71,13 +71,13 @@ const InvokeHostFunction = (props: {
   type: string,
   hostFunctions: HostFunctionParams
 }) => {
-  console.log(`invokehostfunction props: ${JSON.stringify(props, null, 2)}`)
+  // console.log(`invokehostfunction props: ${JSON.stringify(props, null, 2)}`)
   const anyProps = props as any
   return (
     <div>
       <div>{anyProps.type || 'no type'}</div>
       <div>{anyProps.function || 'no fn'}</div>
-      {renderContractParams(anyProps.parameters)}
+      {anyProps.parameters && renderContractParams(anyProps.parameters)}
       {/* < div > { JSON.stringify(anyProps.parameters, null, 2) }</div> */}
     </div >
   )

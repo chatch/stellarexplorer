@@ -7,6 +7,19 @@ const networks: Record<NetworkKey, NetworkKey> = {
     future: 'future',
 }
 
+interface NetworkDetails {
+    networkType: NetworkKey
+    isLocal: boolean
+}
+
+const requestToNetworkDetails = (request: Request): NetworkDetails => {
+    const url = new URL(`http://${request.headers.get('host')}`)
+    return {
+        networkType: hostnameToNetworkType(url.hostname),
+        isLocal: url.hostname.endsWith('.local')
+    }
+}
+
 const hostnameToNetworkType = (hostname: string) => {
     if (hostname === 'steexp.com' || hostname === 'publicnet.local') {
         return networks.public
@@ -20,7 +33,9 @@ const hostnameToNetworkType = (hostname: string) => {
         hostname === 'futurenet.local'
     ) {
         return networks.future
-    } else return networks.local
+    } else {
+        return networks.local
+    }
 }
 
-export { networks as default, hostnameToNetworkType }
+export { networks as default, hostnameToNetworkType, requestToNetworkDetails }

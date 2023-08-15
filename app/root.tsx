@@ -2,18 +2,15 @@ import type { PropsWithChildren } from 'react'
 import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css'
 import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
-import { ClientOnly } from 'remix-utils'
 import stylesheetUrl from '~/styles/styles.css'
 
 import { cssBundleHref } from '@remix-run/css-bundle'
 import {
-  Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useRouteError
+  Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData, useRouteError
 } from '@remix-run/react'
 
 import Footer from './components/layout/Footer'
 import Header from './components/layout/Header'
-import { Spinner } from './components/shared/Spinner'
-import { HorizonServerHandleContext, SorobanServerHandleContext } from './contexts'
 import enMessages from './lib/languages/en.json'
 import frMessages from './lib/languages/fr.json'
 import hiMessages from './lib/languages/hi.json'
@@ -24,22 +21,17 @@ import urMessages from './lib/languages/ur.json'
 import viMessages from './lib/languages/vi.json'
 import zhHansMessages from './lib/languages/zh-Hans.json'
 import zhHantMessages from './lib/languages/zh-Hant.json'
-import { SorobanServer } from './lib/stellar'
-import networks from './lib/stellar/networks'
-import HorizonServer, { defaultNetworkAddresses } from './lib/stellar/server'
 import { storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
 
-import type { LinksFunction } from "@remix-run/node"
+import { json, LoaderArgs, type LinksFunction } from "@remix-run/node"
+import { requestToNetworkDetails } from './lib/stellar/networks'
+
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: bootstrapStyles },
   { rel: "stylesheet", href: stylesheetUrl },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ]
-
-const HOME_PUBLIC = 'https://steexp.com'
-const HOME_TESTNET = 'https://testnet.steexp.com'
-const HOME_FUTURENET = 'https://futurenet.steexp.com'
 
 const storage = storageInit()
 
@@ -68,43 +60,12 @@ const getMessages = (locale: string) => {
   }
 }
 
-const redirectToNetworkAddressFn = (storage: Storage) => (networkAddress: string, href: string) => {
-  console.log(
-    `NETWORK change: to ${networkAddress}`
-  )
-  storage.setItem('networkAddress', networkAddress)
-  if (!href) href = window.location.origin
-  window.location.href = href
-}
-
-// network switcher buttons in the header
-const redirectToNetworkType = (networkType: string) => {
-  let href = HOME_PUBLIC
-  if (window.location.hostname.endsWith('.local')) {
-    href = `http://${networkType}net.local:3000`
-  } else if (networkType === networks.test) {
-    href = HOME_TESTNET
-  } else if (networkType === networks.future) {
-    href = HOME_FUTURENET
-  }
-  window.location.href = href
-}
-
 const languageSwitcherFn = (setLanguage: Function) => (event: any) => {
   const newLanguage = event.target.lang as string
   (storage as Storage).setItem('language', newLanguage)
   setLanguage(newLanguage)
 }
 
-const createHorizonServerHandle = (networkType: string, networkAddress: string, storage: Storage): HorizonServer | null => {
-  try {
-    return new HorizonServer(networkType, networkAddress)
-  } catch (err) {
-    storage.removeItem('networkAddress')
-    window.location.href = `/error/insecure-horizon-server/?${networkAddress}`
-    return null
-  };
-}
 
 function HtmlDocument({
   children,
@@ -141,83 +102,33 @@ function HtmlDocument({
   )
 }
 
+export const loader = async ({ request }: LoaderArgs) => json({ ...requestToNetworkDetails(request) })
+
 export default function App() {
   const [language, setLanguage] = useState('en')
-  const [networkType, setNetworkType] = useState(networks.future)
-  const [networkAddress, setNetworkAddress] = useState(defaultNetworkAddresses.future)
-
-  // TODO: restore initilize / first time logic here:
-
-  // const serverRef = useRef<HorizonServer | null>(null);
-  // const sorobanServerRef = useRef<SorobanServer | null>(null);
-
-  // useEffect(() => {
-  //   const initialLanguage = storage.getItem('language') ||
-  //     navigator.language ||
-  //     'en'
-  //   setLanguage(initialLanguage)
-
-  //   const initialNetworkType = hostnameToNetworkType(window.location.hostname)
-  //   setNetworkType(initialNetworkType)
-
-  //   const initialNetworkAddress = storage.getItem('networkAddress') || defaultNetworkAddresses[initialNetworkType]
-  //   setNetworkAddress(initialNetworkAddress)
-
-  //   console.log(`root.userEffect1 complete with ${initialLanguage} ${initialNetworkType} ${initialNetworkAddress}`)
-  //   console.log(`root.userEffect2 complete with ${language} ${networkType} ${networkAddress}`)
-
-  //   serverRef.current =
-  //     createHorizonServerHandle(initialNetworkType, initialNetworkAddress, storage)
-  //   sorobanServerRef.current = initialNetworkType === 'futurenet' ?
-  //     new SorobanServer(initialNetworkType) : null
-  // },
-  //   []
-  // )
-
-  // console.log(`root.userEffect3 complete with ${language} ${networkType} ${networkAddress}`)
-
-  const server = createHorizonServerHandle(networkType, networkAddress, storage as Storage)
-  const sorobanServer = new SorobanServer(networkType)
-
-
-  // In order to set a memoized server handle we need both useEffect and 
-  // useMemo. The way to achieve that is to use a ref, use the effect and
-  // finally use the memorize:
-  // const server: HorizonServer | null = useMemo(() => serverRef.current, []);
-  // const sorobanServer: SorobanServer | null =
-  //   useMemo(
-  //     () => sorobanServerRef.current,
-  //     []
-  //   );
+  const {
+    networkType,
+    isLocal
+  } = useLoaderData<typeof loader>()
 
   return (
     <HtmlDocument>
       <div className="App">
-        <ClientOnly fallback={<Spinner />}>
-          {() =>
-            <IntlProvider
-              key={language}
-              locale={language}
-              messages={getMessages(language)}
-            >
-              <Header
-                networkAddress={networkAddress}
-                networkType={networkType}
-                setNetworkAddress={redirectToNetworkAddressFn(storage as Storage)}
-                switchNetworkType={redirectToNetworkType}
-                languageSwitcher={languageSwitcherFn(setLanguage)}
-              />
-              <SearchBox />
-              <div id="main-content">
-                <HorizonServerHandleContext.Provider value={server}>
-                  <SorobanServerHandleContext.Provider value={sorobanServer}>
-                    <Outlet />
-                  </SorobanServerHandleContext.Provider>
-                </HorizonServerHandleContext.Provider>
-              </div>
-            </IntlProvider>
-          }
-        </ClientOnly>
+        <IntlProvider
+          key={language}
+          locale={language}
+          messages={getMessages(language)}
+        >
+          <Header
+            languageSwitcher={languageSwitcherFn(setLanguage)}
+            networkType={networkType}
+            networkIsLocal={isLocal}
+          />
+          <SearchBox />
+          <div id="main-content">
+            <Outlet />
+          </div>
+        </IntlProvider>
         <Footer />
       </div>
     </HtmlDocument>

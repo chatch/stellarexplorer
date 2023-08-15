@@ -12,19 +12,15 @@ import NetworkSelector from './NetworkSelector'
 import { NetworkKey } from '~/lib/stellar/networks'
 
 interface HeaderProps {
-  networkAddress: string
-  networkType: NetworkKey
-  setNetworkAddress: Function
-  switchNetworkType: Function
   languageSwitcher: MouseEventHandler
+  networkType: NetworkKey
+  networkIsLocal: boolean
 }
 
 export default function Header({
-  networkAddress,
-  networkType,
-  setNetworkAddress,
-  switchNetworkType,
   languageSwitcher,
+  networkType,
+  networkIsLocal
 }: HeaderProps) {
   const { formatMessage } = useIntl()
   return (
@@ -91,10 +87,8 @@ export default function Header({
         <Nav className="ms-auto">
           <NavItem>
             <NetworkSelector
-              networkAddress={networkAddress}
               networkType={networkType}
-              switchNetworkType={switchNetworkType}
-              setNetworkAddress={setNetworkAddress}
+              networkIsLocal={networkIsLocal}
             />
           </NavItem>
           <NavItem>

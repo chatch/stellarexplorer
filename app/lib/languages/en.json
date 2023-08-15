@@ -138,6 +138,7 @@
   "operation.options.set.master.key_weight": "Master Key Weight: {value}",
   "operation.options.set.signer.key": "Signer Key: {value}",
   "operation.options.set.signer.weight": "Signer Weight: {value}",
+  "operation.options.set.sponsor": "Sponsor: {value}",
   "operation.options.set.high.threshold": "Threshold High {value}",
   "operation.options.set.low.threshold": "Threshold Low: {value}",
   "operation.options.set.med.threshold": "Threshold Medium: {value}",
