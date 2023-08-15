@@ -1,4 +1,5 @@
 import { FormattedRelativeTime } from 'react-intl'
+import { ClientOnly } from 'remix-utils'
 
 /* This is what existed in ole steexp but the component no longer exists in this form.
    
@@ -9,11 +10,15 @@ export default function RelativeTime({ timeStr }: { timeStr: string }) {
   const date = new Date(timeStr)
   const secondsSinceTime: number = (date.valueOf() - Date.now()) / 1000
   return (
-    <FormattedRelativeTime
-      value={secondsSinceTime}
-      numeric='auto'
-      unit='second'
-      updateIntervalInSeconds={10}
-    />
+    <ClientOnly>
+      {() =>
+        <FormattedRelativeTime
+          value={secondsSinceTime}
+          numeric='auto'
+          unit='second'
+          updateIntervalInSeconds={10}
+        />
+      }
+    </ClientOnly>
   )
 } 

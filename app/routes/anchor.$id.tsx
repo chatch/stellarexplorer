@@ -18,7 +18,7 @@ import { LoaderArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 const { anchors } = directory
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = ({ params }: LoaderArgs) => {
   return params.id ? anchors[params.id] : null
 }
 

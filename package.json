@@ -39,6 +39,7 @@
         "big-integer": "^1.6.51",
         "bignumber.js": "^9.1.1",
         "bootstrap": "^5.3.1",
+        "buffer": "6.0.3",
         "fetch-ponyfill": "^7.1.0",
         "isbot": "^3.6.13",
         "js-xdr": "^3.0.0",

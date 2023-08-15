@@ -115,7 +115,7 @@ const filterRecords = (rspText: string, isJson: boolean, filterFn?: Function) =>
   return text
 }
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = ({ params }: LoaderArgs) => {
   console.log(`ENTRY: ${params}`)
 
   const url = params.url as string

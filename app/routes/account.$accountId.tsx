@@ -32,8 +32,7 @@ import Logo from "../components/shared/Logo"
 // import TransactionTable from "../components/TransactionTable"
 import type { LoaderArgs } from "@remix-run/node"
 import { json } from "@remix-run/node"
-import { networks } from "~/lib/stellar"
-import HorizonServer, { defaultNetworkAddresses } from "~/lib/stellar/server"
+import { requestToServer } from "~/lib/stellar/server"
 import type { LoadAccountResult } from "~/lib/stellar/server_request_utils"
 import { loadAccount } from "~/lib/stellar/server_request_utils"
 import type { Horizon, ServerApi } from "stellar-sdk"
@@ -309,11 +308,8 @@ const AccountSummaryCard = ({
   )
 }
 
-export const loader = async ({ params }: LoaderArgs) => {
-  const server = new HorizonServer(
-    networks.future,
-    defaultNetworkAddresses.future
-  )
+export const loader = ({ params, request }: LoaderArgs) => {
+  const server = requestToServer(request)
   return loadAccount(server, params.accountId as string).then(json)
 }
 

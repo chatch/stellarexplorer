@@ -3,6 +3,8 @@ import {tmpdir} from 'os'
 import BigNumber from 'bignumber.js'
 import truncate from 'lodash/truncate'
 
+const Buffer = require('buffer').Buffer
+
 // Amounts in Stellar don't go below 7 decimals
 // So setting the EXPONENTIAL_AT to 8 here ensures all toString() will show the
 // numbers in full form. eg. 0.0000001 (not 1e7) which is what we want for
@@ -26,12 +28,12 @@ const assetKeyToIssuer = key => key.substring(key.indexOf('-') + 1)
 
 const handleFetchDataFailure = id => e => {
   let status
-  if (e.data && e.data.status) status = e.data.status
-  else if (e.response && e.response.status) status = e.response.status
+  if (e.data?.status) status = e.data.status
+  else if (e.response?.status) status = e.response.status
 
   let msg = 'Failed to fetch data:'
   if (status) msg += `\n\tStatus: [${status}]`
-  if (e.response && e.response.status)
+  if (e.response?.status)
     msg += `\n\tStatus: [${e.response.status}]`
   if (e.message) msg += `\n\tMessage: [${e.message}]`
   if (e.stack) msg += `\n\tStack: [${e.stack}]`
@@ -69,7 +71,8 @@ const formatAmount = amount => {
   return new BigNumber(amount).toString()
 }
 
-const setTitle = subTitle => (document.title = `Stellar Explorer | ${subTitle}`)
+const setTitle = subTitle => console.error("FIX ME - new way of setting title")
+// (document.title = `Stellar Explorer | ${subTitle}`)
 
 export {
   assetKeyToIssuer,

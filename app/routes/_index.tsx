@@ -4,8 +4,7 @@ import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import { useIntl } from 'react-intl'
-import { networks, SorobanServer } from '~/lib/stellar'
-import HorizonServer, { defaultNetworkAddresses } from '~/lib/stellar/server'
+import { requestToServer } from '~/lib/stellar/server'
 
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
@@ -20,7 +19,6 @@ import type { OperationTableProps } from '~/components/OperationTable'
 import OperationTable from '~/components/OperationTable'
 import type { LedgerProps } from './ledger.$ledgerId'
 import type { TransactionProps } from './tx.$txHash'
-import { hostnameToNetworkType, requestToNetworkDetails } from '~/lib/stellar/networks'
 
 // App Metadata
 export const meta: V2_MetaFunction = () => {
@@ -45,12 +43,8 @@ const TX_RECORD_LIMIT = 10
 const LEDGER_RECORD_LIMIT = 10
 const OPERATION_RECORD_LIMIT = 25
 
-export const loader = async ({ request }: LoaderArgs) => {
-  const { networkType } = requestToNetworkDetails(request)
-  const server = new HorizonServer(
-    networkType,
-    defaultNetworkAddresses[networkType]
-  )
+export const loader = ({ request }: LoaderArgs) => {
+  const server = requestToServer(request)
   return Promise.all([
     ledgers(server, LEDGER_RECORD_LIMIT),
     transactions(server, undefined, TX_RECORD_LIMIT),

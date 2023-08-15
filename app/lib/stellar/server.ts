@@ -1,4 +1,4 @@
-import networks from './networks'
+import networks, { requestToNetworkDetails } from './networks'
 import sdk from './sdk'
 
 export const defaultNetworkAddresses: Record<string, string> = {
@@ -29,4 +29,12 @@ class HorizonServer extends sdk.Server {
     txURL = (id: string) => `${this.serverURL}transactions/${id}`
 }
 
-export default HorizonServer
+const requestToServer = (request: Request): HorizonServer => {
+    const { networkType } = requestToNetworkDetails(request)
+    return new HorizonServer(
+        networkType,
+        defaultNetworkAddresses[networkType]
+    )
+}
+
+export { HorizonServer as default, requestToServer }

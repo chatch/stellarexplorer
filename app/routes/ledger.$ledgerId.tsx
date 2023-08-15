@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table'
 import { FormattedDate, FormattedMessage, FormattedNumber, FormattedTime, useIntl } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { networks } from '~/lib/stellar'
-import HorizonServer, { defaultNetworkAddresses } from '~/lib/stellar/server'
+import HorizonServer, { defaultNetworkAddresses, requestToServer } from '~/lib/stellar/server'
 
 import { json } from '@remix-run/node'
 
@@ -32,11 +32,8 @@ const DetailRow = ({ label, children }: { label: string, children: any }) => (
   </tr>
 )
 
-export const loader = async ({ params }: LoaderArgs) => {
-  const server = new HorizonServer(
-    networks.future,
-    defaultNetworkAddresses.future
-  )
+export const loader = async ({ params, request }: LoaderArgs) => {
+  const server = requestToServer(request)
   const ledgerSeq = params.ledgerId as string
   return Promise.all([
     ledger(server, ledgerSeq),

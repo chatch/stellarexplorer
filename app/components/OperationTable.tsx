@@ -17,10 +17,11 @@ export interface OperationTableProps {
 };
 
 const getOperationTypeFilter = () => {
-  const opTypeFilter = window.location.search.match(/opTypeFilter=([a-z_]*)/)
-  if (opTypeFilter?.[1]) {
-    return opTypeFilter[1]
-  }
+  console.error("FIXME - can't use window.location - useLocation?")
+  // const opTypeFilter = window.location.search.match(/opTypeFilter=([a-z_]*)/)
+  // if (opTypeFilter?.[1]) {
+  //   return opTypeFilter[1]
+  // }
 }
 
 export default function OperationTable({
@@ -33,7 +34,10 @@ export default function OperationTable({
       {compact === false && (
         <div className="filter">
           <FormattedMessage id="filter.for-operation-type" />:
-          <select onChange={filterFn} defaultValue={getOperationTypeFilter()}>
+          <select
+            onChange={filterFn}
+          // defaultValue={getOperationTypeFilter()}
+          >
             <option />
             {operationTypesKeys.map((type) => (
               <option key={type}>{type}</option>

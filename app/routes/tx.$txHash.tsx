@@ -5,8 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Table from 'react-bootstrap/Table'
 import { FormattedDate, FormattedMessage, FormattedTime, useIntl } from 'react-intl'
 import { Link } from 'react-router-dom'
-import { networks } from '~/lib/stellar'
-import HorizonServer, { defaultNetworkAddresses } from '~/lib/stellar/server'
+import { requestToServer } from '~/lib/stellar/server'
 
 import { json } from '@remix-run/node'
 
@@ -43,11 +42,8 @@ export interface TransactionProps {
   urlFn?: Function
 }
 
-export const loader = async ({ params }: LoaderArgs) => {
-  const server = new HorizonServer(
-    networks.future,
-    defaultNetworkAddresses.future
-  )
+export const loader = ({ params, request }: LoaderArgs) => {
+  const server = requestToServer(request)
   return Promise.all([
     transaction(server, params.txHash as string),
     operations({ server, tx: params.txHash, limit: 10 })
