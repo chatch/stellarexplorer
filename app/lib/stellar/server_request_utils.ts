@@ -20,14 +20,21 @@ import { isPublicKey, isFederatedAddress, isMuxedAddress } from "./utils"
 import type { AccountCallBuilder } from "stellar-sdk/lib/account_call_builder"
 import { TransactionCallBuilder } from "stellar-sdk/lib/transaction_call_builder"
 
-const ledgers = (server: HorizonServer, limit = 5) => {
+interface PageOptions {
+    cursor?: string
+    order?: 'asc' | 'desc'
+    limit?: number
+}
+
+const ledgers = (server: HorizonServer, { limit = 5, cursor, order = 'desc' }: PageOptions) => {
     const callBuilder: LedgerCallBuilder = server.ledgers()
+    if (cursor) {
+        callBuilder.cursor(cursor)
+    }
     callBuilder.limit(limit)
-    callBuilder.order('desc')
+    callBuilder.order(order)
     return callBuilder.call().then((serverRsp) =>
         serverApiResponseToState(serverRsp, ledgerRspRecToPropsRec)
-    ).then(stateProps =>
-        stateProps.records
     )
 }
 
@@ -38,17 +45,23 @@ const ledger = (server: HorizonServer, ledgerSeq: string) => {
     return callBuilder.call().then(ledgerRspRecToPropsRec)
 }
 
-const transactions = (server: HorizonServer, ledgerSeq?: string, limit = 5) => {
+const transactions = (server: HorizonServer, {
+    ledgerSeq,
+    cursor,
+    order = 'desc',
+    limit = 5
+}: PageOptions & { ledgerSeq?: string }) => {
     const callBuilder: TransactionCallBuilder = server.transactions()
     if (ledgerSeq) {
         callBuilder.forLedger(ledgerSeq)
     }
+    if (cursor) {
+        callBuilder.cursor(cursor)
+    }
     callBuilder.limit(limit)
-    callBuilder.order('desc')
+    callBuilder.order(order)
     return callBuilder.call().then((serverRsp) =>
         serverApiResponseToState(serverRsp, transactionRspRecToPropsRec)
-    ).then(stateProps =>
-        stateProps.records
     )
 }
 
@@ -127,8 +140,6 @@ const operations = ({
     return builder.call().then(
         (serverRsp) =>
             serverApiResponseToState(serverRsp, operationRspRecToPropsRec)
-    ).then(stateProps =>
-        stateProps.records
     )
 }
 
@@ -147,9 +158,7 @@ const effects = (
     builder.order('desc')
     return builder.call().then(
         (serverRsp) =>
-            serverApiResponseToState(serverRsp, effectRspRecToPropsRec)
-    ).then(stateProps =>
-        stateProps.records as ReadonlyArray<ServerApi.EffectRecord>
+            serverApiResponseToState(serverRsp, effectRspRecToPropsRec) as ReadonlyArray<ServerApi.EffectRecord>
     )
 }
 
@@ -162,8 +171,6 @@ const payments = (server: HorizonServer, accountId?: string, tx?: string, limit 
     return builder.call().then(
         (serverRsp) =>
             serverApiResponseToState(serverRsp, paymentRspRecToPropsRec)
-    ).then(stateProps =>
-        stateProps.records
     )
 }
 
@@ -175,8 +182,6 @@ const trades = (server: HorizonServer, accountId?: string, limit = 5) => {
     return builder.call().then(
         (serverRsp) =>
             serverApiResponseToState(serverRsp, tradeRspRecToPropsRec)
-    ).then(stateProps =>
-        stateProps.records
     )
 }
 

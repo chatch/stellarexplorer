@@ -5,8 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Table from 'react-bootstrap/Table'
 import { FormattedDate, FormattedMessage, FormattedNumber, FormattedTime, useIntl } from 'react-intl'
 import { Link } from 'react-router-dom'
-import { networks } from '~/lib/stellar'
-import HorizonServer, { defaultNetworkAddresses, requestToServer } from '~/lib/stellar/server'
+import { requestToServer } from '~/lib/stellar/server'
 
 import { json } from '@remix-run/node'
 
@@ -37,7 +36,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   const ledgerSeq = params.ledgerId as string
   return Promise.all([
     ledger(server, ledgerSeq),
-    transactions(server, ledgerSeq)
+    transactions(server, { ledgerSeq })
   ]).then(json)
 }
 

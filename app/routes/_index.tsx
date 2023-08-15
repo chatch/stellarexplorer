@@ -46,8 +46,8 @@ const OPERATION_RECORD_LIMIT = 25
 export const loader = ({ request }: LoaderArgs) => {
   const server = requestToServer(request)
   return Promise.all([
-    ledgers(server, LEDGER_RECORD_LIMIT),
-    transactions(server, undefined, TX_RECORD_LIMIT),
+    ledgers(server, { limit: LEDGER_RECORD_LIMIT }),
+    transactions(server, { limit: TX_RECORD_LIMIT }),
     operations({ server, limit: OPERATION_RECORD_LIMIT }),
   ]).then(result =>
     json({

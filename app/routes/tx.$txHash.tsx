@@ -39,6 +39,7 @@ export interface TransactionProps {
   opCount: number
   operations?: ReadonlyArray<any>
   time: string
+  pagingToken: string
   urlFn?: Function
 }
 

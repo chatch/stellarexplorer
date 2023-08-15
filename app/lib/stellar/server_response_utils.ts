@@ -18,23 +18,7 @@ const serverApiResponseToState = (rsp: ServerApi.CollectionPage<
     ServerApi.PaymentOperationRecord |
     ServerApi.TradeRecord |
     ServerApi.TransactionRecord
->, rspRecordConverterFn: any) => {
-    // console.log(`serverApiResponse ${JSON.stringify(rsp, null, 2)}`)
-    const cursor =
-        rsp.records.length > 0 && has(rsp.records[0], 'paging_token')
-            ? rsp.records[0].paging_token
-            : 0
-    if (cursor === 0) {
-        console.warn('no cursor')
-    }
-    return {
-        isLoading: false,
-        next: rsp.next,
-        prev: rsp.prev,
-        records: rsp.records.map(rspRecordConverterFn),
-        cursor,
-    }
-}
+>, rspRecordConverterFn: any) => rsp.records.map(rspRecordConverterFn)
 
 /*
  * Converters for the various entity types to change to a format used by the
@@ -81,6 +65,7 @@ const transactionRspRecToPropsRec = (rspRec: ServerApi.TransactionRecord): Trans
     fee: rspRec.fee_charged,
     memoType: rspRec.memo_type,
     memo: rspRec.memo,
+    pagingToken: rspRec.paging_token
 })
 
 const operationRspRecToPropsRec = (rspRec: ServerApi.OperationRecord): Record<string, any> => keysToCamelCasePlusTime(rspRec)
