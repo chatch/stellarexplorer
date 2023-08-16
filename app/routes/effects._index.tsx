@@ -19,7 +19,7 @@ import { useEffect } from "react"
 
 export const loader = ({ request }: LoaderArgs): Promise<any> => {
   const server = requestToServer(request)
-  return effects(server, {}).then(effects => json(
+  return effects(server, { limit: 30 }).then(effects => json(
     effects.map(
       (effect: ServerApi.EffectRecord) => ({
         ...effect,

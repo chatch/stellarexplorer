@@ -185,7 +185,7 @@ const Trustline = ({ assetType, assetCode, assetIssuer, limit, trustor }: any) =
     <Asset
       code={assetCode}
       type={assetType}
-      issuer={assetIssuer ? assetIssuer : trustor}
+      issuer={assetIssuer ?? trustor}
     />
     {limit && (
       <span>
@@ -254,7 +254,14 @@ const EffectDetails = ({ effect, op }: any) => {
   return <SubEffectComponent {...effect} op={op} />
 }
 
-function Effect({ effect, showAccount = true }: { effect: EffectProps, showAccount: boolean }) {
+function Effect({
+  effect,
+  showAccount = true,
+}: {
+  effect: EffectProps,
+  showAccount: boolean,
+}) {
+  console.log(JSON.stringify(effect))
   const opId = effect.op.id
   const txHash = effect.op.transaction_hash
   return (
@@ -274,7 +281,7 @@ function Effect({ effect, showAccount = true }: { effect: EffectProps, showAccou
         )}
       </td>
       <td>
-        <RelativeTime timeStr={effect.created_at} />
+        <RelativeTime timeStr={(effect as any).createdAt} />
       </td>
       <td>
         <JSONButton
