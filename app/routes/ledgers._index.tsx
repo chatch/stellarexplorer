@@ -11,6 +11,7 @@ import { setTitle } from '../lib/utils'
 import type { LedgerProps } from './ledger.$ledgerId'
 import Paging from '~/components/shared/Paging'
 import { allRecordsWithPagingLoader } from '~/lib/loader-util'
+import { useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
@@ -18,9 +19,11 @@ export const loader = allRecordsWithPagingLoader(`ledgers`, RECORD_LIMIT)
 
 export default function Ledgers() {
   const { records, cursor }: { records: ReadonlyArray<LedgerProps>, cursor?: string } = useLoaderData<typeof loader>()
-  const { formatMessage } = useIntl()
 
-  setTitle(formatMessage({ id: 'ledgers' }))
+  const { formatMessage } = useIntl()
+  useEffect(() => {
+    setTitle(formatMessage({ id: 'ledgers' }))
+  }, [])
 
   return (
     <Container>

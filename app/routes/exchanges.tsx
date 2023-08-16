@@ -12,6 +12,7 @@ import AccountLink from "../components/shared/AccountLink"
 import Logo from "../components/shared/Logo"
 import NewWindowIcon from "../components/shared/NewWindowIcon"
 import { TitleWithJSONButton } from "~/components/shared/TitleWithJSONButton"
+import { useEffect } from "react"
 
 const METADATA_URI =
   "https://raw.githubusercontent.com/chatch/stellarexplorer/master/src/data/exchanges.json"
@@ -72,7 +73,9 @@ const TableHeader = () => (
 
 export default function Exchanges() {
   const { formatMessage } = useIntl()
-  setTitle("Exchanges")
+  useEffect(() => {
+    setTitle("Exchanges")
+  }, [])
   return (
     <Container>
       <Row>

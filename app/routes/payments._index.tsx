@@ -11,6 +11,7 @@ import { setTitle } from '../lib/utils'
 import type { PaymentProps } from '~/components/operations/Payment'
 import { allRecordsWithPagingLoader } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
+import { useEffect } from 'react'
 
 export const loader = allRecordsWithPagingLoader(`payments`, 30)
 
@@ -21,7 +22,9 @@ export default function Payments() {
   } = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
-  setTitle(formatMessage({ id: 'payments' }))
+  useEffect(() => {
+    setTitle(formatMessage({ id: 'payments' }))
+  }, [])
 
   return (
     <Container>

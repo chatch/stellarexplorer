@@ -18,6 +18,7 @@ import { useLoaderData } from '@remix-run/react'
 import { operations, transaction } from '~/lib/stellar/server_request_utils'
 import ClipboardCopy from '~/components/shared/ClipboardCopy'
 import OperationTable from '~/components/OperationTable'
+import { useEffect } from 'react'
 
 // Lookup memo type to a label
 const memoTypeToLabel: Record<string, string> = Object.freeze({
@@ -47,16 +48,24 @@ export const loader = ({ params, request }: LoaderArgs) => {
   const server = requestToServer(request)
   return Promise.all([
     transaction(server, params.txHash as string),
-    operations({ server, tx: params.txHash, limit: 10 })
+    operations(server, { tx: params.txHash, limit: 10 })
   ]).then(json)
 }
 
 export default function Transaction() {
-  const [{ id, fee, ledger, memoType, memo, opCount, time }, operations]: [tx: Partial<TransactionProps>, operations: any] =
+  const [{ id, fee, ledger, memoType, memo, opCount, time }, operations]: [
+    tx: Partial<TransactionProps>,
+    operations: any
+  ] =
     useLoaderData<typeof loader>()
+
   const { formatMessage } = useIntl()
+  useEffect(() => {
+    setTitle(`${formatMessage({ id: 'transaction' })} ${id}`)
+  }, [])
+
   if (!id) return null
-  setTitle(`${formatMessage({ id: 'transaction' })} ${id}`)
+
   return (
     <Container>
       <Row>

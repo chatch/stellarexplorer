@@ -15,6 +15,7 @@ import NewWindowIcon from "../components/shared/NewWindowIcon"
 
 import directory from "../data/directory"
 import { TitleWithJSONButton } from "~/components/shared/TitleWithJSONButton"
+import { useEffect } from "react"
 const { anchors, assets } = directory
 
 const METADATA_URI =
@@ -63,7 +64,10 @@ function Asset({ code, domain, issuer }: AssetProps) {
 
 export default function Assets() {
   const { formatMessage } = useIntl()
-  setTitle("Assets")
+  useEffect(() => {
+    setTitle("Assets")
+  }, [])
+
   return (
     <Container>
       <Row>

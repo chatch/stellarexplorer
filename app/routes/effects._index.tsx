@@ -15,6 +15,7 @@ import { setTitle } from '../lib/utils'
 
 import { effects } from '~/lib/stellar/server_request_utils'
 import { EffectProps } from "~/components/Effect"
+import { useEffect } from "react"
 
 export const loader = ({ request }: LoaderArgs): Promise<any> => {
   const server = requestToServer(request)
@@ -31,7 +32,9 @@ export const loader = ({ request }: LoaderArgs): Promise<any> => {
 export default function Effects() {
   const effects: ReadonlyArray<EffectProps> = useLoaderData<typeof loader>()
   const { formatMessage } = useIntl()
-  setTitle(formatMessage({ id: 'effects' }))
+  useEffect(() => {
+    setTitle(formatMessage({ id: 'effects' }))
+  }, [])
   return (
     <Container>
       <Row>

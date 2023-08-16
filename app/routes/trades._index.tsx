@@ -11,6 +11,7 @@ import { setTitle } from '../lib/utils'
 
 import { allRecordsWithPagingLoader } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
+import { useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
@@ -23,7 +24,9 @@ export default function Trades() {
   } = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
-  setTitle(formatMessage({ id: 'trades' }))
+  useEffect(() => {
+    setTitle(formatMessage({ id: 'trades' }))
+  }, [])
 
   return (
     <Container>

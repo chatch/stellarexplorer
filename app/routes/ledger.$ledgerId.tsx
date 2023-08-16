@@ -18,6 +18,7 @@ import TransactionTable from '~/components/TransactionTable'
 import { setTitle, shortHash } from '~/lib/utils'
 import { stroopsToLumens } from '~/lib/stellar/utils'
 import Col from 'react-bootstrap/Col'
+import { useEffect } from 'react'
 
 
 const ledgerHash = (hash: string) => shortHash(hash, 20)
@@ -81,12 +82,13 @@ export default function Ledger() {
     failedTransactionCount
   }, transactions]: [LedgerProps, any] =
     useLoaderData<typeof loader>()
+
   const { formatMessage } = useIntl()
+  useEffect(() => {
+    setTitle(`${formatMessage({ id: 'ledger' })} ${sequence}`)
+  }, [])
 
   if (!id) return null
-
-  setTitle(`${formatMessage({ id: 'ledger' })} ${id}`)
-  // setTitle(`Ledger ${rsp.sequence}`);
 
   return (
     <Container>

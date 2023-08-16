@@ -16,6 +16,7 @@ import { assetKeyToIssuer, setTitle } from "../lib/utils"
 
 import directory from "../data/directory"
 import { TitleWithJSONButton } from "~/components/shared/TitleWithJSONButton"
+import { useEffect } from "react"
 const { anchors } = directory
 
 const METADATA_URI =
@@ -105,8 +106,10 @@ const Anchor = ({ assets, domain, displayName, website }: AnchorProps) => {
 
 export default function Anchors() {
   const { formatMessage } = useIntl()
+  useEffect(() => {
+    setTitle("Anchors")
+  }, [])
   if (!anchors) return null
-  setTitle("Anchors")
   return (
     <Container>
       <Row>

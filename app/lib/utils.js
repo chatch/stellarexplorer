@@ -71,8 +71,7 @@ const formatAmount = amount => {
   return new BigNumber(amount).toString()
 }
 
-const setTitle = subTitle => console.error("FIX ME - new way of setting title")
-// (document.title = `Stellar Explorer | ${subTitle}`)
+const setTitle = subTitle => document.title = `Stellar Explorer | ${subTitle}`
 
 export {
   assetKeyToIssuer,

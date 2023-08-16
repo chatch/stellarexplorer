@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { useLoaderData } from '@remix-run/react'
 
 import TransactionTable from '../components/TransactionTable'
@@ -11,6 +11,7 @@ import { setTitle } from '../lib/utils'
 import type { TransactionProps } from './tx.$txHash'
 import Paging from '~/components/shared/Paging'
 import { allRecordsWithPagingLoader } from '~/lib/loader-util'
+import { useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
@@ -22,8 +23,9 @@ export default function Transactions() {
     cursor?: string
   } = useLoaderData<typeof loader>()
 
-  const { formatMessage } = useIntl()
-  setTitle(formatMessage({ id: 'transactions' }))
+  useEffect(() => {
+    setTitle(`Transactions`)
+  }, [])
 
   return (
     <Container>

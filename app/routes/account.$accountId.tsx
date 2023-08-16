@@ -1,4 +1,4 @@
-import React, { useState, type MouseEventHandler } from "react"
+import React, { useState, type MouseEventHandler, useEffect } from "react"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
 import Card from "react-bootstrap/Card"
@@ -236,9 +236,9 @@ const AccountSummaryCard = ({
   knownAccounts: Record<string, KnownAccountProps>,
 }) => {
   const { formatMessage } = useIntl()
-
-  setTitle(`Account ${account.id}`)
-
+  useEffect(() => {
+    setTitle(`Account ${account.id}`)
+  }, [])
   return (
     <Card>
       <CardHeader>

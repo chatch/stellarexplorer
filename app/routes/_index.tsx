@@ -19,6 +19,8 @@ import type { OperationTableProps } from '~/components/OperationTable'
 import OperationTable from '~/components/OperationTable'
 import type { LedgerProps } from './ledger.$ledgerId'
 import type { TransactionProps } from './tx.$txHash'
+import { useEffect } from 'react'
+import { setTitle } from '~/lib/utils'
 
 // App Metadata
 export const meta: V2_MetaFunction = () => {
@@ -59,7 +61,6 @@ export const loader = ({ request }: LoaderArgs) => {
 }
 
 export default function Home() {
-  const { formatMessage } = useIntl()
   const {
     ledgers,
     transactions,
@@ -70,7 +71,11 @@ export default function Home() {
     operations: ReadonlyArray<OperationTableProps>
   } = useLoaderData<typeof loader>()
 
-  // setTitle('Home')
+  const { formatMessage } = useIntl()
+  useEffect(() => {
+    setTitle('Home')
+  }, [])
+
   const viewAllStr = formatMessage({ id: 'view.all' })
 
   return (
