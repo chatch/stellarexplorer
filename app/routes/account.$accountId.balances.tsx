@@ -82,7 +82,7 @@ export default function BalancesTab() {
   }
 
   const balances = accountResult.account.balances as ReadonlyArray<Balance>
-  console.log(balances)
+
   return (
     <Balances balances={balances} />
   )

@@ -1,4 +1,4 @@
-import React, { type MouseEventHandler, useEffect } from "react"
+import React, { type MouseEventHandler, useEffect, useState } from "react"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
 import Card from "react-bootstrap/Card"
@@ -23,7 +23,7 @@ import { requestToServer } from "~/lib/stellar/server"
 import type { LoadAccountResult } from "~/lib/stellar/server_request_utils"
 import { loadAccount } from "~/lib/stellar/server_request_utils"
 import type { ServerApi } from "stellar-sdk"
-import { NavLink, Outlet, useLoaderData } from "@remix-run/react"
+import { NavLink, Outlet, useLoaderData, useLocation } from "@remix-run/react"
 
 
 // exists in @types/react-bootstrap however can't seem to resolve it
@@ -62,7 +62,7 @@ const AccountSummaryCard = ({
     setTitle(`Account ${account.id}`)
   }, [])
   return (
-    <Card>
+    <Card id="account-summary-card">
       <CardHeader>
         {titleWithJSONButton(
           formatMessage({ id: "account" }),
@@ -78,7 +78,7 @@ const AccountSummaryCard = ({
                   <FormattedMessage id="key.public" />:
                 </Col>
                 <Col md={9}>
-                  <span className="break" style={{ color: "white" }}>
+                  <span id="account-id" className="break">
                     {account.id}
                   </span>
                   <ClipboardCopy text={account.id} />
@@ -130,18 +130,49 @@ const AccountSummaryCard = ({
   )
 }
 
+const TabLink = ({
+  base,
+  title,
+  activeTab,
+  path = title?.toLowerCase()
+}: {
+  base: string,
+  title: string,
+  activeTab: string,
+  path?: string
+}) => (
+  <NavLink
+    to={`${base}/${path}`}
+    className={activeTab == path ? 'account-tab-active' : ''}>
+    {title}
+  </NavLink>
+)
+
+const pathToTabName = (path: string) => {
+  const match = /\/account\/[^\/]*\/([a-z]*)/.exec(path)
+  return match ? match[1] : 'balances'
+}
+
 export const loader = ({ params, request }: LoaderArgs) => {
   const server = requestToServer(request)
   return loadAccount(server, params.accountId as string).then(json)
 }
 
 export default function Account() {
+  const [activeTab, setActiveTab] = useState('data')
+
   const accountResult: LoadAccountResult =
     useLoaderData<typeof loader>() as LoadAccountResult
 
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    setActiveTab(pathToTabName(pathname))
+  }, [pathname])
+
   const { account, muxedAddress, federatedAddress } = accountResult
 
-  const accountUrl = `/account/${account.id}`
+  const base = `/account/${account.id}`
 
   return (
     <Container>
@@ -158,20 +189,20 @@ export default function Account() {
           knownAccounts={knownAccounts}
         />
       </Row>
-      <Row style={{ backgroundColor: '#383f4b' }}>
-        <nav id="sidebar">
-          <NavLink to={`${accountUrl}/balances`}>Balances</NavLink>
-          <NavLink to={`${accountUrl}/payments`}>Payments</NavLink>
-          <NavLink to={`${accountUrl}/offers`}>Offers</NavLink>
-          <NavLink to={`${accountUrl}/trades`}>Trades</NavLink>
-          <NavLink to={`${accountUrl}/effects`}>Effects</NavLink>
-          <NavLink to={`${accountUrl}/operations`}>Operations</NavLink>
-          <NavLink to={`${accountUrl}/txs`}>Transactions</NavLink>
-          <NavLink to={`${accountUrl}/signing`}>Signing</NavLink>
-          <NavLink to={`${accountUrl}/flags`}>Flags</NavLink>
-          <NavLink to={`${accountUrl}/data`}>Data</NavLink>
+      <Row>
+        <nav id="account-nav">
+          <TabLink base={base} activeTab={activeTab} title="Balances" />
+          <TabLink base={base} activeTab={activeTab} title="Payments" />
+          <TabLink base={base} activeTab={activeTab} title="Offers" />
+          <TabLink base={base} activeTab={activeTab} title="Trades" />
+          <TabLink base={base} activeTab={activeTab} title="Effects" />
+          <TabLink base={base} activeTab={activeTab} title="Operations" />
+          <TabLink base={base} activeTab={activeTab} title="Transactions" path="txs" />
+          <TabLink base={base} activeTab={activeTab} title="Signing" />
+          <TabLink base={base} activeTab={activeTab} title="Flags" />
+          <TabLink base={base} activeTab={activeTab} title="Data" />
         </nav>
-        <div>
+        <div id="account-tab-content">
           <Outlet />
         </div>
       </Row>

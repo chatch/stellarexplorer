@@ -1,5 +1,4 @@
 import { MouseEventHandler } from "react"
-import Pagination from "react-bootstrap/Pagination"
 import { FormattedMessage } from "react-intl"
 
 interface PagingControlsProps {
@@ -12,20 +11,20 @@ const PagingControls = ({
   handleClickNext,
   handleClickPrev,
   hidePrev
-}: PagingControlsProps) => (
-  <Pagination>
+}: PagingControlsProps) =>
+(
+  <div id="paging-controls">
     {!hidePrev && (
-      <Pagination.Prev onClick={handleClickPrev} href="#">
+      <button onClick={handleClickPrev}>
         &larr; <FormattedMessage id="paging.prev" />
-      </Pagination.Prev>
+      </button>
     )}
-    <Pagination.Next
-      // next 
-      onClick={handleClickNext}
-      href="#">
+
+    <button onClick={handleClickNext} style={{ float: 'right' }}>
       <FormattedMessage id="paging.next" /> &rarr;
-    </Pagination.Next>
-  </Pagination>
+    </button>
+  </div>
 )
+
 
 export default PagingControls

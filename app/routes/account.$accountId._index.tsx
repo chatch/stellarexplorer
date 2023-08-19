@@ -1,3 +1,3 @@
-import BalanceTab from './account.$accountId.balances'
+import BalanceTab, { loader } from './account.$accountId.balances'
 
-export default BalanceTab
+export { BalanceTab as default, loader }

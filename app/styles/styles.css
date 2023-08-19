@@ -55,8 +55,6 @@ table {
   padding-right: 15px;
 }
 
-/* #help-modal .search-sub-heading { */
-
 #help-modal .search-sub-heading {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -72,11 +70,6 @@ table {
 .modal-body {
   background-color: #383f4b;
 }
-
-/* 
-.modal-body>div {
-  margin-bottom: 40px;
-} */
 
 .modal-body h5 {
   text-decoration: underline;
@@ -103,17 +96,6 @@ table {
   height: 50px;
   line-height: 20px;
 }
-
-/* 
-.navbar-toggler-steexp {
-  border-color: #ddd;
-  margin-right: 15px;
-  padding: 2px 5px;
-  font-size: 20px;
-  height: 20px;
-  width: 20px;
-  /* color: white; */
-/* } */
 
 .brand-text {
   color: white;
@@ -303,7 +285,7 @@ table {
 #search-container {
   padding-left: 0;
   padding-right: 0;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 #search-container input {
@@ -422,31 +404,43 @@ table {
   background-color: #fece3a !important;
 }
 
-#account-tabs {
-  border: 1px solid #383f4b !important;
-  border-radius: 0 !important;
-  background: #383f4b;
+#account-id {
+  color: white;
+  font-size: 14px;
 }
 
-#account-tabs .nav-tabs {
-  border: 1px solid #383f4b !important;
+#account-nav {
+  background-color: #383f4b;
 }
 
-#account-tabs .nav-tabs li {
+#account-nav>a {
   color: #96a2b4;
+  padding: 10px 15px;
+  margin-right: 2px;
+  line-height: 3;
+  text-decoration: none;
+  font-size: 14px;
+  border: 1px solid transparent;
+  border-bottom: 2px solid #ddd !important;
 }
 
-#account-tabs .nav-tabs>li>a {
-  border-bottom: 2px solid;
-}
-
-#account-tabs .nav-tabs>li.active>a {
-  border-bottom: 2px solid white;
+#account-nav>a:hover {
+  background-color: #3c4452 !important;
   color: #01c0c8;
 }
 
-#account-tabs .table>tbody>tr>td {
-  border-top: 1px solid #96a2b4;
+#account-summary-card {
+  margin-bottom: 15px;
+}
+
+#account-tab-content {
+  background-color: #383f4b;
+  padding: 10px 20px;
+}
+
+.account-tab-active {
+  color: #01c0c8 !important;
+  background-color: white;
 }
 
 #csv-export {
@@ -460,22 +454,6 @@ table {
 
 .tab-content {
   padding: 15px !important;
-}
-
-a[id|="account-tabs-tab"] {
-  color: #96a2b4;
-}
-
-a[id|="account-tabs-tab"]:hover {
-  color: #01c0c8 !important;
-  background-color: #3c4452 !important;
-  border: 1px solid #3c4452;
-  border-bottom: 2px solid #01c0c8 !important;
-  border-color: #3c4452 !important;
-}
-
-a[id|="account-tabs-tab"][aria-selected="true"] {
-  color: #01c0c8 !important;
 }
 
 .account-badge a {
@@ -512,24 +490,21 @@ a[id|="account-tabs-tab"][aria-selected="true"] {
   padding-bottom: 50px;
 }
 
-.pager {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-top: 1px solid #4c5667;
-  margin-top: 0;
-  margin-bottom: 0;
+#paging-controls {
+  margin-bottom: 5px;
 }
 
-.pager li a {
-  background-color: #353c48;
+#paging-controls button {
+  background-color: #353c48 !important;
   color: #96a2b4;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid rgba(120, 130, 140, 0.28);
   border-radius: 0;
-  border-color: rgba(120, 130, 140, 0.28);
 }
 
-.pager li a:hover,
-.pager li a:focus {
-  background-color: #3c4452;
+#paging-controls button:hover {
+  background-color: #3c4452 !important;
 }
 
 a {
@@ -545,13 +520,9 @@ a:hover {
   border-radius: 60px !important;
   color: white !important;
   padding: 4px 12px 4px !important;
-  font-weight: 500 !important;
   background-color: #01c0c8 !important;
   font-size: 14px !important;
   font-weight: 400 !important;
-  /* position: absolute;
-  right: 15px;
-  top: 3px; */
 }
 
 .col-md-1 a span:hover {
