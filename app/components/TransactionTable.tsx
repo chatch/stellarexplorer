@@ -9,8 +9,8 @@ import TransactionHash from './shared/TransactionHash'
 import type { TransactionProps } from '~/routes/tx.$txHash'
 
 interface TransactionViewOptions {
-  showLedger: boolean
-  showSource: boolean
+  showLedger?: boolean
+  showSource?: boolean
 }
 
 interface ParentProps {

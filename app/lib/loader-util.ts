@@ -2,14 +2,16 @@ import { LoaderArgs, json } from "@remix-run/node"
 import { requestToServer } from "./stellar/server"
 import * as serverRequestUtils from "./stellar/server_request_utils"
 
-type ServerReqFnName =
+export type ServerReqFnName =
+    | 'effects'
     | 'ledgers'
-    | 'transactions'
+    | 'offers'
     | 'operations'
     | 'payments'
     | 'trades'
+    | 'transactions'
 
-export const allRecordsWithPagingLoader = (
+export const horizonRecordsLoader = (
     serverReqFnName: ServerReqFnName,
     limit: number
 ) => ({ request }: LoaderArgs) => {

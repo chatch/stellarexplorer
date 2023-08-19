@@ -9,13 +9,13 @@ import type { TradeProps } from '../components/TradeTable'
 import TradeTable from '../components/TradeTable'
 import { setTitle } from '../lib/utils'
 
-import { allRecordsWithPagingLoader } from '~/lib/loader-util'
+import { horizonRecordsLoader } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
 import { useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
-export const loader = allRecordsWithPagingLoader(`trades`, RECORD_LIMIT)
+export const loader = horizonRecordsLoader(`trades`, RECORD_LIMIT)
 
 export default function Trades() {
   const { records, cursor }: {

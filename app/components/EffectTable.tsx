@@ -14,6 +14,7 @@ export default function EffectTable({
   showAccount = true,
   account,
 }: EffectTableProps) {
+  console.log(JSON.stringify(records, null, 2))
   return (
     <div>
       <Table

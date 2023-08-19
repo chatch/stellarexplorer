@@ -10,12 +10,12 @@ import { setTitle } from '../lib/utils'
 
 import type { TransactionProps } from './tx.$txHash'
 import Paging from '~/components/shared/Paging'
-import { allRecordsWithPagingLoader } from '~/lib/loader-util'
+import { horizonRecordsLoader } from '~/lib/loader-util'
 import { useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
-export const loader = allRecordsWithPagingLoader(`transactions`, RECORD_LIMIT)
+export const loader = horizonRecordsLoader(`transactions`, RECORD_LIMIT)
 
 export default function Transactions() {
   const { records, cursor }: {

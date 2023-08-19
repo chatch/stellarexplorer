@@ -15,6 +15,7 @@ const serverApiResponseToState = (rsp: ServerApi.CollectionPage<
     ServerApi.EffectRecord |
     ServerApi.LedgerRecord |
     ServerApi.OperationRecord |
+    ServerApi.OfferRecord |
     ServerApi.PaymentOperationRecord |
     ServerApi.TradeRecord |
     ServerApi.TransactionRecord
@@ -80,6 +81,12 @@ const paymentRspRecToPropsRec = (
     rspRec: ServerApi.PaymentOperationRecord
 ): Record<string, any> => keysToCamelCasePlusTime(rspRec)
 
+const offersRspRecToPropsRec = (
+    rspRec:
+        | ServerApi.PassiveOfferOperationRecord
+        | ServerApi.ManageOfferOperationRecord
+): Record<string, any> => keysToCamelCasePlusTime(rspRec)
+
 const tradeRspRecToPropsRec = (
     rspRec: ServerApi.TradeRecord
 ): Record<string, any> => keysToCamelCasePlusTime(rspRec, `ledger_close_time`)
@@ -99,6 +106,7 @@ export {
     serverApiResponseToState,
     effectRspRecToPropsRec,
     ledgerRspRecToPropsRec,
+    offersRspRecToPropsRec,
     operationRspRecToPropsRec,
     paymentRspRecToPropsRec,
     tradeRspRecToPropsRec,

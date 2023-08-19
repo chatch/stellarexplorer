@@ -9,15 +9,15 @@ import PaymentTable from '../components/PaymentTable'
 import { setTitle } from '../lib/utils'
 
 import type { PaymentProps } from '~/components/operations/Payment'
-import { allRecordsWithPagingLoader } from '~/lib/loader-util'
+import { horizonRecordsLoader } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
 import { useEffect } from 'react'
 
-export const loader = allRecordsWithPagingLoader(`payments`, 30)
+export const loader = horizonRecordsLoader(`payments`, 30)
 
 export default function Payments() {
   const { records, cursor }: {
-    records: ReadonlyArray<PaymentProps>,
+    records?: ReadonlyArray<PaymentProps>,
     cursor?: string
   } = useLoaderData<typeof loader>()
 

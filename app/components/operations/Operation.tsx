@@ -49,7 +49,12 @@ const OperationTypeToComponentMap = {
 
 type OperationTypes = keyof typeof OperationTypeToComponentMap
 
-interface OperationRecordProps extends AllowTrustProps, CreateAccountProps, ManageDataProps, PathPaymentProps, SetOptionsProps {
+interface OperationRecordProps extends
+  AllowTrustProps,
+  CreateAccountProps,
+  ManageDataProps,
+  PathPaymentProps,
+  SetOptionsProps {
   id: string
   type: OperationTypes
   limit: number

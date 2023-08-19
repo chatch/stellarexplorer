@@ -3,6 +3,7 @@ import type HorizonServer from "./server"
 import {
     effectRspRecToPropsRec,
     ledgerRspRecToPropsRec,
+    offersRspRecToPropsRec,
     operationRspRecToPropsRec,
     paymentRspRecToPropsRec,
     serverApiResponseToState,
@@ -19,6 +20,7 @@ import { handleFetchDataFailure } from "../utils"
 import { isPublicKey, isFederatedAddress, isMuxedAddress } from "./utils"
 import type { AccountCallBuilder } from "stellar-sdk/lib/account_call_builder"
 import { TransactionCallBuilder } from "stellar-sdk/lib/transaction_call_builder"
+import { OfferCallBuilder } from "stellar-sdk/lib/offer_call_builder"
 
 interface PageOptions {
     cursor?: string
@@ -47,13 +49,17 @@ const ledger = (server: HorizonServer, ledgerSeq: string) => {
 
 const transactions = (server: HorizonServer, {
     ledgerSeq,
+    accountId,
     cursor,
     order = 'desc',
     limit = 5
-}: PageOptions & { ledgerSeq?: string }) => {
+}: PageOptions & { ledgerSeq?: string, accountId?: string }) => {
     const builder: TransactionCallBuilder = server.transactions()
     if (ledgerSeq) {
         builder.forLedger(ledgerSeq)
+    }
+    if (accountId) {
+        builder.forAccount(accountId)
     }
     if (cursor) {
         builder.cursor(cursor)
@@ -78,8 +84,10 @@ export interface LoadAccountResult {
     muxedAddress?: string
 }
 
-const loadAccount = (server: HorizonServer, accountId: string):
-    Promise<LoadAccountResult> => {
+const loadAccount = (
+    server: HorizonServer,
+    accountId: string
+): Promise<LoadAccountResult> => {
     if (isPublicKey(accountId)) {
         return loadAccountByKey(server, accountId)
     } else if (isFederatedAddress(accountId)) {
@@ -118,6 +126,7 @@ const loadAccountFromServer = (
     server: HorizonServer, accountId: string
 ): Promise<{ account: ServerApi.AccountRecord }> => {
     const builder: AccountCallBuilder = server.accounts()
+    console.log(`lookup account  ${JSON.stringify(accountId, null, 2)}`)
     return builder.accountId(accountId).call().then(account => ({ account }))
 }
 
@@ -195,6 +204,26 @@ const payments = (server: HorizonServer, {
     )
 }
 
+const offers = (server: HorizonServer, {
+    accountId,
+    cursor,
+    order = 'desc',
+    limit = 5
+}: PageOptions & { accountId?: string }) => {
+    const builder: OfferCallBuilder = server.offers()
+
+    if (accountId) builder.forAccount(accountId)
+
+    if (cursor) builder.cursor(cursor)
+    builder.limit(limit)
+    builder.order(order)
+
+    return builder.call().then(
+        (serverRsp) =>
+            serverApiResponseToState(serverRsp, offersRspRecToPropsRec)
+    )
+}
+
 const trades = (server: HorizonServer, {
     accountId,
     cursor,
@@ -218,6 +247,7 @@ export {
     effects,
     ledgers,
     ledger,
+    offers,
     operations,
     payments,
     trades,

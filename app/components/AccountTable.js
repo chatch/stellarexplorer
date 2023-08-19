@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FormattedTime, FormattedDate, FormattedMessage } from "react-intl";
 
 import { withServer } from "./shared/HOCs";
-import { isDefInt, shortHash } from "../lib/utils";
+import { shortHash } from "../lib/utils";
 import { withSpinner } from "./shared/Spinner";
 
 class AccountRow extends React.Component {
@@ -37,7 +37,7 @@ class AccountTable extends React.Component {
 
   render() {
     return (
-      <Table id="Account-table">
+      <Table id="account-table">
         <thead>
           <tr>
             <th>#</th>
@@ -73,16 +73,6 @@ class AccountTableContainer extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.timerID);
-  }
-
-  accounts() {
-    const limit = isDefInt(this.props, "limit")
-      ? this.props.limit
-      : this.DEFAULT_LIMIT;
-    const builder = this.props.server.accounts();
-    builder.limit(limit);
-    builder.order("desc");
-    return builder.call();
   }
 
   update() {

@@ -8,13 +8,13 @@ import { useLoaderData } from '@remix-run/react'
 import OperationTable from '../components/OperationTable'
 import { setTitle } from '../lib/utils'
 
-import { allRecordsWithPagingLoader } from '~/lib/loader-util'
+import { horizonRecordsLoader } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
 import { useEffect } from 'react'
 
 const RECORD_LIMIT = 30
 
-export const loader = allRecordsWithPagingLoader(`operations`, RECORD_LIMIT)
+export const loader = horizonRecordsLoader(`operations`, RECORD_LIMIT)
 
 export default function Operations() {
   const { records, cursor }: { records: ReadonlyArray<any>, cursor?: string } = useLoaderData<typeof loader>()

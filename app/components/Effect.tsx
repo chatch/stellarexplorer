@@ -261,9 +261,8 @@ function Effect({
   effect: EffectProps,
   showAccount: boolean,
 }) {
-  console.log(JSON.stringify(effect))
-  const opId = effect.op.id
-  const txHash = effect.op.transaction_hash
+  const opId = effect.op?.id
+  const txHash = effect.op?.transaction_hash
   return (
     <tr key={effect.id} id={effect.id} className="effect">
       {showAccount && (
@@ -276,7 +275,7 @@ function Effect({
         <EffectDetails effect={effect} op={effect.op} />
       </td>
       <td>
-        {txHash != null && (
+        {txHash && (
           <TransactionHash hash={txHash} compact={true} />
         )}
       </td>
@@ -284,10 +283,12 @@ function Effect({
         <RelativeTime timeStr={(effect as any).createdAt} />
       </td>
       <td>
-        <JSONButton
-          url={`/operations/${opId}/effects?limit=200&order=desc`}
-          filterFn={filterEffectsFn(effect.id)}
-        />
+        {opId &&
+          <JSONButton
+            url={`/operations/${opId}/effects?limit=200&order=desc`}
+            filterFn={filterEffectsFn(effect.id)}
+          />
+        }
       </td>
     </tr>
   )

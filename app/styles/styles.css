@@ -458,8 +458,8 @@ table {
   border: none;
 }
 
-div[id|="account-tabs-pane"] {
-  padding: 15px;
+.tab-content {
+  padding: 15px !important;
 }
 
 a[id|="account-tabs-tab"] {
@@ -570,7 +570,6 @@ a:hover {
   font-weight: 500 !important;
   background-color: #01c0c8 !important;
   font-size: 14px !important;
-  font-weight: 400 !important;
   transition: all 0.18s ease-in-out;
 }
 
