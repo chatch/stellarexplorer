@@ -14,10 +14,10 @@ import { useEffect } from 'react'
 
 const RECORD_LIMIT = 30
 
-export const loader = horizonRecordsLoader(`operations`, RECORD_LIMIT)
+export const loader = horizonRecordsLoader<ReadonlyArray<any>>(`operations`, RECORD_LIMIT)
 
 export default function Operations() {
-  const { records, cursor }: { records: ReadonlyArray<any>, cursor?: string } = useLoaderData<typeof loader>()
+  const { records, cursor } = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {

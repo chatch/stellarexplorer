@@ -1,18 +1,16 @@
-/**
- * By default, Remix will handle generating the HTTP Response for you.
- * You are free to delete this file if you'd like to, but if you ever want it revealed again, you can run `npx remix reveal` ✨
- * For more information, see https://remix.run/file-conventions/entry.server
- */
+import { PassThrough } from "stream"
 
-import { PassThrough } from "node:stream";
+import { Response } from "@remix-run/node" // or cloudflare/deno
+import type {
+  AppLoadContext,
+  EntryContext,
+  Headers,
+} from "@remix-run/node" // or cloudflare/deno
+import { RemixServer } from "@remix-run/react"
+import isbot from "isbot"
+import { renderToPipeableStream } from "react-dom/server"
 
-import type { AppLoadContext, EntryContext } from "@remix-run/node";
-import { Response } from "@remix-run/node";
-import { RemixServer } from "@remix-run/react";
-import isbot from "isbot";
-import { renderToPipeableStream } from "react-dom/server";
-
-const ABORT_DELAY = 5_000;
+const ABORT_DELAY = 5000
 
 export default function handleRequest(
   request: Request,
@@ -21,22 +19,27 @@ export default function handleRequest(
   remixContext: EntryContext,
   loadContext: AppLoadContext
 ) {
-  return isbot(request.headers.get("user-agent"))
-    ? handleBotRequest(
-        request,
-        responseStatusCode,
-        responseHeaders,
-        remixContext
-      )
-    : handleBrowserRequest(
-        request,
-        responseStatusCode,
-        responseHeaders,
-        remixContext
-      );
+  // If the request is from a bot, we want to wait for the full
+  // response to render before sending it to the client. This
+  // ensures that bots can see the full page content.
+  if (isbot(request.headers.get("user-agent"))) {
+    return serveTheBots(
+      request,
+      responseStatusCode,
+      responseHeaders,
+      remixContext
+    )
+  }
+
+  return serveBrowsers(
+    request,
+    responseStatusCode,
+    responseHeaders,
+    remixContext
+  )
 }
 
-function handleBotRequest(
+function serveTheBots(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
@@ -50,41 +53,35 @@ function handleBotRequest(
         abortDelay={ABORT_DELAY}
       />,
       {
+        // Use onAllReady to wait for the entire document to be ready
         onAllReady() {
-          const body = new PassThrough();
-
-          responseHeaders.set("Content-Type", "text/html");
-
+          responseHeaders.set("Content-Type", "text/html")
+          const body = new PassThrough()
+          pipe(body)
           resolve(
             new Response(body, {
-              headers: responseHeaders,
               status: responseStatusCode,
+              headers: responseHeaders,
             })
-          );
-
-          pipe(body);
+          )
         },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          responseStatusCode = 500;
-          console.error(error);
+        onShellError(err: unknown) {
+          reject(err)
         },
       }
-    );
-
-    setTimeout(abort, ABORT_DELAY);
-  });
+    )
+    setTimeout(abort, ABORT_DELAY)
+  })
 }
 
-function handleBrowserRequest(
+function serveBrowsers(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
   return new Promise((resolve, reject) => {
+    let didError = false
     const { pipe, abort } = renderToPipeableStream(
       <RemixServer
         context={remixContext}
@@ -92,30 +89,27 @@ function handleBrowserRequest(
         abortDelay={ABORT_DELAY}
       />,
       {
+        // use onShellReady to wait until a suspense boundary is triggered
         onShellReady() {
-          const body = new PassThrough();
-
-          responseHeaders.set("Content-Type", "text/html");
-
+          responseHeaders.set("Content-Type", "text/html")
+          const body = new PassThrough()
+          pipe(body)
           resolve(
             new Response(body, {
+              status: didError ? 500 : responseStatusCode,
               headers: responseHeaders,
-              status: responseStatusCode,
             })
-          );
-
-          pipe(body);
+          )
         },
-        onShellError(error: unknown) {
-          reject(error);
+        onShellError(err: unknown) {
+          reject(err)
         },
-        onError(error: unknown) {
-          console.error(error);
-          responseStatusCode = 500;
+        onError(err: unknown) {
+          didError = true
+          console.error(err)
         },
       }
-    );
-
-    setTimeout(abort, ABORT_DELAY);
-  });
+    )
+    setTimeout(abort, ABORT_DELAY)
+  })
 }

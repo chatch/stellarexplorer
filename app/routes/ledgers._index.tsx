@@ -15,10 +15,10 @@ import { useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
-export const loader = horizonRecordsLoader(`ledgers`, RECORD_LIMIT)
+export const loader = horizonRecordsLoader<ReadonlyArray<LedgerProps>>(`ledgers`, RECORD_LIMIT)
 
 export default function Ledgers() {
-  const { records, cursor }: { records: ReadonlyArray<LedgerProps>, cursor?: string } = useLoaderData<typeof loader>()
+  const { records, cursor } = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {

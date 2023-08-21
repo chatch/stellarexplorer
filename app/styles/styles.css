@@ -490,6 +490,13 @@ table {
   padding-bottom: 50px;
 }
 
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 #paging-controls {
   margin-bottom: 5px;
 }
