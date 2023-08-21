@@ -10,16 +10,15 @@ import { setTitle } from '../lib/utils'
 
 import type { TransactionProps } from './tx.$txHash'
 import Paging from '~/components/shared/Paging'
-import { horizonRecordsLoader, horizonRecordsLoaderWithDefer } from '~/lib/loader-util'
+import { horizonRecordsLoaderWithDefer } from '~/lib/loader-util'
 import { Suspense, useEffect } from 'react'
-import { Spinner } from '~/components/shared/Spinner'
 
 const RECORD_LIMIT = 20
 
 export const loader = horizonRecordsLoaderWithDefer<ReadonlyArray<TransactionProps>>(`transactions`, RECORD_LIMIT)
 
 export default function Transactions() {
-  const data = useLoaderData<typeof loader>()
+  const { response } = useLoaderData<typeof loader>()
 
   useEffect(() => {
     setTitle(`Transactions`)
@@ -37,7 +36,7 @@ export default function Transactions() {
               fallback={<p>Loading ...</p>}
             >
               <Await
-                resolve={data.response}
+                resolve={response}
                 errorElement={
                   <p>Error loading data</p>
                 }

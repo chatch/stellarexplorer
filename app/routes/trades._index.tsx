@@ -3,25 +3,22 @@ import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useLoaderData } from '@remix-run/react'
+import { Await, useLoaderData } from '@remix-run/react'
 
 import type { TradeProps } from '../components/TradeTable'
 import TradeTable from '../components/TradeTable'
 import { setTitle } from '../lib/utils'
 
-import { horizonRecordsLoader } from '~/lib/loader-util'
+import { horizonRecordsLoaderWithDefer } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
-export const loader = horizonRecordsLoader(`trades`, RECORD_LIMIT)
+export const loader = horizonRecordsLoaderWithDefer<ReadonlyArray<TradeProps>>(`trades`, RECORD_LIMIT)
 
 export default function Trades() {
-  const { records, cursor }: {
-    records: ReadonlyArray<TradeProps>,
-    cursor?: string
-  } = useLoaderData<typeof loader>()
+  const { response } = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -36,15 +33,29 @@ export default function Trades() {
             <FormattedMessage id="trades" />
           </CardHeader>
           <Card.Body>
-            <Paging
-              baseUrl='/trades'
-              records={records}
-              currentCursor={cursor}>
-              <TradeTable
-                records={records}
-              // limit={20}
-              />
-            </Paging>
+            <Suspense
+              fallback={<p>Loading ...</p>}
+            >
+              <Await
+                resolve={response}
+                errorElement={
+                  <p>Error loading data</p>
+                }
+              >
+                {({ records, cursor }) =>
+
+                  <Paging
+                    baseUrl='/trades'
+                    records={records}
+                    currentCursor={cursor}>
+                    <TradeTable
+                      records={records}
+                    // limit={20}
+                    />
+                  </Paging>
+                }
+              </Await>
+            </Suspense>
           </Card.Body>
         </Card>
       </Row>

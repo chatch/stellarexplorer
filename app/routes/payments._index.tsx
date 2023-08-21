@@ -3,23 +3,20 @@ import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useLoaderData } from '@remix-run/react'
+import { Await, useLoaderData } from '@remix-run/react'
 
 import PaymentTable from '../components/PaymentTable'
 import { setTitle } from '../lib/utils'
 
 import type { PaymentProps } from '~/components/operations/Payment'
-import { horizonRecordsLoader } from '~/lib/loader-util'
+import { horizonRecordsLoaderWithDefer } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 
-export const loader = horizonRecordsLoader(`payments`, 30)
+export const loader = horizonRecordsLoaderWithDefer<ReadonlyArray<PaymentProps>>(`payments`, 30)
 
 export default function Payments() {
-  const { records, cursor }: {
-    records?: ReadonlyArray<PaymentProps>,
-    cursor?: string
-  } = useLoaderData<typeof loader>()
+  const { response } = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -34,18 +31,31 @@ export default function Payments() {
             <FormattedMessage id="payments" />
           </CardHeader>
           <Card.Body>
-            <Paging
-              baseUrl='/payments'
-              records={records}
-              currentCursor={cursor}>
-              <PaymentTable
-                records={records}
-                // showPayment
-                // showSource
-                compact={false}
-              // limit={20}
-              />
-            </Paging>
+            <Suspense
+              fallback={<p>Loading ...</p>}
+            >
+              <Await
+                resolve={response}
+                errorElement={
+                  <p>Error loading data</p>
+                }
+              >
+                {({ records, cursor }) =>
+                  <Paging
+                    baseUrl='/payments'
+                    records={records}
+                    currentCursor={cursor}>
+                    <PaymentTable
+                      records={records}
+                      // showPayment
+                      // showSource
+                      compact={false}
+                    // limit={20}
+                    />
+                  </Paging>
+                }
+              </Await>
+            </Suspense>
           </Card.Body>
         </Card>
       </Row>

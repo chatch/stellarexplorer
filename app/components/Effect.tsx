@@ -13,7 +13,7 @@ import TransactionHash from "./shared/TransactionHash"
 
 import { base64Decode } from "../lib/utils"
 
-export type EffectProps = ServerApi.EffectRecord & { op: ServerApi.OperationRecord }
+export type EffectProps = ServerApi.EffectRecord & { op?: ServerApi.OperationRecord }
 
 const AccountCreated = ({ account, startingBalance }: any) => (
   <span>

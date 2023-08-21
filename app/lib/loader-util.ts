@@ -1,4 +1,4 @@
-import { LoaderArgs, TypedDeferredData, TypedResponse, defer, json } from "@remix-run/node"
+import { LoaderArgs, TypedResponse, defer, json } from "@remix-run/node"
 import { requestToServer } from "./stellar/server"
 import * as serverRequestUtils from "./stellar/server_request_utils"
 
@@ -35,9 +35,6 @@ export function horizonRecordsLoader<RecordsType>(
         }))
     }
 }
-
-const sleep = (seconds: number): Promise<number> =>
-    new Promise((resolve) => setTimeout(resolve, seconds * 1000))
 
 export function horizonRecordsLoaderWithDefer<RecordsType>(
     serverReqFnName: ServerReqFnName,
