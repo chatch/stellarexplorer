@@ -1,5 +1,6 @@
+import {StrKey as SorobanStrKey} from 'soroban-client'
+
 import {StrKey} from './sdk'
-import {StrKey as SorobanStrKey} from './strkey_soroban'
 
 const STROOPS_PER_LUMEN = 10000000
 const stroopsToLumens = stroops => stroops / STROOPS_PER_LUMEN

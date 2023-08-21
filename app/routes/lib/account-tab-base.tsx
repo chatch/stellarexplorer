@@ -52,6 +52,10 @@ const accountTabComponent = function <loaderFnType>(
       setTitle(`Account ${name} ${accountId}`)
     }, [])
 
+    if (!records || records.length == 0) {
+      return <div style={{ marginTop: 20, marginBottom: 20 }}>No Records</div>
+    }
+
     return (
       <Container>
         <Row>

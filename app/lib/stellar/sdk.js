@@ -1,11 +1,3 @@
-// Reverting back to stellar-sdk until steexp stack is upgraded.
-//
-// soroban-client has ES2020 code (big number 'n' literals and others)
-//   and it's non trivial to upgrade babel/webpack here to make it
-//   work ...
-// 
-// TODO:
-//  import sdk from 'soroban-client'
 import sdk from 'stellar-sdk'
 
 import URI from 'urijs'
@@ -107,8 +99,6 @@ export {
   MemoReturn,
   MuxedAccount,
   StrKey,
-// TODO: see comment at top of file, restore to this after stack upgrade:
-// } from 'soroban-client'
-} from 'stellar-sdk'
+} from 'soroban-client'
 
 export default sdk 

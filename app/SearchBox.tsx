@@ -15,6 +15,7 @@ import { redirect } from "react-router-dom"
 import { searchStrToPath } from "./lib/search"
 import { isSecretKey } from "./lib/stellar/utils"
 import { useState } from "react"
+import { useNavigate } from "@remix-run/react"
 
 const HelpModal = ({ showHelp, handleCloseFn }: { showHelp: boolean, handleCloseFn: () => void }) => (
   <Modal id="help-modal" show={showHelp} onHide={handleCloseFn}>
@@ -144,24 +145,27 @@ export default function SearchBox() {
   const [searchStr, setSearchStr] = useState('')
   const [showHelp, setShowHelp] = useState(false)
 
+  const navigate = useNavigate()
+
   const handleCloseFn = () => setShowHelp(false)
   const handleClickFn = () => setShowHelp(true)
 
   const searchHandler = (event: any) => {
-    console.log(`searchHandler entry`)
+    console.log(`searchHandler entry" ${searchStr}`)
+    event.preventDefault()
 
-    // event.preventDefault()
     const matchPath = searchStrToPath(searchStr)
-
-    if (matchPath == null)
-      return
-
-    redirect(matchPath)
+    console.log(`matchPath ${matchPath}`)
 
     // #62 security: clear search box if user put the secret key there
     if (isSecretKey(searchStr)) {
       setSearchStr("")
     }
+
+    if (matchPath == null)
+      return
+
+    return navigate(matchPath)
   }
 
   return (

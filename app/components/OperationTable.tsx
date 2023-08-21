@@ -29,7 +29,8 @@ export default function OperationTable({
 }: OperationTableProps) {
   return (
     <div>
-      {compact === false && (
+      {/* TODO: restore the filter  */}
+      {/* {compact === false && (
         <div className="filter">
           <FormattedMessage id="filter.for-operation-type" />:
           <select
@@ -41,14 +42,14 @@ export default function OperationTable({
               <option key={type}>{type}</option>
             ))}
           </select>
-          <br />
-          {/* {getOperationTypeFilter() && possiblyMoreDataAvailable && (
+          <br /> */}
+      {/* {getOperationTypeFilter() && possiblyMoreDataAvailable && (
             <span className="disclaimer">
               <FormattedMessage id="filter.more-data-possibly-available" />
             </span>
           )} */}
-        </div>
-      )}
+      {/* </div>
+      )} */}
       <Table
         id="operation-table"
         className="table-striped table-hover table-condensed"

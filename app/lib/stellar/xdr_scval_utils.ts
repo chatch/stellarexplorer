@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js'
 import bigInt from 'big-integer'
-import { StrKey } from './strkey_soroban'
-import xdr from './xdr_soroban'
+import { StrKey, xdr } from 'soroban-client'
 
 // function copied from https://github.com/stellar/soroban-example-dapp/blob/main/convert.ts
 // License: Apache 2.0
