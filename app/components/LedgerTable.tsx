@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl'
 import { Link } from 'react-router-dom'
 
 import RelativeTime from './shared/RelativeTime'
-import { Spinner } from './shared/Spinner'
 import type { LedgerProps } from '~/routes/ledger.$ledgerId'
 
 interface ParentProps {
@@ -65,7 +64,7 @@ export default function LedgerTable({ compact, records }: LedgerTableProps) {
         </tr>
       </thead>
       <tbody>
-        {records == null ? <Spinner /> :
+        {records == null ? <p> Loading ...</p> :
           records.map((ledger: LedgerProps) => (
             <LedgerRow
               compact={compact}

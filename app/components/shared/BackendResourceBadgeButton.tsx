@@ -1,16 +1,12 @@
 import { MouseEventHandler, useState } from "react"
-import CopyToClipboard from "react-copy-to-clipboard"
 import JSONPretty from "react-json-pretty"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
 
 import NewWindowIcon from "./NewWindowIcon"
 
-import FetchPonyfill from "fetch-ponyfill"
 import { useLoaderData } from "@remix-run/react"
 import { LoaderArgs, json } from "@remix-run/node"
-
-const fetch = FetchPonyfill().fetch
 
 /**
  * Button that reveals a backend resouce at 'url' when clicked.
@@ -39,16 +35,15 @@ const ClipboardCopyButton = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false)
   const handleClickCopyFn = () => setCopied(true)
   return (
-    <CopyToClipboard text={text} onCopy={handleClickCopyFn}>
-      <span>
-        <Button
-          style={{ backgroundColor: "#08b5e5", color: "white", border: 0 }}
-        >
-          Copy
-        </Button>
-        {copied && <span style={{ marginLeft: 5 }}>Copied!</span>}
-      </span>
-    </CopyToClipboard>
+    <span>
+      <Button
+        style={{ backgroundColor: "#08b5e5", color: "white", border: 0 }}
+        onClick={handleClickCopyFn}
+      >
+        Copy
+      </Button>
+      {copied && <span style={{ marginLeft: 5 }}>Copied!</span>}
+    </span>
   )
 }
 

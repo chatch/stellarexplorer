@@ -13,7 +13,6 @@ import {xdr} from '../lib/stellar'
 import {handleFetchDataFailure} from '../lib/utils'
 import ClipboardCopy from './shared/ClipboardCopy'
 import {withSorobanServer} from './shared/HOCs'
-import {withSpinner} from './shared/Spinner'
 import {titleWithJSONButton} from './shared/TitleWithJSONButton'
 
 function hexStringToBytes(hexString) {
