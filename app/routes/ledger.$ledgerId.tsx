@@ -98,7 +98,7 @@ export default function Ledger() {
             <TitleWithJSONButton
               title={formatMessage({ id: "ledger" })}
               titleSecondary={String(sequence)}
-              url={`/ledgers/${id}`} />
+              url={`https://horizon-futurenet.stellar.org/ledgers/${sequence}`} />
           </CardHeader>
           <Card.Body>
             <Container>

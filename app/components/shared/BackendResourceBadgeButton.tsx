@@ -1,12 +1,64 @@
-import { MouseEventHandler, useState } from "react"
+import { MouseEventHandler, useEffect, useState } from "react"
 import JSONPretty from "react-json-pretty"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
 
 import NewWindowIcon from "./NewWindowIcon"
+import { Spinner } from "react-bootstrap"
 
-import { useLoaderData } from "@remix-run/react"
-import { LoaderArgs, json } from "@remix-run/node"
+type FilterFn = (data: any) => string
+
+interface BackendResourceBadgeButtonWithResourceModalProps {
+  filterFn?: FilterFn
+  label: string
+  url: string
+}
+
+interface BackendResourceBadgeButtonProps {
+  handleClickFn: MouseEventHandler<HTMLAnchorElement>
+  label: string
+};
+
+interface FetchDataResponse {
+  textRaw: string
+  isJson: boolean
+}
+
+interface ResourceModalProps {
+  filterFn?: FilterFn
+  handleCloseFn: () => void
+  url: string
+}
+
+/**
+ * Support filtering JSON responses.
+ *
+ * If filterFn property is a function then run it on the records[] in the
+ * response.
+ */
+const filterRecords = (
+  rspText: string,
+  isJson: boolean,
+  filterFn?: FilterFn
+) => {
+  let text = rspText
+  if (isJson === true && typeof filterFn === "function") {
+    const records = JSON.parse(rspText)["_embedded"].records
+    text = filterFn(records)
+    // if not found then revert to the original source
+    if (text == null) text = rspText
+  }
+  return text
+}
+
+const isJsonResponse = (rsp: Response, url: string) => url.endsWith(".json") ||
+  (rsp.headers.has("content-type") &&
+    rsp.headers.get("content-type")?.indexOf("json") !== -1)
+
+const fetchData = (url: string): Promise<FetchDataResponse> =>
+  fetch(url).
+    then((rsp) => Promise.all([rsp.text(), isJsonResponse(rsp, url)])).
+    then(result => ({ textRaw: result[0], isJson: result[1] }))
 
 /**
  * Button that reveals a backend resouce at 'url' when clicked.
@@ -14,17 +66,12 @@ import { LoaderArgs, json } from "@remix-run/node"
  * Used to show the underlying JSON that a view was rendered with OR for
  * showing a related resource, eg. an anchor's server.toml file.
  */
-
-interface BackendResourceBadgeButtonProps {
-  handleClickFn: MouseEventHandler<HTMLAnchorElement>
-  label: string
-  url: string
-};
-
-const BackendResourceBadgeButton = ({ handleClickFn, label, url }: BackendResourceBadgeButtonProps) => (
+const BackendResourceBadgeButton = ({
+  handleClickFn,
+  label
+}: BackendResourceBadgeButtonProps) => (
   <a
     className="backend-resource-badge-button"
-    href={url}
     onClick={handleClickFn}
   >
     {label}
@@ -33,7 +80,10 @@ const BackendResourceBadgeButton = ({ handleClickFn, label, url }: BackendResour
 
 const ClipboardCopyButton = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false)
-  const handleClickCopyFn = () => setCopied(true)
+  const handleClickCopyFn = () => {
+    navigator.clipboard.writeText(text)
+    setCopied(true)
+  }
   return (
     <span>
       <Button
@@ -47,101 +97,62 @@ const ClipboardCopyButton = ({ text }: { text: string }) => {
   )
 }
 
-interface ResourceModalProps {
-  handleCloseFn: () => void
-  isJson: boolean
-  show: boolean
-  text: string
-  url: string
-}
+const ResourceModalBody = ({
+  filterFn,
+  url,
+  text,
+  setText
+}: Omit<ResourceModalProps, 'handleCloseFn'> &
+  { text: string, setText: Function }) => {
+  const [isJson, setIsJson] = useState(false)
 
-const ResourceModalBody = ({ isJson, text, url }: Partial<ResourceModalProps>) => (
-  <div>
-    <div className="break" style={{ marginBottom: 15 }}>
-      <a href={url} target="_blank" rel="noreferrer">
-        {url}
-        <NewWindowIcon />
-      </a>
-    </div>
-    <div>
-      {isJson ? <JSONPretty id="json-pretty" json={text} /> : <pre>{text}</pre>}
-    </div>
-  </div>
-)
-
-const ResourceModal = ({ handleCloseFn, isJson, show, text, url }: ResourceModalProps) => (
-  <Modal id="resourceModal" show={show} onHide={handleCloseFn}>
-    <Modal.Header closeButton>
-      <ClipboardCopyButton text={text} />
-    </Modal.Header>
-    <Modal.Body>
-      <ResourceModalBody isJson={isJson} text={text} url={url} />
-    </Modal.Body>
-  </Modal>
-)
-
-
-interface ResourceModalContainerProps {
-  handleCloseFn: () => void
-  filterFn?: (data: any) => string
-  label: string
-  url: string
-}
-
-const isJsonResponse = (rsp: Response, url: string) => url.endsWith(".json") ||
-  (rsp.headers.has("content-type") &&
-    rsp.headers.get("content-type")?.indexOf("json") !== -1)
-
-
-/**
- * Support filtering JSON responses.
- *
- * If filterFn property is a function then run it on the records[] in the
- * response.
- */
-const filterRecords = (rspText: string, isJson: boolean, filterFn?: Function) => {
-  let text = rspText
-  if (isJson === true && typeof filterFn === "function") {
-    const records = JSON.parse(rspText)["_embedded"].records
-    text = filterFn(records)
-    // if not found then revert to the original source
-    if (text == null) text = rspText
-  }
-  return text
-}
-
-export const loader = ({ params }: LoaderArgs) => {
-  console.log(`ENTRY: ${params}`)
-
-  const url = params.url as string
-  return fetch(url).
-    then((rsp) => Promise.all([rsp.text().then(text => {
-      console.log(`TEXT: ${text}`)
-      return text
-    }), isJsonResponse(rsp, url)])).
-    then(result => json({ textRaw: result[0], isJson: result[1] }))
-}
-
-function ResourceModalContainer({ filterFn, handleCloseFn, label, url }: ResourceModalContainerProps) {
-  console.log(`ENTRY: ${url}`)
-
-  const { textRaw, isJson }: { textRaw: string, isJson: boolean } =
-    useLoaderData<typeof loader>()
-
-  const text = filterRecords(textRaw, isJson, filterFn)
+  useEffect(() => {
+    fetchData(url).then((result: FetchDataResponse) => {
+      setIsJson(result.isJson)
+      setText(filterRecords(result.textRaw, result.isJson, filterFn))
+    })
+  }, [url])
 
   return (
-    <ResourceModal
-      handleCloseFn={handleCloseFn}
-      isJson={isJson}
-      show
-      text={text}
-      url={url}
-    />
+    <div>
+      <div id="backend-resource-url" className="break">
+        <a href={url} target="_blank" rel="noreferrer">
+          {url}
+          <NewWindowIcon />
+        </a>
+      </div>
+      <div>
+        {!text && <Spinner />}
+        {text && text.length > 0 && (isJson ?
+          <JSONPretty id="json-pretty" json={text} /> :
+          <pre>{text}</pre>)
+        }
+      </div>
+    </div>
   )
 }
 
-type BackendResourceBadgeButtonWithResourceModalProps = Omit<ResourceModalContainerProps, 'handleCloseFn'>
+const ResourceModal = ({
+  handleCloseFn,
+  filterFn,
+  url
+}: ResourceModalProps) => {
+  const [text, setText] = useState('')
+  return (
+    <Modal id="resourceModal" show onHide={handleCloseFn}>
+      <Modal.Header closeButton>
+        <ClipboardCopyButton text={text} />
+      </Modal.Header>
+      <Modal.Body>
+        <ResourceModalBody
+          url={url}
+          filterFn={filterFn}
+          text={text}
+          setText={setText} />
+      </Modal.Body>
+    </Modal>
+  )
+}
 
 export default function BackendResourceBadgeButtonWithResourceModal({
   filterFn,
@@ -158,18 +169,14 @@ export default function BackendResourceBadgeButtonWithResourceModal({
       <BackendResourceBadgeButton
         label={label}
         handleClickFn={handleClickFn}
-        url={url}
       />
       {show && (
-        <ResourceModalContainer
+        <ResourceModal
           filterFn={filterFn}
           handleCloseFn={handleCloseFn}
-          label={label}
-          // show={show}
           url={url}
         />
       )}
     </span>
   )
-
 }

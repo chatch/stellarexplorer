@@ -99,8 +99,7 @@ export default function BalancesTab() {
           <Signers signers={account.signers} />
         </Col>
         <Col
-          md={3}
-          mdOffset={1}
+          md={{ span: 3, offset: 1 }}
           style={{ border: "1px solid white", marginTop: 30 }}
         >
           <h4>

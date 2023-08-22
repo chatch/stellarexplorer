@@ -1,13 +1,15 @@
 import type { PropsWithChildren } from 'react'
-import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css'
 import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
-import stylesheetUrl from '~/styles/styles.css'
-
 import { cssBundleHref } from '@remix-run/css-bundle'
+import { json, LoaderArgs, type LinksFunction } from "@remix-run/node"
 import {
   Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData, useRouteError
 } from '@remix-run/react'
+
+import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css'
+import jsonPrettyStyles from 'react-json-pretty/themes/1337.css'
+import siteStyles from '~/styles/styles.css'
 
 import Footer from './components/layout/Footer'
 import Header from './components/layout/Header'
@@ -21,15 +23,16 @@ import urMessages from './lib/languages/ur.json'
 import viMessages from './lib/languages/vi.json'
 import zhHansMessages from './lib/languages/zh-Hans.json'
 import zhHantMessages from './lib/languages/zh-Hant.json'
+
+import { requestToNetworkDetails } from './lib/stellar/networks'
 import { storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
 
-import { json, LoaderArgs, type LinksFunction } from "@remix-run/node"
-import { requestToNetworkDetails } from './lib/stellar/networks'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: bootstrapStyles },
-  { rel: "stylesheet", href: stylesheetUrl },
+  { rel: "stylesheet", href: jsonPrettyStyles },
+  { rel: "stylesheet", href: siteStyles },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ]
 

@@ -121,7 +121,7 @@ const Operation = ({ compact, op }: OperationProps) => {
         </span>
       </td>
       <td>
-        <JSONButton url={`/operations/${op.id}`} filterFn={undefined} />
+        <JSONButton url={`https://horizon-futurenet.stellar.org/operations/${op.id}`} filterFn={undefined} />
       </td>
     </tr>
   )

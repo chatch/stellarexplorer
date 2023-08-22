@@ -6,16 +6,15 @@ import FormControl from "react-bootstrap/FormControl"
 import InputGroup from "react-bootstrap/InputGroup"
 import Modal from "react-bootstrap/Modal"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSearch, faCircleInfo } from "@fortawesome/free-solid-svg-icons"
-
 import { useIntl } from "react-intl"
-import { redirect } from "react-router-dom"
 
 import { searchStrToPath } from "./lib/search"
 import { isSecretKey } from "./lib/stellar/utils"
 import { useState } from "react"
 import { useNavigate } from "@remix-run/react"
+
+import searchSvg from '../public/search.svg'
+import infoCircleSvg from '../public/info-circle.svg'
 
 const HelpModal = ({ showHelp, handleCloseFn }: { showHelp: boolean, handleCloseFn: () => void }) => (
   <Modal id="help-modal" show={showHelp} onHide={handleCloseFn}>
@@ -183,14 +182,15 @@ export default function SearchBox() {
                 value={searchStr}
               />
               <InputGroup.Text>
-                <FontAwesomeIcon
-                  icon={faSearch}
-                  onClick={searchHandler}
+                <img
+                  src={searchSvg}
+                  style={{ color: '#4c5667', height: 16, width: 16 }}
                 />
               </InputGroup.Text>
               <InputGroup.Text style={{ background: 'none', border: 0, color: 'white', fontSize: 20 }}>
-                <FontAwesomeIcon
-                  icon={faCircleInfo}
+                <img
+                  src={infoCircleSvg}
+                  style={{ color: 'white', height: 24, width: 24 }}
                   onClick={handleClickFn}
                 />
               </InputGroup.Text>

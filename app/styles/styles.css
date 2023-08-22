@@ -75,9 +75,9 @@ table {
   text-decoration: underline;
 }
 
-.modal-body img {
+/* .modal-body img {
   margin-top: 10px;
-}
+} */
 
 .modal-body input[type="text"] {
   width: 100%;
@@ -86,6 +86,23 @@ table {
 .modal-body input {
   margin-bottom: 10px;
 }
+
+.modal-dialog {
+  max-width: 600px;
+  margin: 30px auto
+}
+
+.__json-pretty__ {
+  padding: 15px;
+  border: 1px white solid;
+  font-size: 13px;
+}
+
+#backend-resource-url {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
 
 /*
  * Bootstrap components and styles

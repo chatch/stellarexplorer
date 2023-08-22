@@ -14,7 +14,7 @@ function ClipboardCopy({ text }: { text: string }) {
   const [copied, setCopied] = useState(false)
 
   const handleCopyFn = () => {
-    navigator.clipboard.writeText(text).then(res => console.log(`res: ${res}`)).catch(error => console.error(error))
+    navigator.clipboard.writeText(text)
     setCopied(true)
     setTimeout(() => setCopied(false), 10000)
   }

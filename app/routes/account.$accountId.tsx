@@ -1,4 +1,4 @@
-import React, { type MouseEventHandler, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
 import Card from "react-bootstrap/Card"
@@ -7,8 +7,7 @@ import Row from "react-bootstrap/Row"
 import { FormattedMessage, useIntl } from "react-intl"
 import has from "lodash/has"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faInfo } from "@fortawesome/free-solid-svg-icons"
+import infoSvg from '../../public/info-solid.svg'
 
 import type { KnownAccountProps } from "../data/known_accounts"
 import knownAccounts from "../data/known_accounts"
@@ -33,10 +32,13 @@ export interface SelectCallback extends React.EventHandler<any> {
   (eventKey: any, e: React.SyntheticEvent<{}>): void
 }
 
-const MuxedAccountInfoCard = ({ address, handleClickFn }: { address: string, handleClickFn?: MouseEventHandler<SVGSVGElement> }) => {
+const MuxedAccountInfoCard = ({ address }: { address: string }) => {
   return (
     <Card>
-      <FontAwesomeIcon icon={faInfo} onClick={handleClickFn} />
+      <img
+        src={infoSvg}
+        style={{ color: 'white', height: 14, width: 14, marginLeft: 10 }}
+      />
       &nbsp; NOTE: This view shows the base account of the multiplexed account
       &nbsp;
       <span style={{ color: "white", overflowWrap: "break-word" }}>
@@ -184,7 +186,7 @@ export default function Account() {
       <Row>
         <AccountSummaryCard
           account={account}
-          accountUrl={`/account/${account.id}`}
+          accountUrl={`https://horizon-futurenet.stellar.org/accounts/${account.id}`}
           federatedAddress={federatedAddress}
           knownAccounts={knownAccounts}
         />
