@@ -75,10 +75,6 @@ table {
   text-decoration: underline;
 }
 
-/* .modal-body img {
-  margin-top: 10px;
-} */
-
 .modal-body input[type="text"] {
   width: 100%;
 }
@@ -103,6 +99,13 @@ table {
   font-size: 14px;
 }
 
+/* server.toml: */
+.modal-body pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+  color: #333;
+  font-size: 12px;
+}
 
 /*
  * Bootstrap components and styles
