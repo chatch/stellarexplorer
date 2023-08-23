@@ -4,8 +4,8 @@ import truncate from 'lodash/truncate'
 import { xdr } from '../../lib/stellar'
 import {
   scValToAddress,
-  scvalToBigNumber,
 } from '../../lib/stellar/xdr_scval_utils'
+import { scValToNative } from 'soroban-client'
 
 type HostFunctionParams = any // TODO: restore this after seeing live data: ReadonlyArray<Record<'key' | 'value' | 'type', string>>
 
@@ -31,7 +31,7 @@ const scValToString = (type: string, scVal: any) => {
     case 'U128':
     case 'I128':
     case 'I256':
-      str = scvalToBigNumber(scVal).toNumber()
+      str = String(scValToNative(scVal))
       break
     case '':
     case 'Void': // not seeing this yet but assuming it will be changed from '' to 'Void' at some point
