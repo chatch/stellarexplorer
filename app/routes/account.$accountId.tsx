@@ -173,7 +173,6 @@ export default function Account() {
     setActiveTab(pathToTabName(pathname))
   }, [pathname])
 
-
   return (
     <Container>
       <Suspense

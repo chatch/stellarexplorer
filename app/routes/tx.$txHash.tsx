@@ -16,7 +16,6 @@ import { base64DecodeToHex, setTitle } from '../lib/utils'
 import type { LoaderArgs } from "@remix-run/node"
 import { useLoaderData } from '@remix-run/react'
 import { operations, transaction } from '~/lib/stellar/server_request_utils'
-import ClipboardCopy from '~/components/shared/ClipboardCopy'
 import OperationTable from '~/components/OperationTable'
 import { useEffect } from 'react'
 
