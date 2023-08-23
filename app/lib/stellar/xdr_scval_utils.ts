@@ -108,7 +108,7 @@ export function scValToAddress(
         case xdr.ScAddressType.scAddressTypeAccount():
             return StrKey.encodeEd25519PublicKey(addr.accountId().ed25519())
         case xdr.ScAddressType.scAddressTypeContract():
-            return StrKey.encodeContract(addr.contractId)
+            return StrKey.encodeContract(addr.contractId())
         default:
             return 'unknown address type ...'
     }

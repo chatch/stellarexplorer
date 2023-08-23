@@ -1,6 +1,6 @@
 import networks, { requestToNetworkDetails } from './networks'
 import sdk from './sdk'
-import SorobanServer from './server_soroban'
+import SorobanServer, { sorobanRpcURIs } from './server_soroban'
 
 export const defaultNetworkAddresses: Record<string, string> = {
     public: 'https://horizon.stellar.org',
@@ -10,9 +10,7 @@ export const defaultNetworkAddresses: Record<string, string> = {
 }
 
 /**
- * Wrap the stellar-sdk Server hiding setup of horizon addresses and adding
- * some helper functions. These helpers are more easily mocked for testing then
- * direct use of sdk fluent api.
+ * Wrap the stellar-sdk Server.
  */
 class HorizonServer extends sdk.Server {
     constructor(networkType: string, networkAddress: string) {
@@ -31,8 +29,12 @@ const requestToServer = (request: Request): HorizonServer => {
 
 const requestToSorobanServer = (request: Request): SorobanServer => {
     const { networkType } = requestToNetworkDetails(request)
+    if (![networks.future, networks.local].includes(networkType)) {
+        throw new Error(`network ${networkType} not yet supported by Soroban / Stellar Explorer`)
+    }
     return new SorobanServer(
         networkType,
+        sorobanRpcURIs[networkType]
     )
 }
 

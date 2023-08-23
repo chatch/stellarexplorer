@@ -11,7 +11,6 @@ type HostFunctionParams = any // TODO: restore this after seeing live data: Read
 
 const scValToString = (type: string, scVal: any) => {
   let str
-  console.log(`type: ${type}`)
   switch (type) {
     case 'Bytes':
       str = scVal.bytes().toString('hex')
@@ -51,7 +50,6 @@ const scValToString = (type: string, scVal: any) => {
 
 const invokeFunctionParamsRawtoRendered = (params: HostFunctionParams) =>
   params.map((p: any) => {
-    console.log(`${p.type}:${p.value}`)
     let scVal = xdr.ScVal.fromXDR(p.value, 'base64')
     let renderStr = scValToString(p.type, scVal) || p.value
     return { key: p.type || 'Void', value: renderStr }
@@ -78,9 +76,7 @@ interface InvokeHostFunctionProps {
   salt: string
 }
 const InvokeHostFunction = (props: InvokeHostFunctionProps) => {
-  console.log(`invokehostfunction props: ${JSON.stringify(props, null, 2)}`)
   const {
-    type,
     parameters,
     function: functionName,
   } = props

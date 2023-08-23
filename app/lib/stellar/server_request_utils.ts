@@ -126,7 +126,6 @@ const loadAccountFromServer = (
     server: HorizonServer, accountId: string
 ): Promise<{ account: ServerApi.AccountRecord }> => {
     const builder: AccountCallBuilder = server.accounts()
-    console.log(`lookup account  ${JSON.stringify(accountId, null, 2)}`)
     return builder.accountId(accountId).call().then(account => ({ account }))
 }
 

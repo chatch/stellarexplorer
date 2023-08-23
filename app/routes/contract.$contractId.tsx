@@ -15,7 +15,7 @@ import { Contract } from 'soroban-client'
 
 import { saveAs } from '../lib/filesaver'
 import { SorobanServer, xdr } from '../lib/stellar'
-import { requestToServer, requestToSorobanServer } from '~/lib/stellar/server'
+import { requestToSorobanServer } from '~/lib/stellar/server'
 import { TitleWithJSONButton } from '~/components/shared/TitleWithJSONButton'
 import ClipboardCopy from '~/components/shared/ClipboardCopy'
 
@@ -37,40 +37,60 @@ const saveWasmFile = (contractId: string, wasmHexString: string) =>
     true // don't insert a byte order marker
   )
 
-// const getContractWasmIdAndLedger = async (server: SorobanServer, contractId: string) => {
-//   const ledgerKey = xdr.LedgerKey.contractData(
-//     new xdr.LedgerKeyContractData({
-//       contract: xdr.ScAddress.scAddressTypeContract(Buffer.from(contractId, 'hex')),
-//       key: xdr.ScVal.scvLedgerKeyContractExecutable(),
-//     })
-//   )
-//   const entryData = await server
-//     .getLedgerEntry(ledgerKey)
-//     .catch(handleFetchDataFailure(contractId))
-//   const wasmIdLedger = entryData.lastModifiedLedgerSeq
-//   const wasmId = xdr.LedgerEntryData.fromXDR(entryData.xdr, 'base64')
-//     .contractData()
-//     .val()
-//     .exec()
-//     .wasmId()
-//   return { wasmId, wasmIdLedger }
-// }
+const getContractInfo = async (
+  server: SorobanServer,
+  contractId: string
+) => {
+  const ledgerKey = xdr.LedgerKey.contractData(
+    new xdr.LedgerKeyContractData({
+      contract: new Contract(contractId).address().toScAddress(),
+      key: xdr.ScVal.scvLedgerKeyContractInstance(),
+      durability: xdr.ContractDataDurability.persistent(),
+      bodyType: xdr.ContractEntryBodyType.dataEntry()
+    })
+  )
 
-// const getContractWasmCode = async (server: SorobanServer, wasmId: Buffer) => {
-//   const ledgerKey = xdr.LedgerKey.contractCode(
-//     new xdr.LedgerKeyContractCode({
-//       hash: wasmId,
-//     })
-//   )
-//   const entryData = await server
-//     .getLedgerEntry(ledgerKey)
-//     .catch(handleFetchDataFailure)
-//   const wasmCodeLedger = entryData.lastModifiedLedgerSeq
-//   const wasmCode = xdr.LedgerEntryData.fromXDR(entryData.xdr, 'base64')
-//     .contractCode()
-//     .code()
-//   return { wasmCode, wasmCodeLedger }
-// }
+  const ledgerEntries = await server.getLedgerEntries([ledgerKey])
+  if (ledgerEntries == null || ledgerEntries.entries == null) {
+    return null
+  }
+
+  const ledgerEntry = ledgerEntries.entries[0]
+  const codeData = xdr.LedgerEntryData.fromXDR(ledgerEntry.xdr, 'base64')
+    .contractData().body().data()
+
+  const wasmIdLedger = ledgerEntry.lastModifiedLedgerSeq
+
+  const contractInstance = codeData.val().instance()
+  const wasmId = contractInstance.executable().wasmHash()
+  const storage = contractInstance.storage()
+
+  return { wasmId, wasmIdLedger, storage }
+}
+
+const getContractCode = async (
+  server: SorobanServer,
+  wasmId: Buffer
+) => {
+  const ledgerKey = xdr.LedgerKey.contractCode(
+    new xdr.LedgerKeyContractCode({
+      hash: wasmId,
+      bodyType: xdr.ContractEntryBodyType.dataEntry()
+    })
+  )
+  const ledgerEntries = await server.getLedgerEntries([ledgerKey])
+  if (ledgerEntries == null || ledgerEntries.entries == null) {
+    return null
+  }
+  const ledgerEntry = ledgerEntries.entries[0]
+
+  const wasmCodeLedger = ledgerEntry.lastModifiedLedgerSeq as number
+
+  const codeEntry = xdr.LedgerEntryData.fromXDR(ledgerEntry.xdr, 'base64')
+  const wasmCode = codeEntry.contractCode().body().code()
+
+  return { wasmCode, wasmCodeLedger }
+}
 
 const DetailRow = ({ label, children }: { label: string, children: any }) => (
   <tr>
@@ -83,7 +103,6 @@ const DetailRow = ({ label, children }: { label: string, children: any }) => (
 
 interface ContractProps {
   id: string
-  idHex: string
   wasmId: string
   wasmIdLedger: string
   wasmCode: string
@@ -94,7 +113,6 @@ const loadContract = async (
   server: SorobanServer,
   contractId: string
 ): Promise<ContractProps | undefined> => {
-  console.log('loadContract', contractId)
   let contractInstance
   try {
     contractInstance = new Contract(contractId)
@@ -103,35 +121,39 @@ const loadContract = async (
     return
   }
 
-  // const { wasmId, wasmIdLedger } = await getContractWasmIdAndLedger(
-  //   server,
-  //   contractInstance.contractId('hex')
-  // )
-  // if (!wasmId) {
-  //   console.error('Failed to get wasm id')
-  //   return
-  // }
+  const wasmIdResult = await getContractInfo(
+    server,
+    contractId
+  )
+  if (wasmIdResult == null) {
+    console.error('Failed to get wasm id')
+    return
+  }
 
-  // const { wasmCode, wasmCodeLedger } = await getContractWasmCode(
-  //   server,
-  //   wasmId
-  // )
-  // if (!wasmCode) {
-  //   console.error('Failed to get wasm code')
-  //   return
-  // }
+  const { wasmId, wasmIdLedger, storage } = wasmIdResult
+  if (!wasmId) {
+    console.error('Failed to get wasm id')
+    return
+  }
 
-  const wasmCode = 'dad'
-  const wasmCodeLedger = '1'
-  const wasmId = 'dad'
-  const wasmIdLedger = '2'
+  console.log(`RENDER storage`)
+
+  const codeResult = await getContractCode(
+    server,
+    wasmId
+  )
+  if (!codeResult) {
+    console.error('Failed to get wasm code')
+    return
+  }
+  const { wasmCode, wasmCodeLedger } = codeResult
+
   return {
     id: contractInstance.contractId(),
-    idHex: '123',// contractInstance.contractId('hex'),
-    wasmId, // : wasmId.toString('hex'),
-    wasmIdLedger,
-    wasmCode, //: wasmCode.toString('hex'),
-    wasmCodeLedger,
+    wasmId: wasmId.toString('hex'),
+    wasmIdLedger: String(wasmIdLedger),
+    wasmCode: wasmCode.toString('hex'),
+    wasmCodeLedger: String(wasmCodeLedger),
   }
 }
 
@@ -140,10 +162,9 @@ export const loader = ({ params, request }: LoaderArgs) => {
   const response = Promise.all([
     loadContract(server, params.contractId as string),
     server.serverURL.toString()
-  ]).then(result => ({ contractDetails: result[0], horizonURL: result[1] }))
+  ]).then(result => ({ contractDetails: result[0], horizonURL: result[1] })).catch(console.error)
   return defer({ response })
 }
-
 
 export default function () {
   const { formatMessage } = useIntl()
@@ -162,7 +183,16 @@ export default function () {
             }
           >
             {({ contractDetails, horizonURL }) => {
-              const { id, idHex, wasmId, wasmIdLedger, wasmCode, wasmCodeLedger } = contractDetails as ContractProps
+              if (!contractDetails) {
+                return (<span>Not Found</span>)
+              }
+              const {
+                id,
+                wasmId,
+                wasmIdLedger,
+                wasmCode,
+                wasmCodeLedger
+              } = contractDetails as ContractProps
               return (
                 <Card>
                   <CardHeader>
@@ -174,12 +204,6 @@ export default function () {
                   <Card.Body>
                     <Table>
                       <tbody>
-                        <DetailRow label="contract.id.hex">
-                          <span>
-                            {idHex}
-                            <ClipboardCopy text={idHex} />
-                          </span>
-                        </DetailRow>
                         <DetailRow label="contract.create.ledger">
                           <Link to={`/ledger/${wasmIdLedger}`}>{wasmIdLedger}</Link>
                         </DetailRow>
