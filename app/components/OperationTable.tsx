@@ -12,6 +12,7 @@ const filterFn = (event: React.ChangeEvent<HTMLSelectElement>) => {
 export interface OperationTableProps {
   compact: boolean
   records: ReadonlyArray<any>
+  horizonURL?: string
 };
 
 const getOperationTypeFilter = () => {
@@ -25,6 +26,7 @@ const getOperationTypeFilter = () => {
 export default function OperationTable({
   compact,
   records,
+  horizonURL
   // possiblyMoreDataAvailable,
 }: OperationTableProps) {
   return (
@@ -84,6 +86,7 @@ export default function OperationTable({
               key={op.id}
               compact={compact}
               op={op}
+              horizonURL={horizonURL}
             />
           ))}
         </tbody>

@@ -72,6 +72,7 @@ interface OperationRecordProps extends
 interface OperationProps {
   compact: boolean
   op: OperationRecordProps
+  horizonURL?: string
 }
 
 const SubOperation = ({ op }: { op: OperationRecordProps }) => {
@@ -79,7 +80,7 @@ const SubOperation = ({ op }: { op: OperationRecordProps }) => {
   return <SubOpComponent {...op} />
 }
 
-const Operation = ({ compact, op }: OperationProps) => {
+const Operation = ({ compact, op, horizonURL }: OperationProps) => {
   let opAccount
 
   if (op.fromMuxed) {
@@ -121,7 +122,7 @@ const Operation = ({ compact, op }: OperationProps) => {
         </span>
       </td>
       <td>
-        <JSONButton url={`https://horizon-futurenet.stellar.org/operations/${op.id}`} filterFn={undefined} />
+        <JSONButton url={`${horizonURL}operations/${op.id}`} filterFn={undefined} />
       </td>
     </tr>
   )

@@ -7,11 +7,13 @@ import type { PaymentProps } from "./operations/Payment"
 interface PaymentTableProps {
   compact: boolean
   records: ReadonlyArray<PaymentProps>
+  horizonURL?: string
 }
 
 export default function PaymentTable({
   compact,
-  records
+  records,
+  horizonURL
 }: PaymentTableProps) {
   return (
     <div>
@@ -49,6 +51,7 @@ export default function PaymentTable({
               key={payment.id}
               compact={compact}
               op={payment}
+              horizonURL={horizonURL}
             />
           ))}
         </tbody>

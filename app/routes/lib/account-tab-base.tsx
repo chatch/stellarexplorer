@@ -29,22 +29,25 @@ const accountTabLoader = (
     limit: limit ?? DEFAULT_RECORD_LIMIT
   }).then((records: any) => json({
     records: order === 'asc' ? [...records].reverse() : records,
-    cursor
+    cursor,
+    horizonURL: server.serverURL.toString()
   }))
 }
 
 const accountTabComponent = function <loaderFnType>(
   TableComponent: FunctionComponent<{
     records: ReadonlyArray<any>,
-    compact: boolean
+    compact: boolean,
+    horizonURL: string
   }>,
   name: string,
   subpath = name?.toLowerCase()
 ) {
   return function AccountTabComponent() {
-    const { records, cursor }: {
+    const { records, cursor, horizonURL }: {
       records?: ReadonlyArray<PaymentProps>,
-      cursor?: string
+      cursor?: string,
+      horizonURL: string
     } = useLoaderData<loaderFnType>() as any
 
     const { accountId } = useParams()
@@ -66,6 +69,7 @@ const accountTabComponent = function <loaderFnType>(
             <TableComponent
               records={records ?? []}
               compact={false}
+              horizonURL={horizonURL}
             />
           </Paging>
         </Row>

@@ -51,11 +51,13 @@ export const loader = ({ request }: LoaderArgs) => {
     ledgers(server, { limit: LEDGER_RECORD_LIMIT }),
     transactions(server, { limit: TX_RECORD_LIMIT }),
     operations(server, { limit: OPERATION_RECORD_LIMIT }),
+    server.serverURL.toString()
   ]).then(result =>
     json({
       ledgers: result[0],
       transactions: result[1],
-      operations: result[2]
+      operations: result[2],
+      horizonURL: result[3]
     })
   )
 }
@@ -64,11 +66,13 @@ export default function Home() {
   const {
     ledgers,
     transactions,
-    operations
+    operations,
+    horizonURL
   }: {
     ledgers: ReadonlyArray<LedgerProps>,
     transactions: ReadonlyArray<TransactionProps>,
-    operations: ReadonlyArray<OperationTableProps>
+    operations: ReadonlyArray<OperationTableProps>,
+    horizonURL?: string
   } = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
@@ -94,6 +98,7 @@ export default function Home() {
               <OperationTable
                 compact
                 records={operations}
+                horizonURL={horizonURL}
               />
             </Card.Body>
           </Card>

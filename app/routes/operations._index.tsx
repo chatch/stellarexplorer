@@ -8,7 +8,7 @@ import { Await, useLoaderData } from '@remix-run/react'
 import OperationTable from '../components/OperationTable'
 import { setTitle } from '../lib/utils'
 
-import { horizonRecordsLoader, horizonRecordsLoaderWithDefer } from '~/lib/loader-util'
+import { horizonRecordsLoaderWithDefer } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
 import { Suspense, useEffect } from 'react'
 
@@ -41,7 +41,7 @@ export default function Operations() {
                   <p>Error loading data</p>
                 }
               >
-                {({ records, cursor }) =>
+                {({ records, cursor, horizonURL }) =>
                   <Paging
                     baseUrl='/operations'
                     records={records}
@@ -49,6 +49,7 @@ export default function Operations() {
                     <OperationTable
                       records={records}
                       compact={false}
+                      horizonURL={horizonURL}
                     />
                   </Paging>
                 }

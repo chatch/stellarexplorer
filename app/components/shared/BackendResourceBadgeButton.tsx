@@ -125,7 +125,7 @@ const ResourceModalBody = ({
         {!text && <Spinner />}
         {text && text.length > 0 && (isJson ?
           <JSONPretty id="json-pretty" json={text} /> :
-          <pre>{text}</pre>)
+          <pre id="plain-text">{text}</pre>)
         }
       </div>
     </div>

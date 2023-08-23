@@ -58,7 +58,8 @@ export function horizonRecordsLoaderWithDefer<RecordsType>(
                 [...records].reverse() :
                 records
             ) as RecordsType,
-            cursor
+            cursor,
+            horizonURL: server.serverURL.toString()
         }))
 
         return defer({

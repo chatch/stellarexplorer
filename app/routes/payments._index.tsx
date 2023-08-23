@@ -40,7 +40,7 @@ export default function Payments() {
                   <p>Error loading data</p>
                 }
               >
-                {({ records, cursor }) =>
+                {({ records, cursor, horizonURL }) =>
                   <Paging
                     baseUrl='/payments'
                     records={records}
@@ -50,6 +50,7 @@ export default function Payments() {
                       // showPayment
                       // showSource
                       compact={false}
+                      horizonURL={horizonURL}
                     // limit={20}
                     />
                   </Paging>

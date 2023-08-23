@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { Suspense, useEffect, useState } from "react"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
 import Card from "react-bootstrap/Card"
@@ -17,12 +17,12 @@ import { titleWithJSONButton } from "../components/shared/TitleWithJSONButton"
 import ClipboardCopy from "../components/shared/ClipboardCopy"
 import Logo from "../components/shared/Logo"
 import type { LoaderArgs } from "@remix-run/node"
-import { json } from "@remix-run/node"
+import { defer } from "@remix-run/node"
 import { requestToServer } from "~/lib/stellar/server"
 import type { LoadAccountResult } from "~/lib/stellar/server_request_utils"
 import { loadAccount } from "~/lib/stellar/server_request_utils"
 import type { ServerApi } from "stellar-sdk"
-import { NavLink, Outlet, useLoaderData, useLocation } from "@remix-run/react"
+import { Await, NavLink, Outlet, useLoaderData, useLocation } from "@remix-run/react"
 
 
 // exists in @types/react-bootstrap however can't seem to resolve it
@@ -157,57 +157,74 @@ const pathToTabName = (path: string) => {
 
 export const loader = ({ params, request }: LoaderArgs) => {
   const server = requestToServer(request)
-  return loadAccount(server, params.accountId as string).then(json)
+  const response = Promise.all([
+    loadAccount(server, params.accountId as string),
+    server.serverURL.toString()
+  ]).then(result => ({ accountResult: result[0], horizonURL: result[1] }))
+  return defer({ response })
 }
 
 export default function Account() {
   const [activeTab, setActiveTab] = useState('data')
-
-  const accountResult: LoadAccountResult =
-    useLoaderData<typeof loader>() as LoadAccountResult
-
+  const { response } = useLoaderData<typeof loader>()
   const { pathname } = useLocation()
 
   useEffect(() => {
     setActiveTab(pathToTabName(pathname))
   }, [pathname])
 
-  const { account, muxedAddress, federatedAddress } = accountResult
-
-  const base = `/account/${account.id}`
 
   return (
     <Container>
-      {muxedAddress && (
-        <Row>
-          <MuxedAccountInfoCard address={muxedAddress} />
-        </Row>
-      )}
-      <Row>
-        <AccountSummaryCard
-          account={account}
-          accountUrl={`https://horizon-futurenet.stellar.org/accounts/${account.id}`}
-          federatedAddress={federatedAddress}
-          knownAccounts={knownAccounts}
-        />
-      </Row>
-      <Row>
-        <nav id="account-nav">
-          <TabLink base={base} activeTab={activeTab} title="Balances" />
-          <TabLink base={base} activeTab={activeTab} title="Payments" />
-          <TabLink base={base} activeTab={activeTab} title="Offers" />
-          <TabLink base={base} activeTab={activeTab} title="Trades" />
-          <TabLink base={base} activeTab={activeTab} title="Effects" />
-          <TabLink base={base} activeTab={activeTab} title="Operations" />
-          <TabLink base={base} activeTab={activeTab} title="Transactions" path="txs" />
-          <TabLink base={base} activeTab={activeTab} title="Signing" />
-          <TabLink base={base} activeTab={activeTab} title="Flags" />
-          <TabLink base={base} activeTab={activeTab} title="Data" />
-        </nav>
-        <div id="account-tab-content">
-          <Outlet />
-        </div>
-      </Row>
+      <Suspense
+        fallback={<p>Loading ...</p>}
+      >
+        <Await
+          resolve={response}
+          errorElement={
+            <p>Error loading data</p>
+          }
+        >
+          {({ accountResult, horizonURL }) => {
+            const { account, muxedAddress, federatedAddress } = accountResult
+            const base = `/account/${account.id}`
+
+            return (<>
+              {muxedAddress && (
+                <Row>
+                  <MuxedAccountInfoCard address={muxedAddress} />
+                </Row>
+              )}
+              <Row>
+                <AccountSummaryCard
+                  account={account as ServerApi.AccountRecord}
+                  accountUrl={`${horizonURL}accounts/${account.id}`}
+                  federatedAddress={federatedAddress}
+                  knownAccounts={knownAccounts}
+                />
+              </Row>
+              <Row>
+                <nav id="account-nav">
+                  <TabLink base={base} activeTab={activeTab} title="Balances" />
+                  <TabLink base={base} activeTab={activeTab} title="Payments" />
+                  <TabLink base={base} activeTab={activeTab} title="Offers" />
+                  <TabLink base={base} activeTab={activeTab} title="Trades" />
+                  <TabLink base={base} activeTab={activeTab} title="Effects" />
+                  <TabLink base={base} activeTab={activeTab} title="Operations" />
+                  <TabLink base={base} activeTab={activeTab} title="Transactions" path="txs" />
+                  <TabLink base={base} activeTab={activeTab} title="Signing" />
+                  <TabLink base={base} activeTab={activeTab} title="Flags" />
+                  <TabLink base={base} activeTab={activeTab} title="Data" />
+                </nav>
+                <div id="account-tab-content">
+                  <Outlet />
+                </div>
+              </Row>
+            </>
+            )
+          }}
+        </Await>
+      </Suspense>
     </Container>
   )
 }

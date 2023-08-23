@@ -37,7 +37,8 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   const ledgerSeq = params.ledgerId as string
   return Promise.all([
     ledger(server, ledgerSeq),
-    transactions(server, { ledgerSeq })
+    transactions(server, { ledgerSeq }),
+    server.serverURL.toString()
   ]).then(json)
 }
 
@@ -80,7 +81,7 @@ export default function Ledger() {
     totalCoins,
     successfulTransactionCount,
     failedTransactionCount
-  }, transactions]: [LedgerProps, any] =
+  }, transactions, horizonURL]: [LedgerProps, any, string] =
     useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
@@ -98,7 +99,7 @@ export default function Ledger() {
             <TitleWithJSONButton
               title={formatMessage({ id: "ledger" })}
               titleSecondary={String(sequence)}
-              url={`https://horizon-futurenet.stellar.org/ledgers/${sequence}`} />
+              url={`${horizonURL}ledgers/${sequence}`} />
           </CardHeader>
           <Card.Body>
             <Container>

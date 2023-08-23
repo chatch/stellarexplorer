@@ -48,15 +48,21 @@ export const loader = ({ params, request }: LoaderArgs) => {
   const server = requestToServer(request)
   return Promise.all([
     transaction(server, params.txHash as string),
-    operations(server, { tx: params.txHash, limit: 10 })
+    operations(server, { tx: params.txHash, limit: 10 }),
+    server.serverURL.toString()
   ]).then(json)
 }
 
 export default function Transaction() {
-  const [{ id, fee, ledger, memoType, memo, opCount, time }, operations]: [
-    tx: Partial<TransactionProps>,
-    operations: any
-  ] =
+  const [
+    { id, fee, ledger, memoType, memo, opCount, time },
+    operations,
+    horizonURL
+  ]: [
+      tx: Partial<TransactionProps>,
+      operations: any,
+      horizonURL: string
+    ] =
     useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
@@ -74,7 +80,7 @@ export default function Transaction() {
             <TitleWithJSONButton
               title={formatMessage({ id: "transaction" })}
               titleSecondary={id}
-              url={`https://horizon-futurenet.stellar.org/transactions/${id}`} />
+              url={`${horizonURL}transactions/${id}`} />
           </CardHeader>
           <Card.Body>
             <Table>
@@ -128,7 +134,7 @@ export default function Transaction() {
           {` (${opCount})`}
         </h5>
         <Container>
-          <OperationTable records={operations} compact />
+          <OperationTable records={operations} compact horizonURL={horizonURL} />
         </Container>
       </Row>
     </Container>
