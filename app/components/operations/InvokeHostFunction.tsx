@@ -11,6 +11,7 @@ type HostFunctionParams = any // TODO: restore this after seeing live data: Read
 
 const scValToString = (type: string, scVal: any) => {
   let str
+  console.log(`type: ${type}`)
   switch (type) {
     case 'Bytes':
       str = scVal.bytes().toString('hex')
@@ -50,6 +51,7 @@ const scValToString = (type: string, scVal: any) => {
 
 const invokeFunctionParamsRawtoRendered = (params: HostFunctionParams) =>
   params.map((p: any) => {
+    console.log(`${p.type}:${p.value}`)
     let scVal = xdr.ScVal.fromXDR(p.value, 'base64')
     let renderStr = scValToString(p.type, scVal) || p.value
     return { key: p.type || 'Void', value: renderStr }
@@ -62,71 +64,62 @@ const renderContractParams = (
   params.map(({ key, value }: { key: string, value: string }, idx: number) => (
     <span key={idx}>
       &nbsp;&nbsp;&nbsp;&nbsp;{`  (${key}) `}
-      <span title={value}>{truncate(value, { length: 40 })}</span>
+      <span title={value}>{
+        truncate(value, { length: 40 })
+      }</span>
       <br />
     </span>
   ))
 
-const InvokeHostFunction = (props: {
-  type: string,
-  hostFunctions: HostFunctionParams
-}) => {
-  // console.log(`invokehostfunction props: ${JSON.stringify(props, null, 2)}`)
-  const anyProps = props as any
-  return (
-    <div>
-      <div>{anyProps.type || 'no type'}</div>
-      <div>{anyProps.function || 'no fn'}</div>
-      {anyProps.parameters && renderContractParams(anyProps.parameters)}
-      {/* < div > { JSON.stringify(anyProps.parameters, null, 2) }</div> */}
-    </div >
-  )
-  // const hostFn = props['hostFunctions'][0]
-  // if ('upload_wasm' === hostFn.type) {
-  //   // TODO: render parameters [hostFn.parameters] but havn't yet seen an op that has any ...
-  //   return (
-  //     <FormattedMessage
-  //       id="operation.invoke.host.function.upload-wasm"
-  //       values={{
-  //         type: hostFn.type,
-  //       }}
-  //     />
-  //   )
-  // } else if ('create_contract' === hostFn.type) {
-  //   return (
-  //     <span>
-  //       <FormattedMessage
-  //         id="operation.invoke.host.function.create-contract"
-  //         values={{
-  //           type: hostFn.type,
-  //         }}
-  //       />
-  //       :<br />
-  //       {renderContractParams(
-  //         hostFn.parameters.map((p: any) => {
-  //           const singleKey = Object.keys(p).filter((p) => p !== 'type')[0]
-  //           return { key: singleKey, value: p[singleKey] }
-  //         })
-  //       )}
-  //     </span>
-  //   )
-  // } else if ('invoke_contract' === hostFn.type) {
-  //   return (
-  //     <span>
-  //       <FormattedMessage
-  //         id="operation.invoke.host.function.invoke-contract"
-  //         values={{
-  //           type: hostFn.type,
-  //         }}
-  //       />
-  //       :<br />
-  //       {renderContractParams(
-  //         invokeFunctionParamsRawtoRendered(hostFn.parameters)
-  //       )}
-  //     </span>
-  //   )
-  // }
-  // return <span>{hostFn.type}</span>
+interface InvokeHostFunctionProps {
+  type: string
+  parameters: ReadonlyArray<{ type: string, value: string }>
+  function: string
+  salt: string
+}
+const InvokeHostFunction = (props: InvokeHostFunctionProps) => {
+  console.log(`invokehostfunction props: ${JSON.stringify(props, null, 2)}`)
+  const {
+    type,
+    parameters,
+    function: functionName,
+  } = props
+  if (`HostFunctionTypeHostFunctionTypeInvokeContract` === functionName) {
+    return (
+      <span>
+        <FormattedMessage
+          id="operation.invoke.host.function.invoke-contract"
+        />
+        :<br />
+        {parameters ? renderContractParams(
+          invokeFunctionParamsRawtoRendered(parameters)
+        ) : (<span>No parameters</span>)}
+      </span>
+    )
+  } else if (`HostFunctionTypeHostFunctionTypeUploadContractWasm` === functionName) {
+    return (
+      <span>
+        <FormattedMessage
+          id="operation.invoke.host.function.upload-wasm"
+        />
+      </span>
+    )
+  } else if ('HostFunctionTypeHostFunctionTypeCreateContract' === functionName) {
+    return (
+      <span>
+        <FormattedMessage
+          id="operation.invoke.host.function.create-contract"
+        />
+        :<br />&nbsp;&nbsp;&nbsp;&nbsp;
+        {parameters ? renderContractParams(
+          parameters.map((p: any) => {
+            const singleKey = Object.keys(p).filter((p) => p !== 'type')[0]
+            return { key: singleKey, value: p[singleKey] }
+          }))
+          : (<span>No parameters</span>)}
+      </span>
+    )
+  }
 }
 
 export default InvokeHostFunction

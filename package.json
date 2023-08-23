@@ -32,7 +32,6 @@
         "@remix-run/node": "1.19.3",
         "@remix-run/react": "1.19.3",
         "@remix-run/serve": "1.19.3",
-        "base32.js": "0.1.0",
         "big-integer": "^1.6.51",
         "bignumber.js": "^9.1.1",
         "bootstrap": "^5.3.1",
@@ -46,7 +45,7 @@
         "react-json-pretty": "^2.2.0",
         "react-router-bootstrap": "^0.26.2",
         "remix-utils": "^6.6.0",
-        "soroban-client": "0.10.1",
+        "soroban-client": "0.11.0",
         "stellar-sdk": "10.4.1",
         "urijs": "1.19.11"
     },
@@ -60,7 +59,6 @@
         "@types/react-copy-to-clipboard": "^5.0.4",
         "@types/react-dom": "^18.2.7",
         "@types/react-router-bootstrap": "^0.26.2",
-        "crc": "4.3.2",
         "eslint": "^8.46.0",
         "typescript": "^5.1.6"
     }
