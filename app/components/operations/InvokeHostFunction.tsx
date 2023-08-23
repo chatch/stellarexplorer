@@ -6,6 +6,7 @@ import {
   scValToAddress,
 } from '../../lib/stellar/xdr_scval_utils'
 import { scValToNative } from 'soroban-client'
+import AccountLink from '../shared/AccountLink'
 
 type HostFunctionParams = any // TODO: restore this after seeing live data: ReadonlyArray<Record<'key' | 'value' | 'type', string>>
 
@@ -63,7 +64,9 @@ const renderContractParams = (
     <span key={idx}>
       &nbsp;&nbsp;&nbsp;&nbsp;{`  (${key}) `}
       <span title={value}>{
-        truncate(value, { length: 40 })
+        key === 'Address' ?
+          <AccountLink account={value} /> :
+          truncate(value, { length: 40 })
       }</span>
       <br />
     </span>
