@@ -5,9 +5,10 @@ import { LoaderArgs, defer } from '@remix-run/node'
 import { Await, useLoaderData } from '@remix-run/react'
 
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
 import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
+import Row from 'react-bootstrap/Row'
+import Spinner from 'react-bootstrap/Spinner'
 import Table from 'react-bootstrap/Table'
 
 import truncate from 'lodash/truncate'
@@ -174,7 +175,7 @@ export default function () {
     <Container>
       <Row>
         <Suspense
-          fallback={<p>Loading ...</p>}
+          fallback={<Spinner />}
         >
           <Await
             resolve={response}

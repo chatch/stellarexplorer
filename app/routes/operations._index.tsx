@@ -2,6 +2,8 @@ import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import Spinner from 'react-bootstrap/Spinner'
+
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Await, useLoaderData } from '@remix-run/react'
 
@@ -33,7 +35,7 @@ export default function Operations() {
           </CardHeader>
           <Card.Body>
             <Suspense
-              fallback={<p>Loading ...</p>}
+              fallback={<Spinner />}
             >
               <Await
                 resolve={response}

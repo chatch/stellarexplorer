@@ -61,13 +61,13 @@ const renderContractParams = (
   params: any
 ) =>
   params.map(({ key, value }: { key: string, value: string }, idx: number) => (
-    <span key={idx}>
-      &nbsp;&nbsp;&nbsp;&nbsp;{`  (${key}) `}
+    <span key={idx}>&nbsp;&nbsp;&nbsp;&nbsp;
       <span title={value}>{
         key === 'Address' ?
           <AccountLink account={value} /> :
           truncate(value, { length: 40 })
       }</span>
+      &nbsp;&nbsp;<small><i>{`[${key}]`}</i></small>
       <br />
     </span>
   ))
@@ -89,7 +89,7 @@ const InvokeHostFunction = (props: InvokeHostFunctionProps) => {
         <FormattedMessage
           id="operation.invoke.host.function.invoke-contract"
         />
-        :<br />
+        <br />
         {parameters ? renderContractParams(
           invokeFunctionParamsRawtoRendered(parameters)
         ) : (<span>No parameters</span>)}

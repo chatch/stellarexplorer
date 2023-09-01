@@ -12,7 +12,6 @@ interface AccountLinkSimpleProps {
   subPath: string
   label: React.JSX.Element
   type?: string
-  isSecondary?: boolean
 }
 
 const AccountLinkSimple = ({
@@ -20,15 +19,11 @@ const AccountLinkSimple = ({
   subPath,
   label,
   type,
-  isSecondary = false,
 }: AccountLinkSimpleProps) => (
   <span title={title}>
     <Link
-      style={{ backgroundColor: isSecondary ? 'white' : undefined }}
       to={`/${type}/${subPath}`}
-    >
-      {label} {isSecondary}
-    </Link>
+    >{label}</Link>
   </span>
 )
 

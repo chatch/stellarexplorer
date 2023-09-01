@@ -1,9 +1,12 @@
+import { Suspense, useEffect } from 'react'
+import { FormattedMessage } from 'react-intl'
+import { Await, useLoaderData } from '@remix-run/react'
+
 import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import { FormattedMessage } from 'react-intl'
-import { Await, useLoaderData } from '@remix-run/react'
+import Spinner from 'react-bootstrap/Spinner'
 
 import TransactionTable from '../components/TransactionTable'
 import { setTitle } from '../lib/utils'
@@ -11,7 +14,6 @@ import { setTitle } from '../lib/utils'
 import type { TransactionProps } from './tx.$txHash'
 import Paging from '~/components/shared/Paging'
 import { horizonRecordsLoaderWithDefer } from '~/lib/loader-util'
-import { Suspense, useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
@@ -33,7 +35,7 @@ export default function Transactions() {
           </CardHeader>
           <Card.Body>
             <Suspense
-              fallback={<p>Loading ...</p>}
+              fallback={<Spinner />}
             >
               <Await
                 resolve={response}

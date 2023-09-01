@@ -2,6 +2,9 @@ import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import Spinner from 'react-bootstrap/Spinner'
+
+import { Suspense, useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Await, useLoaderData } from '@remix-run/react'
 
@@ -11,7 +14,6 @@ import { setTitle } from '../lib/utils'
 
 import { horizonRecordsLoaderWithDefer } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
-import { Suspense, useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
@@ -34,7 +36,7 @@ export default function Trades() {
           </CardHeader>
           <Card.Body>
             <Suspense
-              fallback={<p>Loading ...</p>}
+              fallback={<Spinner />}
             >
               <Await
                 resolve={response}

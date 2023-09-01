@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container"
 import Card from "react-bootstrap/Card"
 import CardHeader from 'react-bootstrap/CardHeader'
 import Row from "react-bootstrap/Row"
+import Spinner from 'react-bootstrap/Spinner'
 import { FormattedMessage, useIntl } from "react-intl"
 import has from "lodash/has"
 
@@ -19,7 +20,6 @@ import Logo from "../components/shared/Logo"
 import type { LoaderArgs } from "@remix-run/node"
 import { defer } from "@remix-run/node"
 import { requestToServer } from "~/lib/stellar/server"
-import type { LoadAccountResult } from "~/lib/stellar/server_request_utils"
 import { loadAccount } from "~/lib/stellar/server_request_utils"
 import type { ServerApi } from "stellar-sdk"
 import { Await, NavLink, Outlet, useLoaderData, useLocation } from "@remix-run/react"
@@ -176,7 +176,7 @@ export default function Account() {
   return (
     <Container>
       <Suspense
-        fallback={<p>Loading ...</p>}
+        fallback={<Spinner />}
       >
         <Await
           resolve={response}

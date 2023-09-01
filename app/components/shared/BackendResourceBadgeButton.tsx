@@ -2,9 +2,9 @@ import { MouseEventHandler, useEffect, useState } from "react"
 import JSONPretty from "react-json-pretty"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
+import { Spinner } from "react-bootstrap"
 
 import NewWindowIcon from "./NewWindowIcon"
-import { Spinner } from "react-bootstrap"
 
 type FilterFn = (data: any) => string
 

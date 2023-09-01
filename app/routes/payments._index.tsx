@@ -1,9 +1,12 @@
+import { Suspense, useEffect } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
+import { Await, useLoaderData } from '@remix-run/react'
+
 import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import { FormattedMessage, useIntl } from 'react-intl'
-import { Await, useLoaderData } from '@remix-run/react'
+import Spinner from 'react-bootstrap/Spinner'
 
 import PaymentTable from '../components/PaymentTable'
 import { setTitle } from '../lib/utils'
@@ -11,7 +14,6 @@ import { setTitle } from '../lib/utils'
 import type { PaymentProps } from '~/components/operations/Payment'
 import { horizonRecordsLoaderWithDefer } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
-import { Suspense, useEffect } from 'react'
 
 export const loader = horizonRecordsLoaderWithDefer<ReadonlyArray<PaymentProps>>(`payments`, 30)
 
@@ -32,7 +34,7 @@ export default function Payments() {
           </CardHeader>
           <Card.Body>
             <Suspense
-              fallback={<p>Loading ...</p>}
+              fallback={<Spinner />}
             >
               <Await
                 resolve={response}
