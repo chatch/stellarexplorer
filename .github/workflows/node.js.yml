@@ -16,8 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x] # TODO: add back in latest LTS and drop 14 after stack upgrade
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [18.x]
 
     steps:
     - uses: actions/checkout@v3
