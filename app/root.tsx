@@ -6,6 +6,7 @@ import { json, LoaderArgs, type LinksFunction } from "@remix-run/node"
 import {
   Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData, useRouteError
 } from '@remix-run/react'
+import { captureRemixErrorBoundaryError, withSentry } from "@sentry/remix"
 
 import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css'
 import jsonPrettyStyles from 'react-json-pretty/themes/1337.css'
@@ -27,6 +28,7 @@ import zhHantMessages from './lib/languages/zh-Hant.json'
 import { requestToNetworkDetails } from './lib/stellar/networks'
 import { storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
+import { V2_ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
 
 
 export const links: LinksFunction = () => [
@@ -107,7 +109,7 @@ function HtmlDocument({
 
 export const loader = async ({ request }: LoaderArgs) => json({ ...requestToNetworkDetails(request) })
 
-export default function App() {
+function App() {
   const [language, setLanguage] = useState('en')
   const {
     networkType,
@@ -138,8 +140,10 @@ export default function App() {
   )
 }
 
-export function ErrorBoundary() {
+export const ErrorBoundary: V2_ErrorBoundaryComponent = () => {
   const error: any = useRouteError()
+
+  captureRemixErrorBoundaryError(error)
 
   let errorMessage
   if (error.data) {
@@ -159,3 +163,5 @@ export function ErrorBoundary() {
     </HtmlDocument>
   )
 }
+
+export default withSentry(App)

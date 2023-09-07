@@ -9,8 +9,18 @@ import type {
 import { RemixServer } from "@remix-run/react"
 import isbot from "isbot"
 import { renderToPipeableStream } from "react-dom/server"
+import * as Sentry from "@sentry/remix"
 
 const ABORT_DELAY = 5000
+
+Sentry.init({
+  dsn: "https://cbde552cd9c3a2300daf1355b7e14e7e@o4505837033095168.ingest.sentry.io/4505837045153792",
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+})
 
 export default function handleRequest(
   request: Request,
