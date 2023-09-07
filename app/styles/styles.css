@@ -12,6 +12,10 @@ body,
   border-bottom: 1px solid #96A2B4;
 }
 
+.navbar-toggler {
+  color: transparent;
+}
+
 hr {
   border-top: 1px solid #4c5667;
 }
@@ -213,7 +217,6 @@ pre#plain-text {
 }
 
 /* For language dropdown */
-
 .dropdown-menu {
   right: 0;
   left: auto !important;
@@ -244,54 +247,38 @@ pre#plain-text {
   overflow-wrap: break-word;
 }
 
-/*
- * Change the navbar collapse point. Collapse at higher widths then the default.
- *
- * see this link for details about this css:
- *   https://stackoverflow.com/questions/18192082/bootstrap-3-navbar-collapse
- */
-/*
 @media (max-width: 1300px) {
-  .navbar-header {
-    float: none;
-  }
-  .navbar-toggle {
-    display: block;
-  }
-  .navbar-collapse {
-    border-top: 1px solid transparent;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-  .navbar-collapse.collapse {
-    display: none !important;
-  }
-  .navbar-nav {
-    float: none !important;
-    margin: 7.5px -15px;
-  }
-  .navbar-nav > li {
-    float: none;
-  }
-  .navbar-nav > li > a {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-  .navbar-text {
-    float: none;
-    margin: 15px 0;
-  }
-  / since 3.1.0 /
-  .navbar-collapse.collapse.in {
-    display: block !important;
-  }
-  .collapsing {
-    overflow: hidden !important;
-  }
   .divider-vertical {
     display: none !important;
   }
+
+  #language-selector,
+  .network-selector {
+    margin-top: 10px;
+    margin-left: 15px !important;
+    padding-top: 10px;
+    border-top: hsla(210, 8%, 51%, .28) solid 1px;
+  }
+
+  #language-selector {
+    margin-bottom: 20px;
+  }
+
+  .dropdown-menu {
+    background-color: #383f4b;
+  }
+
+  .dropdown-menu a {
+    color: #96a2b4 !important;
+  }
+
+  #language-selector .dropdown-menu {
+    position: absolute !important;
+    top: -290px;
+    right: 200px;
+  }
 }
-*/
+
 /*************************************************************/
 
 #language-selector {
