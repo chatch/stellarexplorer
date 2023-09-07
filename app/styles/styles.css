@@ -277,6 +277,11 @@ pre#plain-text {
     top: -290px;
     right: 200px;
   }
+
+  #search-container {
+    margin-top: 60px;
+    padding: 0 5px 0 16px !important;
+  }
 }
 
 /*************************************************************/
@@ -307,38 +312,12 @@ pre#plain-text {
   #search-container input {
     width: 620px !important;
   }
-
-  #search-container .glyphicon-info-sign {
-    position: relative;
-    left: 35px;
-    top: 0px;
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.9);
-  }
 }
 
 @media (min-width: 1270px) {
   #search-container {
     padding-top: 15px !important;
   }
-}
-
-@media (max-width: 767px) {
-  #search-container .glyphicon-info-sign {
-    display: none;
-  }
-}
-
-.glyphicon-search {
-  height: 20px;
-  width: 20px;
-  background-color: #edeef0;
-  padding-top: 0px !important;
-  cursor: pointer;
-}
-
-.glyphicon-search:hover {
-  color: #99a3b4;
 }
 
 .fa-copy {
@@ -577,14 +556,14 @@ Mobile Rules
 */
 
 @media only screen and (max-width: 600px) {
-  #search-container .input-group {
+  /* #search-container .input-group {
     width: 100%;
   }
 
   #search-container input {
     font-size: 12px;
     width: 100%;
-  }
+  } */
 
   #operation-table {
     table-layout: fixed;

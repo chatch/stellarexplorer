@@ -150,7 +150,7 @@ export default function SearchBox() {
   const handleClickFn = () => setShowHelp(true)
 
   const searchHandler = (event: any) => {
-    console.log(`searchHandler entry" ${searchStr}`)
+    console.log(`searchHandler entry [${searchStr}]`)
     event.preventDefault()
 
     const matchPath = searchStrToPath(searchStr)
@@ -185,6 +185,7 @@ export default function SearchBox() {
                 <img
                   src={searchSvg}
                   style={{ color: '#4c5667', height: 16, width: 16 }}
+                  onClick={searchHandler}
                 />
               </InputGroup.Text>
               <InputGroup.Text style={{ background: 'none', border: 0, color: 'white', fontSize: 20 }}>
