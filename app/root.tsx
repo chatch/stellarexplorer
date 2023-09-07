@@ -101,7 +101,7 @@ function HtmlDocument({
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        {/* TODO: restore cloudflare analytics here before deployment */}
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fb352560547d4b2192cb3dbf4d174a08"}'></script>
       </body>
     </html>
   )
