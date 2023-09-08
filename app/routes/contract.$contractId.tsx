@@ -131,13 +131,13 @@ const loadContract = async (
     return
   }
 
-  const { wasmId, wasmIdLedger, storage } = wasmIdResult
+  const { wasmId, wasmIdLedger } = wasmIdResult
   if (!wasmId) {
     console.error('Failed to get wasm id')
     return
   }
 
-  console.log(`RENDER storage`)
+  // TODO: render storage
 
   const codeResult = await getContractCode(
     server,
@@ -200,7 +200,12 @@ export default function () {
                     <TitleWithJSONButton
                       title={formatMessage({ id: "contract" })}
                       titleSecondary={id}
-                      url={`${horizonURL}/contracts/${id}`} />
+                    // TODO: consider what to show here. With contracts there
+                    // is no single JSON source, a couple of look ups are
+                    // made .. for now not passing the URL means no JSON
+                    // button is rendered at all:
+                    // url={`${horizonURL}contracts/${id}`}
+                    />
                   </CardHeader>
                   <Card.Body>
                     <Table>

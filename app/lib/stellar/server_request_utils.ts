@@ -16,7 +16,6 @@ import type { OperationCallBuilder } from "stellar-sdk/lib/operation_call_builde
 import type { EffectCallBuilder } from "stellar-sdk/lib/effect_call_builder"
 import type { PaymentCallBuilder } from "stellar-sdk/lib/payment_call_builder"
 import type { TradesCallBuilder } from "stellar-sdk/lib/trades_call_builder"
-import { handleFetchDataFailure } from "../utils"
 import { isPublicKey, isFederatedAddress, isMuxedAddress } from "./utils"
 import type { AccountCallBuilder } from "stellar-sdk/lib/account_call_builder"
 import { TransactionCallBuilder } from "stellar-sdk/lib/transaction_call_builder"
@@ -95,10 +94,7 @@ const loadAccount = (
     } else if (isMuxedAddress(accountId)) {
         return loadAccountByMuxedAddress(server, accountId)
     }
-
-    const error = new Error(`Unrecognized account type: ${accountId}`)
-    handleFetchDataFailure(accountId)(error)
-    return Promise.reject(error)
+    return Promise.reject(new Error(`Unrecognized account type: ${accountId}`))
 }
 
 const loadAccountByKey = (server: HorizonServer, accountId: string) =>

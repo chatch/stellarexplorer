@@ -26,34 +26,6 @@ const base64DecodeToHex = value => Buffer.from(value, 'base64').toString('hex')
 // Extract asset issuer address from keys in the form <code>-<issuer>
 const assetKeyToIssuer = key => key.substring(key.indexOf('-') + 1)
 
-const handleFetchDataFailure = id => e => {
-    let status
-    if (e.data?.status) status = e.data.status
-    else if (e.response?.status) status = e.response.status
-
-    let msg = 'Failed to fetch data:'
-    if (status) msg += `\n\tStatus: [${status}]`
-    if (e.response?.status)
-        msg += `\n\tStatus: [${e.response.status}]`
-    if (e.message) msg += `\n\tMessage: [${e.message}]`
-    if (e.stack) msg += `\n\tStack: [${e.stack}]`
-
-    console.error(msg)
-    console.error(`Raw Error: ${JSON.stringify(e, null, 2)}`)
-
-    let errorURI
-    if (status === 404) {
-        let redirectURI = '/error/not-found'
-        if (id) redirectURI += `/${id}`
-        errorURI = redirectURI
-    } else if (e.message === 'Network Error') {
-        errorURI = '/error/general/network'
-    } else {
-        errorURI = `/error/general/${id}`
-    }
-    window.location.href = errorURI
-}
-
 const storageInit = () => {
     let storage
     if (typeof localStorage === 'undefined' || localStorage === null) {
@@ -78,7 +50,6 @@ export {
     base64Decode,
     base64DecodeToHex,
     formatAmount,
-    handleFetchDataFailure,
     isDefInt,
     setTitle,
     shortAddress,

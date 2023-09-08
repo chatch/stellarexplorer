@@ -1,7 +1,15 @@
 import JSONButton from './JSONButton'
 import ClipboardCopy from './ClipboardCopy'
 
-const TitleWithJSONButton = ({ title, titleSecondary, url }: { title: string, titleSecondary?: string, url: string }) => (
+const TitleWithJSONButton = ({
+  title,
+  titleSecondary,
+  url
+}: {
+  title: string,
+  titleSecondary?: string,
+  url?: string
+}) => (
   <div>
     <span>{title}
       {titleSecondary && (
@@ -13,9 +21,11 @@ const TitleWithJSONButton = ({ title, titleSecondary, url }: { title: string, ti
 
       }
     </span>
-    <span className="pull-right">
-      <JSONButton url={url} />
-    </span>
+    {url &&
+      <span className="pull-right">
+        <JSONButton url={url} />
+      </span>
+    }
   </div>
 )
 
