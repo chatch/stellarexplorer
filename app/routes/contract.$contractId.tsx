@@ -1,14 +1,12 @@
-import { Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { LoaderArgs, defer } from '@remix-run/node'
-import { Await, useLoaderData } from '@remix-run/react'
+import { LoaderArgs, json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
 import Row from 'react-bootstrap/Row'
-import Spinner from 'react-bootstrap/Spinner'
 import Table from 'react-bootstrap/Table'
 
 import truncate from 'lodash/truncate'
@@ -160,90 +158,79 @@ const loadContract = async (
 
 export const loader = ({ params, request }: LoaderArgs) => {
   const server = requestToSorobanServer(request)
-  const response = Promise.all([
+  return Promise.all([
     loadContract(server, params.contractId as string),
     server.serverURL.toString()
-  ]).then(result => ({ contractDetails: result[0], horizonURL: result[1] })).catch(console.error)
-  return defer({ response })
+  ]).then(result => ({
+    contractDetails: result[0],
+    horizonURL: result[1]
+  })).then(json)
 }
 
 export default function () {
   const { formatMessage } = useIntl()
-  const { response } = useLoaderData<typeof loader>()
+  const { contractDetails } = useLoaderData<typeof loader>()
+
+  if (!contractDetails) {
+    return (<span>Not Found</span>)
+  }
+
+  const {
+    id,
+    wasmId,
+    wasmIdLedger,
+    wasmCode,
+    wasmCodeLedger
+  } = contractDetails
 
   return (
     <Container>
       <Row>
-        <Suspense
-          fallback={<Spinner />}
-        >
-          <Await
-            resolve={response}
-            errorElement={
-              <p>Error loading data</p>
-            }
-          >
-            {({ contractDetails, horizonURL }) => {
-              if (!contractDetails) {
-                return (<span>Not Found</span>)
-              }
-              const {
-                id,
-                wasmId,
-                wasmIdLedger,
-                wasmCode,
-                wasmCodeLedger
-              } = contractDetails as ContractProps
-              return (
-                <Card>
-                  <CardHeader>
-                    <TitleWithJSONButton
-                      title={formatMessage({ id: "contract" })}
-                      titleSecondary={id}
-                    // TODO: consider what to show here. With contracts there
-                    // is no single JSON source, a couple of look ups are
-                    // made .. for now not passing the URL means no JSON
-                    // button is rendered at all:
-                    // url={`${horizonURL}contracts/${id}`}
-                    />
-                  </CardHeader>
-                  <Card.Body>
-                    <Table>
-                      <tbody>
-                        <DetailRow label="contract.create.ledger">
-                          <Link to={`/ledger/${wasmIdLedger}`}>{wasmIdLedger}</Link>
-                        </DetailRow>
-                        <DetailRow label="contract.wasm.id">
-                          <span>
-                            {wasmId}
-                            <ClipboardCopy text={wasmId} />
-                          </span>
-                        </DetailRow>
-                        <DetailRow label="contract.wasm.upload.ledger">
-                          <Link to={`/ledger/${wasmCodeLedger}`}>{wasmCodeLedger}</Link>
-                        </DetailRow>
-                        <DetailRow label="contract.wasm.bytecode">
-                          <div id="wasm-code">
-                            <div>{truncate(wasmCode, { length: 60 })}</div>
-                            <div>
-                              <button
-                                className="backend-resource-badge-button"
-                                onClick={() => saveWasmFile(id, wasmCode)}
-                                style={{ border: 0, marginTop: '10px' }}
-                              >
-                                <FormattedMessage id="contract.wasm.download" />
-                              </button>
-                            </div>
-                          </div>
-                        </DetailRow>
-                      </tbody>
-                    </Table>
-                  </Card.Body>
-                </Card>
-              )
-            }}
-          </Await>
-        </Suspense>
+        <Card>
+          <CardHeader>
+            <TitleWithJSONButton
+              title={formatMessage({ id: "contract" })}
+              titleSecondary={id}
+            // TODO: consider what to show here. With contracts there
+            // is no single JSON source, a couple of look ups are
+            // made .. for now not passing the URL means no JSON
+            // button is rendered at all:
+            // url={`${horizonURL}contracts/${id}`}
+            />
+          </CardHeader>
+          <Card.Body>
+            <Table>
+              <tbody>
+                <DetailRow label="contract.create.ledger">
+                  <Link to={`/ledger/${wasmIdLedger}`}>{wasmIdLedger}</Link>
+                </DetailRow>
+                <DetailRow label="contract.wasm.id">
+                  <span>
+                    {wasmId}
+                    <ClipboardCopy text={wasmId} />
+                  </span>
+                </DetailRow>
+                <DetailRow label="contract.wasm.upload.ledger">
+                  <Link to={`/ledger/${wasmCodeLedger}`}>{wasmCodeLedger}</Link>
+                </DetailRow>
+                <DetailRow label="contract.wasm.bytecode">
+                  <div id="wasm-code">
+                    <div>{truncate(wasmCode, { length: 60 })}</div>
+                    <div>
+                      <button
+                        className="backend-resource-badge-button"
+                        onClick={() => saveWasmFile(id, wasmCode)}
+                        style={{ border: 0, marginTop: '10px' }}
+                      >
+                        <FormattedMessage id="contract.wasm.download" />
+                      </button>
+                    </div>
+                  </div>
+                </DetailRow>
+              </tbody>
+            </Table>
+          </Card.Body>
+        </Card>
       </Row>
     </Container>
   )

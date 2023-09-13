@@ -4,37 +4,33 @@ import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Spinner from 'react-bootstrap/Spinner'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { requestToServer } from '~/lib/stellar/server'
 
-import { LoaderArgs, defer } from '@remix-run/node'
-import { Await, useLoaderData } from '@remix-run/react'
+import { LoaderArgs, json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 
 import EffectTable from '../components/EffectTable'
 import { setTitle } from '../lib/utils'
 
 import { effects } from '~/lib/stellar/server_request_utils'
 import { EffectProps } from "~/components/Effect"
-import { Suspense, useEffect } from "react"
+import { useEffect } from "react"
 
 export const loader = ({ request }: LoaderArgs) => {
   const server = requestToServer(request)
-  const responsePromise: Promise<ReadonlyArray<EffectProps>> = effects(server, { limit: 30 }).then(effects =>
+  return effects(server, { limit: 30 }).then(effects =>
     effects.map(
       (effect: ServerApi.EffectRecord) => ({
         ...effect,
         op: effect.operation ? effect.operation() : undefined
       }) as EffectProps
     )
-  )
-  return defer({
-    response: responsePromise,
-  })
+  ).then(json)
 }
 
 export default function Effects() {
-  const { response } = useLoaderData<typeof loader>()
+  const records = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -49,25 +45,13 @@ export default function Effects() {
             <FormattedMessage id="effects" />
           </CardHeader>
           <Card.Body>
-            <Suspense
-              fallback={<Spinner />}
-            >
-              <Await
-                resolve={response}
-                errorElement={
-                  <p>Error loading data</p>
-                }
-              >
-                {(records) => <EffectTable
-                  records={records as ReadonlyArray<EffectProps>}
-                // showEffect
-                // showSource
-                // compact={false}
-                // limit={20}
-                />
-                }
-              </Await>
-            </Suspense>
+            <EffectTable
+              records={records as ReadonlyArray<EffectProps>}
+            // showEffect
+            // showSource
+            // compact={false}
+            // limit={20}
+            />
           </Card.Body>
         </Card>
       </Row>
