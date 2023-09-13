@@ -3,6 +3,7 @@ import { PassThrough } from "stream"
 import { Response } from "@remix-run/node" // or cloudflare/deno
 import type {
   AppLoadContext,
+  DataFunctionArgs,
   EntryContext,
   Headers,
 } from "@remix-run/node" // or cloudflare/deno
@@ -47,6 +48,18 @@ export default function handleRequest(
     responseHeaders,
     remixContext
   )
+}
+
+export function handleError(
+  error: unknown,
+  { request }: DataFunctionArgs
+): void {
+  if (error instanceof Error) {
+    Sentry.captureRemixServerException(error, "remix.server", request)
+  } else {
+    // Optionally capture non-Error objects
+    Sentry.captureException(error)
+  }
 }
 
 function serveTheBots(

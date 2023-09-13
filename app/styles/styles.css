@@ -34,6 +34,12 @@ table {
   margin: 10px 15px;
 }
 
+#main-content.loading {
+  opacity: 0.25;
+  transition: opacity 200ms;
+  transition-delay: 200ms;
+}
+
 #footer {
   border-top: 1px solid #4c5667;
   margin-top: 35px;

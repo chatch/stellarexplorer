@@ -1,28 +1,37 @@
-import React, { Suspense, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
 import Card from "react-bootstrap/Card"
 import CardHeader from 'react-bootstrap/CardHeader'
 import Row from "react-bootstrap/Row"
-import Spinner from 'react-bootstrap/Spinner'
 import { FormattedMessage, useIntl } from "react-intl"
-import has from "lodash/has"
 
-import infoSvg from '../../public/info-solid.svg'
+import {
+  NavLink,
+  Outlet,
+  isRouteErrorResponse,
+  useLoaderData,
+  useLocation,
+  useRouteError
+} from "@remix-run/react"
+import type { LoaderArgs } from "@remix-run/node"
+import { json } from "@remix-run/node"
+
+import { captureException } from "@sentry/remix"
+import has from "lodash/has"
+import { NotFoundError, type ServerApi } from "stellar-sdk"
 
 import type { KnownAccountProps } from "../data/known_accounts"
 import knownAccounts from "../data/known_accounts"
 import { setTitle } from "../lib/utils"
 import { titleWithJSONButton } from "../components/shared/TitleWithJSONButton"
-
 import ClipboardCopy from "../components/shared/ClipboardCopy"
 import Logo from "../components/shared/Logo"
-import type { LoaderArgs } from "@remix-run/node"
-import { defer } from "@remix-run/node"
 import { requestToServer } from "~/lib/stellar/server"
 import { loadAccount } from "~/lib/stellar/server_request_utils"
-import type { ServerApi } from "stellar-sdk"
-import { Await, NavLink, Outlet, useLoaderData, useLocation } from "@remix-run/react"
+
+import infoSvg from '../../public/info-solid.svg'
+import AccountTypeUnrecognizedException from "~/lib/error/AccountTypeUnrecognizedException"
 
 
 // exists in @types/react-bootstrap however can't seem to resolve it
@@ -155,76 +164,99 @@ const pathToTabName = (path: string) => {
   return match ? match[1] : 'balances'
 }
 
-export const loader = ({ params, request }: LoaderArgs) => {
+export const loader = async ({ params, request }: LoaderArgs) => {
   const server = requestToServer(request)
-  const response = Promise.all([
-    loadAccount(server, params.accountId as string),
-    server.serverURL.toString()
-  ]).then(result => ({ accountResult: result[0], horizonURL: result[1] }))
-  return defer({ response })
+  let response
+  try {
+    response = await Promise.all([
+      loadAccount(server, params.accountId as string),
+      server.serverURL.toString()
+    ]).then(result => ({ accountResult: result[0], horizonURL: result[1] }))
+  } catch (error) {
+    captureException(error)
+    if (error instanceof NotFoundError) {
+      throw new Response(null, {
+        status: 404,
+        statusText: `Account not found`,
+      })
+    } else if (error instanceof AccountTypeUnrecognizedException) {
+      throw new Response(null, {
+        status: 400,
+        statusText: error.message,
+      })
+    } else {
+      throw error
+    }
+  }
+  return json(response)
 }
 
 export default function Account() {
   const [activeTab, setActiveTab] = useState('data')
-  const { response } = useLoaderData<typeof loader>()
+  const { accountResult, horizonURL } = useLoaderData<typeof loader>()
   const { pathname } = useLocation()
 
   useEffect(() => {
     setActiveTab(pathToTabName(pathname))
   }, [pathname])
 
+  const { account, muxedAddress, federatedAddress } = accountResult
+  const accountRec = account as ServerApi.AccountRecord
+  const base = `/account/${accountRec.id}`
+
   return (
     <Container>
-      <Suspense
-        fallback={<Spinner />}
-      >
-        <Await
-          resolve={response}
-          errorElement={
-            <p>Error loading data</p>
-          }
-        >
-          {({ accountResult, horizonURL }) => {
-            const { account, muxedAddress, federatedAddress } = accountResult
-            const base = `/account/${account.id}`
-
-            return (<>
-              {muxedAddress && (
-                <Row>
-                  <MuxedAccountInfoCard address={muxedAddress} />
-                </Row>
-              )}
-              <Row>
-                <AccountSummaryCard
-                  account={account as ServerApi.AccountRecord}
-                  accountUrl={`${horizonURL}accounts/${account.id}`}
-                  federatedAddress={federatedAddress}
-                  knownAccounts={knownAccounts}
-                />
-              </Row>
-              <Row>
-                <nav id="account-nav">
-                  <TabLink base={base} activeTab={activeTab} title="Balances" />
-                  <TabLink base={base} activeTab={activeTab} title="Payments" />
-                  <TabLink base={base} activeTab={activeTab} title="Offers" />
-                  <TabLink base={base} activeTab={activeTab} title="Trades" />
-                  <TabLink base={base} activeTab={activeTab} title="Effects" />
-                  <TabLink base={base} activeTab={activeTab} title="Operations" />
-                  <TabLink base={base} activeTab={activeTab} title="Transactions" path="txs" />
-                  <TabLink base={base} activeTab={activeTab} title="Signing" />
-                  <TabLink base={base} activeTab={activeTab} title="Flags" />
-                  <TabLink base={base} activeTab={activeTab} title="Data" />
-                </nav>
-                <div id="account-tab-content">
-                  <Outlet />
-                </div>
-              </Row>
-            </>
-            )
-          }}
-        </Await>
-      </Suspense>
-    </Container>
+      {muxedAddress && (
+        <Row>
+          <MuxedAccountInfoCard address={muxedAddress} />
+        </Row>
+      )}
+      <Row>
+        <AccountSummaryCard
+          account={accountRec}
+          accountUrl={`${horizonURL}accounts/${accountRec.id}`}
+          federatedAddress={federatedAddress}
+          knownAccounts={knownAccounts}
+        />
+      </Row>
+      <Row>
+        <nav id="account-nav">
+          <TabLink base={base} activeTab={activeTab} title="Balances" />
+          <TabLink base={base} activeTab={activeTab} title="Payments" />
+          <TabLink base={base} activeTab={activeTab} title="Offers" />
+          <TabLink base={base} activeTab={activeTab} title="Trades" />
+          <TabLink base={base} activeTab={activeTab} title="Effects" />
+          <TabLink base={base} activeTab={activeTab} title="Operations" />
+          <TabLink base={base} activeTab={activeTab} title="Transactions" path="txs" />
+          <TabLink base={base} activeTab={activeTab} title="Signing" />
+          <TabLink base={base} activeTab={activeTab} title="Flags" />
+          <TabLink base={base} activeTab={activeTab} title="Data" />
+        </nav>
+        <div id="account-tab-content">
+          <Outlet />
+        </div>
+      </Row>
+    </Container >
   )
 }
 
+export function ErrorBoundary() {
+  const error = useRouteError()
+  if (isRouteErrorResponse(error)) {
+    return (
+      <Container>
+        <h3>Error</h3>
+        <p>{error.statusText}</p>
+      </Container>
+    )
+  } else if (error instanceof Error) {
+    return (
+      <Container>
+        <h3>Error</h3>
+        <p>{error.message}</p>
+      </Container>
+    )
+  } else {
+    return <h1>Unknown Error</h1>
+  }
+}

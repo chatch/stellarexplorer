@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl'
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { json, LoaderArgs, type LinksFunction } from "@remix-run/node"
 import {
-  Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData, useRouteError
+  Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData, useNavigation, useRouteError
 } from '@remix-run/react'
 import { captureRemixErrorBoundaryError, withSentry } from "@sentry/remix"
 
@@ -107,9 +107,10 @@ function HtmlDocument({
   )
 }
 
-export const loader = async ({ request }: LoaderArgs) => json({ ...requestToNetworkDetails(request) })
+export const loader = ({ request }: LoaderArgs) => json({ ...requestToNetworkDetails(request) })
 
 function App() {
+  const navigation = useNavigation()
   const [language, setLanguage] = useState('en')
   const {
     networkType,
@@ -130,7 +131,11 @@ function App() {
             networkIsLocal={isLocal}
           />
           <SearchBox />
-          <div id="main-content">
+          <div id="main-content"
+            className={
+              navigation.state === "loading" ? "loading" : ""
+            }
+          >
             <Outlet />
           </div>
         </IntlProvider>

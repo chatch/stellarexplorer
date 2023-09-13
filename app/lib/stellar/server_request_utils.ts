@@ -20,6 +20,7 @@ import { isPublicKey, isFederatedAddress, isMuxedAddress } from "./utils"
 import type { AccountCallBuilder } from "stellar-sdk/lib/account_call_builder"
 import { TransactionCallBuilder } from "stellar-sdk/lib/transaction_call_builder"
 import { OfferCallBuilder } from "stellar-sdk/lib/offer_call_builder"
+import AccountTypeUnrecognizedException from "../error/AccountTypeUnrecognizedException"
 
 interface PageOptions {
     cursor?: string
@@ -94,7 +95,7 @@ const loadAccount = (
     } else if (isMuxedAddress(accountId)) {
         return loadAccountByMuxedAddress(server, accountId)
     }
-    return Promise.reject(new Error(`Unrecognized account type: ${accountId}`))
+    throw new AccountTypeUnrecognizedException(accountId)
 }
 
 const loadAccountByKey = (server: HorizonServer, accountId: string) =>
