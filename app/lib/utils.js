@@ -45,11 +45,21 @@ const formatAmount = amount => {
 
 const setTitle = subTitle => document.title = `Stellar Explorer | ${subTitle}`
 
+const hexStringToBytes = (hexString) => {
+    const bytes = new Uint8Array(hexString.length / 2)
+    for (let i = 0; i < hexString.length; i += 2) {
+        const byte = parseInt(hexString.substring(i, i + 2), 16)
+        bytes[i / 2] = byte
+    }
+    return bytes.buffer
+}
+
 export {
     assetKeyToIssuer,
     base64Decode,
     base64DecodeToHex,
     formatAmount,
+    hexStringToBytes,
     isDefInt,
     setTitle,
     shortAddress,
