@@ -2,8 +2,8 @@ import { Contract } from 'soroban-client'
 import { SorobanServer, xdr } from '../stellar'
 import { hexStringToBytes } from '../utils'
 
-// const API_URL = `https://steexp-api.fly.dev`
-const API_URL = `http://localhost:3001`
+const API_URL = `https://steexp-api.fly.dev`
+// const API_URL = `http://localhost:3001`
 
 interface ContractProps {
     id: string

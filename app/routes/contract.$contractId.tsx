@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react'
 import { loadContract } from '~/lib/stellar/contracts'
 
 const pathToTabName = (path: string) => {
-  const match = /\/contract\/[^\/]*\/([a-z]*)/.exec(path)
+  const match = /\/contract\/[^/]*\/([a-z,-]*)/.exec(path)
   return match ? match[1] : 'storage'
 }
 
