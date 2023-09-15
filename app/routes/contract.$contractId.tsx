@@ -9,28 +9,15 @@ import CardHeader from 'react-bootstrap/CardHeader'
 import Row from 'react-bootstrap/Row'
 import Table from 'react-bootstrap/Table'
 
-import truncate from 'lodash/truncate'
-
-import { saveAs } from '../lib/filesaver'
 import { requestToSorobanServer } from '~/lib/stellar/server'
 import { TitleWithJSONButton } from '~/components/shared/TitleWithJSONButton'
 import ClipboardCopy from '~/components/shared/ClipboardCopy'
 import { useEffect, useState } from 'react'
-import { hexStringToBytes } from '~/lib/utils'
 import { loadContract } from '~/lib/stellar/contracts'
-
-const saveWasmFile = (contractId: string, wasmHexString: string) =>
-  saveAs(
-    new Blob([hexStringToBytes(wasmHexString)], {
-      type: 'application/octet-stream',
-    }),
-    `soroban-contract-${contractId}.wasm`,
-    true // don't insert a byte order marker
-  )
 
 const pathToTabName = (path: string) => {
   const match = /\/contract\/[^\/]*\/([a-z]*)/.exec(path)
-  return match ? match[1] : 'code'
+  return match ? match[1] : 'storage'
 }
 
 const DetailRow = ({ label, children }: { label: string, children: any }) => (
@@ -41,6 +28,7 @@ const DetailRow = ({ label, children }: { label: string, children: any }) => (
     <td>{children}</td>
   </tr>
 )
+
 const TabLink = ({
   base,
   title,
@@ -72,7 +60,7 @@ export const loader = ({ params, request }: LoaderArgs) => {
 
 export default function () {
   const { formatMessage } = useIntl()
-  const [activeTab, setActiveTab] = useState('data')
+  const [activeTab, setActiveTab] = useState('storage')
   const { pathname } = useLocation()
   const { contractDetails } = useLoaderData<typeof loader>()
 
@@ -88,7 +76,6 @@ export default function () {
     id,
     wasmId,
     wasmIdLedger,
-    wasmCode,
     wasmCodeLedger
   } = contractDetails
 
@@ -124,20 +111,6 @@ export default function () {
                 <DetailRow label="contract.wasm.upload.ledger">
                   <Link to={`/ledger/${wasmCodeLedger}`}>{wasmCodeLedger}</Link>
                 </DetailRow>
-                <DetailRow label="contract.wasm.bytecode">
-                  <div id="wasm-code">
-                    <div>{truncate(wasmCode, { length: 60 })}</div>
-                    <div>
-                      <button
-                        className="backend-resource-badge-button"
-                        onClick={() => saveWasmFile(id, wasmCode)}
-                        style={{ border: 0, marginTop: '10px' }}
-                      >
-                        <FormattedMessage id="contract.wasm.download" />
-                      </button>
-                    </div>
-                  </div>
-                </DetailRow>
               </tbody>
             </Table>
           </Card.Body>
@@ -146,10 +119,17 @@ export default function () {
 
       <Row>
         <nav id="contract-nav">
-          <TabLink base={base} activeTab={activeTab} title="Code" />
+          <TabLink
+            base={base}
+            activeTab={activeTab}
+            title="Storage" />
+          <TabLink
+            base={base}
+            activeTab={activeTab}
+            title="Code" />
         </nav>
         <div id="contract-tab-content">
-          <Outlet />
+          <Outlet context={contractDetails} />
         </div>
       </Row>
 

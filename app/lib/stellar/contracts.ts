@@ -3,6 +3,7 @@ import { SorobanServer, xdr } from '../stellar'
 import { hexStringToBytes } from '../utils'
 
 const API_URL = `https://steexp-api.fly.dev`
+// const API_URL = `http://localhost:3001`
 
 interface ContractProps {
     id: string
@@ -46,7 +47,7 @@ const getContractInfo = async (
 const getContractCode = async (
     server: SorobanServer,
     wasmId: Buffer
-) => {
+): Promise<{ wasmCode: string, wasmCodeLedger: number } | null> => {
     const ledgerKey = xdr.LedgerKey.contractCode(
         new xdr.LedgerKeyContractCode({
             hash: wasmId,
@@ -62,7 +63,7 @@ const getContractCode = async (
     const wasmCodeLedger = ledgerEntry.lastModifiedLedgerSeq as number
 
     const codeEntry = xdr.LedgerEntryData.fromXDR(ledgerEntry.xdr, 'base64')
-    const wasmCode = codeEntry.contractCode().body().code()
+    const wasmCode = codeEntry.contractCode().body().code().toString('hex')
 
     return { wasmCode, wasmCodeLedger }
 }
@@ -76,7 +77,8 @@ const loadContract = async (
     try {
         contractInstance = new Contract(contractId)
     } catch (error) {
-        console.error(`CONTRACT NOT FOUND`)
+        // TODO: 404 Response (see how it was done in account view)
+        console.error(`Contract not found`)
         return
     }
 
@@ -95,8 +97,6 @@ const loadContract = async (
         return
     }
 
-    // TODO: render storage
-
     const codeResult = await getContractCode(
         server,
         wasmId
@@ -111,7 +111,7 @@ const loadContract = async (
         id: contractInstance.contractId(),
         wasmId: wasmId.toString('hex'),
         wasmIdLedger: String(wasmIdLedger),
-        wasmCode: wasmCode.toString('hex'),
+        wasmCode,
         wasmCodeLedger: String(wasmCodeLedger),
     }
 }
@@ -120,7 +120,7 @@ const getContractDecompiled = (wasmHexString: string): Promise<string> => {
     const wasmBytes = hexStringToBytes(wasmHexString)
     const blob = new Blob([new Uint8Array(wasmBytes)])
     const formData = new FormData()
-    formData.append('contract', blob, 'contract.wasm')
+    formData.append('contract', blob)
     return fetch(`${API_URL}/decompile`, {
         method: 'POST',
         body: formData

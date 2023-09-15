@@ -1,3 +1,3 @@
-import CodeTab, { loader } from './contract.$contractId.code'
+import StorageTab, { loader } from './contract.$contractId.storage'
 
-export { CodeTab as default, loader }
+export { StorageTab as default, loader }

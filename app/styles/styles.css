@@ -401,11 +401,13 @@ pre#plain-text {
   font-size: 14px;
 }
 
-#account-nav {
+#account-nav,
+#contract-nav {
   background-color: #383f4b;
 }
 
-#account-nav>a {
+#account-nav>a,
+#contract-nav>a {
   color: #96a2b4;
   padding: 10px 15px;
   margin-right: 2px;
@@ -416,7 +418,8 @@ pre#plain-text {
   border-bottom: 2px solid #ddd !important;
 }
 
-#account-nav>a:hover {
+#account-nav>a:hover,
+#contract-nav>a:hover {
   background-color: #3c4452 !important;
   color: #01c0c8;
 }
@@ -425,12 +428,14 @@ pre#plain-text {
   margin-bottom: 15px;
 }
 
-#account-tab-content {
+#account-tab-content,
+#contract-tab-content {
   background-color: #383f4b;
   padding: 10px 20px;
 }
 
-.account-tab-active {
+.account-tab-active,
+.contract-tab-active {
   color: #01c0c8 !important;
   background-color: white;
 }
