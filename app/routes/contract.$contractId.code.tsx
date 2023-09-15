@@ -2,8 +2,8 @@ import { useLoaderData, useParams } from "@remix-run/react"
 import { LoaderArgs, json } from "@remix-run/node"
 import { FormattedMessage } from 'react-intl'
 import { useEffect } from "react"
-import truncate from 'lodash/truncate'
 
+import { CodeBlock } from "~/components/shared/CodeBlock"
 import { getContractDecompiled, loadContract } from "~/lib/stellar/contracts"
 import { hexStringToBytes, setTitle } from "~/lib/utils"
 import { saveAs } from '../lib/filesaver'
@@ -34,7 +34,6 @@ const Code = ({
   decompiledCode
 }: CodeProps & { contractId: string }) => (
   <div id="wasm-code">
-    <div>{truncate(wasmCode, { length: 60 })}</div>
     <div>
       <button
         className="backend-resource-badge-button"
@@ -44,7 +43,12 @@ const Code = ({
         <FormattedMessage id="contract.wasm.download" />
       </button>
     </div>
-    <div>{decompiledCode}</div>
+    <div>The code below was produced by the <a href="https://github.com/WebAssembly/wabt">The WebAssembly Binary Toolkit</a> wasm-decompile tool. It's a C like format intended for readability.
+    </div>
+    <CodeBlock
+      code={decompiledCode}
+      language="javascript"
+    />
   </div>
 )
 

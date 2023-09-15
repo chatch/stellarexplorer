@@ -449,6 +449,10 @@ pre#plain-text {
   border: none;
 }
 
+#wasm-code>div {
+  margin-bottom: 20px;
+}
+
 .tab-content {
   padding: 15px !important;
 }
