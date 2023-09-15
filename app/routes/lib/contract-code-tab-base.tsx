@@ -1,17 +1,15 @@
 import { useLoaderData, useParams } from "@remix-run/react"
 import { LoaderArgs, json } from "@remix-run/node"
 import { FormattedMessage } from 'react-intl'
-import { useEffect } from "react"
+import { PropsWithChildren, useEffect } from "react"
 
 import { CodeBlock } from "~/components/shared/CodeBlock"
-import { getContractDecompiled, loadContract } from "~/lib/stellar/contracts"
+import { loadContract } from "~/lib/stellar/contracts"
 import { hexStringToBytes, setTitle } from "~/lib/utils"
-import { saveAs } from '../lib/filesaver'
+import { saveAs } from '../../lib/filesaver'
 import { requestToSorobanServer } from "~/lib/stellar/server"
 
-const Buffer = require('buffer').Buffer
-
-interface CodeProps {
+interface CodeProps extends PropsWithChildren {
   wasmCode: string
   wasmCodeLedger: number
   decompiledCode: string
@@ -26,12 +24,11 @@ const saveWasmFile = (contractId: string, wasmHexString: string) =>
     true // don't insert a byte order marker
   )
 
-
 const Code = ({
   contractId,
   wasmCode,
-  wasmCodeLedger,
-  decompiledCode
+  decompiledCode,
+  children
 }: CodeProps & { contractId: string }) => (
   <div id="wasm-code">
     <div>
@@ -43,8 +40,7 @@ const Code = ({
         <FormattedMessage id="contract.wasm.download" />
       </button>
     </div>
-    <div>The code below was produced by the <a href="https://github.com/WebAssembly/wabt">The WebAssembly Binary Toolkit</a> wasm-decompile tool. It's a C like format intended for readability.
-    </div>
+    {children}
     <CodeBlock
       code={decompiledCode}
       language="javascript"
@@ -52,7 +48,7 @@ const Code = ({
   </div>
 )
 
-export const loader = ({ params, request }: LoaderArgs) => {
+export const contractCodeLoaderFn = (getCodeFn: Function) => ({ params, request }: LoaderArgs) => {
   const server = requestToSorobanServer(request)
   return loadContract(
     server,
@@ -63,25 +59,27 @@ export const loader = ({ params, request }: LoaderArgs) => {
     }
 
     const { wasmCode, wasmCodeLedger } = result
-    const decompiledCode = await getContractDecompiled(wasmCode)
+    const decompiledCode = await getCodeFn(wasmCode)
 
     return json({ wasmCode, wasmCodeLedger, decompiledCode })
   })
 }
 
-export default function CodeTab() {
-  const { contractId } = useParams()
-  useEffect(() => {
-    setTitle(`Contract Code ${contractId}`)
-  }, [])
+export default function contractCodeTab(loader: Function) {
+  return function CodeTab({ children }: PropsWithChildren) {
+    const { contractId } = useParams()
+    useEffect(() => {
+      setTitle(`Contract Code ${contractId}`)
+    }, [])
 
-  const codeProps = useLoaderData<typeof loader>() as CodeProps | null
+    const codeProps = useLoaderData<typeof loader>() as CodeProps | null
 
-  if (!codeProps) {
-    return (<span>Code not found ...</span>)
+    if (!codeProps) {
+      return (<span>Code not found ...</span>)
+    }
+
+    return (
+      <Code {...codeProps} contractId={contractId as string}>{children}</Code>
+    )
   }
-
-  return (
-    <Code {...codeProps} contractId={contractId as string} />
-  )
 }

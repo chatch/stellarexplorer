@@ -126,7 +126,13 @@ export default function () {
           <TabLink
             base={base}
             activeTab={activeTab}
-            title="Code" />
+            title="Code (readable)"
+            path="code-readable" />
+          <TabLink
+            base={base}
+            activeTab={activeTab}
+            title="Code (wat)"
+            path="code-wat" />
         </nav>
         <div id="contract-tab-content">
           <Outlet context={contractDetails} />

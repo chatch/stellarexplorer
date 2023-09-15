@@ -3,33 +3,22 @@ const { rateLimit } = require('express-rate-limit');
 const multer = require('multer');
 const { exec } = require('child_process');
 const fs = require('fs');
-const path = require('path');
+const path = require('path')
 
+// Current maximum - see discussions in Discord
 const MAX_FILE_SIZE_BYTES = 200 * 1024 * 1024
-const WASM_DECOMPILE_PATH = `/wabt-1.0.33/bin/wasm-decompile`
+
+const WABT_BIN_PATH = `/wabt-1.0.33/bin`
+const WASM_DECOMPILE_PATH = `${WABT_BIN_PATH}/wasm-decompile`
+const WASM_2_WAT_PATH = `${WABT_BIN_PATH}/wasm2wat`
 
 const upload = multer({
     dest: 'uploads/',
     limits: { fileSize: MAX_FILE_SIZE_BYTES }
 });
 
-const app = express();
-
-const decompileLimiter = rateLimit({
-    windowMs: 60 * 1000,
-    limit: 5,
-    standardHeaders: 'draft-7',
-    legacyHeaders: false
-})
-
-/**
- * Decompile a wasm file using the wabt wasm-decompile tool
- * 
- * To invoke from cli:
- *   curl -F "contract=@/wasm/contract.wasm" http://localhost:3000/decompile
- */
-app.post(
-    '/decompile',
+const wabtToolRoute = (subpath, toolPath) => app.post(
+    subpath,
     decompileLimiter,
     upload.single('contract'),
     (req, res) => {
@@ -40,7 +29,7 @@ app.post(
         const wasmFilePath = filePath + ".wasm";
         fs.renameSync(filePath, wasmFilePath);
 
-        exec(`${WASM_DECOMPILE_PATH} ${wasmFilePath}`, (error, stdout, stderr) => {
+        exec(`${toolPath} ${wasmFilePath}`, (error, stdout, stderr) => {
             fs.unlinkSync(wasmFilePath)
             if (error) {
                 console.error(`exec error: ${error}`);
@@ -50,6 +39,31 @@ app.post(
             res.send(stdout);
         });
     });
+
+const decompileLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    limit: 5,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false
+})
+
+const app = express();
+
+/** 
+* Decompile a wasm file using the wabt wasm-decompile tool
+* 
+* To invoke from cli:
+*   curl -F "contract=@/wasm/contract.wasm" http://localhost:3000/decompile
+*/
+wabtToolRoute(`/decompile`, WASM_DECOMPILE_PATH)
+
+/**
+* Convert wasm to wat using the wabt wasm2wat tool
+* 
+* To invoke from cli:
+*   curl -F "contract=@/wasm/contract.wasm" http://localhost:3000/wat
+*/
+wabtToolRoute(`/wat`, WASM_2_WAT_PATH)
 
 app.listen(3000, () => {
     console.log('App listening on port 3000!');

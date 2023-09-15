@@ -2,8 +2,8 @@ import { Contract } from 'soroban-client'
 import { SorobanServer, xdr } from '../stellar'
 import { hexStringToBytes } from '../utils'
 
-const API_URL = `https://steexp-api.fly.dev`
-// const API_URL = `http://localhost:3001`
+// const API_URL = `https://steexp-api.fly.dev`
+const API_URL = `http://localhost:3001`
 
 interface ContractProps {
     id: string
@@ -116,16 +116,21 @@ const loadContract = async (
     }
 }
 
-const getContractDecompiled = (wasmHexString: string): Promise<string> => {
+const postWasmToWabtBackendRoute = (
+    path: string
+) => (wasmHexString: string): Promise<string> => {
     const wasmBytes = hexStringToBytes(wasmHexString)
     const blob = new Blob([new Uint8Array(wasmBytes)])
     const formData = new FormData()
     formData.append('contract', blob)
-    return fetch(`${API_URL}/decompile`, {
+    return fetch(`${API_URL}${path}`, {
         method: 'POST',
         body: formData
     }).then(response => response.text())
 }
+
+const getContractDecompiled = postWasmToWabtBackendRoute(`/decompile`)
+const getContractWat = postWasmToWabtBackendRoute(`/wat`)
 
 export type { ContractProps }
 
@@ -133,5 +138,6 @@ export {
     getContractCode,
     getContractInfo,
     getContractDecompiled,
+    getContractWat,
     loadContract
 }
