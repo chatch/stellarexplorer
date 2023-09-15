@@ -449,6 +449,14 @@ pre#plain-text {
   border: none;
 }
 
+.invoke-param {
+  padding-left: 10px;
+}
+
+.invoke-param:before {
+  content: "-> ";
+}
+
 #wasm-code>div {
   margin-bottom: 20px;
 }

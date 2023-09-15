@@ -49,6 +49,8 @@ const decompileLimiter = rateLimit({
 
 const app = express();
 
+app.set('trust proxy', 2)
+
 /** 
 * Decompile a wasm file using the wabt wasm-decompile tool
 * 

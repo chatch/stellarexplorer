@@ -102,14 +102,14 @@ export default function () {
                 <DetailRow label="contract.create.ledger">
                   <Link to={`/ledger/${wasmIdLedger}`}>{wasmIdLedger}</Link>
                 </DetailRow>
+                <DetailRow label="contract.wasm.upload.ledger">
+                  <Link to={`/ledger/${wasmCodeLedger}`}>{wasmCodeLedger}</Link>
+                </DetailRow>
                 <DetailRow label="contract.wasm.id">
                   <span>
                     {wasmId}
                     <ClipboardCopy text={wasmId} />
                   </span>
-                </DetailRow>
-                <DetailRow label="contract.wasm.upload.ledger">
-                  <Link to={`/ledger/${wasmCodeLedger}`}>{wasmCodeLedger}</Link>
                 </DetailRow>
               </tbody>
             </Table>

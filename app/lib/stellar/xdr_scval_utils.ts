@@ -1,4 +1,4 @@
-import { StrKey, xdr } from 'soroban-client'
+import { StrKey, scValToNative, xdr } from 'soroban-client'
 
 export function scValToAddress(
     scval: any // : SorobanClient.xdr.ScVal | undefined
@@ -11,5 +11,18 @@ export function scValToAddress(
             return StrKey.encodeContract(addr.contractId())
         default:
             return 'unknown address type ...'
+    }
+}
+
+export const scValToString = (scVal: any) => {
+    console.log(`type ${scVal.switch ? scVal.switch().name : 'unknown'}`)
+    const native = scValToNative(scVal)
+    console.log(`type: ${typeof native} val: ${native}`)
+    if (typeof native === 'string') {
+        return native
+    } else if (typeof native === 'bigint') {
+        return native.toString()
+    } else {
+        return JSON.stringify(native)
     }
 }

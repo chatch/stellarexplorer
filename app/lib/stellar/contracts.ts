@@ -1,6 +1,7 @@
 import { Contract } from 'soroban-client'
 import { SorobanServer, xdr } from '../stellar'
 import { hexStringToBytes } from '../utils'
+import { scValToString } from './xdr_scval_utils'
 
 const API_URL = `https://steexp-api.fly.dev`
 // const API_URL = `http://localhost:3001`
@@ -12,6 +13,22 @@ interface ContractProps {
     wasmCode: string
     wasmCodeLedger: string
 }
+
+interface StorageElement {
+    key: string
+    keyType: string
+    value: string
+    valueType: string
+}
+
+const convertStorage = (
+    storage: ReadonlyArray<xdr.ScMapEntry>
+): ReadonlyArray<StorageElement> => storage.map(el => ({
+    key: scValToString(el.key()),
+    keyType: el.key().switch().name,
+    value: scValToString(el.val()),
+    valueType: el.val().switch().name,
+}))
 
 const getContractInfo = async (
     server: SorobanServer,
@@ -39,7 +56,9 @@ const getContractInfo = async (
 
     const contractInstance = codeData.val().instance()
     const wasmId = contractInstance.executable().wasmHash()
-    const storage = contractInstance.storage()
+
+    const contractStorage = contractInstance.storage()
+    const storage = contractStorage ? convertStorage(contractStorage) : []
 
     return { wasmId, wasmIdLedger, storage }
 }
@@ -132,7 +151,7 @@ const postWasmToWabtBackendRoute = (
 const getContractDecompiled = postWasmToWabtBackendRoute(`/decompile`)
 const getContractWat = postWasmToWabtBackendRoute(`/wat`)
 
-export type { ContractProps }
+export type { ContractProps, StorageElement }
 
 export {
     getContractCode,
