@@ -22,6 +22,8 @@ export const scValToString = (scVal: any) => {
         return native
     } else if (typeof native === 'bigint') {
         return native.toString()
+    } else if (Array.isArray(native)) {
+        return native.map(val => typeof val === 'bigint' ? val.toString() : val)
     } else {
         return JSON.stringify(native)
     }

@@ -10,6 +10,7 @@ import AccountMerge from "./AccountMerge"
 import AllowTrust, { AllowTrustProps } from "./AllowTrust"
 import BumpSequence from "./BumpSequence"
 import ChangeTrust from "./ChangeTrust"
+import { CreateClaimableBalanceOperation } from "./ClaimableBalances"
 import CreateAccount, { CreateAccountProps } from "./CreateAccount"
 import Inflation from "./Inflation"
 import InvokeHostFunction from "./InvokeHostFunction"
@@ -29,6 +30,8 @@ const OperationTypeToComponentMap = {
   create_account: CreateAccount,
   create_passive_sell_offer: Offer,
   create_passive_offer: Offer, // < Protocol 11
+
+  create_claimable_balance: CreateClaimableBalanceOperation,
 
   inflation: Inflation,
 

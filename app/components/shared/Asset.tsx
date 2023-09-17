@@ -8,7 +8,7 @@ interface AssetProps {
 }
 
 export default ({ code, issuer, type }: AssetProps) => {
-  const isLumens = type === 'native'
+  const isLumens = type === 'native' || code === 'native'
   const propCode = isLumens ? 'XLM' : code
   return (
     <span>

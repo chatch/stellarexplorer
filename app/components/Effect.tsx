@@ -12,6 +12,7 @@ import RelativeTime from "./shared/RelativeTime"
 import TransactionHash from "./shared/TransactionHash"
 
 import { base64Decode } from "../lib/utils"
+import Unrecognized from "./operations/Unrecognized"
 
 export type EffectProps = ServerApi.EffectRecord & { op?: ServerApi.OperationRecord }
 
@@ -209,6 +210,63 @@ const Thresholds = ({ lowThreshold, medThreshold, highThreshold }: any) => (
   </span>
 )
 
+const ClaimableBalanceCreated = ({ account, amount, asset }: any) => {
+  const [assetCode, assetIssuer] = asset.split(':')
+  return (
+    <span>
+      <AccountLink account={account} /> created balance for {amount} <Asset code={assetCode} issuer={assetIssuer} type="unknown" /></span>
+  )
+}
+
+const ClaimableBalanceClaimed = ({ account, amount, asset }: any) => {
+  const [assetCode, assetIssuer] = asset.split(':')
+  return (
+    <span>
+      <AccountLink account={account} /> claimed {amount} <Asset code={assetCode} issuer={assetIssuer} type="unknown" /></span>
+  )
+}
+
+const ClaimableBalanceClaimantCreated = ({ account, amount, asset, predicate }: any) => {
+  const [assetCode, assetIssuer] = asset.split(':')
+  return (
+    <span>
+      <AccountLink account={account} /> sponsored for {amount} <Asset code={assetCode} issuer={assetIssuer} type="unknown" /></span>
+  )
+}
+
+const ClaimableBalanceSponsorshipCreated = ({ sponsor }: any) => (
+  <span>
+    <AccountLink account={sponsor} /> created claimable balance sponsorship
+  </span>
+)
+
+const ClaimableBalanceSponsorshipRemoved = ({ account, formerSponsor }: any) => (
+  <span>
+    <AccountLink account={formerSponsor} /> revoked sponsored balance from  <AccountLink account={account} />
+  </span>
+)
+
+const LiquidityPoolTrade = ({ account, bought, sold }: any) => {
+  const [boughtCode, boughtIssuer] = bought.asset.split(':')
+  const [soldCode, soldIssuer] = sold.asset.split(':')
+
+  return (
+    <span>
+      <AccountLink account={account} /> bought {bought.amount}&nbsp;
+      <Asset code={boughtCode} issuer={boughtIssuer} type="unknown" /> for&nbsp;
+      {sold.amount}&nbsp;
+      <Asset code={soldCode} issuer={soldIssuer} type="unknown" />
+    </span>
+  )
+}
+
+const Fallback = (props: any) => (
+  <span>
+    Not handled, keys are:
+    {Object.keys(props).join(',')}
+  </span>
+)
+
 const effectTypeComponentMap = {
   account_created: AccountCreated,
   account_removed: AccountRemoved,
@@ -235,6 +293,32 @@ const effectTypeComponentMap = {
   data_updated: Data,
   contract_credited: ContractDebitCredit,
   contract_debited: ContractDebitCredit,
+
+  claimable_balance_created: ClaimableBalanceCreated,
+  claimable_balance_claimed: ClaimableBalanceClaimed,
+  claimable_balance_claimant_created: ClaimableBalanceClaimantCreated,
+  // account_sponsorship_created
+  // account_sponsorship_updated
+  // account_sponsorship_removed
+  // trustline_sponsorship_created
+  // trustline_sponsorship_updated
+  // trustline_sponsorship_removed
+  // data_sponsorship_created
+  // data_sponsorship_updated
+  // data_sponsorship_removed
+  claimable_balance_sponsorship_created: ClaimableBalanceSponsorshipCreated,
+  // claimable_balance_sponsorship_updated
+  claimable_balance_sponsorship_removed: ClaimableBalanceSponsorshipRemoved,
+  // signer_sponsorship_created
+  // signer_sponsorship_updated
+  // signer_sponsorship_removed
+
+  // - liquidity_pool_deposited
+  // - liquidity_pool_withdrew
+  liquidity_pool_trade: LiquidityPoolTrade,
+  // - liquidity_pool_created
+  // - liquidity_pool_removed
+  // - liquidity_pool_revoked
 }
 
 type EffectComponentMapKey = keyof typeof effectTypeComponentMap
