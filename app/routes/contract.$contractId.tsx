@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { LoaderArgs, json } from '@remix-run/node'
-import { NavLink, Outlet, useLoaderData, useLocation } from '@remix-run/react'
+import { NavLink, Outlet, useLoaderData, useLocation, useParams } from '@remix-run/react'
 
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
@@ -63,13 +63,18 @@ export default function () {
   const [activeTab, setActiveTab] = useState('storage')
   const { pathname } = useLocation()
   const { contractDetails } = useLoaderData<typeof loader>()
+  const { contractId } = useParams()
 
   useEffect(() => {
     setActiveTab(pathToTabName(pathname))
   }, [pathname])
 
   if (!contractDetails) {
-    return (<span>Not Found</span>)
+    return (
+      <Container>
+        <span>Contract {contractId} not found</span>
+      </Container>
+    )
   }
 
   const {

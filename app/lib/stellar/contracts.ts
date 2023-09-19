@@ -50,10 +50,9 @@ const getContractInfo = async (
         console.error(error)
     }
 
-    if (ledgerEntries == null || ledgerEntries.entries == null) {
+    if (ledgerEntries == null || ledgerEntries.entries == null || ledgerEntries.entries.length == 0) {
         return null
     }
-
     const ledgerEntry = ledgerEntries.entries[0]
     const codeData = xdr.LedgerEntryData.fromXDR(ledgerEntry.xdr, 'base64')
         .contractData()
