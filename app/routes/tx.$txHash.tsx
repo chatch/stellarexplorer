@@ -47,7 +47,7 @@ export const loader = ({ params, request }: LoaderArgs) => {
   const server = requestToServer(request)
   return Promise.all([
     transaction(server, params.txHash as string),
-    operations(server, { tx: params.txHash, limit: 10 }),
+    operations(server, { tx: params.txHash, limit: 100 }),
     server.serverURL.toString()
   ]).then(json)
 }

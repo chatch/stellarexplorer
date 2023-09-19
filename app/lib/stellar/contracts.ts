@@ -38,19 +38,25 @@ const getContractInfo = async (
         new xdr.LedgerKeyContractData({
             contract: new Contract(contractId).address().toScAddress(),
             key: xdr.ScVal.scvLedgerKeyContractInstance(),
-            durability: xdr.ContractDataDurability.persistent(),
-            bodyType: xdr.ContractEntryBodyType.dataEntry()
+            durability: xdr.ContractDataDurability.persistent()
         })
     )
 
-    const ledgerEntries = await server.getLedgerEntries([ledgerKey])
+    let ledgerEntries
+    try {
+
+        ledgerEntries = await server.getLedgerEntries(ledgerKey)
+    } catch (error) {
+        console.error(error)
+    }
+
     if (ledgerEntries == null || ledgerEntries.entries == null) {
         return null
     }
 
     const ledgerEntry = ledgerEntries.entries[0]
     const codeData = xdr.LedgerEntryData.fromXDR(ledgerEntry.xdr, 'base64')
-        .contractData().body().data()
+        .contractData()
 
     const wasmIdLedger = ledgerEntry.lastModifiedLedgerSeq
 
@@ -69,11 +75,10 @@ const getContractCode = async (
 ): Promise<{ wasmCode: string, wasmCodeLedger: number } | null> => {
     const ledgerKey = xdr.LedgerKey.contractCode(
         new xdr.LedgerKeyContractCode({
-            hash: wasmId,
-            bodyType: xdr.ContractEntryBodyType.dataEntry()
+            hash: wasmId
         })
     )
-    const ledgerEntries = await server.getLedgerEntries([ledgerKey])
+    const ledgerEntries = await server.getLedgerEntries(ledgerKey)
     if (ledgerEntries == null || ledgerEntries.entries == null) {
         return null
     }
@@ -82,7 +87,7 @@ const getContractCode = async (
     const wasmCodeLedger = ledgerEntry.lastModifiedLedgerSeq as number
 
     const codeEntry = xdr.LedgerEntryData.fromXDR(ledgerEntry.xdr, 'base64')
-    const wasmCode = codeEntry.contractCode().body().code().toString('hex')
+    const wasmCode = codeEntry.contractCode().code().toString('hex')
 
     return { wasmCode, wasmCodeLedger }
 }
@@ -111,8 +116,9 @@ const loadContract = async (
     }
 
     const { wasmId, wasmIdLedger } = wasmIdResult
+    // console.log(`wasmIdResult ${JSON.stringify(wasmIdResult, null, 2)}`)
     if (!wasmId) {
-        console.error('Failed to get wasm id')
+        console.warn('no wasmId not in result')
         return
     }
 

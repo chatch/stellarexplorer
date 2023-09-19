@@ -37,7 +37,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   const ledgerSeq = params.ledgerId as string
   return Promise.all([
     ledger(server, ledgerSeq),
-    transactions(server, { ledgerSeq }),
+    transactions(server, { ledgerSeq, limit: 100 }),
     server.serverURL.toString()
   ]).then(json)
 }

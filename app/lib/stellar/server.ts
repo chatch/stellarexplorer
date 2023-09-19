@@ -29,8 +29,8 @@ const requestToServer = (request: Request): HorizonServer => {
 
 const requestToSorobanServer = (request: Request): SorobanServer => {
     const { networkType } = requestToNetworkDetails(request)
-    if (![networks.future, networks.local].includes(networkType)) {
-        throw new Error(`network ${networkType} not yet supported by Soroban / Stellar Explorer`)
+    if (![networks.future, networks.test, networks.local].includes(networkType)) {
+        throw new Error(`Soroban smart contracts not yet supported on the network [${networkType}].`)
     }
     return new SorobanServer(
         networkType,

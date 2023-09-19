@@ -5,8 +5,17 @@ const CreateClaimableBalanceOperation = ({ amount, sponsor, asset }: any) => {
   const [assetCode, assetIssuer] = asset.split(':')
   return (
     <span>
-      <AccountLink account={sponsor} /> created claimable balance for {amount} <Asset code={assetCode} issuer={assetIssuer} type="unknown" /></span>
+      <AccountLink account={sponsor} /> created claimable balance for {amount} <Asset code={assetCode} issuer={assetIssuer} type="unknown" />
+    </span>
   )
 }
 
-export { CreateClaimableBalanceOperation }
+const ClaimClaimableBalanceOperation = ({ claimant }: any) => {
+  return (
+    <span>
+      Claimant <AccountLink account={claimant} />
+    </span>
+  )
+}
+
+export { ClaimClaimableBalanceOperation, CreateClaimableBalanceOperation }

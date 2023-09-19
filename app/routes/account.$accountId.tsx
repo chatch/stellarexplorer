@@ -177,7 +177,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     if (error instanceof NotFoundError) {
       throw new Response(null, {
         status: 404,
-        statusText: `Account not found`,
+        statusText: `Account [${params.accountId}] not found on this network.`,
       })
     } else if (error instanceof AccountTypeUnrecognizedException) {
       throw new Response(null, {
