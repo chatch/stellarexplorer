@@ -11,6 +11,7 @@ import AllowTrust, { AllowTrustProps } from "./AllowTrust"
 import BumpSequence from "./BumpSequence"
 import ChangeTrust from "./ChangeTrust"
 import { ClaimClaimableBalanceOperation, CreateClaimableBalanceOperation } from "./ClaimableBalances"
+import ClawbackOperation from "./Clawback"
 import CreateAccount, { CreateAccountProps } from "./CreateAccount"
 import { BumpFootprintExpiration, RestoreFootprint } from "./Footprint"
 import Inflation from "./Inflation"
@@ -30,6 +31,8 @@ const OperationTypeToComponentMap = {
   bump_sequence: BumpSequence,
   bump_footprint_expiration: BumpFootprintExpiration,
   change_trust: ChangeTrust,
+
+  clawback: ClawbackOperation,
 
   create_account: CreateAccount,
   create_passive_sell_offer: Offer,
