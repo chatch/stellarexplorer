@@ -9,10 +9,8 @@ import { FormattedMessage, useIntl } from "react-intl"
 import {
   NavLink,
   Outlet,
-  isRouteErrorResponse,
   useLoaderData,
   useLocation,
-  useRouteError
 } from "@remix-run/react"
 import type { LoaderArgs } from "@remix-run/node"
 import { json } from "@remix-run/node"
@@ -29,9 +27,10 @@ import ClipboardCopy from "../components/shared/ClipboardCopy"
 import Logo from "../components/shared/Logo"
 import { requestToServer } from "~/lib/stellar/server"
 import { loadAccount } from "~/lib/stellar/server_request_utils"
+import AccountTypeUnrecognizedException from "~/lib/error/AccountTypeUnrecognizedException"
 
 import infoSvg from '../../public/info-solid.svg'
-import AccountTypeUnrecognizedException from "~/lib/error/AccountTypeUnrecognizedException"
+import { ErrorBoundary } from "./lib/error-boundary"
 
 
 // exists in @types/react-bootstrap however can't seem to resolve it
@@ -164,6 +163,8 @@ const pathToTabName = (path: string) => {
   return match ? match[1] : 'balances'
 }
 
+export { ErrorBoundary }
+
 export const loader = async ({ params, request }: LoaderArgs) => {
   const server = requestToServer(request)
   let response
@@ -173,7 +174,6 @@ export const loader = async ({ params, request }: LoaderArgs) => {
       server.serverURL.toString()
     ]).then(result => ({ accountResult: result[0], horizonURL: result[1] }))
   } catch (error) {
-    captureException(error)
     if (error instanceof NotFoundError) {
       throw new Response(null, {
         status: 404,
@@ -185,6 +185,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
         statusText: error.message,
       })
     } else {
+      captureException(error)
       throw error
     }
   }
@@ -238,25 +239,4 @@ export default function Account() {
       </Row>
     </Container >
   )
-}
-
-export function ErrorBoundary() {
-  const error = useRouteError()
-  if (isRouteErrorResponse(error)) {
-    return (
-      <Container>
-        <h3>Error</h3>
-        <p>{error.statusText}</p>
-      </Container>
-    )
-  } else if (error instanceof Error) {
-    return (
-      <Container>
-        <h3>Error</h3>
-        <p>{error.message}</p>
-      </Container>
-    )
-  } else {
-    return <h1>Unknown Error</h1>
-  }
 }

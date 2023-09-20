@@ -19,6 +19,9 @@ import { setTitle, shortHash } from '~/lib/utils'
 import { stroopsToLumens } from '~/lib/stellar/utils'
 import Col from 'react-bootstrap/Col'
 import { useEffect } from 'react'
+import { NotFoundError } from 'stellar-sdk'
+import { captureException } from '@sentry/remix'
+import { ErrorBoundary } from './lib/error-boundary'
 
 
 const ledgerHash = (hash: string) => shortHash(hash, 20)
@@ -32,14 +35,30 @@ const DetailRow = ({ label, children }: { label: string, children: any }) => (
   </tr>
 )
 
+export { ErrorBoundary }
+
 export const loader = async ({ params, request }: LoaderArgs) => {
   const server = requestToServer(request)
   const ledgerSeq = params.ledgerId as string
-  return Promise.all([
-    ledger(server, ledgerSeq),
-    transactions(server, { ledgerSeq, limit: 100 }),
-    server.serverURL.toString()
-  ]).then(json)
+  let response
+  try {
+    response = await Promise.all([
+      ledger(server, ledgerSeq),
+      transactions(server, { ledgerSeq, limit: 100 }),
+      server.serverURL.toString()
+    ])
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      throw new Response(null, {
+        status: 404,
+        statusText: `Ledger ${params.ledgerId} not found on this network.`,
+      })
+    } else {
+      captureException(error)
+      throw error
+    }
+  }
+  return json(response)
 }
 
 export interface LedgerProps {
@@ -176,3 +195,4 @@ export default function Ledger() {
     </Container>
   )
 }
+

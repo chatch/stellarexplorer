@@ -14,10 +14,15 @@ import { MemoHash, MemoReturn } from '../lib/stellar/sdk'
 import { base64DecodeToHex, setTitle } from '../lib/utils'
 
 import type { LoaderArgs } from "@remix-run/node"
-import { useLoaderData } from '@remix-run/react'
+import {
+  useLoaderData,
+} from '@remix-run/react'
 import { operations, transaction } from '~/lib/stellar/server_request_utils'
 import OperationTable from '~/components/OperationTable'
 import { useEffect } from 'react'
+import { captureException } from '@sentry/remix'
+import { NotFoundError } from 'stellar-sdk'
+import { ErrorBoundary } from './lib/error-boundary'
 
 // Lookup memo type to a label
 const memoTypeToLabel: Record<string, string> = Object.freeze({
@@ -43,13 +48,29 @@ export interface TransactionProps {
   urlFn?: Function
 }
 
-export const loader = ({ params, request }: LoaderArgs) => {
+export { ErrorBoundary }
+
+export const loader = async ({ params, request }: LoaderArgs) => {
   const server = requestToServer(request)
-  return Promise.all([
-    transaction(server, params.txHash as string),
-    operations(server, { tx: params.txHash, limit: 100 }),
-    server.serverURL.toString()
-  ]).then(json)
+  let response
+  try {
+    response = await Promise.all([
+      transaction(server, params.txHash as string),
+      operations(server, { tx: params.txHash, limit: 100 }),
+      server.serverURL.toString()
+    ])
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      throw new Response(null, {
+        status: 404,
+        statusText: `Transaction ${params.txHash} not found on this network.`,
+      })
+    } else {
+      captureException(error)
+      throw error
+    }
+  }
+  return json(response)
 }
 
 export default function Transaction() {
