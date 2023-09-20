@@ -199,6 +199,35 @@ const Trustline = ({ assetType, assetCode, assetIssuer, limit, trustor }: any) =
   </span>
 )
 
+const TrustlineFlagsUpdated = ({
+  assetType,
+  assetCode,
+  assetIssuer,
+  authorizedFlag,
+  trustor
+}: any) => (
+  <span>
+    <FormattedMessage id="asset" />
+    {": "}
+    <Asset
+      code={assetCode}
+      type={assetType}
+      issuer={assetIssuer ?? trustor}
+    />
+
+    {authorizedFlag !== undefined && (
+      <span>
+        ;&nbsp;authorizedFlag={authorizedFlag == true ? 'true' : 'false'}
+      </span>)}
+
+    {trustor && (
+      <span>
+        ;&nbsp;trustor=
+        <AccountLink account={trustor} />
+      </span>)}
+  </span>
+)
+
 const Thresholds = ({ lowThreshold, medThreshold, highThreshold }: any) => (
   <span>
     <FormattedMessage id="threshold.low" />
@@ -260,13 +289,6 @@ const LiquidityPoolTrade = ({ account, bought, sold }: any) => {
   )
 }
 
-const Fallback = (props: any) => (
-  <span>
-    Not handled, keys are:
-    {Object.keys(props).join(',')}
-  </span>
-)
-
 const effectTypeComponentMap = {
   account_created: AccountCreated,
   account_removed: AccountRemoved,
@@ -284,6 +306,8 @@ const effectTypeComponentMap = {
   trustline_updated: Trustline,
   trustline_authorized: Trustline,
   trustline_deauthorized: Trustline,
+  trustline_flags_updated: TrustlineFlagsUpdated,
+
   offer_created: Offer,
   offer_removed: Offer,
   offer_updated: Offer,
