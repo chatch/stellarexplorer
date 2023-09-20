@@ -14,6 +14,9 @@ import { TitleWithJSONButton } from '~/components/shared/TitleWithJSONButton'
 import ClipboardCopy from '~/components/shared/ClipboardCopy'
 import { useEffect, useState } from 'react'
 import { loadContract } from '~/lib/stellar/contracts'
+import { ErrorBoundary } from './lib/error-boundary'
+import ContractIdInvalid from '~/lib/error/ContractIdInvalid'
+import { captureException } from '@sentry/remix'
 
 const pathToTabName = (path: string) => {
   const match = /\/contract\/[^/]*\/([a-z,-]*)/.exec(path)
@@ -47,15 +50,31 @@ const TabLink = ({
   </NavLink>
 )
 
-export const loader = ({ params, request }: LoaderArgs) => {
+export { ErrorBoundary }
+
+export const loader = async ({ params, request }: LoaderArgs) => {
   const server = requestToSorobanServer(request)
-  return Promise.all([
-    loadContract(server, params.contractId as string),
-    server.serverURL.toString()
-  ]).then(result => ({
-    contractDetails: result[0],
-    horizonURL: result[1]
-  })).then(json)
+  let response
+  try {
+    response = await Promise.all([
+      loadContract(server, params.contractId as string),
+      server.serverURL.toString()
+    ]).then(result => ({
+      contractDetails: result[0],
+      horizonURL: result[1]
+    }))
+  } catch (error) {
+    if (error instanceof ContractIdInvalid) {
+      throw new Response(null, {
+        status: 400,
+        statusText: error.message,
+      })
+    } else {
+      captureException(error)
+      throw error
+    }
+  }
+  return json(response)
 }
 
 export default function () {

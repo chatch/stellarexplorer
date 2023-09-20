@@ -11,8 +11,10 @@ import AccountLink from "~/components/shared/AccountLink"
 const Storage = ({ storage }: { storage: ReadonlyArray<StorageElement> }) => (
   <Table id="storage-table">
     <thead>
-      <th>Key</th>
-      <th>Value</th>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
     </thead>
     <tbody>
       {
