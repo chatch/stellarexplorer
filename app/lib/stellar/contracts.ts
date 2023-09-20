@@ -2,6 +2,7 @@ import { Contract } from 'soroban-client'
 import { SorobanServer, xdr } from '../stellar'
 import { hexStringToBytes } from '../utils'
 import { scValToString } from './xdr_scval_utils'
+import ContractIdInvalid from '../error/ContractIdInvalid'
 
 const API_URL = `https://steexp-api.fly.dev`
 // const API_URL = `http://localhost:3001`
@@ -91,7 +92,6 @@ const getContractCode = async (
     return { wasmCode, wasmCodeLedger }
 }
 
-
 const loadContract = async (
     server: SorobanServer,
     contractId: string
@@ -100,9 +100,11 @@ const loadContract = async (
     try {
         contractInstance = new Contract(contractId)
     } catch (error) {
-        // TODO: 404 Response (see how it was done in account view)
-        console.error(`Contract not found`)
-        return
+        console.error(error)
+        if (error instanceof Error && error.message.includes("Invalid contract ID")) {
+            throw new ContractIdInvalid(contractId)
+        }
+        throw error
     }
 
     const wasmIdResult = await getContractInfo(

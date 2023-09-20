@@ -20,11 +20,13 @@ import Offer from "./Offer"
 import PathPayment, { PathPaymentProps } from "./PathPayment"
 import Payment from "./Payment"
 import SetOptions, { SetOptionsProps } from "./SetOptions"
+import { BeginSponsoringFutureReserves, EndSponsoringFutureReserves } from "./Sponsorship"
 import Unrecognized from "./Unrecognized"
 
 const OperationTypeToComponentMap = {
   account_merge: AccountMerge,
   allow_trust: AllowTrust,
+  begin_sponsoring_future_reserves: BeginSponsoringFutureReserves,
   bump_sequence: BumpSequence,
   change_trust: ChangeTrust,
 
@@ -37,6 +39,7 @@ const OperationTypeToComponentMap = {
   claim_claimable_balance: ClaimClaimableBalanceOperation,
   create_claimable_balance: CreateClaimableBalanceOperation,
 
+  end_sponsoring_future_reserves: EndSponsoringFutureReserves,
   inflation: Inflation,
 
   invoke_host_function: InvokeHostFunction,
