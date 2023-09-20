@@ -29,6 +29,7 @@ import { requestToNetworkDetails } from './lib/stellar/networks'
 import { storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
 import { V2_ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
+import { NotFoundError } from 'stellar-sdk'
 
 
 export const links: LinksFunction = () => [
@@ -148,7 +149,11 @@ function App() {
 export const ErrorBoundary: V2_ErrorBoundaryComponent = () => {
   const error: any = useRouteError()
 
-  captureRemixErrorBoundaryError(error)
+  // don't send steller resource not founds to sentry
+  // see comments in entry.server.tsx as well ...
+  if (!(error instanceof NotFoundError)) {
+    captureRemixErrorBoundaryError(error)
+  }
 
   let errorMessage
   if (error.data) {
