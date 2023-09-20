@@ -11,6 +11,7 @@ import { RemixServer } from "@remix-run/react"
 import isbot from "isbot"
 import { renderToPipeableStream } from "react-dom/server"
 import * as Sentry from "@sentry/remix"
+import { NotFoundError } from "stellar-sdk"
 
 const ABORT_DELAY = 5000
 
@@ -54,7 +55,22 @@ export function handleError(
   error: unknown,
   { request }: DataFunctionArgs
 ): void {
-  if (error instanceof Error) {
+  if (error instanceof NotFoundError) {
+    // don't send steller resource not founds to sentry
+    // they are handled and error shown to user
+    // just log to console here for dev visibility
+    // 
+    // additionally this hides the following redirect that i can't yet figure
+    // out why it's happening:
+    //    GET /account/GCDP3JW7RSYNKCJ57W7ZNQX3BDR74GQEX2VHBIZQATN2BR6YYFLI4EDC?_data=routes%2Faccount.%24accountId._index 500
+    // 
+    // it comes after a :
+    //    GET /account/GCDP3JW7RSYNKCJ57W7ZNQX3BDR74GQEX2VHBIZQATN2BR6YYFLI4EDC?_data=routes%2Faccount.%24accountId 404
+    // 
+    // which is the correct response and renders correctly but for some reason
+    // remix is invoking this follow up that fails ...
+    console.warn(error.getResponse())
+  } else if (error instanceof Error) {
     Sentry.captureRemixServerException(error, "remix.server", request)
   } else {
     // Optionally capture non-Error objects
