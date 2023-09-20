@@ -3,27 +3,27 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "steexp-v2-beta"
+app = "steexp-soroban"
 primary_region = "sin"
 
 [build]
 
 [http_service]
-  internal_port = 3000
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ["app"]
+internal_port = 3000
+force_https = true
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+processes = ["app"]
 
 [checks]
-  [checks.status]
-    port = 3000
-    type = "http"
-    interval = "60s"
-    timeout = "2s"
-    grace_period = "5s"
-    method = "GET"
-    path = "/healthcheck"
-    protocol = "http"
-    tls_skip_verify = false
+[checks.status]
+port = 3000
+type = "http"
+interval = "60s"
+timeout = "2s"
+grace_period = "5s"
+method = "GET"
+path = "/healthcheck"
+protocol = "http"
+tls_skip_verify = false

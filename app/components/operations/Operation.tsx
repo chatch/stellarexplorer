@@ -12,6 +12,7 @@ import BumpSequence from "./BumpSequence"
 import ChangeTrust from "./ChangeTrust"
 import { ClaimClaimableBalanceOperation, CreateClaimableBalanceOperation } from "./ClaimableBalances"
 import CreateAccount, { CreateAccountProps } from "./CreateAccount"
+import { BumpFootprintExpiration, RestoreFootprint } from "./Footprint"
 import Inflation from "./Inflation"
 import InvokeHostFunction from "./InvokeHostFunction"
 import ManageData, { ManageDataProps } from "./ManageData"
@@ -25,6 +26,7 @@ const OperationTypeToComponentMap = {
   account_merge: AccountMerge,
   allow_trust: AllowTrust,
   bump_sequence: BumpSequence,
+  bump_footprint_expiration: BumpFootprintExpiration,
   change_trust: ChangeTrust,
 
   create_account: CreateAccount,
@@ -48,6 +50,7 @@ const OperationTypeToComponentMap = {
   path_payment: PathPayment, // < Protocol 12
 
   payment: Payment,
+  restore_footprint: RestoreFootprint,
   set_options: SetOptions,
 }
 

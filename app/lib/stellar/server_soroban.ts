@@ -3,6 +3,7 @@ import networks from './networks'
 
 export const sorobanRpcURIs: Record<string, string> = {
     future: 'https://rpc-futurenet.stellar.org',
+    testnet: 'https://rpc-testnet.stellar.org',
     local: 'http://localhost:8000/soroban/rpc',
 }
 

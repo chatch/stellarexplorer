@@ -1,5 +1,5 @@
 import networks, { requestToNetworkDetails } from './networks'
-import sdk from './sdk'
+import { Server } from './sdk'
 import SorobanServer, { sorobanRpcURIs } from './server_soroban'
 
 export const defaultNetworkAddresses: Record<string, string> = {
@@ -12,7 +12,7 @@ export const defaultNetworkAddresses: Record<string, string> = {
 /**
  * Wrap the stellar-sdk Server.
  */
-class HorizonServer extends sdk.Server {
+class HorizonServer extends Server {
     constructor(networkType: string, networkAddress: string) {
         // allowHttp: public/test use HTTPS; local can use HTTP
         super(networkAddress, { allowHttp: networkType === networks.local })
