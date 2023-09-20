@@ -11,6 +11,7 @@ import AllowTrust, { AllowTrustProps } from "./AllowTrust"
 import BumpSequence from "./BumpSequence"
 import ChangeTrust from "./ChangeTrust"
 import { ClaimClaimableBalanceOperation, CreateClaimableBalanceOperation } from "./ClaimableBalances"
+import ClawbackOperation from "./Clawback"
 import CreateAccount, { CreateAccountProps } from "./CreateAccount"
 import Inflation from "./Inflation"
 import InvokeHostFunction from "./InvokeHostFunction"
@@ -26,6 +27,8 @@ const OperationTypeToComponentMap = {
   allow_trust: AllowTrust,
   bump_sequence: BumpSequence,
   change_trust: ChangeTrust,
+
+  clawback: ClawbackOperation,
 
   create_account: CreateAccount,
   create_passive_sell_offer: Offer,
