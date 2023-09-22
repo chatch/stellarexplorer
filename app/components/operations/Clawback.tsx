@@ -1,5 +1,7 @@
+import { shortHash } from '~/lib/utils'
 import AccountLink from '../shared/AccountLink'
 import Asset from '../shared/Asset'
+import truncate from 'lodash/truncate'
 
 const ClawbackOperation = ({
   assetCode,
@@ -22,4 +24,12 @@ const ClawbackOperation = ({
   </span>
 )
 
-export default ClawbackOperation
+const ClawbackClaimableBalanceOperation = ({ balanceId }: { balanceId: string }) => (
+  <span>
+    Clawback balance id: <span title={balanceId}>{
+      truncate(balanceId, { length: 40 })
+    }</span>
+  </span>
+)
+
+export { ClawbackOperation, ClawbackClaimableBalanceOperation }
