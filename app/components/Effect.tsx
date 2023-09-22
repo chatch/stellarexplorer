@@ -13,6 +13,7 @@ import TransactionHash from "./shared/TransactionHash"
 
 import { base64Decode } from "../lib/utils"
 import Unrecognized from "./operations/Unrecognized"
+import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from "./operations/LiquidityPool"
 
 export type EffectProps = ServerApi.EffectRecord & { op?: ServerApi.OperationRecord }
 
@@ -349,9 +350,10 @@ const effectTypeComponentMap = {
   // signer_sponsorship_updated
   // signer_sponsorship_removed
 
-  // - liquidity_pool_deposited
-  // - liquidity_pool_withdrew
+  liquidity_pool_deposited: LiquidityPoolDeposit,
+  liquidity_pool_withdrew: LiquidityPoolWithdraw,
   liquidity_pool_trade: LiquidityPoolTrade,
+
   // - liquidity_pool_created
   // - liquidity_pool_removed
   // - liquidity_pool_revoked

@@ -15,6 +15,7 @@ import { ClawbackOperation, ClawbackClaimableBalanceOperation } from "./Clawback
 import CreateAccount, { CreateAccountProps } from "./CreateAccount"
 import Inflation from "./Inflation"
 import InvokeHostFunction from "./InvokeHostFunction"
+import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from "./LiquidityPool"
 import ManageData, { ManageDataProps } from "./ManageData"
 import Offer from "./Offer"
 import PathPayment, { PathPaymentProps } from "./PathPayment"
@@ -43,6 +44,9 @@ const OperationTypeToComponentMap = {
 
   end_sponsoring_future_reserves: EndSponsoringFutureReserves,
   inflation: Inflation,
+
+  liquidity_pool_deposit: LiquidityPoolDeposit,
+  liquidity_pool_withdraw: LiquidityPoolWithdraw,
 
   invoke_host_function: InvokeHostFunction,
 

@@ -1,4 +1,3 @@
-import { shortHash } from '~/lib/utils'
 import AccountLink from '../shared/AccountLink'
 import Asset from '../shared/Asset'
 import truncate from 'lodash/truncate'
