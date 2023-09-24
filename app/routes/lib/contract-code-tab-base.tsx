@@ -14,16 +14,14 @@ interface CodeProps extends PropsWithChildren {
 }
 
 const Code = ({
-  contractId,
-  wasmCode,
   decompiledCode,
   children
-}: CodeProps & { contractId: string }) => (
+}: CodeProps) => (
   <div id="wasm-code">
     {children}
     <CodeBlock
       code={decompiledCode}
-      language="javascript"
+      language="C"
     />
   </div>
 )
@@ -59,7 +57,7 @@ export default function contractCodeTab(loader: Function) {
     }
 
     return (
-      <Code {...codeProps} contractId={contractId as string}>{children}</Code>
+      <Code {...codeProps}>{children}</Code>
     )
   }
 }

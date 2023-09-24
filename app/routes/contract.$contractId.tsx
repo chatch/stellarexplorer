@@ -172,6 +172,10 @@ export default function () {
           <TabLink
             base={base}
             activeTab={activeTab}
+            title="Interface" />
+          <TabLink
+            base={base}
+            activeTab={activeTab}
             title="Code (readable)"
             path="code-readable" />
           <TabLink

@@ -4,8 +4,8 @@ import { hexStringToBytes } from '../utils'
 import { scValToString } from './xdr_scval_utils'
 import ContractIdInvalid from '../error/ContractIdInvalid'
 
-const API_URL = `https://steexp-api.fly.dev`
-// const API_URL = `http://localhost:3001`
+// const API_URL = `https://steexp-api.fly.dev`
+const API_URL = `http://localhost:3001`
 
 interface ContractProps {
     id: string
@@ -158,12 +158,26 @@ const postWasmToWabtBackendRoute = (
 const getContractDecompiled = postWasmToWabtBackendRoute(`/decompile`)
 const getContractWat = postWasmToWabtBackendRoute(`/wat`)
 
+const getContractInterface = (wasmHexString: string): Promise<
+    Record<string, string>
+> => {
+    const wasmBytes = hexStringToBytes(wasmHexString)
+    const blob = new Blob([new Uint8Array(wasmBytes)])
+    const formData = new FormData()
+    formData.append('contract', blob)
+    return fetch(`${API_URL}/interface`, {
+        method: 'POST',
+        body: formData
+    }).then(response => response.json())
+}
+
 export type { ContractProps, StorageElement }
 
 export {
     getContractCode,
     getContractInfo,
     getContractDecompiled,
+    getContractInterface,
     getContractWat,
     loadContract
 }
