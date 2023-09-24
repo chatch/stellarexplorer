@@ -17,11 +17,23 @@ import { loadContract } from '~/lib/stellar/contracts'
 import { ErrorBoundary } from './lib/error-boundary'
 import ContractIdInvalid from '~/lib/error/ContractIdInvalid'
 import { captureException } from '@sentry/remix'
+import { saveAs } from '~/lib/filesaver'
+import { hexStringToBytes } from '~/lib/utils'
 
 const pathToTabName = (path: string) => {
   const match = /\/contract\/[^/]*\/([a-z,-]*)/.exec(path)
   return match ? match[1] : 'storage'
 }
+
+
+const saveWasmFile = (contractId: string, wasmHexString: string) =>
+  saveAs(
+    new Blob([hexStringToBytes(wasmHexString)], {
+      type: 'application/octet-stream',
+    }),
+    `soroban-contract-${contractId}.wasm`,
+    true // don't insert a byte order marker
+  )
 
 const DetailRow = ({ label, children }: { label: string, children: any }) => (
   <tr>
@@ -98,6 +110,7 @@ export default function () {
 
   const {
     id,
+    wasmCode,
     wasmId,
     wasmIdLedger,
     wasmCodeLedger
@@ -134,6 +147,15 @@ export default function () {
                     {wasmId}
                     <ClipboardCopy text={wasmId} />
                   </span>
+                </DetailRow>
+                <DetailRow label="contract.wasm.bytecode">
+                  <button
+                    className="backend-resource-badge-button"
+                    onClick={() => saveWasmFile(id, wasmCode)}
+                    style={{ border: 0, marginTop: '10px' }}
+                  >
+                    <FormattedMessage id="contract.wasm.download" />
+                  </button>
                 </DetailRow>
               </tbody>
             </Table>

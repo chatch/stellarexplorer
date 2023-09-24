@@ -1,12 +1,10 @@
 import { useLoaderData, useParams } from "@remix-run/react"
 import { LoaderArgs, json } from "@remix-run/node"
-import { FormattedMessage } from 'react-intl'
 import { PropsWithChildren, useEffect } from "react"
 
 import { CodeBlock } from "~/components/shared/CodeBlock"
 import { loadContract } from "~/lib/stellar/contracts"
-import { hexStringToBytes, setTitle } from "~/lib/utils"
-import { saveAs } from '../../lib/filesaver'
+import { setTitle } from "~/lib/utils"
 import { requestToSorobanServer } from "~/lib/stellar/server"
 
 interface CodeProps extends PropsWithChildren {
@@ -15,15 +13,6 @@ interface CodeProps extends PropsWithChildren {
   decompiledCode: string
 }
 
-const saveWasmFile = (contractId: string, wasmHexString: string) =>
-  saveAs(
-    new Blob([hexStringToBytes(wasmHexString)], {
-      type: 'application/octet-stream',
-    }),
-    `soroban-contract-${contractId}.wasm`,
-    true // don't insert a byte order marker
-  )
-
 const Code = ({
   contractId,
   wasmCode,
@@ -31,15 +20,6 @@ const Code = ({
   children
 }: CodeProps & { contractId: string }) => (
   <div id="wasm-code">
-    <div>
-      <button
-        className="backend-resource-badge-button"
-        onClick={() => saveWasmFile(contractId, wasmCode)}
-        style={{ border: 0, marginTop: '10px' }}
-      >
-        <FormattedMessage id="contract.wasm.download" />
-      </button>
-    </div>
     {children}
     <CodeBlock
       code={decompiledCode}

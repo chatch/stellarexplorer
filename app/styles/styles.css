@@ -458,6 +458,7 @@ pre#plain-text {
 }
 
 #wasm-code>div {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
