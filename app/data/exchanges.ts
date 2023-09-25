@@ -18,14 +18,6 @@ const decentralized: Record<string, ExchangeProps> = {
     },
     "InterStellar": {
         "home": "interstellar.exchange"
-    },
-    "PapayaBot": {
-        "home": "papayabot.com",
-        "accounts": ["GBR3RS2Z277FER476OFHFXQJRKYSQX4Z7XNWO65AN3QPRUANUASANG3L"]
-    },
-    "PapayaSwap": {
-        "home": "swap.apay.io",
-        "accounts": ["GBGVRE5DH6HGNYNLWQITKRQYGR4PWQEH6MOE5ELPY3I4XJPTZ7CVT4YW"]
     }
 }
 
@@ -74,17 +66,9 @@ const centralized: Record<string, ExchangeProps> = {
         "home": "www.aex.com",
         "accounts": ["GDZCEWJ5TVXUTFH6V5CVDQDE43KRXYUFRHKI7X64EWMVOVYYZJFWIFQ2"]
     },
-    "BTC38": {
-        "home": "btc38.com",
-        "accounts": ["GB7GRJ5DTE3AA2TCVHQS2LAD3D7NFG7YLTOEWEBVRNUUI2Q3TJ5UQIFM"]
-    },
     "Changelly": {
         "home": "changelly.com",
         "accounts": ["GBV4ZDEPNQ2FKSPKGJP2YKDAIZWQ2XKRQD4V4ACH3TCTFY6KPY3OAVS7"]
-    },
-    "Exrates": {
-        "home": "exrates.me",
-        "accounts": ["GBKTJSNUSR6OCXA5WDWGT33MNSCNQHOBQUBYC7TVS7BOXDKWFNHI4QNH"]
     }
 }
 

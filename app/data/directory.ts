@@ -8,6 +8,40 @@ export interface DirectoryAnchor {
 }
 
 const anchors: Record<string, DirectoryAnchor> = {
+    "www.centre.io": {
+        "name": "www.centre.io",
+        "displayName": "Centre",
+        "website": "https://www.centre.io",
+        "assets": {
+            "USDC": "USDC-GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN"
+        }
+    },
+    "ultrastellar.com": {
+        "name": "ultrastellar.com",
+        "displayName": "Ultrastellar",
+        "website": "https://ultrastellar.com",
+        "assets": {
+            "yXLM": "yXLM-GARDNV3Q7YGT4AKSDF25LT32YSCCW4EV22Y2TV3I2PU2MMXJTEDL5T55",
+            "yUSDC": "yUSDC-GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF"
+        }
+    },
+    "aqua.network": {
+        "name": "aqua.network",
+        "displayName": "AQUA Network",
+        "website": "https://aqua.network",
+        "assets": {
+            "yXLM": "yXLM-GARDNV3Q7YGT4AKSDF25LT32YSCCW4EV22Y2TV3I2PU2MMXJTEDL5T55",
+            "yUSDC": "yUSDC-GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF"
+        }
+    },
+    "scopuly.com": {
+        "name": "scopuly.com",
+        "displayName": "Scopuly",
+        "website": "https://scopuly.com",
+        "assets": {
+            "SCOP": "SCOP-GC6OYQJIZF3HFXCYPFCBXYXNGIBQ4TNSFUBUXQJOZWIP6F3YZK4QH3VQ"
+        }
+    },
     "fchain.io": {
         "name": "fchain.io",
         "displayName": "Fchain",
@@ -50,6 +84,14 @@ const anchors: Record<string, DirectoryAnchor> = {
             "USD": "USD-GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
         }
     },
+    "lumenswap.io": {
+        "name": "lumenswap.io",
+        "displayName": "Lumenswap",
+        "website": "https://lumenswap.io",
+        "assets": {
+            "LSP": "LSP-GAB7STHVD5BDH3EEYXPI3OM7PCS4V443PYB5FNT6CFGJVPDLMKDM24WK"
+        }
+    },
     "thewwallet.com": {
         "name": "thewwallet.com",
         "displayName": "White Wallet",
@@ -79,12 +121,9 @@ const anchors: Record<string, DirectoryAnchor> = {
         "displayName": "Interstellar",
         "website": "https://interstellar.exchange",
         "assets": {
-            "ISX": "ISX-GD5Y5Q44JXBANL4LWS53O6RYGOJCLH7P5EFOIUX5KWGN2GG3QHI5T72E",
             "BTC": "BTC-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
-            "LTC": "LTC-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
             "ETH": "ETH-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
-            "XRP": "XRP-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
-            "XAF": "XAF-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P"
+            "XRP": "XRP-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P"
         }
     },
     "stronghold.co": {
@@ -556,6 +595,36 @@ export interface DirectoryAsset {
 }
 
 const assets: Record<string, DirectoryAsset> = {
+    "USDC-GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN": {
+        "code": "USDC",
+        "issuer": "GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN",
+        "domain": "www.centre.io"
+    },
+    "yXLM-GARDNV3Q7YGT4AKSDF25LT32YSCCW4EV22Y2TV3I2PU2MMXJTEDL5T55": {
+        "code": "yXLM",
+        "issuer": "GARDNV3Q7YGT4AKSDF25LT32YSCCW4EV22Y2TV3I2PU2MMXJTEDL5T55",
+        "domain": "ultrastellar.com"
+    },
+    "AQUA-GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA": {
+        "code": "AQUA",
+        "issuer": "GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA",
+        "domain": "aqua.network"
+    },
+    "SCOP-GC6OYQJIZF3HFXCYPFCBXYXNGIBQ4TNSFUBUXQJOZWIP6F3YZK4QH3VQ": {
+        "code": "SCOP",
+        "issuer": "GC6OYQJIZF3HFXCYPFCBXYXNGIBQ4TNSFUBUXQJOZWIP6F3YZK4QH3VQ",
+        "domain": "scopuly.com"
+    },
+    "LSP-GAB7STHVD5BDH3EEYXPI3OM7PCS4V443PYB5FNT6CFGJVPDLMKDM24WK": {
+        "code": "LSP",
+        "issuer": "GAB7STHVD5BDH3EEYXPI3OM7PCS4V443PYB5FNT6CFGJVPDLMKDM24WK",
+        "domain": "lumenswap.io"
+    },
+    "yUSDC-GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF": {
+        "code": "yUSDC",
+        "issuer": "GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF",
+        "domain": "ultrastellar.com"
+    },
     "BRL-GDVKY2GU2DRXWTBEYJJWSFXIGBZV6AZNBVVSUHEPZI54LIS6BA7DVVSP": {
         "code": "BRL",
         "issuer": "GDVKY2GU2DRXWTBEYJJWSFXIGBZV6AZNBVVSUHEPZI54LIS6BA7DVVSP",

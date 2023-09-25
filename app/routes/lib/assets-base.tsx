@@ -29,11 +29,13 @@ export interface AssetProps {
 }
 
 export function Asset({ code, domain, issuer }: AssetProps) {
+  console.log(domain)
   const anchor = anchors[domain]
+  console.log(JSON.stringify(anchor))
   return (
     <tr className="directoryRow">
       <td>
-        <a href={anchor.website} target="_blank" rel="noreferrer">
+        <a href={anchor.website || ''} target="_blank" rel="noreferrer">
           <Logo name={domain} type="anchor" />
         </a>
       </td>
