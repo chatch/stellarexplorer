@@ -18,7 +18,6 @@ import { TitleWithJSONButton } from "~/components/shared/TitleWithJSONButton"
 import directory from "../../data/directory"
 
 const { anchors, assets } = directory
-
 export const METADATA_URI =
   "https://raw.githubusercontent.com/irisli/stellarterm/master/directory/directory.json"
 
@@ -29,9 +28,7 @@ export interface AssetProps {
 }
 
 export function Asset({ code, domain, issuer }: AssetProps) {
-  console.log(domain)
   const anchor = anchors[domain]
-  console.log(JSON.stringify(anchor))
   return (
     <tr className="directoryRow">
       <td>

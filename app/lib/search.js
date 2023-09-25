@@ -2,7 +2,6 @@ import isNaN from 'lodash/isNaN'
 import isEmpty from 'lodash/isEmpty'
 import isString from 'lodash/isString'
 import toNumber from 'lodash/toNumber'
-import { KeyPair } from './stellar/sdk'
 
 import {
     isContractAddress,
@@ -26,7 +25,7 @@ const lcIncludes = (str1, str2) =>
 
 const searchAssetCode = code =>
     Object.keys(assets)
-        .filter(key => lcEquals(assets[key].code, code.toUpperCase()))
+        .filter(key => lcEquals(assets[key].code, code))
         .map(key => assets[key])
 
 const searchAnchorName = name =>
@@ -61,7 +60,7 @@ const searchStrToPath = searchStr => {
     // search by asset code
     const codeMatch = searchAssetCode(str)
     if (codeMatch.length > 0) {
-        return `/asset/${str.toUpperCase()}`
+        return `/asset/${codeMatch[0].code}`
     }
 
     // search by anchor name (exact or substring)
