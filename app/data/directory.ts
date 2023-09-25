@@ -30,8 +30,7 @@ const anchors: Record<string, DirectoryAnchor> = {
         "displayName": "AQUA Network",
         "website": "https://aqua.network",
         "assets": {
-            "yXLM": "yXLM-GARDNV3Q7YGT4AKSDF25LT32YSCCW4EV22Y2TV3I2PU2MMXJTEDL5T55",
-            "yUSDC": "yUSDC-GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF"
+            "AQUA": "AQUA-GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA"
         }
     },
     "scopuly.com": {
