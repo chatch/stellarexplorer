@@ -8,20 +8,20 @@ import { setTitle } from "~/lib/utils"
 import { requestToSorobanServer } from "~/lib/stellar/server"
 
 interface CodeProps extends PropsWithChildren {
-  wasmCode: string
-  wasmCodeLedger: number
   decompiledCode: string
+  language?: string
 }
 
 const Code = ({
   decompiledCode,
-  children
+  children,
+  language = 'javascript'
 }: CodeProps) => (
   <div id="wasm-code">
     {children}
     <CodeBlock
       code={decompiledCode}
-      language="C"
+      language={language}
     />
   </div>
 )
@@ -43,7 +43,7 @@ export const contractCodeLoaderFn = (getCodeFn: Function) => ({ params, request 
   })
 }
 
-export default function contractCodeTab(loader: Function) {
+export default function contractCodeTab(loader: Function, language?: string) {
   return function CodeTab({ children }: PropsWithChildren) {
     const { contractId } = useParams()
     useEffect(() => {
@@ -57,7 +57,7 @@ export default function contractCodeTab(loader: Function) {
     }
 
     return (
-      <Code {...codeProps}>{children}</Code>
+      <Code {...codeProps} language={language}>{children}</Code>
     )
   }
 }
