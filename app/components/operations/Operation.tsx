@@ -11,16 +11,18 @@ import AllowTrust, { AllowTrustProps } from "./AllowTrust"
 import BumpSequence from "./BumpSequence"
 import ChangeTrust from "./ChangeTrust"
 import { ClaimClaimableBalanceOperation, CreateClaimableBalanceOperation } from "./ClaimableBalances"
-import ClawbackOperation from "./Clawback"
+import { ClawbackOperation, ClawbackClaimableBalanceOperation } from "./Clawback"
 import CreateAccount, { CreateAccountProps } from "./CreateAccount"
 import { BumpFootprintExpiration, RestoreFootprint } from "./Footprint"
 import Inflation from "./Inflation"
 import InvokeHostFunction from "./InvokeHostFunction"
+import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from "./LiquidityPool"
 import ManageData, { ManageDataProps } from "./ManageData"
 import Offer from "./Offer"
 import PathPayment, { PathPaymentProps } from "./PathPayment"
 import Payment from "./Payment"
 import SetOptions, { SetOptionsProps } from "./SetOptions"
+import SetTrustLineFlags from "./SetTrustLineFlags"
 import { BeginSponsoringFutureReserves, EndSponsoringFutureReserves } from "./Sponsorship"
 import Unrecognized from "./Unrecognized"
 
@@ -33,6 +35,7 @@ const OperationTypeToComponentMap = {
   change_trust: ChangeTrust,
 
   clawback: ClawbackOperation,
+  clawback_claimable_balance: ClawbackClaimableBalanceOperation,
 
   create_account: CreateAccount,
   create_passive_sell_offer: Offer,
@@ -43,6 +46,9 @@ const OperationTypeToComponentMap = {
 
   end_sponsoring_future_reserves: EndSponsoringFutureReserves,
   inflation: Inflation,
+
+  liquidity_pool_deposit: LiquidityPoolDeposit,
+  liquidity_pool_withdraw: LiquidityPoolWithdraw,
 
   invoke_host_function: InvokeHostFunction,
 
@@ -58,6 +64,7 @@ const OperationTypeToComponentMap = {
   payment: Payment,
   restore_footprint: RestoreFootprint,
   set_options: SetOptions,
+  set_trust_line_flags: SetTrustLineFlags,
 }
 
 type OperationTypes = keyof typeof OperationTypeToComponentMap

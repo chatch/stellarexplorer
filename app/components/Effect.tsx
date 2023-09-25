@@ -13,6 +13,7 @@ import TransactionHash from "./shared/TransactionHash"
 
 import { base64Decode } from "../lib/utils"
 import Unrecognized from "./operations/Unrecognized"
+import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from "./operations/LiquidityPool"
 
 export type EffectProps = ServerApi.EffectRecord & { op?: ServerApi.OperationRecord }
 
@@ -255,7 +256,7 @@ const ClaimableBalanceClaimed = ({ account, amount, asset }: any) => {
   )
 }
 
-const ClaimableBalanceClaimantCreated = ({ account, amount, asset, predicate }: any) => {
+const ClaimableBalanceClaimantCreated = ({ account, amount, asset }: any) => {
   const [assetCode, assetIssuer] = asset.split(':')
   return (
     <span>
@@ -274,6 +275,16 @@ const ClaimableBalanceSponsorshipRemoved = ({ account, formerSponsor }: any) => 
     <AccountLink account={formerSponsor} /> revoked sponsored balance from  <AccountLink account={account} />
   </span>
 )
+
+const ClaimableBalanceClawedback = ({ balanceId }: any) => {
+  return (
+    <span>
+      Clawback balance id: <span title={balanceId}>{
+        truncate(balanceId, { length: 40 })
+      }</span>
+    </span>
+  )
+}
 
 const LiquidityPoolTrade = ({ account, bought, sold }: any) => {
   const [boughtCode, boughtIssuer] = bought.asset.split(':')
@@ -321,6 +332,8 @@ const effectTypeComponentMap = {
   claimable_balance_created: ClaimableBalanceCreated,
   claimable_balance_claimed: ClaimableBalanceClaimed,
   claimable_balance_claimant_created: ClaimableBalanceClaimantCreated,
+  claimable_balance_clawed_back: ClaimableBalanceClawedback,
+
   // account_sponsorship_created
   // account_sponsorship_updated
   // account_sponsorship_removed
@@ -337,9 +350,10 @@ const effectTypeComponentMap = {
   // signer_sponsorship_updated
   // signer_sponsorship_removed
 
-  // - liquidity_pool_deposited
-  // - liquidity_pool_withdrew
+  liquidity_pool_deposited: LiquidityPoolDeposit,
+  liquidity_pool_withdrew: LiquidityPoolWithdraw,
   liquidity_pool_trade: LiquidityPoolTrade,
+
   // - liquidity_pool_created
   // - liquidity_pool_removed
   // - liquidity_pool_revoked

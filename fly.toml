@@ -16,6 +16,16 @@ auto_start_machines = true
 min_machines_running = 0
 processes = ["app"]
 
+[http_service.concurrency]
+type = "connections"
+hard_limit = 75
+soft_limit = 50
+
+[services.concurrency]
+hard_limit = 75
+soft_limit = 50
+type = "connections"
+
 [checks]
 [checks.status]
 port = 3000
