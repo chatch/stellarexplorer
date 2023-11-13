@@ -97,7 +97,7 @@ See the section [Exploring Private / Local Development Networks](#private-networ
 Start:
 
 ```
-npm i && npm start
+npm i && npm run dev
 ```
 
 Test:
