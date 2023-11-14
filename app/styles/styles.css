@@ -574,6 +574,33 @@ a:hover {
   transition: all 0.18s ease-in-out;
 }
 
+.liquidity-pool-asset-image {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.liquidity-pool-asset {
+  display: inline-block;
+  width: 250px;
+}
+
+.liquidity-pool-amount {
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+}
+
+.liquidity-pool-shares {
+  width: 50px;
+  text-align: center;
+}
+
+.liquidity-pool-trustlines {
+  width: 50px;
+  text-align: center;
+}
+
 /*
 Mobile Rules
 */
