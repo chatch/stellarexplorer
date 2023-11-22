@@ -28,7 +28,9 @@
         "deploy": "fly deploy --remote-only",
         "dev": "remix dev",
         "start": "remix-serve build",
-        "typecheck": "tsc"
+        "typecheck": "tsc",
+        "lint": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}'",
+        "lint:fix": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}' --fix"
     },
     "dependencies": {
         "@remix-run/css-bundle": "1.19.3",
@@ -65,7 +67,21 @@
         "@types/react-copy-to-clipboard": "^5.0.4",
         "@types/react-dom": "^18.2.7",
         "@types/react-router-bootstrap": "^0.26.2",
+        "@typescript-eslint/parser": "^5.62.0",
         "eslint": "^8.46.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-config-react-app": "^7.0.1",
+        "eslint-plugin-prettier": "^5.0.1",
+        "husky": "^8.0.3",
+        "lint-staged": "^15.1.0",
         "typescript": "^5.1.6"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx}": "eslint --ignore-path .gitignore"
     }
 }
