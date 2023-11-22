@@ -1,30 +1,35 @@
-import type { ServerApi } from "stellar-sdk"
+import type { ServerApi } from 'stellar-sdk'
 
-import { FormattedMessage } from "react-intl"
-import truncate from "lodash/truncate"
+import { FormattedMessage } from 'react-intl'
+import truncate from 'lodash/truncate'
 
-import Offer from "./operations/Offer"
-import AccountLink from "./shared/AccountLink"
-import Asset from "./shared/Asset"
-import FormattedAmount from "./shared/FormattedAmount"
-import JSONButton from "./shared/JSONButton"
-import RelativeTime from "./shared/RelativeTime"
-import TransactionHash from "./shared/TransactionHash"
+import Offer from './operations/Offer'
+import AccountLink from './shared/AccountLink'
+import Asset from './shared/Asset'
+import FormattedAmount from './shared/FormattedAmount'
+import JSONButton from './shared/JSONButton'
+import RelativeTime from './shared/RelativeTime'
+import TransactionHash from './shared/TransactionHash'
 
-import { base64Decode } from "../lib/utils"
-import Unrecognized from "./operations/Unrecognized"
-import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from "./operations/LiquidityPool"
+import { base64Decode } from '../lib/utils'
+import Unrecognized from './operations/Unrecognized'
+import {
+  LiquidityPoolDeposit,
+  LiquidityPoolWithdraw,
+} from './operations/LiquidityPool'
 
-export type EffectProps = ServerApi.EffectRecord & { op?: ServerApi.OperationRecord }
+export type EffectProps = ServerApi.EffectRecord & {
+  op?: ServerApi.OperationRecord
+}
 
 const AccountCreated = ({ account, startingBalance }: any) => (
   <span>
     <FormattedMessage id="account" />
-    {": "}
+    {': '}
     <AccountLink account={account} />
-    {"; "}
+    {'; '}
     <FormattedMessage id="balance" />
-    {": "}
+    {': '}
     <FormattedAmount amount={startingBalance} />
   </span>
 )
@@ -35,7 +40,7 @@ const AccountFlagsUpdated = ({
 }) => (
   <span>
     <FormattedMessage id="flags" />
-    {": "}
+    {': '}
     {authRequiredFlag != null && (
       <span>auth_required_flag={String(authRequiredFlag)}; </span>
     )}
@@ -48,7 +53,7 @@ const AccountFlagsUpdated = ({
 const AccountHomeDomainUpdated = ({ homeDomain }: any) => (
   <span>
     <FormattedMessage id="home.domain" />
-    {": "}
+    {': '}
     <a href={`https://${homeDomain}`} target="_blank" rel="noreferrer">
       {homeDomain}
     </a>
@@ -58,7 +63,7 @@ const AccountHomeDomainUpdated = ({ homeDomain }: any) => (
 const AccountRemoved = ({ account }: any) => (
   <span>
     <FormattedMessage id="account" />
-    {": "}
+    {': '}
     {account}
   </span>
 )
@@ -74,10 +79,10 @@ const Amount = ({
     {showLabel === true && (
       <span>
         <FormattedMessage id="amount" />
-        {": "}
+        {': '}
       </span>
     )}
-    <FormattedAmount amount={amount} />{" "}
+    <FormattedAmount amount={amount} />{' '}
     <Asset code={assetCode} type={assetType} issuer={assetIssuer} />
   </span>
 )
@@ -95,9 +100,9 @@ const ContractDebitCredit = ({
 }: any) => (
   <span>
     <FormattedMessage id="contract" />
-    {": "}
+    {': '}
     <AccountLink account={contract} />
-    {"; "}
+    {'; '}
     <Amount
       amount={amount}
       assetCode={assetCode}
@@ -114,14 +119,14 @@ const Data = ({ op, type }: any) => {
     <div>
       <div>
         <FormattedMessage id="key" />
-        {": "}
+        {': '}
         <span title={op.name}>{truncate(op.name)}</span>
       </div>
 
-      {type !== "data_removed" && (
+      {type !== 'data_removed' && (
         <div>
           <FormattedMessage id="value" />
-          {": "}
+          {': '}
           <span title={op.value}>{truncate(base64Decode(op.value))}</span>
         </div>
       )}
@@ -134,10 +139,10 @@ const SequenceBumped = ({ newSeq }: any) => <span>{newSeq}</span>
 const Signer = ({ publicKey, weight }: any) => (
   <span>
     <FormattedMessage id="key.public" />
-    {": "}
+    {': '}
     <AccountLink account={publicKey} />
-    {"; "} <FormattedMessage id="weight" />
-    {": "}
+    {'; '} <FormattedMessage id="weight" />
+    {': '}
     {weight}
   </span>
 )
@@ -155,7 +160,7 @@ const Trade = ({
 }: any) => (
   <span>
     <FormattedMessage id="bought" />
-    {": "}
+    {': '}
     <Amount
       amount={boughtAmount}
       assetCode={boughtAssetCode}
@@ -163,9 +168,9 @@ const Trade = ({
       assetIssuer={boughtAssetIssuer}
       showLabel={false}
     />
-    {"; "}
+    {'; '}
     <FormattedMessage id="sold" />
-    {": "}
+    {': '}
     <Amount
       amount={soldAmount}
       assetCode={soldAssetCode}
@@ -173,27 +178,29 @@ const Trade = ({
       assetIssuer={soldAssetIssuer}
       showLabel={false}
     />
-    {"; "}
+    {'; '}
     <FormattedMessage id="seller" />
-    {": "}
+    {': '}
     <AccountLink account={seller} />
   </span>
 )
 
-const Trustline = ({ assetType, assetCode, assetIssuer, limit, trustor }: any) => (
+const Trustline = ({
+  assetType,
+  assetCode,
+  assetIssuer,
+  limit,
+  trustor,
+}: any) => (
   <span>
     <FormattedMessage id="asset" />
-    {": "}
-    <Asset
-      code={assetCode}
-      type={assetType}
-      issuer={assetIssuer ?? trustor}
-    />
+    {': '}
+    <Asset code={assetCode} type={assetType} issuer={assetIssuer ?? trustor} />
     {limit && (
       <span>
-        {"; "}
+        {'; '}
         <FormattedMessage id="limit" />
-        {": "}
+        {': '}
         {limit}
       </span>
     )}
@@ -205,27 +212,25 @@ const TrustlineFlagsUpdated = ({
   assetCode,
   assetIssuer,
   authorizedFlag,
-  trustor
+  trustor,
 }: any) => (
   <span>
     <FormattedMessage id="asset" />
-    {": "}
-    <Asset
-      code={assetCode}
-      type={assetType}
-      issuer={assetIssuer ?? trustor}
-    />
+    {': '}
+    <Asset code={assetCode} type={assetType} issuer={assetIssuer ?? trustor} />
 
     {authorizedFlag !== undefined && (
       <span>
         ;&nbsp;authorizedFlag={authorizedFlag == true ? 'true' : 'false'}
-      </span>)}
+      </span>
+    )}
 
     {trustor && (
       <span>
         ;&nbsp;trustor=
         <AccountLink account={trustor} />
-      </span>)}
+      </span>
+    )}
   </span>
 )
 
@@ -244,7 +249,9 @@ const ClaimableBalanceCreated = ({ account, amount, asset }: any) => {
   const [assetCode, assetIssuer] = asset.split(':')
   return (
     <span>
-      <AccountLink account={account} /> created balance for {amount} <Asset code={assetCode} issuer={assetIssuer} type="unknown" /></span>
+      <AccountLink account={account} /> created balance for {amount}{' '}
+      <Asset code={assetCode} issuer={assetIssuer} type="unknown" />
+    </span>
   )
 }
 
@@ -252,7 +259,9 @@ const ClaimableBalanceClaimed = ({ account, amount, asset }: any) => {
   const [assetCode, assetIssuer] = asset.split(':')
   return (
     <span>
-      <AccountLink account={account} /> claimed {amount} <Asset code={assetCode} issuer={assetIssuer} type="unknown" /></span>
+      <AccountLink account={account} /> claimed {amount}{' '}
+      <Asset code={assetCode} issuer={assetIssuer} type="unknown" />
+    </span>
   )
 }
 
@@ -260,7 +269,9 @@ const ClaimableBalanceClaimantCreated = ({ account, amount, asset }: any) => {
   const [assetCode, assetIssuer] = asset.split(':')
   return (
     <span>
-      <AccountLink account={account} /> sponsored for {amount} <Asset code={assetCode} issuer={assetIssuer} type="unknown" /></span>
+      <AccountLink account={account} /> sponsored for {amount}{' '}
+      <Asset code={assetCode} issuer={assetIssuer} type="unknown" />
+    </span>
   )
 }
 
@@ -270,18 +281,21 @@ const ClaimableBalanceSponsorshipCreated = ({ sponsor }: any) => (
   </span>
 )
 
-const ClaimableBalanceSponsorshipRemoved = ({ account, formerSponsor }: any) => (
+const ClaimableBalanceSponsorshipRemoved = ({
+  account,
+  formerSponsor,
+}: any) => (
   <span>
-    <AccountLink account={formerSponsor} /> revoked sponsored balance from  <AccountLink account={account} />
+    <AccountLink account={formerSponsor} /> revoked sponsored balance from{' '}
+    <AccountLink account={account} />
   </span>
 )
 
 const ClaimableBalanceClawedback = ({ balanceId }: any) => {
   return (
     <span>
-      Clawback balance id: <span title={balanceId}>{
-        truncate(balanceId, { length: 40 })
-      }</span>
+      Clawback balance id:{' '}
+      <span title={balanceId}>{truncate(balanceId, { length: 40 })}</span>
     </span>
   )
 }
@@ -371,7 +385,8 @@ const filterEffectsFn = (effectId: string) => (recordsArr: Array<any>) => {
 }
 
 const EffectDetails = ({ effect, op }: any) => {
-  const SubEffectComponent = effectTypeComponentMap[effect.type as EffectComponentMapKey]
+  const SubEffectComponent =
+    effectTypeComponentMap[effect.type as EffectComponentMapKey]
   if (!SubEffectComponent) return <span>{effect.type}</span>
   return <SubEffectComponent {...effect} op={op} />
 }
@@ -380,8 +395,8 @@ function Effect({
   effect,
   showAccount = true,
 }: {
-  effect: EffectProps,
-  showAccount: boolean,
+  effect: EffectProps
+  showAccount: boolean
 }) {
   const opId = effect.op?.id
   const txHash = effect.op?.transaction_hash
@@ -396,21 +411,17 @@ function Effect({
       <td>
         <EffectDetails effect={effect} op={effect.op} />
       </td>
-      <td>
-        {txHash && (
-          <TransactionHash hash={txHash} compact={true} />
-        )}
-      </td>
+      <td>{txHash && <TransactionHash hash={txHash} compact={true} />}</td>
       <td>
         <RelativeTime timeStr={(effect as any).createdAt} />
       </td>
       <td>
-        {opId &&
+        {opId && (
           <JSONButton
             url={`/operations/${opId}/effects?limit=200&order=desc`}
             filterFn={filterEffectsFn(effect.id)}
           />
-        }
+        )}
       </td>
     </tr>
   )

@@ -12,12 +12,7 @@ export default function Footer() {
       <Row>
         <Col md={{ span: 2, offset: 10 }}>
           <a href="https://github.com/chatch/stellarexplorer">
-            <img
-              src={ghImg}
-              alt="github"
-              height={20}
-              width={20}
-            />
+            <img src={ghImg} alt="github" height={20} width={20} />
             Source Code
           </a>
         </Col>
@@ -25,12 +20,7 @@ export default function Footer() {
       <Row>
         <Col md={{ span: 2, offset: 10 }}>
           <a href="https://github.com/chatch/stellarexplorer/issues">
-            <img
-              src={supportImg}
-              alt="support"
-              height={20}
-              width={20}
-            />
+            <img src={supportImg} alt="support" height={20} width={20} />
             Support
           </a>
         </Col>
@@ -38,12 +28,7 @@ export default function Footer() {
       <Row>
         <Col md={{ span: 2, offset: 10 }}>
           <a href="https://stellar.org">
-            <img
-              src={stellarIconImg}
-              alt="stellar"
-              height={20}
-              width={20}
-            />
+            <img src={stellarIconImg} alt="stellar" height={20} width={20} />
             Stellar.org
           </a>
         </Col>

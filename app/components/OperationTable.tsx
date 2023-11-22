@@ -1,9 +1,12 @@
-import React from "react"
-import Table from "react-bootstrap/Table"
-import { FormattedMessage } from "react-intl"
+import React from 'react'
+import Table from 'react-bootstrap/Table'
+import { FormattedMessage } from 'react-intl'
 
-import { default as Operation, operationTypesKeys } from "./operations/Operation"
-import { filterFor } from "./shared/OperationType"
+import {
+  default as Operation,
+  operationTypesKeys,
+} from './operations/Operation'
+import { filterFor } from './shared/OperationType'
 
 const filterFn = (event: React.ChangeEvent<HTMLSelectElement>) => {
   filterFor(event.target.value)
@@ -13,7 +16,7 @@ export interface OperationTableProps {
   compact: boolean
   records: ReadonlyArray<any>
   horizonURL?: string
-};
+}
 
 const getOperationTypeFilter = () => {
   console.error("FIXME - can't use window.location - useLocation?")
@@ -26,8 +29,7 @@ const getOperationTypeFilter = () => {
 export default function OperationTable({
   compact,
   records,
-  horizonURL
-  // possiblyMoreDataAvailable,
+  horizonURL, // possiblyMoreDataAvailable,
 }: OperationTableProps) {
   return (
     <div>

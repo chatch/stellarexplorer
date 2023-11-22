@@ -14,12 +14,11 @@ export default function Paging({
   currentCursor,
   baseUrl,
   records,
-  children
+  children,
 }: React.PropsWithChildren<PagingProps>) {
   const navigate = useNavigate()
 
-  if (!usePaging)
-    return children
+  if (!usePaging) return children
 
   const handleClickNext: MouseEventHandler<HTMLElement> = () => {
     const cursorNext = records[records.length - 1].pagingToken

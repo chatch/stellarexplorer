@@ -1,20 +1,24 @@
-import Dropdown from "react-bootstrap/Dropdown"
-import DropdownItem from "react-bootstrap/DropdownItem"
-import { FormattedMessage, useIntl } from "react-intl"
-import langSelectImg from "../../img/lang-select.png"
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownItem from 'react-bootstrap/DropdownItem'
+import { FormattedMessage, useIntl } from 'react-intl'
+import langSelectImg from '../../img/lang-select.png'
 
 const onClickTranslateHelp = () => {
   window.location.href =
-    "https://github.com/chatch/stellarexplorer/tree/master/src/languages"
+    'https://github.com/chatch/stellarexplorer/tree/master/src/languages'
 }
 
 const styleLanguageSelector = {
-  backgroundColor: "rgba(255, 0, 0, 0)",
+  backgroundColor: 'rgba(255, 0, 0, 0)',
   border: 0,
   padding: 0,
 }
 
-export default function LanguageSelector({ switcher }: { switcher: React.MouseEventHandler<HTMLElement> }) {
+export default function LanguageSelector({
+  switcher,
+}: {
+  switcher: React.MouseEventHandler<HTMLElement>
+}) {
   const { formatMessage } = useIntl()
   return (
     <Dropdown id="language-selector">
@@ -22,10 +26,10 @@ export default function LanguageSelector({ switcher }: { switcher: React.MouseEv
         <img
           src={langSelectImg}
           style={{ height: 35, width: 28 }}
-          alt={formatMessage({ id: "language.selector" })}
+          alt={formatMessage({ id: 'language.selector' })}
         />
       </Dropdown.Toggle>
-      <Dropdown.Menu style={{ color: "white" }}>
+      <Dropdown.Menu style={{ color: 'white' }}>
         <DropdownItem lang="en" onClick={switcher}>
           English
         </DropdownItem>
@@ -58,7 +62,7 @@ export default function LanguageSelector({ switcher }: { switcher: React.MouseEv
         </DropdownItem>
         <DropdownItem
           onClick={onClickTranslateHelp}
-          style={{ borderTop: "1px solid black" }}
+          style={{ borderTop: '1px solid black' }}
         >
           <FormattedMessage id="translate.help" />
         </DropdownItem>

@@ -1,4 +1,4 @@
-import networks, {hostnameToNetworkType} from '../networks'
+import networks, { hostnameToNetworkType } from '../networks'
 
 describe('hostnameToNetwork', () => {
   it('detects network type correctly from the hostname', () => {

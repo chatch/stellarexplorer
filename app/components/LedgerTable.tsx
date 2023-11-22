@@ -10,8 +10,7 @@ interface ParentProps {
   compact: boolean
 }
 
-interface LedgerRowProps extends Partial<LedgerProps>, ParentProps {
-};
+interface LedgerRowProps extends Partial<LedgerProps>, ParentProps {}
 
 interface LedgerTableProps extends ParentProps {
   records: ReadonlyArray<LedgerProps>
@@ -30,7 +29,9 @@ const LedgerRow = ({
     </td>
     <td>
       {successfulTransactionCount && successfulTransactionCount > 0 ? (
-        <Link to={`/ledger/${sequence}#txs-table`}>{successfulTransactionCount}</Link>
+        <Link to={`/ledger/${sequence}#txs-table`}>
+          {successfulTransactionCount}
+        </Link>
       ) : (
         successfulTransactionCount
       )}
@@ -38,13 +39,10 @@ const LedgerRow = ({
       {compact === false && <span> failed</span>}
     </td>
     <td>
-      <span title={time}>
-        {time && <RelativeTime timeStr={time} />}
-      </span>
+      <span title={time}>{time && <RelativeTime timeStr={time} />}</span>
     </td>
   </tr>
 )
-
 
 export default function LedgerTable({ compact, records }: LedgerTableProps) {
   return (
@@ -64,7 +62,9 @@ export default function LedgerTable({ compact, records }: LedgerTableProps) {
         </tr>
       </thead>
       <tbody>
-        {records == null ? <p> Loading ...</p> :
+        {records == null ? (
+          <p> Loading ...</p>
+        ) : (
           records.map((ledger: LedgerProps) => (
             <LedgerRow
               compact={compact}
@@ -74,7 +74,8 @@ export default function LedgerTable({ compact, records }: LedgerTableProps) {
               successfulTransactionCount={ledger.successfulTransactionCount}
               failedTransactionCount={ledger.failedTransactionCount}
             />
-          ))}
+          ))
+        )}
       </tbody>
     </Table>
   )

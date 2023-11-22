@@ -1,5 +1,5 @@
-import { nameValueLoader, nameValueAccountTab } from "./lib/name-value-table"
+import { nameValueLoader, nameValueAccountTab } from './lib/name-value-table'
 
 export const loader = nameValueLoader
 
-export default nameValueAccountTab(`Flags`)
+export default nameValueAccountTab('Flags')

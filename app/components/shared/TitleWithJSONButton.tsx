@@ -4,28 +4,27 @@ import ClipboardCopy from './ClipboardCopy'
 const TitleWithJSONButton = ({
   title,
   titleSecondary,
-  url
+  url,
 }: {
-  title: string,
-  titleSecondary?: string,
+  title: string
+  titleSecondary?: string
   url?: string
 }) => (
   <div>
-    <span>{title}
+    <span>
+      {title}
       {titleSecondary && (
         <span>
-          { }{" "}
-          <span className="secondary-heading">{titleSecondary}</span>
+          {} <span className="secondary-heading">{titleSecondary}</span>
           <ClipboardCopy text={titleSecondary} />
-        </span>)
-
-      }
+        </span>
+      )}
     </span>
-    {url &&
+    {url && (
       <span className="pull-right">
         <JSONButton url={url} />
       </span>
-    }
+    )}
   </div>
 )
 

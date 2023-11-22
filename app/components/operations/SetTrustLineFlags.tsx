@@ -10,26 +10,20 @@ export interface SetTrustLineFlagsProps {
   setFlagsS: string[]
 }
 
-const SetTrustLineFlags = (
-  {
-    assetCode,
-    assetIssuer,
-    assetType,
-    trustor,
-    clearFlagsS,
-    setFlagsS
-  }: SetTrustLineFlagsProps) => (
+const SetTrustLineFlags = ({
+  assetCode,
+  assetIssuer,
+  assetType,
+  trustor,
+  clearFlagsS,
+  setFlagsS,
+}: SetTrustLineFlagsProps) => (
   <span>
-    Set flags for asset: <Asset
-      code={assetCode}
-      issuer={assetIssuer}
-      type={assetType}
-    />;&nbsp;
-
-    Trustor: <AccountLink account={trustor} />;&nbsp;
-
+    Set flags for asset:{' '}
+    <Asset code={assetCode} issuer={assetIssuer} type={assetType} />
+    ;&nbsp; Trustor: <AccountLink account={trustor} />
+    ;&nbsp;
     {clearFlagsS && clearFlagsS.length > 0 && `Clear: [${clearFlagsS}];`}&nbsp;
-
     {setFlagsS && setFlagsS.length > 0 && `Set: [${setFlagsS}]`}
   </span>
 )

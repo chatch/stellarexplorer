@@ -1,18 +1,24 @@
-import { LoaderArgs, json } from "@remix-run/node"
-import { useLoaderData, useParams } from "@remix-run/react"
-import { useEffect } from "react"
-import { Col, Container, Row, Table } from "react-bootstrap"
-import { FormattedMessage } from "react-intl"
-import { StrKey } from "../lib/stellar/sdk"
-import { Horizon } from "stellar-sdk"
-import AccountLink from "~/components/shared/AccountLink"
-import { requestToServer } from "~/lib/stellar/server"
-import { LoadAccountResult, loadAccount } from "~/lib/stellar/server_request_utils"
-import { setTitle } from "~/lib/utils"
-import { AccountRecordSigners } from "stellar-sdk/lib/types/account"
+import { LoaderArgs, json } from '@remix-run/node'
+import { useLoaderData, useParams } from '@remix-run/react'
+import { useEffect } from 'react'
+import { Col, Container, Row, Table } from 'react-bootstrap'
+import { FormattedMessage } from 'react-intl'
+import { StrKey } from '../lib/stellar/sdk'
+import { Horizon } from 'stellar-sdk'
+import AccountLink from '~/components/shared/AccountLink'
+import { requestToServer } from '~/lib/stellar/server'
+import {
+  LoadAccountResult,
+  loadAccount,
+} from '~/lib/stellar/server_request_utils'
+import { setTitle } from '~/lib/utils'
+import { AccountRecordSigners } from 'stellar-sdk/lib/types/account'
 
-
-const Thresholds = ({ thresholds }: { thresholds: Horizon.AccountThresholds }) => (
+const Thresholds = ({
+  thresholds,
+}: {
+  thresholds: Horizon.AccountThresholds
+}) => (
   <Table id="threshold-table">
     <thead>
       <tr>
@@ -56,13 +62,13 @@ const Signers = ({ signers }: { signers: AccountRecordSigners[] }) => (
       {signers.map((signer) => (
         <tr key={signer.key}>
           <td>
-            {signer.type === "ed25519_public_key" && (
+            {signer.type === 'ed25519_public_key' && (
               <AccountLink account={signer.key} />
             )}
-            {signer.type === "sha256_hash" &&
-              StrKey.decodeSha256Hash(signer.key).toString("hex")}
-            {signer.type === "preauth_tx" &&
-              StrKey.decodePreAuthTx(signer.key).toString("hex")}
+            {signer.type === 'sha256_hash' &&
+              StrKey.decodeSha256Hash(signer.key).toString('hex')}
+            {signer.type === 'preauth_tx' &&
+              StrKey.decodePreAuthTx(signer.key).toString('hex')}
           </td>
           <td>{signer.weight}</td>
           <td>{signer.type}</td>
@@ -78,8 +84,7 @@ export const loader = ({ params, request }: LoaderArgs) => {
 }
 
 export default function BalancesTab() {
-  const accountResult =
-    useLoaderData<typeof loader>() as LoadAccountResult
+  const accountResult = useLoaderData<typeof loader>() as LoadAccountResult
 
   const { accountId } = useParams()
   useEffect(() => {
@@ -100,7 +105,7 @@ export default function BalancesTab() {
         </Col>
         <Col
           md={{ span: 3, offset: 1 }}
-          style={{ border: "1px solid white", marginTop: 30 }}
+          style={{ border: '1px solid white', marginTop: 30 }}
         >
           <h4>
             <FormattedMessage id="thresholds" />

@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { LoaderArgs, json } from '@remix-run/node'
-import { NavLink, Outlet, useLoaderData, useLocation, useParams } from '@remix-run/react'
+import {
+  NavLink,
+  Outlet,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from '@remix-run/react'
 
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
@@ -23,7 +29,7 @@ const pathToTabName = (path: string) => {
   return match ? match[1] : 'storage'
 }
 
-const DetailRow = ({ label, children }: { label: string, children: any }) => (
+const DetailRow = ({ label, children }: { label: string; children: any }) => (
   <tr>
     <td>
       <FormattedMessage id={label} />
@@ -36,16 +42,17 @@ const TabLink = ({
   base,
   title,
   activeTab,
-  path = title?.toLowerCase()
+  path = title?.toLowerCase(),
 }: {
-  base: string,
-  title: string,
-  activeTab: string,
+  base: string
+  title: string
+  activeTab: string
   path?: string
 }) => (
   <NavLink
     to={`${base}/${path}`}
-    className={activeTab == path ? 'contract-tab-active' : ''}>
+    className={activeTab == path ? 'contract-tab-active' : ''}
+  >
     {title}
   </NavLink>
 )
@@ -58,10 +65,10 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   try {
     response = await Promise.all([
       loadContract(server, params.contractId as string),
-      server.serverURL.toString()
-    ]).then(result => ({
+      server.serverURL.toString(),
+    ]).then((result) => ({
       contractDetails: result[0],
-      horizonURL: result[1]
+      horizonURL: result[1],
     }))
   } catch (error) {
     if (error instanceof ContractIdInvalid) {
@@ -96,12 +103,7 @@ export default function () {
     )
   }
 
-  const {
-    id,
-    wasmId,
-    wasmIdLedger,
-    wasmCodeLedger
-  } = contractDetails
+  const { id, wasmId, wasmIdLedger, wasmCodeLedger } = contractDetails
 
   const base = `/contract/${id}`
 
@@ -111,13 +113,13 @@ export default function () {
         <Card>
           <CardHeader>
             <TitleWithJSONButton
-              title={formatMessage({ id: "contract" })}
+              title={formatMessage({ id: 'contract' })}
               titleSecondary={id}
-            // TODO: consider what to show here. With contracts there
-            // is no single JSON source, a couple of look ups are
-            // made .. for now not passing the URL means no JSON
-            // button is rendered at all:
-            // url={`${horizonURL}contracts/${id}`}
+              // TODO: consider what to show here. With contracts there
+              // is no single JSON source, a couple of look ups are
+              // made .. for now not passing the URL means no JSON
+              // button is rendered at all:
+              // url={`${horizonURL}contracts/${id}`}
             />
           </CardHeader>
           <Card.Body>
@@ -143,26 +145,24 @@ export default function () {
 
       <Row>
         <nav id="contract-nav">
-          <TabLink
-            base={base}
-            activeTab={activeTab}
-            title="Storage" />
+          <TabLink base={base} activeTab={activeTab} title="Storage" />
           <TabLink
             base={base}
             activeTab={activeTab}
             title="Code (readable)"
-            path="code-readable" />
+            path="code-readable"
+          />
           <TabLink
             base={base}
             activeTab={activeTab}
             title="Code (wat)"
-            path="code-wat" />
+            path="code-wat"
+          />
         </nav>
         <div id="contract-tab-content">
           <Outlet context={contractDetails} />
         </div>
       </Row>
-
     </Container>
   )
 }

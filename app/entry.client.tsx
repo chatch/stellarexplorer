@@ -4,19 +4,19 @@
  * For more information, see https://remix.run/file-conventions/entry.client
  */
 
-import { RemixBrowser, useLocation, useMatches } from "@remix-run/react"
-import { startTransition, StrictMode, useEffect } from "react"
-import { hydrateRoot } from "react-dom/client"
-import * as Sentry from "@sentry/remix"
+import { RemixBrowser, useLocation, useMatches } from '@remix-run/react'
+import { startTransition, StrictMode, useEffect } from 'react'
+import { hydrateRoot } from 'react-dom/client'
+import * as Sentry from '@sentry/remix'
 
 Sentry.init({
-  dsn: "https://cbde552cd9c3a2300daf1355b7e14e7e@o4505837033095168.ingest.sentry.io/4505837045153792",
+  dsn: 'https://cbde552cd9c3a2300daf1355b7e14e7e@o4505837033095168.ingest.sentry.io/4505837045153792',
   integrations: [
     new Sentry.BrowserTracing({
       routingInstrumentation: Sentry.remixRouterInstrumentation(
         useEffect,
         useLocation,
-        useMatches
+        useMatches,
       ),
     }),
     // Replay is only available in the client
@@ -29,7 +29,10 @@ Sentry.init({
   tracesSampleRate: 1.0,
 
   // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
-  tracePropagationTargets: ["http://testnet.local:3000", /^https:\/\/*.steexp.com/],
+  tracePropagationTargets: [
+    'http://testnet.local:3000',
+    /^https:\/\/*.steexp.com/,
+  ],
 
   // Capture Replay for 10% of all sessions,
   // plus for 100% of sessions with an error
@@ -42,6 +45,6 @@ startTransition(() => {
     document,
     <StrictMode>
       <RemixBrowser />
-    </StrictMode>
+    </StrictMode>,
   )
 })

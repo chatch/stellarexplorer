@@ -3,7 +3,13 @@ import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Table from 'react-bootstrap/Table'
-import { FormattedDate, FormattedMessage, FormattedNumber, FormattedTime, useIntl } from 'react-intl'
+import {
+  FormattedDate,
+  FormattedMessage,
+  FormattedNumber,
+  FormattedTime,
+  useIntl,
+} from 'react-intl'
 import { Link } from 'react-router-dom'
 import { requestToServer } from '~/lib/stellar/server'
 
@@ -11,7 +17,7 @@ import { json } from '@remix-run/node'
 
 import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 
-import type { LoaderArgs } from "@remix-run/node"
+import type { LoaderArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { ledger, transactions } from '~/lib/stellar/server_request_utils'
 import TransactionTable from '~/components/TransactionTable'
@@ -23,10 +29,9 @@ import { NotFoundError } from 'stellar-sdk'
 import { captureException } from '@sentry/remix'
 import { ErrorBoundary } from './lib/error-boundary'
 
-
 const ledgerHash = (hash: string) => shortHash(hash, 20)
 
-const DetailRow = ({ label, children }: { label: string, children: any }) => (
+const DetailRow = ({ label, children }: { label: string; children: any }) => (
   <tr>
     <td>
       <FormattedMessage id={label} />
@@ -45,7 +50,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     response = await Promise.all([
       ledger(server, ledgerSeq),
       transactions(server, { ledgerSeq, limit: 100 }),
-      server.serverURL.toString()
+      server.serverURL.toString(),
     ])
   } catch (error) {
     if (error instanceof NotFoundError) {
@@ -77,31 +82,34 @@ export interface LedgerProps {
   maxTxSetSize: number
   protocolVersion: number
   transactionCount: number
-  baseFeeInStroops: boolean,
+  baseFeeInStroops: boolean
   baseFee: number
   baseReserve: number
 }
 
 export default function Ledger() {
-  const [{
-    id,
-    baseFeeInStroops,
-    baseFee,
-    baseReserve,
-    feePool,
-    hash,
-    maxTxSetSize,
-    operationCount,
-    prevHash,
-    prevSeq,
-    protocolVersion,
-    sequence,
-    time,
-    totalCoins,
-    successfulTransactionCount,
-    failedTransactionCount
-  }, transactions, horizonURL]: [LedgerProps, any, string] =
-    useLoaderData<typeof loader>()
+  const [
+    {
+      id,
+      baseFeeInStroops,
+      baseFee,
+      baseReserve,
+      feePool,
+      hash,
+      maxTxSetSize,
+      operationCount,
+      prevHash,
+      prevSeq,
+      protocolVersion,
+      sequence,
+      time,
+      totalCoins,
+      successfulTransactionCount,
+      failedTransactionCount,
+    },
+    transactions,
+    horizonURL,
+  ]: [LedgerProps, any, string] = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -116,9 +124,10 @@ export default function Ledger() {
         <Card>
           <CardHeader>
             <TitleWithJSONButton
-              title={formatMessage({ id: "ledger" })}
+              title={formatMessage({ id: 'ledger' })}
               titleSecondary={String(sequence)}
-              url={`${horizonURL}ledgers/${sequence}`} />
+              url={`${horizonURL}ledgers/${sequence}`}
+            />
           </CardHeader>
           <Card.Body>
             <Container>
@@ -127,7 +136,7 @@ export default function Ledger() {
                   <Table>
                     <tbody>
                       <DetailRow label="time">
-                        <FormattedDate value={time} />{" "}
+                        <FormattedDate value={time} />{' '}
                         <FormattedTime value={time} />
                       </DetailRow>
                       <DetailRow label="hash">
@@ -159,7 +168,7 @@ export default function Ledger() {
                       <DetailRow label="base.reserve">
                         {baseFeeInStroops
                           ? stroopsToLumens(baseReserve)
-                          : Number(baseReserve)}{" "}
+                          : Number(baseReserve)}{' '}
                         XLM
                       </DetailRow>
                       <DetailRow label="fee.pool">
@@ -168,7 +177,9 @@ export default function Ledger() {
                       <DetailRow label="total.coins">
                         <FormattedNumber value={Number(totalCoins)} /> XLM
                       </DetailRow>
-                      <DetailRow label="protocolVersion">{protocolVersion}</DetailRow>
+                      <DetailRow label="protocolVersion">
+                        {protocolVersion}
+                      </DetailRow>
                     </tbody>
                   </Table>
                 </Col>
@@ -195,4 +206,3 @@ export default function Ledger() {
     </Container>
   )
 }
-

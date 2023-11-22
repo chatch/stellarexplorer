@@ -15,7 +15,10 @@ import { useEffect } from 'react'
 
 const RECORD_LIMIT = 30
 
-export const loader = horizonRecordsLoader<ReadonlyArray<any>>(`operations`, RECORD_LIMIT)
+export const loader = horizonRecordsLoader<ReadonlyArray<any>>(
+  'operations',
+  RECORD_LIMIT,
+)
 
 export default function Operations() {
   const { records, cursor, horizonURL } = useLoaderData<typeof loader>()
@@ -34,9 +37,10 @@ export default function Operations() {
           </CardHeader>
           <Card.Body>
             <Paging
-              baseUrl='/operations'
+              baseUrl="/operations"
               records={records}
-              currentCursor={cursor}>
+              currentCursor={cursor}
+            >
               <OperationTable
                 records={records}
                 compact={false}

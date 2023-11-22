@@ -1,21 +1,21 @@
-import React from "react"
-import Table from "react-bootstrap/Table"
-import { FormattedMessage } from "react-intl"
+import React from 'react'
+import Table from 'react-bootstrap/Table'
+import { FormattedMessage } from 'react-intl'
 
-import { OfferRow as Offer } from "./operations/Offer"
+import { OfferRow as Offer } from './operations/Offer'
 
 interface OfferTableProps {
   compact?: boolean
   records: ReadonlyArray<any>
   showSeller?: boolean
   horizonURL?: string
-};
+}
 
 export default function OfferTable({
   compact,
   records,
   showSeller = true,
-  horizonURL
+  horizonURL,
 }: OfferTableProps) {
   if (records.length === 0)
     return <div style={{ marginTop: 20, marginBottom: 20 }}>No Offers</div>
@@ -62,11 +62,11 @@ export default function OfferTable({
               sellingAssetCode={offer.selling.asset_code}
               sellingAssetIssuer={offer.selling.asset_issuer}
               sellingAssetType={offer.selling.asset_type}
-              showSeller={showSeller} />
+              showSeller={showSeller}
+            />
           ))}
         </tbody>
       </Table>
     </div>
   )
 }
-
