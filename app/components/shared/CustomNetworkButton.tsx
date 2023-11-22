@@ -73,7 +73,8 @@ const ResourceModalBody = ({
           {networkAddresses.map(
             (address) =>
               address !== networkAddress && (
-                <option key={address}>{address}</option>,
+                <option key={address}>{address}</option>
+              ),
           )}
         </select>
         <br />
