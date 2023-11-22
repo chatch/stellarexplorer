@@ -30,7 +30,7 @@
         "start": "remix-serve build",
         "typecheck": "tsc",
         "lint": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}'",
-        "lint:fix": "npm run lint --fix"
+        "lint:fix": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}' --fix"
     },
     "dependencies": {
         "@remix-run/css-bundle": "1.19.3",
