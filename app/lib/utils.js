@@ -11,58 +11,61 @@ const Buffer = require('buffer').Buffer
 // formatAmount().
 BigNumber.config({ EXPONENTIAL_AT: 20 })
 
-const shortAddress = (address, length = 4) => address ? address.substring(0, length) : ''
+const shortAddress = (address, length = 4) =>
+  address ? address.substring(0, length) : ''
 
 const shortHash = (hash, length = 10) => truncate(hash, { length })
 
 const isDefInt = (obj, key) => {
-    if (!obj || !key || obj.hasOwnProperty(key) === false) return false
-    return Number.isInteger(Number(obj[key]))
+  if (!obj || !key || obj.hasOwnProperty(key) === false) return false
+  return Number.isInteger(Number(obj[key]))
 }
 
-const base64Decode = value => Buffer.from(value, 'base64').toString()
-const base64DecodeToHex = value => Buffer.from(value, 'base64').toString('hex')
+const base64Decode = (value) => Buffer.from(value, 'base64').toString()
+const base64DecodeToHex = (value) =>
+  Buffer.from(value, 'base64').toString('hex')
 
 // Extract asset issuer address from keys in the form <code>-<issuer>
-const assetKeyToIssuer = key => key.substring(key.indexOf('-') + 1)
+const assetKeyToIssuer = (key) => key.substring(key.indexOf('-') + 1)
 
 const storageInit = () => {
-    let storage
-    if (typeof localStorage === 'undefined' || localStorage === null) {
-        const storagePath = join(tmpdir(), 'steexp')
-        // TODO: change this ..
-        // const LocalStorage = require('node-localstorage').LocalStorage
-        storage = {}
-    } else {
-        storage = localStorage
-    }
-    return storage
+  let storage
+  if (typeof localStorage === 'undefined' || localStorage === null) {
+    const storagePath = join(tmpdir(), 'steexp')
+    // TODO: change this ..
+    // const LocalStorage = require('node-localstorage').LocalStorage
+    storage = {}
+  } else {
+    storage = localStorage
+  }
+  return storage
 }
 
-const formatAmount = amount => {
-    return new BigNumber(amount).toString()
+const formatAmount = (amount) => {
+  return new BigNumber(amount).toString()
 }
 
-const setTitle = subTitle => document.title = `Stellar Explorer | ${subTitle}`
+const setTitle = (subTitle) =>
+  (document.title = `Stellar Explorer | ${subTitle}`)
 
 const hexStringToBytes = (hexString) => {
-    const bytes = new Uint8Array(hexString.length / 2)
-    for (let i = 0; i < hexString.length; i += 2) {
-        const byte = parseInt(hexString.substring(i, i + 2), 16)
-        bytes[i / 2] = byte
-    }
-    return bytes.buffer
+  const bytes = new Uint8Array(hexString.length / 2)
+  for (let i = 0; i < hexString.length; i += 2) {
+    const byte = parseInt(hexString.substring(i, i + 2), 16)
+    bytes[i / 2] = byte
+  }
+  return bytes.buffer
 }
 
 export {
-    assetKeyToIssuer,
-    base64Decode,
-    base64DecodeToHex,
-    formatAmount,
-    hexStringToBytes,
-    isDefInt,
-    setTitle,
-    shortAddress,
-    shortHash,
-    storageInit,
+  assetKeyToIssuer,
+  base64Decode,
+  base64DecodeToHex,
+  formatAmount,
+  hexStringToBytes,
+  isDefInt,
+  setTitle,
+  shortAddress,
+  shortHash,
+  storageInit,
 }

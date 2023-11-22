@@ -1,12 +1,12 @@
-import { useLoaderData, useParams } from "@remix-run/react"
-import { LoaderArgs, json } from "@remix-run/node"
-import { useEffect } from "react"
-import Table from "react-bootstrap/Table"
+import { useLoaderData, useParams } from '@remix-run/react'
+import { LoaderArgs, json } from '@remix-run/node'
+import { useEffect } from 'react'
+import Table from 'react-bootstrap/Table'
 
-import { StorageElement, getContractInfo } from "~/lib/stellar/contracts"
-import { requestToSorobanServer } from "~/lib/stellar/server"
-import { setTitle } from "~/lib/utils"
-import AccountLink from "~/components/shared/AccountLink"
+import { StorageElement, getContractInfo } from '~/lib/stellar/contracts'
+import { requestToSorobanServer } from '~/lib/stellar/server'
+import { setTitle } from '~/lib/utils'
+import AccountLink from '~/components/shared/AccountLink'
 
 const Storage = ({ storage }: { storage: ReadonlyArray<StorageElement> }) => (
   <Table id="storage-table">
@@ -17,39 +17,40 @@ const Storage = ({ storage }: { storage: ReadonlyArray<StorageElement> }) => (
       </tr>
     </thead>
     <tbody>
-      {
-        storage.map(({ key, keyType, value, valueType }) => (
-          <tr key={key}>
-            <td>
-              <span>{key}</span>
-              &nbsp;&nbsp;&nbsp;&nbsp;<small><i>{`[${keyType.substring(3)}]`}</i></small>
-            </td>
-            <td>
-              <span title={valueType}>
-                {value === 'scvAddress' ?
-                  <AccountLink account={value} /> : value
-                }
-              </span>
-              &nbsp;&nbsp;<small><i>{`[${valueType.substring(3)}]`}</i></small>
-            </td>
-          </tr>
-        ))
-      }
+      {storage.map(({ key, keyType, value, valueType }) => (
+        <tr key={key}>
+          <td>
+            <span>{key}</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <small>
+              <i>{`[${keyType.substring(3)}]`}</i>
+            </small>
+          </td>
+          <td>
+            <span title={valueType}>
+              {value === 'scvAddress' ? <AccountLink account={value} /> : value}
+            </span>
+            &nbsp;&nbsp;
+            <small>
+              <i>{`[${valueType.substring(3)}]`}</i>
+            </small>
+          </td>
+        </tr>
+      ))}
     </tbody>
   </Table>
 )
 
 export const loader = ({ params, request }: LoaderArgs) => {
   const server = requestToSorobanServer(request)
-  return getContractInfo(
-    server,
-    params.contractId as string
-  ).then(async (result: any) => {
-    if (!result) {
-      return null
-    }
-    return json({ storage: result.storage })
-  })
+  return getContractInfo(server, params.contractId as string).then(
+    async (result: any) => {
+      if (!result) {
+        return null
+      }
+      return json({ storage: result.storage })
+    },
+  )
 }
 
 export default function StorageTab() {
@@ -58,14 +59,13 @@ export default function StorageTab() {
     setTitle(`Contract Storage ${contractId}`)
   }, [])
 
-  const loadResult = useLoaderData<typeof loader>() as
-    { storage: ReadonlyArray<StorageElement> } | null
+  const loadResult = useLoaderData<typeof loader>() as {
+    storage: ReadonlyArray<StorageElement>
+  } | null
 
   if (!loadResult || loadResult.storage.length == 0) {
-    return (<span>No storage</span>)
+    return <span>No storage</span>
   }
 
-  return (
-    <Storage storage={loadResult.storage} />
-  )
+  return <Storage storage={loadResult.storage} />
 }

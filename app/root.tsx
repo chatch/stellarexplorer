@@ -2,11 +2,19 @@ import type { PropsWithChildren } from 'react'
 import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { cssBundleHref } from '@remix-run/css-bundle'
-import { json, LoaderArgs, type LinksFunction } from "@remix-run/node"
+import { json, LoaderArgs, type LinksFunction } from '@remix-run/node'
 import {
-  Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData, useNavigation, useRouteError
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useNavigation,
+  useRouteError,
 } from '@remix-run/react'
-import { captureRemixErrorBoundaryError, withSentry } from "@sentry/remix"
+import { captureRemixErrorBoundaryError, withSentry } from '@sentry/remix'
 
 import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css'
 import jsonPrettyStyles from 'react-json-pretty/themes/1337.css'
@@ -31,12 +39,11 @@ import SearchBox from './SearchBox'
 import { V2_ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
 import { NotFoundError } from 'stellar-sdk'
 
-
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: bootstrapStyles },
-  { rel: "stylesheet", href: jsonPrettyStyles },
-  { rel: "stylesheet", href: siteStyles },
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  { rel: 'stylesheet', href: jsonPrettyStyles },
+  { rel: 'stylesheet', href: siteStyles },
+  ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ]
 
 const storage = storageInit()
@@ -68,14 +75,13 @@ const getMessages = (locale: string) => {
 
 const languageSwitcherFn = (setLanguage: Function) => (event: any) => {
   const newLanguage = event.target.lang as string
-  (storage as Storage).setItem('language', newLanguage)
+  ;(storage as Storage).setItem('language', newLanguage)
   setLanguage(newLanguage)
 }
 
-
 function HtmlDocument({
   children,
-  title
+  title,
 }: PropsWithChildren<{ title?: string }>) {
   return (
     <html lang="en">
@@ -102,21 +108,23 @@ function HtmlDocument({
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fb352560547d4b2192cb3dbf4d174a08"}'></script>
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "fb352560547d4b2192cb3dbf4d174a08"}'
+        ></script>
       </body>
     </html>
   )
 }
 
-export const loader = ({ request }: LoaderArgs) => json({ ...requestToNetworkDetails(request) })
+export const loader = ({ request }: LoaderArgs) =>
+  json({ ...requestToNetworkDetails(request) })
 
 function App() {
   const navigation = useNavigation()
   const [language, setLanguage] = useState('en')
-  const {
-    networkType,
-    isLocal
-  } = useLoaderData<typeof loader>()
+  const { networkType, isLocal } = useLoaderData<typeof loader>()
 
   return (
     <HtmlDocument>
@@ -132,10 +140,9 @@ function App() {
             networkIsLocal={isLocal}
           />
           <SearchBox />
-          <div id="main-content"
-            className={
-              navigation.state === "loading" ? "loading" : ""
-            }
+          <div
+            id="main-content"
+            className={navigation.state === 'loading' ? 'loading' : ''}
           >
             <Outlet />
           </div>
@@ -161,7 +168,7 @@ export const ErrorBoundary: V2_ErrorBoundaryComponent = () => {
   } else if (error.message) {
     errorMessage = error.message
   } else {
-    errorMessage = "Unknown error"
+    errorMessage = 'Unknown error'
   }
 
   return (

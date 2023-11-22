@@ -20,17 +20,17 @@ it('isPublicKey identifies a valid key', () => {
 
   // same length as valid key and looks valid but is not
   expect(
-    isPublicKey('GBQHXMAVPD3AKY5PWFCBVT3NFIXGE345FVZLL4JXKTVSFT5FKMEV5QIX')
+    isPublicKey('GBQHXMAVPD3AKY5PWFCBVT3NFIXGE345FVZLL4JXKTVSFT5FKMEV5QIX'),
   ).toBe(false)
 
   // valid secret key is not a valid public key
   expect(
-    isPublicKey('SA5OGCE2AQMSXCKYHGQZ3RUV2464W5M2QXBBAY2GSBRTFUUTKQI5UB2A')
+    isPublicKey('SA5OGCE2AQMSXCKYHGQZ3RUV2464W5M2QXBBAY2GSBRTFUUTKQI5UB2A'),
   ).toBe(false)
 
   // valid
   expect(
-    isPublicKey('GBQHXMAVPD3AKY5PWFCBVT3NFIXGE345FVZLL4JXKTVSFT5FKMEV5QIL')
+    isPublicKey('GBQHXMAVPD3AKY5PWFCBVT3NFIXGE345FVZLL4JXKTVSFT5FKMEV5QIL'),
   ).toBe(true)
 })
 
@@ -53,7 +53,9 @@ it('isTxHash identifies a valid transaction hash', () => {
   expect(isTxHash('ddefd')).toBe(false)
 
   expect(
-    isTxHash('ddeff3d3b8455f8173ef4d63e6650625734207fd351d2b9eeeaf0e38ffe1064b')
+    isTxHash(
+      'ddeff3d3b8455f8173ef4d63e6650625734207fd351d2b9eeeaf0e38ffe1064b',
+    ),
   ).toBe(true)
 })
 
@@ -64,31 +66,40 @@ it('isMuxedAddress identifies a valid key', () => {
 
   // same length as valid key and looks valid but is not
   expect(
-    isMuxedAddress('MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4MX')
+    isMuxedAddress(
+      'MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4MX',
+    ),
   ).toBe(false)
 
   // valid public key is not a valid mutex address
   expect(
-    isMuxedAddress('GBQHXMAVPD3AKY5PWFCBVT3NFIXGE345FVZLL4JXKTVSFT5FKMEV5QIX')
+    isMuxedAddress('GBQHXMAVPD3AKY5PWFCBVT3NFIXGE345FVZLL4JXKTVSFT5FKMEV5QIX'),
   ).toBe(false)
 
   // valid
   expect(
-    isMuxedAddress('MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4M')
+    isMuxedAddress(
+      'MDZ464OWNGEL4X2DE6JPLEARO2WJ4AGCBN3XM7E4ZSLPHRBV6AZB6AAAAAAAAAAAAGW4M',
+    ),
   ).toBe(true)
 })
 
 it('isContractAddress identifies a valid smart contract address string', () => {
-    expect(isContractAddress()).toBe(false)
-    expect(isContractAddress('')).toBe(false)
-    expect(isContractAddress(null)).toBe(false)
-    expect(isContractAddress('ddefd')).toBe(false)
+  expect(isContractAddress()).toBe(false)
+  expect(isContractAddress('')).toBe(false)
+  expect(isContractAddress(null)).toBe(false)
+  expect(isContractAddress('ddefd')).toBe(false)
 
-    // following is valid contract address in hex but is not a contract address string (strkey)
-    expect(
-      isContractAddress('141272dccb4db1d14e117f0ff5456df584549154f9158bde6ed8f3edb53715b6')
-    ).toBe(false)
+  // following is valid contract address in hex but is not a contract address string (strkey)
+  expect(
+    isContractAddress(
+      '141272dccb4db1d14e117f0ff5456df584549154f9158bde6ed8f3edb53715b6',
+    ),
+  ).toBe(false)
 
-    expect(isContractAddress('CA3D5KRYM6CB7OWQ6TWYRR3Z4T7GNZLKERYNZGGA5SOAOPIFY6YQGAXE')).toBe(true)
-  })
-  
+  expect(
+    isContractAddress(
+      'CA3D5KRYM6CB7OWQ6TWYRR3Z4T7GNZLKERYNZGGA5SOAOPIFY6YQGAXE',
+    ),
+  ).toBe(true)
+})

@@ -1,21 +1,21 @@
-import { LoaderArgs, json } from "@remix-run/node"
-import { useLoaderData, useParams } from "@remix-run/react"
-import { useEffect } from "react"
-import { Table } from "react-bootstrap"
-import { FormattedMessage } from "react-intl"
-import { Horizon } from "stellar-sdk"
-import Asset from "~/components/shared/Asset"
-import FormattedAmount from "~/components/shared/FormattedAmount"
-import { requestToServer } from "~/lib/stellar/server"
-import { LoadAccountResult, loadAccount } from "~/lib/stellar/server_request_utils"
-import { setTitle } from "~/lib/utils"
+import { LoaderArgs, json } from '@remix-run/node'
+import { useLoaderData, useParams } from '@remix-run/react'
+import { useEffect } from 'react'
+import { Table } from 'react-bootstrap'
+import { FormattedMessage } from 'react-intl'
+import { Horizon } from 'stellar-sdk'
+import Asset from '~/components/shared/Asset'
+import FormattedAmount from '~/components/shared/FormattedAmount'
+import { requestToServer } from '~/lib/stellar/server'
+import {
+  LoadAccountResult,
+  loadAccount,
+} from '~/lib/stellar/server_request_utils'
+import { setTitle } from '~/lib/utils'
 
-type Balance = Pick<Horizon.BalanceLineAsset,
-  'asset_code' |
-  'asset_issuer' |
-  'asset_type' |
-  'balance' |
-  'limit'
+type Balance = Pick<
+  Horizon.BalanceLineAsset,
+  'asset_code' | 'asset_issuer' | 'asset_type' | 'balance' | 'limit'
 >
 
 const balanceRow = ({
@@ -25,13 +25,9 @@ const balanceRow = ({
   balance,
   limit,
 }: Balance) => (
-  <tr key={asset_code ? `${asset_code}-${asset_issuer}` : "XLM"}>
+  <tr key={asset_code ? `${asset_code}-${asset_issuer}` : 'XLM'}>
     <td>
-      <Asset
-        type={asset_type}
-        code={asset_code}
-        issuer={asset_issuer}
-      />
+      <Asset type={asset_type} code={asset_code} issuer={asset_issuer} />
     </td>
     <td>
       <span className="break">
@@ -69,8 +65,7 @@ export const loader = ({ params, request }: LoaderArgs) => {
 }
 
 export default function BalancesTab() {
-  const accountResult =
-    useLoaderData<typeof loader>() as LoadAccountResult
+  const accountResult = useLoaderData<typeof loader>() as LoadAccountResult
 
   const { accountId } = useParams()
   useEffect(() => {
@@ -83,7 +78,5 @@ export default function BalancesTab() {
 
   const balances = accountResult.account.balances as ReadonlyArray<Balance>
 
-  return (
-    <Balances balances={balances} />
-  )
+  return <Balances balances={balances} />
 }

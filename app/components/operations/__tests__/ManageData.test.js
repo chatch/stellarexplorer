@@ -1,10 +1,10 @@
 import React from 'react'
-import {configure, shallow} from 'enzyme'
+import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
 import ManageData from '../ManageData'
 
-configure({adapter: new Adapter()})
+configure({ adapter: new Adapter() })
 
 describe('ManageData', () => {
   it('decodes ordinary string values', () => {
@@ -35,7 +35,7 @@ describe('ManageData', () => {
 
   it('decodes utf8 string values', () => {
     const link = shallow(
-      <ManageData name="utf8value" value="6ams6ams6JmO6JmO" />
+      <ManageData name="utf8value" value="6ams6ams6JmO6JmO" />,
     )
     expect(link.getElements()).toMatchInlineSnapshot(`
     Array [

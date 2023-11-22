@@ -16,13 +16,16 @@ import { horizonRecordsLoader } from '~/lib/loader-util'
 
 const RECORD_LIMIT = 20
 
-export const loader = horizonRecordsLoader<ReadonlyArray<TransactionProps>>(`transactions`, RECORD_LIMIT)
+export const loader = horizonRecordsLoader<ReadonlyArray<TransactionProps>>(
+  'transactions',
+  RECORD_LIMIT,
+)
 
 export default function Transactions() {
   const { records, cursor } = useLoaderData<typeof loader>()
 
   useEffect(() => {
-    setTitle(`Transactions`)
+    setTitle('Transactions')
   }, [])
 
   return (
@@ -33,10 +36,7 @@ export default function Transactions() {
             <FormattedMessage id="transactions" />
           </CardHeader>
           <Card.Body>
-            <Paging
-              baseUrl='/txs'
-              records={records}
-              currentCursor={cursor}>
+            <Paging baseUrl="/txs" records={records} currentCursor={cursor}>
               <TransactionTable
                 records={records}
                 showLedger
@@ -47,6 +47,6 @@ export default function Transactions() {
           </Card.Body>
         </Card>
       </Row>
-    </Container >
+    </Container>
   )
 }

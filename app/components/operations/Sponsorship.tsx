@@ -1,6 +1,10 @@
-import AccountLink from "../shared/AccountLink"
+import AccountLink from '../shared/AccountLink'
 
-const BeginSponsoringFutureReserves = ({ sponsoredId }: { sponsoredId: string }) => {
+const BeginSponsoringFutureReserves = ({
+  sponsoredId,
+}: {
+  sponsoredId: string
+}) => {
   return (
     <span>
       Begin sponsorship for <AccountLink account={sponsoredId} />
@@ -8,7 +12,11 @@ const BeginSponsoringFutureReserves = ({ sponsoredId }: { sponsoredId: string })
   )
 }
 
-const EndSponsoringFutureReserves = ({ beginSponsor }: { beginSponsor: string }) => {
+const EndSponsoringFutureReserves = ({
+  beginSponsor,
+}: {
+  beginSponsor: string
+}) => {
   return (
     <span>
       End sponsorship for <AccountLink account={beginSponsor} />

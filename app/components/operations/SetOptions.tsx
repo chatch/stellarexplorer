@@ -34,8 +34,11 @@ const SET_OPTION_PROP_STRINGS = [
 
 const dotCase = (str: string): string => snakeCase(str).replace('_', '.')
 
-const Option = ({ msgId, value }: {
-  msgId: string,
+const Option = ({
+  msgId,
+  value,
+}: {
+  msgId: string
   value: React.JSX.Element
 }) => {
   return (
@@ -48,8 +51,11 @@ const Option = ({ msgId, value }: {
   )
 }
 
-const OptionValue = ({ optKey, value }: {
-  optKey: string,
+const OptionValue = ({
+  optKey,
+  value,
+}: {
+  optKey: string
   value: string | ReadonlyArray<string> | number
 }): React.JSX.Element => {
   const valueStr = String(value)
@@ -64,10 +70,9 @@ const OptionValue = ({ optKey, value }: {
   } else if (optKey === 'signerKey') {
     console.log(`decodePreAuthTx valueStr: ${valueStr}`)
     // and !isPublicKey (#19)
-    const decodedValue =
-      valueStr.startsWith('X')
-        ? StrKey.decodeSha256Hash(valueStr).toString('hex')
-        : StrKey.decodePreAuthTx(valueStr).toString('hex')
+    const decodedValue = valueStr.startsWith('X')
+      ? StrKey.decodeSha256Hash(valueStr).toString('hex')
+      : StrKey.decodePreAuthTx(valueStr).toString('hex')
     valueEl = <span title={decodedValue}>{shortHash(decodedValue)}</span>
   } else if (optKey === 'homeDomain') {
     valueEl = <a href={`http://${valueStr}`}>{value}</a>
@@ -76,13 +81,15 @@ const OptionValue = ({ optKey, value }: {
 }
 
 const OptionsList = (
-  props: any // TODO: restore SetOptionsProps
+  props: any, // TODO: restore SetOptionsProps
 ): React.JSX.Element => (
   <span>
     {Object.keys(props)
-      .filter(p => SET_OPTION_PROP_STRINGS.includes(p))
+      .filter((p) => SET_OPTION_PROP_STRINGS.includes(p))
       .map((prop: string, idx: number, all) => {
-        const propVal: string | number | ReadonlyArray<string> = props[prop] as string
+        const propVal: string | number | ReadonlyArray<string> = props[
+          prop
+        ] as string
         return (
           <span key={prop}>
             <Option

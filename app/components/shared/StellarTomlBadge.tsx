@@ -1,6 +1,6 @@
 import BackendResourceBadgeButton from './BackendResourceBadgeButton'
 
-const Badge = ({domain}: {domain: string }) => {
+const Badge = ({ domain }: { domain: string }) => {
   const tomlUrl = `https://${domain}/.well-known/stellar.toml`
   return (
     <span className="stellarToml">

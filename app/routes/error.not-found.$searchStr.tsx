@@ -1,6 +1,6 @@
-import Container from "react-bootstrap/Container"
-import { useParams } from "@remix-run/react"
-import { FormattedMessage } from "react-intl"
+import Container from 'react-bootstrap/Container'
+import { useParams } from '@remix-run/react'
+import { FormattedMessage } from 'react-intl'
 
 export default function SearchNotFound() {
   const { searchStr } = useParams()

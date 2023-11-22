@@ -6,14 +6,14 @@ export default function RelativeTime({ timeStr }: { timeStr: string }) {
   const secondsSinceTime: number = (date.valueOf() - Date.now()) / 1000
   return (
     <ClientOnly>
-      {() =>
+      {() => (
         <FormattedRelativeTime
           value={secondsSinceTime}
-          numeric='auto'
-          unit='second'
+          numeric="auto"
+          unit="second"
           updateIntervalInSeconds={10}
         />
-      }
+      )}
     </ClientOnly>
   )
-} 
+}
