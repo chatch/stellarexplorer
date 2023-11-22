@@ -82,11 +82,13 @@ steexp will connect to a local horizon instance at http://localhost:8000 by defa
 
 Alternatively you can run locally connecting to the testnet or public network horizon instances. To do this define these aliases to localhost:
 
-```
+```sh
 127.0.1.1  testnet.local     # for steexp use testnet horizon
 127.0.1.1  publicnet.local   # for steexp use mainnet horizon
 127.0.1.1  futurenet.local   # for steexp use future horizon
 ```
+
+> Use 127.0.0.1 instead of 127.0.1.1 when the above doesn't work.
 
 Navigate to http://testnet.local:3000, http://futurenet.local:3000 or http://publicnet.local:3000 to select the network your interesting in exploring.
 
@@ -96,19 +98,19 @@ See the section [Exploring Private / Local Development Networks](#private-networ
 
 Start:
 
-```
+```sh
 npm i && npm run dev
 ```
 
 Test:
 
-```
+```sh
 npm i && npm test
 ```
 
 Build:
 
-```
+```sh
 npm i && npm run build
 ```
 
