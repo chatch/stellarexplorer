@@ -71,5 +71,13 @@
         "husky": "^8.0.3",
         "lint-staged": "^15.1.0",
         "typescript": "^5.1.6"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx}": "eslint --ignore-path .gitignore"
     }
 }
