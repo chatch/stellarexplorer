@@ -2,6 +2,7 @@ import isNaN from 'lodash/isNaN'
 import isEmpty from 'lodash/isEmpty'
 import isString from 'lodash/isString'
 import toNumber from 'lodash/toNumber'
+import { Keypair } from 'soroban-client'
 
 import {
   isContractAddress,
@@ -53,7 +54,7 @@ const searchStrToPath = (searchStr) => {
   } else if (!isNaN(toNumber(str))) {
     return `/ledger/${toNumber(str)}`
   } else if (isSecretKey(str)) {
-    const kp = sdk.Keypair.fromSecret(str)
+    const kp = Keypair.fromSecret(str)
     return `/account/${kp.publicKey()}`
   }
 
