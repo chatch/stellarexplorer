@@ -1,22 +1,22 @@
-import Container from "react-bootstrap/Container"
-import Card from "react-bootstrap/Card"
-import CardHeader from "react-bootstrap/CardHeader"
-import Row from "react-bootstrap/Row"
-import Table from "react-bootstrap/Table"
-import { FormattedMessage, useIntl } from "react-intl"
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
+import CardHeader from 'react-bootstrap/CardHeader'
+import Row from 'react-bootstrap/Row'
+import Table from 'react-bootstrap/Table'
+import { FormattedMessage, useIntl } from 'react-intl'
 
-import AccountLink from "../components/shared/AccountLink"
-import ClipboardCopy from "../components/shared/ClipboardCopy"
-import Logo from "../components/shared/Logo"
-import NewWindowIcon from "../components/shared/NewWindowIcon"
-import StellarTomlBadge from "../components/shared/StellarTomlBadge"
+import AccountLink from '../components/shared/AccountLink'
+import ClipboardCopy from '../components/shared/ClipboardCopy'
+import Logo from '../components/shared/Logo'
+import NewWindowIcon from '../components/shared/NewWindowIcon'
+import StellarTomlBadge from '../components/shared/StellarTomlBadge'
 
-import { assetKeyToIssuer, setTitle } from "../lib/utils"
+import { assetKeyToIssuer, setTitle } from '../lib/utils'
 
-import directory, { DirectoryAnchor } from "../data/directory"
-import { LoaderArgs } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
-import { useEffect } from "react"
+import directory, { DirectoryAnchor } from '../data/directory'
+import { LoaderArgs } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { useEffect } from 'react'
 const { anchors } = directory
 
 export const loader = ({ params }: LoaderArgs) => {
@@ -24,12 +24,9 @@ export const loader = ({ params }: LoaderArgs) => {
 }
 
 export default function Anchor() {
-  const {
-    name,
-    displayName,
-    website,
-    assets,
-  }: DirectoryAnchor = useLoaderData<typeof loader>() as DirectoryAnchor
+  const { name, displayName, website, assets }: DirectoryAnchor = useLoaderData<
+    typeof loader
+  >() as DirectoryAnchor
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -44,7 +41,7 @@ export default function Anchor() {
         <Card>
           <CardHeader>
             <span>
-              {formatMessage({ id: "anchor" })}{" "}
+              {formatMessage({ id: 'anchor' })}{' '}
               <span className="secondary-heading">{name}</span>
             </span>
           </CardHeader>
@@ -58,9 +55,7 @@ export default function Anchor() {
                     </a>
                   </td>
                   <td>
-                    <div>
-                      {displayName || name}
-                    </div>
+                    <div>{displayName || name}</div>
                     <div style={{ marginTop: 10 }}>
                       <a href={website} target="_blank" rel="noreferrer">
                         {website}

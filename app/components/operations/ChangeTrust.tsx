@@ -5,7 +5,7 @@ interface ChangeTrustProps extends TrustProps {
   limit: number
 }
 
-const ChangeTrust = (props: ChangeTrustProps) =>
+const ChangeTrust = (props: ChangeTrustProps) => (
   <Trust {...props}>
     <FormattedMessage
       id="operation.trust.change"
@@ -14,5 +14,6 @@ const ChangeTrust = (props: ChangeTrustProps) =>
       }}
     />
   </Trust>
+)
 
 export default ChangeTrust

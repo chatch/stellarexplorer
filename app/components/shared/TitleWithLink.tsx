@@ -11,19 +11,14 @@ interface TitleWithLinkProps {
 export default function TitleWithLink({
   title,
   rightLinkLabel,
-  rightLinkAddr
+  rightLinkAddr,
 }: TitleWithLinkProps) {
   return (
     <div>
-      <span>
-        {title}
-      </span>
+      <span>{title}</span>
       <Link to={rightLinkAddr} className="pull-right" style={linkStyle}>
-        <span>
-          {rightLinkLabel}
-        </span>
+        <span>{rightLinkLabel}</span>
       </Link>
     </div>
   )
 }
-

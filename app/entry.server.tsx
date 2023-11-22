@@ -1,22 +1,22 @@
-import { PassThrough } from "stream"
+import { PassThrough } from 'stream'
 
-import { Response } from "@remix-run/node" // or cloudflare/deno
+import { Response } from '@remix-run/node' // or cloudflare/deno
 import type {
   AppLoadContext,
   DataFunctionArgs,
   EntryContext,
   Headers,
-} from "@remix-run/node" // or cloudflare/deno
-import { RemixServer } from "@remix-run/react"
-import isbot from "isbot"
-import { renderToPipeableStream } from "react-dom/server"
-import * as Sentry from "@sentry/remix"
-import { NotFoundError } from "stellar-sdk"
+} from '@remix-run/node' // or cloudflare/deno
+import { RemixServer } from '@remix-run/react'
+import isbot from 'isbot'
+import { renderToPipeableStream } from 'react-dom/server'
+import * as Sentry from '@sentry/remix'
+import { NotFoundError } from 'stellar-sdk'
 
 const ABORT_DELAY = 5000
 
 Sentry.init({
-  dsn: "https://cbde552cd9c3a2300daf1355b7e14e7e@o4505837033095168.ingest.sentry.io/4505837045153792",
+  dsn: 'https://cbde552cd9c3a2300daf1355b7e14e7e@o4505837033095168.ingest.sentry.io/4505837045153792',
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
@@ -29,17 +29,17 @@ export default function handleRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
-  loadContext: AppLoadContext
+  loadContext: AppLoadContext,
 ) {
   // If the request is from a bot, we want to wait for the full
   // response to render before sending it to the client. This
   // ensures that bots can see the full page content.
-  if (isbot(request.headers.get("user-agent"))) {
+  if (isbot(request.headers.get('user-agent'))) {
     return serveTheBots(
       request,
       responseStatusCode,
       responseHeaders,
-      remixContext
+      remixContext,
     )
   }
 
@@ -47,31 +47,31 @@ export default function handleRequest(
     request,
     responseStatusCode,
     responseHeaders,
-    remixContext
+    remixContext,
   )
 }
 
 export function handleError(
   error: unknown,
-  { request }: DataFunctionArgs
+  { request }: DataFunctionArgs,
 ): void {
   if (error instanceof NotFoundError) {
     // don't send steller resource not founds to sentry
     // they are handled and error shown to user
     // just log to console here for dev visibility
-    // 
+    //
     // additionally this hides the following redirect that i can't yet figure
     // out why it's happening:
     //    GET /account/GCDP3JW7RSYNKCJ57W7ZNQX3BDR74GQEX2VHBIZQATN2BR6YYFLI4EDC?_data=routes%2Faccount.%24accountId._index 500
-    // 
+    //
     // it comes after a :
     //    GET /account/GCDP3JW7RSYNKCJ57W7ZNQX3BDR74GQEX2VHBIZQATN2BR6YYFLI4EDC?_data=routes%2Faccount.%24accountId 404
-    // 
+    //
     // which is the correct response and renders correctly but for some reason
     // remix is invoking this follow up that fails ...
     console.warn(error.getResponse())
   } else if (error instanceof Error) {
-    Sentry.captureRemixServerException(error, "remix.server", request)
+    Sentry.captureRemixServerException(error, 'remix.server', request)
   } else {
     // Optionally capture non-Error objects
     Sentry.captureException(error)
@@ -82,7 +82,7 @@ function serveTheBots(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
 ) {
   return new Promise((resolve, reject) => {
     const { pipe, abort } = renderToPipeableStream(
@@ -94,20 +94,20 @@ function serveTheBots(
       {
         // Use onAllReady to wait for the entire document to be ready
         onAllReady() {
-          responseHeaders.set("Content-Type", "text/html")
+          responseHeaders.set('Content-Type', 'text/html')
           const body = new PassThrough()
           pipe(body)
           resolve(
             new Response(body, {
               status: responseStatusCode,
               headers: responseHeaders,
-            })
+            }),
           )
         },
         onShellError(err: unknown) {
           reject(err)
         },
-      }
+      },
     )
     setTimeout(abort, ABORT_DELAY)
   })
@@ -117,7 +117,7 @@ function serveBrowsers(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
 ) {
   return new Promise((resolve, reject) => {
     let didError = false
@@ -130,14 +130,14 @@ function serveBrowsers(
       {
         // use onShellReady to wait until a suspense boundary is triggered
         onShellReady() {
-          responseHeaders.set("Content-Type", "text/html")
+          responseHeaders.set('Content-Type', 'text/html')
           const body = new PassThrough()
           pipe(body)
           resolve(
             new Response(body, {
               status: didError ? 500 : responseStatusCode,
               headers: responseHeaders,
-            })
+            }),
           )
         },
         onShellError(err: unknown) {
@@ -147,7 +147,7 @@ function serveBrowsers(
           didError = true
           console.error(err)
         },
-      }
+      },
     )
     setTimeout(abort, ABORT_DELAY)
   })

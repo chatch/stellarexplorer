@@ -17,8 +17,10 @@ interface ParentProps {
   compact: boolean
 }
 
-interface TransactionRowProps extends TransactionViewOptions, TransactionProps, ParentProps {
-};
+interface TransactionRowProps
+  extends TransactionViewOptions,
+    TransactionProps,
+    ParentProps {}
 
 interface TransactionTableProps extends ParentProps, TransactionViewOptions {
   records: ReadonlyArray<TransactionProps>
@@ -33,8 +35,7 @@ const TransactionRow = ({
   showLedger,
   showSource,
   time,
-}: TransactionRowProps
-): React.JSX.Element => (
+}: TransactionRowProps): React.JSX.Element => (
   <tr>
     <td>
       <TransactionHash hash={hash} compact={compact} />
@@ -54,9 +55,7 @@ const TransactionRow = ({
     </td>
     <td>
       <span title={time}>
-        <RelativeTime
-          timeStr={time}
-        />
+        <RelativeTime timeStr={time} />
       </span>
     </td>
   </tr>
@@ -66,7 +65,7 @@ export default function TransactionTable({
   compact,
   records,
   showLedger = true,
-  showSource = true
+  showSource = true,
 }: TransactionTableProps) {
   return (
     <Table
@@ -95,7 +94,7 @@ export default function TransactionTable({
         </tr>
       </thead>
       <tbody>
-        {records.map(tx => (
+        {records.map((tx) => (
           <TransactionRow
             key={tx.hash}
             compact={compact}

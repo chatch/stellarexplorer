@@ -1,10 +1,10 @@
 import React from 'react'
-import {configure, shallow} from 'enzyme'
+import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import {LumensRates} from '../LumensRates'
+import { LumensRates } from '../LumensRates'
 
-configure({adapter: new Adapter()})
+configure({ adapter: new Adapter() })
 
 describe('LumensRates', () => {
   it('render positive change in rate', () => {

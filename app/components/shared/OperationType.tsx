@@ -3,10 +3,17 @@ import PropTypes from 'prop-types'
 import { shortHash } from '../../lib/utils'
 
 const filterFor = (type: string) => {
-  window.location.href = window.location.pathname + '?opTypeFilter=' + type + window.location.hash
+  window.location.href =
+    window.location.pathname + '?opTypeFilter=' + type + window.location.hash
 }
 
-const OperationType = ({ type, compact = true }: { type: string, compact: boolean }) => {
+const OperationType = ({
+  type,
+  compact = true,
+}: {
+  type: string
+  compact: boolean
+}) => {
   const hashLabel = compact ? shortHash(type) : type
   const className = !compact ? 'monospace' : ''
   const fn = (event: any) => {
@@ -15,7 +22,9 @@ const OperationType = ({ type, compact = true }: { type: string, compact: boolea
   }
   return (
     <span title={type} className={className}>
-      <a href="/" onClick={fn}>{hashLabel}</a>
+      <a href="/" onClick={fn}>
+        {hashLabel}
+      </a>
     </span>
   )
 }

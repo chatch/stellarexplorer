@@ -1,32 +1,36 @@
+import Col from 'react-bootstrap/Col'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import FormControl from 'react-bootstrap/FormControl'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Modal from 'react-bootstrap/Modal'
 
-import Col from "react-bootstrap/Col"
-import Container from "react-bootstrap/Container"
-import Row from "react-bootstrap/Row"
-import FormControl from "react-bootstrap/FormControl"
-import InputGroup from "react-bootstrap/InputGroup"
-import Modal from "react-bootstrap/Modal"
+import { useIntl } from 'react-intl'
 
-import { useIntl } from "react-intl"
-
-import { searchStrToPath } from "./lib/search"
-import { isSecretKey } from "./lib/stellar/utils"
-import { useState } from "react"
-import { useNavigate } from "@remix-run/react"
+import { searchStrToPath } from './lib/search'
+import { isSecretKey } from './lib/stellar/utils'
+import { useState } from 'react'
+import { useNavigate } from '@remix-run/react'
 
 import searchSvg from '../public/search.svg'
 import infoCircleSvg from '../public/info-circle.svg'
 
-const HelpModal = ({ showHelp, handleCloseFn }: { showHelp: boolean, handleCloseFn: () => void }) => (
+const HelpModal = ({
+  showHelp,
+  handleCloseFn,
+}: {
+  showHelp: boolean
+  handleCloseFn: () => void
+}) => (
   <Modal id="help-modal" show={showHelp} onHide={handleCloseFn}>
     <Modal.Header closeButton>
-      <Modal.Title>
-        Search Help
-      </Modal.Title>
+      <Modal.Title>Search Help</Modal.Title>
     </Modal.Header>
-    <Modal.Body style={{ color: "#96a2b4" }}>
+    <Modal.Body style={{ color: '#96a2b4' }}>
       <div>
         <div className="search-sub-heading">Stellar Address</div>
-        <div className="search-desc">Also called a{" "}
+        <div className="search-desc">
+          Also called a{' '}
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -69,15 +73,12 @@ const HelpModal = ({ showHelp, handleCloseFn }: { showHelp: boolean, handleClose
       </div>
       <div>
         <div className="search-sub-heading">Ledger</div>
-        <img
-          src="/search/search_ledger.png"
-          alt="search by ledger"
-        />
+        <img src="/search/search_ledger.png" alt="search by ledger" />
       </div>
       <div className="search-sub-heading">Anchor Name</div>
       <div>
         <div className="search-desc">
-          as listed on the{" "}
+          as listed on the{' '}
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -107,15 +108,12 @@ const HelpModal = ({ showHelp, handleCloseFn }: { showHelp: boolean, handleClose
       </div>
       <div>
         <div className="search-sub-heading">Asset Code</div>
-        <img
-          src="/search/search_asset.png"
-          alt="search by asset code"
-        />
+        <img src="/search/search_asset.png" alt="search by asset code" />
       </div>
       <hr />
       <h4>OpenSearch:</h4>
       <div>
-        Stellar Explorer supports{" "}
+        Stellar Explorer supports{' '}
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -158,11 +156,10 @@ export default function SearchBox() {
 
     // #62 security: clear search box if user put the secret key there
     if (isSecretKey(searchStr)) {
-      setSearchStr("")
+      setSearchStr('')
     }
 
-    if (matchPath == null)
-      return
+    if (matchPath == null) return
 
     return navigate(matchPath)
   }
@@ -177,7 +174,7 @@ export default function SearchBox() {
                 type="text"
                 onChange={(e) => setSearchStr(e.target.value)}
                 placeholder={formatMessage({
-                  id: "search.placeHolder",
+                  id: 'search.placeHolder',
                 })}
                 value={searchStr}
               />
@@ -188,7 +185,14 @@ export default function SearchBox() {
                   onClick={searchHandler}
                 />
               </InputGroup.Text>
-              <InputGroup.Text style={{ background: 'none', border: 0, color: 'white', fontSize: 20 }}>
+              <InputGroup.Text
+                style={{
+                  background: 'none',
+                  border: 0,
+                  color: 'white',
+                  fontSize: 20,
+                }}
+              >
                 <img
                   src={infoCircleSvg}
                   style={{ color: 'white', height: 24, width: 24 }}
@@ -198,10 +202,7 @@ export default function SearchBox() {
             </InputGroup>
           </form>
           {showHelp && (
-            <HelpModal
-              handleCloseFn={handleCloseFn}
-              showHelp={showHelp}
-            />
+            <HelpModal handleCloseFn={handleCloseFn} showHelp={showHelp} />
           )}
         </Col>
       </Row>

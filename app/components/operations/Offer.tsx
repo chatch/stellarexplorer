@@ -17,9 +17,12 @@ interface OfferProps {
   sellingAssetIssuer: string
   sellingAssetType: string
   showSeller: boolean
-
 }
-const BuyingAsset = ({ buyingAssetCode, buyingAssetIssuer, buyingAssetType }: Partial<OfferProps>) => (
+const BuyingAsset = ({
+  buyingAssetCode,
+  buyingAssetIssuer,
+  buyingAssetType,
+}: Partial<OfferProps>) => (
   <Asset
     code={buyingAssetCode as string}
     issuer={buyingAssetIssuer as string}
@@ -49,7 +52,10 @@ const offerType = (amount: string, offerId: number) => {
 
 const Offer = (props: Partial<OfferProps>) => {
   const { amount, offerId, price } = props
-  const msgId = `operation.offer.${offerType(amount as string, offerId as number)}`
+  const msgId = `operation.offer.${offerType(
+    amount as string,
+    offerId as number,
+  )}`
   return (
     <FormattedMessage
       id={msgId}

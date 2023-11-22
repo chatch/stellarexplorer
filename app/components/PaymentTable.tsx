@@ -1,8 +1,8 @@
-import Table from "react-bootstrap/Table"
-import { FormattedMessage } from "react-intl"
+import Table from 'react-bootstrap/Table'
+import { FormattedMessage } from 'react-intl'
 
-import Operation from "./operations/Operation"
-import type { PaymentProps } from "./operations/Payment"
+import Operation from './operations/Operation'
+import type { PaymentProps } from './operations/Payment'
 
 interface PaymentTableProps {
   compact: boolean
@@ -13,7 +13,7 @@ interface PaymentTableProps {
 export default function PaymentTable({
   compact,
   records,
-  horizonURL
+  horizonURL,
 }: PaymentTableProps) {
   return (
     <div>

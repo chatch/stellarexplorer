@@ -5,7 +5,7 @@ Disallow:
   return new Response(robotText, {
     status: 200,
     headers: {
-      "Content-Type": "text/plain",
-    }
+      'Content-Type': 'text/plain',
+    },
   })
 }

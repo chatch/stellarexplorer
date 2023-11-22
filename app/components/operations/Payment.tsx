@@ -7,7 +7,7 @@ import FormattedAmount from '../shared/FormattedAmount'
 export interface PaymentProps extends PropsWithChildren {
   id: string
   amount: string
-  assetCode: string,
+  assetCode: string
   assetIssuer: string
   assetType: string
   to: string
@@ -32,7 +32,9 @@ export default function Payment({
         id="operation.payment"
         values={{
           amount: <FormattedAmount amount={amount} />,
-          asset: <Asset code={assetCode} issuer={assetIssuer} type={assetType} />,
+          asset: (
+            <Asset code={assetCode} issuer={assetIssuer} type={assetType} />
+          ),
           recipient: <AccountLink account={toMuxed ? toMuxed : to} />,
         }}
       />

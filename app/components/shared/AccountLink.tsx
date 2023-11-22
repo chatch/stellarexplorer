@@ -21,9 +21,7 @@ const AccountLinkSimple = ({
   type,
 }: AccountLinkSimpleProps) => (
   <span title={title}>
-    <Link
-      to={`/${type}/${subPath}`}
-    >{label}</Link>
+    <Link to={`/${type}/${subPath}`}>{label}</Link>
   </span>
 )
 
@@ -34,7 +32,12 @@ interface BaseAccountLinkProps {
   hideKnown: boolean
 }
 
-const BaseAccountLink = ({ type = 'account', address, label, hideKnown }: BaseAccountLinkProps) => {
+const BaseAccountLink = ({
+  type = 'account',
+  address,
+  label,
+  hideKnown,
+}: BaseAccountLinkProps) => {
   let accLabel
   if (label) {
     accLabel = label
@@ -83,11 +86,13 @@ interface AccountLinkProps {
   label?: string
 }
 
-const AccountLink = ({ account, label, hideKnown = false }: AccountLinkProps) => {
+const AccountLink = ({
+  account,
+  label,
+  hideKnown = false,
+}: AccountLinkProps) => {
   if (isMuxedAddress(account)) {
-    return (
-      <MuxedAccountLink address={account} />
-    )
+    return <MuxedAccountLink address={account} />
   } else if (isContractAddress(account)) {
     return (
       <BaseAccountLink
@@ -99,10 +104,13 @@ const AccountLink = ({ account, label, hideKnown = false }: AccountLinkProps) =>
     )
   } else {
     return (
-      <BaseAccountLink address={account} label={label ?? ''} hideKnown={hideKnown} />
+      <BaseAccountLink
+        address={account}
+        label={label ?? ''}
+        hideKnown={hideKnown}
+      />
     )
   }
 }
-
 
 export { AccountLink as default, BaseAccountLink, MuxedAccountLink }

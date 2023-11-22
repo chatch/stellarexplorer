@@ -7,10 +7,10 @@ const ClawbackOperation = ({
   assetIssuer,
   assetType,
   from,
-  amount
+  amount,
 }: {
   amount: string
-  assetCode: string,
+  assetCode: string
   assetIssuer: string
   assetType: string
   from: string
@@ -23,11 +23,14 @@ const ClawbackOperation = ({
   </span>
 )
 
-const ClawbackClaimableBalanceOperation = ({ balanceId }: { balanceId: string }) => (
+const ClawbackClaimableBalanceOperation = ({
+  balanceId,
+}: {
+  balanceId: string
+}) => (
   <span>
-    Clawback balance id: <span title={balanceId}>{
-      truncate(balanceId, { length: 40 })
-    }</span>
+    Clawback balance id:{' '}
+    <span title={balanceId}>{truncate(balanceId, { length: 40 })}</span>
   </span>
 )
 

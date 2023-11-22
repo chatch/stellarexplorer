@@ -16,7 +16,10 @@ import { useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
-export const loader = horizonRecordsLoader<ReadonlyArray<LedgerProps>>(`ledgers`, RECORD_LIMIT)
+export const loader = horizonRecordsLoader<ReadonlyArray<LedgerProps>>(
+  'ledgers',
+  RECORD_LIMIT,
+)
 
 export default function Ledgers() {
   const { records, cursor } = useLoaderData<typeof loader>()
@@ -34,18 +37,12 @@ export default function Ledgers() {
             <FormattedMessage id="ledgers" />
           </CardHeader>
           <Card.Body>
-            <Paging
-              baseUrl='/ledgers'
-              records={records}
-              currentCursor={cursor}>
-              <LedgerTable
-                records={records}
-                compact={false}
-              />
+            <Paging baseUrl="/ledgers" records={records} currentCursor={cursor}>
+              <LedgerTable records={records} compact={false} />
             </Paging>
           </Card.Body>
         </Card>
       </Row>
-    </Container >
+    </Container>
   )
 }

@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { shortHash } from '../../lib/utils'
 
-const TransactionHash = ({ hash, compact = true }: { hash: string, compact: boolean }) => {
+const TransactionHash = ({
+  hash,
+  compact = true,
+}: {
+  hash: string
+  compact: boolean
+}) => {
   const hashLabel = compact ? shortHash(hash) : hash
   const className = !compact ? 'monospace' : ''
   return (

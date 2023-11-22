@@ -1,13 +1,13 @@
-import React from "react"
-import Table from "react-bootstrap/Table"
-import { FormattedMessage } from "react-intl"
+import React from 'react'
+import Table from 'react-bootstrap/Table'
+import { FormattedMessage } from 'react-intl'
 
-import AccountLink from "./shared/AccountLink"
-import FormattedAmount from "./shared/FormattedAmount"
-import Asset from "./shared/Asset"
-import RelativeTime from "./shared/RelativeTime"
+import AccountLink from './shared/AccountLink'
+import FormattedAmount from './shared/FormattedAmount'
+import Asset from './shared/Asset'
+import RelativeTime from './shared/RelativeTime'
 
-import { isPublicKey } from "../lib/stellar/utils"
+import { isPublicKey } from '../lib/stellar/utils'
 
 export interface TradeProps {
   id: string
@@ -27,28 +27,24 @@ export interface TradeProps {
 
   time: string
   pagingToken: string
-};
+}
 
 interface TradeComponentProps {
   trade: TradeProps
-  account: string,
-  singleAccountView: boolean,
-};
+  account: string
+  singleAccountView: boolean
+}
 
 interface TradeTableProps {
   records: ReadonlyArray<TradeProps>
   account?: string
   accountView?: boolean
-};
+}
 
-const Trade = ({
-  account,
-  singleAccountView,
-  trade,
-}: TradeComponentProps) => {
+const Trade = ({ account, singleAccountView, trade }: TradeComponentProps) => {
   const Base = (
     <span>
-      <FormattedAmount amount={trade.baseAmount} />{" "}
+      <FormattedAmount amount={trade.baseAmount} />{' '}
       <Asset
         code={trade.baseAssetCode}
         issuer={trade.baseAssetIssuer}
@@ -59,7 +55,7 @@ const Trade = ({
 
   const Counter = (
     <span>
-      <FormattedAmount amount={trade.counterAmount} />{" "}
+      <FormattedAmount amount={trade.counterAmount} />{' '}
       <Asset
         code={trade.counterAssetCode}
         issuer={trade.counterAssetIssuer}
@@ -85,17 +81,19 @@ const Trade = ({
   return (
     <tr key={trade.id} className="trade">
       <td>
-        {account1 &&
+        {account1 && (
           <span className="account-badge">
             <AccountLink account={account1} />
-          </span>}
+          </span>
+        )}
       </td>
       <td>{baseFirst ? Base : Counter}</td>
       <td>
-        {account2 &&
+        {account2 && (
           <span className="account-badge">
             <AccountLink account={account2} />
-          </span>}
+          </span>
+        )}
       </td>
       <td>{baseFirst ? Counter : Base}</td>
       <td>
@@ -106,7 +104,6 @@ const Trade = ({
     </tr>
   )
 }
-
 
 export default function TradeTable({ account, records }: TradeTableProps) {
   // componentDidMount() {
@@ -129,14 +126,14 @@ export default function TradeTable({ account, records }: TradeTableProps) {
           <tr>
             <th>
               <FormattedMessage id="account" />
-              {" 1"}
+              {' 1'}
             </th>
             <th>
               <FormattedMessage id="bought" />
             </th>
             <th>
               <FormattedMessage id="account" />
-              {" 2"}
+              {' 2'}
             </th>
             <th>
               <FormattedMessage id="bought" />

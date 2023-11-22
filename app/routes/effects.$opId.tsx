@@ -1,4 +1,4 @@
-import type { ServerApi } from "stellar-sdk"
+import type { ServerApi } from 'stellar-sdk'
 
 import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
@@ -14,19 +14,22 @@ import EffectTable from '../components/EffectTable'
 import { setTitle } from '../lib/utils'
 
 import { effects } from '~/lib/stellar/server_request_utils'
-import { EffectProps } from "~/components/Effect"
-import { useEffect } from "react"
+import { EffectProps } from '~/components/Effect'
+import { useEffect } from 'react'
 
 export const loader = ({ request, params }: LoaderArgs) => {
   const server = requestToServer(request)
-  return effects(server, { operationId: params.opId }).then(effects =>
-    effects.map(
-      (effect: ServerApi.EffectRecord) => ({
-        ...effect,
-        op: effect.operation ? effect.operation() : undefined
-      }) as EffectProps
+  return effects(server, { operationId: params.opId })
+    .then((effects) =>
+      effects.map(
+        (effect: ServerApi.EffectRecord) =>
+          ({
+            ...effect,
+            op: effect.operation ? effect.operation() : undefined,
+          }) as EffectProps,
+      ),
     )
-  ).then(json)
+    .then(json)
 }
 
 export default function Effects() {
@@ -47,10 +50,10 @@ export default function Effects() {
           <Card.Body>
             <EffectTable
               records={records as ReadonlyArray<EffectProps>}
-            // showEffect
-            // showSource
-            // compact={false}
-            // limit={20}
+              // showEffect
+              // showSource
+              // compact={false}
+              // limit={20}
             />
           </Card.Body>
         </Card>
