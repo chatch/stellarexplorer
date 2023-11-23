@@ -1,10 +1,10 @@
 import Table from 'react-bootstrap/Table'
 import { FormattedMessage } from 'react-intl'
-import { Horizon } from 'stellar-sdk'
+import type { Horizon } from 'stellar-sdk'
 
-import type { LiquidityPoolProps } from './operations/LiquidityPool'
+import { type LiquidityPoolProps } from './operations/LiquidityPool'
 import { liquidityPoolAsset } from '~/data/liquidity_pool_asset'
-import { formatAmountToHumanReadable } from '~/lib/utils'
+import { formatAmountToHumanReadable, getAssetCode } from '~/lib/utilities'
 
 interface ParentProps {
   compact: boolean
@@ -29,28 +29,21 @@ const PoolAsset = ({
   return (
     <div>
       <span>
-        {reserves.map(({ asset, amount }) => {
-          // TODO: refactor this because the same code exists in app/components/operations/LiquidityPool.tsx.
-          let assetStr
-          if (asset === 'native') {
-            assetStr = 'XLM'
-          } else {
-            const [code] = asset.split(':')
-            assetStr = code
-          }
+        {reserves.map(({ asset, amount }, index) => {
+          const assetCode = getAssetCode(asset)
 
-          const icon = liquidityPoolAsset[assetStr]?.icon || fallBackAssetIcon
-          const url = liquidityPoolAsset[assetStr]?.url
+          const icon = liquidityPoolAsset[assetCode]?.icon || fallBackAssetIcon
+          const url = liquidityPoolAsset[assetCode]?.url
 
           return (
-            <div>
+            <div key={index}>
               <img
                 src={icon}
-                alt={assetStr}
+                alt={assetCode}
                 className="liquidity-pool-asset-image"
               />
               <span className="liquidity-pool-asset">
-                {assetStr} {url}
+                {assetCode} {url}
               </span>
               <span className="liquidity-pool-amount">
                 {formatAmountToHumanReadable(amount)}

@@ -45,20 +45,6 @@ const formatAmount = (amount) => {
   return new BigNumber(amount).toString()
 }
 
-const formatAmountToHumanReadable = (amountStr) => {
-  const amount = parseFloat(amountStr)
-  if (amount >= 1000000000) {
-    return (amount / 1000000000).toFixed(2) + 'B'
-  }
-  if (amount >= 1000000) {
-    return (amount / 1000000).toFixed(2) + 'M'
-  }
-  if (amount >= 1000) {
-    return (amount / 1000).toFixed(2) + 'K'
-  }
-  return amount.toFixed(2)
-}
-
 const setTitle = (subTitle) =>
   (document.title = `Stellar Explorer | ${subTitle}`)
 
@@ -76,7 +62,6 @@ export {
   base64Decode,
   base64DecodeToHex,
   formatAmount,
-  formatAmountToHumanReadable,
   hexStringToBytes,
   isDefInt,
   setTitle,

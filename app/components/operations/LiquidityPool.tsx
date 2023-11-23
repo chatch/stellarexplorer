@@ -1,6 +1,7 @@
 import AccountLink from '../shared/AccountLink'
-import { PropsWithChildren } from 'react'
-import { Horizon } from 'stellar-sdk'
+import type { PropsWithChildren } from 'react'
+import type { Horizon } from 'stellar-sdk'
+import { getAssetCode } from '~/lib/utilities'
 
 export interface LiquidityPoolProps extends PropsWithChildren {
   id: string
@@ -19,14 +20,7 @@ const LiquidityPoolDeposit = ({
     <AccountLink account={sourceAccount} /> deposited&nbsp;
     {reservesDeposited
       .map(({ asset, amount }: any) => {
-        let assetStr
-        if (asset === 'native') {
-          assetStr = 'XLM'
-        } else {
-          const [code] = asset.split(':')
-          assetStr = code // (<Asset code={code} issuer={address} type="unknown" />)
-        }
-        return `${amount} ${assetStr}`
+        return `${amount} ${getAssetCode(asset)}`
       })
       .join(', ')}{' '}
     for&nbsp;
@@ -45,14 +39,7 @@ const LiquidityPoolWithdraw = ({
     {shares || sharesRedeemed}&nbsp; shares in liquidity pool for&nbsp;
     {reservesReceived
       .map(({ asset, amount }: any) => {
-        let assetStr
-        if (asset === 'native') {
-          assetStr = 'XLM'
-        } else {
-          const [code] = asset.split(':')
-          assetStr = code // (<Asset code={code} issuer={address} type="unknown" />)
-        }
-        return `${amount} ${assetStr}`
+        return `${amount} ${getAssetCode(asset)}`
       })
       .join(', ')}
   </span>
