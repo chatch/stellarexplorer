@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { json } from '@remix-run/node'
-import type { LoaderArgs, type LinksFunction } from '@remix-run/node'
+import type { LoaderArgs, LinksFunction } from '@remix-run/node'
 import {
   Links,
   LiveReload,
