@@ -1,91 +1,92 @@
 {
-    "name": "stellarexplorer",
-    "description": "Ledger explorer for the Stellar network",
-    "version": "2.0.2",
-    "license": "Apache-2.0",
-    "author": "Chris Hatch <hatch@tuta.io>",
-    "homepage": "https://steexp.com",
-    "repository": "chatch/stellarexplorer",
-    "bugs": {
-        "url": "https://github.com/chatch/stellarexplorer/issues"
-    },
-    "keywords": [
-        "stellar",
-        "react",
-        "ledger",
-        "soroban",
-        "smart contract",
-        "remix.run",
-        "block explorer",
-        "blockchain"
-    ],
-    "engines": {
-        "node": ">= 18.x.x"
-    },
-    "sideEffects": false,
-    "scripts": {
-        "build": "remix build",
-        "deploy": "fly deploy --remote-only",
-        "dev": "remix dev",
-        "start": "remix-serve build",
-        "typecheck": "tsc",
-        "lint": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}'",
-        "lint:fix": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}' --fix"
-    },
-    "dependencies": {
-        "@remix-run/css-bundle": "1.19.3",
-        "@remix-run/node": "1.19.3",
-        "@remix-run/react": "1.19.3",
-        "@remix-run/serve": "1.19.3",
-        "@sentry/remix": "^7.68.0",
-        "bignumber.js": "^9.1.1",
-        "bootstrap": "^5.3.1",
-        "express-rate-limit": "^7.0.0",
-        "isbot": "^3.6.13",
-        "js-xdr": "3.0.0",
-        "lodash": "^4.17.21",
-        "prismjs": "^1.29.0",
-        "react": "^18.2.0",
-        "react-bootstrap": "2.8.0",
-        "react-dom": "^18.2.0",
-        "react-intl": "6.4.4",
-        "react-json-pretty": "^2.2.0",
-        "react-router-bootstrap": "^0.26.2",
-        "remix-utils": "^6.6.0",
-        "soroban-client": "1.0.0-beta.2",
-        "stellar-sdk": "10.4.1",
-        "urijs": "1.19.11"
-    },
-    "devDependencies": {
-        "@flydotio/dockerfile": "^0.4.7",
-        "@remix-run/dev": "1.19.3",
-        "@remix-run/eslint-config": "1.19.3",
-        "@types/jest": "^29.5.10",
-        "@types/lodash": "^4.14.196",
-        "@types/prismjs": "^1.26.0",
-        "@types/react": "^18.2.17",
-        "@types/react-bootstrap": "^0.32.32",
-        "@types/react-copy-to-clipboard": "^5.0.4",
-        "@types/react-dom": "^18.2.7",
-        "@types/react-router-bootstrap": "^0.26.2",
-        "@typescript-eslint/parser": "^5.62.0",
-        "eslint": "^8.46.0",
-        "eslint-config-prettier": "^9.0.0",
-        "eslint-config-react-app": "^7.0.1",
-        "eslint-plugin-prettier": "^5.0.1",
-        "husky": "^8.0.3",
-        "jest": "^29.7.0",
-        "lint-staged": "^15.1.0",
-        "ts-jest": "^29.1.1",
-        "ts-node": "^10.9.1",
-        "typescript": "^5.1.6"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.{js,jsx,ts,tsx}": "eslint --ignore-path .gitignore"
+  "name": "stellarexplorer",
+  "description": "Ledger explorer for the Stellar network",
+  "version": "2.0.2",
+  "license": "Apache-2.0",
+  "author": "Chris Hatch <hatch@tuta.io>",
+  "homepage": "https://steexp.com",
+  "repository": "chatch/stellarexplorer",
+  "bugs": {
+    "url": "https://github.com/chatch/stellarexplorer/issues"
+  },
+  "keywords": [
+    "stellar",
+    "react",
+    "ledger",
+    "soroban",
+    "smart contract",
+    "remix.run",
+    "block explorer",
+    "blockchain"
+  ],
+  "engines": {
+    "node": ">= 18.x.x"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "deploy": "fly deploy --remote-only",
+    "dev": "remix dev",
+    "start": "remix-serve build",
+    "typecheck": "tsc",
+    "lint": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}' --fix",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@remix-run/css-bundle": "1.19.3",
+    "@remix-run/node": "1.19.3",
+    "@remix-run/react": "1.19.3",
+    "@remix-run/serve": "1.19.3",
+    "@sentry/remix": "^7.68.0",
+    "bignumber.js": "^9.1.1",
+    "bootstrap": "^5.3.1",
+    "express-rate-limit": "^7.0.0",
+    "isbot": "^3.6.13",
+    "js-xdr": "3.0.0",
+    "lodash": "^4.17.21",
+    "prismjs": "^1.29.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "2.8.0",
+    "react-dom": "^18.2.0",
+    "react-intl": "6.4.4",
+    "react-json-pretty": "^2.2.0",
+    "react-router-bootstrap": "^0.26.2",
+    "remix-utils": "^6.6.0",
+    "soroban-client": "1.0.0-beta.2",
+    "stellar-sdk": "10.4.1",
+    "urijs": "1.19.11"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.7",
+    "@remix-run/dev": "1.19.3",
+    "@remix-run/eslint-config": "1.19.3",
+    "@types/jest": "^29.5.10",
+    "@types/lodash": "^4.14.196",
+    "@types/prismjs": "^1.26.0",
+    "@types/react": "^18.2.17",
+    "@types/react-bootstrap": "^0.32.32",
+    "@types/react-copy-to-clipboard": "^5.0.4",
+    "@types/react-dom": "^18.2.7",
+    "@types/react-router-bootstrap": "^0.26.2",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.1.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --ignore-path .gitignore"
+  }
 }
