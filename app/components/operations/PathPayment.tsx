@@ -1,5 +1,6 @@
 import React from 'react'
-import Payment, { PaymentProps } from './Payment'
+import type { PaymentProps } from './Payment'
+import Payment from './Payment'
 import Asset from '../shared/Asset'
 import { FormattedMessage } from 'react-intl'
 

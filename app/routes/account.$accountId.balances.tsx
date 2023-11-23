@@ -1,16 +1,15 @@
-import { LoaderArgs, json } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { useEffect } from 'react'
 import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
-import { Horizon } from 'stellar-sdk'
+import type { Horizon } from 'stellar-sdk'
 import Asset from '~/components/shared/Asset'
 import FormattedAmount from '~/components/shared/FormattedAmount'
 import { requestToServer } from '~/lib/stellar/server'
-import {
-  LoadAccountResult,
-  loadAccount,
-} from '~/lib/stellar/server_request_utils'
+import type { LoadAccountResult } from '~/lib/stellar/server_request_utils'
+import { loadAccount } from '~/lib/stellar/server_request_utils'
 import { setTitle } from '~/lib/utils'
 
 type Balance = Pick<

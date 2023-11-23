@@ -1,9 +1,11 @@
 import { useLoaderData, useParams } from '@remix-run/react'
-import { LoaderArgs, json } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
 
-import { StorageElement, getContractInfo } from '~/lib/stellar/contracts'
+import type { StorageElement } from '~/lib/stellar/contracts'
+import { getContractInfo } from '~/lib/stellar/contracts'
 import { requestToSorobanServer } from '~/lib/stellar/server'
 import { setTitle } from '~/lib/utils'
 import AccountLink from '~/components/shared/AccountLink'

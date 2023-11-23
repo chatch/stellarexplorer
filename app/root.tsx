@@ -2,7 +2,8 @@ import type { PropsWithChildren } from 'react'
 import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { cssBundleHref } from '@remix-run/css-bundle'
-import { json, LoaderArgs, type LinksFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import type { LoaderArgs, type LinksFunction } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -36,7 +37,7 @@ import zhHantMessages from './lib/languages/zh-Hant.json'
 import { requestToNetworkDetails } from './lib/stellar/networks'
 import { storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
-import { V2_ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
+import type { V2_ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
 import { NotFoundError } from 'stellar-sdk'
 
 export const links: LinksFunction = () => [

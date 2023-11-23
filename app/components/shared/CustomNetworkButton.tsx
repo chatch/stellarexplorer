@@ -1,9 +1,5 @@
-import React, {
-  ChangeEventHandler,
-  FormEvent,
-  FormEventHandler,
-  useState,
-} from 'react'
+import type { ChangeEventHandler, FormEvent, FormEventHandler } from 'react'
+import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { FormattedMessage } from 'react-intl'
 

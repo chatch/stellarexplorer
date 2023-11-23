@@ -1,7 +1,9 @@
 import { useLoaderData, useParams } from '@remix-run/react'
-import { LoaderArgs, json } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { FormattedMessage } from 'react-intl'
-import { PropsWithChildren, useEffect } from 'react'
+import type { PropsWithChildren } from 'react'
+import { useEffect } from 'react'
 
 import { CodeBlock } from '~/components/shared/CodeBlock'
 import { loadContract } from '~/lib/stellar/contracts'

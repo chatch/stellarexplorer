@@ -9,7 +9,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import logoImg from '../../img/logo.png'
 import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
-import { NetworkKey } from '~/lib/stellar/networks'
+import type { NetworkKey } from '~/lib/stellar/networks'
 
 interface HeaderProps {
   languageSwitcher: MouseEventHandler

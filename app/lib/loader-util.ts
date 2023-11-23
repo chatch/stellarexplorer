@@ -1,4 +1,5 @@
-import { LoaderArgs, TypedResponse, json } from '@remix-run/node'
+import type { LoaderArgs, TypedResponse } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { requestToServer } from './stellar/server'
 import * as serverRequestUtils from './stellar/server_request_utils'
 

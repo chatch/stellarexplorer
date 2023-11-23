@@ -13,8 +13,9 @@ import StellarTomlBadge from '../components/shared/StellarTomlBadge'
 
 import { assetKeyToIssuer, setTitle } from '../lib/utils'
 
-import directory, { DirectoryAnchor } from '../data/directory'
-import { LoaderArgs } from '@remix-run/node'
+import type { DirectoryAnchor } from '../data/directory'
+import directory from '../data/directory'
+import type { LoaderArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useEffect } from 'react'
 const { anchors } = directory

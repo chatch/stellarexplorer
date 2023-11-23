@@ -1,4 +1,5 @@
-import React, { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import Asset from '../shared/Asset'
 import AccountLink from '../shared/AccountLink'

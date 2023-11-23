@@ -1,13 +1,12 @@
-import { LoaderArgs, json } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { useEffect } from 'react'
 import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 import { requestToServer } from '~/lib/stellar/server'
-import {
-  loadAccount,
-  LoadAccountResult,
-} from '~/lib/stellar/server_request_utils'
+import type { LoadAccountResult } from '~/lib/stellar/server_request_utils'
+import { loadAccount } from '~/lib/stellar/server_request_utils'
 import { base64Decode, setTitle } from '~/lib/utils'
 
 const dataValue = (decodeValue: boolean, value?: any): string => {

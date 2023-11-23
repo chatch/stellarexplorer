@@ -18,8 +18,8 @@ import type { PaymentCallBuilder } from 'stellar-sdk/lib/payment_call_builder'
 import type { TradesCallBuilder } from 'stellar-sdk/lib/trades_call_builder'
 import { isPublicKey, isFederatedAddress, isMuxedAddress } from './utils'
 import type { AccountCallBuilder } from 'stellar-sdk/lib/account_call_builder'
-import { TransactionCallBuilder } from 'stellar-sdk/lib/transaction_call_builder'
-import { OfferCallBuilder } from 'stellar-sdk/lib/offer_call_builder'
+import type { TransactionCallBuilder } from 'stellar-sdk/lib/transaction_call_builder'
+import type { OfferCallBuilder } from 'stellar-sdk/lib/offer_call_builder'
 import AccountTypeUnrecognizedException from '../error/AccountTypeUnrecognizedException'
 
 interface PageOptions {
