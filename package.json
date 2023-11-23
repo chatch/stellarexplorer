@@ -60,6 +60,7 @@
         "@flydotio/dockerfile": "^0.4.7",
         "@remix-run/dev": "1.19.3",
         "@remix-run/eslint-config": "1.19.3",
+        "@types/jest": "^29.5.10",
         "@types/lodash": "^4.14.196",
         "@types/prismjs": "^1.26.0",
         "@types/react": "^18.2.17",
@@ -73,7 +74,9 @@
         "eslint-config-react-app": "^7.0.1",
         "eslint-plugin-prettier": "^5.0.1",
         "husky": "^8.0.3",
+        "jest": "^29.7.0",
         "lint-staged": "^15.1.0",
+        "ts-jest": "^29.1.1",
         "typescript": "^5.1.6"
     },
     "husky": {
