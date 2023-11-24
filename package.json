@@ -68,6 +68,7 @@
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.1",
+    "@types/jest": "^29.5.10",
     "@types/lodash": "^4.14.196",
     "@types/prismjs": "^1.26.0",
     "@types/react": "^18.2.17",
