@@ -21,12 +21,13 @@ const config: Config = {
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
 
+  // NOTE: Disable collectCoverageFrom as this gives too much information.
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: [
-    '**/*.{js,jsx,ts,tsx}',
-    '!**/*.d.ts',
-    '!**/node_modules/**',
-  ],
+  // collectCoverageFrom: [
+  //   '**/*.{js,jsx,ts,tsx}',
+  //   '!**/*.d.ts',
+  //   '!**/node_modules/**',
+  // ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
