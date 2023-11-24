@@ -108,6 +108,26 @@ Test:
 npm i && npm test
 ```
 
+or
+
+You can run test with Jest Preview with the following command. You can see the result at <http://locahost:3336> for test using React Testing Library along with Jest Preview.
+
+```sh
+npm test:preview
+```
+
+or
+
+You can run test and Jest Preview separately as follows (this is basically same as the previous one).
+
+```sh
+npm jest-preview
+
+npm test
+or
+npm test:watch
+```
+
 Build:
 
 ```sh
