@@ -27,11 +27,13 @@
     "build": "remix build",
     "deploy": "fly deploy --remote-only",
     "dev": "remix dev",
+    "jest-preview": "jest-preview",
     "start": "remix-serve build",
     "typecheck": "tsc",
     "lint": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}' --fix",
-    "test": "jest"
+    "test": "jest",
+    "test:preview": "npm-run-all -p test jest-preview"
   },
   "dependencies": {
     "@remix-run/css-bundle": "1.19.3",
