@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react'
+import type { MouseEventHandler } from 'react'
 import PagingControls from './PagingControls'
 import { useNavigate } from '@remix-run/react'
 

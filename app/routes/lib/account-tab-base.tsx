@@ -1,13 +1,15 @@
-import { LoaderArgs, json } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { Container, Row } from 'react-bootstrap'
-import { PaymentProps } from '~/components/operations/Payment'
+import type { PaymentProps } from '~/components/operations/Payment'
 import Paging from '~/components/shared/Paging'
 import * as serverRequestUtils from '../../lib/stellar/server_request_utils'
 import { requestToServer } from '~/lib/stellar/server'
-import { FunctionComponent, useEffect } from 'react'
+import type { FunctionComponent } from 'react'
+import { useEffect } from 'react'
 import { setTitle } from '~/lib/utils'
-import { ServerReqFnName } from '~/lib/loader-util'
+import type { ServerReqFnName } from '~/lib/loader-util'
 
 const DEFAULT_RECORD_LIMIT = 30
 

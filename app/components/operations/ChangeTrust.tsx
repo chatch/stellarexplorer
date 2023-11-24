@@ -1,4 +1,5 @@
-import Trust, { TrustProps } from './Trust'
+import type { TrustProps } from './Trust'
+import Trust from './Trust'
 import { FormattedMessage } from 'react-intl'
 
 interface ChangeTrustProps extends TrustProps {

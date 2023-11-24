@@ -1,6 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 import AccountLink from '../shared/AccountLink'
-import Trust, { TrustProps } from './Trust'
+import type { TrustProps } from './Trust'
+import Trust from './Trust'
 
 export interface AllowTrustProps extends TrustProps {
   authorize: string

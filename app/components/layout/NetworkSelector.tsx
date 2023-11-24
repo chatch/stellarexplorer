@@ -1,6 +1,6 @@
 import { networks } from '../../lib/stellar'
 import CustomNetworkButton from '../shared/CustomNetworkButton'
-import { NetworkKey } from '~/lib/stellar/networks'
+import type { NetworkKey } from '~/lib/stellar/networks'
 
 const HOME_PUBLIC = 'https://steexp.com'
 const HOME_TESTNET = 'https://testnet.steexp.com'

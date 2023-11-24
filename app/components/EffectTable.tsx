@@ -1,7 +1,8 @@
 import Table from 'react-bootstrap/Table'
 import { FormattedMessage } from 'react-intl'
 
-import Effect, { EffectProps } from './Effect'
+import type { EffectProps } from './Effect'
+import Effect from './Effect'
 
 interface EffectTableProps {
   records: ReadonlyArray<EffectProps>

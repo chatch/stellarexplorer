@@ -7,7 +7,8 @@ import RelativeTime from '../shared/RelativeTime'
 import TransactionHash from '../shared/TransactionHash'
 
 import AccountMerge from './AccountMerge'
-import AllowTrust, { AllowTrustProps } from './AllowTrust'
+import type { AllowTrustProps } from './AllowTrust'
+import AllowTrust from './AllowTrust'
 import BumpSequence from './BumpSequence'
 import ChangeTrust from './ChangeTrust'
 import {
@@ -18,15 +19,19 @@ import {
   ClawbackOperation,
   ClawbackClaimableBalanceOperation,
 } from './Clawback'
-import CreateAccount, { CreateAccountProps } from './CreateAccount'
+import type { CreateAccountProps } from './CreateAccount'
+import CreateAccount from './CreateAccount'
 import Inflation from './Inflation'
 import InvokeHostFunction from './InvokeHostFunction'
 import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from './LiquidityPool'
-import ManageData, { ManageDataProps } from './ManageData'
+import type { ManageDataProps } from './ManageData'
+import ManageData from './ManageData'
 import Offer from './Offer'
-import PathPayment, { PathPaymentProps } from './PathPayment'
+import type { PathPaymentProps } from './PathPayment'
+import PathPayment from './PathPayment'
 import Payment from './Payment'
-import SetOptions, { SetOptionsProps } from './SetOptions'
+import type { SetOptionsProps } from './SetOptions'
+import SetOptions from './SetOptions'
 import SetTrustLineFlags from './SetTrustLineFlags'
 import {
   BeginSponsoringFutureReserves,

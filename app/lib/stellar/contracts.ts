@@ -1,5 +1,6 @@
 import { Contract } from 'soroban-client'
-import { SorobanServer, xdr } from '../stellar'
+import type { SorobanServer } from '../stellar'
+import { xdr } from '../stellar'
 import { hexStringToBytes } from '../utils'
 import { scValToString } from './xdr_scval_utils'
 import ContractIdInvalid from '../error/ContractIdInvalid'

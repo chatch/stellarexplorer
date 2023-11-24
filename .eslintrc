@@ -1,5 +1,10 @@
 {
-  "extends": ["react-app", "prettier"],
+  "extends": [
+    "@remix-run/eslint-config",
+    "@remix-run/eslint-config/jest-testing-library",
+    "react-app",
+    "prettier"
+  ],
   "plugins": ["prettier"],
   "overrides": [
     {

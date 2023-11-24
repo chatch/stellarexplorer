@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { LoaderArgs, json } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
   NavLink,
   Outlet,
