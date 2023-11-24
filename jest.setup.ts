@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { jestPreviewConfigure } from 'jest-preview'
 import './app/styles/styles.css'
 
