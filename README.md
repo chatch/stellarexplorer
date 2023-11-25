@@ -121,11 +121,11 @@ or
 You can run test and Jest Preview separately as follows (this is basically same as the previous one).
 
 ```sh
-npm jest-preview
+npm run jest-preview
 
 npm test
 or
-npm test:watch
+npm run test:watch
 ```
 
 ### E2E Test
