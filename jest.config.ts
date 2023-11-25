@@ -173,6 +173,7 @@ const config: Config = {
     '<rootDir>/node_modules/',
     '<rootDir>/.cache/',
     '<rootDir>/build/',
+    '<rootDir>/e2e*',
   ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
