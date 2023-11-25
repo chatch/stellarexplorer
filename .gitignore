@@ -27,3 +27,7 @@ yarn.lock
 /build
 /public/build
 .env
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
