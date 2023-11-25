@@ -96,13 +96,13 @@ Navigate to http://testnet.local:3000, http://futurenet.local:3000 or http://pub
 
 See the section [Exploring Private / Local Development Networks](#private-networks) for connecting to different backend networks. By default steexp will look for a local instance of horizon.
 
-Start:
+### Start
 
 ```sh
 npm i && npm run dev
 ```
 
-Test:
+### Test
 
 ```sh
 npm i && npm test
@@ -128,7 +128,25 @@ or
 npm test:watch
 ```
 
-Build:
+### E2E Test
+
+```sh
+npm run test:e2e
+```
+
+Run the test in UI mode:
+
+```sh
+npm run test:e2e:ui
+```
+
+Show HTML test reports:
+
+```sh
+npm run test:e2e:report
+```
+
+### Build
 
 ```sh
 npm i && npm run build
