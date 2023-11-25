@@ -33,6 +33,9 @@
     "lint": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}' --fix",
     "test": "jest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report",
     "test:preview": "npm-run-all -p test jest-preview"
   },
   "dependencies": {
