@@ -45,7 +45,7 @@ const PoolAsset = ({
                 className={styles['asset-image']}
               />
               <span className={styles['asset-code']}>
-                {assetCode} {url}
+                {assetCode} <span className={styles['asset-url']}>{url}</span>
               </span>
               <span className={styles['amount']}>
                 {formatAmountToHumanReadable(amount)}

@@ -9,6 +9,10 @@
   width: 150px;
 }
 
+.asset-url {
+  font-size: 12px;
+}
+
 .amount {
   display: inline-block;
   width: 80px;
