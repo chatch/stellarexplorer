@@ -286,7 +286,7 @@ const liquidityPools = (
     accountId,
     assets,
     cursor,
-    order = 'desc',
+    order = 'asc',
     limit = 5,
   }: PageOptions & { id?: string; accountId?: string; assets?: Asset[] },
 ) => {
