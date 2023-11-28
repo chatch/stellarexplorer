@@ -6,6 +6,8 @@ import { type LiquidityPoolProps } from './operations/LiquidityPool'
 import { liquidityPoolAsset } from '~/data/liquidity_pool_asset'
 import { formatAmountToHumanReadable, getAssetCode } from '~/lib/utilities'
 
+import styles from './LiquidityPoolTable.module.css'
+
 interface ParentProps {
   compact: boolean
   // horizonURL: string
@@ -40,12 +42,12 @@ const PoolAsset = ({
               <img
                 src={icon}
                 alt={assetCode}
-                className="liquidity-pool-asset-image"
+                className={styles['asset-image']}
               />
-              <span className="liquidity-pool-asset">
+              <span className={styles['asset-code']}>
                 {assetCode} {url}
               </span>
-              <span className="liquidity-pool-amount">
+              <span className={styles['amount']}>
                 {formatAmountToHumanReadable(amount)}
               </span>
             </div>
@@ -67,10 +69,10 @@ const LiquidityPoolRow = ({
     <td>
       <PoolAsset reserves={reserves} />
     </td>
-    <td className="liquidity-pool-shares">
+    <td className={styles['shares']}>
       {formatAmountToHumanReadable(totalShares)}
     </td>
-    <td className="liquidity-pool-trustlines">{totalTrustlines}</td>
+    <td className={styles['trustlines']}>{totalTrustlines}</td>
   </tr>
 )
 
