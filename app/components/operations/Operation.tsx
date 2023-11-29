@@ -21,6 +21,7 @@ import {
 } from './Clawback'
 import type { CreateAccountProps } from './CreateAccount'
 import CreateAccount from './CreateAccount'
+import { BumpFootprintExpiration, RestoreFootprint } from './Footprint'
 import Inflation from './Inflation'
 import InvokeHostFunction from './InvokeHostFunction'
 import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from './LiquidityPool'
