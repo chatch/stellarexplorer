@@ -1,4 +1,4 @@
-import { Contract } from 'soroban-client'
+import { Contract } from 'stellar-sdk'
 import type { SorobanServer } from '../stellar'
 import { xdr } from '../stellar'
 import { hexStringToBytes } from '../utils'

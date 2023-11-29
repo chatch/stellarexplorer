@@ -1,4 +1,4 @@
-import { Server } from 'soroban-client'
+import { SorobanRpc } from 'stellar-sdk'
 import networks from './networks'
 
 export const sorobanRpcURIs: Record<string, string> = {
@@ -10,7 +10,7 @@ export const sorobanRpcURIs: Record<string, string> = {
 /**
  * Wrap the soroban-client Server.
  */
-class SorobanServer extends Server {
+class SorobanServer extends SorobanRpc.Server {
   constructor(networkType: string, networkAddress: string) {
     // allowHttp: public/test use HTTPS; local can use HTTP
     super(networkAddress, { allowHttp: networkType === networks.local })

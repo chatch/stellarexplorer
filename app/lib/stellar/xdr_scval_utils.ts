@@ -1,4 +1,4 @@
-import { StrKey, scValToNative, xdr } from 'soroban-client'
+import { StrKey, scValToNative, xdr } from 'stellar-sdk'
 
 const Buffer = require('buffer').Buffer
 

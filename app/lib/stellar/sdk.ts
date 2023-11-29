@@ -1,16 +1,14 @@
-import { KeyPair, Server } from 'stellar-sdk'
-
+import { Horizon } from 'stellar-sdk'
+import { AccountCallBuilder } from 'stellar-sdk/lib/horizon/account_call_builder'
+import { AssetsCallBuilder } from 'stellar-sdk/lib/horizon/assets_call_builder'
+import { EffectCallBuilder } from 'stellar-sdk/lib/horizon/effect_call_builder'
+import { LedgerCallBuilder } from 'stellar-sdk/lib/horizon/ledger_call_builder'
+import { OfferCallBuilder } from 'stellar-sdk/lib/horizon/offer_call_builder'
+import { OperationCallBuilder } from 'stellar-sdk/lib/horizon/operation_call_builder'
+import { PaymentCallBuilder } from 'stellar-sdk/lib/horizon/payment_call_builder'
+import { TradesCallBuilder } from 'stellar-sdk/lib/horizon/trades_call_builder'
+import { TransactionCallBuilder } from 'stellar-sdk/lib/horizon/transaction_call_builder'
 import URI from 'urijs'
-
-import { LedgerCallBuilder } from 'stellar-sdk/lib/ledger_call_builder'
-import { OperationCallBuilder } from 'stellar-sdk/lib/operation_call_builder'
-import { TransactionCallBuilder } from 'stellar-sdk/lib/transaction_call_builder'
-import { PaymentCallBuilder } from 'stellar-sdk/lib/payment_call_builder'
-import { OfferCallBuilder } from 'stellar-sdk/lib/offer_call_builder'
-import { EffectCallBuilder } from 'stellar-sdk/lib/effect_call_builder'
-import { AccountCallBuilder } from 'stellar-sdk/lib/account_call_builder'
-import { AssetsCallBuilder } from 'stellar-sdk/lib/assets_call_builder'
-import { TradesCallBuilder } from 'stellar-sdk/lib/trades_call_builder'
 
 /* ----------------------------------------------------------
  *
@@ -25,16 +23,16 @@ import { TradesCallBuilder } from 'stellar-sdk/lib/trades_call_builder'
  *
  * @see [Stellar Paging docs](https://www.stellar.org/developers/horizon/reference/resources/page.html)
  */
-const wrapStellarCallBuilderWithWebPagePaging = (CallBuilder) => {
+const wrapStellarCallBuilderWithWebPagePaging = (CallBuilder: any) => {
   return class WrappedCallBuilder extends CallBuilder {
-    wrapNext = (rspNext) => () => {
-      return rspNext().then((rsp) => {
+    wrapNext = (rspNext: () => Promise<any>) => () => {
+      return rspNext().then((rsp: any) => {
         return this.wrap(rsp)
       })
     }
 
-    wrapPrev = (rspPrev) => () => {
-      return rspPrev().then((rsp) => {
+    wrapPrev = (rspPrev: () => Promise<any>) => () => {
+      return rspPrev().then((rsp: { records?: any; next: any; prev: any }) => {
         // prev requests desc so flip it to the order we maintain for every page
         rsp.records = rsp.records.reverse()
 
@@ -49,7 +47,7 @@ const wrapStellarCallBuilderWithWebPagePaging = (CallBuilder) => {
       })
     }
 
-    wrap(stellarRsp) {
+    wrap(stellarRsp: { next: () => any; prev: () => any }) {
       stellarRsp.next = this.wrapNext(stellarRsp.next)
       stellarRsp.prev = this.wrapPrev(stellarRsp.prev)
       return stellarRsp
@@ -59,7 +57,7 @@ const wrapStellarCallBuilderWithWebPagePaging = (CallBuilder) => {
      * Calls the parent call() and modifies the response.
      */
     call() {
-      return super.call().then((stellarRsp) => {
+      return super.call().then((stellarRsp: any) => {
         return this.wrap(stellarRsp)
       })
     }
@@ -84,20 +82,12 @@ const pagingCalls = {
 
 Object.keys(pagingCalls).forEach(
   (callName) =>
-    (Server.prototype[callName] = function (...params) {
+    ((Horizon.Server.prototype as any)[callName] = function (...params: any) {
       const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
-        pagingCalls[callName],
+        (pagingCalls as any)[callName],
       )
-      return new WrappedClass(URI(this.serverURL), ...params)
+      return new (WrappedClass as any)(URI(this.serverURL), ...params)
     }),
 )
 
-export {
-  FederationServer,
-  MemoHash,
-  MemoReturn,
-  MuxedAccount,
-  StrKey,
-} from 'soroban-client'
-
-export { KeyPair, Server }
+export { MemoHash, MemoReturn, MuxedAccount, StrKey } from 'stellar-sdk'
