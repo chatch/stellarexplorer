@@ -1,25 +1,25 @@
-import { useEffect } from "react"
-import Container from "react-bootstrap/Container"
-import Card from "react-bootstrap/Card"
-import CardHeader from "react-bootstrap/CardHeader"
-import Row from "react-bootstrap/Row"
-import Table from "react-bootstrap/Table"
-import { FormattedMessage, useIntl } from "react-intl"
-import { Link } from "react-router-dom"
+import { useEffect } from 'react'
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
+import CardHeader from 'react-bootstrap/CardHeader'
+import Row from 'react-bootstrap/Row'
+import Table from 'react-bootstrap/Table'
+import { FormattedMessage, useIntl } from 'react-intl'
+import { Link } from 'react-router-dom'
 
-import { setTitle } from "../../lib/utils"
-import AccountLink from "../../components/shared/AccountLink"
-import BackendResourceBadgeButton from "../../components/shared/BackendResourceBadgeButton"
-import ClipboardCopy from "../../components/shared/ClipboardCopy"
-import Logo from "../../components/shared/Logo"
-import NewWindowIcon from "../../components/shared/NewWindowIcon"
-import { TitleWithJSONButton } from "~/components/shared/TitleWithJSONButton"
+import { setTitle } from '../../lib/utils'
+import AccountLink from '../../components/shared/AccountLink'
+import BackendResourceBadgeButton from '../../components/shared/BackendResourceBadgeButton'
+import ClipboardCopy from '../../components/shared/ClipboardCopy'
+import Logo from '../../components/shared/Logo'
+import NewWindowIcon from '../../components/shared/NewWindowIcon'
+import { TitleWithJSONButton } from '~/components/shared/TitleWithJSONButton'
 
-import directory from "../../data/directory"
+import directory from '../../data/directory'
 
 const { anchors, assets } = directory
 export const METADATA_URI =
-  "https://raw.githubusercontent.com/irisli/stellarterm/master/directory/directory.json"
+  'https://raw.githubusercontent.com/irisli/stellarterm/master/directory/directory.json'
 
 export interface AssetProps {
   code: string
@@ -36,7 +36,7 @@ export function Asset({ code, domain, issuer }: AssetProps) {
           <Logo name={domain} type="anchor" />
         </a>
       </td>
-      <td style={{ color: "white" }}>{code}</td>
+      <td style={{ color: 'white' }}>{code}</td>
       <td>
         <AccountLink account={issuer} hideKnown />
         <ClipboardCopy text={issuer} />
@@ -60,12 +60,12 @@ export function Asset({ code, domain, issuer }: AssetProps) {
       </td>
     </tr>
   )
-};
+}
 
 export function Assets({ assetKeys }: { assetKeys: Array<string> }) {
   const { formatMessage } = useIntl()
   useEffect(() => {
-    setTitle("Assets")
+    setTitle('Assets')
   }, [])
 
   return (
@@ -73,8 +73,10 @@ export function Assets({ assetKeys }: { assetKeys: Array<string> }) {
       <Row>
         <Card>
           <CardHeader>
-            <TitleWithJSONButton title={formatMessage({ id: "assets" })}
-              url={METADATA_URI} />
+            <TitleWithJSONButton
+              title={formatMessage({ id: 'assets' })}
+              url={METADATA_URI}
+            />
           </CardHeader>
           <Card.Body>
             <Table id="assets-table">

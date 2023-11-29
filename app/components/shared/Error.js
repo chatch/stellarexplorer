@@ -1,13 +1,13 @@
-import React from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import { FormattedMessage } from "react-intl";
+import React from 'react'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import { FormattedMessage } from 'react-intl'
 
-const knownErrors = ["network"];
+const knownErrors = ['network']
 
 class Error extends React.Component {
   render() {
-    const id = this.props.match.params.id;
+    const id = this.props.match.params.id
     return (
       <Container>
         <Row>
@@ -20,8 +20,8 @@ class Error extends React.Component {
           </h3>
         </Row>
       </Container>
-    );
+    )
   }
 }
 
-export default Error;
+export default Error

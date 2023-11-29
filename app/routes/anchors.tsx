@@ -1,26 +1,26 @@
-import Container from "react-bootstrap/Container"
-import Card from "react-bootstrap/Card"
-import CardHeader from "react-bootstrap/CardHeader"
-import Row from "react-bootstrap/Row"
-import Table from "react-bootstrap/Table"
-import { FormattedMessage, useIntl } from "react-intl"
-import { Link } from "react-router-dom"
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
+import CardHeader from 'react-bootstrap/CardHeader'
+import Row from 'react-bootstrap/Row'
+import Table from 'react-bootstrap/Table'
+import { FormattedMessage, useIntl } from 'react-intl'
+import { Link } from 'react-router-dom'
 
-import AccountLink from "../components/shared/AccountLink"
-import ClipboardCopy from "../components/shared/ClipboardCopy"
-import Logo from "../components/shared/Logo"
-import NewWindowIcon from "../components/shared/NewWindowIcon"
-import StellarTomlBadge from "../components/shared/StellarTomlBadge"
+import AccountLink from '../components/shared/AccountLink'
+import ClipboardCopy from '../components/shared/ClipboardCopy'
+import Logo from '../components/shared/Logo'
+import NewWindowIcon from '../components/shared/NewWindowIcon'
+import StellarTomlBadge from '../components/shared/StellarTomlBadge'
 
-import { assetKeyToIssuer, setTitle } from "../lib/utils"
+import { assetKeyToIssuer, setTitle } from '../lib/utils'
 
-import directory from "../data/directory"
-import { TitleWithJSONButton } from "~/components/shared/TitleWithJSONButton"
-import { useEffect } from "react"
+import directory from '../data/directory'
+import { TitleWithJSONButton } from '~/components/shared/TitleWithJSONButton'
+import { useEffect } from 'react'
 const { anchors } = directory
 
 const METADATA_URI =
-  "https://raw.githubusercontent.com/irisli/stellarterm/master/directory/directory.json"
+  'https://raw.githubusercontent.com/irisli/stellarterm/master/directory/directory.json'
 
 const tradeURL = (assetCode: string, issuerDomain: string): string =>
   `https://stellarterm.com/#exchange/XLM-native/${assetCode}-${issuerDomain}`
@@ -48,7 +48,13 @@ const IssuerColumn = ({ assets }: { assets: Record<string, string> }) => (
   </span>
 )
 
-const TradeColumn = ({ assets, domain }: { assets: Record<string, string>, domain: string }) => (
+const TradeColumn = ({
+  assets,
+  domain,
+}: {
+  assets: Record<string, string>
+  domain: string
+}) => (
   <span>
     {Object.keys(assets).map((code) => (
       <div key={code}>
@@ -61,8 +67,8 @@ const TradeColumn = ({ assets, domain }: { assets: Record<string, string>, domai
 )
 
 interface AnchorProps {
-  // map of asset code to <asset code>-<address> 
-  assets: Record<string, string>,
+  // map of asset code to <asset code>-<address>
+  assets: Record<string, string>
   domain: string
   website: string
   displayName?: string
@@ -103,11 +109,10 @@ const Anchor = ({ assets, domain, displayName, website }: AnchorProps) => {
   )
 }
 
-
 export default function Anchors() {
   const { formatMessage } = useIntl()
   useEffect(() => {
-    setTitle("Anchors")
+    setTitle('Anchors')
   }, [])
   if (!anchors) return null
   return (
@@ -115,8 +120,10 @@ export default function Anchors() {
       <Row>
         <Card>
           <CardHeader>
-            <TitleWithJSONButton title={formatMessage({ id: "anchors" })}
-              url={METADATA_URI} />
+            <TitleWithJSONButton
+              title={formatMessage({ id: 'anchors' })}
+              url={METADATA_URI}
+            />
           </CardHeader>
           <Card.Body>
             <Table id="anchors-table">

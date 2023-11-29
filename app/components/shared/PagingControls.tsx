@@ -1,5 +1,5 @@
-import { MouseEventHandler } from "react"
-import { FormattedMessage } from "react-intl"
+import type { MouseEventHandler } from 'react'
+import { FormattedMessage } from 'react-intl'
 
 interface PagingControlsProps {
   handleClickNext: MouseEventHandler<HTMLElement>
@@ -10,9 +10,8 @@ interface PagingControlsProps {
 const PagingControls = ({
   handleClickNext,
   handleClickPrev,
-  hidePrev
-}: PagingControlsProps) =>
-(
+  hidePrev,
+}: PagingControlsProps) => (
   <div id="paging-controls">
     {!hidePrev && (
       <button onClick={handleClickPrev}>
@@ -25,6 +24,5 @@ const PagingControls = ({
     </button>
   </div>
 )
-
 
 export default PagingControls

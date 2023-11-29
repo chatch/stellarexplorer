@@ -1,10 +1,10 @@
 import React from 'react'
-import {configure, shallow} from 'enzyme'
+import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
 import JSONButton from '../JSONButton'
 
-configure({adapter: new Adapter()})
+configure({ adapter: new Adapter() })
 
 describe('JSONButton', () => {
   it('renders button with given url', () => {

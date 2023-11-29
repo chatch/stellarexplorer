@@ -1,5 +1,5 @@
-import { useRouteError, isRouteErrorResponse } from "@remix-run/react"
-import { Container } from "react-bootstrap"
+import { useRouteError, isRouteErrorResponse } from '@remix-run/react'
+import { Container } from 'react-bootstrap'
 
 export const ErrorBoundary = () => {
   const error = useRouteError()

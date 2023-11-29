@@ -1,15 +1,17 @@
-import { LoaderArgs, json } from "@remix-run/node"
-import { useLoaderData, useParams } from "@remix-run/react"
-import { useEffect } from "react"
-import { Table } from "react-bootstrap"
-import { FormattedMessage } from "react-intl"
-import { requestToServer } from "~/lib/stellar/server"
-import { loadAccount, LoadAccountResult } from "~/lib/stellar/server_request_utils"
-import { base64Decode, setTitle } from "~/lib/utils"
+import type { LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { useLoaderData, useParams } from '@remix-run/react'
+import { useEffect } from 'react'
+import { Table } from 'react-bootstrap'
+import { FormattedMessage } from 'react-intl'
+import { requestToServer } from '~/lib/stellar/server'
+import type { LoadAccountResult } from '~/lib/stellar/server_request_utils'
+import { loadAccount } from '~/lib/stellar/server_request_utils'
+import { base64Decode, setTitle } from '~/lib/utils'
 
-const dataValue = (decodeValue: boolean, value?: any,): string => {
+const dataValue = (decodeValue: boolean, value?: any): string => {
   let retVal
-  if (typeof value === "boolean") {
+  if (typeof value === 'boolean') {
     retVal = value.toString()
   } else if (decodeValue) {
     retVal = base64Decode(value)
@@ -21,9 +23,9 @@ const dataValue = (decodeValue: boolean, value?: any,): string => {
 
 const NameValueTable = ({
   data,
-  decodeValue = false
+  decodeValue = false,
 }: {
-  data: Record<string, any>,
+  data: Record<string, any>
   decodeValue?: boolean
 }) => {
   if (!data || Object.keys(data).length === 0)
@@ -44,9 +46,7 @@ const NameValueTable = ({
         {Object.keys(data).map((key) => (
           <tr key={key}>
             <td>{key}</td>
-            <td>
-              {dataValue(decodeValue, data[key])}
-            </td>
+            <td>{dataValue(decodeValue, data[key])}</td>
           </tr>
         ))}
       </tbody>
@@ -61,8 +61,9 @@ const nameValueLoader = ({ params, request }: LoaderArgs) => {
 
 const nameValueAccountTab = function (name: string) {
   return function () {
-    const accountResult =
-      useLoaderData<typeof nameValueLoader>() as LoadAccountResult
+    const accountResult = useLoaderData<
+      typeof nameValueLoader
+    >() as LoadAccountResult
 
     const { accountId } = useParams()
     useEffect(() => {
@@ -74,9 +75,9 @@ const nameValueAccountTab = function (name: string) {
     }
 
     return (
-      <NameValueTable data={(accountResult.account as any)[
-        name.toLowerCase()
-      ]} />
+      <NameValueTable
+        data={(accountResult.account as any)[name.toLowerCase()]}
+      />
     )
   }
 }

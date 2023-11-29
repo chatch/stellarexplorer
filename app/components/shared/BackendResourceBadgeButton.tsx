@@ -1,10 +1,11 @@
-import { MouseEventHandler, useEffect, useState } from "react"
-import JSONPretty from "react-json-pretty"
-import Button from "react-bootstrap/Button"
-import Modal from "react-bootstrap/Modal"
-import { Spinner } from "react-bootstrap"
+import type { MouseEventHandler } from 'react'
+import { useEffect, useState } from 'react'
+import JSONPretty from 'react-json-pretty'
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
+import { Spinner } from 'react-bootstrap'
 
-import NewWindowIcon from "./NewWindowIcon"
+import NewWindowIcon from './NewWindowIcon'
 
 type FilterFn = (data: any) => string
 
@@ -17,7 +18,7 @@ interface BackendResourceBadgeButtonWithResourceModalProps {
 interface BackendResourceBadgeButtonProps {
   handleClickFn: MouseEventHandler<HTMLAnchorElement>
   label: string
-};
+}
 
 interface FetchDataResponse {
   textRaw: string
@@ -39,11 +40,11 @@ interface ResourceModalProps {
 const filterRecords = (
   rspText: string,
   isJson: boolean,
-  filterFn?: FilterFn
+  filterFn?: FilterFn,
 ) => {
   let text = rspText
-  if (isJson === true && typeof filterFn === "function") {
-    const records = JSON.parse(rspText)["_embedded"].records
+  if (isJson === true && typeof filterFn === 'function') {
+    const records = JSON.parse(rspText)['_embedded'].records
     text = filterFn(records)
     // if not found then revert to the original source
     if (text == null) text = rspText
@@ -51,14 +52,15 @@ const filterRecords = (
   return text
 }
 
-const isJsonResponse = (rsp: Response, url: string) => url.endsWith(".json") ||
-  (rsp.headers.has("content-type") &&
-    rsp.headers.get("content-type")?.indexOf("json") !== -1)
+const isJsonResponse = (rsp: Response, url: string) =>
+  url.endsWith('.json') ||
+  (rsp.headers.has('content-type') &&
+    rsp.headers.get('content-type')?.indexOf('json') !== -1)
 
 const fetchData = (url: string): Promise<FetchDataResponse> =>
-  fetch(url).
-    then((rsp) => Promise.all([rsp.text(), isJsonResponse(rsp, url)])).
-    then(result => ({ textRaw: result[0], isJson: result[1] }))
+  fetch(url)
+    .then((rsp) => Promise.all([rsp.text(), isJsonResponse(rsp, url)]))
+    .then((result) => ({ textRaw: result[0], isJson: result[1] }))
 
 /**
  * Button that reveals a backend resouce at 'url' when clicked.
@@ -68,12 +70,9 @@ const fetchData = (url: string): Promise<FetchDataResponse> =>
  */
 const BackendResourceBadgeButton = ({
   handleClickFn,
-  label
+  label,
 }: BackendResourceBadgeButtonProps) => (
-  <a
-    className="backend-resource-badge-button"
-    onClick={handleClickFn}
-  >
+  <a className="backend-resource-badge-button" onClick={handleClickFn}>
     {label}
   </a>
 )
@@ -87,7 +86,7 @@ const ClipboardCopyButton = ({ text }: { text: string }) => {
   return (
     <span>
       <Button
-        style={{ backgroundColor: "#08b5e5", color: "white", border: 0 }}
+        style={{ backgroundColor: '#08b5e5', color: 'white', border: 0 }}
         onClick={handleClickCopyFn}
       >
         Copy
@@ -101,9 +100,11 @@ const ResourceModalBody = ({
   filterFn,
   url,
   text,
-  setText
-}: Omit<ResourceModalProps, 'handleCloseFn'> &
-  { text: string, setText: Function }) => {
+  setText,
+}: Omit<ResourceModalProps, 'handleCloseFn'> & {
+  text: string
+  setText: Function
+}) => {
   const [isJson, setIsJson] = useState(false)
 
   useEffect(() => {
@@ -123,10 +124,13 @@ const ResourceModalBody = ({
       </div>
       <div>
         {!text && <Spinner />}
-        {text && text.length > 0 && (isJson ?
-          <JSONPretty id="json-pretty" json={text} /> :
-          <pre id="plain-text">{text}</pre>)
-        }
+        {text &&
+          text.length > 0 &&
+          (isJson ? (
+            <JSONPretty id="json-pretty" json={text} />
+          ) : (
+            <pre id="plain-text">{text}</pre>
+          ))}
       </div>
     </div>
   )
@@ -135,7 +139,7 @@ const ResourceModalBody = ({
 const ResourceModal = ({
   handleCloseFn,
   filterFn,
-  url
+  url,
 }: ResourceModalProps) => {
   const [text, setText] = useState('')
   return (
@@ -148,7 +152,8 @@ const ResourceModal = ({
           url={url}
           filterFn={filterFn}
           text={text}
-          setText={setText} />
+          setText={setText}
+        />
       </Modal.Body>
     </Modal>
   )
@@ -157,7 +162,7 @@ const ResourceModal = ({
 export default function BackendResourceBadgeButtonWithResourceModal({
   filterFn,
   label,
-  url
+  url,
 }: BackendResourceBadgeButtonWithResourceModalProps) {
   const [show, setShow] = useState(false)
 
@@ -166,10 +171,7 @@ export default function BackendResourceBadgeButtonWithResourceModal({
 
   return (
     <span>
-      <BackendResourceBadgeButton
-        label={label}
-        handleClickFn={handleClickFn}
-      />
+      <BackendResourceBadgeButton label={label} handleClickFn={handleClickFn} />
       {show && (
         <ResourceModal
           filterFn={filterFn}

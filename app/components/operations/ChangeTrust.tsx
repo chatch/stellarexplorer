@@ -1,11 +1,12 @@
-import Trust, { TrustProps } from './Trust'
+import type { TrustProps } from './Trust'
+import Trust from './Trust'
 import { FormattedMessage } from 'react-intl'
 
 interface ChangeTrustProps extends TrustProps {
   limit: number
 }
 
-const ChangeTrust = (props: ChangeTrustProps) =>
+const ChangeTrust = (props: ChangeTrustProps) => (
   <Trust {...props}>
     <FormattedMessage
       id="operation.trust.change"
@@ -14,5 +15,6 @@ const ChangeTrust = (props: ChangeTrustProps) =>
       }}
     />
   </Trust>
+)
 
 export default ChangeTrust

@@ -16,7 +16,10 @@ import Paging from '~/components/shared/Paging'
 
 const RECORD_LIMIT = 20
 
-export const loader = horizonRecordsLoader<ReadonlyArray<TradeProps>>(`trades`, RECORD_LIMIT)
+export const loader = horizonRecordsLoader<ReadonlyArray<TradeProps>>(
+  'trades',
+  RECORD_LIMIT,
+)
 
 export default function Trades() {
   const { records, cursor } = useLoaderData<typeof loader>()
@@ -34,13 +37,10 @@ export default function Trades() {
             <FormattedMessage id="trades" />
           </CardHeader>
           <Card.Body>
-            <Paging
-              baseUrl='/trades'
-              records={records}
-              currentCursor={cursor}>
+            <Paging baseUrl="/trades" records={records} currentCursor={cursor}>
               <TradeTable
                 records={records}
-              // limit={20}
+                // limit={20}
               />
             </Paging>
           </Card.Body>

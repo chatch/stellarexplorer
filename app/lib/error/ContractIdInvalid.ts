@@ -1,10 +1,10 @@
 class ContractIdInvalid extends Error {
-    contractId: string
+  contractId: string
 
-    constructor(contractId: string) {
-        super(`Invalid contract id given [${contractId}]`)
-        this.contractId = contractId
-    }
+  constructor(contractId: string) {
+    super(`Invalid contract id given [${contractId}]`)
+    this.contractId = contractId
+  }
 }
 
 export default ContractIdInvalid

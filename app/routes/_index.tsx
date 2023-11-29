@@ -14,7 +14,11 @@ import Title from '../components/shared/TitleWithLink'
 import TransactionTable from '../components/TransactionTable'
 
 import type { LoaderArgs, V2_MetaFunction } from '@remix-run/node'
-import { ledgers, operations, transactions } from '~/lib/stellar/server_request_utils'
+import {
+  ledgers,
+  operations,
+  transactions,
+} from '~/lib/stellar/server_request_utils'
 import type { OperationTableProps } from '~/components/OperationTable'
 import OperationTable from '~/components/OperationTable'
 import type { LedgerProps } from './ledger.$ledgerId'
@@ -25,15 +29,24 @@ import { setTitle } from '~/lib/utils'
 // App Metadata
 export const meta: V2_MetaFunction = () => {
   return [
-    { title: "Stellar Explorer" },
-    { name: "description", content: "Stellar Explorer - a ledger explorer for the Stellar network (https://stellar.org)" },
+    { title: 'Stellar Explorer' },
+    {
+      name: 'description',
+      content:
+        'Stellar Explorer - a ledger explorer for the Stellar network (https://stellar.org)',
+    },
   ]
 }
 
-const PanelHeaderTitle = ({ title, viewAllLabel, viewAllLink }: {
-  title: string, viewAllLabel: string, viewAllLink: string
-}
-) => (
+const PanelHeaderTitle = ({
+  title,
+  viewAllLabel,
+  viewAllLink,
+}: {
+  title: string
+  viewAllLabel: string
+  viewAllLink: string
+}) => (
   <Title
     rightLinkAddr={viewAllLink}
     rightLinkLabel={viewAllLabel}
@@ -51,14 +64,14 @@ export const loader = ({ request }: LoaderArgs) => {
     ledgers(server, { limit: LEDGER_RECORD_LIMIT }),
     transactions(server, { limit: TX_RECORD_LIMIT }),
     operations(server, { limit: OPERATION_RECORD_LIMIT }),
-    server.serverURL.toString()
-  ]).then(result =>
+    server.serverURL.toString(),
+  ]).then((result) =>
     json({
       ledgers: result[0],
       transactions: result[1],
       operations: result[2],
-      horizonURL: result[3]
-    })
+      horizonURL: result[3],
+    }),
   )
 }
 
@@ -67,11 +80,11 @@ export default function Home() {
     ledgers,
     transactions,
     operations,
-    horizonURL
+    horizonURL,
   }: {
-    ledgers: ReadonlyArray<LedgerProps>,
-    transactions: ReadonlyArray<TransactionProps>,
-    operations: ReadonlyArray<OperationTableProps>,
+    ledgers: ReadonlyArray<LedgerProps>
+    transactions: ReadonlyArray<TransactionProps>
+    operations: ReadonlyArray<OperationTableProps>
     horizonURL?: string
   } = useLoaderData<typeof loader>()
 
@@ -130,9 +143,7 @@ export default function Home() {
               />
             </CardHeader>
             <Card.Body>
-              <LedgerTable
-                records={ledgers}
-                compact />
+              <LedgerTable records={ledgers} compact />
             </Card.Body>
           </Card>
         </Col>

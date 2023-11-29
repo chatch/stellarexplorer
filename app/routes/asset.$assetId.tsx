@@ -1,24 +1,24 @@
-import { useEffect } from "react"
-import { json } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
+import { useEffect } from 'react'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 
-import { setTitle } from "../lib/utils"
-import { Assets } from "./lib/assets-base"
+import { setTitle } from '../lib/utils'
+import { Assets } from './lib/assets-base'
 
-import directory from "../data/directory"
+import directory from '../data/directory'
 
 const { assets } = directory
 
-export const loader = (
-  { params }: { params: { assetId: string } }
-) => {
-  const matchingAssetKeys = Object.keys(assets).filter(k => k.startsWith(params.assetId))
+export const loader = ({ params }: { params: { assetId: string } }) => {
+  const matchingAssetKeys = Object.keys(assets).filter((k) =>
+    k.startsWith(params.assetId),
+  )
   return json({ matchingAssetKeys })
 }
 
 export default function AssetsById() {
   useEffect(() => {
-    setTitle("Assets")
+    setTitle('Assets')
   }, [])
 
   const {
@@ -27,5 +27,5 @@ export default function AssetsById() {
     matchingAssetKeys: Array<string>
   } = useLoaderData<typeof loader>()
 
-  return (<Assets assetKeys={matchingAssetKeys} />)
+  return <Assets assetKeys={matchingAssetKeys} />
 }

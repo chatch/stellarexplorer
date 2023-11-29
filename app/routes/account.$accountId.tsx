@@ -1,37 +1,31 @@
-import React, { useEffect, useState } from "react"
-import Col from "react-bootstrap/Col"
-import Container from "react-bootstrap/Container"
-import Card from "react-bootstrap/Card"
+import React, { useEffect, useState } from 'react'
+import Col from 'react-bootstrap/Col'
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
-import Row from "react-bootstrap/Row"
-import { FormattedMessage, useIntl } from "react-intl"
+import Row from 'react-bootstrap/Row'
+import { FormattedMessage, useIntl } from 'react-intl'
 
-import {
-  NavLink,
-  Outlet,
-  useLoaderData,
-  useLocation,
-} from "@remix-run/react"
-import type { LoaderArgs } from "@remix-run/node"
-import { json } from "@remix-run/node"
+import { NavLink, Outlet, useLoaderData, useLocation } from '@remix-run/react'
+import type { LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 
-import { captureException } from "@sentry/remix"
-import has from "lodash/has"
-import { NotFoundError, type ServerApi } from "stellar-sdk"
+import { captureException } from '@sentry/remix'
+import has from 'lodash/has'
+import { NotFoundError, type ServerApi } from 'stellar-sdk'
 
-import type { KnownAccountProps } from "../data/known_accounts"
-import knownAccounts from "../data/known_accounts"
-import { setTitle } from "../lib/utils"
-import { titleWithJSONButton } from "../components/shared/TitleWithJSONButton"
-import ClipboardCopy from "../components/shared/ClipboardCopy"
-import Logo from "../components/shared/Logo"
-import { requestToServer } from "~/lib/stellar/server"
-import { loadAccount } from "~/lib/stellar/server_request_utils"
-import AccountTypeUnrecognizedException from "~/lib/error/AccountTypeUnrecognizedException"
+import type { KnownAccountProps } from '../data/known_accounts'
+import knownAccounts from '../data/known_accounts'
+import { setTitle } from '../lib/utils'
+import { titleWithJSONButton } from '../components/shared/TitleWithJSONButton'
+import ClipboardCopy from '../components/shared/ClipboardCopy'
+import Logo from '../components/shared/Logo'
+import { requestToServer } from '~/lib/stellar/server'
+import { loadAccount } from '~/lib/stellar/server_request_utils'
+import AccountTypeUnrecognizedException from '~/lib/error/AccountTypeUnrecognizedException'
 
 import infoSvg from '../../public/info-solid.svg'
-import { ErrorBoundary } from "./lib/error-boundary"
-
+import { ErrorBoundary } from './lib/error-boundary'
 
 // exists in @types/react-bootstrap however can't seem to resolve it
 // when importing it from react-bootstrap (compiler should find it).
@@ -49,7 +43,7 @@ const MuxedAccountInfoCard = ({ address }: { address: string }) => {
       />
       &nbsp; NOTE: This view shows the base account of the multiplexed account
       &nbsp;
-      <span style={{ color: "white", overflowWrap: "break-word" }}>
+      <span style={{ color: 'white', overflowWrap: 'break-word' }}>
         {address}
       </span>
     </Card>
@@ -62,10 +56,10 @@ const AccountSummaryCard = ({
   federatedAddress,
   knownAccounts,
 }: {
-  account: ServerApi.AccountRecord,
-  accountUrl: string,
-  federatedAddress?: string,
-  knownAccounts: Record<string, KnownAccountProps>,
+  account: ServerApi.AccountRecord
+  accountUrl: string
+  federatedAddress?: string
+  knownAccounts: Record<string, KnownAccountProps>
 }) => {
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -74,10 +68,7 @@ const AccountSummaryCard = ({
   return (
     <Card id="account-summary-card">
       <CardHeader>
-        {titleWithJSONButton(
-          formatMessage({ id: "account" }),
-          accountUrl
-        )}
+        {titleWithJSONButton(formatMessage({ id: 'account' }), accountUrl)}
       </CardHeader>
       <Card.Body>
         <Container style={{ paddingLeft: 0 }}>
@@ -123,16 +114,17 @@ const AccountSummaryCard = ({
                 <Col md={9}>{account.subentry_count}</Col>
               </Row>
             </Col>
-            {has(knownAccounts, account.id) && knownAccounts[account.id].logo && (
-              <Col md={2}>
-                <div style={{ marginBottom: 10 }}>
-                  <Logo
-                    type={knownAccounts[account.id].type}
-                    name={knownAccounts[account.id].logo}
-                  />
-                </div>
-              </Col>
-            )}
+            {has(knownAccounts, account.id) &&
+              knownAccounts[account.id].logo && (
+                <Col md={2}>
+                  <div style={{ marginBottom: 10 }}>
+                    <Logo
+                      type={knownAccounts[account.id].type}
+                      name={knownAccounts[account.id].logo}
+                    />
+                  </div>
+                </Col>
+              )}
           </Row>
         </Container>
       </Card.Body>
@@ -144,16 +136,17 @@ const TabLink = ({
   base,
   title,
   activeTab,
-  path = title?.toLowerCase()
+  path = title?.toLowerCase(),
 }: {
-  base: string,
-  title: string,
-  activeTab: string,
+  base: string
+  title: string
+  activeTab: string
   path?: string
 }) => (
   <NavLink
     to={`${base}/${path}`}
-    className={activeTab == path ? 'account-tab-active' : ''}>
+    className={activeTab == path ? 'account-tab-active' : ''}
+  >
     {title}
   </NavLink>
 )
@@ -171,8 +164,8 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   try {
     response = await Promise.all([
       loadAccount(server, params.accountId as string),
-      server.serverURL.toString()
-    ]).then(result => ({ accountResult: result[0], horizonURL: result[1] }))
+      server.serverURL.toString(),
+    ]).then((result) => ({ accountResult: result[0], horizonURL: result[1] }))
   } catch (error) {
     if (error instanceof NotFoundError) {
       throw new Response(null, {
@@ -228,7 +221,12 @@ export default function Account() {
           <TabLink base={base} activeTab={activeTab} title="Trades" />
           <TabLink base={base} activeTab={activeTab} title="Effects" />
           <TabLink base={base} activeTab={activeTab} title="Operations" />
-          <TabLink base={base} activeTab={activeTab} title="Transactions" path="txs" />
+          <TabLink
+            base={base}
+            activeTab={activeTab}
+            title="Transactions"
+            path="txs"
+          />
           <TabLink base={base} activeTab={activeTab} title="Signing" />
           <TabLink base={base} activeTab={activeTab} title="Flags" />
           <TabLink base={base} activeTab={activeTab} title="Data" />
@@ -237,6 +235,6 @@ export default function Account() {
           <Outlet />
         </div>
       </Row>
-    </Container >
+    </Container>
   )
 }

@@ -3,7 +3,12 @@ import CardHeader from 'react-bootstrap/CardHeader'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Table from 'react-bootstrap/Table'
-import { FormattedDate, FormattedMessage, FormattedTime, useIntl } from 'react-intl'
+import {
+  FormattedDate,
+  FormattedMessage,
+  FormattedTime,
+  useIntl,
+} from 'react-intl'
 import { Link } from 'react-router-dom'
 import { requestToServer } from '~/lib/stellar/server'
 
@@ -13,10 +18,8 @@ import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 import { MemoHash, MemoReturn } from '../lib/stellar/sdk'
 import { base64DecodeToHex, setTitle } from '../lib/utils'
 
-import type { LoaderArgs } from "@remix-run/node"
-import {
-  useLoaderData,
-} from '@remix-run/react'
+import type { LoaderArgs } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 import { operations, transaction } from '~/lib/stellar/server_request_utils'
 import OperationTable from '~/components/OperationTable'
 import { useEffect } from 'react'
@@ -26,11 +29,11 @@ import { ErrorBoundary } from './lib/error-boundary'
 
 // Lookup memo type to a label
 const memoTypeToLabel: Record<string, string> = Object.freeze({
-  id: "ID",
-  hash: "Hash",
-  none: "None",
-  return: "Return",
-  text: "Text",
+  id: 'ID',
+  hash: 'Hash',
+  none: 'None',
+  return: 'Return',
+  text: 'Text',
 })
 
 export interface TransactionProps {
@@ -57,7 +60,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     response = await Promise.all([
       transaction(server, params.txHash as string),
       operations(server, { tx: params.txHash, limit: 100 }),
-      server.serverURL.toString()
+      server.serverURL.toString(),
     ])
   } catch (error) {
     if (error instanceof NotFoundError) {
@@ -77,12 +80,8 @@ export default function Transaction() {
   const [
     { id, fee, ledger, memoType, memo, opCount, time },
     operations,
-    horizonURL
-  ]: [
-      tx: Partial<TransactionProps>,
-      operations: any,
-      horizonURL: string
-    ] =
+    horizonURL,
+  ]: [tx: Partial<TransactionProps>, operations: any, horizonURL: string] =
     useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
@@ -98,9 +97,10 @@ export default function Transaction() {
         <Card>
           <CardHeader>
             <TitleWithJSONButton
-              title={formatMessage({ id: "transaction" })}
+              title={formatMessage({ id: 'transaction' })}
               titleSecondary={id}
-              url={`${horizonURL}transactions/${id}`} />
+              url={`${horizonURL}transactions/${id}`}
+            />
           </CardHeader>
           <Card.Body>
             <Table>
@@ -131,7 +131,7 @@ export default function Transaction() {
                 </tr>
                 <tr>
                   <td>
-                    <FormattedMessage id="memo" />{" "}
+                    <FormattedMessage id="memo" />{' '}
                     <span className="secondary-heading">
                       ({memoType && memoTypeToLabel[memoType]})
                     </span>
@@ -154,7 +154,11 @@ export default function Transaction() {
           {` (${opCount})`}
         </h5>
         <Container>
-          <OperationTable records={operations} compact horizonURL={horizonURL} />
+          <OperationTable
+            records={operations}
+            compact
+            horizonURL={horizonURL}
+          />
         </Container>
       </Row>
     </Container>

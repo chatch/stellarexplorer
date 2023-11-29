@@ -1,30 +1,43 @@
-import { shortAddress } from "../../lib/utils"
+import { shortAddress } from '../../lib/utils'
 
-import AccountLink from "../shared/AccountLink"
-import JSONButton from "../shared/JSONButton"
-import OperationType from "../shared/OperationType"
-import RelativeTime from "../shared/RelativeTime"
-import TransactionHash from "../shared/TransactionHash"
+import AccountLink from '../shared/AccountLink'
+import JSONButton from '../shared/JSONButton'
+import OperationType from '../shared/OperationType'
+import RelativeTime from '../shared/RelativeTime'
+import TransactionHash from '../shared/TransactionHash'
 
-import AccountMerge from "./AccountMerge"
-import AllowTrust, { AllowTrustProps } from "./AllowTrust"
-import BumpSequence from "./BumpSequence"
-import ChangeTrust from "./ChangeTrust"
-import { ClaimClaimableBalanceOperation, CreateClaimableBalanceOperation } from "./ClaimableBalances"
-import { ClawbackOperation, ClawbackClaimableBalanceOperation } from "./Clawback"
-import CreateAccount, { CreateAccountProps } from "./CreateAccount"
-import { BumpFootprintExpiration, RestoreFootprint } from "./Footprint"
-import Inflation from "./Inflation"
-import InvokeHostFunction from "./InvokeHostFunction"
-import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from "./LiquidityPool"
-import ManageData, { ManageDataProps } from "./ManageData"
-import Offer from "./Offer"
-import PathPayment, { PathPaymentProps } from "./PathPayment"
-import Payment from "./Payment"
-import SetOptions, { SetOptionsProps } from "./SetOptions"
-import SetTrustLineFlags from "./SetTrustLineFlags"
-import { BeginSponsoringFutureReserves, EndSponsoringFutureReserves } from "./Sponsorship"
-import Unrecognized from "./Unrecognized"
+import AccountMerge from './AccountMerge'
+import type { AllowTrustProps } from './AllowTrust'
+import AllowTrust from './AllowTrust'
+import BumpSequence from './BumpSequence'
+import ChangeTrust from './ChangeTrust'
+import {
+  ClaimClaimableBalanceOperation,
+  CreateClaimableBalanceOperation,
+} from './ClaimableBalances'
+import {
+  ClawbackOperation,
+  ClawbackClaimableBalanceOperation,
+} from './Clawback'
+import type { CreateAccountProps } from './CreateAccount'
+import CreateAccount from './CreateAccount'
+import Inflation from './Inflation'
+import InvokeHostFunction from './InvokeHostFunction'
+import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from './LiquidityPool'
+import type { ManageDataProps } from './ManageData'
+import ManageData from './ManageData'
+import Offer from './Offer'
+import type { PathPaymentProps } from './PathPayment'
+import PathPayment from './PathPayment'
+import Payment from './Payment'
+import type { SetOptionsProps } from './SetOptions'
+import SetOptions from './SetOptions'
+import SetTrustLineFlags from './SetTrustLineFlags'
+import {
+  BeginSponsoringFutureReserves,
+  EndSponsoringFutureReserves,
+} from './Sponsorship'
+import Unrecognized from './Unrecognized'
 
 const OperationTypeToComponentMap = {
   account_merge: AccountMerge,
@@ -69,12 +82,12 @@ const OperationTypeToComponentMap = {
 
 type OperationTypes = keyof typeof OperationTypeToComponentMap
 
-interface OperationRecordProps extends
-  AllowTrustProps,
-  CreateAccountProps,
-  ManageDataProps,
-  PathPaymentProps,
-  SetOptionsProps {
+interface OperationRecordProps
+  extends AllowTrustProps,
+    CreateAccountProps,
+    ManageDataProps,
+    PathPaymentProps,
+    SetOptionsProps {
   id: string
   type: OperationTypes
   limit: number
@@ -114,7 +127,7 @@ const Operation = ({ compact, op, horizonURL }: OperationProps) => {
   }
 
   const acc =
-    op.type !== "account_merge" ? (
+    op.type !== 'account_merge' ? (
       <AccountLink account={opAccount} />
     ) : (
       <span title={opAccount}>{shortAddress(opAccount)}</span>
@@ -142,7 +155,10 @@ const Operation = ({ compact, op, horizonURL }: OperationProps) => {
         </span>
       </td>
       <td>
-        <JSONButton url={`${horizonURL}operations/${op.id}`} filterFn={undefined} />
+        <JSONButton
+          url={`${horizonURL}operations/${op.id}`}
+          filterFn={undefined}
+        />
       </td>
     </tr>
   )

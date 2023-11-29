@@ -9,7 +9,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import logoImg from '../../img/logo.png'
 import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
-import { NetworkKey } from '~/lib/stellar/networks'
+import type { NetworkKey } from '~/lib/stellar/networks'
 
 interface HeaderProps {
   languageSwitcher: MouseEventHandler
@@ -20,7 +20,7 @@ interface HeaderProps {
 export default function Header({
   languageSwitcher,
   networkType,
-  networkIsLocal
+  networkIsLocal,
 }: HeaderProps) {
   const { formatMessage } = useIntl()
   return (
@@ -29,7 +29,7 @@ export default function Header({
         <img
           src={logoImg}
           className="App-logo"
-          alt={formatMessage({ id: "logo" })}
+          alt={formatMessage({ id: 'logo' })}
         />
         <span className="brand-text">explorer</span>
       </Navbar.Brand>
@@ -38,7 +38,6 @@ export default function Header({
 
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-
           <Nav.Link href="/operations">
             <FormattedMessage id="operations" />
           </Nav.Link>
@@ -64,7 +63,7 @@ export default function Header({
           <div className="divider-vertical" />
 
           <NavDropdown
-            title={formatMessage({ id: "more" })}
+            title={formatMessage({ id: 'more' })}
             id="basic-nav-dropdown"
           >
             <LinkContainer to="/effects">

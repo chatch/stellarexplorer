@@ -1,18 +1,21 @@
-import React, { ChangeEventHandler, FormEvent, FormEventHandler, useState } from "react"
-import Modal from "react-bootstrap/Modal"
-import { FormattedMessage } from "react-intl"
+import type { ChangeEventHandler, FormEvent, FormEventHandler } from 'react'
+import React, { useState } from 'react'
+import Modal from 'react-bootstrap/Modal'
+import { FormattedMessage } from 'react-intl'
 
 const networkAddresses = [
-  "https://horizon.stellar.org",
-  "https://stellar-api.wancloud.io",
-  "https://api.chinastellar.com",
+  'https://horizon.stellar.org',
+  'https://stellar-api.wancloud.io',
+  'https://api.chinastellar.com',
 ]
 
 /**
  * Button that reveals modal window where the Horizon server address can
  * be configured.
  */
-const CustomNetworkButton = ({ handleClickFn }: {
+const CustomNetworkButton = ({
+  handleClickFn,
+}: {
   handleClickFn: React.MouseEventHandler<HTMLButtonElement>
 }) => (
   <button className="is-inactive" onClick={handleClickFn}>
@@ -45,7 +48,7 @@ const ResourceModalBody = ({
         <h4>
           <FormattedMessage id="network.current" />
         </h4>
-        <FormattedMessage id={"network." + networkType} />
+        <FormattedMessage id={'network.' + networkType} />
         <br />
         <pre style={{ marginTop: 5 }}>{networkAddress}</pre>
         <br />
@@ -65,7 +68,9 @@ const ResourceModalBody = ({
           <option></option>
           {networkAddresses.map(
             (address) =>
-              address !== networkAddress && <option key={address}>{address}</option>
+              address !== networkAddress && (
+                <option key={address}>{address}</option>
+              ),
           )}
         </select>
         <br />
@@ -95,9 +100,13 @@ interface ResourceModalProps extends ResourceModalBodyProps {
 }
 
 const ResourceModal = (props: ResourceModalProps) => (
-  <Modal id="networkModal" show={props.show} onHide={props.handleCloseFn as () => void}>
+  <Modal
+    id="networkModal"
+    show={props.show}
+    onHide={props.handleCloseFn as () => void}
+  >
     <Modal.Header closeButton>
-      <Modal.Title id="contained-modal-title-lg" style={{ color: "#dce2ec" }}>
+      <Modal.Title id="contained-modal-title-lg" style={{ color: '#dce2ec' }}>
         <FormattedMessage id="network.address" />
       </Modal.Title>
     </Modal.Header>
@@ -108,22 +117,28 @@ const ResourceModal = (props: ResourceModalProps) => (
 )
 
 interface CustomNetworkButtonWithResourceModalProps {
-  setNetworkAddress: Function,
-  networkAddress: string,
-  networkType: string,
+  setNetworkAddress: Function
+  networkAddress: string
+  networkType: string
 }
 
-function CustomNetworkButtonWithResourceModal({ networkAddress, setNetworkAddress, networkType }: CustomNetworkButtonWithResourceModalProps) {
+function CustomNetworkButtonWithResourceModal({
+  networkAddress,
+  setNetworkAddress,
+  networkType,
+}: CustomNetworkButtonWithResourceModalProps) {
   const [show, setShow] = useState(false)
   const [dropdownValue, setDropdownValue] = useState('')
   const [inputValue, setInputValue] = useState(networkType)
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event: FormEvent) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (
+    event: FormEvent,
+  ) => {
     event.preventDefault()
 
     const input = inputValue
     const dropdown = dropdownValue
-    const newNetworkAddress = dropdown !== "" ? dropdown : input
+    const newNetworkAddress = dropdown !== '' ? dropdown : input
     if (newNetworkAddress !== networkAddress) {
       setNetworkAddress(newNetworkAddress)
     }
@@ -149,9 +164,7 @@ function CustomNetworkButtonWithResourceModal({ networkAddress, setNetworkAddres
 
   return (
     <span>
-      <CustomNetworkButton
-        handleClickFn={handleClick}
-      />
+      <CustomNetworkButton handleClickFn={handleClick} />
       {show && (
         <ResourceModal
           handleSubmitFn={handleSubmit}

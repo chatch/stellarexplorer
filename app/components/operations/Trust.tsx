@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 import AccountLink from '../shared/AccountLink'
 import { FormattedMessage } from 'react-intl'
 
@@ -7,7 +7,7 @@ export interface TrustProps extends PropsWithChildren {
   trustee: string
 }
 
-const Trust = ({ assetCode, children, trustee }: TrustProps) =>
+const Trust = ({ assetCode, children, trustee }: TrustProps) => (
   <span>
     <FormattedMessage
       id="operation.trust"
@@ -18,5 +18,6 @@ const Trust = ({ assetCode, children, trustee }: TrustProps) =>
     />
     {children}
   </span>
+)
 
 export default Trust

@@ -5,20 +5,16 @@ export default [
         href: 'https://horizon.stellar.org/operations/92853980303990785',
       },
       transaction: {
-        href:
-          'https://horizon.stellar.org/transactions/35e241e71a4769f94ed51b224c09f2cf9997e48c9b976674e3ccdf756c1a33cd',
+        href: 'https://horizon.stellar.org/transactions/35e241e71a4769f94ed51b224c09f2cf9997e48c9b976674e3ccdf756c1a33cd',
       },
       effects: {
-        href:
-          'https://horizon.stellar.org/operations/92853980303990785/effects',
+        href: 'https://horizon.stellar.org/operations/92853980303990785/effects',
       },
       succeeds: {
-        href:
-          'https://horizon.stellar.org/effects?order=desc\u0026cursor=92853980303990785',
+        href: 'https://horizon.stellar.org/effects?order=desc\u0026cursor=92853980303990785',
       },
       precedes: {
-        href:
-          'https://horizon.stellar.org/effects?order=asc\u0026cursor=92853980303990785',
+        href: 'https://horizon.stellar.org/effects?order=asc\u0026cursor=92853980303990785',
       },
     },
     id: '92853980303990785',

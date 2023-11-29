@@ -1,6 +1,6 @@
-import { useState } from "react"
-import OverlayTrigger from "react-bootstrap/OverlayTrigger"
-import Tooltip from "react-bootstrap/Tooltip"
+import { useState } from 'react'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 import clipSvg from '../../../public/clipboard.svg'
 
 const TooltipCopy = <Tooltip id="tooltip-copy">Copy to Clipboard</Tooltip>
@@ -20,10 +20,7 @@ function ClipboardCopy({ text }: { text: string }) {
   }
 
   return (
-    <OverlayTrigger
-      delay={300}
-      overlay={copied ? TooltipCopied : TooltipCopy}
-    >
+    <OverlayTrigger delay={300} overlay={copied ? TooltipCopied : TooltipCopy}>
       <img
         src={clipSvg}
         alt="clipboard"

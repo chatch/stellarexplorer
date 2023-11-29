@@ -1,11 +1,15 @@
-import { useLoaderData, useParams } from "@remix-run/react"
-import { LoaderArgs, json } from "@remix-run/node"
-import { PropsWithChildren, useEffect } from "react"
+import { useLoaderData, useParams } from '@remix-run/react'
+import type { LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { FormattedMessage } from 'react-intl'
+import type { PropsWithChildren } from 'react'
+import { useEffect } from 'react'
 
-import { CodeBlock } from "~/components/shared/CodeBlock"
-import { loadContract } from "~/lib/stellar/contracts"
-import { setTitle } from "~/lib/utils"
-import { requestToSorobanServer } from "~/lib/stellar/server"
+import { CodeBlock } from '~/components/shared/CodeBlock'
+import { loadContract } from '~/lib/stellar/contracts'
+import { hexStringToBytes, setTitle } from '~/lib/utils'
+import { saveAs } from '../../lib/filesaver'
+import { requestToSorobanServer } from '~/lib/stellar/server'
 
 interface CodeProps extends PropsWithChildren {
   decompiledCode: string
@@ -15,33 +19,31 @@ interface CodeProps extends PropsWithChildren {
 const Code = ({
   decompiledCode,
   children,
-  language = 'javascript'
+  language = 'javascript',
 }: CodeProps) => (
   <div id="wasm-code">
     {children}
-    <CodeBlock
-      code={decompiledCode}
-      language={language}
-    />
+    <CodeBlock code={decompiledCode} language={language} />
   </div>
 )
 
-export const contractCodeLoaderFn = (getCodeFn: Function) => ({ params, request }: LoaderArgs) => {
-  const server = requestToSorobanServer(request)
-  return loadContract(
-    server,
-    params.contractId as string
-  ).then(async (result: any) => {
-    if (!result) {
-      return null
-    }
+export const contractCodeLoaderFn =
+  (getCodeFn: Function) =>
+  ({ params, request }: LoaderArgs) => {
+    const server = requestToSorobanServer(request)
+    return loadContract(server, params.contractId as string).then(
+      async (result: any) => {
+        if (!result) {
+          return null
+        }
 
-    const { wasmCode, wasmCodeLedger } = result
-    const decompiledCode = await getCodeFn(wasmCode)
+        const { wasmCode, wasmCodeLedger } = result
+        const decompiledCode = await getCodeFn(wasmCode)
 
-    return json({ wasmCode, wasmCodeLedger, decompiledCode })
-  })
-}
+        return json({ wasmCode, wasmCodeLedger, decompiledCode })
+      },
+    )
+  }
 
 export default function contractCodeTab(loader: Function, language?: string) {
   return function CodeTab({ children }: PropsWithChildren) {
@@ -53,11 +55,13 @@ export default function contractCodeTab(loader: Function, language?: string) {
     const codeProps = useLoaderData<typeof loader>() as CodeProps | null
 
     if (!codeProps) {
-      return (<span>Code not found ...</span>)
+      return <span>Code not found ...</span>
     }
 
     return (
-      <Code {...codeProps} language={language}>{children}</Code>
+      <Code {...codeProps} language={language}>
+        {children}
+      </Code>
     )
   }
 }

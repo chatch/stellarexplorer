@@ -19,13 +19,14 @@ const ManageData = ({ name, value }: ManageDataProps) => {
           name: truncate(name),
         }}
       />
-      {!isRemove &&
+      {!isRemove && (
         <FormattedMessage
           id={`${MSG_KEY_PREFIX}.set.to`}
           values={{
             value: truncate(base64Decode(value)),
           }}
-        />}
+        />
+      )}
     </span>
   )
 }

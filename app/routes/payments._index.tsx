@@ -14,7 +14,10 @@ import type { PaymentProps } from '~/components/operations/Payment'
 import { horizonRecordsLoader } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
 
-export const loader = horizonRecordsLoader<ReadonlyArray<PaymentProps>>(`payments`, 30)
+export const loader = horizonRecordsLoader<ReadonlyArray<PaymentProps>>(
+  'payments',
+  30,
+)
 
 export default function Payments() {
   const { records, cursor, horizonURL } = useLoaderData<typeof loader>()
@@ -33,16 +36,17 @@ export default function Payments() {
           </CardHeader>
           <Card.Body>
             <Paging
-              baseUrl='/payments'
+              baseUrl="/payments"
               records={records}
-              currentCursor={cursor}>
+              currentCursor={cursor}
+            >
               <PaymentTable
                 records={records}
                 // showPayment
                 // showSource
                 compact={false}
                 horizonURL={horizonURL}
-              // limit={20}
+                // limit={20}
               />
             </Paging>
           </Card.Body>
