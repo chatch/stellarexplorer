@@ -10,7 +10,12 @@ import {
   tradeRspRecToPropsRec,
   transactionRspRecToPropsRec,
 } from './server_response_utils'
-import { FederationServer, MuxedAccount, type ServerApi } from 'stellar-sdk'
+import {
+  FederationServer,
+  MuxedAccount,
+  NotFoundError,
+  type ServerApi,
+} from 'stellar-sdk'
 import type { CallBuilder } from 'stellar-sdk/lib/call_builder'
 import type { OperationCallBuilder } from 'stellar-sdk/lib/operation_call_builder'
 import type { EffectCallBuilder } from 'stellar-sdk/lib/effect_call_builder'
@@ -123,6 +128,9 @@ const loadAccountByFederatedAddress = (
       account: rsp.account,
       federatedAddress: address,
     }))
+    .catch((e) => {
+      throw new NotFoundError(e.message, undefined)
+    })
 }
 
 const loadAccountByMuxedAddress = (server: HorizonServer, address: string) => {
