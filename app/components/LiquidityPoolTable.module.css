@@ -1,0 +1,30 @@
+.asset-image {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.asset-code {
+  display: inline-block;
+  width: 150px;
+}
+
+.asset-url {
+  font-size: 12px;
+}
+
+.amount {
+  display: inline-block;
+  width: 80px;
+  text-align: right;
+}
+
+.shares {
+  width: 50px;
+  text-align: center;
+}
+
+.trustlines {
+  width: 50px;
+  text-align: center;
+}
