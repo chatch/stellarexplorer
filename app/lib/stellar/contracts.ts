@@ -124,7 +124,7 @@ const loadContract = async (
     const { wasmId, wasmIdLedger } = wasmIdResult
     // console.log(`wasmIdResult ${JSON.stringify(wasmIdResult, null, 2)}`)
     if (!wasmId) {
-        console.warn('no wasmId not in result')
+        console.warn('no wasmId in result')
         return
     }
 
