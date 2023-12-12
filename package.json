@@ -25,6 +25,7 @@
     "sideEffects": false,
     "scripts": {
         "build": "remix build",
+        "start": "remix-serve build",
         "deploy": "fly deploy --remote-only",
         "dev": "remix dev",
         "jest-preview": "jest-preview",
