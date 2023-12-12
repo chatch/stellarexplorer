@@ -1,7 +1,7 @@
 {
     "name": "stellarexplorer",
     "description": "Ledger explorer for the Stellar network",
-    "version": "2.2.2-soroban",
+    "version": "2.3.0",
     "license": "Apache-2.0",
     "author": "Chris Hatch <hatch@tuta.io>",
     "homepage": "https://steexp.com",
@@ -59,7 +59,7 @@
         "react-json-pretty": "^2.2.0",
         "react-router-bootstrap": "^0.26.2",
         "remix-utils": "^6.6.0",
-        "stellar-sdk": "v11.0.0-beta.6",
+        "stellar-sdk": "11.0.1",
         "urijs": "1.19.11"
     },
     "devDependencies": {
