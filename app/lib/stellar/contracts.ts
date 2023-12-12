@@ -1,4 +1,4 @@
-import { Contract } from 'soroban-client'
+import { Contract } from 'stellar-sdk'
 import type { SorobanServer } from '../stellar'
 import { xdr } from '../stellar'
 import { hexStringToBytes } from '../utils'
@@ -159,12 +159,26 @@ const postWasmToWabtBackendRoute =
 const getContractDecompiled = postWasmToWabtBackendRoute('/decompile')
 const getContractWat = postWasmToWabtBackendRoute('/wat')
 
+const getContractInterface = (
+  wasmHexString: string,
+): Promise<Record<string, string>> => {
+  const wasmBytes = hexStringToBytes(wasmHexString)
+  const blob = new Blob([new Uint8Array(wasmBytes)])
+  const formData = new FormData()
+  formData.append('contract', blob)
+  return fetch(`${API_URL}/interface`, {
+    method: 'POST',
+    body: formData,
+  }).then((response) => response.json())
+}
+
 export type { ContractProps, StorageElement }
 
 export {
   getContractCode,
   getContractInfo,
   getContractDecompiled,
+  getContractInterface,
   getContractWat,
   loadContract,
 }

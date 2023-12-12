@@ -2,11 +2,7 @@ import { FormattedMessage } from 'react-intl'
 import truncate from 'lodash/truncate'
 
 import { xdr } from '../../lib/stellar'
-import {
-  scValToAddress,
-  scValToString,
-} from '../../lib/stellar/xdr_scval_utils'
-import { scValToNative } from 'soroban-client'
+import { scValToString } from '../../lib/stellar/xdr_scval_utils'
 import AccountLink from '../shared/AccountLink'
 
 type HostFunctionParams = any // TODO: restore this after seeing live data: ReadonlyArray<Record<'key' | 'value' | 'type', string>>

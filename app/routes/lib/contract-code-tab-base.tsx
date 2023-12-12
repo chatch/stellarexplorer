@@ -12,38 +12,18 @@ import { saveAs } from '../../lib/filesaver'
 import { requestToSorobanServer } from '~/lib/stellar/server'
 
 interface CodeProps extends PropsWithChildren {
-  wasmCode: string
-  wasmCodeLedger: number
   decompiledCode: string
+  language?: string
 }
 
-const saveWasmFile = (contractId: string, wasmHexString: string) =>
-  saveAs(
-    new Blob([hexStringToBytes(wasmHexString)], {
-      type: 'application/octet-stream',
-    }),
-    `soroban-contract-${contractId}.wasm`,
-    true, // don't insert a byte order marker
-  )
-
 const Code = ({
-  contractId,
-  wasmCode,
   decompiledCode,
   children,
-}: CodeProps & { contractId: string }) => (
+  language = 'javascript',
+}: CodeProps) => (
   <div id="wasm-code">
-    <div>
-      <button
-        className="backend-resource-badge-button"
-        onClick={() => saveWasmFile(contractId, wasmCode)}
-        style={{ border: 0, marginTop: '10px' }}
-      >
-        <FormattedMessage id="contract.wasm.download" />
-      </button>
-    </div>
     {children}
-    <CodeBlock code={decompiledCode} language="javascript" />
+    <CodeBlock code={decompiledCode} language={language} />
   </div>
 )
 
@@ -65,7 +45,7 @@ export const contractCodeLoaderFn =
     )
   }
 
-export default function contractCodeTab(loader: Function) {
+export default function contractCodeTab(loader: Function, language?: string) {
   return function CodeTab({ children }: PropsWithChildren) {
     const { contractId } = useParams()
     useEffect(() => {
@@ -79,7 +59,7 @@ export default function contractCodeTab(loader: Function) {
     }
 
     return (
-      <Code {...codeProps} contractId={contractId as string}>
+      <Code {...codeProps} language={language}>
         {children}
       </Code>
     )

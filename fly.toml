@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "steexp-v2-beta"
+app = "steexp-soroban"
 primary_region = "sin"
 
 [build]
@@ -15,6 +15,7 @@ auto_stop_machines = true
 auto_start_machines = true
 min_machines_running = 0
 processes = ["app"]
+
 [http_service.concurrency]
 type = "connections"
 hard_limit = 75

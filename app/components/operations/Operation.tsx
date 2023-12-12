@@ -21,6 +21,7 @@ import {
 } from './Clawback'
 import type { CreateAccountProps } from './CreateAccount'
 import CreateAccount from './CreateAccount'
+import { BumpFootprintExpiration, RestoreFootprint } from './Footprint'
 import Inflation from './Inflation'
 import InvokeHostFunction from './InvokeHostFunction'
 import { LiquidityPoolDeposit, LiquidityPoolWithdraw } from './LiquidityPool'
@@ -44,6 +45,7 @@ const OperationTypeToComponentMap = {
   allow_trust: AllowTrust,
   begin_sponsoring_future_reserves: BeginSponsoringFutureReserves,
   bump_sequence: BumpSequence,
+  bump_footprint_expiration: BumpFootprintExpiration,
   change_trust: ChangeTrust,
 
   clawback: ClawbackOperation,
@@ -74,6 +76,7 @@ const OperationTypeToComponentMap = {
   path_payment: PathPayment, // < Protocol 12
 
   payment: Payment,
+  restore_footprint: RestoreFootprint,
   set_options: SetOptions,
   set_trust_line_flags: SetTrustLineFlags,
 }

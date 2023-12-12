@@ -55,6 +55,11 @@ export function handleError(
   error: unknown,
   { request }: DataFunctionArgs,
 ): void {
+  console.error(`entry.server: handleError: error: ${JSON.stringify(error)}`)
+  if ((error as any).stack) {
+    console.error(`entry.server: handleError: stack: ${(error as any).stack}`)
+  }
+
   if (error instanceof NotFoundError) {
     // don't send steller resource not founds to sentry
     // they are handled and error shown to user

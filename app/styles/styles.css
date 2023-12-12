@@ -457,7 +457,9 @@ pre#plain-text {
   content: "-> ";
 }
 
-#wasm-code>div {
+#wasm-code>div,
+#cli-info {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
