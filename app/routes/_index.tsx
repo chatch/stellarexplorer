@@ -58,8 +58,8 @@ const TX_RECORD_LIMIT = 10
 const LEDGER_RECORD_LIMIT = 10
 const OPERATION_RECORD_LIMIT = 25
 
-export const loader = ({ request }: LoaderArgs) => {
-  const server = requestToServer(request)
+export const loader = async ({ request }: LoaderArgs) => {
+  const server = await requestToServer(request)
   return Promise.all([
     ledgers(server, { limit: LEDGER_RECORD_LIMIT }),
     transactions(server, { limit: TX_RECORD_LIMIT }),

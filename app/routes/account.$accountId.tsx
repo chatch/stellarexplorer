@@ -159,7 +159,7 @@ const pathToTabName = (path: string) => {
 export { ErrorBoundary }
 
 export const loader = async ({ params, request }: LoaderArgs) => {
-  const server = requestToServer(request)
+  const server = await requestToServer(request)
   let response
   try {
     response = await Promise.all([

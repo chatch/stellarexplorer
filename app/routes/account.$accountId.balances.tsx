@@ -58,8 +58,8 @@ const Balances = ({ balances }: { balances: ReadonlyArray<Balance> }) => (
   </Table>
 )
 
-export const loader = ({ params, request }: LoaderArgs) => {
-  const server = requestToServer(request)
+export const loader = async ({ params, request }: LoaderArgs) => {
+  const server = await requestToServer(request)
   return loadAccount(server, params.accountId as string).then(json)
 }
 
@@ -69,7 +69,7 @@ export default function BalancesTab() {
   const { accountId } = useParams()
   useEffect(() => {
     setTitle(`Account Balances ${accountId}`)
-  }, [])
+  })
 
   if (!accountResult) {
     return

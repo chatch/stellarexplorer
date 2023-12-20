@@ -54,8 +54,8 @@ const NameValueTable = ({
   )
 }
 
-const nameValueLoader = ({ params, request }: LoaderArgs) => {
-  const server = requestToServer(request)
+const nameValueLoader = async ({ params, request }: LoaderArgs) => {
+  const server = await requestToServer(request)
   return loadAccount(server, params.accountId as string).then(json)
 }
 

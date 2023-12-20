@@ -43,7 +43,7 @@ const DetailRow = ({ label, children }: { label: string; children: any }) => (
 export { ErrorBoundary }
 
 export const loader = async ({ params, request }: LoaderArgs) => {
-  const server = requestToServer(request)
+  const server = await requestToServer(request)
   const ledgerSeq = params.ledgerId as string
   let response
   try {

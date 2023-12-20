@@ -43,8 +43,8 @@ const Storage = ({ storage }: { storage: ReadonlyArray<StorageElement> }) => (
   </Table>
 )
 
-export const loader = ({ params, request }: LoaderArgs) => {
-  const server = requestToSorobanServer(request)
+export const loader = async ({ params, request }: LoaderArgs) => {
+  const server = await requestToSorobanServer(request)
   return getContractInfo(server, params.contractId as string).then(
     async (result: any) => {
       if (!result) {

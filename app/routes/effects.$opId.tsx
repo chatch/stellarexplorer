@@ -18,8 +18,8 @@ import { effects } from '~/lib/stellar/server_request_utils'
 import type { EffectProps } from '~/components/Effect'
 import { useEffect } from 'react'
 
-export const loader = ({ request, params }: LoaderArgs) => {
-  const server = requestToServer(request)
+export const loader = async ({ request, params }: LoaderArgs) => {
+  const server = await requestToServer(request)
   return effects(server, { operationId: params.opId })
     .then((effects) =>
       effects.map(

@@ -27,8 +27,8 @@ const Code = ({
 
 export const contractCodeLoaderFn =
   (getCodeFn: Function) =>
-  ({ params, request }: LoaderArgs) => {
-    const server = requestToSorobanServer(request)
+  async ({ params, request }: LoaderArgs) => {
+    const server = await requestToSorobanServer(request)
     return loadContract(server, params.contractId as string).then(
       async (result: any) => {
         if (!result) {

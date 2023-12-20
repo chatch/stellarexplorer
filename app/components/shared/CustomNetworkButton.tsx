@@ -22,7 +22,8 @@ interface ResourceModalBodyProps {
   sorobanRPCAddress: string
   setHorizonAddress: React.Dispatch<React.SetStateAction<string>>
   setSorobanRPCAddress: React.Dispatch<React.SetStateAction<string>>
-  handleSubmitFn: MouseEventHandler<HTMLElement>
+  handleSetFn: MouseEventHandler<HTMLElement>
+  handleClearFn: MouseEventHandler<HTMLElement>
 }
 
 const ResourceModalBody = ({
@@ -30,31 +31,43 @@ const ResourceModalBody = ({
   sorobanRPCAddress,
   setSorobanRPCAddress,
   setHorizonAddress,
-  handleSubmitFn,
+  handleSetFn,
+  handleClearFn,
 }: ResourceModalBodyProps) => {
   return (
     <div>
-      <FormattedMessage id="network.custom.horizon" />
-      <input
-        style={{ marginTop: 5 }}
-        type="text"
-        placeholder="http://localhost:8000"
-        value={horizonAddress}
-        onChange={(e) => setHorizonAddress(e.target.value)}
-      />
+      <form method="POST" action="/settings">
+        <FormattedMessage id="network.custom.horizon" />
+        <input
+          type="text"
+          name="horizonAddress"
+          value={horizonAddress}
+          placeholder="http://localhost:8000"
+          style={{ marginTop: 5 }}
+          onChange={(e) => setHorizonAddress(e.target.value)}
+        />
 
-      <FormattedMessage id="network.custom.soroban" />
-      <input
-        style={{ marginTop: 5 }}
-        type="text"
-        placeholder="http://localhost:8000/soroban/rpc"
-        value={sorobanRPCAddress}
-        onChange={(e) => setSorobanRPCAddress(e.target.value)}
-      />
+        <FormattedMessage id="network.custom.soroban" />
+        <input
+          type="text"
+          name="sorobanRPCAddress"
+          value={sorobanRPCAddress}
+          placeholder="http://localhost:8000/soroban/rpc"
+          style={{ marginTop: 5 }}
+          onChange={(e) => setSorobanRPCAddress(e.target.value)}
+        />
 
-      <button id="btn-set-custom-network" onClick={handleSubmitFn}>
-        <FormattedMessage id="save" />
-      </button>
+        <button
+          id="btn-custom-network-set"
+          //  onClick={handleSetFn}
+        >
+          <FormattedMessage id="save" />
+        </button>
+
+        <button id="btn-custom-network-clear" onClick={handleClearFn}>
+          Clear
+        </button>
+      </form>
     </div>
   )
 }
@@ -96,9 +109,16 @@ function CustomNetworkButtonWithResourceModal({
   const [horizonAddress, setHorizonAddress] = useState('')
   const [sorobanRPCAddress, setSorobanRPCAddress] = useState('')
 
-  const handleSubmit: MouseEventHandler<HTMLElement> = (event: FormEvent) => {
+  const handleSet: MouseEventHandler<HTMLElement> = (event: FormEvent) => {
     event.preventDefault()
-    console.log(`handleSubmit: ${horizonAddress} + ${sorobanRPCAddress}`)
+    console.log(`handleSet: ${horizonAddress} + ${sorobanRPCAddress}`)
+  }
+
+  const handleClear: MouseEventHandler<HTMLElement> = (event: FormEvent) => {
+    event.preventDefault()
+    setHorizonAddress('')
+    setSorobanRPCAddress('')
+    console.log('handleClear')
   }
 
   const handleClose = () => setShow(false)
@@ -113,7 +133,8 @@ function CustomNetworkButtonWithResourceModal({
       <CustomNetworkButton handleClickFn={handleClick} />
       {show && (
         <ResourceModal
-          handleSubmitFn={handleSubmit}
+          handleSetFn={handleSet}
+          handleClearFn={handleClear}
           horizonAddress={horizonAddress}
           sorobanRPCAddress={sorobanRPCAddress}
           setHorizonAddress={setHorizonAddress}

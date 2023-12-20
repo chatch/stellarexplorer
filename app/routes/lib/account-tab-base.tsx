@@ -15,13 +15,13 @@ const DEFAULT_RECORD_LIMIT = 30
 
 const accountTabLoader =
   (serverRequestFnName: ServerReqFnName, limit?: number) =>
-  ({ request, params }: LoaderArgs) => {
+  async ({ request, params }: LoaderArgs) => {
     const url = new URL(request.url)
     const cursor: string | undefined =
       url.searchParams.get('cursor') ?? undefined
     const order: string | undefined = url.searchParams.get('order') ?? undefined
 
-    const server = requestToServer(request)
+    const server = await requestToServer(request)
 
     return serverRequestUtils[serverRequestFnName](server, {
       accountId: params.accountId,

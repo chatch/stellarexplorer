@@ -72,7 +72,7 @@ const TabLink = ({
 export { ErrorBoundary }
 
 export const loader = async ({ params, request }: LoaderArgs) => {
-  const server = requestToSorobanServer(request)
+  const server = await requestToSorobanServer(request)
   let response
   try {
     response = await Promise.all([

@@ -28,8 +28,8 @@ const Interface = ({
   </div>
 )
 
-export const loader = ({ params, request }: LoaderArgs) => {
-  const server = requestToSorobanServer(request)
+export const loader = async ({ params, request }: LoaderArgs) => {
+  const server = await requestToSorobanServer(request)
   return loadContract(server, params.contractId as string)
     .then((result: any) => {
       if (!result) {
