@@ -14,7 +14,8 @@ junit.xml
 # misc
 .DS_Store
 .env
-.vscode
+.vscode/*
+!.vscode/settings.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -27,6 +28,8 @@ yarn.lock
 /build
 /public/build
 .env
+
+# playwright
 /test-results/
 /playwright-report/
 /blob-report/
