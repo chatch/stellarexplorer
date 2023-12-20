@@ -368,6 +368,16 @@ pre#plain-text {
   transition: all 0.18s ease-in-out;
 }
 
+#btn-set-custom-network {
+  margin-top: 10px;
+  padding: 5px 30px;
+  border: 1px solid white;
+  border-radius: 0;
+  background-color: #353c48 !important;
+  color: #c9d0da;
+  font-size: 14px;
+}
+
 .stellarToml a {
   text-decoration: none;
   letter-spacing: 0.05em;

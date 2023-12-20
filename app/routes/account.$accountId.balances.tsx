@@ -4,7 +4,7 @@ import { useLoaderData, useParams } from '@remix-run/react'
 import { useEffect } from 'react'
 import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
-import type { Horizon } from 'stellar-sdk'
+import type { HorizonApi } from 'stellar-sdk/lib/horizon'
 import Asset from '~/components/shared/Asset'
 import FormattedAmount from '~/components/shared/FormattedAmount'
 import { requestToServer } from '~/lib/stellar/server'
@@ -13,7 +13,7 @@ import { loadAccount } from '~/lib/stellar/server_request_utils'
 import { setTitle } from '~/lib/utils'
 
 type Balance = Pick<
-  Horizon.BalanceLineAsset,
+  HorizonApi.BalanceLineAsset,
   'asset_code' | 'asset_issuer' | 'asset_type' | 'balance' | 'limit'
 >
 

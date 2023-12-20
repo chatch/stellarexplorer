@@ -21,6 +21,7 @@ class HorizonServer extends Horizon.Server {
 }
 
 const requestToServer = (request: Request): HorizonServer => {
+  //   console.log(new URL(request.url).searchParams.get('custom_rpc'))
   const { networkType } = requestToNetworkDetails(request)
   return new HorizonServer(networkType, defaultNetworkAddresses[networkType])
 }

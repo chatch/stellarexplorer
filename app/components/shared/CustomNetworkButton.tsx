@@ -1,13 +1,7 @@
-import type { ChangeEventHandler, FormEvent, FormEventHandler } from 'react'
+import type { ChangeEventHandler, FormEvent, MouseEventHandler } from 'react'
 import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { FormattedMessage } from 'react-intl'
-
-const networkAddresses = [
-  'https://horizon.stellar.org',
-  'https://stellar-api.wancloud.io',
-  'https://api.chinastellar.com',
-]
 
 /**
  * Button that reveals modal window where the Horizon server address can
@@ -24,73 +18,44 @@ const CustomNetworkButton = ({
 )
 
 interface ResourceModalBodyProps {
-  networkAddress: string
-  inputValue: string
-  dropdownValue: string
-  networkType: string
-  handleSubmitFn: FormEventHandler<HTMLFormElement>
-  handleInputChangeFn: ChangeEventHandler<HTMLInputElement>
-  handleDropdownChangeFn: ChangeEventHandler<HTMLSelectElement>
+  horizonAddress: string
+  sorobanRPCAddress: string
+  setHorizonAddress: React.Dispatch<React.SetStateAction<string>>
+  setSorobanRPCAddress: React.Dispatch<React.SetStateAction<string>>
+  handleSubmitFn: MouseEventHandler<HTMLElement>
 }
 
 const ResourceModalBody = ({
-  networkAddress,
-  networkType,
-  inputValue,
-  dropdownValue,
+  horizonAddress,
+  sorobanRPCAddress,
+  setSorobanRPCAddress,
+  setHorizonAddress,
   handleSubmitFn,
-  handleInputChangeFn,
-  handleDropdownChangeFn,
 }: ResourceModalBodyProps) => {
   return (
-    <form onSubmit={handleSubmitFn}>
-      <div>
-        <h4>
-          <FormattedMessage id="network.current" />
-        </h4>
-        <FormattedMessage id={'network.' + networkType} />
-        <br />
-        <pre style={{ marginTop: 5 }}>{networkAddress}</pre>
-        <br />
-      </div>
+    <div>
+      <FormattedMessage id="network.custom.horizon" />
+      <input
+        style={{ marginTop: 5 }}
+        type="text"
+        placeholder="http://localhost:8000"
+        value={horizonAddress}
+        onChange={(e) => setHorizonAddress(e.target.value)}
+      />
 
-      <div>
-        <h4>
-          <FormattedMessage id="network.change-here" />
-        </h4>
-        <FormattedMessage id="network.choose" />
-        <br />
-        <select
-          id="networkDropdown"
-          onChange={handleDropdownChangeFn}
-          value={dropdownValue}
-        >
-          <option></option>
-          {networkAddresses.map(
-            (address) =>
-              address !== networkAddress && (
-                <option key={address}>{address}</option>
-              ),
-          )}
-        </select>
-        <br />
-        <br />
+      <FormattedMessage id="network.custom.soroban" />
+      <input
+        style={{ marginTop: 5 }}
+        type="text"
+        placeholder="http://localhost:8000/soroban/rpc"
+        value={sorobanRPCAddress}
+        onChange={(e) => setSorobanRPCAddress(e.target.value)}
+      />
 
-        <FormattedMessage id="network.or-custom" />
-        <br />
-        <input
-          style={{ marginTop: 5 }}
-          type="text"
-          onChange={handleInputChangeFn}
-          value={inputValue}
-        />
-        <br />
-
+      <button id="btn-set-custom-network" onClick={handleSubmitFn}>
         <FormattedMessage id="save" />
-        {/* {(msg) => <input type="submit" value={msg} />}
-        </FormattedMessage> */}
-      </div>
-    </form>
+      </button>
+    </div>
   )
 }
 
@@ -107,7 +72,7 @@ const ResourceModal = (props: ResourceModalProps) => (
   >
     <Modal.Header closeButton>
       <Modal.Title id="contained-modal-title-lg" style={{ color: '#dce2ec' }}>
-        <FormattedMessage id="network.address" />
+        <FormattedMessage id="network.set-custom" />
       </Modal.Title>
     </Modal.Header>
     <Modal.Body>
@@ -126,33 +91,14 @@ function CustomNetworkButtonWithResourceModal({
   networkAddress,
   setNetworkAddress,
   networkType,
-}: CustomNetworkButtonWithResourceModalProps) {
+}: Readonly<CustomNetworkButtonWithResourceModalProps>) {
   const [show, setShow] = useState(false)
-  const [dropdownValue, setDropdownValue] = useState('')
-  const [inputValue, setInputValue] = useState(networkType)
+  const [horizonAddress, setHorizonAddress] = useState('')
+  const [sorobanRPCAddress, setSorobanRPCAddress] = useState('')
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (
-    event: FormEvent,
-  ) => {
+  const handleSubmit: MouseEventHandler<HTMLElement> = (event: FormEvent) => {
     event.preventDefault()
-
-    const input = inputValue
-    const dropdown = dropdownValue
-    const newNetworkAddress = dropdown !== '' ? dropdown : input
-    if (newNetworkAddress !== networkAddress) {
-      setNetworkAddress(newNetworkAddress)
-    }
-  }
-
-  const handleDropdownChange = (event: any) => {
-    const newNetworkAddress = event.target.value
-    setDropdownValue(newNetworkAddress)
-    setNetworkAddress(newNetworkAddress)
-  }
-
-  const handleInputChange = (event: any) => {
-    const newNetworkAddress = event.target.value
-    setInputValue(newNetworkAddress)
+    console.log(`handleSubmit: ${horizonAddress} + ${sorobanRPCAddress}`)
   }
 
   const handleClose = () => setShow(false)
@@ -168,14 +114,11 @@ function CustomNetworkButtonWithResourceModal({
       {show && (
         <ResourceModal
           handleSubmitFn={handleSubmit}
-          handleDropdownChangeFn={handleDropdownChange}
-          handleInputChangeFn={handleInputChange}
-          dropdownValue={dropdownValue}
-          inputValue={inputValue}
+          horizonAddress={horizonAddress}
+          sorobanRPCAddress={sorobanRPCAddress}
+          setHorizonAddress={setHorizonAddress}
+          setSorobanRPCAddress={setSorobanRPCAddress}
           handleCloseFn={handleClose}
-          // setNetworkAddress={setNetworkAddress}
-          networkAddress={networkAddress}
-          networkType={networkType}
           show={show}
         />
       )}
