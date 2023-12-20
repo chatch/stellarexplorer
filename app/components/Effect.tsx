@@ -12,7 +12,6 @@ import RelativeTime from './shared/RelativeTime'
 import TransactionHash from './shared/TransactionHash'
 
 import { base64Decode } from '../lib/utils'
-import Unrecognized from './operations/Unrecognized'
 import {
   LiquidityPoolDeposit,
   LiquidityPoolWithdraw,
@@ -394,10 +393,10 @@ const EffectDetails = ({ effect, op }: any) => {
 function Effect({
   effect,
   showAccount = true,
-}: {
+}: Readonly<{
   effect: EffectProps
   showAccount: boolean
-}) {
+}>) {
   const opId = effect.op?.id
   const txHash = effect.op?.transaction_hash
   return (

@@ -31,28 +31,6 @@ const handleCliFailure = (error, res, wasmFilePath) => {
 }
 
 const wabtToolRoute = (subpath, toolPath) =>
-  app.post(subpath, limiter, upload.single('contract'), (req, res) => {
-    console.log(subpath)
-    if (!req.file) {
-      return res.status(400).send('No file was uploaded.')
-    }
-    const filePath = path.join(req.file.destination, req.file.filename)
-    const wasmFilePath = filePath + '.wasm'
-    fs.renameSync(filePath, wasmFilePath)
-
-    exec(`${toolPath} ${wasmFilePath}`, (error, stdout, stderr) => {
-      if (error) {
-        return handleCliFailure(error, res, wasmFilePath)
-      }
-
-      fs.unlinkSync(wasmFilePath)
-
-      res.contentType('text/plain')
-      res.send(stdout)
-    })
-  })
-
-const wabtToolRoute = (subpath, toolPath) =>
   app.post(subpath, decompileLimiter, upload.single('contract'), (req, res) => {
     if (!req.file) {
       return res.status(400).send('No file was uploaded.')

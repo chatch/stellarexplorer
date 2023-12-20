@@ -26,7 +26,7 @@ export default function Operations() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(formatMessage({ id: 'operations' }))
-  }, [])
+  })
 
   return (
     <Container>

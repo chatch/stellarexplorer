@@ -2,15 +2,7 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 import { FormattedMessage } from 'react-intl'
 
-import {
-  default as Operation,
-  operationTypesKeys,
-} from './operations/Operation'
-import { filterFor } from './shared/OperationType'
-
-const filterFn = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  filterFor(event.target.value)
-}
+import { default as Operation } from './operations/Operation'
 
 export interface OperationTableProps {
   compact: boolean
@@ -18,19 +10,11 @@ export interface OperationTableProps {
   horizonURL?: string
 }
 
-const getOperationTypeFilter = () => {
-  console.error("FIXME - can't use window.location - useLocation?")
-  // const opTypeFilter = window.location.search.match(/opTypeFilter=([a-z_]*)/)
-  // if (opTypeFilter?.[1]) {
-  //   return opTypeFilter[1]
-  // }
-}
-
 export default function OperationTable({
   compact,
   records,
   horizonURL, // possiblyMoreDataAvailable,
-}: OperationTableProps) {
+}: Readonly<OperationTableProps>) {
   return (
     <div>
       {/* TODO: restore the filter  */}

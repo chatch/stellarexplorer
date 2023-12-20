@@ -87,7 +87,7 @@ export default function Transaction() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(`${formatMessage({ id: 'transaction' })} ${id}`)
-  }, [])
+  })
 
   if (!id) return null
 
