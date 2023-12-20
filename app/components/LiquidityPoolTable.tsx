@@ -111,7 +111,6 @@ export default function LiquidityPoolTable({
             <th>
               <FormattedMessage id="liquidity-pool.trustlines" />
             </th>
-            <th />
           </tr>
         </thead>
         <tbody>

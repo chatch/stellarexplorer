@@ -10,6 +10,8 @@ import logoImg from '../../img/logo.png'
 import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
 import type { NetworkKey } from '~/lib/stellar/networks'
+import { Theme, useTheme } from '~/context/theme.provider'
+import ThemeSwitcher from './ThemeSwitcher'
 
 interface HeaderProps {
   languageSwitcher: MouseEventHandler
@@ -23,6 +25,12 @@ export default function Header({
   networkIsLocal,
 }: HeaderProps) {
   const { formatMessage } = useIntl()
+  const [theme, setTheme] = useTheme()
+  const toggleTheme = () => {
+    setTheme((prevTheme) =>
+      prevTheme === Theme.Light ? Theme.Dark : Theme.Light,
+    )
+  }
   return (
     <Navbar collapseOnSelect expand="xxl" fixed="top">
       <Navbar.Brand href="/">
@@ -59,7 +67,6 @@ export default function Header({
           <Nav.Link href="/exchanges">
             <FormattedMessage id="exchanges" />
           </Nav.Link>
-
           <div className="divider-vertical" />
 
           <NavDropdown
@@ -94,6 +101,9 @@ export default function Header({
               networkType={networkType}
               networkIsLocal={networkIsLocal}
             />
+          </NavItem>
+          <NavItem onClick={toggleTheme}>
+            <ThemeSwitcher theme={theme} />
           </NavItem>
           <NavItem>
             <LanguageSelector switcher={languageSwitcher} />
