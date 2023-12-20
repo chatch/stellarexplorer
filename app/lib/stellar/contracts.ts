@@ -52,7 +52,7 @@ const getContractInfo = async (server: SorobanServer, contractId: string) => {
   if (
     ledgerEntries == null ||
     ledgerEntries.entries == null ||
-    ledgerEntries.entries.length == 0
+    ledgerEntries.entries.length === 0
   ) {
     return null
   }
@@ -83,7 +83,7 @@ const getContractCode = async (
   if (
     ledgerEntries == null ||
     ledgerEntries.entries == null ||
-    ledgerEntries.entries.length == 0
+    ledgerEntries.entries.length === 0
   ) {
     return null
   }

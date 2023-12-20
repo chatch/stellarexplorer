@@ -32,7 +32,7 @@ export default function Anchor() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(`Anchor ${name}`)
-  }, [])
+  })
 
   if (name == null) return null
 
