@@ -1,7 +1,5 @@
 import { StrKey, scValToNative, xdr } from 'stellar-sdk'
 
-const Buffer = require('buffer').Buffer
-
 export function scValToAddress(
   scval: any, // : SorobanClient.xdr.ScVal | undefined
 ): string {

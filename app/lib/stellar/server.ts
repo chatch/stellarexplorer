@@ -2,8 +2,9 @@ import { Horizon } from 'stellar-sdk'
 
 import networks, { requestToNetworkDetails } from './networks'
 import SorobanServer, { sorobanRpcURIs } from './server_soroban'
-import { getSession } from '~/sessions'
 import { isLocalhost } from './utils'
+
+import { getSession } from '~/sessions'
 
 export const defaultNetworkAddresses: Record<string, string> = {
   public: 'https://horizon.stellar.org',
