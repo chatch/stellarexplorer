@@ -33,6 +33,7 @@ it('isDefInt checks for defined int correctly', () => {
   expect(isDefInt({ x: 'string' }, 'x')).toBe(false)
 
   expect(isDefInt({ x: 1 }, 'x')).toBe(true)
+  // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
   expect(isDefInt({ x: 12345678901234567890 }, 'x')).toBe(true)
 })
 
@@ -61,7 +62,8 @@ it('base64Decode decodes', () => {
 })
 
 it('formatAmount strips trailling 0s after decimal only', () => {
-  const expectUnchanged = (amount) => expect(formatAmount(amount)).toBe(amount)
+  const expectUnchanged = (amount: string) =>
+    expect(formatAmount(amount)).toBe(amount)
 
   expectUnchanged('0')
   expectUnchanged('1')
@@ -72,7 +74,7 @@ it('formatAmount strips trailling 0s after decimal only', () => {
   expectUnchanged('1234567.1234567')
   expectUnchanged('12345678901234567890.1234567')
 
-  const expectFmt = (amount, newAmount) =>
+  const expectFmt = (amount: string, newAmount: string) =>
     expect(formatAmount(amount)).toBe(newAmount)
 
   expectFmt('1.00000', '1')

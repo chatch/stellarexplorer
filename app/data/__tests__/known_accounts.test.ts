@@ -2,8 +2,10 @@
 import accounts from '../known_accounts'
 import { isPublicKey } from '../../lib/stellar/utils'
 
-const findByName = (name) => {
-  const addr = Object.keys(accounts).find((key) => accounts[key].name === name)
+const findByName = (name: string) => {
+  const addr = Object.keys(accounts).find(
+    (key) => accounts[key].name === name,
+  ) as string
   return { addr, account: accounts[addr] }
 }
 
