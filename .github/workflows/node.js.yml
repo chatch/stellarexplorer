@@ -20,21 +20,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    
+
     - run: npm ci
     - run: npm run build --if-present
-    # - run: npm test
-    
-    # - name: Test Report
-    #   uses: dorny/test-reporter@v1
-    #   if: success() || failure()    # run this step even if previous step failed
-    #   with:
-    #     name: Test Results          # Name that shows up in the sidebar in github actions
-    #     path: junit.xml
-    #     reporter: jest-junit
+    - run: npm test
+
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+        name: Test Results          # Name that shows up in the sidebar in github actions
+        path: junit.xml
+        reporter: jest-junit
