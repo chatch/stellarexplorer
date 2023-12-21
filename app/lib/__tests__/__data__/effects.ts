@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default [
   {
     id: '0000774537222303745-0000000002',

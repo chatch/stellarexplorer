@@ -1,6 +1,6 @@
 import { searchStrToPath } from '../search'
 
-const notFound = (str) => `/error/not-found/${str}`
+const notFound = (str: string) => `/error/not-found/${str}`
 
 describe('searchStrToPath', () => {
   it('returns null for empty input', () => {

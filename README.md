@@ -113,7 +113,7 @@ or
 You can run test with Jest Preview with the following command. You can see the result at <http://locahost:3336> for test using React Testing Library along with Jest Preview.
 
 ```sh
-npm test:preview
+npm run test:preview
 ```
 
 or

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TitleWithJSONButton renders button with given url 1`] = `
+<div>
+  <span>
+    Ledger
+  </span>
+  <span
+    className="pull-right"
+  >
+    <span>
+      <a
+        className="backend-resource-badge-button"
+        onClick={[Function]}
+      >
+        JSON
+      </a>
+    </span>
+  </span>
+</div>
+`;

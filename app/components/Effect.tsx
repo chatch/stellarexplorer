@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/remix'
 import type { ServerApi } from 'stellar-sdk'
 
 import { FormattedMessage } from 'react-intl'
@@ -122,7 +123,13 @@ const Data = ({ op, type }: any) => {
         <span title={op.name}>{truncate(op.name)}</span>
       </div>
 
-      {type !== 'data_removed' && (
+      {/* logging and workaround for issue seen on testnet where the value was undefined and it crashed */}
+      {op.value === undefined &&
+        Sentry.captureMessage(
+          `op.value undefined for op ${JSON.stringify(op)}`,
+        )}
+
+      {type !== 'data_removed' && op.value && (
         <div>
           <FormattedMessage id="value" />
           {': '}
