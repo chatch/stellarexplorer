@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`jsonToCSV effects 1`] = `
+""id","account","type","typeI","createdAt","assetType","assetCode","assetIssuer","amount","weight","publicKey","key","startingBalance"
+"0000774537222303745-0000000002","GCOLHJY3DMPDSZW7PNK4RWBQMCYE5Q67W7TT44SD46RKTVDEAUJZTNE6","account_debited","3","2018-10-15T03:06:14Z","credit_alphanum4","HNY","GCOLHJY3DMPDSZW7PNK4RWBQMCYE5Q67W7TT44SD46RKTVDEAUJZTNE6","1000000000.0000000","","","",""
+"0000773746948313089-0000000003","GCOLHJY3DMPDSZW7PNK4RWBQMCYE5Q67W7TT44SD46RKTVDEAUJZTNE6","signer_created","10","2018-10-15T02:50:22Z","","","","","1","GCOLHJY3DMPDSZW7PNK4RWBQMCYE5Q67W7TT44SD46RKTVDEAUJZTNE6","",""
+"0000773746948313089-0000000001","GCOLHJY3DMPDSZW7PNK4RWBQMCYE5Q67W7TT44SD46RKTVDEAUJZTNE6","account_created","0","2018-10-15T02:50:22Z","","","","","","","","10000.0000000""
+`;
+
+exports[`jsonToCSV pathPayments 1`] = `
+""_links","id","paging_token","source_account","type","type_i","created_at","transaction_hash","asset_type","asset_code","asset_issuer","from","to","amount","path","source_amount","source_max","source_asset_type","source_asset_code","source_asset_issuer"
+"{""self"":{""href"":""https://horizon.stellar.org/operations/92853980303990785""},""transaction"":{""href"":""https://horizon.stellar.org/transactions/35e241e71a4769f94ed51b224c09f2cf9997e48c9b976674e3ccdf756c1a33cd""},""effects"":{""href"":""https://horizon.stellar.org/operations/92853980303990785/effects""},""succeeds"":{""href"":""https://horizon.stellar.org/effects?order=desc&cursor=92853980303990785""},""precedes"":{""href"":""https://horizon.stellar.org/effects?order=asc&cursor=92853980303990785""}}","92853980303990785","92853980303990785","GALUJVTISLHBRDI3LYYMQFFIAILACUUZKIOLYWNDJEEYWECUQQNYQGOX","path_payment","2","2018-12-23T18:34:02Z","35e241e71a4769f94ed51b224c09f2cf9997e48c9b976674e3ccdf756c1a33cd","credit_alphanum4","BTC","GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG","GALUJVTISLHBRDI3LYYMQFFIAILACUUZKIOLYWNDJEEYWECUQQNYQGOX","GALUJVTISLHBRDI3LYYMQFFIAILACUUZKIOLYWNDJEEYWECUQQNYQGOX","0.0282862","[{""asset_type"":""credit_alphanum4"",""asset_code"":""LTC"",""asset_issuer"":""GCSTRLTC73UVXIYPHYTTQUUSDTQU2KQW5VKCE4YCMEHWF44JKDMQAL23""},{""asset_type"":""credit_alphanum4"",""asset_code"":""USD"",""asset_issuer"":""GBSTRUSD7IRX73RQZBL3RQUH6KS3O4NYFY3QCALDLZD77XMZOPWAVTUK""}]","0.0282762","0.0282862","credit_alphanum4","BTC","GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG""
+`;
