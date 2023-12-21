@@ -30,8 +30,7 @@ const hostnameToNetworkType = (hostname: string) => {
     return networks.test
   } else if (
     hostname === 'futurenet.steexp.com' ||
-    hostname === 'futurenet.local' ||
-    hostname === 'steexp-v2-beta.fly.dev'
+    hostname === 'futurenet.local'
   ) {
     return networks.future
   } else {

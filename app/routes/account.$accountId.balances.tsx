@@ -1,10 +1,10 @@
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { useEffect } from 'react'
 import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
-import type { Horizon } from 'stellar-sdk'
+import type { HorizonApi } from 'stellar-sdk/lib/horizon'
 import Asset from '~/components/shared/Asset'
 import FormattedAmount from '~/components/shared/FormattedAmount'
 import { requestToServer } from '~/lib/stellar/server'
@@ -13,7 +13,7 @@ import { loadAccount } from '~/lib/stellar/server_request_utils'
 import { setTitle } from '~/lib/utils'
 
 type Balance = Pick<
-  Horizon.BalanceLineAsset,
+  HorizonApi.BalanceLineAsset,
   'asset_code' | 'asset_issuer' | 'asset_type' | 'balance' | 'limit'
 >
 
@@ -58,8 +58,8 @@ const Balances = ({ balances }: { balances: ReadonlyArray<Balance> }) => (
   </Table>
 )
 
-export const loader = ({ params, request }: LoaderArgs) => {
-  const server = requestToServer(request)
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  const server = await requestToServer(request)
   return loadAccount(server, params.accountId as string).then(json)
 }
 
@@ -69,7 +69,7 @@ export default function BalancesTab() {
   const { accountId } = useParams()
   useEffect(() => {
     setTitle(`Account Balances ${accountId}`)
-  }, [])
+  })
 
   if (!accountResult) {
     return

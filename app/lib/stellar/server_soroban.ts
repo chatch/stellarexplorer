@@ -1,5 +1,6 @@
 import { SorobanRpc } from 'stellar-sdk'
 import networks from './networks'
+import { isLocalhost } from './utils'
 
 export const sorobanRpcURIs: Record<string, string> = {
   [networks.future]: 'https://rpc-futurenet.stellar.org',
@@ -11,9 +12,11 @@ export const sorobanRpcURIs: Record<string, string> = {
  * Wrap the soroban-client Server.
  */
 class SorobanServer extends SorobanRpc.Server {
-  constructor(networkType: string, networkAddress: string) {
+  constructor(networkAddress: string, networkType?: string) {
     // allowHttp: public/test use HTTPS; local can use HTTP
-    super(networkAddress, { allowHttp: networkType === networks.local })
+    super(networkAddress, {
+      allowHttp: networkType === networks.local || isLocalhost(networkAddress),
+    })
   }
 }
 

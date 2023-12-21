@@ -1,4 +1,4 @@
-import type { LoaderArgs, TypedResponse } from '@remix-run/node'
+import type { LoaderFunctionArgs, TypedResponse } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { requestToServer } from './stellar/server'
 import * as serverRequestUtils from './stellar/server_request_utils'
@@ -17,7 +17,7 @@ export function horizonRecordsLoader<RecordsType>(
   serverReqFnName: ServerReqFnName,
   limit: number,
 ) {
-  return function ({ request }: LoaderArgs): Promise<
+  return async function ({ request }: LoaderFunctionArgs): Promise<
     TypedResponse<{
       records: RecordsType
       cursor?: string
@@ -29,7 +29,7 @@ export function horizonRecordsLoader<RecordsType>(
       url.searchParams.get('cursor') ?? undefined
     const order: string | undefined = url.searchParams.get('order') ?? undefined
 
-    const server = requestToServer(request)
+    const server = await requestToServer(request)
 
     return serverRequestUtils[serverReqFnName](server, {
       cursor,
