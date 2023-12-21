@@ -1,7 +1,3 @@
-/**
- * @jest-environment node
- */
-
 import { formatAmountToHumanReadable, getAssetCode } from '../utilities'
 
 describe('formatAmountToHumanReadable', () => {
