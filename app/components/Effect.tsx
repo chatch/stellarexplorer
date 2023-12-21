@@ -226,9 +226,7 @@ const TrustlineFlagsUpdated = ({
     <Asset code={assetCode} type={assetType} issuer={assetIssuer ?? trustor} />
 
     {authorizedFlag !== undefined && (
-      <span>
-        ;&nbsp;authorizedFlag={authorizedFlag == true ? 'true' : 'false'}
-      </span>
+      <span>;&nbsp;authorizedFlag={authorizedFlag ? 'true' : 'false'}</span>
     )}
 
     {trustor && (

@@ -1,26 +1,15 @@
-import { networks } from '../../lib/stellar'
+import { networks } from '~/lib/stellar'
+import type { NetworkDetails } from '~/lib/stellar/networks'
 import CustomNetworkButton from '../shared/CustomNetworkButton'
-import type { NetworkKey } from '~/lib/stellar/networks'
 
 const HOME_PUBLIC = 'https://steexp.com'
 const HOME_TESTNET = 'https://testnet.steexp.com'
 const HOME_FUTURENET = 'https://futurenet.steexp.com'
 
-const redirectToNetworkAddressFn =
-  (storage: Storage) => (networkAddress: string, href: string) => {
-    console.log(`NETWORK change: to ${networkAddress}`)
-    storage.setItem('networkAddress', networkAddress)
-    if (!href) href = window.location.origin
-    window.location.href = href
-  }
-
 // network switcher buttons in the header
-const redirectToNetworkType = (
-  networkType: string,
-  networkIsLocal: boolean,
-) => {
+const redirectToNetworkType = (networkType: string, isLocal: boolean) => {
   let href = HOME_PUBLIC
-  if (networkIsLocal) {
+  if (isLocal) {
     href = `http://${networkType}net.local:3000`
   } else if (networkType === networks.test) {
     href = HOME_TESTNET
@@ -32,48 +21,47 @@ const redirectToNetworkType = (
 
 interface NetworkButtonProps {
   networkType: string
-  networkIsLocal: boolean
+  isLocal: boolean
   selectedNetworkType: string
 }
 
 const NetworkButton = ({
   networkType,
   selectedNetworkType,
-  networkIsLocal,
+  isLocal,
 }: NetworkButtonProps) => (
   <button
     className={
       networkType === selectedNetworkType ? 'is-active' : 'is-inactive'
     }
-    onClick={(e) => redirectToNetworkType(networkType, networkIsLocal)}
+    onClick={(e) => redirectToNetworkType(networkType, isLocal)}
   >
     {networkType.toUpperCase()}
   </button>
 )
 
-interface NetworkSelectorProps {
-  networkType: NetworkKey
-  networkIsLocal: boolean
-  networkAddress: string
-  // selectedNetworkType?: string
-  setNetworkAddress: Function
-}
+type NetworkSelectorProps = NetworkDetails
 
-const NetworkSelector = (props: NetworkSelectorProps) => (
+const NetworkSelector = ({
+  networkType,
+  isLocal,
+  isCustom,
+  customHorizonAddress,
+  customSorobanRPCAddress,
+}: Readonly<NetworkSelectorProps>) => (
   <div className="network-selector">
-    {[networks.public, networks.test, networks.future].map((networkType) => (
+    {[networks.public, networks.test, networks.future].map((btnNetType) => (
       <NetworkButton
-        key={networkType}
-        networkType={networkType}
-        selectedNetworkType={props.networkType}
-        networkIsLocal={props.networkIsLocal}
+        key={btnNetType}
+        networkType={btnNetType}
+        selectedNetworkType={isCustom ? 'custom' : networkType}
+        isLocal={isLocal}
       />
     ))}
     <CustomNetworkButton
       key="custom-network"
-      networkAddress={props.networkAddress}
-      networkType={props.networkType}
-      setNetworkAddress={props.setNetworkAddress}
+      customHorizonAddress={customHorizonAddress}
+      customSorobanRPCAddress={customSorobanRPCAddress}
     />
   </div>
 )

@@ -3,8 +3,7 @@ import { Horizon } from 'stellar-sdk'
 import networks, { requestToNetworkDetails } from './networks'
 import SorobanServer, { sorobanRpcURIs } from './server_soroban'
 import { isLocalhost } from './utils'
-
-import { getSession } from '~/sessions'
+import { isValidUrl } from '../utils'
 
 export const defaultNetworkAddresses: Record<string, string> = {
   public: 'https://horizon.stellar.org',
@@ -25,25 +24,15 @@ class HorizonServer extends Horizon.Server {
   }
 }
 
-const isValidUrl = (url: string): boolean => {
-  try {
-    new URL(url)
-    return true
-  } catch (error) {
-    return false
-  }
-}
-
 const requestToServer = async (request: Request): Promise<HorizonServer> => {
-  const session = await getSession(request.headers.get('Cookie'))
-  const horizonAddress = session.get('horizonAddress') as string
+  const { networkType, customHorizonAddress } =
+    await requestToNetworkDetails(request)
 
   let server: HorizonServer
 
-  if (isValidUrl(horizonAddress)) {
-    server = new HorizonServer(horizonAddress)
+  if (isValidUrl(customHorizonAddress)) {
+    server = new HorizonServer(customHorizonAddress)
   } else {
-    const { networkType } = requestToNetworkDetails(request)
     server = new HorizonServer(
       defaultNetworkAddresses[networkType],
       networkType,
@@ -56,15 +45,14 @@ const requestToServer = async (request: Request): Promise<HorizonServer> => {
 const requestToSorobanServer = async (
   request: Request,
 ): Promise<SorobanServer> => {
-  const session = await getSession(request.headers.get('Cookie'))
-  const sorobanRPCAddress = session.get('sorobanRPCAddress') as string
+  const { networkType, customSorobanRPCAddress } =
+    await requestToNetworkDetails(request)
 
   let server: SorobanServer
 
-  if (isValidUrl(sorobanRPCAddress)) {
-    server = new SorobanServer(sorobanRPCAddress)
+  if (isValidUrl(customSorobanRPCAddress)) {
+    server = new SorobanServer(customSorobanRPCAddress)
   } else {
-    const { networkType } = requestToNetworkDetails(request)
     server = new SorobanServer(sorobanRpcURIs[networkType], networkType)
   }
 

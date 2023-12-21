@@ -2,6 +2,7 @@ import type { ChangeEventHandler, FormEvent, MouseEventHandler } from 'react'
 import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { FormattedMessage } from 'react-intl'
+import { isValidUrl } from '~/lib/utils'
 
 /**
  * Button that reveals modal window where the Horizon server address can
@@ -9,10 +10,15 @@ import { FormattedMessage } from 'react-intl'
  */
 const CustomNetworkButton = ({
   handleClickFn,
+  isActive,
 }: {
   handleClickFn: React.MouseEventHandler<HTMLButtonElement>
+  isActive: boolean
 }) => (
-  <button className="is-inactive" onClick={handleClickFn}>
+  <button
+    className={isActive ? 'is-active' : 'is-inactive'}
+    onClick={handleClickFn}
+  >
     <FormattedMessage id="network.set-custom" />
   </button>
 )
@@ -22,7 +28,6 @@ interface ResourceModalBodyProps {
   sorobanRPCAddress: string
   setHorizonAddress: React.Dispatch<React.SetStateAction<string>>
   setSorobanRPCAddress: React.Dispatch<React.SetStateAction<string>>
-  handleSetFn: MouseEventHandler<HTMLElement>
   handleClearFn: MouseEventHandler<HTMLElement>
 }
 
@@ -31,7 +36,6 @@ const ResourceModalBody = ({
   sorobanRPCAddress,
   setSorobanRPCAddress,
   setHorizonAddress,
-  handleSetFn,
   handleClearFn,
 }: ResourceModalBodyProps) => {
   return (
@@ -57,10 +61,7 @@ const ResourceModalBody = ({
           onChange={(e) => setSorobanRPCAddress(e.target.value)}
         />
 
-        <button
-          id="btn-custom-network-set"
-          //  onClick={handleSetFn}
-        >
+        <button id="btn-custom-network-set">
           <FormattedMessage id="save" />
         </button>
 
@@ -95,30 +96,27 @@ const ResourceModal = (props: ResourceModalProps) => (
 )
 
 interface CustomNetworkButtonWithResourceModalProps {
-  setNetworkAddress: Function
-  networkAddress: string
-  networkType: string
+  customHorizonAddress: string
+  customSorobanRPCAddress: string
 }
 
 function CustomNetworkButtonWithResourceModal({
-  networkAddress,
-  setNetworkAddress,
-  networkType,
+  customHorizonAddress,
+  customSorobanRPCAddress,
 }: Readonly<CustomNetworkButtonWithResourceModalProps>) {
   const [show, setShow] = useState(false)
-  const [horizonAddress, setHorizonAddress] = useState('')
-  const [sorobanRPCAddress, setSorobanRPCAddress] = useState('')
+  const [horizonAddress, setHorizonAddress] = useState(customHorizonAddress)
+  const [sorobanRPCAddress, setSorobanRPCAddress] = useState(
+    customSorobanRPCAddress,
+  )
 
-  const handleSet: MouseEventHandler<HTMLElement> = (event: FormEvent) => {
-    event.preventDefault()
-    console.log(`handleSet: ${horizonAddress} + ${sorobanRPCAddress}`)
-  }
+  const isCustomButtonActive: boolean =
+    isValidUrl(horizonAddress) && isValidUrl(sorobanRPCAddress)
 
   const handleClear: MouseEventHandler<HTMLElement> = (event: FormEvent) => {
     event.preventDefault()
     setHorizonAddress('')
     setSorobanRPCAddress('')
-    console.log('handleClear')
   }
 
   const handleClose = () => setShow(false)
@@ -130,10 +128,12 @@ function CustomNetworkButtonWithResourceModal({
 
   return (
     <span>
-      <CustomNetworkButton handleClickFn={handleClick} />
+      <CustomNetworkButton
+        isActive={isCustomButtonActive}
+        handleClickFn={handleClick}
+      />
       {show && (
         <ResourceModal
-          handleSetFn={handleSet}
           handleClearFn={handleClear}
           horizonAddress={horizonAddress}
           sorobanRPCAddress={sorobanRPCAddress}

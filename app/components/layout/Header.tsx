@@ -9,19 +9,20 @@ import { LinkContainer } from 'react-router-bootstrap'
 import logoImg from '../../img/logo.png'
 import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
-import type { NetworkKey } from '~/lib/stellar/networks'
+import type { NetworkDetails } from '~/lib/stellar/networks'
 
-interface HeaderProps {
+interface HeaderProps extends NetworkDetails {
   languageSwitcher: MouseEventHandler
-  networkType: NetworkKey
-  networkIsLocal: boolean
 }
 
 export default function Header({
   languageSwitcher,
   networkType,
-  networkIsLocal,
-}: HeaderProps) {
+  isLocal,
+  isCustom,
+  customHorizonAddress,
+  customSorobanRPCAddress,
+}: Readonly<HeaderProps>) {
   const { formatMessage } = useIntl()
   return (
     <Navbar collapseOnSelect expand="xxl" fixed="top">
@@ -92,7 +93,10 @@ export default function Header({
           <NavItem>
             <NetworkSelector
               networkType={networkType}
-              networkIsLocal={networkIsLocal}
+              isLocal={isLocal}
+              isCustom={isCustom}
+              customHorizonAddress={customHorizonAddress}
+              customSorobanRPCAddress={customSorobanRPCAddress}
             />
           </NavItem>
           <NavItem>

@@ -120,12 +120,20 @@ function HtmlDocument({
 }
 
 export const loader = ({ request }: LoaderFunctionArgs) =>
-  json({ ...requestToNetworkDetails(request) })
+  requestToNetworkDetails(request).then((networkDetails) =>
+    json({ ...networkDetails }),
+  )
 
 function App() {
   const navigation = useNavigation()
   const [language, setLanguage] = useState('en')
-  const { networkType, isLocal } = useLoaderData<typeof loader>()
+  const {
+    networkType,
+    isLocal,
+    isCustom,
+    customHorizonAddress: horizonAddress,
+    customSorobanRPCAddress: sorobanRPCAddress,
+  } = useLoaderData<typeof loader>()
 
   return (
     <HtmlDocument>
@@ -138,7 +146,10 @@ function App() {
           <Header
             languageSwitcher={languageSwitcherFn(setLanguage)}
             networkType={networkType}
-            networkIsLocal={isLocal}
+            isLocal={isLocal}
+            isCustom={isCustom}
+            customHorizonAddress={horizonAddress}
+            customSorobanRPCAddress={sorobanRPCAddress}
           />
           <SearchBox />
           <div

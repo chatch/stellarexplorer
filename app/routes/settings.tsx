@@ -7,6 +7,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const session = await getSession(request.headers.get('Cookie'))
 
   const form = await request.formData()
+
   const horizonAddress: string = (form.get('horizonAddress') as string) ?? ''
   const sorobanRPCAddress: string =
     (form.get('sorobanRPCAddress') as string) ?? ''
