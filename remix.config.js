@@ -4,12 +4,11 @@ module.exports = {
   serverModuleFormat: 'cjs',
   browserNodeBuiltinsPolyfill: {
     modules: {
-      url: true,
+      buffer: true,
+      events: true,
       http: true,
       https: true,
-      events: true,
-      os: true,
-      path: true,
+      url: true,
       util: true,
     },
   },

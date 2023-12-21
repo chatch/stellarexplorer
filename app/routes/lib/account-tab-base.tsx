@@ -1,4 +1,4 @@
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { Container, Row } from 'react-bootstrap'
@@ -15,7 +15,7 @@ const DEFAULT_RECORD_LIMIT = 30
 
 const accountTabLoader =
   (serverRequestFnName: ServerReqFnName, limit?: number) =>
-  async ({ request, params }: LoaderArgs) => {
+  async ({ request, params }: LoaderFunctionArgs) => {
     const url = new URL(request.url)
     const cursor: string | undefined =
       url.searchParams.get('cursor') ?? undefined

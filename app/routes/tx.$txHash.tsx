@@ -18,7 +18,7 @@ import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 import { MemoHash, MemoReturn } from '../lib/stellar/sdk'
 import { base64DecodeToHex, setTitle } from '../lib/utils'
 
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { operations, transaction } from '~/lib/stellar/server_request_utils'
 import OperationTable from '~/components/OperationTable'
@@ -53,7 +53,7 @@ export interface TransactionProps {
 
 export { ErrorBoundary }
 
-export const loader = async ({ params, request }: LoaderArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToServer(request)
   let response
   try {

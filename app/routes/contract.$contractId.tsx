@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { FormattedMessage, useIntl } from 'react-intl'
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import {
   NavLink,
@@ -38,7 +38,6 @@ const saveWasmFile = (contractId: string, wasmHexString: string) =>
       type: 'application/octet-stream',
     }),
     `soroban-contract-${contractId}.wasm`,
-    true, // don't insert a byte order marker
   )
 
 const DetailRow = ({ label, children }: { label: string; children: any }) => (
@@ -63,7 +62,7 @@ const TabLink = ({
 }) => (
   <NavLink
     to={`${base}/${path}`}
-    className={activeTab == path ? 'contract-tab-active' : ''}
+    className={activeTab === path ? 'contract-tab-active' : ''}
   >
     {title}
   </NavLink>
@@ -71,7 +70,7 @@ const TabLink = ({
 
 export { ErrorBoundary }
 
-export const loader = async ({ params, request }: LoaderArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToSorobanServer(request)
   let response
   try {
@@ -96,7 +95,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   return json(response)
 }
 
-export default function () {
+export default function ContractById() {
   const { formatMessage } = useIntl()
   const [activeTab, setActiveTab] = useState('storage')
   const { pathname } = useLocation()

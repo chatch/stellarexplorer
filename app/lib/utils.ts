@@ -1,5 +1,3 @@
-import { join } from 'path'
-import { tmpdir } from 'os'
 import BigNumber from 'bignumber.js'
 import truncate from 'lodash/truncate'
 
@@ -29,7 +27,7 @@ const assetKeyToIssuer = (key: string) => key.substring(key.indexOf('-') + 1)
 const storageInit = () => {
   let storage
   if (typeof localStorage === 'undefined' || localStorage === null) {
-    const storagePath = join(tmpdir(), 'steexp')
+    // const storagePath = join(tmpdir(), 'steexp')
     // TODO: change this ..
     // const LocalStorage = require('node-localstorage').LocalStorage
     storage = {}

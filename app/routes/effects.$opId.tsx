@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { requestToServer } from '~/lib/stellar/server'
 
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 
@@ -18,7 +18,7 @@ import { effects } from '~/lib/stellar/server_request_utils'
 import type { EffectProps } from '~/components/Effect'
 import { useEffect } from 'react'
 
-export const loader = async ({ request, params }: LoaderArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const server = await requestToServer(request)
   return effects(server, { operationId: params.opId })
     .then((effects) =>

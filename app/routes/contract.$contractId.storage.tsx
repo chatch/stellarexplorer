@@ -1,5 +1,5 @@
 import { useLoaderData, useParams } from '@remix-run/react'
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
@@ -43,7 +43,7 @@ const Storage = ({ storage }: { storage: ReadonlyArray<StorageElement> }) => (
   </Table>
 )
 
-export const loader = async ({ params, request }: LoaderArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToSorobanServer(request)
   return getContractInfo(server, params.contractId as string).then(
     async (result: any) => {

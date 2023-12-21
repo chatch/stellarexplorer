@@ -1,5 +1,5 @@
 import { useLoaderData, useParams } from '@remix-run/react'
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import type { PropsWithChildren } from 'react'
 import { useEffect } from 'react'
@@ -27,7 +27,7 @@ const Code = ({
 
 export const contractCodeLoaderFn =
   (getCodeFn: Function) =>
-  async ({ params, request }: LoaderArgs) => {
+  async ({ params, request }: LoaderFunctionArgs) => {
     const server = await requestToSorobanServer(request)
     return loadContract(server, params.contractId as string).then(
       async (result: any) => {

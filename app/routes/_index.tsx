@@ -13,7 +13,7 @@ import LedgerTable from '../components/LedgerTable'
 import Title from '../components/shared/TitleWithLink'
 import TransactionTable from '../components/TransactionTable'
 
-import type { LoaderArgs, V2_MetaFunction } from '@remix-run/node'
+import type { LoaderFunctionArgs, V2_MetaFunction } from '@remix-run/node'
 import {
   ledgers,
   operations,
@@ -58,7 +58,7 @@ const TX_RECORD_LIMIT = 10
 const LEDGER_RECORD_LIMIT = 10
 const OPERATION_RECORD_LIMIT = 25
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const server = await requestToServer(request)
   return Promise.all([
     ledgers(server, { limit: LEDGER_RECORD_LIMIT }),

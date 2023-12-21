@@ -1,4 +1,4 @@
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { useEffect } from 'react'
@@ -54,7 +54,7 @@ const NameValueTable = ({
   )
 }
 
-const nameValueLoader = async ({ params, request }: LoaderArgs) => {
+const nameValueLoader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToServer(request)
   return loadAccount(server, params.accountId as string).then(json)
 }
