@@ -12,7 +12,8 @@ import { json } from '@remix-run/node'
 
 import { captureException } from '@sentry/remix'
 import has from 'lodash/has'
-import { NotFoundError, type ServerApi } from 'stellar-sdk'
+import { NotFoundError } from 'stellar-sdk'
+import type { ServerApi } from 'stellar-sdk/lib/horizon'
 
 import type { KnownAccountProps } from '../data/known_accounts'
 import knownAccounts from '../data/known_accounts'
@@ -64,7 +65,7 @@ const AccountSummaryCard = ({
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(`Account ${account.id}`)
-  }, [])
+  })
   return (
     <Card id="account-summary-card">
       <CardHeader>
@@ -145,7 +146,7 @@ const TabLink = ({
 }) => (
   <NavLink
     to={`${base}/${path}`}
-    className={activeTab == path ? 'account-tab-active' : ''}
+    className={activeTab === path ? 'account-tab-active' : ''}
   >
     {title}
   </NavLink>

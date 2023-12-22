@@ -1,4 +1,4 @@
-import type { ServerApi } from 'stellar-sdk'
+import type { ServerApi } from 'stellar-sdk/lib/horizon'
 
 import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
@@ -39,7 +39,7 @@ export default function Effects() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(formatMessage({ id: 'effects' }))
-  }, [])
+  })
 
   return (
     <Container>

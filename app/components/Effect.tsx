@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/remix'
-import type { ServerApi } from 'stellar-sdk'
+import type { ServerApi } from 'stellar-sdk/lib/horizon'
 
 import { FormattedMessage } from 'react-intl'
 import truncate from 'lodash/truncate'
@@ -226,9 +226,7 @@ const TrustlineFlagsUpdated = ({
     <Asset code={assetCode} type={assetType} issuer={assetIssuer ?? trustor} />
 
     {authorizedFlag !== undefined && (
-      <span>
-        ;&nbsp;authorizedFlag={authorizedFlag == true ? 'true' : 'false'}
-      </span>
+      <span>;&nbsp;authorizedFlag={authorizedFlag ? 'true' : 'false'}</span>
     )}
 
     {trustor && (
