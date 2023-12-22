@@ -195,7 +195,8 @@ export default function SearchBox() {
               >
                 <img
                   src={infoCircleSvg}
-                  style={{ color: 'white', height: 24, width: 24 }}
+                  alt="search info"
+                  className="info-icon"
                   onClick={handleClickFn}
                 />
               </InputGroup.Text>

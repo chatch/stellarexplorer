@@ -14,7 +14,7 @@ type ThemeContextType = [
 const ThemeContext = createContext<ThemeContextType>([undefined, () => {}])
 
 function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme | undefined>(undefined)
+  const [theme, setTheme] = useState<Theme | undefined>(Theme.Light)
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme')
@@ -22,12 +22,6 @@ function ThemeProvider({ children }: { children: ReactNode }) {
       setTheme(savedTheme as Theme)
     }
   }, [])
-
-  useEffect(() => {
-    if (theme) {
-      localStorage.setItem('theme', theme)
-    }
-  }, [theme])
 
   return (
     <ThemeContext.Provider value={[theme, setTheme]}>

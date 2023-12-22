@@ -1,8 +1,8 @@
 [data-bs-theme="light"] {
   --light-color: #000000;
   --light-background-color: #ffffff;
-  --light-text-color: #535454 ;  /* #96a2b4 */
-  --light-table-bg: #efefef; /* #383f4b */
+  --light-text-color: #000000 ;
+  --light-table-bg: #efefef;
   --light-body-bg: #e7e7e7;
 }
 
@@ -49,21 +49,21 @@
 /* server.toml: */
 [data-bs-theme="light"] pre#plain-text {
   background-color: #f5f5f5;
-  color: #333;
+  color: var(--light-color);
 }
 
 [data-bs-theme="light"] .brand-text {
-  color: gray;
+  color: var(--light-text-color);
 }
 
 [data-bs-theme="light"] .card {
   background-color: var(--light-background-color);
-  color: #96a2b4;
+  color: var(--light-text-color);
 }
 
 [data-bs-theme="light"] .card-default>.card-header {
   background-color: var(--light-background-color);
-  color: #dce2ec;
+  color: var(--light-text-color);
 }
 
 [data-bs-theme="light"] .card-header .pull-right {
@@ -76,7 +76,7 @@
 }
 
 [data-bs-theme="light"] .secondary-heading {
-  color: #96a2b4;
+  color: var(--light-text-color);
 }
 
 [data-bs-theme="light"] [id*="-table"] thead th {
@@ -84,7 +84,7 @@
 }
 
 [data-bs-theme="light"] [id*="-table"] tbody td {
-  color: #96a2b4 !important;
+  color: var(--light-text-color) !important;
 }
 
 [data-bs-theme="light"] [id*="-table"]>tbody>tr>td {
@@ -109,7 +109,7 @@
 /* For language dropdown */
 
 [data-bs-theme="light"] .nav-link {
-  color: gray;
+  color: var(--light-text-color);
 }
 
 [data-bs-theme="light"]
@@ -121,6 +121,14 @@
 
 [data-bs-theme="light"] .divider-vertical {
   border-right: 1px solid #96a2b4;
+}
+
+[data-bs-theme="light"] .clipboard-icon {
+  filter: brightness(0) saturate(100%) hue-rotate(0deg) invert(100%) brightness(0) contrast(100%) grayscale(100%) sepia(0%);
+}
+
+[data-bs-theme="light"] .info-icon {
+  filter: brightness(0) saturate(100%) hue-rotate(0deg) invert(100%) brightness(0) contrast(100%) grayscale(100%) sepia(0%);
 }
 
 @media (max-width: 1300px) {
@@ -186,7 +194,12 @@
 [data-bs-theme="light"]
 #account-nav>a,
 #contract-nav>a {
-  color: #96a2b4;
+  color: var(--light-text-color);
+}
+
+[data-bs-theme="light"]
+.break {
+  color: var(--light-text-color) !important;
 }
 
 [data-bs-theme="light"]
