@@ -377,6 +377,20 @@ pre#plain-text {
   transition: all 0.18s ease-in-out;
 }
 
+button[id^="btn-custom-network"] {
+  margin-top: 10px;
+  padding: 5px 30px;
+  border: 1px solid white;
+  border-radius: 0;
+  background-color: #353c48 !important;
+  color: #c9d0da;
+  font-size: 14px;
+}
+
+button[id^="btn-custom-network"]:first-of-type {
+  margin-right: 20px;
+}
+
 .stellarToml a {
   text-decoration: none;
   letter-spacing: 0.05em;
@@ -590,15 +604,6 @@ Mobile Rules
 */
 
 @media only screen and (max-width: 600px) {
-  /* #search-container .input-group {
-    width: 100%;
-  }
-
-  #search-container input {
-    font-size: 12px;
-    width: 100%;
-  } */
-
   #operation-table {
     table-layout: fixed;
   }

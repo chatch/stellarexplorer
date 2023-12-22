@@ -15,12 +15,12 @@ import { assetKeyToIssuer, setTitle } from '../lib/utils'
 
 import type { DirectoryAnchor } from '../data/directory'
 import directory from '../data/directory'
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useEffect } from 'react'
 const { anchors } = directory
 
-export const loader = ({ params }: LoaderArgs) => {
+export const loader = ({ params }: LoaderFunctionArgs) => {
   return params.id ? anchors[params.id] : null
 }
 
@@ -32,7 +32,7 @@ export default function Anchor() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(`Anchor ${name}`)
-  }, [])
+  })
 
   if (name == null) return null
 

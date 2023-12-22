@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/remix'
 import type { ServerApi } from 'stellar-sdk'
 
 import { FormattedMessage } from 'react-intl'
@@ -12,7 +13,6 @@ import RelativeTime from './shared/RelativeTime'
 import TransactionHash from './shared/TransactionHash'
 
 import { base64Decode } from '../lib/utils'
-import Unrecognized from './operations/Unrecognized'
 import {
   LiquidityPoolDeposit,
   LiquidityPoolWithdraw,
@@ -123,7 +123,13 @@ const Data = ({ op, type }: any) => {
         <span title={op.name}>{truncate(op.name)}</span>
       </div>
 
-      {type !== 'data_removed' && (
+      {/* logging and workaround for issue seen on testnet where the value was undefined and it crashed */}
+      {op.value === undefined &&
+        Sentry.captureMessage(
+          `op.value undefined for op ${JSON.stringify(op)}`,
+        )}
+
+      {type !== 'data_removed' && op.value && (
         <div>
           <FormattedMessage id="value" />
           {': '}
@@ -394,10 +400,10 @@ const EffectDetails = ({ effect, op }: any) => {
 function Effect({
   effect,
   showAccount = true,
-}: {
+}: Readonly<{
   effect: EffectProps
   showAccount: boolean
-}) {
+}>) {
   const opId = effect.op?.id
   const txHash = effect.op?.transaction_hash
   return (

@@ -36,4 +36,4 @@ EXPOSE 3001
 # clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-CMD ["npm", "start"] 
+CMD ["npm", "start"]

@@ -54,9 +54,9 @@ const NetworkButton = ({
 interface NetworkSelectorProps {
   networkType: NetworkKey
   networkIsLocal: boolean
-  // networkAddress: string
+  networkAddress: string
   // selectedNetworkType?: string
-  // setNetworkAddress: Function
+  setNetworkAddress: Function
 }
 
 const NetworkSelector = (props: NetworkSelectorProps) => (
@@ -69,12 +69,12 @@ const NetworkSelector = (props: NetworkSelectorProps) => (
         networkIsLocal={props.networkIsLocal}
       />
     ))}
-    {/* <CustomNetworkButton
+    <CustomNetworkButton
       key="custom-network"
       networkAddress={props.networkAddress}
       networkType={props.networkType}
       setNetworkAddress={props.setNetworkAddress}
-    /> */}
+    />
   </div>
 )
 

@@ -1,12 +1,6 @@
 import { PassThrough } from 'stream'
-
-import { Response } from '@remix-run/node' // or cloudflare/deno
-import type {
-  AppLoadContext,
-  DataFunctionArgs,
-  EntryContext,
-  Headers,
-} from '@remix-run/node' // or cloudflare/deno
+import { createReadableStreamFromReadable } from '@remix-run/node'
+import type { AppLoadContext, EntryContext } from '@remix-run/node' // or cloudflare/deno
 import { RemixServer } from '@remix-run/react'
 import isbot from 'isbot'
 import { renderToPipeableStream } from 'react-dom/server'
@@ -53,7 +47,7 @@ export default function handleRequest(
 
 export function handleError(
   error: unknown,
-  { request }: DataFunctionArgs,
+  { request }: { request: Request },
 ): void {
   console.error(`entry.server: handleError: error: ${JSON.stringify(error)}`)
   if ((error as any).stack) {
@@ -103,7 +97,7 @@ function serveTheBots(
           const body = new PassThrough()
           pipe(body)
           resolve(
-            new Response(body, {
+            new Response(createReadableStreamFromReadable(body), {
               status: responseStatusCode,
               headers: responseHeaders,
             }),
@@ -139,7 +133,7 @@ function serveBrowsers(
           const body = new PassThrough()
           pipe(body)
           resolve(
-            new Response(body, {
+            new Response(createReadableStreamFromReadable(body), {
               status: didError ? 500 : responseStatusCode,
               headers: responseHeaders,
             }),

@@ -1,13 +1,7 @@
-import type { ChangeEventHandler, FormEvent, FormEventHandler } from 'react'
+import type { ChangeEventHandler, FormEvent, MouseEventHandler } from 'react'
 import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { FormattedMessage } from 'react-intl'
-
-const networkAddresses = [
-  'https://horizon.stellar.org',
-  'https://stellar-api.wancloud.io',
-  'https://api.chinastellar.com',
-]
 
 /**
  * Button that reveals modal window where the Horizon server address can
@@ -24,73 +18,57 @@ const CustomNetworkButton = ({
 )
 
 interface ResourceModalBodyProps {
-  networkAddress: string
-  inputValue: string
-  dropdownValue: string
-  networkType: string
-  handleSubmitFn: FormEventHandler<HTMLFormElement>
-  handleInputChangeFn: ChangeEventHandler<HTMLInputElement>
-  handleDropdownChangeFn: ChangeEventHandler<HTMLSelectElement>
+  horizonAddress: string
+  sorobanRPCAddress: string
+  setHorizonAddress: React.Dispatch<React.SetStateAction<string>>
+  setSorobanRPCAddress: React.Dispatch<React.SetStateAction<string>>
+  handleSetFn: MouseEventHandler<HTMLElement>
+  handleClearFn: MouseEventHandler<HTMLElement>
 }
 
 const ResourceModalBody = ({
-  networkAddress,
-  networkType,
-  inputValue,
-  dropdownValue,
-  handleSubmitFn,
-  handleInputChangeFn,
-  handleDropdownChangeFn,
+  horizonAddress,
+  sorobanRPCAddress,
+  setSorobanRPCAddress,
+  setHorizonAddress,
+  handleSetFn,
+  handleClearFn,
 }: ResourceModalBodyProps) => {
   return (
-    <form onSubmit={handleSubmitFn}>
-      <div>
-        <h4>
-          <FormattedMessage id="network.current" />
-        </h4>
-        <FormattedMessage id={'network.' + networkType} />
-        <br />
-        <pre style={{ marginTop: 5 }}>{networkAddress}</pre>
-        <br />
-      </div>
-
-      <div>
-        <h4>
-          <FormattedMessage id="network.change-here" />
-        </h4>
-        <FormattedMessage id="network.choose" />
-        <br />
-        <select
-          id="networkDropdown"
-          onChange={handleDropdownChangeFn}
-          value={dropdownValue}
-        >
-          <option></option>
-          {networkAddresses.map(
-            (address) =>
-              address !== networkAddress && (
-                <option key={address}>{address}</option>
-              ),
-          )}
-        </select>
-        <br />
-        <br />
-
-        <FormattedMessage id="network.or-custom" />
-        <br />
+    <div>
+      <form method="POST" action="/settings">
+        <FormattedMessage id="network.custom.horizon" />
         <input
-          style={{ marginTop: 5 }}
           type="text"
-          onChange={handleInputChangeFn}
-          value={inputValue}
+          name="horizonAddress"
+          value={horizonAddress}
+          placeholder="http://localhost:8000"
+          style={{ marginTop: 5 }}
+          onChange={(e) => setHorizonAddress(e.target.value)}
         />
-        <br />
 
-        <FormattedMessage id="save" />
-        {/* {(msg) => <input type="submit" value={msg} />}
-        </FormattedMessage> */}
-      </div>
-    </form>
+        <FormattedMessage id="network.custom.soroban" />
+        <input
+          type="text"
+          name="sorobanRPCAddress"
+          value={sorobanRPCAddress}
+          placeholder="http://localhost:8000/soroban/rpc"
+          style={{ marginTop: 5 }}
+          onChange={(e) => setSorobanRPCAddress(e.target.value)}
+        />
+
+        <button
+          id="btn-custom-network-set"
+          //  onClick={handleSetFn}
+        >
+          <FormattedMessage id="save" />
+        </button>
+
+        <button id="btn-custom-network-clear" onClick={handleClearFn}>
+          Clear
+        </button>
+      </form>
+    </div>
   )
 }
 
@@ -107,7 +85,7 @@ const ResourceModal = (props: ResourceModalProps) => (
   >
     <Modal.Header closeButton>
       <Modal.Title id="contained-modal-title-lg" style={{ color: '#dce2ec' }}>
-        <FormattedMessage id="network.address" />
+        <FormattedMessage id="network.set-custom" />
       </Modal.Title>
     </Modal.Header>
     <Modal.Body>
@@ -126,33 +104,21 @@ function CustomNetworkButtonWithResourceModal({
   networkAddress,
   setNetworkAddress,
   networkType,
-}: CustomNetworkButtonWithResourceModalProps) {
+}: Readonly<CustomNetworkButtonWithResourceModalProps>) {
   const [show, setShow] = useState(false)
-  const [dropdownValue, setDropdownValue] = useState('')
-  const [inputValue, setInputValue] = useState(networkType)
+  const [horizonAddress, setHorizonAddress] = useState('')
+  const [sorobanRPCAddress, setSorobanRPCAddress] = useState('')
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (
-    event: FormEvent,
-  ) => {
+  const handleSet: MouseEventHandler<HTMLElement> = (event: FormEvent) => {
     event.preventDefault()
-
-    const input = inputValue
-    const dropdown = dropdownValue
-    const newNetworkAddress = dropdown !== '' ? dropdown : input
-    if (newNetworkAddress !== networkAddress) {
-      setNetworkAddress(newNetworkAddress)
-    }
+    console.log(`handleSet: ${horizonAddress} + ${sorobanRPCAddress}`)
   }
 
-  const handleDropdownChange = (event: any) => {
-    const newNetworkAddress = event.target.value
-    setDropdownValue(newNetworkAddress)
-    setNetworkAddress(newNetworkAddress)
-  }
-
-  const handleInputChange = (event: any) => {
-    const newNetworkAddress = event.target.value
-    setInputValue(newNetworkAddress)
+  const handleClear: MouseEventHandler<HTMLElement> = (event: FormEvent) => {
+    event.preventDefault()
+    setHorizonAddress('')
+    setSorobanRPCAddress('')
+    console.log('handleClear')
   }
 
   const handleClose = () => setShow(false)
@@ -167,15 +133,13 @@ function CustomNetworkButtonWithResourceModal({
       <CustomNetworkButton handleClickFn={handleClick} />
       {show && (
         <ResourceModal
-          handleSubmitFn={handleSubmit}
-          handleDropdownChangeFn={handleDropdownChange}
-          handleInputChangeFn={handleInputChange}
-          dropdownValue={dropdownValue}
-          inputValue={inputValue}
+          handleSetFn={handleSet}
+          handleClearFn={handleClear}
+          horizonAddress={horizonAddress}
+          sorobanRPCAddress={sorobanRPCAddress}
+          setHorizonAddress={setHorizonAddress}
+          setSorobanRPCAddress={setSorobanRPCAddress}
           handleCloseFn={handleClose}
-          // setNetworkAddress={setNetworkAddress}
-          networkAddress={networkAddress}
-          networkType={networkType}
           show={show}
         />
       )}

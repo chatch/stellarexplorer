@@ -8,7 +8,7 @@ module.exports = {
   plugins: ['prettier'],
   overrides: [
     {
-      files: ['*.ts', '*.tsx', '*.js'],
+      files: ['*.ts', '*.tsx', '*.js', 'json'],
       parser: '@typescript-eslint/parser',
     },
   ],

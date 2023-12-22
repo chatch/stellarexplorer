@@ -1,4 +1,4 @@
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { Container, Row } from 'react-bootstrap'
@@ -15,13 +15,13 @@ const DEFAULT_RECORD_LIMIT = 30
 
 const accountTabLoader =
   (serverRequestFnName: ServerReqFnName, limit?: number) =>
-  ({ request, params }: LoaderArgs) => {
+  async ({ request, params }: LoaderFunctionArgs) => {
     const url = new URL(request.url)
     const cursor: string | undefined =
       url.searchParams.get('cursor') ?? undefined
     const order: string | undefined = url.searchParams.get('order') ?? undefined
 
-    const server = requestToServer(request)
+    const server = await requestToServer(request)
 
     return serverRequestUtils[serverRequestFnName](server, {
       accountId: params.accountId,
@@ -60,9 +60,9 @@ const accountTabComponent = function <loaderFnType>(
     const { accountId } = useParams()
     useEffect(() => {
       setTitle(`Account ${name} ${accountId}`)
-    }, [])
+    })
 
-    if (!records || records.length == 0) {
+    if (!records || records.length === 0) {
       return <div style={{ marginTop: 20, marginBottom: 20 }}>No Records</div>
     }
 

@@ -13,9 +13,16 @@ const isPublicKey = (keyStr: string) => StrKey.isValidEd25519PublicKey(keyStr)
 const isSecretKey = (keyStr: string) => StrKey.isValidEd25519SecretSeed(keyStr)
 const isTxHash = (hashStr: string) => /^[0-9a-f]{64}$/i.test(hashStr)
 
+const isLocalhost = (address: string) =>
+  typeof address === 'string' &&
+  (address.includes('//localhost') ||
+    address.includes('//0.0.0.0') ||
+    address.includes('//127.'))
+
 export {
   isContractAddress,
   isFederatedAddress,
+  isLocalhost,
   isMuxedAddress,
   isPublicKey,
   isSecretKey,

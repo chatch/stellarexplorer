@@ -2,6 +2,9 @@ import { Horizon } from 'stellar-sdk'
 
 import networks, { requestToNetworkDetails } from './networks'
 import SorobanServer, { sorobanRpcURIs } from './server_soroban'
+import { isLocalhost } from './utils'
+
+import { getSession } from '~/sessions'
 
 export const defaultNetworkAddresses: Record<string, string> = {
   public: 'https://horizon.stellar.org',
@@ -14,25 +17,58 @@ export const defaultNetworkAddresses: Record<string, string> = {
  * Wrap the stellar-sdk Server.
  */
 class HorizonServer extends Horizon.Server {
-  constructor(networkType: string, networkAddress: string) {
+  constructor(networkAddress: string, networkType?: string) {
     // allowHttp: public/test use HTTPS; local can use HTTP
-    super(networkAddress, { allowHttp: networkType === networks.local })
+    super(networkAddress, {
+      allowHttp: networkType === networks.local || isLocalhost(networkAddress),
+    })
   }
 }
 
-const requestToServer = (request: Request): HorizonServer => {
-  const { networkType } = requestToNetworkDetails(request)
-  return new HorizonServer(networkType, defaultNetworkAddresses[networkType])
+const isValidUrl = (url: string): boolean => {
+  try {
+    new URL(url)
+    return true
+  } catch (error) {
+    return false
+  }
 }
 
-const requestToSorobanServer = (request: Request): SorobanServer => {
-  const { networkType } = requestToNetworkDetails(request)
-  if (![networks.future, networks.test, networks.local].includes(networkType)) {
-    throw new Error(
-      `Soroban smart contracts not yet supported on the network [${networkType}].`,
+const requestToServer = async (request: Request): Promise<HorizonServer> => {
+  const session = await getSession(request.headers.get('Cookie'))
+  const horizonAddress = session.get('horizonAddress') as string
+
+  let server: HorizonServer
+
+  if (isValidUrl(horizonAddress)) {
+    server = new HorizonServer(horizonAddress)
+  } else {
+    const { networkType } = requestToNetworkDetails(request)
+    server = new HorizonServer(
+      defaultNetworkAddresses[networkType],
+      networkType,
     )
   }
-  return new SorobanServer(networkType, sorobanRpcURIs[networkType])
+
+  return server
+}
+
+const requestToSorobanServer = async (
+  request: Request,
+): Promise<SorobanServer> => {
+  const session = await getSession(request.headers.get('Cookie'))
+  const sorobanRPCAddress = session.get('sorobanRPCAddress') as string
+
+  let server: SorobanServer
+
+  if (isValidUrl(sorobanRPCAddress)) {
+    server = new SorobanServer(sorobanRPCAddress)
+  } else {
+    const { networkType } = requestToNetworkDetails(request)
+    server = new SorobanServer(sorobanRpcURIs[networkType], networkType)
+  }
+
+  return server
 }
 
 export { HorizonServer as default, requestToServer, requestToSorobanServer }

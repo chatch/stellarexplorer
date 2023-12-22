@@ -17,7 +17,7 @@ import { json } from '@remix-run/node'
 
 import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { ledger, transactions } from '~/lib/stellar/server_request_utils'
 import TransactionTable from '~/components/TransactionTable'
@@ -42,8 +42,8 @@ const DetailRow = ({ label, children }: { label: string; children: any }) => (
 
 export { ErrorBoundary }
 
-export const loader = async ({ params, request }: LoaderArgs) => {
-  const server = requestToServer(request)
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  const server = await requestToServer(request)
   const ledgerSeq = params.ledgerId as string
   let response
   try {
@@ -114,7 +114,7 @@ export default function Ledger() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(`${formatMessage({ id: 'ledger' })} ${sequence}`)
-  }, [])
+  })
 
   if (!id) return null
 

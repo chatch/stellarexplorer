@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { NavLink, Outlet, useLoaderData, useLocation } from '@remix-run/react'
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 
 import { captureException } from '@sentry/remix'
@@ -158,8 +158,8 @@ const pathToTabName = (path: string) => {
 
 export { ErrorBoundary }
 
-export const loader = async ({ params, request }: LoaderArgs) => {
-  const server = requestToServer(request)
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  const server = await requestToServer(request)
   let response
   try {
     response = await Promise.all([

@@ -1,14 +1,12 @@
 import { useLoaderData, useParams } from '@remix-run/react'
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { FormattedMessage } from 'react-intl'
 import type { PropsWithChildren } from 'react'
 import { useEffect } from 'react'
 
 import { CodeBlock } from '~/components/shared/CodeBlock'
 import { loadContract } from '~/lib/stellar/contracts'
-import { hexStringToBytes, setTitle } from '~/lib/utils'
-import { saveAs } from '../../lib/filesaver'
+import { setTitle } from '~/lib/utils'
 import { requestToSorobanServer } from '~/lib/stellar/server'
 
 interface CodeProps extends PropsWithChildren {
@@ -29,8 +27,8 @@ const Code = ({
 
 export const contractCodeLoaderFn =
   (getCodeFn: Function) =>
-  ({ params, request }: LoaderArgs) => {
-    const server = requestToSorobanServer(request)
+  async ({ params, request }: LoaderFunctionArgs) => {
+    const server = await requestToSorobanServer(request)
     return loadContract(server, params.contractId as string).then(
       async (result: any) => {
         if (!result) {
@@ -50,7 +48,7 @@ export default function contractCodeTab(loader: Function, language?: string) {
     const { contractId } = useParams()
     useEffect(() => {
       setTitle(`Contract Code ${contractId}`)
-    }, [])
+    })
 
     const codeProps = useLoaderData<typeof loader>() as CodeProps | null
 

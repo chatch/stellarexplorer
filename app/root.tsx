@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { json } from '@remix-run/node'
-import type { LoaderArgs, LinksFunction } from '@remix-run/node'
+import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -38,9 +38,9 @@ import zhHantMessages from './lib/languages/zh-Hant.json'
 import { requestToNetworkDetails } from './lib/stellar/networks'
 import { storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
-import type { V2_ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
 import { NotFoundError } from 'stellar-sdk'
 import { ThemeProvider, useTheme } from '~/context/theme.provider'
+import type { ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: bootstrapStyles },
@@ -129,7 +129,7 @@ function HtmlDocument({
   )
 }
 
-export const loader = ({ request }: LoaderArgs) =>
+export const loader = ({ request }: LoaderFunctionArgs) =>
   json({ ...requestToNetworkDetails(request) })
 
 function App() {
@@ -166,7 +166,7 @@ function App() {
   )
 }
 
-export const ErrorBoundary: V2_ErrorBoundaryComponent = () => {
+export const ErrorBoundary: ErrorBoundaryComponent = () => {
   const error: any = useRouteError()
 
   // don't send steller resource not founds to sentry
