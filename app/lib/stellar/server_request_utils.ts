@@ -1,4 +1,20 @@
-import type { LedgerCallBuilder } from 'stellar-sdk/lib/ledger_call_builder'
+import type { Asset } from 'stellar-sdk'
+import type { ServerApi } from 'stellar-sdk/lib/horizon'
+
+import { FederationServer } from 'stellar-sdk/lib/federation/server'
+import { MuxedAccount, NotFoundError } from 'stellar-sdk'
+
+import type { LedgerCallBuilder } from 'stellar-sdk/lib/horizon/ledger_call_builder'
+import type { OperationCallBuilder } from 'stellar-sdk/lib/horizon/operation_call_builder'
+import type { EffectCallBuilder } from 'stellar-sdk/lib/horizon/effect_call_builder'
+import type { PaymentCallBuilder } from 'stellar-sdk/lib/horizon/payment_call_builder'
+import type { TradesCallBuilder } from 'stellar-sdk/lib/horizon/trades_call_builder'
+import type { AccountCallBuilder } from 'stellar-sdk/lib/horizon/account_call_builder'
+import type { TransactionCallBuilder } from 'stellar-sdk/lib/horizon/transaction_call_builder'
+import type { OfferCallBuilder } from 'stellar-sdk/lib/horizon/offer_call_builder'
+import AccountTypeUnrecognizedException from '../error/AccountTypeUnrecognizedException'
+import type { LiquidityPoolCallBuilder } from 'stellar-sdk/lib/horizon/liquidity_pool_call_builder'
+
 import type HorizonServer from './server'
 import {
   effectRspRecToPropsRec,
@@ -11,19 +27,7 @@ import {
   tradeRspRecToPropsRec,
   transactionRspRecToPropsRec,
 } from './server_response_utils'
-import type { ServerApi } from 'stellar-sdk'
-import { FederationServer, MuxedAccount, NotFoundError } from 'stellar-sdk'
-import type { CallBuilder } from 'stellar-sdk/lib/call_builder'
-import type { OperationCallBuilder } from 'stellar-sdk/lib/operation_call_builder'
-import type { EffectCallBuilder } from 'stellar-sdk/lib/effect_call_builder'
-import type { PaymentCallBuilder } from 'stellar-sdk/lib/payment_call_builder'
-import type { TradesCallBuilder } from 'stellar-sdk/lib/trades_call_builder'
 import { isPublicKey, isFederatedAddress, isMuxedAddress } from './utils'
-import type { AccountCallBuilder } from 'stellar-sdk/lib/account_call_builder'
-import type { TransactionCallBuilder } from 'stellar-sdk/lib/transaction_call_builder'
-import type { OfferCallBuilder } from 'stellar-sdk/lib/offer_call_builder'
-import AccountTypeUnrecognizedException from '../error/AccountTypeUnrecognizedException'
-import type { LiquidityPoolCallBuilder } from 'stellar-sdk/lib/liquidity_pool_call_builder'
 
 interface PageOptions {
   cursor?: string
@@ -49,9 +53,7 @@ const ledgers = (
 }
 
 const ledger = (server: HorizonServer, ledgerSeq: string) => {
-  const builder: CallBuilder<ServerApi.LedgerRecord> = server
-    .ledgers()
-    .ledger(ledgerSeq)
+  const builder = server.ledgers().ledger(ledgerSeq)
   return builder.call().then(ledgerRspRecToPropsRec)
 }
 
@@ -85,9 +87,7 @@ const transactions = (
 }
 
 const transaction = (server: HorizonServer, txHash: string) => {
-  const callBuilder: CallBuilder<ServerApi.TransactionRecord> = server
-    .transactions()
-    .transaction(txHash)
+  const callBuilder = server.transactions().transaction(txHash)
   return callBuilder.call().then(transactionRspRecToPropsRec)
 }
 
