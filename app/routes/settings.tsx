@@ -15,8 +15,10 @@ export async function action({ request }: ActionFunctionArgs) {
   session.set('horizonAddress', horizonAddress)
   session.set('sorobanRPCAddress', sorobanRPCAddress)
 
-  // Login succeeded, send them to the home page.
-  return redirect('/', {
+  // Login succeeded, send them to the home page or redirect_to if given.
+  const url = new URL(request.url)
+  const redirectAddress = url.searchParams.get('redirect_to') ?? '/'
+  return redirect(redirectAddress, {
     headers: {
       'Set-Cookie': await commitSession(session),
     },

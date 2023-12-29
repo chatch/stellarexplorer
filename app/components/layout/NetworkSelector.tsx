@@ -6,8 +6,10 @@ const HOME_PUBLIC = 'https://steexp.com'
 const HOME_TESTNET = 'https://testnet.steexp.com'
 const HOME_FUTURENET = 'https://futurenet.steexp.com'
 
-// network switcher buttons in the header
-const redirectToNetworkType = (networkType: string, isLocal: boolean) => {
+const networkTypeToRedirectAddress = (
+  networkType: string,
+  isLocal: boolean,
+): string => {
   let href = HOME_PUBLIC
   if (isLocal) {
     href = `http://${networkType}net.local:3000`
@@ -16,25 +18,22 @@ const redirectToNetworkType = (networkType: string, isLocal: boolean) => {
   } else if (networkType === networks.future) {
     href = HOME_FUTURENET
   }
-  window.location.href = href
+  return href
 }
 
 interface NetworkButtonProps {
   networkType: string
-  isLocal: boolean
   selectedNetworkType: string
 }
 
 const NetworkButton = ({
   networkType,
   selectedNetworkType,
-  isLocal,
 }: NetworkButtonProps) => (
   <button
     className={
       networkType === selectedNetworkType ? 'is-active' : 'is-inactive'
     }
-    onClick={(e) => redirectToNetworkType(networkType, isLocal)}
   >
     {networkType.toUpperCase()}
   </button>
@@ -51,12 +50,20 @@ const NetworkSelector = ({
 }: Readonly<NetworkSelectorProps>) => (
   <div className="network-selector">
     {[networks.public, networks.test, networks.future].map((btnNetType) => (
-      <NetworkButton
+      <form
         key={btnNetType}
-        networkType={btnNetType}
-        selectedNetworkType={isCustom ? 'custom' : networkType}
-        isLocal={isLocal}
-      />
+        method="POST"
+        action={`/settings?redirect_to=${networkTypeToRedirectAddress(
+          btnNetType,
+          isLocal,
+        )}`}
+      >
+        <NetworkButton
+          key={btnNetType}
+          networkType={btnNetType}
+          selectedNetworkType={isCustom ? 'custom' : networkType}
+        />
+      </form>
     ))}
     <CustomNetworkButton
       key="custom-network"
