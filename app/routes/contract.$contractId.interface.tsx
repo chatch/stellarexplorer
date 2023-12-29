@@ -7,7 +7,6 @@ import { getContractInterface, loadContract } from '~/lib/stellar/contracts'
 import { requestToSorobanServer } from '~/lib/stellar/server'
 import { setTitle } from '~/lib/utils'
 import { CodeBlock } from '~/components/shared/CodeBlock'
-import JSONPretty from 'react-json-pretty'
 
 const Interface = ({
   rustInterface, // jsonInterface,

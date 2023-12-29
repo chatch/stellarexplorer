@@ -24,13 +24,23 @@ const networkTypeToRedirectAddress = (
 interface NetworkButtonProps {
   networkType: string
   selectedNetworkType: string
+  isLocal: boolean
 }
 
 const NetworkButton = ({
   networkType,
   selectedNetworkType,
+  isLocal,
 }: NetworkButtonProps) => (
   <button
+    type="submit"
+    name={`btn-${networkType}`}
+    onClick={() => {
+      if (document.getElementById('redirect_to')) {
+        ;(document.getElementById('redirect_to') as HTMLFormElement).value =
+          networkTypeToRedirectAddress(networkType, isLocal)
+      }
+    }}
     className={
       networkType === selectedNetworkType ? 'is-active' : 'is-inactive'
     }
@@ -49,27 +59,22 @@ const NetworkSelector = ({
   customSorobanRPCAddress,
 }: Readonly<NetworkSelectorProps>) => (
   <div className="network-selector">
-    {[networks.public, networks.test, networks.future].map((btnNetType) => (
-      <form
-        key={btnNetType}
-        method="POST"
-        action={`/settings?redirect_to=${networkTypeToRedirectAddress(
-          btnNetType,
-          isLocal,
-        )}`}
-      >
+    <form method="POST" action="/settings?unset=true">
+      <input type="hidden" id="redirect_to" name="redirect_to" />
+      {[networks.public, networks.test, networks.future].map((btnNetType) => (
         <NetworkButton
           key={btnNetType}
           networkType={btnNetType}
           selectedNetworkType={isCustom ? 'custom' : networkType}
+          isLocal={isLocal}
         />
-      </form>
-    ))}
-    <CustomNetworkButton
-      key="custom-network"
-      customHorizonAddress={customHorizonAddress}
-      customSorobanRPCAddress={customSorobanRPCAddress}
-    />
+      ))}
+      <CustomNetworkButton
+        key="custom-network"
+        customHorizonAddress={customHorizonAddress}
+        customSorobanRPCAddress={customSorobanRPCAddress}
+      />
+    </form>
   </div>
 )
 
