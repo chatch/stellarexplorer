@@ -28,7 +28,7 @@ export function scValToAddress(
  * @returns string representation
  */
 const jsNativeValToString = (native: any): string => {
-  // console.log(`type=${typeof native}`)
+  //   console.log(`type=${typeof native}`)
   if (typeof native === 'string') {
     return native
   } else if (typeof native === 'bigint') {
@@ -55,5 +55,8 @@ const jsNativeObjectValToString = (native: any): string => {
 
 export const scValToString = (scVal: any): string => {
   const native = scValToNative(scVal)
+  if (native == null) {
+    return 'void'
+  }
   return jsNativeValToString(native)
 }
