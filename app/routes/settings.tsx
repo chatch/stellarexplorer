@@ -25,13 +25,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const url = new URL(request.url)
   let redirectAddress = '/'
-  console.log(`unset is ${typeof url.searchParams.get('unset')}`)
-
   if ('true' === url.searchParams.get('unset')) {
-    console.log(`here and ${form.get('redirect_to')}`)
     redirectAddress = (form.get('redirect_to') as string) ?? redirectAddress
   }
-  console.log(`redirectAddress is ${redirectAddress}`)
+
   return redirect(redirectAddress, {
     headers: {
       'Set-Cookie': await commitSession(session),
