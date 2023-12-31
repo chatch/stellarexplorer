@@ -18,13 +18,29 @@ interface NetworkDetails {
   customSorobanRPCAddress: string
 }
 
+const urlParamOrSessionOrEmpty = (
+  prop: string,
+  url: URL,
+  session: any,
+): string => url.searchParams.get(prop) ?? session.get(prop) ?? ''
+
 const requestToNetworkDetails = async (
   request: Request,
 ): Promise<NetworkDetails> => {
   const session = await getSession(request.headers.get('Cookie'))
-  const url = new URL(`http://${request.headers.get('host')}`)
-  const customHorizonAddress = session.get('horizonAddress') ?? ''
-  const customSorobanRPCAddress = session.get('sorobanRPCAddress') ?? ''
+  const url = new URL(request.url)
+
+  const customHorizonAddress = urlParamOrSessionOrEmpty(
+    'horizonAddress',
+    url,
+    session,
+  )
+  const customSorobanRPCAddress = urlParamOrSessionOrEmpty(
+    'sorobanRPCAddress',
+    url,
+    session,
+  )
+
   return {
     networkType: hostnameToNetworkType(url.hostname),
     isLocal: url.hostname.endsWith('.local'),
