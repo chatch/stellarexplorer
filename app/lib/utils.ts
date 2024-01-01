@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js'
 import truncate from 'lodash/truncate'
 
+const Buffer = require('buffer').Buffer
+
 // Amounts in Stellar don't go below 7 decimals
 // So setting the EXPONENTIAL_AT to 8 here ensures all toString() will show the
 // numbers in full form. eg. 0.0000001 (not 1e7) which is what we want for
@@ -53,6 +55,15 @@ const hexStringToBytes = (hexString: string) => {
   return bytes.buffer
 }
 
+const isValidUrl = (url: string): boolean => {
+  try {
+    new URL(url)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
 export {
   assetKeyToIssuer,
   base64Decode,
@@ -60,6 +71,7 @@ export {
   formatAmount,
   hexStringToBytes,
   isDefInt,
+  isValidUrl,
   setTitle,
   shortAddress,
   shortHash,

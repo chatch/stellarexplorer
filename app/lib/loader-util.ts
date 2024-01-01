@@ -35,7 +35,7 @@ export function horizonRecordsLoader<RecordsType>(
       cursor,
       order: order as 'asc' | 'desc',
       limit,
-    }).then((records) =>
+    }).then((records: readonly any[]) =>
       json({
         records: (order === 'asc'
           ? [...records].reverse()
