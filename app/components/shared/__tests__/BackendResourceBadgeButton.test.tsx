@@ -45,9 +45,11 @@ describe('BackendResourceBadgeButtonWithResourceModal', () => {
     expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument()
     expect(
-      screen.getByRole('link', { name: `${url} clipboard` }),
+      screen.getByRole('link', { name: `${url} open new window` }),
     ).toBeInTheDocument()
-    expect(screen.getByRole('img', { name: 'clipboard' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('img', { name: 'open new window' }),
+    ).toBeInTheDocument()
   })
 
   it('closes the modal when close button is clicked', async () => {
