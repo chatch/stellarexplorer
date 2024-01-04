@@ -67,6 +67,7 @@ export default function Header({
           <NavDropdown
             title={formatMessage({ id: 'more' })}
             id="basic-nav-dropdown"
+            className="nav-dropdown"
           >
             <LinkContainer to="/effects">
               <NavDropdown.Item>

@@ -10,7 +10,6 @@ body {
   sans-serif;
 }
 
-
 .navbar {
   padding: 0 15px 0 0;
   border-bottom: 1px solid #96A2B4;
@@ -283,6 +282,17 @@ pre#plain-text {
   filter: brightness(0) saturate(100%) hue-rotate(0deg) invert(100%);
   height: 24px;
   width: 24px;
+}
+
+.new-window-icon {
+  filter: brightness(0) saturate(100%) hue-rotate(0deg) invert(100%);
+  height: 14px;
+  width: 14px;
+  margin-left: 10px;
+}
+
+[id="contained-modal-title-lg"] {
+  color: #dce2ec;
 }
 
 @media (max-width: 1300px) {
