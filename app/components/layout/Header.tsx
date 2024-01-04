@@ -9,6 +9,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import logoImg from '../../img/logo.png'
 import LanguageSelector from './LanguageSelector'
 import NetworkSelector from './NetworkSelector'
+import ThemeSwitcher from './ThemeSwitcher'
 import type { NetworkDetails } from '~/lib/stellar/networks'
 
 interface HeaderProps extends NetworkDetails {
@@ -24,6 +25,7 @@ export default function Header({
   customSorobanRPCAddress,
 }: Readonly<HeaderProps>) {
   const { formatMessage } = useIntl()
+
   return (
     <Navbar collapseOnSelect expand="xxl" fixed="top">
       <Navbar.Brand href="/">
@@ -60,12 +62,12 @@ export default function Header({
           <Nav.Link href="/exchanges">
             <FormattedMessage id="exchanges" />
           </Nav.Link>
-
           <div className="divider-vertical" />
 
           <NavDropdown
             title={formatMessage({ id: 'more' })}
             id="basic-nav-dropdown"
+            className="nav-dropdown"
           >
             <LinkContainer to="/effects">
               <NavDropdown.Item>
@@ -98,6 +100,9 @@ export default function Header({
               customHorizonAddress={customHorizonAddress}
               customSorobanRPCAddress={customSorobanRPCAddress}
             />
+          </NavItem>
+          <NavItem className="theme-selector-wrapper">
+            <ThemeSwitcher />
           </NavItem>
           <NavItem>
             <LanguageSelector switcher={languageSwitcher} />

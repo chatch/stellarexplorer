@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { json } from '@remix-run/node'
@@ -20,6 +20,7 @@ import { captureRemixErrorBoundaryError, withSentry } from '@sentry/remix'
 import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css'
 import jsonPrettyStyles from 'react-json-pretty/themes/1337.css'
 import siteStyles from '~/styles/styles.css'
+import lightSiteStyles from '~/styles/styles.light.css'
 
 import Footer from './components/layout/Footer'
 import Header from './components/layout/Header'
@@ -38,12 +39,14 @@ import { requestToNetworkDetails } from './lib/stellar/networks'
 import { storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
 import { NotFoundError } from 'stellar-sdk'
+import { ThemeProvider, useTheme } from '~/context/theme.provider'
 import type { ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: bootstrapStyles },
   { rel: 'stylesheet', href: jsonPrettyStyles },
   { rel: 'stylesheet', href: siteStyles },
+  { rel: 'stylesheet', href: lightSiteStyles },
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ]
 
@@ -84,8 +87,15 @@ function HtmlDocument({
   children,
   title,
 }: PropsWithChildren<{ title?: string }>) {
+  const [theme] = useTheme()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
+
   return (
-    <html lang="en">
+    <html lang="en" data-bs-theme={theme}>
       <head>
         <meta charSet="utf-8" />
         <meta
@@ -105,7 +115,7 @@ function HtmlDocument({
         <Links />
       </head>
       <body>
-        {children}
+        {!isLoading && children}
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -136,32 +146,34 @@ function App() {
   } = useLoaderData<typeof loader>()
 
   return (
-    <HtmlDocument>
-      <div className="App">
-        <IntlProvider
-          key={language}
-          locale={language}
-          messages={getMessages(language)}
-        >
-          <Header
-            languageSwitcher={languageSwitcherFn(setLanguage)}
-            networkType={networkType}
-            isLocal={isLocal}
-            isCustom={isCustom}
-            customHorizonAddress={horizonAddress}
-            customSorobanRPCAddress={sorobanRPCAddress}
-          />
-          <SearchBox />
-          <div
-            id="main-content"
-            className={navigation.state === 'loading' ? 'loading' : ''}
+    <ThemeProvider>
+      <HtmlDocument>
+        <div className="App">
+          <IntlProvider
+            key={language}
+            locale={language}
+            messages={getMessages(language)}
           >
-            <Outlet />
-          </div>
-        </IntlProvider>
-        <Footer />
-      </div>
-    </HtmlDocument>
+            <Header
+              languageSwitcher={languageSwitcherFn(setLanguage)}
+              networkType={networkType}
+              isLocal={isLocal}
+              isCustom={isCustom}
+              customHorizonAddress={horizonAddress}
+              customSorobanRPCAddress={sorobanRPCAddress}
+            />
+            <SearchBox />
+            <div
+              id="main-content"
+              className={navigation.state === 'loading' ? 'loading' : ''}
+            >
+              <Outlet />
+            </div>
+          </IntlProvider>
+          <Footer />
+        </div>
+      </HtmlDocument>
+    </ThemeProvider>
   )
 }
 
@@ -184,12 +196,14 @@ export const ErrorBoundary: ErrorBoundaryComponent = () => {
   }
 
   return (
-    <HtmlDocument title="Stellar Explorer - Error">
-      <div className="error-container">
-        <h1>Error</h1>
-        <pre>{errorMessage}</pre>
-      </div>
-    </HtmlDocument>
+    <ThemeProvider>
+      <HtmlDocument title="Stellar Explorer - Error">
+        <div className="error-container">
+          <h1>Error</h1>
+          <pre>{errorMessage}</pre>
+        </div>
+      </HtmlDocument>
+    </ThemeProvider>
   )
 }
 

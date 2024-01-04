@@ -21,7 +21,7 @@ export default function LanguageSelector({
 }) {
   const { formatMessage } = useIntl()
   return (
-    <Dropdown id="language-selector">
+    <Dropdown id="language-selector" className="nav-dropdown">
       <Dropdown.Toggle style={styleLanguageSelector}>
         <img
           src={langSelectImg}

@@ -85,7 +85,7 @@ const ResourceModal = (props: ResourceModalProps) => (
     onHide={props.handleCloseFn as () => void}
   >
     <Modal.Header closeButton>
-      <Modal.Title id="contained-modal-title-lg" style={{ color: '#dce2ec' }}>
+      <Modal.Title id="contained-modal-title-lg">
         <FormattedMessage id="network.set-custom" />
       </Modal.Title>
     </Modal.Header>
