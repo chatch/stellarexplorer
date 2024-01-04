@@ -88,7 +88,7 @@ export default function BalancesTab() {
   const { accountId } = useParams()
   useEffect(() => {
     setTitle(`Account Signing ${accountId}`)
-  })
+  }, [accountId])
 
   if (!accountResult) {
     return

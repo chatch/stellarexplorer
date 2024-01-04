@@ -69,7 +69,7 @@ export default function BalancesTab() {
   const { accountId } = useParams()
   useEffect(() => {
     setTitle(`Account Balances ${accountId}`)
-  })
+  }, [accountId])
 
   if (!accountResult) {
     return

@@ -27,7 +27,7 @@ export default function Trades() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(formatMessage({ id: 'trades' }))
-  })
+  }, [formatMessage])
 
   return (
     <Container>

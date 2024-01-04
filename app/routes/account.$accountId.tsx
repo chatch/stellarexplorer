@@ -65,7 +65,7 @@ const AccountSummaryCard = ({
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(`Account ${account.id}`)
-  })
+  }, [account.id])
   return (
     <Card id="account-summary-card">
       <CardHeader>

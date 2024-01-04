@@ -39,7 +39,7 @@ export default function Effects() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(formatMessage({ id: 'effects' }))
-  })
+  }, [formatMessage])
 
   return (
     <Container>

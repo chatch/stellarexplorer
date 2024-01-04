@@ -25,7 +25,7 @@ export default function Payments() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(formatMessage({ id: 'payments' }))
-  })
+  }, [formatMessage])
 
   return (
     <Container>

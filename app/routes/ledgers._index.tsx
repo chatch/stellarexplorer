@@ -27,7 +27,7 @@ export default function Ledgers() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(formatMessage({ id: 'ledgers' }))
-  })
+  }, [formatMessage])
 
   return (
     <Container>
