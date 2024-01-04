@@ -43,7 +43,7 @@ export default function InterfaceTab() {
   const { contractId } = useParams()
   useEffect(() => {
     setTitle(`Contract Interface ${contractId}`)
-  }, [])
+  }, [contractId])
 
   const loadResult = useLoaderData<typeof loader>()
 

@@ -60,7 +60,7 @@ const accountTabComponent = function <loaderFnType>(
     const { accountId } = useParams()
     useEffect(() => {
       setTitle(`Account ${name} ${accountId}`)
-    })
+    }, [accountId])
 
     if (!records || records.length === 0) {
       return <div style={{ marginTop: 20, marginBottom: 20 }}>No Records</div>

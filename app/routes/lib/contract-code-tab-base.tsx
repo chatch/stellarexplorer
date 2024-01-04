@@ -48,7 +48,7 @@ export default function contractCodeTab(loader: Function, language?: string) {
     const { contractId } = useParams()
     useEffect(() => {
       setTitle(`Contract Code ${contractId}`)
-    })
+    }, [contractId])
 
     const codeProps = useLoaderData<typeof loader>() as CodeProps | null
 

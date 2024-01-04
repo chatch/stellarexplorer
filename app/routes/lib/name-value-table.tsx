@@ -68,7 +68,7 @@ const nameValueAccountTab = function (name: string) {
     const { accountId } = useParams()
     useEffect(() => {
       setTitle(`Account ${name} ${accountId}`)
-    })
+    }, [accountId])
 
     if (!accountResult) {
       return

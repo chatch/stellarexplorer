@@ -114,7 +114,7 @@ export default function Ledger() {
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(`${formatMessage({ id: 'ledger' })} ${sequence}`)
-  })
+  }, [formatMessage, sequence])
 
   if (!id) return null
 

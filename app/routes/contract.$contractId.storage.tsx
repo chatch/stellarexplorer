@@ -59,7 +59,7 @@ export default function StorageTab() {
   const { contractId } = useParams()
   useEffect(() => {
     setTitle(`Contract Storage ${contractId}`)
-  }, [])
+  }, [contractId])
 
   const loadResult = useLoaderData<typeof loader>() as {
     storage: ReadonlyArray<StorageElement>
