@@ -1,0 +1,553 @@
+[
+  {
+    "address": "GA2XP4KMY4KWNPW4KUCUKYUF2J7Y6HO5HLPUEA3VPVSMYCM3TGNEZP5S",
+    "paging_token": "GA2XP4KMY4KWNPW4KUCUKYUF2J7Y6HO5HLPUEA3VPVSMYCM3TGNEZP5S",
+    "domain": "coinswitch.co",
+    "name": "CoinSwitchPro",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GA3CINHTGMUMRVPJPVHYJWQJ2EF7EX2PCRAFN4H4ZPO77WB6RHXEHMJT",
+    "paging_token": "GA3CINHTGMUMRVPJPVHYJWQJ2EF7EX2PCRAFN4H4ZPO77WB6RHXEHMJT",
+    "domain": "coinbase.com",
+    "name": "Coinbase Withdrawals",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GA5X5JLMZBG5IPNGW3LLSI5N3T6T3DFT772FGH6QCVSBJBJDIXOZ74LA",
+    "paging_token": "GA5X5JLMZBG5IPNGW3LLSI5N3T6T3DFT772FGH6QCVSBJBJDIXOZ74LA",
+    "domain": "altilly.com",
+    "name": "Altilly",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GA5XIGA5C7QTPTWXQHY6MCJRMTRZDOSHR6EFIBNDQTCQHG262N4GGKTM",
+    "paging_token": "GA5XIGA5C7QTPTWXQHY6MCJRMTRZDOSHR6EFIBNDQTCQHG262N4GGKTM",
+    "domain": "kraken.com",
+    "name": "Kraken",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GA6SXIZIKLJHCZI2KEOBEUUOFMM4JUPPM2UTWX6STAWT25JWIEUFIMFF",
+    "paging_token": "GA6SXIZIKLJHCZI2KEOBEUUOFMM4JUPPM2UTWX6STAWT25JWIEUFIMFF",
+    "domain": "wazirx.com",
+    "name": "WazirX",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6",
+    "paging_token": "GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6",
+    "domain": "binance.com",
+    "name": "Binance Deposits",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GABRNO3RCFT5VS3JZ5K6A5PBVI47BKKNO6SH3XFQQHIPCW5AWIU3F4SL",
+    "paging_token": "GABRNO3RCFT5VS3JZ5K6A5PBVI47BKKNO6SH3XFQQHIPCW5AWIU3F4SL",
+    "domain": "bitpanda.com",
+    "name": "Bitpanda Deposits",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GACIQZ6GM22K2TH7BABPTLSTA7E2DG42OP676HBYJDWVGSOF6NZE4MQY",
+    "paging_token": "GACIQZ6GM22K2TH7BABPTLSTA7E2DG42OP676HBYJDWVGSOF6NZE4MQY",
+    "domain": "digifinex.com",
+    "name": "DigiFinex",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GAESQGK5TTKPT2JY4STRN6MJU56LNHQVBFROGX5GFIWUPK3JHZ5F5FCI",
+    "paging_token": "GAESQGK5TTKPT2JY4STRN6MJU56LNHQVBFROGX5GFIWUPK3JHZ5F5FCI",
+    "domain": "wirexapp.com",
+    "name": "WireX Deposit",
+    "tags": [
+      "wallet",
+      "anchor",
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GAJ4BSGJE6UQHZAZ5U5IUOABPDCYPKPS3RFS2NVNGFGFXGVQDLBQJW2P",
+    "paging_token": "GAJ4BSGJE6UQHZAZ5U5IUOABPDCYPKPS3RFS2NVNGFGFXGVQDLBQJW2P",
+    "domain": "kucoin.com",
+    "name": "KuCoin",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GAPRC4SRTZSIUA34CWP7KB7FIMURX3ZT2CPNBGET5TJ4XZBONKHS6TPF",
+    "paging_token": "GAPRC4SRTZSIUA34CWP7KB7FIMURX3ZT2CPNBGET5TJ4XZBONKHS6TPF",
+    "domain": "nicehash.com",
+    "name": "NiceHash",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GARAR5QR7WRL24MQMSO4INWV7C5SE4EE2YVXTLD6ORONYFHSUAGZYSLN",
+    "paging_token": "GARAR5QR7WRL24MQMSO4INWV7C5SE4EE2YVXTLD6ORONYFHSUAGZYSLN",
+    "domain": "blockchain.com",
+    "name": "Blockchain.com",
+    "tags": [
+      "custodian",
+      "wallet",
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GAW4E6NGM4NPNX2LO2BKDPCCTUX3FJLKWHPU4VQPGBIBQGD6JTVF5C7C",
+    "paging_token": "GAW4E6NGM4NPNX2LO2BKDPCCTUX3FJLKWHPU4VQPGBIBQGD6JTVF5C7C",
+    "domain": "upbit.com",
+    "name": "Upbit",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GAWPTHY6233GRWZZ7JXDMVXDUDCVQVVQ2SXCSTG3R3CNP5LQPDAHNBKL",
+    "paging_token": "GAWPTHY6233GRWZZ7JXDMVXDUDCVQVVQ2SXCSTG3R3CNP5LQPDAHNBKL",
+    "domain": "bitfinex.com",
+    "name": "Bitfinex",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GAZPKFKAB77OLKE7EGEQK6I4ZGBJXSYCWMG654KLOWRX3KEK7MLZPYED",
+    "paging_token": "GAZPKFKAB77OLKE7EGEQK6I4ZGBJXSYCWMG654KLOWRX3KEK7MLZPYED",
+    "domain": "exmarkets.com",
+    "name": "ExMarkets",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GB3RMPTL47E4ULVANHBNCXSXM2ZA5JFY5ISDRERPCXNJUDEO73QFZUNK",
+    "paging_token": "GB3RMPTL47E4ULVANHBNCXSXM2ZA5JFY5ISDRERPCXNJUDEO73QFZUNK",
+    "domain": "cex.io",
+    "name": "CEX.IO",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GB67TJFJO3GUA432EJ4JTODHFYSBTM44P4XQCDOFTXJNNPV2UKUJYVBF",
+    "paging_token": "GB67TJFJO3GUA432EJ4JTODHFYSBTM44P4XQCDOFTXJNNPV2UKUJYVBF",
+    "domain": "crypto.com",
+    "name": "CryptoCom",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GB6JTIT5PHAZA4VMFI7TGGG44TE3LEDFPG52GSKBZOPDDDMNJAGSF46T",
+    "paging_token": "GB6JTIT5PHAZA4VMFI7TGGG44TE3LEDFPG52GSKBZOPDDDMNJAGSF46T",
+    "domain": "www.kucoin.com",
+    "name": "KuCoin Withdrawals",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GB6YPGW5JFMMP2QB2USQ33EUWTXVL4ZT5ITUNCY3YKVWOJPP57CANOF3",
+    "paging_token": "GB6YPGW5JFMMP2QB2USQ33EUWTXVL4ZT5ITUNCY3YKVWOJPP57CANOF3",
+    "domain": "bittrex.com",
+    "name": "Bittrex",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GBC6NRTTQLRCABQHIR5J4R4YDJWFWRAO4ZRQIM2SVI5GSIZ2HZ42RINW",
+    "paging_token": "GBC6NRTTQLRCABQHIR5J4R4YDJWFWRAO4ZRQIM2SVI5GSIZ2HZ42RINW",
+    "domain": "gate.io",
+    "name": "GateIO",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GBEUMX5LZNQOSD3SG7G4BJCHLXFPQUXBBLI4UOHU7GFXLEXPVXUIJCXL",
+    "paging_token": "GBEUMX5LZNQOSD3SG7G4BJCHLXFPQUXBBLI4UOHU7GFXLEXPVXUIJCXL",
+    "domain": "wirecash.com",
+    "name": "Wirecash  (legacy)",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GBEW2BYUP2PCKWVOQWL2Z2DDU6CBBYLPHDK3RR2LS4PI2CZUU5HL3GTC",
+    "paging_token": "GBEW2BYUP2PCKWVOQWL2Z2DDU6CBBYLPHDK3RR2LS4PI2CZUU5HL3GTC",
+    "domain": "changenow.io",
+    "name": "ChangeNow",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GBGII2C7M4TOEC2MVAZYG3TRFM3ATCCEWANSN4Q3AHEX3NRKXJCVZDEV",
+    "paging_token": "GBGII2C7M4TOEC2MVAZYG3TRFM3ATCCEWANSN4Q3AHEX3NRKXJCVZDEV",
+    "domain": "okex.com",
+    "name": "OKEX",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GBGVRE5DH6HGNYNLWQITKRQYGR4PWQEH6MOE5ELPY3I4XJPTZ7CVT4YW",
+    "paging_token": "GBGVRE5DH6HGNYNLWQITKRQYGR4PWQEH6MOE5ELPY3I4XJPTZ7CVT4YW",
+    "domain": "papayabot.com",
+    "name": "PapayaSwap",
+    "tags": [
+      "anchor",
+      "memo-required",
+      "exchange"
+    ]
+  },
+  {
+    "address": "GBQQE6EYNAD6ZXSXKDOABWG3GNCKLNY7DBREHGM3TLVBGSGUBF475M4Y",
+    "paging_token": "GBQQE6EYNAD6ZXSXKDOABWG3GNCKLNY7DBREHGM3TLVBGSGUBF475M4Y",
+    "domain": "liquid.com",
+    "name": "Liquid Withdrawals",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GBS2RTBGEWBT7DJOH7CTA4PDVLIPONCPCIILJPPESWSHDIV4NFZJHRP3",
+    "paging_token": "GBS2RTBGEWBT7DJOH7CTA4PDVLIPONCPCIILJPPESWSHDIV4NFZJHRP3",
+    "domain": "bitkub.com",
+    "name": "Bitkub",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GBSTRUSD7IRX73RQZBL3RQUH6KS3O4NYFY3QCALDLZD77XMZOPWAVTUK",
+    "paging_token": "GBSTRUSD7IRX73RQZBL3RQUH6KS3O4NYFY3QCALDLZD77XMZOPWAVTUK",
+    "domain": "stronghold.co",
+    "name": "Stronghold",
+    "tags": [
+      "anchor",
+      "issuer",
+      "exchange"
+    ]
+  },
+  {
+    "address": "GBVOL67TMUQBGL4TZYNMY3ZQ5WGQYFPFD5VJRWXR72VA33VFNL225PL5",
+    "paging_token": "GBVOL67TMUQBGL4TZYNMY3ZQ5WGQYFPFD5VJRWXR72VA33VFNL225PL5",
+    "domain": "stellarport.io",
+    "name": "Stellarport",
+    "tags": [
+      "anchor",
+      "issuer",
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GBW64JT24G4M2FTXVDKJOEQDSBLULXALEYY6VPEJIEN4NTFGMW35BPP5",
+    "paging_token": "GBW64JT24G4M2FTXVDKJOEQDSBLULXALEYY6VPEJIEN4NTFGMW35BPP5",
+    "domain": "bitvavo.com",
+    "name": "Bitvavo",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GBZLHGDYMSVF4X6DYAGKLIQX3F64W3MXNDVGHKQPR226TCJ5QJ2ZQKVA",
+    "paging_token": "GBZLHGDYMSVF4X6DYAGKLIQX3F64W3MXNDVGHKQPR226TCJ5QJ2ZQKVA",
+    "domain": "paribu.com",
+    "name": "Paribu",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GC2IIDXF2DSZCF4A5Y2QIMK6P3S5QOMLHBIKDPY3WQCP25P7QI7ATIC5",
+    "paging_token": "GC2IIDXF2DSZCF4A5Y2QIMK6P3S5QOMLHBIKDPY3WQCP25P7QI7ATIC5",
+    "domain": "bkex.com",
+    "name": "BKEX",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GC4KAS6W2YCGJGLP633A6F6AKTCV4WSLMTMIQRSEQE5QRRVKSX7THV6S",
+    "paging_token": "GC4KAS6W2YCGJGLP633A6F6AKTCV4WSLMTMIQRSEQE5QRRVKSX7THV6S",
+    "domain": "indodax.com",
+    "name": "IndoDax",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GC4XXGFHK4U56VJLF2TSLGUEER2BKH6PWE5BURYMAFYULVJB3WKOXFFM",
+    "paging_token": "GC4XXGFHK4U56VJLF2TSLGUEER2BKH6PWE5BURYMAFYULVJB3WKOXFFM",
+    "domain": "exmo.com",
+    "name": "EXMO Cold Storage",
+    "tags": [
+      "exchange",
+      "custodian"
+    ]
+  },
+  {
+    "address": "GC5AD5DUPU5HOHLVARBR7S7JE6EOXZQF5Z4OP3IZA4KMIIDULOEB6GRY",
+    "paging_token": "GC5AD5DUPU5HOHLVARBR7S7JE6EOXZQF5Z4OP3IZA4KMIIDULOEB6GRY",
+    "domain": "simpleswap.io",
+    "name": "SimpleSwap",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GC7YNBWTTLCMAODL2KRBGVN6PIHH25GVUYTSIOSC744TZOG53VFNQ247",
+    "paging_token": "GC7YNBWTTLCMAODL2KRBGVN6PIHH25GVUYTSIOSC744TZOG53VFNQ247",
+    "domain": "bithumb.pro",
+    "name": "Bithumb Global",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GCDBX7GTQWJFTAJCJUGV4KXJZE6Q527YRLW75GYDJ2ODSVBOXCS4W7VS",
+    "paging_token": "GCDBX7GTQWJFTAJCJUGV4KXJZE6Q527YRLW75GYDJ2ODSVBOXCS4W7VS",
+    "domain": "mexc.com",
+    "name": "MEXC",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GCF7F72LNF3ODSJIIWPJWEVWX33VT2SVZSUQ5NMDKDLK3N2NFCUAUHPT",
+    "paging_token": "GCF7F72LNF3ODSJIIWPJWEVWX33VT2SVZSUQ5NMDKDLK3N2NFCUAUHPT",
+    "domain": "poloniex.com",
+    "name": "Poloniex",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GCFFCV3WBRVRFJM7EEIZRK2IQHLIMBIAADYUZ62J264FGETCUJKCL3RK",
+    "paging_token": "GCFFCV3WBRVRFJM7EEIZRK2IQHLIMBIAADYUZ62J264FGETCUJKCL3RK",
+    "domain": "mercadobitcoin.com.br",
+    "name": "Mercado Bitcoin",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GCGMJ63NTBSQKW7OEQ3J2RZH6PYXSTEUK4TVE35IPXLB7XWNI2PUDCY6",
+    "paging_token": "GCGMJ63NTBSQKW7OEQ3J2RZH6PYXSTEUK4TVE35IPXLB7XWNI2PUDCY6",
+    "domain": "uphold.com",
+    "name": "Uphold",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GCLDH6L6FBLTD3H3B23D6TIFVVTFBLZMNBC3ZOI6FGI5GPQROL4FOXIN",
+    "paging_token": "GCLDH6L6FBLTD3H3B23D6TIFVVTFBLZMNBC3ZOI6FGI5GPQROL4FOXIN",
+    "domain": "ripplefox.com",
+    "name": "RippleFox",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GCMUIH5THNEHBN6D26HVBCDWGYSX3D42D2CCTERNJLMRFFR2YI7H3IXJ",
+    "paging_token": "GCMUIH5THNEHBN6D26HVBCDWGYSX3D42D2CCTERNJLMRFFR2YI7H3IXJ",
+    "domain": "changehero.io",
+    "name": "ChangeHero",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+    "paging_token": "GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57LFWVV6P",
+    "domain": "interstellar.exchange",
+    "name": "InterstellarExchange",
+    "tags": [
+      "anchor",
+      "issuer",
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GCXDR4QZ4OTVX6433DPTXELCSEWQ4E5BIPVRRJMUR6M3NT4JCVIDALZO",
+    "paging_token": "GCXDR4QZ4OTVX6433DPTXELCSEWQ4E5BIPVRRJMUR6M3NT4JCVIDALZO",
+    "domain": "gopax.com",
+    "name": "GOPAX",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GD5NP74FP22VVRVPUFWONJVXTMK64R4Y6EEJZYW6JNKDTPK4TR6HR6OT",
+    "paging_token": "GD5NP74FP22VVRVPUFWONJVXTMK64R4Y6EEJZYW6JNKDTPK4TR6HR6OT",
+    "domain": "hitbtc.com",
+    "name": "HitBTC",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GDCDYZ42EOC4UBLKLOA6ZR5OSXL5WHLWAJLXJ7O646FQ5EMUG6IIAECE",
+    "paging_token": "GDCDYZ42EOC4UBLKLOA6ZR5OSXL5WHLWAJLXJ7O646FQ5EMUG6IIAECE",
+    "domain": "okcoin.com",
+    "name": "Okcoin",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GDCFG6RLFDYP2GGJ3DYWIFYC4I4ODX4LDW3VMAI3BOEDL5AV2KFZHFZK",
+    "paging_token": "GDCFG6RLFDYP2GGJ3DYWIFYC4I4ODX4LDW3VMAI3BOEDL5AV2KFZHFZK",
+    "domain": "finexbox.com",
+    "name": "FinexBox",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GDDLBDK6MPELQT5O6QC7BT56SM3WQKY7PEJ7FI4LQECDEZFTUB2JSKVC",
+    "paging_token": "GDDLBDK6MPELQT5O6QC7BT56SM3WQKY7PEJ7FI4LQECDEZFTUB2JSKVC",
+    "domain": "zebpay.com",
+    "name": "Zebpay",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GDJF3HLA53SLZ47BV6M2RHO5EBWT44RAYDPAOI6ENIDI4F44LODJSGX5",
+    "paging_token": "GDJF3HLA53SLZ47BV6M2RHO5EBWT44RAYDPAOI6ENIDI4F44LODJSGX5",
+    "domain": "stormgain.com",
+    "name": "StormGain",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GDLE7PMXCPKNALUQP6VLZTDUD2O5SJJ4GKKYXUME6KWHCPEAVGIWY6G6",
+    "paging_token": "GDLE7PMXCPKNALUQP6VLZTDUD2O5SJJ4GKKYXUME6KWHCPEAVGIWY6G6",
+    "domain": "bitmart.com",
+    "name": "Bitmart",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GDMXNQBJMS3FYI4PFSYCCB4XODQMNMTKPQ5HIKOUWBOWJ2P3CF6WASBE",
+    "paging_token": "GDMXNQBJMS3FYI4PFSYCCB4XODQMNMTKPQ5HIKOUWBOWJ2P3CF6WASBE",
+    "domain": "www.cryptomkt.com",
+    "name": "Cryptomkt",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GDP34WXZRCSHVUDQLGKJKOBMS5LOQPHCIADZU5POEF3IICZ7XNQJ65Y6",
+    "paging_token": "GDP34WXZRCSHVUDQLGKJKOBMS5LOQPHCIADZU5POEF3IICZ7XNQJ65Y6",
+    "domain": "huobi.com",
+    "name": "Huobi",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GDTSOI56XNVAKJNJBLJGRNZIVOCIZJRBIDKTWSCYEYNFAZEMBLN75RMN",
+    "paging_token": "GDTSOI56XNVAKJNJBLJGRNZIVOCIZJRBIDKTWSCYEYNFAZEMBLN75RMN",
+    "domain": "whitebit.com",
+    "name": "WhiteBIT",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GDUST544JNATIO2VI3L7LXHVJFZXNYRWIKNMGRV2RZFZOOBE635SEI4C",
+    "paging_token": "GDUST544JNATIO2VI3L7LXHVJFZXNYRWIKNMGRV2RZFZOOBE635SEI4C",
+    "domain": "bitrue.com",
+    "name": "Bitrue",
+    "tags": [
+      "exchange",
+      "memo-required"
+    ]
+  },
+  {
+    "address": "GDWYCXDRHIKEGYMR45SAC5O2YXCPWUBZZEDFZPZQ3OS7XZJBDCMBON6Y",
+    "paging_token": "GDWYCXDRHIKEGYMR45SAC5O2YXCPWUBZZEDFZPZQ3OS7XZJBDCMBON6Y",
+    "domain": "",
+    "name": "ChangeNow",
+    "tags": [
+      "exchange"
+    ]
+  },
+  {
+    "address": "GDXK7IBK4S63WLVVCW66GFJSWS7YXIJTFTN4ZI2WQ4DLKSKB55GSCYKJ",
+    "paging_token": "GDXK7IBK4S63WLVVCW66GFJSWS7YXIJTFTN4ZI2WQ4DLKSKB55GSCYKJ",
+    "domain": "coinhako.com",
+    "name": "Coinhako",
+    "tags": [
+      "exchange",
+      "wallet",
+      "memo-required"
+    ]
+  }
+]

@@ -7,10 +7,10 @@ A ledger explorer for [Stellar](https://stellar.org).
 
 Deployments:
 
-- Public: https://steexp.com
-- Test: https://testnet.steexp.com
-- Futurenet: https://futurenet.steexp.com
-- Local: http://localhost:3000
+- Public: <https://steexp.com>
+- Test: <https://testnet.steexp.com>
+- Futurenet: <https://futurenet.steexp.com>
+- Local: <http://localhost:3000>
 
 ## Resources
 
@@ -80,7 +80,7 @@ Deployments:
 
 ## Exploring Private / Local Development Networks<a name="private-networks"></a>
 
-steexp will connect to a local horizon instance at http://localhost:8000 by default. If your running a local private network for development this is quite handy for browsing your changes to the ledger.
+steexp will connect to a local horizon instance at <http://localhost:8000> by default. If your running a local private network for development this is quite handy for browsing your changes to the ledger.
 
 Alternatively you can run locally connecting to the testnet or public network horizon instances. To do this define these aliases to localhost:
 
@@ -92,7 +92,7 @@ Alternatively you can run locally connecting to the testnet or public network ho
 
 > Use 127.0.0.1 instead of 127.0.1.1 when the above doesn't work.
 
-Navigate to http://testnet.local:3000, http://futurenet.local:3000 or http://publicnet.local:3000 to select the network your interesting in exploring.
+Navigate to <http://testnet.local:3000>, <http://futurenet.local:3000> or <http://publicnet.local:3000> to select the network your interesting in exploring.
 
 ## Development
 
@@ -159,6 +159,14 @@ npm i && npm run build
 Use the language selector in the top right corner to change the language.
 
 Translation files are here:
-https://github.com/chatch/stellarexplorer/tree/master/src/languages
+<https://github.com/chatch/stellarexplorer/tree/master/src/languages>
 
 Submit pull requests with new languages or languages fixes there.
+
+## Scripts
+
+### Fetch and restructure centralized exchanges data
+
+```sh
+npx ts-node scripts/restructure-centralized-exchanges-json.ts
+```
