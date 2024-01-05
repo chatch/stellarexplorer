@@ -3,17 +3,18 @@ import { clickLinkAndVerify, getFirstLink, verifyOpeningNewPage } from './utils'
 
 const baseUrl = 'https://steexp.com'
 
-const expectedAccountPageTitle =
-  // 'Stellar Explorer | Account Balances'
-  'Stellar Explorer | Account'
-
 test('top page', async ({ page }) => {
   await page.goto(`${baseUrl}/`)
   await expect(page).toHaveTitle('Stellar Explorer | Home')
 
   // Click account link
   const accountLink = await getFirstLink(page, 0)
-  await clickLinkAndVerify(baseUrl, page, accountLink, expectedAccountPageTitle)
+  await clickLinkAndVerify(
+    baseUrl,
+    page,
+    accountLink,
+    'Stellar Explorer | Account Balances',
+  )
 })
 
 test('operations', async ({ page }) => {
@@ -24,7 +25,12 @@ test('operations', async ({ page }) => {
 
   // Click account link
   const accountLink = await getFirstLink(page, 0)
-  await clickLinkAndVerify(baseUrl, page, accountLink, expectedAccountPageTitle)
+  await clickLinkAndVerify(
+    baseUrl,
+    page,
+    accountLink,
+    'Stellar Explorer | Account Balances',
+  )
 
   // Click transaction link
   await page.goto(targetUrl)
@@ -55,7 +61,12 @@ test('transactions', async ({ page }) => {
   // Click account link
   await page.goto(targetUrl)
   const accountLink = await getFirstLink(page, 1)
-  await clickLinkAndVerify(baseUrl, page, accountLink, expectedAccountPageTitle)
+  await clickLinkAndVerify(
+    baseUrl,
+    page,
+    accountLink,
+    'Stellar Explorer | Account Balances',
+  )
 
   // Click ledger link
   await page.goto(targetUrl)
@@ -130,7 +141,12 @@ test('effects', async ({ page }) => {
 
   // Click account link
   const accountLink = await getFirstLink(page, 0)
-  await clickLinkAndVerify(baseUrl, page, accountLink, expectedAccountPageTitle)
+  await clickLinkAndVerify(
+    baseUrl,
+    page,
+    accountLink,
+    'Stellar Explorer | Account Balances',
+  )
 })
 
 test('payments', async ({ page }) => {
@@ -141,7 +157,12 @@ test('payments', async ({ page }) => {
 
   // Click account link
   const accountLink = await getFirstLink(page, 0)
-  await clickLinkAndVerify(baseUrl, page, accountLink, expectedAccountPageTitle)
+  await clickLinkAndVerify(
+    baseUrl,
+    page,
+    accountLink,
+    'Stellar Explorer | Account Balances',
+  )
 
   // Click transaction link
   await page.goto(targetUrl)
@@ -166,7 +187,7 @@ test('trades', async ({ page }) => {
     baseUrl,
     page,
     account1Link,
-    expectedAccountPageTitle,
+    'Stellar Explorer | Account Balances',
   )
 
   // Click account 2 link
@@ -176,7 +197,7 @@ test('trades', async ({ page }) => {
     baseUrl,
     page,
     account2Link,
-    expectedAccountPageTitle,
+    'Stellar Explorer | Account Balances',
   )
 })
 
