@@ -22,22 +22,26 @@ interface ExchangeProps {
   home: string
   name: string
   decentralized?: boolean
+  showImage?: boolean
 }
 
 const Exchange = ({
   accounts,
   home,
   name,
+  showImage = true,
   decentralized = false,
 }: ExchangeProps) => {
   const homeLink = `https://${home}`
   return (
     <tr className="directoryRow">
-      <td>
-        <a href={homeLink} target="_blank" rel="noreferrer">
-          <Logo name={name} type="exchange" />
-        </a>
-      </td>
+      {showImage ? (
+        <td>
+          <a href={homeLink} target="_blank" rel="noreferrer">
+            <Logo name={name} type="exchange" />
+          </a>
+        </td>
+      ) : null}
       <td>
         <a href={homeLink} target="_blank" rel="noreferrer">
           {home}
@@ -57,10 +61,10 @@ const Exchange = ({
   )
 }
 
-const TableHeader = () => (
+const TableHeader = ({ showImage = true }: { showImage?: boolean }) => (
   <thead>
     <tr>
-      <th />
+      {showImage && <th />}
       <th>
         <FormattedMessage id="home.domain" />
       </th>
@@ -111,15 +115,15 @@ export default function Exchanges() {
               Centralized
             </h6>
             <Table id="cex-table">
-              <TableHeader />
+              <TableHeader showImage={false} />
               <tbody>
-                <tr>
-                  <td />
-                  <td />
-                  <td />
-                </tr>
                 {Object.keys(centralized).map((id) => (
-                  <Exchange key={id} name={id} {...centralized[id]} />
+                  <Exchange
+                    key={id}
+                    name={id}
+                    {...centralized[id]}
+                    showImage={false}
+                  />
                 ))}
               </tbody>
             </Table>
