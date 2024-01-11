@@ -63,6 +63,7 @@
     "ledgers": "台帳",
     "limit": "限度枠",
     "liquidity-pools": "流動性プール",
+    "liquidity-pool": "流動性プール",
     "liquidity-pool.assets": "資産",
     "liquidity-pool.shares": "シェア",
     "liquidity-pool.trustlines": "トラストライン",

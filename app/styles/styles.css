@@ -499,8 +499,7 @@ button[id^="btn-custom-network"]:first-of-type {
   padding: 10px 20px;
 }
 
-.account-tab-active,
-.contract-tab-active {
+.active-tab-in-tab-link {
   color: #01c0c8 !important;
   background-color: white;
 }

@@ -1,16 +1,16 @@
 import Table from 'react-bootstrap/Table'
 import { FormattedMessage } from 'react-intl'
-import type { Horizon } from 'stellar-sdk'
+import { Link } from 'react-router-dom'
 
 import { type LiquidityPoolProps } from './operations/LiquidityPool'
 import { liquidityPoolAsset } from '~/data/liquidity_pool_asset'
 import { formatAmountToHumanReadable, getAssetCode } from '~/lib/utilities'
 
 import styles from './LiquidityPoolTable.module.css'
+import type { HorizonApi } from 'stellar-sdk/lib/horizon'
 
 interface ParentProps {
   compact: boolean
-  // horizonURL: string
 }
 
 interface LiquidityPoolRowProps extends LiquidityPoolProps, ParentProps {}
@@ -18,15 +18,14 @@ interface LiquidityPoolRowProps extends LiquidityPoolProps, ParentProps {}
 interface LiquidityPoolTableProps {
   compact: boolean
   records: ReadonlyArray<LiquidityPoolProps>
-  // horizonURL?: string
 }
 
-const fallBackAssetIcon = 'img/circle.svg'
+const fallBackAssetIcon = '/img/circle.svg'
 
-const PoolAsset = ({
+export const PoolAsset = ({
   reserves,
 }: {
-  reserves: Horizon.Reserve[]
+  reserves: HorizonApi.Reserve[]
 }): React.JSX.Element => {
   return (
     <div>
@@ -59,7 +58,6 @@ const PoolAsset = ({
 }
 
 const LiquidityPoolRow = ({
-  // compact,
   id,
   totalTrustlines,
   totalShares,
@@ -67,7 +65,9 @@ const LiquidityPoolRow = ({
 }: LiquidityPoolRowProps): React.JSX.Element => (
   <tr>
     <td>
-      <PoolAsset reserves={reserves} />
+      <Link to={`/pools/${id}`}>
+        <PoolAsset reserves={reserves} />
+      </Link>
     </td>
     <td className={styles['shares']}>
       {formatAmountToHumanReadable(totalShares)}
@@ -78,7 +78,7 @@ const LiquidityPoolRow = ({
 
 export default function LiquidityPoolTable({
   compact,
-  records, // horizonURL,
+  records,
 }: LiquidityPoolTableProps) {
   return (
     <div>

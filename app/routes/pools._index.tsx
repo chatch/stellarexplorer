@@ -22,7 +22,7 @@ export const loader = horizonRecordsLoader<ReadonlyArray<LiquidityPoolProps>>(
 )
 
 export default function LiquidityPools() {
-  const { records, cursor, horizonURL } = useLoaderData<typeof loader>()
+  const { records, cursor } = useLoaderData<typeof loader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -39,9 +39,8 @@ export default function LiquidityPools() {
           <Card.Body>
             <Paging baseUrl="/pools" records={records} currentCursor={cursor}>
               <LiquidityPoolTable
-                records={records}
+                records={records as LiquidityPoolProps[]}
                 compact={false}
-                horizonURL={horizonURL}
               />
             </Paging>
           </Card.Body>

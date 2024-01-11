@@ -2,13 +2,7 @@ import { Link } from 'react-router-dom'
 import { FormattedMessage, useIntl } from 'react-intl'
 import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import {
-  NavLink,
-  Outlet,
-  useLoaderData,
-  useLocation,
-  useParams,
-} from '@remix-run/react'
+import { Outlet, useLoaderData, useLocation, useParams } from '@remix-run/react'
 
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
@@ -26,6 +20,7 @@ import ContractIdInvalid from '~/lib/error/ContractIdInvalid'
 import { captureException } from '@sentry/remix'
 import { saveAs } from '~/lib/filesaver'
 import { hexStringToBytes } from '~/lib/utils'
+import TabLink from './lib/tab-link-base'
 
 const pathToTabName = (path: string) => {
   const match = /\/contract\/[^/]*\/([a-z,-]*)/.exec(path)
@@ -47,25 +42,6 @@ const DetailRow = ({ label, children }: { label: string; children: any }) => (
     </td>
     <td>{children}</td>
   </tr>
-)
-
-const TabLink = ({
-  base,
-  title,
-  activeTab,
-  path = title?.toLowerCase(),
-}: {
-  base: string
-  title: string
-  activeTab: string
-  path?: string
-}) => (
-  <NavLink
-    to={`${base}/${path}`}
-    className={activeTab === path ? 'contract-tab-active' : ''}
-  >
-    {title}
-  </NavLink>
 )
 
 export { ErrorBoundary }

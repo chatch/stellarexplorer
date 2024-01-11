@@ -62,23 +62,22 @@ const transactions = (
   {
     ledgerSeq,
     accountId,
+    poolId,
     cursor,
     order = 'desc',
     limit = 5,
-  }: PageOptions & { ledgerSeq?: string; accountId?: string },
+  }: PageOptions & { ledgerSeq?: string; accountId?: string; poolId?: string },
 ) => {
   const builder: TransactionCallBuilder = server.transactions()
-  if (ledgerSeq) {
-    builder.forLedger(ledgerSeq)
-  }
-  if (accountId) {
-    builder.forAccount(accountId)
-  }
-  if (cursor) {
-    builder.cursor(cursor)
-  }
+
+  if (ledgerSeq) builder.forLedger(ledgerSeq)
+  if (accountId) builder.forAccount(accountId)
+  if (poolId) builder.forLiquidityPool(poolId)
+
+  if (cursor) builder.cursor(cursor)
   builder.limit(limit)
   builder.order(order)
+
   return builder
     .call()
     .then((serverRsp) =>
@@ -156,15 +155,17 @@ const operations = (
   {
     accountId,
     tx,
+    poolId,
     cursor,
     order = 'desc',
     limit = 5,
-  }: PageOptions & { accountId?: string; tx?: string },
+  }: PageOptions & { accountId?: string; tx?: string; poolId?: string },
 ) => {
   const builder: OperationCallBuilder = server.operations()
 
-  if (tx) builder.forTransaction(tx)
   if (accountId) builder.forAccount(accountId)
+  if (tx) builder.forTransaction(tx)
+  if (poolId) builder.forLiquidityPool(poolId)
 
   if (cursor) builder.cursor(cursor)
   builder.limit(limit)
@@ -183,16 +184,23 @@ const effects = (
     accountId,
     operationId,
     tx,
+    poolId,
     cursor,
     order = 'desc',
     limit = 5,
-  }: PageOptions & { accountId?: string; tx?: string; operationId?: string },
+  }: PageOptions & {
+    accountId?: string
+    operationId?: string
+    tx?: string
+    poolId?: string
+  },
 ): Promise<ReadonlyArray<ServerApi.EffectRecord>> => {
   const builder: EffectCallBuilder = server.effects()
 
   if (accountId) builder.forAccount(accountId)
   if (operationId) builder.forOperation(operationId)
   if (tx) builder.forTransaction(tx)
+  if (poolId) builder.forLiquidityPool(poolId)
 
   if (cursor) builder.cursor(cursor)
   builder.limit(limit)
@@ -263,13 +271,15 @@ const trades = (
   server: HorizonServer,
   {
     accountId,
+    poolId,
     cursor,
     order = 'desc',
     limit = 5,
-  }: PageOptions & { accountId?: string },
+  }: PageOptions & { accountId?: string; poolId?: string },
 ) => {
   const builder: TradesCallBuilder = server.trades()
   if (accountId) builder.forAccount(accountId)
+  if (poolId) builder.forLiquidityPool(poolId)
 
   if (cursor) builder.cursor(cursor)
   builder.limit(limit)
@@ -310,6 +320,11 @@ const liquidityPools = (
     )
 }
 
+const liquidityPool = (server: HorizonServer, poolId: string) => {
+  const builder = server.liquidityPools().liquidityPoolId(poolId)
+  return builder.call().then(liquidityPoolRspRecToPropsRec)
+}
+
 export {
   effects,
   ledgers,
@@ -322,4 +337,5 @@ export {
   transaction,
   loadAccount,
   liquidityPools,
+  liquidityPool,
 }
