@@ -28,6 +28,10 @@ primary_region = "sin"
     hard_limit = 75
     soft_limit = 50
 
+[[services.ports]]
+    handlers = ["http"]
+    port = 3000
+
 [checks]
   [checks.status]
     port = 3000
