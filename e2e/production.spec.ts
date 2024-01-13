@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test'
 import { clickLinkAndVerify, getFirstLink, verifyOpeningNewPage } from './utils'
 
 const baseUrl = 'https://steexp.com'
+// const baseUrl = 'http://publicnet.local:3000' // for test on local
 
 test('top page', async ({ page }) => {
   await page.goto(`${baseUrl}/`)
@@ -206,4 +207,13 @@ test('pools', async ({ page }) => {
 
   await page.goto(targetUrl)
   await expect(page).toHaveTitle('Stellar Explorer | Liquidity Pools')
+
+  // Click pool link
+  const accountLink = await getFirstLink(page, 0)
+  await clickLinkAndVerify(
+    baseUrl,
+    page,
+    accountLink,
+    'Stellar Explorer | Effects for Liquidity Pool',
+  )
 })

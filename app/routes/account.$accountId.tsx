@@ -6,7 +6,7 @@ import CardHeader from 'react-bootstrap/CardHeader'
 import Row from 'react-bootstrap/Row'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { NavLink, Outlet, useLoaderData, useLocation } from '@remix-run/react'
+import { Outlet, useLoaderData, useLocation } from '@remix-run/react'
 import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 
@@ -24,6 +24,7 @@ import Logo from '../components/shared/Logo'
 import { requestToServer } from '~/lib/stellar/server'
 import { loadAccount } from '~/lib/stellar/server_request_utils'
 import AccountTypeUnrecognizedException from '~/lib/error/AccountTypeUnrecognizedException'
+import TabLink from './lib/tab-link-base'
 
 import infoSvg from '../../public/info-solid.svg'
 import { ErrorBoundary } from './lib/error-boundary'
@@ -133,27 +134,8 @@ const AccountSummaryCard = ({
   )
 }
 
-const TabLink = ({
-  base,
-  title,
-  activeTab,
-  path = title?.toLowerCase(),
-}: {
-  base: string
-  title: string
-  activeTab: string
-  path?: string
-}) => (
-  <NavLink
-    to={`${base}/${path}`}
-    className={activeTab === path ? 'account-tab-active' : ''}
-  >
-    {title}
-  </NavLink>
-)
-
 const pathToTabName = (path: string) => {
-  const match = /\/account\/[^\/]*\/([a-z]*)/.exec(path)
+  const match = /\/account\/[^/]*\/([a-z]*)/.exec(path)
   return match ? match[1] : 'balances'
 }
 

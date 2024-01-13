@@ -237,8 +237,7 @@
   background-color: var(--light-table-bg);
 }
 
-[data-bs-theme="light"] .account-tab-active,
-.contract-tab-active {
+[data-bs-theme="light"] .active-tab-in-tab-link {
   color: #01c0c8 !important;
   background-color: white;
 }

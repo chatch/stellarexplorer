@@ -70,6 +70,7 @@
     "ledgers": "Ledgers",
     "limit": "Limit",
     "liquidity-pools": "Liquidity Pools",
+    "liquidity-pool": "Liquidity Pool",
     "liquidity-pool.assets": "Pool Assets",
     "liquidity-pool.shares": "Shares",
     "liquidity-pool.trustlines": "Trustlines",
