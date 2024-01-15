@@ -52,6 +52,7 @@
     "express-rate-limit": "^7.0.0",
     "isbot": "^3.6.13",
     "lodash": "^4.17.21",
+    "p-retry": "^6.2.0",
     "prismjs": "^1.29.0",
     "react": "18.2.0",
     "react-bootstrap": "2.8.0",
