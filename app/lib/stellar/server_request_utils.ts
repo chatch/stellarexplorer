@@ -63,19 +63,15 @@ const ledgers = async (
   builder.limit(limit)
   builder.order(order)
 
-  return withRetry(async () => {
-    const serverRsp = await builder.call()
-    return serverApiResponseToState(serverRsp, ledgerRspRecToPropsRec)
-  })
+  const serverRsp = await withRetry(async () => builder.call())
+  return serverApiResponseToState(serverRsp, ledgerRspRecToPropsRec)
 }
 
 const ledger = async (server: HorizonServer, ledgerSeq: string) => {
   const builder = server.ledgers().ledger(ledgerSeq)
 
-  return withRetry(async () => {
-    const rspRec = await builder.call()
-    return ledgerRspRecToPropsRec(rspRec)
-  })
+  const rspRec = await withRetry(async () => builder.call())
+  return ledgerRspRecToPropsRec(rspRec)
 }
 
 const transactions = async (
@@ -99,19 +95,15 @@ const transactions = async (
   builder.limit(limit)
   builder.order(order)
 
-  return withRetry(async () => {
-    const serverRsp = await builder.call()
-    return serverApiResponseToState(serverRsp, transactionRspRecToPropsRec)
-  })
+  const serverRsp = await withRetry(async () => builder.call())
+  return serverApiResponseToState(serverRsp, transactionRspRecToPropsRec)
 }
 
 const transaction = async (server: HorizonServer, txHash: string) => {
   const callBuilder = server.transactions().transaction(txHash)
 
-  return withRetry(async () => {
-    const rspRec = await callBuilder.call()
-    return transactionRspRecToPropsRec(rspRec)
-  })
+  const rspRec = await withRetry(async () => callBuilder.call())
+  return transactionRspRecToPropsRec(rspRec)
 }
 
 export interface LoadAccountResult {
@@ -174,10 +166,10 @@ const loadAccountFromServer = async (
 ): Promise<{ account: ServerApi.AccountRecord }> => {
   const builder: AccountCallBuilder = server.accounts()
 
-  return withRetry(async () => {
-    const account = await builder.accountId(accountId).call()
-    return { account }
-  })
+  const account = await withRetry(async () =>
+    builder.accountId(accountId).call(),
+  )
+  return { account }
 }
 
 const operations = async (
@@ -201,10 +193,8 @@ const operations = async (
   builder.limit(limit)
   builder.order(order)
 
-  return withRetry(async () => {
-    const serverRsp = await builder.call()
-    return serverApiResponseToState(serverRsp, operationRspRecToPropsRec)
-  })
+  const serverRsp = await withRetry(async () => builder.call())
+  return serverApiResponseToState(serverRsp, operationRspRecToPropsRec)
 }
 
 const effects = async (
@@ -235,13 +225,11 @@ const effects = async (
   builder.limit(limit)
   builder.order(order)
 
-  return withRetry(async () => {
-    const serverRsp = await builder.call()
-    return serverApiResponseToState(
-      serverRsp,
-      effectRspRecToPropsRec,
-    ) as ReadonlyArray<ServerApi.EffectRecord>
-  })
+  const serverRsp = await withRetry(async () => builder.call())
+  return serverApiResponseToState(
+    serverRsp,
+    effectRspRecToPropsRec,
+  ) as ReadonlyArray<ServerApi.EffectRecord>
 }
 
 const payments = async (
@@ -263,10 +251,8 @@ const payments = async (
   builder.limit(limit)
   builder.order(order)
 
-  return withRetry(async () => {
-    const serverRsp = await builder.call()
-    return serverApiResponseToState(serverRsp, paymentRspRecToPropsRec)
-  })
+  const serverRsp = await withRetry(async () => builder.call())
+  return serverApiResponseToState(serverRsp, paymentRspRecToPropsRec)
 }
 
 const offers = async (
@@ -286,10 +272,8 @@ const offers = async (
   builder.limit(limit)
   builder.order(order)
 
-  return withRetry(async () => {
-    const serverRsp = await builder.call()
-    return serverApiResponseToState(serverRsp, offersRspRecToPropsRec)
-  })
+  const serverRsp = await withRetry(async () => builder.call())
+  return serverApiResponseToState(serverRsp, offersRspRecToPropsRec)
 }
 
 const trades = async (
@@ -310,10 +294,8 @@ const trades = async (
   builder.limit(limit)
   builder.order(order)
 
-  return withRetry(async () => {
-    const serverRsp = await builder.call()
-    return serverApiResponseToState(serverRsp, tradeRspRecToPropsRec)
-  })
+  const serverRsp = await withRetry(async () => builder.call())
+  return serverApiResponseToState(serverRsp, tradeRspRecToPropsRec)
 }
 
 const liquidityPools = async (
@@ -337,19 +319,15 @@ const liquidityPools = async (
   builder.limit(limit)
   builder.order(order)
 
-  return withRetry(async () => {
-    const serverRsp = await builder.call()
-    return serverApiResponseToState(serverRsp, liquidityPoolRspRecToPropsRec)
-  })
+  const serverRsp = await withRetry(async () => builder.call())
+  return serverApiResponseToState(serverRsp, liquidityPoolRspRecToPropsRec)
 }
 
 const liquidityPool = async (server: HorizonServer, poolId: string) => {
   const builder = server.liquidityPools().liquidityPoolId(poolId)
 
-  return withRetry(async () => {
-    const rspRec = await builder.call()
-    return liquidityPoolRspRecToPropsRec(rspRec)
-  })
+  const rspRec = await withRetry(async () => builder.call())
+  return liquidityPoolRspRecToPropsRec(rspRec)
 }
 
 export {
