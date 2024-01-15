@@ -45,7 +45,7 @@ const withRetry = async (run: () => Promise<any>): Promise<any> => {
         `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`,
       )
     },
-    retries: 2,
+    retries: 1,
     factor: 1,
     minTimeout: 1000,
     maxTimeout: 2000,
