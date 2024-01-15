@@ -35,7 +35,24 @@ interface PageOptions {
   limit?: number
 }
 
-const ledgers = (
+const withRetry = async (run: () => Promise<any>): Promise<any> => {
+  //  Dynamic import is used as p-retry is not compatible with cjs (see: remix.config.js)
+  const pRetry = await import('p-retry').then(({ default: pRetry }) => pRetry)
+
+  return pRetry(run, {
+    onFailedAttempt: (error) => {
+      console.log(
+        `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`,
+      )
+    },
+    retries: 2,
+    factor: 1,
+    minTimeout: 1000,
+    maxTimeout: 2000,
+  })
+}
+
+const ledgers = async (
   server: HorizonServer,
   { limit = 5, cursor, order = 'desc' }: PageOptions,
 ) => {
@@ -45,19 +62,23 @@ const ledgers = (
   }
   builder.limit(limit)
   builder.order(order)
-  return builder
-    .call()
-    .then((serverRsp) =>
-      serverApiResponseToState(serverRsp, ledgerRspRecToPropsRec),
-    )
+
+  return withRetry(async () => {
+    const serverRsp = await builder.call()
+    return serverApiResponseToState(serverRsp, ledgerRspRecToPropsRec)
+  })
 }
 
-const ledger = (server: HorizonServer, ledgerSeq: string) => {
+const ledger = async (server: HorizonServer, ledgerSeq: string) => {
   const builder = server.ledgers().ledger(ledgerSeq)
-  return builder.call().then(ledgerRspRecToPropsRec)
+
+  return withRetry(async () => {
+    const rspRec = await builder.call()
+    return ledgerRspRecToPropsRec(rspRec)
+  })
 }
 
-const transactions = (
+const transactions = async (
   server: HorizonServer,
   {
     ledgerSeq,
@@ -78,16 +99,19 @@ const transactions = (
   builder.limit(limit)
   builder.order(order)
 
-  return builder
-    .call()
-    .then((serverRsp) =>
-      serverApiResponseToState(serverRsp, transactionRspRecToPropsRec),
-    )
+  return withRetry(async () => {
+    const serverRsp = await builder.call()
+    return serverApiResponseToState(serverRsp, transactionRspRecToPropsRec)
+  })
 }
 
-const transaction = (server: HorizonServer, txHash: string) => {
+const transaction = async (server: HorizonServer, txHash: string) => {
   const callBuilder = server.transactions().transaction(txHash)
-  return callBuilder.call().then(transactionRspRecToPropsRec)
+
+  return withRetry(async () => {
+    const rspRec = await callBuilder.call()
+    return transactionRspRecToPropsRec(rspRec)
+  })
 }
 
 export interface LoadAccountResult {
@@ -113,44 +137,50 @@ const loadAccount = (
 const loadAccountByKey = (server: HorizonServer, accountId: string) =>
   loadAccountFromServer(server, accountId)
 
-const loadAccountByFederatedAddress = (
+const loadAccountByFederatedAddress = async (
   server: HorizonServer,
   address: string,
 ) => {
   const [name, domain] = address.split('*')
-  return FederationServer.createForDomain(domain)
-    .then((fed) => fed.resolveAddress(name))
-    .then((acc) => loadAccountFromServer(server, acc.account_id))
-    .then((rsp) => ({
+  try {
+    const fed = await FederationServer.createForDomain(domain)
+    const acc = await fed.resolveAddress(name)
+    const rsp = await loadAccountFromServer(server, acc.account_id)
+    return {
       account: rsp.account,
       federatedAddress: address,
-    }))
-    .catch((e) => {
-      throw new NotFoundError(e.message, undefined)
-    })
+    }
+  } catch (e) {
+    throw new NotFoundError(e.message, undefined)
+  }
 }
 
-const loadAccountByMuxedAddress = (server: HorizonServer, address: string) => {
+const loadAccountByMuxedAddress = async (
+  server: HorizonServer,
+  address: string,
+) => {
   const muxedAccount = MuxedAccount.fromAddress(address, '1')
   const publicAddress = muxedAccount.accountId()
-  return loadAccountFromServer(server, publicAddress).then((rsp) => ({
+  const rsp = await loadAccountFromServer(server, publicAddress)
+  return {
     account: rsp.account,
     muxedAddress: address,
-  }))
+  }
 }
 
-const loadAccountFromServer = (
+const loadAccountFromServer = async (
   server: HorizonServer,
   accountId: string,
 ): Promise<{ account: ServerApi.AccountRecord }> => {
   const builder: AccountCallBuilder = server.accounts()
-  return builder
-    .accountId(accountId)
-    .call()
-    .then((account) => ({ account }))
+
+  return withRetry(async () => {
+    const account = await builder.accountId(accountId).call()
+    return { account }
+  })
 }
 
-const operations = (
+const operations = async (
   server: HorizonServer,
   {
     accountId,
@@ -171,14 +201,13 @@ const operations = (
   builder.limit(limit)
   builder.order(order)
 
-  return builder
-    .call()
-    .then((serverRsp) =>
-      serverApiResponseToState(serverRsp, operationRspRecToPropsRec),
-    )
+  return withRetry(async () => {
+    const serverRsp = await builder.call()
+    return serverApiResponseToState(serverRsp, operationRspRecToPropsRec)
+  })
 }
 
-const effects = (
+const effects = async (
   server: HorizonServer,
   {
     accountId,
@@ -206,18 +235,16 @@ const effects = (
   builder.limit(limit)
   builder.order(order)
 
-  return builder
-    .call()
-    .then(
-      (serverRsp) =>
-        serverApiResponseToState(
-          serverRsp,
-          effectRspRecToPropsRec,
-        ) as ReadonlyArray<ServerApi.EffectRecord>,
-    )
+  return withRetry(async () => {
+    const serverRsp = await builder.call()
+    return serverApiResponseToState(
+      serverRsp,
+      effectRspRecToPropsRec,
+    ) as ReadonlyArray<ServerApi.EffectRecord>
+  })
 }
 
-const payments = (
+const payments = async (
   server: HorizonServer,
   {
     accountId,
@@ -236,14 +263,13 @@ const payments = (
   builder.limit(limit)
   builder.order(order)
 
-  return builder
-    .call()
-    .then((serverRsp) =>
-      serverApiResponseToState(serverRsp, paymentRspRecToPropsRec),
-    )
+  return withRetry(async () => {
+    const serverRsp = await builder.call()
+    return serverApiResponseToState(serverRsp, paymentRspRecToPropsRec)
+  })
 }
 
-const offers = (
+const offers = async (
   server: HorizonServer,
   {
     accountId,
@@ -260,14 +286,13 @@ const offers = (
   builder.limit(limit)
   builder.order(order)
 
-  return builder
-    .call()
-    .then((serverRsp) =>
-      serverApiResponseToState(serverRsp, offersRspRecToPropsRec),
-    )
+  return withRetry(async () => {
+    const serverRsp = await builder.call()
+    return serverApiResponseToState(serverRsp, offersRspRecToPropsRec)
+  })
 }
 
-const trades = (
+const trades = async (
   server: HorizonServer,
   {
     accountId,
@@ -285,14 +310,13 @@ const trades = (
   builder.limit(limit)
   builder.order(order)
 
-  return builder
-    .call()
-    .then((serverRsp) =>
-      serverApiResponseToState(serverRsp, tradeRspRecToPropsRec),
-    )
+  return withRetry(async () => {
+    const serverRsp = await builder.call()
+    return serverApiResponseToState(serverRsp, tradeRspRecToPropsRec)
+  })
 }
 
-const liquidityPools = (
+const liquidityPools = async (
   server: HorizonServer,
   {
     id,
@@ -313,16 +337,19 @@ const liquidityPools = (
   builder.limit(limit)
   builder.order(order)
 
-  return builder
-    .call()
-    .then((serverRsp) =>
-      serverApiResponseToState(serverRsp, liquidityPoolRspRecToPropsRec),
-    )
+  return withRetry(async () => {
+    const serverRsp = await builder.call()
+    return serverApiResponseToState(serverRsp, liquidityPoolRspRecToPropsRec)
+  })
 }
 
-const liquidityPool = (server: HorizonServer, poolId: string) => {
+const liquidityPool = async (server: HorizonServer, poolId: string) => {
   const builder = server.liquidityPools().liquidityPoolId(poolId)
-  return builder.call().then(liquidityPoolRspRecToPropsRec)
+
+  return withRetry(async () => {
+    const rspRec = await builder.call()
+    return liquidityPoolRspRecToPropsRec(rspRec)
+  })
 }
 
 export {
