@@ -1,0 +1,34 @@
+.asset-image {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.asset-code {
+  display: inline-block;
+  width: 150px;
+}
+
+.assets-cell {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.price-change-up {
+  color: green;
+  font-size: .8em;
+  line-height: 1;
+  vertical-align: super;
+}
+
+.price-change-down {
+  color: red;
+  font-size: .8em;
+  line-height: 1;
+  vertical-align: super;
+}
+
+.text-small {
+  font-size: small;
+  opacity: 0.6;
+}
