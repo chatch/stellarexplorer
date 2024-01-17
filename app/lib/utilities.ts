@@ -44,10 +44,14 @@ const getAssetCode = (asset: string): string => {
   return asset === 'native' ? 'XLM' : asset.split(':')[0]
 }
 
+const isPathClaimableBalance = (path: string): boolean =>
+  path.startsWith('/claimable-balance')
+
 export {
   formatAmountToHumanReadable,
   formatPercentToHumanReadable,
   formatPrice24h,
   getAssetCode,
   rmTrailingZeros,
+  isPathClaimableBalance,
 }

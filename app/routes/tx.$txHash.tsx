@@ -28,7 +28,7 @@ import { NotFoundError } from 'stellar-sdk'
 import { ErrorBoundary } from './lib/error-boundary'
 
 // Lookup memo type to a label
-const memoTypeToLabel: Record<string, string> = Object.freeze({
+export const memoTypeToLabel: Record<string, string> = Object.freeze({
   id: 'ID',
   hash: 'Hash',
   none: 'None',

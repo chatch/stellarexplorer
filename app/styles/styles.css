@@ -10,6 +10,11 @@ body {
   sans-serif;
 }
 
+.text-orange {
+  color: orange;
+  font-weight: bold;
+}
+
 .navbar {
   padding: 0 15px 0 0;
   border-bottom: 1px solid #96A2B4;
@@ -487,6 +492,27 @@ button[id^="btn-custom-network"]:first-of-type {
 #contract-nav>a:hover {
   background-color: #3c4452 !important;
   color: #01c0c8;
+}
+
+.nav-tabs {
+  background-color: #383f4b;
+}
+
+.nav-tabs .nav-link.active {
+  color: #01c0c8 !important;
+  background-color: white !important;
+}
+
+.nav-tabs .nav-link {
+  border: 1px solid transparent !important;
+  border-bottom: 2px solid #ddd !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  color: #96a2b4;
+  margin-right: 2px;
+  height: 40px;
+  align-items: center;
+  display: flex;
 }
 
 #account-summary-card {

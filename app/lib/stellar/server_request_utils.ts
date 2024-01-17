@@ -14,9 +14,11 @@ import type { TransactionCallBuilder } from 'stellar-sdk/lib/horizon/transaction
 import type { OfferCallBuilder } from 'stellar-sdk/lib/horizon/offer_call_builder'
 import AccountTypeUnrecognizedException from '../error/AccountTypeUnrecognizedException'
 import type { LiquidityPoolCallBuilder } from 'stellar-sdk/lib/horizon/liquidity_pool_call_builder'
+import type { ClaimableBalanceCallBuilder } from 'stellar-sdk/lib/horizon/claimable_balances_call_builder'
 
 import type HorizonServer from './server'
 import {
+  claimableBalanceRspRecToPropsRec,
   effectRspRecToPropsRec,
   ledgerRspRecToPropsRec,
   liquidityPoolRspRecToPropsRec,
@@ -80,16 +82,23 @@ const transactions = async (
     ledgerSeq,
     accountId,
     poolId,
+    claimableBalanceId,
     cursor,
     order = 'desc',
     limit = 5,
-  }: PageOptions & { ledgerSeq?: string; accountId?: string; poolId?: string },
+  }: PageOptions & {
+    ledgerSeq?: string
+    accountId?: string
+    poolId?: string
+    claimableBalanceId?: string
+  },
 ) => {
   const builder: TransactionCallBuilder = server.transactions()
 
   if (ledgerSeq) builder.forLedger(ledgerSeq)
   if (accountId) builder.forAccount(accountId)
   if (poolId) builder.forLiquidityPool(poolId)
+  if (claimableBalanceId) builder.forClaimableBalance(claimableBalanceId)
 
   if (cursor) builder.cursor(cursor)
   builder.limit(limit)
@@ -178,16 +187,23 @@ const operations = async (
     accountId,
     tx,
     poolId,
+    claimableBalanceId,
     cursor,
     order = 'desc',
     limit = 5,
-  }: PageOptions & { accountId?: string; tx?: string; poolId?: string },
+  }: PageOptions & {
+    accountId?: string
+    tx?: string
+    poolId?: string
+    claimableBalanceId?: string
+  },
 ) => {
   const builder: OperationCallBuilder = server.operations()
 
   if (accountId) builder.forAccount(accountId)
   if (tx) builder.forTransaction(tx)
   if (poolId) builder.forLiquidityPool(poolId)
+  if (claimableBalanceId) builder.forClaimableBalance(claimableBalanceId)
 
   if (cursor) builder.cursor(cursor)
   builder.limit(limit)
@@ -330,6 +346,45 @@ const liquidityPool = async (server: HorizonServer, poolId: string) => {
   return liquidityPoolRspRecToPropsRec(rspRec)
 }
 
+const claimableBalances = async (
+  server: HorizonServer,
+  {
+    id,
+    sponsor,
+    claimant,
+    asset,
+    cursor,
+    order = 'desc',
+    limit = 5,
+  }: PageOptions & {
+    id?: string
+    sponsor?: string
+    claimant?: string
+    asset?: Asset
+  },
+) => {
+  const builder: ClaimableBalanceCallBuilder = server.claimableBalances()
+
+  if (id) builder.claimableBalance(id)
+  if (sponsor) builder.sponsor(sponsor)
+  if (claimant) builder.claimant(claimant)
+  if (asset) builder.asset(asset)
+
+  if (cursor) builder.cursor(cursor)
+  builder.limit(limit)
+  builder.order(order)
+
+  const serverRsp = await withRetry(async () => builder.call())
+  return serverApiResponseToState(serverRsp, claimableBalanceRspRecToPropsRec)
+}
+
+const claimableBalance = async (server: HorizonServer, balanceId: string) => {
+  const builder = server.claimableBalances().claimableBalance(balanceId)
+
+  const rspRec = await withRetry(async () => builder.call())
+  return claimableBalanceRspRecToPropsRec(rspRec)
+}
+
 export {
   effects,
   ledgers,
@@ -343,4 +398,6 @@ export {
   loadAccount,
   liquidityPools,
   liquidityPool,
+  claimableBalances,
+  claimableBalance,
 }

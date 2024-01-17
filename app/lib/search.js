@@ -13,6 +13,7 @@ import {
   isTxHash,
 } from './stellar/utils'
 import directory from '../data/directory'
+import { isPathClaimableBalance } from './utilities'
 
 const { anchors, assets } = directory
 
@@ -36,7 +37,7 @@ const searchAnchorName = (name) =>
       lcIncludes(anchors[key].displayName, name),
   )
 
-const searchStrToPath = (searchStr) => {
+const searchStrToPath = (searchStr, pathName) => {
   if (!isString(searchStr) || searchStr.trim() === '') return null
 
   const str = searchStr.trim()
@@ -46,7 +47,11 @@ const searchStrToPath = (searchStr) => {
   // see also stellar-base new Contract(address or bytes)
   //
   if (isPublicKey(str) || isFederatedAddress(str) || isMuxedAddress(str)) {
-    return `/account/${str}`
+    if (isPathClaimableBalance(pathName)) {
+      return `/claimable-balances/${str}`
+    } else {
+      return `/account/${str}`
+    }
   } else if (isTxHash(str)) {
     return `/tx/${str}`
   } else if (isContractAddress(str)) {

@@ -10,10 +10,11 @@ import { useIntl } from 'react-intl'
 import { searchStrToPath } from './lib/search'
 import { isSecretKey } from './lib/stellar/utils'
 import { useState } from 'react'
-import { useNavigate } from '@remix-run/react'
+import { useLocation, useNavigate } from '@remix-run/react'
 
 import searchSvg from '../public/search.svg'
 import infoCircleSvg from '../public/info-circle.svg'
+import { isPathClaimableBalance } from './lib/utilities'
 
 const HelpModal = ({
   showHelp,
@@ -143,15 +144,28 @@ export default function SearchBox() {
   const [showHelp, setShowHelp] = useState(false)
 
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const placeHolderI18nId = isPathClaimableBalance(location.pathname)
+    ? 'search.placeHolder.claimableBalance'
+    : 'search.placeHolder'
+
+  const showMessage = () => {
+    return isPathClaimableBalance(location.pathname) ? (
+      <p>{formatMessage({ id: 'search.message.claimableBalance' })}</p>
+    ) : (
+      ''
+    )
+  }
 
   const handleCloseFn = () => setShowHelp(false)
   const handleClickFn = () => setShowHelp(true)
 
-  const searchHandler = (event: any) => {
+  const searchHandler = (event: any, pathName: string) => {
     console.log(`searchHandler entry [${searchStr}]`)
     event.preventDefault()
 
-    const matchPath = searchStrToPath(searchStr)
+    const matchPath = searchStrToPath(searchStr, pathName)
     console.log(`matchPath ${matchPath}`)
 
     // #62 security: clear search box if user put the secret key there
@@ -168,21 +182,19 @@ export default function SearchBox() {
     <Container>
       <Row>
         <Col id="search-container">
-          <form onSubmit={searchHandler}>
+          <form onSubmit={(event) => searchHandler(event, location.pathname)}>
             <InputGroup>
               <FormControl
                 type="text"
                 onChange={(e) => setSearchStr(e.target.value)}
-                placeholder={formatMessage({
-                  id: 'search.placeHolder',
-                })}
+                placeholder={formatMessage({ id: placeHolderI18nId })}
                 value={searchStr}
               />
               <InputGroup.Text>
                 <img
                   src={searchSvg}
                   style={{ color: '#4c5667', height: 16, width: 16 }}
-                  onClick={searchHandler}
+                  onClick={(event) => searchHandler(event, location.pathname)}
                 />
               </InputGroup.Text>
               <InputGroup.Text
@@ -206,6 +218,7 @@ export default function SearchBox() {
             <HelpModal handleCloseFn={handleCloseFn} showHelp={showHelp} />
           )}
         </Col>
+        {showMessage()}
       </Row>
     </Container>
   )
