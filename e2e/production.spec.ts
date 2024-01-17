@@ -217,3 +217,23 @@ test('pools', async ({ page }) => {
     'Stellar Explorer | Effects for Liquidity Pool',
   )
 })
+
+test('claimable-balances', async ({ page }) => {
+  const targetUrl = `${baseUrl}/claimable-balances`
+
+  await page.goto(targetUrl)
+  await expect(page).toHaveTitle('Stellar Explorer | Claimable Balances')
+
+  // Execute search
+  const searchInput = page.getByPlaceholder('Search by Account')
+  await searchInput.fill(
+    // arbitrary address is used
+    'GB5YEYTFL2VKQTY34XUTYAS24BGNHHEUEGNLPMQZNJULGCZ2C5UIBMLC',
+  )
+  await searchInput.press('Enter')
+
+  await page.getByRole('tab', { name: 'Sponsor' }).click()
+  await expect(page.getByRole('cell', { name: 'Claimant' })).toBeVisible()
+  await page.getByRole('tab', { name: 'Claimant' }).click()
+  await expect(page.getByRole('cell', { name: 'Sponsor' })).toBeVisible()
+})
