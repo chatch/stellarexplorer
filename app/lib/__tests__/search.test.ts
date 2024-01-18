@@ -41,6 +41,7 @@ describe('searchStrToPath', () => {
     expect(
       searchStrToPath(
         'GDCX3FBHR7IKHSDFDCA4XY65NF6B2WMF5WR67FIXN5JXURJ3YDGSU2BS',
+        '/operations', // should be other than '/claimable-balance'
       ),
     ).toEqual(
       '/account/GDCX3FBHR7IKHSDFDCA4XY65NF6B2WMF5WR67FIXN5JXURJ3YDGSU2BS',
@@ -48,8 +49,19 @@ describe('searchStrToPath', () => {
   })
 
   it('returns /account for federated addresses', () => {
-    expect(searchStrToPath('steexp*fed.network')).toEqual(
+    expect(searchStrToPath('steexp*fed.network', '/operations')).toEqual(
       '/account/steexp*fed.network',
+    )
+  })
+
+  it('returns /claimable-balances when path starts with /claimable-balance', () => {
+    expect(
+      searchStrToPath(
+        'GDCX3FBHR7IKHSDFDCA4XY65NF6B2WMF5WR67FIXN5JXURJ3YDGSU2BS',
+        '/claimable-balance',
+      ),
+    ).toEqual(
+      '/claimable-balances/GDCX3FBHR7IKHSDFDCA4XY65NF6B2WMF5WR67FIXN5JXURJ3YDGSU2BS',
     )
   })
 
