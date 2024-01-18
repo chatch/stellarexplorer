@@ -12,7 +12,8 @@ module.exports = {
       parser: '@typescript-eslint/parser',
     },
     {
-      files: ['e2e/*.spec.ts'],
+      files: ['e2e/**/*.spec.[jt]s?(x)'],
+      extends: ['plugin:playwright/recommended'],
       rules: {
         // NOTE: testing-library and playwright have the same functions (e.g. getByRole), so disable rules for testing-library.
         'testing-library/prefer-screen-queries': 'off',
