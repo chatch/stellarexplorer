@@ -11,6 +11,13 @@ module.exports = {
       files: ['*.ts', '*.tsx', '*.js', 'json'],
       parser: '@typescript-eslint/parser',
     },
+    {
+      files: ['e2e/*.spec.ts'],
+      rules: {
+        // NOTE: testing-library and playwright have the same functions (e.g. getByRole), so disable rules for testing-library.
+        'testing-library/prefer-screen-queries': 'off',
+      },
+    },
   ],
   rules: {
     'react/jsx-wrap-multilines': 'off',

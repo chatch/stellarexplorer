@@ -89,6 +89,11 @@ export default function Header({
                 <FormattedMessage id="liquidity-pools" />
               </NavDropdown.Item>
             </LinkContainer>
+            <LinkContainer to="/claimable-balances">
+              <NavDropdown.Item>
+                <FormattedMessage id="claimable-balances" />
+              </NavDropdown.Item>
+            </LinkContainer>
           </NavDropdown>
         </Nav>
         <Nav className="ms-auto">

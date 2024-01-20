@@ -22,6 +22,7 @@ const serverApiResponseToState = (
     | ServerApi.TradeRecord
     | ServerApi.TransactionRecord
     | ServerApi.LiquidityPoolRecord
+    | ServerApi.ClaimableBalanceRecord
   >,
   rspRecordConverterFn: any,
 ) => rsp.records.map(rspRecordConverterFn)
@@ -105,6 +106,10 @@ const liquidityPoolRspRecToPropsRec = (
   rspRec: ServerApi.LiquidityPoolRecord,
 ): Record<string, any> => keysToCamelCasePlusTime(rspRec)
 
+const claimableBalanceRspRecToPropsRec = (
+  rspRec: ServerApi.ClaimableBalanceRecord,
+): Record<string, any> => keysToCamelCasePlusTime(rspRec)
+
 /*
  * Helpers
  */
@@ -130,4 +135,5 @@ export {
   tradeRspRecToPropsRec,
   transactionRspRecToPropsRec,
   liquidityPoolRspRecToPropsRec,
+  claimableBalanceRspRecToPropsRec,
 }

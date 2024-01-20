@@ -220,6 +220,7 @@
 [data-bs-theme="light"] #account-nav>a,
 #contract-nav>a {
   color: var(--light-text-color);
+  border-bottom: 2px solid var(--light-color) !important;
 }
 
 [data-bs-theme="light"] .break {
@@ -230,6 +231,20 @@
 #contract-nav>a:hover {
   background-color: var(--light-background-color) !important;
   color: #01c0c8;
+}
+
+[data-bs-theme="light"] .nav-tabs {
+  background-color: var(--light-table-bg);
+}
+
+[data-bs-theme="light"] .nav-tabs .nav-link.active {
+  color: var(--light-text-color);
+  background-color: white !important;
+}
+
+[data-bs-theme="light"] .nav-tabs .nav-link {
+  border-bottom: 2px solid var(--light-color) !important;
+  color: var(--light-text-color);
 }
 
 [data-bs-theme="light"] #account-tab-content,
