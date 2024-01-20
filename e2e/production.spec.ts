@@ -102,9 +102,7 @@ test('assets', async ({ page, context }) => {
   await page.goto(targetUrl)
   await expect(page).toHaveTitle('Stellar Explorer | Assets')
 
-  // Click asset link
-  const assetLink = await getFirstLink(page, 0)
-  await verifyOpeningNewPage(page, context, assetLink)
+  expect((await page.locator('tbody tr').all()).length).toBe(50)
 })
 
 test('anchors', async ({ page }) => {
