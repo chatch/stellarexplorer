@@ -16,14 +16,16 @@ Deployments:
 
 ### Lists
 
-| Resource     | URI                                          |
-| ------------ | -------------------------------------------- |
-| Operations   | [/operations](https://steexp.com/operations) |
-| Transactions | [/txs](https://steexp.com/txs)               |
-| Ledgers      | [/ledgers](https://steexp.com/ledgers)       |
-| Payments     | [/payments](https://steexp.com/payments)     |
-| Trades       | [/trades](https://steexp.com/trades)         |
-| Effects      | [/effects](https://steexp.com/effects)       |
+| Resource             | URI                                                     |
+| -------------------- | ------------------------------------------------------- |
+| Operations           | [/operations](https://steexp.com/operations)            |
+| Transactions         | [/txs](https://steexp.com/txs)                          |
+| Ledgers              | [/ledgers](https://steexp.com/ledgers)                  |
+| Payments             | [/payments](https://steexp.com/payments)                |
+| Trades               | [/trades](https://steexp.com/trades)                    |
+| Effects              | [/effects](https://steexp.com/effects)                  |
+| Liquidity Pools      | [/effects](https://steexp.com/pools)                    |
+| Claimable Balances   | [/effects](https://steexp.com/claimable-balances)       |
 
 ### Directory
 
