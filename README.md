@@ -24,8 +24,8 @@ Deployments:
 | Payments             | [/payments](https://steexp.com/payments)                |
 | Trades               | [/trades](https://steexp.com/trades)                    |
 | Effects              | [/effects](https://steexp.com/effects)                  |
-| Liquidity Pools      | [/effects](https://steexp.com/pools)                    |
-| Claimable Balances   | [/effects](https://steexp.com/claimable-balances)       |
+| Liquidity Pools      | [/pools](https://steexp.com/pools)                    |
+| Claimable Balances   | [/claimable-balances](https://steexp.com/claimable-balances)       |
 
 ### Directory
 
