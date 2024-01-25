@@ -172,3 +172,9 @@ Submit pull requests with new languages or languages fixes there.
 ```sh
 npx ts-node scripts/restructure-centralized-exchanges-json.ts
 ```
+
+### Fetch asset data for liquidity pools
+
+```sh
+npx ts-node scripts/get-assets-json.ts
+```
