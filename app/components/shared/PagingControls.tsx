@@ -12,14 +12,17 @@ const PagingControls = ({
   handleClickPrev,
   hidePrev,
 }: PagingControlsProps) => (
-  <div id="paging-controls">
+  <div
+    id="paging-controls"
+    className={`${hidePrev ? 'paging-buttons-right' : 'paging-buttons'}`}
+  >
     {!hidePrev && (
       <button onClick={handleClickPrev}>
         &larr; <FormattedMessage id="paging.prev" />
       </button>
     )}
 
-    <button onClick={handleClickNext} style={{ float: 'right' }}>
+    <button onClick={handleClickNext}>
       <FormattedMessage id="paging.next" /> &rarr;
     </button>
   </div>
