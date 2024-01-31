@@ -150,6 +150,15 @@ Show HTML test reports:
 npm run test:e2e:report
 ```
 
+Run the test against app running on local:
+
+```sh
+npm run dev
+
+# in a different terminal
+ENV=local npm run test:e2e
+```
+
 ### Build
 
 ```sh
