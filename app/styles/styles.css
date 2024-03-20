@@ -615,6 +615,17 @@ button[id^="btn-custom-network"]:first-of-type {
   background-color: #3c4452 !important;
 }
 
+.paging-buttons {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.paging-buttons-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
 a {
   color: #00c292;
 }
