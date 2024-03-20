@@ -10,7 +10,8 @@ import {
   useIntl,
 } from 'react-intl'
 import { Link } from 'react-router-dom'
-import { requestToServer } from '~/lib/stellar/server'
+import type { HorizonServerDetails } from '~/lib/stellar/server'
+import HorizonServer, { requestToServerDetails } from '~/lib/stellar/server'
 
 import { json } from '@remix-run/node'
 
@@ -19,10 +20,13 @@ import { MemoHash, MemoReturn } from '../lib/stellar/sdk'
 import { base64DecodeToHex, setTitle } from '../lib/utils'
 
 import type { LoaderFunctionArgs } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { operations, transaction } from '~/lib/stellar/server_request_utils'
+import { useLoaderData, useParams } from '@remix-run/react'
+import {
+  operations as operationsGet,
+  transaction as transactionGet,
+} from '~/lib/stellar/server_request_utils'
 import OperationTable from '~/components/OperationTable'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { captureException } from '@sentry/remix'
 import { NotFoundError } from 'stellar-sdk'
 import { ErrorBoundary } from './lib/error-boundary'
@@ -51,45 +55,61 @@ export interface TransactionProps {
   urlFn?: Function
 }
 
+export type TransactionResponse = [
+  tx: Partial<TransactionProps>,
+  operations: any,
+  horizonURL: string,
+]
+
 export { ErrorBoundary }
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
-  const server = await requestToServer(request)
-  let response
-  try {
-    response = await Promise.all([
-      transaction(server, params.txHash as string),
-      operations(server, { tx: params.txHash, limit: 100 }),
-      server.serverURL.toString(),
-    ])
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      throw new Response(null, {
-        status: 404,
-        statusText: `Transaction ${params.txHash} not found on this network.`,
-      })
-    } else {
-      captureException(error)
-      throw error
-    }
-  }
-  return json(response)
-}
+export const loader = ({ request }: LoaderFunctionArgs) =>
+  requestToServerDetails(request)
 
 export default function Transaction() {
+  const { formatMessage } = useIntl()
+  const { txHash } = useParams()
+  const [response, setResponse]: [TransactionResponse | null, any] =
+    useState(null)
+  const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+
+  useEffect(() => {
+    const server = new HorizonServer(
+      serverDetails.serverAddress,
+      serverDetails.networkType as string,
+    )
+
+    setTitle(`${formatMessage({ id: 'transaction' })} ${txHash}`)
+
+    Promise.all([
+      transactionGet(server, txHash as string),
+      operationsGet(server, { tx: txHash, limit: 100 }),
+      server.serverURL.toString(),
+    ])
+      .then(json)
+      .then(setResponse)
+      .catch((error) => {
+        if (error instanceof NotFoundError) {
+          throw new Response(null, {
+            status: 404,
+            statusText: `Transaction ${txHash} not found on this network.`,
+          })
+        } else {
+          captureException(error)
+          throw error
+        }
+      })
+  }, [formatMessage, txHash])
+
+  if (!Array.isArray(response) || (response as Array<any>).length !== 3)
+    return null
+
   const [
     { id, fee, ledger, memoType, memo, opCount, time },
     operations,
     horizonURL,
   ]: [tx: Partial<TransactionProps>, operations: any, horizonURL: string] =
-    useLoaderData<typeof loader>()
-
-  const { formatMessage } = useIntl()
-  useEffect(() => {
-    setTitle(`${formatMessage({ id: 'transaction' })} ${id}`)
-  }, [formatMessage, id])
-
-  if (!id) return null
+    response as any
 
   return (
     <Container>
@@ -138,7 +158,7 @@ export default function Transaction() {
                   </td>
                   <td>
                     {memoType === MemoHash || memoType === MemoReturn
-                      ? base64DecodeToHex(memo)
+                      ? base64DecodeToHex(memo as string)
                       : memo}
                   </td>
                 </tr>
