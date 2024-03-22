@@ -7,80 +7,81 @@ import { isLocalhost } from './utils'
 import { isValidUrl } from '../utils'
 
 export const defaultNetworkAddresses: Record<string, string> = {
-  public: 'https://horizon.stellar.org',
-  test: 'https://horizon-testnet.stellar.org',
-  future: 'https://horizon-futurenet.stellar.org',
-  local: 'http://localhost:8000',
+    public: 'https://horizon.stellar.org',
+    test: 'https://horizon-testnet.stellar.org',
+    future: 'https://horizon-futurenet.stellar.org',
+    local: 'http://localhost:8000',
 }
 
 export interface HorizonServerDetails {
-  serverAddress: string
-  networkType: NetworkKey | null
+    serverAddress: string
+    networkType: NetworkKey | null
+    requestURL: string
 }
 
 /**
  * Wrap the stellar-sdk Server.
  */
 class HorizonServer extends Horizon.Server {
-  constructor(networkAddress: string, networkType?: string) {
-    // allowHttp: public/test use HTTPS; local can use HTTP
-    super(networkAddress, {
-      allowHttp: networkType === networks.local || isLocalhost(networkAddress),
-    })
-  }
+    constructor(networkAddress: string, networkType?: string) {
+        // allowHttp: public/test use HTTPS; local can use HTTP
+        super(networkAddress, {
+            allowHttp: networkType === networks.local || isLocalhost(networkAddress),
+        })
+    }
 }
 
 const requestToServer = async (request: Request): Promise<HorizonServer> => {
-  const { networkType, customHorizonAddress } =
-    await requestToNetworkDetails(request)
+    const { networkType, customHorizonAddress } =
+        await requestToNetworkDetails(request)
 
-  let server: HorizonServer
+    let server: HorizonServer
 
-  if (isValidUrl(customHorizonAddress)) {
-    server = new HorizonServer(customHorizonAddress)
-  } else {
-    server = new HorizonServer(
-      defaultNetworkAddresses[networkType],
-      networkType,
-    )
-  }
+    if (isValidUrl(customHorizonAddress)) {
+        server = new HorizonServer(customHorizonAddress)
+    } else {
+        server = new HorizonServer(
+            defaultNetworkAddresses[networkType],
+            networkType,
+        )
+    }
 
-  return server
+    return server
 }
 
 const requestToServerDetails = async (
-  request: Request,
+    request: Request,
 ): Promise<HorizonServerDetails> => {
-  const { networkType, customHorizonAddress } =
-    await requestToNetworkDetails(request)
+    const { networkType, customHorizonAddress } =
+        await requestToNetworkDetails(request)
 
-  const serverAddress: string = isValidUrl(customHorizonAddress)
-    ? customHorizonAddress
-    : defaultNetworkAddresses[networkType]
+    const serverAddress: string = isValidUrl(customHorizonAddress)
+        ? customHorizonAddress
+        : defaultNetworkAddresses[networkType]
 
-  return { serverAddress, networkType }
+    return { serverAddress, networkType, requestURL: request.url }
 }
 
 const requestToSorobanServer = async (
-  request: Request,
+    request: Request,
 ): Promise<SorobanServer> => {
-  const { networkType, customSorobanRPCAddress } =
-    await requestToNetworkDetails(request)
+    const { networkType, customSorobanRPCAddress } =
+        await requestToNetworkDetails(request)
 
-  let server: SorobanServer
+    let server: SorobanServer
 
-  if (isValidUrl(customSorobanRPCAddress)) {
-    server = new SorobanServer(customSorobanRPCAddress)
-  } else {
-    server = new SorobanServer(sorobanRpcURIs[networkType], networkType)
-  }
+    if (isValidUrl(customSorobanRPCAddress)) {
+        server = new SorobanServer(customSorobanRPCAddress)
+    } else {
+        server = new SorobanServer(sorobanRpcURIs[networkType], networkType)
+    }
 
-  return server
+    return server
 }
 
 export {
-  HorizonServer as default,
-  requestToServer,
-  requestToServerDetails,
-  requestToSorobanServer,
+    HorizonServer as default,
+    requestToServer,
+    requestToServerDetails,
+    requestToSorobanServer,
 }

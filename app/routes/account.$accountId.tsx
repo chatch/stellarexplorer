@@ -6,9 +6,8 @@ import CardHeader from 'react-bootstrap/CardHeader'
 import Row from 'react-bootstrap/Row'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Outlet, useLoaderData, useLocation } from '@remix-run/react'
+import { Outlet, useLoaderData, useLocation, useParams } from '@remix-run/react'
 import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
 
 import { captureException } from '@sentry/remix'
 import has from 'lodash/has'
@@ -21,8 +20,8 @@ import { setTitle } from '../lib/utils'
 import { titleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 import ClipboardCopy from '../components/shared/ClipboardCopy'
 import Logo from '../components/shared/Logo'
-import { requestToServer } from '~/lib/stellar/server'
-import { loadAccount } from '~/lib/stellar/server_request_utils'
+import HorizonServer, { HorizonServerDetails, requestToServerDetails } from '~/lib/stellar/server'
+import { LoadAccountResult, loadAccount } from '~/lib/stellar/server_request_utils'
 import AccountTypeUnrecognizedException from '~/lib/error/AccountTypeUnrecognizedException'
 import TabLink from './lib/tab-link-base'
 
@@ -33,191 +32,209 @@ import { ErrorBoundary } from './lib/error-boundary'
 // when importing it from react-bootstrap (compiler should find it).
 // so dupliating it partially here:
 export interface SelectCallback extends React.EventHandler<any> {
-  (eventKey: any, e: React.SyntheticEvent<{}>): void
+    (eventKey: any, e: React.SyntheticEvent<{}>): void
 }
 
 const MuxedAccountInfoCard = ({ address }: { address: string }) => {
-  return (
-    <Card>
-      <img
-        src={infoSvg}
-        style={{ color: 'white', height: 14, width: 14, marginLeft: 10 }}
-      />
-      &nbsp; NOTE: This view shows the base account of the multiplexed account
-      &nbsp;
-      <span style={{ color: 'white', overflowWrap: 'break-word' }}>
-        {address}
-      </span>
-    </Card>
-  )
+    return (
+        <Card>
+            <img
+                src={infoSvg}
+                style={{ color: 'white', height: 14, width: 14, marginLeft: 10 }}
+                alt="Info icon"
+            />
+            &nbsp; NOTE: This view shows the base account of the multiplexed account
+            &nbsp;
+            <span style={{ color: 'white', overflowWrap: 'break-word' }}>
+                {address}
+            </span>
+        </Card>
+    )
 }
 
 const AccountSummaryCard = ({
-  account,
-  accountUrl,
-  federatedAddress,
-  knownAccounts,
+    account,
+    accountUrl,
+    federatedAddress,
+    knownAccounts,
 }: {
-  account: ServerApi.AccountRecord
-  accountUrl: string
-  federatedAddress?: string
-  knownAccounts: Record<string, KnownAccountProps>
+    account: ServerApi.AccountRecord
+    accountUrl: string
+    federatedAddress?: string
+    knownAccounts: Record<string, KnownAccountProps>
 }) => {
-  const { formatMessage } = useIntl()
-  useEffect(() => {
-    setTitle(`Account ${account.id}`)
-  }, [account.id])
-  return (
-    <Card id="account-summary-card">
-      <CardHeader>
-        {titleWithJSONButton(formatMessage({ id: 'account' }), accountUrl)}
-      </CardHeader>
-      <Card.Body>
-        <Container style={{ paddingLeft: 0 }}>
-          <Row>
-            <Col md={10}>
-              <Row>
-                <Col md={3}>
-                  <FormattedMessage id="key.public" />:
-                </Col>
-                <Col md={9}>
-                  <span id="account-id" className="break">
-                    {account.id}
-                  </span>
-                  <ClipboardCopy text={account.id} />
-                </Col>
-              </Row>
-              {federatedAddress && (
-                <Row>
-                  <Col md={3}>
-                    <FormattedMessage id="stellar.address" />:
-                  </Col>
-                  <Col md={9}>{federatedAddress}</Col>
-                </Row>
-              )}
-              <Row>
-                <Col md={3}>
-                  <FormattedMessage id="home.domain" />:
-                </Col>
-                <Col md={9}>
-                  <a
-                    href={`https://${account.home_domain}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {account.home_domain}
-                  </a>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={3}>
-                  <FormattedMessage id="subentry.count" />:
-                </Col>
-                <Col md={9}>{account.subentry_count}</Col>
-              </Row>
-            </Col>
-            {has(knownAccounts, account.id) &&
-              knownAccounts[account.id].logo && (
-                <Col md={2}>
-                  <div style={{ marginBottom: 10 }}>
-                    <Logo
-                      type={knownAccounts[account.id].type}
-                      name={knownAccounts[account.id].logo}
-                    />
-                  </div>
-                </Col>
-              )}
-          </Row>
-        </Container>
-      </Card.Body>
-    </Card>
-  )
+    const { formatMessage } = useIntl()
+    useEffect(() => {
+        setTitle(`Account ${account.id}`)
+    }, [account.id])
+    return (
+        <Card id="account-summary-card">
+            <CardHeader>
+                {titleWithJSONButton(formatMessage({ id: 'account' }), accountUrl)}
+            </CardHeader>
+            <Card.Body>
+                <Container style={{ paddingLeft: 0 }}>
+                    <Row>
+                        <Col md={10}>
+                            <Row>
+                                <Col md={3}>
+                                    <FormattedMessage id="key.public" />:
+                                </Col>
+                                <Col md={9}>
+                                    <span id="account-id" className="break">
+                                        {account.id}
+                                    </span>
+                                    <ClipboardCopy text={account.id} />
+                                </Col>
+                            </Row>
+                            {federatedAddress && (
+                                <Row>
+                                    <Col md={3}>
+                                        <FormattedMessage id="stellar.address" />:
+                                    </Col>
+                                    <Col md={9}>{federatedAddress}</Col>
+                                </Row>
+                            )}
+                            <Row>
+                                <Col md={3}>
+                                    <FormattedMessage id="home.domain" />:
+                                </Col>
+                                <Col md={9}>
+                                    <a
+                                        href={`https://${account.home_domain}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        {account.home_domain}
+                                    </a>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={3}>
+                                    <FormattedMessage id="subentry.count" />:
+                                </Col>
+                                <Col md={9}>{account.subentry_count}</Col>
+                            </Row>
+                        </Col>
+                        {has(knownAccounts, account.id) &&
+                            knownAccounts[account.id].logo && (
+                                <Col md={2}>
+                                    <div style={{ marginBottom: 10 }}>
+                                        <Logo
+                                            type={knownAccounts[account.id].type}
+                                            name={knownAccounts[account.id].logo}
+                                        />
+                                    </div>
+                                </Col>
+                            )}
+                    </Row>
+                </Container>
+            </Card.Body>
+        </Card>
+    )
 }
 
 const pathToTabName = (path: string) => {
-  const match = /\/account\/[^/]*\/([a-z]*)/.exec(path)
-  return match ? match[1] : 'balances'
+    const match = /\/account\/[^/]*\/([a-z]*)/.exec(path)
+    return match ? match[1] : 'balances'
 }
 
 export { ErrorBoundary }
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
-  const server = await requestToServer(request)
-  let response
-  try {
-    response = await Promise.all([
-      loadAccount(server, params.accountId as string),
-      server.serverURL.toString(),
-    ]).then((result) => ({ accountResult: result[0], horizonURL: result[1] }))
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      throw new Response(null, {
-        status: 404,
-        statusText: `Account ${params.accountId} not found on this network.`,
-      })
-    } else if (error instanceof AccountTypeUnrecognizedException) {
-      throw new Response(null, {
-        status: 400,
-        statusText: error.message,
-      })
-    } else {
-      captureException(error)
-      throw error
-    }
-  }
-  return json(response)
-}
+export const loader = ({ request }: LoaderFunctionArgs) =>
+    requestToServerDetails(request)
 
 export default function Account() {
-  const [activeTab, setActiveTab] = useState('data')
-  const { accountResult, horizonURL } = useLoaderData<typeof loader>()
-  const { pathname } = useLocation()
+    const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+    //   const { accountResponse, horizonURL } = useLoaderData<typeof loader>()
+    const { accountId } = useParams()
 
-  useEffect(() => {
-    setActiveTab(pathToTabName(pathname))
-  }, [pathname])
+    const [activeTab, setActiveTab] = useState('data')
+    const [accountResponse, setAccountResponse] = useState(null)
 
-  const { account, muxedAddress, federatedAddress } = accountResult
-  const accountRec = account as ServerApi.AccountRecord
-  const base = `/account/${accountRec.id}`
+    const { pathname } = useLocation()
 
-  return (
-    <Container>
-      {muxedAddress && (
-        <Row>
-          <MuxedAccountInfoCard address={muxedAddress} />
-        </Row>
-      )}
-      <Row>
-        <AccountSummaryCard
-          account={accountRec}
-          accountUrl={`${horizonURL}accounts/${accountRec.id}`}
-          federatedAddress={federatedAddress}
-          knownAccounts={knownAccounts}
-        />
-      </Row>
-      <Row>
-        <nav id="account-nav">
-          <TabLink base={base} activeTab={activeTab} title="Balances" />
-          <TabLink base={base} activeTab={activeTab} title="Payments" />
-          <TabLink base={base} activeTab={activeTab} title="Offers" />
-          <TabLink base={base} activeTab={activeTab} title="Trades" />
-          <TabLink base={base} activeTab={activeTab} title="Effects" />
-          <TabLink base={base} activeTab={activeTab} title="Operations" />
-          <TabLink
-            base={base}
-            activeTab={activeTab}
-            title="Transactions"
-            path="txs"
-          />
-          <TabLink base={base} activeTab={activeTab} title="Signing" />
-          <TabLink base={base} activeTab={activeTab} title="Flags" />
-          <TabLink base={base} activeTab={activeTab} title="Data" />
-        </nav>
-        <div id="account-tab-content">
-          <Outlet />
-        </div>
-      </Row>
-    </Container>
-  )
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setActiveTab(pathToTabName(pathname))
+
+            const server = new HorizonServer(
+                serverDetails.serverAddress,
+                serverDetails.networkType as string,
+            )
+            Promise.all([
+                loadAccount(server, accountId as string),
+                server.serverURL.toString()
+            ])
+                .then((result) => ({ accountResult: result[0], horizonURL: result[1] }))
+                .then(setAccountResponse as any)
+                .catch(error => {
+                    if (error instanceof NotFoundError) {
+                        throw new Response(null, {
+                            status: 404,
+                            statusText: `Account ${accountId} not found on this network.`,
+                        })
+                    } else if (error instanceof AccountTypeUnrecognizedException) {
+                        throw new Response(null, {
+                            status: 400,
+                            statusText: error.message,
+                        })
+                    } else {
+                        captureException(error)
+                        throw error
+                    }
+                }
+                )
+        }
+    }, [pathname])
+
+    if (!accountResponse) {
+        return
+    }
+
+    const { accountResult, horizonURL }: { accountResult: LoadAccountResult, horizonURL: string } = (accountResponse as any)
+
+    const { account, muxedAddress, federatedAddress } = accountResult
+
+    const base = `/account/${account.id}`
+
+    return (
+        <Container>
+            {muxedAddress && (
+                <Row>
+                    <MuxedAccountInfoCard address={muxedAddress} />
+                </Row>
+            )}
+            <Row>
+                <AccountSummaryCard
+                    account={account}
+                    accountUrl={`${horizonURL}accounts/${account.id}`}
+                    federatedAddress={federatedAddress}
+                    knownAccounts={knownAccounts}
+                />
+            </Row>
+            <Row>
+                <nav id="account-nav">
+                    <TabLink base={base} activeTab={activeTab} title="Balances" />
+                    <TabLink base={base} activeTab={activeTab} title="Payments" />
+                    <TabLink base={base} activeTab={activeTab} title="Offers" />
+                    <TabLink base={base} activeTab={activeTab} title="Trades" />
+                    <TabLink base={base} activeTab={activeTab} title="Effects" />
+                    <TabLink base={base} activeTab={activeTab} title="Operations" />
+                    <TabLink
+                        base={base}
+                        activeTab={activeTab}
+                        title="Transactions"
+                        path="txs"
+                    />
+                    <TabLink base={base} activeTab={activeTab} title="Signing" />
+                    <TabLink base={base} activeTab={activeTab} title="Flags" />
+                    <TabLink base={base} activeTab={activeTab} title="Data" />
+                </nav>
+                <div id="account-tab-content">
+                    <Outlet />
+                </div>
+            </Row>
+        </Container>
+    )
 }

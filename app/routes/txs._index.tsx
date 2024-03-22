@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useLoaderData } from '@remix-run/react'
 
@@ -10,43 +10,53 @@ import Row from 'react-bootstrap/Row'
 import TransactionTable from '../components/TransactionTable'
 import { setTitle } from '../lib/utils'
 
-import type { TransactionProps } from './tx.$txHash'
 import Paging from '~/components/shared/Paging'
-import { horizonRecordsLoader } from '~/lib/loader-util'
+import { getHorizonRecords } from '~/lib/loader-util'
+import { HorizonServerDetails, requestToServerDetails } from '~/lib/stellar/server'
+import { LoaderFunctionArgs } from '@remix-run/node'
 
 const RECORD_LIMIT = 20
 
-export const loader = horizonRecordsLoader<ReadonlyArray<TransactionProps>>(
-  'transactions',
-  RECORD_LIMIT,
-)
+export const loader = ({ request }: LoaderFunctionArgs) =>
+    requestToServerDetails(request)
 
 export default function Transactions() {
-  const { records, cursor } = useLoaderData<typeof loader>()
+    const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
 
-  useEffect(() => {
-    setTitle('Transactions')
-  }, [])
+    const [records, setRecords] = useState(null)
+    const [cursor, setCursor] = useState(null)
 
-  return (
-    <Container>
-      <Row>
-        <Card>
-          <CardHeader>
-            <FormattedMessage id="transactions" />
-          </CardHeader>
-          <Card.Body>
-            <Paging baseUrl="/txs" records={records} currentCursor={cursor}>
-              <TransactionTable
-                records={records}
-                showLedger
-                showSource
-                compact={false}
-              />
-            </Paging>
-          </Card.Body>
-        </Card>
-      </Row>
-    </Container>
-  )
+    useEffect(() => {
+        setTitle('Transactions')
+        getHorizonRecords(serverDetails, 'transactions', RECORD_LIMIT).then((response) => {
+            setRecords((response as any).records)
+            setCursor((response as any).cursor)
+        })
+    }, [])
+
+    if (!records) {
+        return
+    }
+
+    return (
+        <Container>
+            <Row>
+                <Card>
+                    <CardHeader>
+                        <FormattedMessage id="transactions" />
+                    </CardHeader>
+                    <Card.Body>
+                        <Paging baseUrl="/txs" records={records as any} currentCursor={cursor as any}>
+                            <TransactionTable
+                                records={records as any}
+                                showLedger
+                                showSource
+                                compact={false}
+                            />
+                        </Paging>
+                    </Card.Body>
+                </Card>
+            </Row>
+        </Container>
+    )
 }
