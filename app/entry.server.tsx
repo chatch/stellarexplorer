@@ -55,7 +55,7 @@ export function handleError(
   }
 
   if (error instanceof NotFoundError) {
-    // don't send steller resource not founds to sentry
+    // don't send stellar resource not founds to sentry
     // they are handled and error shown to user
     // just log to console here for dev visibility
     //
@@ -68,7 +68,7 @@ export function handleError(
     //
     // which is the correct response and renders correctly but for some reason
     // remix is invoking this follow up that fails ...
-    console.warn(error.getResponse())
+    console.warn(`404 for ${request.url}`)
   } else if (error instanceof Error) {
     Sentry.captureRemixServerException(error, 'remix.server', request)
   } else {
