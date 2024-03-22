@@ -146,7 +146,6 @@ export const loader = ({ request }: LoaderFunctionArgs) =>
 
 export default function Account() {
     const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
-    //   const { accountResponse, horizonURL } = useLoaderData<typeof loader>()
     const { accountId } = useParams()
 
     const [activeTab, setActiveTab] = useState('data')
