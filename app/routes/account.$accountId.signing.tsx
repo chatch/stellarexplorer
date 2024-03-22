@@ -1,17 +1,17 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Col, Container, Row, Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 import { StrKey } from '../lib/stellar/sdk'
 import type { Horizon } from 'stellar-sdk'
 import AccountLink from '~/components/shared/AccountLink'
-import { requestToServer } from '~/lib/stellar/server'
+import type { HorizonServerDetails } from '~/lib/stellar/server'
+import HorizonServer, { requestToServerDetails } from '~/lib/stellar/server'
 import type { LoadAccountResult } from '~/lib/stellar/server_request_utils'
 import { loadAccount } from '~/lib/stellar/server_request_utils'
 import { setTitle } from '~/lib/utils'
 import type { AccountRecordSigners } from 'stellar-sdk/lib/types/account'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 
 const Thresholds = ({
   thresholds,
@@ -76,25 +76,31 @@ const Signers = ({ signers }: { signers: AccountRecordSigners[] }) => (
     </tbody>
   </Table>
 )
+export const loader = ({ request }: LoaderFunctionArgs) =>
+  requestToServerDetails(request)
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
-  const server = await requestToServer(request)
-  return loadAccount(server, params.accountId as string).then(json)
-}
-
-export default function BalancesTab() {
-  const accountResult = useLoaderData<typeof loader>() as LoadAccountResult
-
+export default function SigningTab() {
+  const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+  const [accountResult, setAccountResult]: [LoadAccountResult | null, any] =
+    useState(null)
   const { accountId } = useParams()
+
   useEffect(() => {
-    setTitle(`Account Signing ${accountId}`)
+    if (typeof window !== 'undefined') {
+      setTitle(`Account Signing ${accountId}`)
+      const server = new HorizonServer(
+        serverDetails.serverAddress,
+        serverDetails.networkType as string,
+      )
+      loadAccount(server, accountId as string).then(setAccountResult)
+    }
   }, [accountId])
 
   if (!accountResult) {
     return
   }
 
-  const { account } = accountResult
+  const { account } = accountResult as any
 
   return (
     <Container>

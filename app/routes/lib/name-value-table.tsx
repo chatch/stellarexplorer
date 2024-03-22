@@ -1,13 +1,13 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
-import { requestToServer } from '~/lib/stellar/server'
+import type { HorizonServerDetails } from '~/lib/stellar/server'
+import HorizonServer from '~/lib/stellar/server'
 import type { LoadAccountResult } from '~/lib/stellar/server_request_utils'
 import { loadAccount } from '~/lib/stellar/server_request_utils'
 import { base64Decode, setTitle } from '~/lib/utils'
+import type { loader } from '../tx.$txHash'
 
 const dataValue = (decodeValue: boolean, value?: any): string => {
   let retVal
@@ -54,20 +54,22 @@ const NameValueTable = ({
   )
 }
 
-const nameValueLoader = async ({ params, request }: LoaderFunctionArgs) => {
-  const server = await requestToServer(request)
-  return loadAccount(server, params.accountId as string).then(json)
-}
-
 const nameValueAccountTab = function (name: string) {
   return function () {
-    const accountResult = useLoaderData<
-      typeof nameValueLoader
-    >() as LoadAccountResult
-
+    const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+    const [accountResult, setAccountResult]: [LoadAccountResult | null, any] =
+      useState(null)
     const { accountId } = useParams()
+
     useEffect(() => {
-      setTitle(`Account ${name} ${accountId}`)
+      if (typeof window !== 'undefined') {
+        setTitle(`Account ${name} ${accountId}`)
+        const server = new HorizonServer(
+          serverDetails.serverAddress,
+          serverDetails.networkType as string,
+        )
+        loadAccount(server, accountId as string).then(setAccountResult)
+      }
     }, [accountId])
 
     if (!accountResult) {
@@ -76,10 +78,10 @@ const nameValueAccountTab = function (name: string) {
 
     return (
       <NameValueTable
-        data={(accountResult.account as any)[name.toLowerCase()]}
+        data={(accountResult as any).account[name.toLowerCase()]}
       />
     )
   }
 }
 
-export { nameValueAccountTab, nameValueLoader }
+export { nameValueAccountTab }

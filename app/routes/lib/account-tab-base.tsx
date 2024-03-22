@@ -1,41 +1,23 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { Container, Row } from 'react-bootstrap'
 import type { PaymentProps } from '~/components/operations/Payment'
 import Paging from '~/components/shared/Paging'
 import * as serverRequestUtils from '../../lib/stellar/server_request_utils'
-import { requestToServer } from '~/lib/stellar/server'
+import type { HorizonServerDetails } from '~/lib/stellar/server'
+import HorizonServer, { requestToServerDetails } from '~/lib/stellar/server'
 import type { FunctionComponent } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { setTitle } from '~/lib/utils'
 import type { ServerReqFnName } from '~/lib/loader-util'
+import type { loader } from '../tx.$txHash'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 
 const DEFAULT_RECORD_LIMIT = 30
 
 const accountTabLoader =
-  (serverRequestFnName: ServerReqFnName, limit?: number) =>
-  async ({ request, params }: LoaderFunctionArgs) => {
-    const url = new URL(request.url)
-    const cursor: string | undefined =
-      url.searchParams.get('cursor') ?? undefined
-    const order: string | undefined = url.searchParams.get('order') ?? undefined
-
-    const server = await requestToServer(request)
-
-    return serverRequestUtils[serverRequestFnName](server, {
-      accountId: params.accountId,
-      cursor,
-      order: order as 'asc' | 'desc',
-      limit: limit ?? DEFAULT_RECORD_LIMIT,
-    }).then((records: any) =>
-      json({
-        records: order === 'asc' ? [...records].reverse() : records,
-        cursor,
-        horizonURL: server.serverURL.toString(),
-      }),
-    )
-  }
+  () =>
+  ({ request }: LoaderFunctionArgs) =>
+    requestToServerDetails(request)
 
 const accountTabComponent = function <loaderFnType>(
   TableComponent: FunctionComponent<{
@@ -44,9 +26,49 @@ const accountTabComponent = function <loaderFnType>(
     horizonURL: string
   }>,
   name: string,
+  serverRequestFnName: ServerReqFnName,
+  limit?: number,
   subpath = name?.toLowerCase(),
 ) {
   return function AccountTabComponent() {
+    const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+    const [serverResult, setServerResult] = useState(null)
+
+    const { accountId } = useParams()
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        setTitle(`Account ${name} ${accountId}`)
+
+        const server = new HorizonServer(
+          serverDetails.serverAddress,
+          serverDetails.networkType as string,
+        )
+
+        const url = new URL(serverDetails.requestURL)
+        const cursor: string | undefined =
+          url.searchParams.get('cursor') ?? undefined
+        const order: string | undefined =
+          url.searchParams.get('order') ?? undefined
+
+        serverRequestUtils[serverRequestFnName](server, {
+          accountId: accountId,
+          cursor,
+          order: order as 'asc' | 'desc',
+          limit: limit ?? DEFAULT_RECORD_LIMIT,
+        }).then((records: any) =>
+          setServerResult({
+            records: order === 'asc' ? [...records].reverse() : records,
+            cursor,
+            horizonURL: server.serverURL.toString(),
+          } as any),
+        )
+      }
+    }, [accountId])
+
+    if (!serverResult) {
+      return
+    }
+
     const {
       records,
       cursor,
@@ -55,12 +77,7 @@ const accountTabComponent = function <loaderFnType>(
       records?: ReadonlyArray<PaymentProps>
       cursor?: string
       horizonURL: string
-    } = useLoaderData<loaderFnType>() as any
-
-    const { accountId } = useParams()
-    useEffect(() => {
-      setTitle(`Account ${name} ${accountId}`)
-    }, [accountId])
+    } = serverResult as any
 
     if (!records || records.length === 0) {
       return <div style={{ marginTop: 20, marginBottom: 20 }}>No Records</div>
