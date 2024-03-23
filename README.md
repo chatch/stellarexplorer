@@ -24,8 +24,8 @@ Deployments:
 | Payments             | [/payments](https://steexp.com/payments)                |
 | Trades               | [/trades](https://steexp.com/trades)                    |
 | Effects              | [/effects](https://steexp.com/effects)                  |
-| Liquidity Pools      | [/effects](https://steexp.com/pools)                    |
-| Claimable Balances   | [/effects](https://steexp.com/claimable-balances)       |
+| Liquidity Pools      | [/pools](https://steexp.com/pools)                    |
+| Claimable Balances   | [/claimable-balances](https://steexp.com/claimable-balances)       |
 
 ### Directory
 
@@ -150,6 +150,15 @@ Show HTML test reports:
 npm run test:e2e:report
 ```
 
+Run the test against app running on local:
+
+```sh
+npm run dev
+
+# in a different terminal
+ENV=local npm run test:e2e
+```
+
 ### Build
 
 ```sh
@@ -171,4 +180,10 @@ Submit pull requests with new languages or languages fixes there.
 
 ```sh
 npx ts-node scripts/restructure-centralized-exchanges-json.ts
+```
+
+### Fetch asset data for liquidity pools
+
+```sh
+npx ts-node scripts/get-assets-json.ts
 ```
