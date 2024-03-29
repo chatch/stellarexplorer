@@ -6,6 +6,10 @@ const serverBuild = require('./build/index')
 
 const app = express()
 
+app.set('trust proxy', true);
+
+// Fly.io proxy is compressing so we don't need here at the app level:
+
 // app.use(compression());
 
 // limit the bots that are hitting this at a fast rate
@@ -18,28 +22,30 @@ const limiter = rateLimit({
 app.use('/account/*', limiter);
 
 app.use((req, res, next) => {
-    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    console.log(`request ip: ${ip}`);
+    res.on('finish', () => {
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        const path = req.originalUrl || req.url;
+
+        const log = `${ip} - - [${new Date().toISOString()}] "${req.method} ${path} HTTP/${req.httpVersion}" ${res.statusCode} ${res.get('Content-Length') || 0} "-" "${req.headers['user-agent']}"`;
+        console.log(log);
+    });
     next();
 });
 
 app.use(express.static("public"));
-
-
-// ... set up any middleware, like rateLimit, here
 
 app.all(
     '*',
     createRequestHandler({
         build: serverBuild,
         getLoadContext() {
-            // Your context here
         },
     })
 )
 
 const port = process.env.PORT ?? 3000
+const host = '0.0.0.0'
 
-app.listen(port, () => {
+app.listen(port, host, () => {
     console.log(`Express server listening on port ${port}`)
 })
