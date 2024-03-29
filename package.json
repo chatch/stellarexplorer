@@ -1,7 +1,7 @@
 {
   "name": "stellarexplorer",
   "description": "Ledger explorer for the Stellar network",
-  "version": "2.6.0-beta",
+  "version": "2.6.1",
   "license": "Apache-2.0",
   "author": "Chris Hatch <hatch@tuta.io>",
   "homepage": "https://steexp.com",
@@ -25,9 +25,9 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix build",
-    "start": "remix-serve ./build/index.js",
+    "start": "node server.js",
     "deploy": "fly deploy --remote-only",
-    "dev": "remix dev",
+    "dev": "nodemon server.js",
     "jest-preview": "jest-preview",
     "typecheck": "tsc",
     "lint": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}'",
