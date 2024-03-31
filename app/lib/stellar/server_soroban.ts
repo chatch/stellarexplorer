@@ -3,6 +3,7 @@ import networks from './networks'
 import { isLocalhost } from './utils'
 
 export const sorobanRpcURIs: Record<string, string> = {
+  [networks.public]: 'https://soroban-rpc.mainnet.stellar.gateway.fm',
   [networks.future]: 'https://rpc-futurenet.stellar.org',
   [networks.test]: 'https://soroban-testnet.stellar.org',
   [networks.local]: 'http://localhost:8000/soroban/rpc',
