@@ -45,7 +45,7 @@
     "@remix-run/node": "2.4.1",
     "@remix-run/react": "2.4.1",
     "@remix-run/serve": "2.4.1",
-    "@sentry/remix": "7.90.0",
+    "@sentry/remix": "7.109.0",
     "@stellar/js-xdr": "3.0.1",
     "bignumber.js": "^9.1.1",
     "bootstrap": "^5.3.1",
