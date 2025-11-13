@@ -1,13 +1,4 @@
-import { Horizon } from 'stellar-sdk'
-import { AccountCallBuilder } from 'stellar-sdk/lib/horizon/account_call_builder'
-import { AssetsCallBuilder } from 'stellar-sdk/lib/horizon/assets_call_builder'
-import { EffectCallBuilder } from 'stellar-sdk/lib/horizon/effect_call_builder'
-import { LedgerCallBuilder } from 'stellar-sdk/lib/horizon/ledger_call_builder'
-import { OfferCallBuilder } from 'stellar-sdk/lib/horizon/offer_call_builder'
-import { OperationCallBuilder } from 'stellar-sdk/lib/horizon/operation_call_builder'
-import { PaymentCallBuilder } from 'stellar-sdk/lib/horizon/payment_call_builder'
-import { TradesCallBuilder } from 'stellar-sdk/lib/horizon/trades_call_builder'
-import { TransactionCallBuilder } from 'stellar-sdk/lib/horizon/transaction_call_builder'
+import { Horizon } from '@stellar/stellar-sdk'
 import URI from 'urijs'
 
 /* ----------------------------------------------------------
@@ -68,26 +59,28 @@ const wrapStellarCallBuilderWithWebPagePaging = (CallBuilder: any) => {
  * Wrap the stellar server calls we want to use modified paging on
  */
 
+// Get CallBuilder classes at runtime by extracting them from a temp server instance
+const tempServer = new Horizon.Server('https://horizon.stellar.org')
 const pagingCalls = {
-  ledgers: LedgerCallBuilder,
-  operations: OperationCallBuilder,
-  transactions: TransactionCallBuilder,
-  payments: PaymentCallBuilder,
-  effects: EffectCallBuilder,
-  offers: OfferCallBuilder,
-  assets: AssetsCallBuilder,
-  trades: TradesCallBuilder,
-  accounts: AccountCallBuilder,
+  ledgers: Object.getPrototypeOf(tempServer.ledgers()).constructor,
+  operations: Object.getPrototypeOf(tempServer.operations()).constructor,
+  transactions: Object.getPrototypeOf(tempServer.transactions()).constructor,
+  payments: Object.getPrototypeOf(tempServer.payments()).constructor,
+  effects: Object.getPrototypeOf(tempServer.effects()).constructor,
+  offers: Object.getPrototypeOf(tempServer.offers()).constructor,
+  assets: Object.getPrototypeOf(tempServer.assets()).constructor,
+  trades: Object.getPrototypeOf(tempServer.trades()).constructor,
+  accounts: Object.getPrototypeOf(tempServer.accounts()).constructor,
 }
 
 Object.keys(pagingCalls).forEach(
   (callName) =>
-    ((Horizon.Server.prototype as any)[callName] = function (...params: any) {
-      const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
-        (pagingCalls as any)[callName],
-      )
-      return new (WrappedClass as any)(URI(this.serverURL), ...params)
-    }),
+  ((Horizon.Server.prototype as any)[callName] = function (...params: any) {
+    const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
+      (pagingCalls as any)[callName],
+    )
+    return new (WrappedClass as any)(URI(this.serverURL), this.httpClient, ...params)
+  }),
 )
 
-export { MemoHash, MemoReturn, MuxedAccount, StrKey } from 'stellar-sdk'
+export { MemoHash, MemoReturn, MuxedAccount, StrKey } from '@stellar/stellar-sdk'

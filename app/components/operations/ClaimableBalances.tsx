@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import AccountLink from '../shared/AccountLink'
 import Asset from '../shared/Asset'
-import type { HorizonApi } from 'stellar-sdk/lib/horizon'
+import type { HorizonApi } from '@stellar/stellar-sdk/lib/horizon'
 
 export interface ClaimableBalanceProps extends PropsWithChildren {
   id: string

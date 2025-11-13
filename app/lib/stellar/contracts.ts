@@ -1,4 +1,4 @@
-import { Contract } from 'stellar-sdk'
+import { Contract } from '@stellar/stellar-sdk'
 import type { SorobanServer } from '../stellar'
 import { xdr } from '../stellar'
 import { hexStringToBytes } from '../utils'
@@ -46,7 +46,8 @@ const getContractInfo = async (server: SorobanServer, contractId: string) => {
   try {
     ledgerEntries = await server.getLedgerEntries(ledgerKey)
   } catch (error) {
-    console.error(error)
+    console.error('❌ Error in getLedgerEntries:', error)
+    throw error
   }
 
   if (
@@ -56,6 +57,7 @@ const getContractInfo = async (server: SorobanServer, contractId: string) => {
   ) {
     return null
   }
+
   const ledgerEntry = ledgerEntries.entries[0]
   const codeData = ledgerEntry.val.contractData()
 
@@ -79,12 +81,14 @@ const getContractCode = async (
       hash: wasmId,
     }),
   )
+
   const ledgerEntries = await server.getLedgerEntries(ledgerKey)
   if (
     ledgerEntries == null ||
     ledgerEntries.entries == null ||
     ledgerEntries.entries.length === 0
   ) {
+    console.warn('⚠️ No ledger entries found for contract code')
     return null
   }
   const ledgerEntry = ledgerEntries.entries[0]
@@ -105,7 +109,7 @@ const loadContract = async (
   try {
     contractInstance = new Contract(contractId)
   } catch (error) {
-    console.error(error)
+    console.error('❌ Error creating Contract instance:', error)
     if (
       error instanceof Error &&
       error.message.includes('Invalid contract ID')
@@ -117,20 +121,19 @@ const loadContract = async (
 
   const wasmIdResult = await getContractInfo(server, contractId)
   if (wasmIdResult == null) {
-    console.error('Failed to get wasm id')
+    console.error('❌ Failed to get wasm id - contract may not exist on this network')
     return
   }
 
   const { wasmId, wasmIdLedger } = wasmIdResult
-  // console.log(`wasmIdResult ${JSON.stringify(wasmIdResult, null, 2)}`)
   if (!wasmId) {
-    console.warn('no wasmId in result')
+    console.warn('⚠️ no wasmId in result')
     return
   }
 
   const codeResult = await getContractCode(server, wasmId)
   if (!codeResult) {
-    console.error('Failed to get wasm code')
+    console.error('❌ Failed to get wasm code')
     return
   }
   const { wasmCode, wasmCodeLedger } = codeResult
@@ -146,16 +149,16 @@ const loadContract = async (
 
 const postWasmToWabtBackendRoute =
   (path: string) =>
-  (wasmHexString: string): Promise<string> => {
-    const wasmBytes = hexStringToBytes(wasmHexString)
-    const blob = new Blob([new Uint8Array(wasmBytes)])
-    const formData = new FormData()
-    formData.append('contract', blob)
-    return fetch(`${API_URL}${path}`, {
-      method: 'POST',
-      body: formData,
-    }).then((response) => response.text())
-  }
+    (wasmHexString: string): Promise<string> => {
+      const wasmBytes = hexStringToBytes(wasmHexString)
+      const blob = new Blob([new Uint8Array(wasmBytes)])
+      const formData = new FormData()
+      formData.append('contract', blob)
+      return fetch(`${API_URL}${path}`, {
+        method: 'POST',
+        body: formData,
+      }).then((response) => response.text())
+    }
 
 const getContractDecompiled = postWasmToWabtBackendRoute('/decompile')
 const getContractWat = postWasmToWabtBackendRoute('/wat')

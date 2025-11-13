@@ -1,4 +1,4 @@
-import type { ServerApi } from 'stellar-sdk/lib/horizon'
+import type { ServerApi } from '@stellar/stellar-sdk/lib/horizon'
 
 import Card from 'react-bootstrap/Card'
 import CardHeader from 'react-bootstrap/CardHeader'
@@ -51,10 +51,10 @@ export default function Effects() {
           <Card.Body>
             <EffectTable
               records={records as ReadonlyArray<EffectProps>}
-              // showEffect
-              // showSource
-              // compact={false}
-              // limit={20}
+            // showEffect
+            // showSource
+            // compact={false}
+            // limit={20}
             />
           </Card.Body>
         </Card>

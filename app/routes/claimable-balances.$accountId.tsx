@@ -10,7 +10,7 @@ import { Tab, Tabs } from 'react-bootstrap'
 import { requestToServer } from '~/lib/stellar/server'
 import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { NotFoundError } from 'stellar-sdk'
+import { NotFoundError } from '@stellar/stellar-sdk'
 import { captureException } from '@sentry/remix'
 import { claimableBalances } from '~/lib/stellar/server_request_utils'
 

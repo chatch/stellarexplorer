@@ -2,7 +2,7 @@ import isNaN from 'lodash/isNaN'
 import isEmpty from 'lodash/isEmpty'
 import isString from 'lodash/isString'
 import toNumber from 'lodash/toNumber'
-import { Keypair } from 'stellar-sdk'
+import { Keypair } from '@stellar/stellar-sdk'
 
 import {
   isContractAddress,

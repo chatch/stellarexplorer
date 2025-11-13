@@ -5,7 +5,7 @@ import { RemixServer } from '@remix-run/react'
 import isbot from 'isbot'
 import { renderToPipeableStream } from 'react-dom/server'
 import * as Sentry from '@sentry/remix'
-import { NotFoundError } from 'stellar-sdk'
+import { NotFoundError } from '@stellar/stellar-sdk'
 
 const ABORT_DELAY = 5000
 

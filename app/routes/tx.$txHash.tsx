@@ -28,7 +28,7 @@ import {
 import OperationTable from '~/components/OperationTable'
 import { useEffect, useState } from 'react'
 import { captureException } from '@sentry/remix'
-import { NotFoundError } from 'stellar-sdk'
+import { NotFoundError } from '@stellar/stellar-sdk'
 import { ErrorBoundary } from './lib/error-boundary'
 
 // Lookup memo type to a label

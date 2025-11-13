@@ -1,9 +1,9 @@
 {
   "name": "stellarexplorer",
   "description": "Ledger explorer for the Stellar network",
-  "version": "2.6.1",
+  "version": "2.7.1",
   "license": "Apache-2.0",
-  "author": "Chris Hatch <hatch@tuta.io>",
+  "author": "Chris Hatch <devcebfaff@proton.me>",
   "homepage": "https://steexp.com",
   "repository": "chatch/stellarexplorer",
   "bugs": {
@@ -27,7 +27,7 @@
     "build": "remix build",
     "start": "node server.js",
     "deploy": "fly deploy --remote-only",
-    "dev": "nodemon server.js",
+    "dev": "remix dev --manual -c 'node server.js'",
     "jest-preview": "jest-preview",
     "typecheck": "tsc",
     "lint": "eslint --ignore-path .gitignore '**/*.{js,jsx,ts,tsx}'",
@@ -47,6 +47,7 @@
     "@remix-run/serve": "2.4.1",
     "@sentry/remix": "7.109.0",
     "@stellar/js-xdr": "3.0.1",
+    "@stellar/stellar-sdk": "14.3.2",
     "bignumber.js": "^9.1.1",
     "bootstrap": "^5.3.1",
     "express-rate-limit": "^7.0.0",
@@ -60,7 +61,6 @@
     "react-intl": "6.4.4",
     "react-json-pretty": "^2.2.0",
     "react-router-bootstrap": "^0.26.2",
-    "stellar-sdk": "11.1.0",
     "urijs": "1.19.11"
   },
   "devDependencies": {

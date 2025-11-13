@@ -1,7 +1,7 @@
 import snakeCase from 'lodash/snakeCase'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { StrKey } from 'stellar-sdk'
+import { StrKey } from '@stellar/stellar-sdk'
 
 import AccountLink from '../shared/AccountLink'
 import { isPublicKey } from '../../lib/stellar/utils'
