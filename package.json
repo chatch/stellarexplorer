@@ -3,7 +3,7 @@
   "description": "Ledger explorer for the Stellar network",
   "version": "2.7.0",
   "license": "Apache-2.0",
-  "author": "Chris Hatch <hatch@tuta.io>",
+  "author": "Chris Hatch <devcebfaff@proton.me>",
   "homepage": "https://steexp.com",
   "repository": "chatch/stellarexplorer",
   "bugs": {
