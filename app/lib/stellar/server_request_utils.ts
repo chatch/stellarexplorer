@@ -1,19 +1,7 @@
 import type { Asset } from '@stellar/stellar-sdk'
 import type { ServerApi } from '@stellar/stellar-sdk/lib/horizon'
 
-import { FederationServer, MuxedAccount, NotFoundError } from '@stellar/stellar-sdk'
-import {
-  AccountCallBuilder,
-  ClaimableBalanceCallBuilder,
-  EffectCallBuilder,
-  LedgerCallBuilder,
-  LiquidityPoolCallBuilder,
-  OfferCallBuilder,
-  OperationCallBuilder,
-  PaymentCallBuilder,
-  TradesCallBuilder,
-  TransactionCallBuilder
-} from '@stellar/stellar-sdk'
+import { Federation, MuxedAccount, NotFoundError } from '@stellar/stellar-sdk'
 import AccountTypeUnrecognizedException from '../error/AccountTypeUnrecognizedException'
 
 import type HorizonServer from './server'
@@ -58,7 +46,7 @@ const ledgers = async (
   server: HorizonServer,
   { limit = 5, cursor, order = 'desc' }: PageOptions,
 ) => {
-  const builder: LedgerCallBuilder = server.ledgers()
+  const builder = server.ledgers()
   if (cursor) {
     builder.cursor(cursor)
   }
@@ -93,7 +81,7 @@ const transactions = async (
     claimableBalanceId?: string
   },
 ) => {
-  const builder: TransactionCallBuilder = server.transactions()
+  const builder = server.transactions()
 
   if (ledgerSeq) builder.forLedger(ledgerSeq)
   if (accountId) builder.forAccount(accountId)
@@ -144,14 +132,14 @@ const loadAccountByFederatedAddress = async (
 ) => {
   const [name, domain] = address.split('*')
   try {
-    const fed = await FederationServer.createForDomain(domain)
+    const fed = await Federation.Server.createForDomain(domain)
     const acc = await fed.resolveAddress(name)
     const rsp = await loadAccountFromServer(server, acc.account_id)
     return {
       account: rsp.account,
       federatedAddress: address,
     }
-  } catch (e: Error) {
+  } catch (e: any) {
     throw new NotFoundError(e.message, undefined)
   }
 }
@@ -173,7 +161,7 @@ const loadAccountFromServer = async (
   server: HorizonServer,
   accountId: string,
 ): Promise<{ account: ServerApi.AccountRecord }> => {
-  const builder: AccountCallBuilder = server.accounts()
+  const builder = server.accounts()
 
   const account = await withRetry(async () =>
     builder.accountId(accountId).call(),
@@ -198,7 +186,7 @@ const operations = async (
     claimableBalanceId?: string
   },
 ) => {
-  const builder: OperationCallBuilder = server.operations()
+  const builder = server.operations()
 
   if (accountId) builder.forAccount(accountId)
   if (tx) builder.forTransaction(tx)
@@ -230,7 +218,7 @@ const effects = async (
     poolId?: string
   },
 ): Promise<ReadonlyArray<ServerApi.EffectRecord>> => {
-  const builder: EffectCallBuilder = server.effects()
+  const builder = server.effects()
 
   if (accountId) builder.forAccount(accountId)
   if (operationId) builder.forOperation(operationId)
@@ -258,7 +246,7 @@ const payments = async (
     limit = 5,
   }: PageOptions & { accountId?: string; tx?: string },
 ) => {
-  const builder: PaymentCallBuilder = server.payments()
+  const builder = server.payments()
 
   if (accountId) builder.forAccount(accountId)
   if (tx) builder.forTransaction(tx)
@@ -280,7 +268,7 @@ const offers = async (
     limit = 5,
   }: PageOptions & { accountId?: string },
 ) => {
-  const builder: OfferCallBuilder = server.offers()
+  const builder = server.offers()
 
   if (accountId) builder.forAccount(accountId)
 
@@ -302,7 +290,7 @@ const trades = async (
     limit = 5,
   }: PageOptions & { accountId?: string; poolId?: string },
 ) => {
-  const builder: TradesCallBuilder = server.trades()
+  const builder = server.trades()
   if (accountId) builder.forAccount(accountId)
   if (poolId) builder.forLiquidityPool(poolId)
 
@@ -325,7 +313,7 @@ const liquidityPools = async (
     limit = 5,
   }: PageOptions & { id?: string; accountId?: string; assets?: Asset[] },
 ) => {
-  const builder: LiquidityPoolCallBuilder = server.liquidityPools()
+  const builder = server.liquidityPools()
 
   if (id) builder.liquidityPoolId(id)
   if (accountId) builder.forAccount(accountId)
@@ -363,7 +351,7 @@ const claimableBalances = async (
     asset?: Asset
   },
 ) => {
-  const builder: ClaimableBalanceCallBuilder = server.claimableBalances()
+  const builder = server.claimableBalances()
 
   if (id) builder.claimableBalance(id)
   if (sponsor) builder.sponsor(sponsor)

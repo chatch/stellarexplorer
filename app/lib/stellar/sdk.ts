@@ -1,15 +1,4 @@
 import { Horizon } from '@stellar/stellar-sdk'
-import {
-  AccountCallBuilder,
-  AssetsCallBuilder,
-  EffectCallBuilder,
-  LedgerCallBuilder,
-  OfferCallBuilder,
-  OperationCallBuilder,
-  PaymentCallBuilder,
-  TradesCallBuilder,
-  TransactionCallBuilder
-} from '@stellar/stellar-sdk'
 import URI from 'urijs'
 
 /* ----------------------------------------------------------
@@ -70,16 +59,18 @@ const wrapStellarCallBuilderWithWebPagePaging = (CallBuilder: any) => {
  * Wrap the stellar server calls we want to use modified paging on
  */
 
+// Get CallBuilder classes at runtime by extracting them from a temp server instance
+const tempServer = new Horizon.Server('https://horizon.stellar.org')
 const pagingCalls = {
-  ledgers: LedgerCallBuilder,
-  operations: OperationCallBuilder,
-  transactions: TransactionCallBuilder,
-  payments: PaymentCallBuilder,
-  effects: EffectCallBuilder,
-  offers: OfferCallBuilder,
-  assets: AssetsCallBuilder,
-  trades: TradesCallBuilder,
-  accounts: AccountCallBuilder,
+  ledgers: Object.getPrototypeOf(tempServer.ledgers()).constructor,
+  operations: Object.getPrototypeOf(tempServer.operations()).constructor,
+  transactions: Object.getPrototypeOf(tempServer.transactions()).constructor,
+  payments: Object.getPrototypeOf(tempServer.payments()).constructor,
+  effects: Object.getPrototypeOf(tempServer.effects()).constructor,
+  offers: Object.getPrototypeOf(tempServer.offers()).constructor,
+  assets: Object.getPrototypeOf(tempServer.assets()).constructor,
+  trades: Object.getPrototypeOf(tempServer.trades()).constructor,
+  accounts: Object.getPrototypeOf(tempServer.accounts()).constructor,
 }
 
 Object.keys(pagingCalls).forEach(
@@ -88,7 +79,7 @@ Object.keys(pagingCalls).forEach(
     const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
       (pagingCalls as any)[callName],
     )
-    return new (WrappedClass as any)(URI(this.serverURL), ...params)
+    return new (WrappedClass as any)(URI(this.serverURL), this.httpClient, ...params)
   }),
 )
 
