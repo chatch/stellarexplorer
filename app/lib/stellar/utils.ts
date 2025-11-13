@@ -1,4 +1,4 @@
-import { StrKey } from 'stellar-sdk'
+import { StrKey } from '@stellar/stellar-sdk'
 
 const STROOPS_PER_LUMEN = 10000000
 const stroopsToLumens = (stroops: number) => stroops / STROOPS_PER_LUMEN

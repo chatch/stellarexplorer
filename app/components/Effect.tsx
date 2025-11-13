@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/remix'
-import type { ServerApi } from 'stellar-sdk/lib/horizon'
+import type { ServerApi } from '@stellar/stellar-sdk/lib/horizon'
 
 import { FormattedMessage } from 'react-intl'
 import truncate from 'lodash/truncate'

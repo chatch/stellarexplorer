@@ -7,13 +7,13 @@ import { liquidityPoolAsset } from '~/data/liquidity_pool_asset'
 import { formatAmountToHumanReadable, getAssetCode } from '~/lib/utilities'
 
 import styles from './LiquidityPoolTable.module.css'
-import type { HorizonApi } from 'stellar-sdk/lib/horizon'
+import type { HorizonApi } from '@stellar/stellar-sdk/lib/horizon'
 
 interface ParentProps {
   compact: boolean
 }
 
-interface LiquidityPoolRowProps extends LiquidityPoolProps, ParentProps {}
+interface LiquidityPoolRowProps extends LiquidityPoolProps, ParentProps { }
 
 interface LiquidityPoolTableProps {
   compact: boolean

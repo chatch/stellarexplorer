@@ -25,7 +25,7 @@ import { setTitle, shortHash } from '~/lib/utils'
 import { stroopsToLumens } from '~/lib/stellar/utils'
 import Col from 'react-bootstrap/Col'
 import { useEffect } from 'react'
-import { NotFoundError } from 'stellar-sdk'
+import { NotFoundError } from '@stellar/stellar-sdk'
 import { captureException } from '@sentry/remix'
 import { ErrorBoundary } from './lib/error-boundary'
 

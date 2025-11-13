@@ -1,4 +1,4 @@
-import { Horizon } from 'stellar-sdk'
+import { Horizon } from '@stellar/stellar-sdk'
 
 import type { NetworkKey } from './networks'
 import networks, { requestToNetworkDetails } from './networks'
@@ -65,17 +65,31 @@ const requestToServerDetails = async (
 const requestToSorobanServer = async (
   request: Request,
 ): Promise<SorobanServer> => {
-  const { networkType, customSorobanRPCAddress } =
-    await requestToNetworkDetails(request)
+  console.log('🌐 requestToSorobanServer - analyzing request:', {
+    url: request.url,
+    hostname: new URL(request.url).hostname
+  })
+
+  const { networkType, customSorobanRPCAddress } = await requestToNetworkDetails(request)
+
+  console.log('🌐 Network details:', {
+    networkType,
+    customSorobanRPCAddress,
+    defaultRpcUri: sorobanRpcURIs[networkType]
+  })
 
   let server: SorobanServer
 
   if (isValidUrl(customSorobanRPCAddress)) {
     server = new SorobanServer(customSorobanRPCAddress)
+    console.log('🌐 Using custom Soroban RPC:', customSorobanRPCAddress)
   } else {
-    server = new SorobanServer(sorobanRpcURIs[networkType], networkType)
+    const rpcUri = sorobanRpcURIs[networkType]
+    server = new SorobanServer(rpcUri, networkType)
+    console.log('🌐 Using default Soroban RPC for', networkType + ':', rpcUri)
   }
 
+  console.log('🌐 Final server URL:', (server as any).serverURL || 'not available')
   return server
 }
 

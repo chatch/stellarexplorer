@@ -1,13 +1,15 @@
-import { Horizon } from 'stellar-sdk'
-import { AccountCallBuilder } from 'stellar-sdk/lib/horizon/account_call_builder'
-import { AssetsCallBuilder } from 'stellar-sdk/lib/horizon/assets_call_builder'
-import { EffectCallBuilder } from 'stellar-sdk/lib/horizon/effect_call_builder'
-import { LedgerCallBuilder } from 'stellar-sdk/lib/horizon/ledger_call_builder'
-import { OfferCallBuilder } from 'stellar-sdk/lib/horizon/offer_call_builder'
-import { OperationCallBuilder } from 'stellar-sdk/lib/horizon/operation_call_builder'
-import { PaymentCallBuilder } from 'stellar-sdk/lib/horizon/payment_call_builder'
-import { TradesCallBuilder } from 'stellar-sdk/lib/horizon/trades_call_builder'
-import { TransactionCallBuilder } from 'stellar-sdk/lib/horizon/transaction_call_builder'
+import { Horizon } from '@stellar/stellar-sdk'
+import {
+  AccountCallBuilder,
+  AssetsCallBuilder,
+  EffectCallBuilder,
+  LedgerCallBuilder,
+  OfferCallBuilder,
+  OperationCallBuilder,
+  PaymentCallBuilder,
+  TradesCallBuilder,
+  TransactionCallBuilder
+} from '@stellar/stellar-sdk'
 import URI from 'urijs'
 
 /* ----------------------------------------------------------
@@ -82,12 +84,12 @@ const pagingCalls = {
 
 Object.keys(pagingCalls).forEach(
   (callName) =>
-    ((Horizon.Server.prototype as any)[callName] = function (...params: any) {
-      const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
-        (pagingCalls as any)[callName],
-      )
-      return new (WrappedClass as any)(URI(this.serverURL), ...params)
-    }),
+  ((Horizon.Server.prototype as any)[callName] = function (...params: any) {
+    const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
+      (pagingCalls as any)[callName],
+    )
+    return new (WrappedClass as any)(URI(this.serverURL), ...params)
+  }),
 )
 
-export { MemoHash, MemoReturn, MuxedAccount, StrKey } from 'stellar-sdk'
+export { MemoHash, MemoReturn, MuxedAccount, StrKey } from '@stellar/stellar-sdk'

@@ -1,20 +1,20 @@
-import type { Asset } from 'stellar-sdk'
-import type { ServerApi } from 'stellar-sdk/lib/horizon'
+import type { Asset } from '@stellar/stellar-sdk'
+import type { ServerApi } from '@stellar/stellar-sdk/lib/horizon'
 
-import { FederationServer } from 'stellar-sdk/lib/federation/server'
-import { MuxedAccount, NotFoundError } from 'stellar-sdk'
-
-import type { LedgerCallBuilder } from 'stellar-sdk/lib/horizon/ledger_call_builder'
-import type { OperationCallBuilder } from 'stellar-sdk/lib/horizon/operation_call_builder'
-import type { EffectCallBuilder } from 'stellar-sdk/lib/horizon/effect_call_builder'
-import type { PaymentCallBuilder } from 'stellar-sdk/lib/horizon/payment_call_builder'
-import type { TradesCallBuilder } from 'stellar-sdk/lib/horizon/trades_call_builder'
-import type { AccountCallBuilder } from 'stellar-sdk/lib/horizon/account_call_builder'
-import type { TransactionCallBuilder } from 'stellar-sdk/lib/horizon/transaction_call_builder'
-import type { OfferCallBuilder } from 'stellar-sdk/lib/horizon/offer_call_builder'
+import { FederationServer, MuxedAccount, NotFoundError } from '@stellar/stellar-sdk'
+import {
+  AccountCallBuilder,
+  ClaimableBalanceCallBuilder,
+  EffectCallBuilder,
+  LedgerCallBuilder,
+  LiquidityPoolCallBuilder,
+  OfferCallBuilder,
+  OperationCallBuilder,
+  PaymentCallBuilder,
+  TradesCallBuilder,
+  TransactionCallBuilder
+} from '@stellar/stellar-sdk'
 import AccountTypeUnrecognizedException from '../error/AccountTypeUnrecognizedException'
-import type { LiquidityPoolCallBuilder } from 'stellar-sdk/lib/horizon/liquidity_pool_call_builder'
-import type { ClaimableBalanceCallBuilder } from 'stellar-sdk/lib/horizon/claimable_balances_call_builder'
 
 import type HorizonServer from './server'
 import {
@@ -151,7 +151,7 @@ const loadAccountByFederatedAddress = async (
       account: rsp.account,
       federatedAddress: address,
     }
-  } catch (e) {
+  } catch (e: Error) {
     throw new NotFoundError(e.message, undefined)
   }
 }

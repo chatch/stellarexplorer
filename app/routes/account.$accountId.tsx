@@ -11,8 +11,8 @@ import type { LoaderFunctionArgs } from '@remix-run/node'
 
 import { captureException } from '@sentry/remix'
 import has from 'lodash/has'
-import { NotFoundError } from 'stellar-sdk'
-import type { ServerApi } from 'stellar-sdk/lib/horizon'
+import { NotFoundError } from '@stellar/stellar-sdk'
+import type { ServerApi } from '@stellar/stellar-sdk/lib/horizon'
 
 import type { KnownAccountProps } from '../data/known_accounts'
 import knownAccounts from '../data/known_accounts'

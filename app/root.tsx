@@ -38,7 +38,7 @@ import zhHantMessages from './lib/languages/zh-Hant.json'
 import { requestToNetworkDetails } from './lib/stellar/networks'
 import { storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
-import { NotFoundError } from 'stellar-sdk'
+import { NotFoundError } from '@stellar/stellar-sdk'
 import { ThemeProvider, useTheme } from '~/context/theme.provider'
 import type { ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
 
@@ -79,7 +79,7 @@ const getMessages = (locale: string) => {
 
 const languageSwitcherFn = (setLanguage: Function) => (event: any) => {
   const newLanguage = event.target.lang as string
-  ;(storage as Storage).setItem('language', newLanguage)
+    ; (storage as Storage).setItem('language', newLanguage)
   setLanguage(newLanguage)
 }
 

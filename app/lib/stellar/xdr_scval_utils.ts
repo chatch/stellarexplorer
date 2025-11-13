@@ -1,4 +1,4 @@
-import { StrKey, scValToNative, xdr } from 'stellar-sdk'
+import { StrKey, scValToNative, xdr } from '@stellar/stellar-sdk'
 
 const Buffer = require('buffer').Buffer
 

@@ -1,7 +1,7 @@
 import mapKeys from 'lodash/mapKeys'
 import camelCase from 'lodash/camelCase'
 import has from 'lodash/has'
-import type { ServerApi } from 'stellar-sdk'
+import type { ServerApi } from '@stellar/stellar-sdk'
 
 import type { TransactionProps } from '~/routes/tx.$txHash'
 import type { LedgerProps } from '~/routes/ledger.$ledgerId'
