@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test'
 import { clickLinkAndVerify, getFirstLink, getRowCount, verifyOpeningNewPage } from './utils'
 
-const baseUrl = 'https://steexp.com'
-// const baseUrl = 'http://publicnet.local:3000' // for test on local
+const baseUrl =
+  process.env.ENV === 'local'
+    ? 'http://publicnet.local:3000'
+    : 'https://steexp.com'
 
 test('top page', async ({ page }) => {
     await page.goto(`${baseUrl}/`)

@@ -51,7 +51,7 @@ export interface AssetProps {
   paging_token: number
 }
 
-const getAssetImage = (asset: AssetProps) => {
+export const getAssetImage = (asset: AssetProps) => {
   if (asset.tomlInfo?.image) {
     return asset.tomlInfo.image
   }
@@ -61,7 +61,7 @@ const getAssetImage = (asset: AssetProps) => {
   return svgCircle
 }
 
-const getAssetCode = (asset: AssetProps) => {
+export const getAssetCode = (asset: AssetProps) => {
   if (asset.tomlInfo?.code) {
     return asset.tomlInfo.code
   }
