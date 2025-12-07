@@ -203,7 +203,7 @@ export function HydrateFallback() {
       </head>
       <body>
         <div className="d-flex justify-content-center align-items-center vh-100">
-          <h1>Loading Stellar Explorer...</h1>
+          <h1>Loading ...</h1>
         </div>
         <Scripts />
       </body>

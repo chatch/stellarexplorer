@@ -84,7 +84,6 @@ export default function Transaction() {
       operationsGet(server, { tx: txHash, limit: 100 }),
       server.serverURL.toString(),
     ])
-      .then(json)
       .then(setResponse)
       .catch((error) => {
         if (error instanceof NotFoundError) {

@@ -79,7 +79,6 @@ export default function BalancesTab() {
         serverDetails.networkType as string,
       )
       loadAccount(server, accountId as string)
-        .then(json)
         .then(setAccountResult)
     }
   }, [accountId])
