@@ -18,7 +18,7 @@ interface ParentProps {
 }
 
 interface TransactionRowProps
-  extends TransactionViewOptions, TransactionProps, ParentProps { }
+  extends TransactionViewOptions, TransactionProps, ParentProps {}
 
 interface TransactionTableProps extends ParentProps, TransactionViewOptions {
   records: ReadonlyArray<TransactionProps>

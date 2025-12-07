@@ -240,5 +240,5 @@ export const ErrorBoundary: ErrorBoundaryComponent = () => {
   )
 }
 
-export default withSentry(App)
+export default process.env.NODE_ENV === 'development' ? App : withSentry(App)
 // export default App

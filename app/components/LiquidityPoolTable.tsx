@@ -13,7 +13,7 @@ interface ParentProps {
   compact: boolean
 }
 
-interface LiquidityPoolRowProps extends LiquidityPoolProps, ParentProps { }
+interface LiquidityPoolRowProps extends LiquidityPoolProps, ParentProps {}
 
 interface LiquidityPoolTableProps {
   compact: boolean
