@@ -84,6 +84,7 @@
     "@types/react-test-renderer": "^18.0.7",
     "@types/urijs": "^1.19.25",
     "@typescript-eslint/parser": "^5.62.0",
+    "baseline-browser-mapping": "^2.9.4",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-react-app": "^7.0.1",
