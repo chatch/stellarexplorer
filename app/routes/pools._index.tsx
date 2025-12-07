@@ -13,10 +13,9 @@ import LiquidityPoolTable from '~/components/LiquidityPoolTable'
 
 const RECORD_LIMIT = 30
 
-export const clientLoader = horizonRecordsLoader<ReadonlyArray<LiquidityPoolProps>>(
-  'liquidityPools',
-  RECORD_LIMIT,
-)
+export const clientLoader = horizonRecordsLoader<
+  ReadonlyArray<LiquidityPoolProps>
+>('liquidityPools', RECORD_LIMIT)
 
 export default function LiquidityPools() {
   const { records, cursor } = useLoaderData<typeof clientLoader>()

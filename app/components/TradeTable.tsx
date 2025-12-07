@@ -114,7 +114,7 @@ export default function TradeTable({ account, records }: TradeTableProps) {
   if (records.length === 0)
     return <div style={{ marginTop: 20, marginBottom: 20 }}>No Trades</div>
 
-  const singleAccountView = isPublicKey(account)
+  const singleAccountView = isPublicKey(account || '')
 
   return (
     <div>

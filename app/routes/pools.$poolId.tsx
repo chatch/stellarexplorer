@@ -6,7 +6,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import TabLink from './lib/tab-link-base'
 
-
 import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 import { setTitle } from '../lib/utils'
 import { requestToServer } from '~/lib/stellar/server'
@@ -121,7 +120,8 @@ export default function LiquidityPool() {
     setActiveTab(pathToTabName(pathname))
   }, [pathname])
 
-  const { liquidityPool, horizonURL, poolId } = useLoaderData<typeof clientLoader>()
+  const { liquidityPool, horizonURL, poolId } =
+    useLoaderData<typeof clientLoader>()
   const base = `/pools/${poolId}`
 
   return (

@@ -37,7 +37,7 @@ export default function Trades() {
             <Paging baseUrl="/trades" records={records} currentCursor={cursor}>
               <TradeTable
                 records={records}
-              // limit={20}
+                // limit={20}
               />
             </Paging>
           </Card.Body>

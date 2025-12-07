@@ -13,7 +13,7 @@ export interface OperationTableProps {
 export default function OperationTable({
   compact,
   records,
-  horizonURL, // possiblyMoreDataAvailable,
+  horizonURL,
 }: Readonly<OperationTableProps>) {
   return (
     <div>

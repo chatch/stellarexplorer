@@ -3,7 +3,7 @@
          the app that used React and a service worker. This one just
          removed the old for those that had it cached. But most users
          will now be on the new version with no service worker needed. */
-/* eslint-disable no-restricted-globals */
+
 self.addEventListener('install', function (e) {
   self.skipWaiting()
 })

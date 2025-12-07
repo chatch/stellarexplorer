@@ -50,7 +50,7 @@ export default function PaymentTable({
             <Operation
               key={payment.id}
               compact={compact}
-              op={payment}
+              op={payment as any}
               horizonURL={horizonURL}
             />
           ))}

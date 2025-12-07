@@ -12,10 +12,10 @@ interface OfferTableProps {
 }
 
 export default function OfferTable({
-  compact,
+  compact: _compact,
   records,
   showSeller = true,
-  horizonURL,
+  horizonURL: _horizonURL,
 }: OfferTableProps) {
   if (records.length === 0)
     return <div style={{ marginTop: 20, marginBottom: 20 }}>No Offers</div>

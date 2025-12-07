@@ -86,8 +86,8 @@ export function Asset(asset: AssetProps) {
   const price24h = formatPrice24h(latestPrice)
   const priceChange = previousPrice
     ? formatPercentToHumanReadable(
-      Math.abs(((latestPrice - previousPrice) * 100) / latestPrice),
-    )
+        Math.abs(((latestPrice - previousPrice) * 100) / latestPrice),
+      )
     : undefined
 
   return (

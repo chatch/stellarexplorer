@@ -6,7 +6,7 @@ let hydrating = true
 
 // from remix-utils (inline due to incompat. with remix 2)
 export function useHydrated() {
-  let [hydrated, setHydrated] = useState(() => !hydrating)
+  const [hydrated, setHydrated] = useState(() => !hydrating)
   useEffect(function hydrate() {
     hydrating = false
     setHydrated(true)

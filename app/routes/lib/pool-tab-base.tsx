@@ -15,27 +15,27 @@ const DEFAULT_RECORD_LIMIT = 30
 
 const poolTabLoader =
   (serverRequestFnName: ServerReqFnName, limit?: number) =>
-    async ({ request, params }: LoaderFunctionArgs) => {
-      const url = new URL(request.url)
-      const cursor: string | undefined =
-        url.searchParams.get('cursor') ?? undefined
-      const order: string | undefined = url.searchParams.get('order') ?? undefined
+  async ({ request, params }: LoaderFunctionArgs) => {
+    const url = new URL(request.url)
+    const cursor: string | undefined =
+      url.searchParams.get('cursor') ?? undefined
+    const order: string | undefined = url.searchParams.get('order') ?? undefined
 
-      const server = await requestToServer(request)
+    const server = await requestToServer(request)
 
-      return serverRequestUtils[serverRequestFnName](server, {
-        poolId: params.poolId,
+    return serverRequestUtils[serverRequestFnName](server, {
+      poolId: params.poolId,
+      cursor,
+      order: order as 'asc' | 'desc',
+      limit: limit ?? DEFAULT_RECORD_LIMIT,
+    }).then((records: any) =>
+      json({
+        records: order === 'asc' ? [...records].reverse() : records,
         cursor,
-        order: order as 'asc' | 'desc',
-        limit: limit ?? DEFAULT_RECORD_LIMIT,
-      }).then((records: any) =>
-        json({
-          records: order === 'asc' ? [...records].reverse() : records,
-          cursor,
-          horizonURL: server.serverURL.toString(),
-        }),
-      )
-    }
+        horizonURL: server.serverURL.toString(),
+      }),
+    )
+  }
 
 const poolsTabComponent = function <loaderFnType>(
   TableComponent: FunctionComponent<{

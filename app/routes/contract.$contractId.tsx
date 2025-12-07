@@ -98,11 +98,11 @@ export default function ContractById() {
             <TitleWithJSONButton
               title={formatMessage({ id: 'contract' })}
               titleSecondary={id}
-            // TODO: consider what to show here. With contracts there
-            // is no single JSON source, a couple of look ups are
-            // made .. for now not passing the URL means no JSON
-            // button is rendered at all:
-            // url={`${horizonURL}contracts/${id}`}
+              // TODO: consider what to show here. With contracts there
+              // is no single JSON source, a couple of look ups are
+              // made .. for now not passing the URL means no JSON
+              // button is rendered at all:
+              // url={`${horizonURL}contracts/${id}`}
             />
           </Card.Header>
           <Card.Body>

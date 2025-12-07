@@ -84,7 +84,8 @@ const OperationTypeToComponentMap = {
 type OperationTypes = keyof typeof OperationTypeToComponentMap
 
 interface OperationRecordProps
-  extends AllowTrustProps,
+  extends
+    AllowTrustProps,
     CreateAccountProps,
     ManageDataProps,
     PathPaymentProps,

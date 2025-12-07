@@ -47,18 +47,20 @@ const ledgerRspRecToPropsRec = (
     protocolVersion: rspRec.protocol_version,
     maxTxSetSize: rspRec.max_tx_set_size,
 
-    transactionCount: rspRec.transaction_count,
-    successfulTransactionCount: rspRec.successful_transaction_count,
-    failedTransactionCount: rspRec.failed_transaction_count,
-    operationCount: rspRec.operation_count,
+    transactionCount: (rspRec as any).transaction_count,
+    successfulTransactionCount: (rspRec as any).successful_transaction_count,
+    failedTransactionCount: (rspRec as any).failed_transaction_count,
+    operationCount: (rspRec as any).operation_count,
 
-    totalCoins: rspRec.total_coins, // maybe display these on the front page ...?
-    feePool: rspRec.fee_pool,
+    totalCoins: (rspRec as any).total_coins, // maybe display these on the front page ...?
+    feePool: (rspRec as any).fee_pool,
     baseFeeInStroops,
-    baseFee: baseFeeInStroops ? rspRec.base_fee_in_stroops : rspRec.base_fee,
+    baseFee: baseFeeInStroops
+      ? (rspRec as any).base_fee_in_stroops
+      : (rspRec as any).base_fee,
     baseReserve: baseFeeInStroops
-      ? rspRec.base_reserve_in_stroops
-      : Number(rspRec.base_reserve),
+      ? (rspRec as any).base_reserve_in_stroops
+      : Number((rspRec as any).base_reserve),
 
     pagingToken: rspRec.paging_token,
     prevHash: rspRec.prev_hash,

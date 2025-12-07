@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { cssBundleHref } from '@remix-run/css-bundle'
-import { json } from '~/lib/remix-shim'
+
 import type { LinksFunction } from '@remix-run/node'
 import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 import {
@@ -37,7 +37,8 @@ import zhHansMessages from './lib/languages/zh-Hans.json'
 import zhHantMessages from './lib/languages/zh-Hant.json'
 
 import { requestToNetworkDetails } from './lib/stellar/networks'
-import { storageInit } from './lib/utils'
+// storageInit is prepared for future use when localStorage is needed
+import { storageInit as _storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
 import { NotFoundError } from '@stellar/stellar-sdk'
 import { ThemeProvider, useTheme } from '~/context/theme.provider'
@@ -51,7 +52,8 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ]
 
-const storage = storageInit()
+// const storage = storageInit()
+const storage = { setItem: () => {}, getItem: () => null }
 
 const getMessages = (locale: string) => {
   switch (locale) {
@@ -80,7 +82,7 @@ const getMessages = (locale: string) => {
 
 const languageSwitcherFn = (setLanguage: Function) => (event: any) => {
   const newLanguage = event.target.lang as string
-    ; (storage as Storage).setItem('language', newLanguage)
+  ;(storage as unknown as Storage).setItem('language', newLanguage)
   setLanguage(newLanguage)
 }
 
@@ -89,7 +91,6 @@ function HtmlDocument({
   title,
 }: PropsWithChildren<{ title?: string }>) {
   const [theme] = useTheme()
-
 
   return (
     <html lang="en" data-bs-theme={theme}>
@@ -127,13 +128,21 @@ function HtmlDocument({
 }
 
 export const clientLoader = async ({ request }: LoaderFunctionArgs) => {
+  console.log('[root clientLoader] Starting...')
   try {
-    const details = await requestToNetworkDetails(request);
-    return json({ ...details });
+    console.log('[root clientLoader] Calling requestToNetworkDetails...')
+    const details = await requestToNetworkDetails(request)
+    console.log('[root clientLoader] Got details:', details)
+    // In SPA mode, clientLoader should return plain data (not a Response)
+    return { ...details }
   } catch (e) {
-    throw e;
+    console.error('[root clientLoader] Error:', e)
+    throw e
   }
 }
+
+// Required in SPA mode (ssr: false) to tell Remix to run clientLoader during hydration
+clientLoader.hydrate = true
 
 function App() {
   const navigation = useNavigation()
@@ -180,17 +189,32 @@ function App() {
 
 export function HydrateFallback() {
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <h1>Global Loading Fallback...</h1>
-    </div>
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <div className="d-flex justify-content-center align-items-center vh-100">
+          <h1>Loading Stellar Explorer...</h1>
+        </div>
+        <Scripts />
+      </body>
+    </html>
   )
 }
 
 export const ErrorBoundary: ErrorBoundaryComponent = () => {
   const error: any = useRouteError()
 
-  // don't send steller resource not founds to sentry
-  // see comments in entry.server.tsx as well ...
+  // don't send stellar resource not founds to sentry
   if (!(error instanceof NotFoundError)) {
     captureRemixErrorBoundaryError(error)
   }

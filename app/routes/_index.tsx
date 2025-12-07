@@ -3,8 +3,6 @@ import { useIntl } from 'react-intl'
 import type { HorizonServerDetails } from '~/lib/stellar/server'
 import HorizonServer, { requestToServerDetails } from '~/lib/stellar/server'
 
-
-import { json } from '~/lib/remix-shim'
 import { useLoaderData } from '@remix-run/react'
 
 import LedgerTable from '../components/LedgerTable'
@@ -54,17 +52,19 @@ const LEDGER_RECORD_LIMIT = 10
 const OPERATION_RECORD_LIMIT = 25
 
 export const clientLoader = async ({ request }: LoaderFunctionArgs) => {
-  try {
-    const details = await requestToServerDetails(request)
-    return json(details)
-  } catch (e) {
-    throw e
-  }
+  const details = await requestToServerDetails(request)
+  // In SPA mode, clientLoader should return plain data (not a Response)
+  return details
 }
+
+// Required in SPA mode to run clientLoader during hydration
+clientLoader.hydrate = true
 
 export default function Home() {
   const { formatMessage } = useIntl()
-  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<
+    typeof clientLoader
+  >() as HorizonServerDetails
   const [serverResponse, setServerResponse] = useState(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -84,14 +84,14 @@ export default function Home() {
       ])
 
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Request timed out")), 10000)
+        setTimeout(() => reject(new Error('Request timed out')), 10000),
       )
 
       Promise.race([fetchPromise, timeoutPromise])
         .then((response) => setServerResponse(response as any))
         .catch((e) => {
-          console.error("Failed to fetch data:", e)
-          setError(e.message || "Unknown error occurred")
+          console.error('Failed to fetch data:', e)
+          setError(e.message || 'Unknown error occurred')
         })
     }
   }, [])
@@ -107,7 +107,9 @@ export default function Home() {
   if (!serverResponse) {
     return (
       <Container className="mt-5">
-        <h1 className="text-center text-dark">Loading data from Public Network...</h1>
+        <h1 className="text-center text-dark">
+          Loading data from Public Network...
+        </h1>
       </Container>
     )
   }

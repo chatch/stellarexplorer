@@ -15,7 +15,8 @@ const shortAddress = (address: string, length = 4) =>
 const shortHash = (hash: string, length = 10) => truncate(hash, { length })
 
 const isDefInt = (obj: Record<string, any>, key: string) => {
-  if (!obj || !key || obj.hasOwnProperty(key) === false) return false
+  if (!obj || !key || !Object.prototype.hasOwnProperty.call(obj, key))
+    return false
   return Number.isInteger(Number(obj[key]))
 }
 
@@ -59,7 +60,7 @@ const isValidUrl = (url: string): boolean => {
   try {
     new URL(url)
     return true
-  } catch (error) {
+  } catch (_error) {
     return false
   }
 }

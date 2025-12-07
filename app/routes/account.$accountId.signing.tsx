@@ -80,7 +80,9 @@ export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToServerDetails(request)
 
 export default function SigningTab() {
-  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<
+    typeof clientLoader
+  >() as HorizonServerDetails
   const [accountResult, setAccountResult]: [LoadAccountResult | null, any] =
     useState(null)
   const { accountId } = useParams()

@@ -1,6 +1,5 @@
 import { Theme, useTheme } from '~/context/theme.provider'
 
-
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useTheme()
   const toggleTheme = () => {

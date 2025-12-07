@@ -53,7 +53,7 @@ const BaseAccountLink = ({
       type={type}
       title={`Base Address: ${address}`}
       subPath={address}
-      label={accLabel}
+      label={<>{accLabel}</>}
     />
   )
 }

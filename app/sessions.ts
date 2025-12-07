@@ -1,18 +1,18 @@
 import Cookies from 'js-cookie'
 
-type SessionData = {
+type _SessionData = {
   horizonAddress?: string
   sorobanRPCAddress?: string
   language?: string
 }
 
-type SessionFlashData = {
+type _SessionFlashData = {
   error: string
 }
 
-const SESSION_COOKIE_NAME = '__session'
+const _SESSION_COOKIE_NAME = '__session'
 
-const getSession = async (cookieHeader?: string | null) => {
+const getSession = async (_cookieHeader?: string | null) => {
   // In client-side mode, we ignore the cookieHeader and read directly from browser cookies
   // or handle initial SSR state if we were doing SSR, but for pure SPA we just read from document
   return {
@@ -32,7 +32,7 @@ const getSession = async (cookieHeader?: string | null) => {
   }
 }
 
-const commitSession = async (session: any) => {
+const commitSession = async (_session: unknown) => {
   // In this client-side implementation, setting values in 'getSession' already writes to cookies.
   // So this might be a no-op or just return the cookie string if needed.
   // For compatibility with Remix loaders that might return a Set-Cookie header (which we are mocking),
@@ -40,7 +40,7 @@ const commitSession = async (session: any) => {
   return ''
 }
 
-const destroySession = async (session: any) => {
+const destroySession = async (_session: unknown) => {
   // This would typically return a header to delete the cookie.
   // In client-side, we should have already called unset.
   return ''

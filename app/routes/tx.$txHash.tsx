@@ -67,7 +67,9 @@ export default function Transaction() {
   const { txHash } = useParams()
   const [response, setResponse]: [TransactionResponse | null, any] =
     useState(null)
-  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<
+    typeof clientLoader
+  >() as HorizonServerDetails
 
   useEffect(() => {
     const server = new HorizonServer(

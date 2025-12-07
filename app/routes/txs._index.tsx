@@ -12,7 +12,6 @@ import { getHorizonRecords } from '~/lib/loader-util'
 import type { HorizonServerDetails } from '~/lib/stellar/server'
 import { requestToServerDetails } from '~/lib/stellar/server'
 import type { LoaderFunctionArgs } from '~/lib/remix-shim'
-import { json } from '~/lib/remix-shim'
 
 const RECORD_LIMIT = 20
 
@@ -20,7 +19,9 @@ export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToServerDetails(request)
 
 export default function Transactions() {
-  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<
+    typeof clientLoader
+  >() as HorizonServerDetails
 
   const [records, setRecords] = useState(null)
   const [cursor, setCursor] = useState(null)

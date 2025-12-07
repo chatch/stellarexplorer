@@ -31,7 +31,7 @@ export const clientLoader = async ({ request }: LoaderFunctionArgs) => {
 }
 
 export default function Effects() {
-  const { records, cursor } = useLoaderData<typeof clientLoader>()
+  const { records, cursor: _cursor } = useLoaderData<typeof clientLoader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -48,10 +48,10 @@ export default function Effects() {
           <Card.Body>
             <EffectTable
               records={records as ReadonlyArray<EffectProps>}
-            // showEffect
-            // showSource
-            // compact={false}
-            // limit={20}
+              // showEffect
+              // showSource
+              // compact={false}
+              // limit={20}
             />
           </Card.Body>
         </Card>

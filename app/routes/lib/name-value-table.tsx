@@ -7,7 +7,7 @@ import HorizonServer from '~/lib/stellar/server'
 import type { LoadAccountResult } from '~/lib/stellar/server_request_utils'
 import { loadAccount } from '~/lib/stellar/server_request_utils'
 import { base64Decode, setTitle } from '~/lib/utils'
-import type { loader } from '../tx.$txHash'
+import type { clientLoader } from '../tx.$txHash'
 
 const dataValue = (decodeValue: boolean, value?: any): string => {
   let retVal
@@ -56,7 +56,9 @@ const NameValueTable = ({
 
 const nameValueAccountTab = function (name: string) {
   return function () {
-    const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+    const serverDetails = useLoaderData<
+      typeof clientLoader
+    >() as HorizonServerDetails
     const [accountResult, setAccountResult]: [LoadAccountResult | null, any] =
       useState(null)
     const { accountId } = useParams()

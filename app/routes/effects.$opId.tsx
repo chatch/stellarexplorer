@@ -48,10 +48,10 @@ export default function Effects() {
           <Card.Body>
             <EffectTable
               records={records as ReadonlyArray<EffectProps>}
-            // showEffect
-            // showSource
-            // compact={false}
-            // limit={20}
+              // showEffect
+              // showSource
+              // compact={false}
+              // limit={20}
             />
           </Card.Body>
         </Card>

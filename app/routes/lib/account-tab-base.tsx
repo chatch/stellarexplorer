@@ -15,8 +15,8 @@ const DEFAULT_RECORD_LIMIT = 30
 
 const accountTabLoader =
   () =>
-    ({ request }: LoaderFunctionArgs) =>
-      requestToServerDetails(request)
+  ({ request }: LoaderFunctionArgs) =>
+    requestToServerDetails(request)
 
 const accountTabComponent = function <loaderFnType>(
   TableComponent: FunctionComponent<{

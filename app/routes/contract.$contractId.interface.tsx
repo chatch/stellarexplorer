@@ -54,7 +54,7 @@ export default function InterfaceTab() {
   return (
     <Interface
       rustInterface={loadResult.rustInterface}
-    // jsonInterface={loadResult.jsonInterface}
+      // jsonInterface={loadResult.jsonInterface}
     />
   )
 }

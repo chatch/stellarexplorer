@@ -17,7 +17,9 @@ export const clientLoader = horizonRecordsLoader<ReadonlyArray<PaymentProps>>(
 )
 
 export default function Payments() {
-  const { records, cursor, horizonURL } = useLoaderData<typeof clientLoader>() as any
+  const { records, cursor, horizonURL } = useLoaderData<
+    typeof clientLoader
+  >() as any
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function Payments() {
                 // showSource
                 compact={false}
                 horizonURL={horizonURL}
-              // limit={20}
+                // limit={20}
               />
             </Paging>
           </Card.Body>

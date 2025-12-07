@@ -143,7 +143,9 @@ export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToServerDetails(request)
 
 export default function Account() {
-  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<
+    typeof clientLoader
+  >() as HorizonServerDetails
   const { accountId } = useParams()
 
   const [activeTab, setActiveTab] = useState('data')

@@ -9,8 +9,8 @@ type HostFunctionParams = any // TODO: restore this after seeing live data: Read
 
 const invokeFunctionParamsRawtoRendered = (params: HostFunctionParams) =>
   params.map((p: any) => {
-    let scVal = xdr.ScVal.fromXDR(p.value, 'base64')
-    let renderStr = scValToString(scVal) || p.value
+    const scVal = xdr.ScVal.fromXDR(p.value, 'base64')
+    const renderStr = scValToString(scVal) || p.value
     return { key: p.type || 'Void', value: renderStr }
   })
 

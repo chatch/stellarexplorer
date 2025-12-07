@@ -13,7 +13,7 @@ interface EffectTableProps {
 export default function EffectTable({
   records,
   showAccount = true,
-  account,
+  account: _account,
 }: EffectTableProps) {
   return (
     <div>
