@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Row from 'react-bootstrap/Row'
+import { Card, Col, Container, Row } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Outlet, useLoaderData, useLocation, useParams } from '@remix-run/react'
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 
 import { captureException } from '@sentry/remix'
 import has from 'lodash/has'
@@ -71,9 +67,9 @@ const AccountSummaryCard = ({
   }, [account.id])
   return (
     <Card id="account-summary-card">
-      <CardHeader>
+      <Card.Header>
         {titleWithJSONButton(formatMessage({ id: 'account' }), accountUrl)}
-      </CardHeader>
+      </Card.Header>
       <Card.Body>
         <Container style={{ paddingLeft: 0 }}>
           <Row>
@@ -143,11 +139,11 @@ const pathToTabName = (path: string) => {
 
 export { ErrorBoundary }
 
-export const loader = ({ request }: LoaderFunctionArgs) =>
+export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToServerDetails(request)
 
 export default function Account() {
-  const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
   const { accountId } = useParams()
 
   const [activeTab, setActiveTab] = useState('data')

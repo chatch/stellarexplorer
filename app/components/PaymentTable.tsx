@@ -1,4 +1,4 @@
-import Table from 'react-bootstrap/Table'
+import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 
 import Operation from './operations/Operation'

@@ -2,10 +2,7 @@ import { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useLoaderData } from '@remix-run/react'
 
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Card, Container, Row } from 'react-bootstrap'
 
 import PaymentTable from '../components/PaymentTable'
 import { setTitle } from '../lib/utils'
@@ -14,13 +11,13 @@ import type { PaymentProps } from '~/components/operations/Payment'
 import { horizonRecordsLoader } from '~/lib/loader-util'
 import Paging from '~/components/shared/Paging'
 
-export const loader = horizonRecordsLoader<ReadonlyArray<PaymentProps>>(
+export const clientLoader = horizonRecordsLoader<ReadonlyArray<PaymentProps>>(
   'payments',
   30,
 )
 
 export default function Payments() {
-  const { records, cursor, horizonURL } = useLoaderData<typeof loader>()
+  const { records, cursor, horizonURL } = useLoaderData<typeof clientLoader>() as any
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -31,9 +28,9 @@ export default function Payments() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <FormattedMessage id="payments" />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Paging
               baseUrl="/payments"
@@ -46,7 +43,7 @@ export default function Payments() {
                 // showSource
                 compact={false}
                 horizonURL={horizonURL}
-                // limit={20}
+              // limit={20}
               />
             </Paging>
           </Card.Body>

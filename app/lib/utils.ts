@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import truncate from 'lodash/truncate'
 
-const Buffer = require('buffer').Buffer
+import { Buffer } from 'buffer'
 
 // Amounts in Stellar don't go below 7 decimals
 // So setting the EXPONENTIAL_AT to 8 here ensures all toString() will show the

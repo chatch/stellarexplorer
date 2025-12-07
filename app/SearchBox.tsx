@@ -1,9 +1,4 @@
-import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import FormControl from 'react-bootstrap/FormControl'
-import InputGroup from 'react-bootstrap/InputGroup'
-import Modal from 'react-bootstrap/Modal'
+import { Col, Container, Form, InputGroup, Modal, Row } from 'react-bootstrap'
 
 import { useIntl } from 'react-intl'
 
@@ -184,7 +179,7 @@ export default function SearchBox() {
         <Col id="search-container">
           <form onSubmit={(event) => searchHandler(event, location.pathname)}>
             <InputGroup>
-              <FormControl
+              <Form.Control
                 type="text"
                 onChange={(e) => setSearchStr(e.target.value)}
                 placeholder={formatMessage({ id: placeHolderI18nId })}

@@ -1,8 +1,4 @@
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Table from 'react-bootstrap/Table'
+import { Card, Container, Row, Table } from 'react-bootstrap'
 import {
   FormattedDate,
   FormattedMessage,
@@ -13,13 +9,13 @@ import { Link } from 'react-router-dom'
 import type { HorizonServerDetails } from '~/lib/stellar/server'
 import HorizonServer, { requestToServerDetails } from '~/lib/stellar/server'
 
-import { json } from '@remix-run/node'
+import { json } from '~/lib/remix-shim'
 
 import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 import { MemoHash, MemoReturn } from '../lib/stellar/sdk'
 import { base64DecodeToHex, setTitle } from '../lib/utils'
 
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 import { useLoaderData, useParams } from '@remix-run/react'
 import {
   operations as operationsGet,
@@ -63,7 +59,7 @@ export type TransactionResponse = [
 
 export { ErrorBoundary }
 
-export const loader = ({ request }: LoaderFunctionArgs) =>
+export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToServerDetails(request)
 
 export default function Transaction() {
@@ -71,7 +67,7 @@ export default function Transaction() {
   const { txHash } = useParams()
   const [response, setResponse]: [TransactionResponse | null, any] =
     useState(null)
-  const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
 
   useEffect(() => {
     const server = new HorizonServer(
@@ -115,13 +111,13 @@ export default function Transaction() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <TitleWithJSONButton
               title={formatMessage({ id: 'transaction' })}
               titleSecondary={id}
               url={`${horizonURL}transactions/${id}`}
             />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Table>
               <tbody>

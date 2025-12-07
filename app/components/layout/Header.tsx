@@ -1,8 +1,6 @@
 import type { MouseEventHandler } from 'react'
 import { NavDropdown } from 'react-bootstrap'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import NavItem from 'react-bootstrap/NavItem'
+import { Nav, Navbar } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { LinkContainer } from 'react-router-bootstrap'
 
@@ -97,7 +95,7 @@ export default function Header({
           </NavDropdown>
         </Nav>
         <Nav className="ms-auto">
-          <NavItem>
+          <Nav.Item>
             <NetworkSelector
               networkType={networkType}
               isLocal={isLocal}
@@ -105,13 +103,13 @@ export default function Header({
               customHorizonAddress={customHorizonAddress}
               customSorobanRPCAddress={customSorobanRPCAddress}
             />
-          </NavItem>
-          <NavItem className="theme-selector-wrapper">
+          </Nav.Item>
+          <Nav.Item className="theme-selector-wrapper">
             <ThemeSwitcher />
-          </NavItem>
-          <NavItem>
+          </Nav.Item>
+          <Nav.Item>
             <LanguageSelector switcher={languageSwitcher} />
-          </NavItem>
+          </Nav.Item>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

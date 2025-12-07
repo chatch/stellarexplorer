@@ -3,10 +3,10 @@ import { useEffect } from 'react'
 import { Assets } from './lib/assets-base'
 import { setTitle } from '../lib/utils'
 
-import { json } from '@remix-run/node'
+import { json } from '~/lib/remix-shim'
 import { useLoaderData } from '@remix-run/react'
 
-export async function loader() {
+export async function clientLoader() {
   const response = await fetch(
     'https://api.stellar.expert/explorer/public/asset?sort=volume7d&order=desc&limit=50',
   )
@@ -20,7 +20,7 @@ export async function loader() {
 }
 
 export default function AssetsAll() {
-  const assets = useLoaderData<typeof loader>()
+  const assets = useLoaderData<typeof clientLoader>()
 
   useEffect(() => {
     setTitle('Assets')

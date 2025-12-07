@@ -1,7 +1,4 @@
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Card, Container, Row } from 'react-bootstrap'
 
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useLoaderData } from '@remix-run/react'
@@ -16,13 +13,13 @@ import { useEffect } from 'react'
 
 const RECORD_LIMIT = 20
 
-export const loader = horizonRecordsLoader<ReadonlyArray<LedgerProps>>(
+export const clientLoader = horizonRecordsLoader<ReadonlyArray<LedgerProps>>(
   'ledgers',
   RECORD_LIMIT,
 )
 
 export default function Ledgers() {
-  const { records, cursor } = useLoaderData<typeof loader>()
+  const { records, cursor } = useLoaderData<typeof clientLoader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -33,9 +30,9 @@ export default function Ledgers() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <FormattedMessage id="ledgers" />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Paging baseUrl="/ledgers" records={records} currentCursor={cursor}>
               <LedgerTable records={records} compact={false} />

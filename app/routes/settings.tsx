@@ -1,5 +1,5 @@
-import type { ActionFunctionArgs } from '@remix-run/node'
-import { redirect } from '@remix-run/node'
+import type { ActionFunctionArgs } from '~/lib/remix-shim'
+import { redirect } from '~/lib/remix-shim'
 
 import { getSession, commitSession } from '~/sessions'
 
@@ -12,7 +12,7 @@ import { getSession, commitSession } from '~/sessions'
  * - set custom network addresses form
  * - select core network button (which clears the settings for addresses)
  */
-export async function action({ request }: ActionFunctionArgs) {
+export async function clientAction({ request }: ActionFunctionArgs) {
   const session = await getSession(request.headers.get('Cookie'))
 
   const form = await request.formData()

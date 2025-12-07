@@ -1,6 +1,6 @@
 import type { ChangeEventHandler, FormEvent, MouseEventHandler } from 'react'
 import React, { useState } from 'react'
-import Modal from 'react-bootstrap/Modal'
+import { Modal } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 import { isValidUrl } from '~/lib/utils'
 

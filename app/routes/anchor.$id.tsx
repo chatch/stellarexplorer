@@ -1,8 +1,4 @@
-import Container from 'react-bootstrap/Container'
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Row from 'react-bootstrap/Row'
-import Table from 'react-bootstrap/Table'
+import { Card, Container, Row, Table } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import AccountLink from '../components/shared/AccountLink'
@@ -15,18 +11,18 @@ import { assetKeyToIssuer, setTitle } from '../lib/utils'
 
 import type { DirectoryAnchor } from '../data/directory'
 import directory from '../data/directory'
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 import { useLoaderData } from '@remix-run/react'
 import { useEffect } from 'react'
 const { anchors } = directory
 
-export const loader = ({ params }: LoaderFunctionArgs) => {
+export const clientLoader = ({ params }: LoaderFunctionArgs) => {
   return params.id ? anchors[params.id] : null
 }
 
 export default function Anchor() {
   const { name, displayName, website, assets }: DirectoryAnchor = useLoaderData<
-    typeof loader
+    typeof clientLoader
   >() as DirectoryAnchor
 
   const { formatMessage } = useIntl()
@@ -40,12 +36,12 @@ export default function Anchor() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <span>
               {formatMessage({ id: 'anchor' })}{' '}
               <span className="secondary-heading">{name}</span>
             </span>
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Table id="anchor-table">
               <tbody>

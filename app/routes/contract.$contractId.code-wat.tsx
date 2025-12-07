@@ -3,9 +3,9 @@ import contractCodeTab, {
   contractCodeLoaderFn,
 } from './lib/contract-code-tab-base'
 
-export const loader = contractCodeLoaderFn(getContractWat)
+export const clientLoader = contractCodeLoaderFn(getContractWat)
 
-const CodeWatTab = contractCodeTab(loader)
+const CodeWatTab = contractCodeTab(clientLoader, 'wast')
 
 export default function () {
   return (

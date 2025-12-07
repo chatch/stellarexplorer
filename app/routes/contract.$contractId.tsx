@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom'
 import { FormattedMessage, useIntl } from 'react-intl'
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 import { Outlet, useLoaderData, useLocation, useParams } from '@remix-run/react'
 
-import Container from 'react-bootstrap/Container'
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Row from 'react-bootstrap/Row'
-import Table from 'react-bootstrap/Table'
+import { Card, Container, Row, Table } from 'react-bootstrap'
 
 import { requestToSorobanServer } from '~/lib/stellar/server'
 import { TitleWithJSONButton } from '~/components/shared/TitleWithJSONButton'
@@ -46,7 +42,7 @@ const DetailRow = ({ label, children }: { label: string; children: any }) => (
 
 export { ErrorBoundary }
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const clientLoader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToSorobanServer(request)
   let response
   try {
@@ -75,7 +71,7 @@ export default function ContractById() {
   const { formatMessage } = useIntl()
   const [activeTab, setActiveTab] = useState('storage')
   const { pathname } = useLocation()
-  const { contractDetails } = useLoaderData<typeof loader>()
+  const { contractDetails } = useLoaderData<typeof clientLoader>()
   const { contractId } = useParams()
 
   useEffect(() => {
@@ -98,17 +94,17 @@ export default function ContractById() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <TitleWithJSONButton
               title={formatMessage({ id: 'contract' })}
               titleSecondary={id}
-              // TODO: consider what to show here. With contracts there
-              // is no single JSON source, a couple of look ups are
-              // made .. for now not passing the URL means no JSON
-              // button is rendered at all:
-              // url={`${horizonURL}contracts/${id}`}
+            // TODO: consider what to show here. With contracts there
+            // is no single JSON source, a couple of look ups are
+            // made .. for now not passing the URL means no JSON
+            // button is rendered at all:
+            // url={`${horizonURL}contracts/${id}`}
             />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Table>
               <tbody>

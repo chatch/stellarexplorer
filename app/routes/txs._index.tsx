@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useLoaderData } from '@remix-run/react'
 
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Card, Container, Row } from 'react-bootstrap'
 
 import TransactionTable from '../components/TransactionTable'
 import { setTitle } from '../lib/utils'
@@ -14,15 +11,16 @@ import Paging from '~/components/shared/Paging'
 import { getHorizonRecords } from '~/lib/loader-util'
 import type { HorizonServerDetails } from '~/lib/stellar/server'
 import { requestToServerDetails } from '~/lib/stellar/server'
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 
 const RECORD_LIMIT = 20
 
-export const loader = ({ request }: LoaderFunctionArgs) =>
+export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToServerDetails(request)
 
 export default function Transactions() {
-  const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
 
   const [records, setRecords] = useState(null)
   const [cursor, setCursor] = useState(null)
@@ -45,9 +43,9 @@ export default function Transactions() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <FormattedMessage id="transactions" />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Paging
               baseUrl="/txs"

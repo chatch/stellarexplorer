@@ -2,8 +2,9 @@ import type { PropsWithChildren } from 'react'
 import { useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { cssBundleHref } from '@remix-run/css-bundle'
-import { json } from '@remix-run/node'
-import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
+import { json } from '~/lib/remix-shim'
+import type { LinksFunction } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 import {
   Links,
   LiveReload,
@@ -17,10 +18,10 @@ import {
 } from '@remix-run/react'
 import { captureRemixErrorBoundaryError, withSentry } from '@sentry/remix'
 
-import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css'
-import jsonPrettyStyles from 'react-json-pretty/themes/1337.css'
-import siteStyles from '~/styles/styles.css'
-import lightSiteStyles from '~/styles/styles.light.css'
+import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css?url'
+import jsonPrettyStyles from 'react-json-pretty/themes/1337.css?url'
+import siteStyles from '~/styles/styles.css?url'
+import lightSiteStyles from '~/styles/styles.light.css?url'
 
 import Footer from './components/layout/Footer'
 import Header from './components/layout/Header'
@@ -129,7 +130,7 @@ function HtmlDocument({
   )
 }
 
-export const loader = ({ request }: LoaderFunctionArgs) =>
+export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToNetworkDetails(request).then((networkDetails) =>
     json({ ...networkDetails }),
   )
@@ -143,7 +144,7 @@ function App() {
     isCustom,
     customHorizonAddress: horizonAddress,
     customSorobanRPCAddress: sorobanRPCAddress,
-  } = useLoaderData<typeof loader>()
+  } = useLoaderData<typeof clientLoader>()
 
   return (
     <ThemeProvider>

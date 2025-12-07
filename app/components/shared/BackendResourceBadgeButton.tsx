@@ -1,8 +1,7 @@
 import type { MouseEventHandler } from 'react'
 import { useEffect, useState } from 'react'
 import JSONPretty from 'react-json-pretty'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
+import { Button, Modal } from 'react-bootstrap'
 import { Spinner } from 'react-bootstrap'
 
 import NewWindowIcon from './NewWindowIcon'

@@ -1,8 +1,8 @@
 import { useLoaderData, useParams } from '@remix-run/react'
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 import { useEffect } from 'react'
-import Table from 'react-bootstrap/Table'
+import { Table } from 'react-bootstrap'
 
 import type { StorageElement } from '~/lib/stellar/contracts'
 import { getContractInfo } from '~/lib/stellar/contracts'
@@ -43,7 +43,7 @@ const Storage = ({ storage }: { storage: ReadonlyArray<StorageElement> }) => (
   </Table>
 )
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const clientLoader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToSorobanServer(request)
   return getContractInfo(server, params.contractId as string).then(
     async (result: any) => {
@@ -61,7 +61,7 @@ export default function StorageTab() {
     setTitle(`Contract Storage ${contractId}`)
   }, [contractId])
 
-  const loadResult = useLoaderData<typeof loader>() as {
+  const loadResult = useLoaderData<typeof clientLoader>() as {
     storage: ReadonlyArray<StorageElement>
   } | null
 

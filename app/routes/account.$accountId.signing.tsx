@@ -11,7 +11,7 @@ import type { LoadAccountResult } from '~/lib/stellar/server_request_utils'
 import { loadAccount } from '~/lib/stellar/server_request_utils'
 import { setTitle } from '~/lib/utils'
 import type { AccountRecordSigners } from '@stellar/stellar-sdk/lib/horizon/types/account'
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 
 const Thresholds = ({
   thresholds,
@@ -76,11 +76,11 @@ const Signers = ({ signers }: { signers: AccountRecordSigners[] }) => (
     </tbody>
   </Table>
 )
-export const loader = ({ request }: LoaderFunctionArgs) =>
+export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToServerDetails(request)
 
 export default function SigningTab() {
-  const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
   const [accountResult, setAccountResult]: [LoadAccountResult | null, any] =
     useState(null)
   const { accountId } = useParams()

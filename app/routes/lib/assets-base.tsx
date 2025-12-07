@@ -1,9 +1,5 @@
 import { useEffect } from 'react'
-import Container from 'react-bootstrap/Container'
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Row from 'react-bootstrap/Row'
-import Table from 'react-bootstrap/Table'
+import { Card, Container, Row, Table } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
 import svgCircle from '../../../public/img/circle.svg'
 
@@ -152,12 +148,12 @@ export function Assets({ assets }: { assets: AssetProps[] }) {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <TitleWithJSONButton
               title={formatMessage({ id: 'assets' })}
               url={METADATA_URI}
             />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Table id="assets-table">
               <thead>

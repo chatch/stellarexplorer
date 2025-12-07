@@ -1,8 +1,4 @@
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Card, Col, Container, Row } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 import type { HorizonServerDetails } from '~/lib/stellar/server'
 import HorizonServer, { requestToServerDetails } from '~/lib/stellar/server'
@@ -13,7 +9,7 @@ import LedgerTable from '../components/LedgerTable'
 import Title from '../components/shared/TitleWithLink'
 import TransactionTable from '../components/TransactionTable'
 
-import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
+import type { LoaderFunctionArgs, MetaFunction } from '~/lib/remix-shim'
 import {
   ledgers as ledgersRequest,
   operations as operationsRequest,
@@ -55,12 +51,12 @@ const TX_RECORD_LIMIT = 10
 const LEDGER_RECORD_LIMIT = 10
 const OPERATION_RECORD_LIMIT = 25
 
-export const loader = ({ request }: LoaderFunctionArgs) =>
+export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToServerDetails(request)
 
 export default function Home() {
   const { formatMessage } = useIntl()
-  const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
   const [serverResponse, setServerResponse] = useState(null)
 
   useEffect(() => {
@@ -93,13 +89,13 @@ export default function Home() {
       <Row>
         <Col md={8}>
           <Card>
-            <CardHeader>
+            <Card.Header>
               <PanelHeaderTitle
                 title={formatMessage({ id: 'latest.operations' })}
                 viewAllLabel={viewAllStr}
                 viewAllLink="/operations"
               />
-            </CardHeader>
+            </Card.Header>
             <Card.Body>
               <OperationTable
                 compact
@@ -111,13 +107,13 @@ export default function Home() {
         </Col>
         <Col md={4}>
           <Card>
-            <CardHeader>
+            <Card.Header>
               <PanelHeaderTitle
                 title={formatMessage({ id: 'latest.txs' })}
                 viewAllLabel={viewAllStr}
                 viewAllLink="/txs"
               />
-            </CardHeader>
+            </Card.Header>
             <Card.Body>
               <TransactionTable
                 compact
@@ -128,13 +124,13 @@ export default function Home() {
             </Card.Body>
           </Card>
           <Card>
-            <CardHeader>
+            <Card.Header>
               <PanelHeaderTitle
                 title={formatMessage({ id: 'latest.ledgers' })}
                 viewAllLabel={viewAllStr}
                 viewAllLink="/ledgers"
               />
-            </CardHeader>
+            </Card.Header>
             <Card.Body>
               <LedgerTable records={ledgers} compact />
             </Card.Body>

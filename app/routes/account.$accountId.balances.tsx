@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
@@ -59,11 +59,11 @@ const Balances = ({ balances }: { balances: ReadonlyArray<Balance> }) => (
   </Table>
 )
 
-export const loader = ({ request }: LoaderFunctionArgs) =>
+export const clientLoader = ({ request }: LoaderFunctionArgs) =>
   requestToServerDetails(request)
 
 export default function BalancesTab() {
-  const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+  const serverDetails = useLoaderData<typeof clientLoader>() as HorizonServerDetails
   const { accountId } = useParams()
   const [accountResult, setAccountResult]: [LoadAccountResult | null, any] =
     useState(null)
