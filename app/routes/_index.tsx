@@ -108,7 +108,7 @@ export default function Home() {
     return (
       <Container className="mt-5">
         <h1 className="text-center text-dark">
-          Loading data from Public Network...
+          Loading data from the Stellar Network...
         </h1>
       </Container>
     )

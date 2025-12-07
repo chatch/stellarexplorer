@@ -7,7 +7,6 @@ import type { LinksFunction } from '@remix-run/node'
 import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -116,7 +115,6 @@ function HtmlDocument({
         {children}
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
         <script
           defer
           src="https://static.cloudflareinsights.com/beacon.min.js"

@@ -2,6 +2,7 @@ import type { ChangeEventHandler, FormEvent, MouseEventHandler } from 'react'
 import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
+import { Form } from '@remix-run/react'
 import { isValidUrl } from '~/lib/utils'
 
 /**
@@ -40,7 +41,7 @@ const ResourceModalBody = ({
 }: ResourceModalBodyProps) => {
   return (
     <div>
-      <form method="POST" action="/settings">
+      <Form method="POST" action="/settings">
         <FormattedMessage id="network.custom.horizon" />
         <input
           type="text"
@@ -68,7 +69,7 @@ const ResourceModalBody = ({
         <button id="btn-custom-network-clear" onClick={handleClearFn}>
           Clear
         </button>
-      </form>
+      </Form>
     </div>
   )
 }
