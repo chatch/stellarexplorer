@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 
 import RelativeTime from './shared/RelativeTime'
 import type { LedgerProps } from '~/routes/ledger.$ledgerId'
@@ -10,7 +10,7 @@ interface ParentProps {
   compact: boolean
 }
 
-interface LedgerRowProps extends Partial<LedgerProps>, ParentProps {}
+interface LedgerRowProps extends Partial<LedgerProps>, ParentProps { }
 
 interface LedgerTableProps extends ParentProps {
   records: ReadonlyArray<LedgerProps>

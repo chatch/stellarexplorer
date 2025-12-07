@@ -5,7 +5,7 @@ import {
   FormattedTime,
   useIntl,
 } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 import type { HorizonServerDetails } from '~/lib/stellar/server'
 import HorizonServer, { requestToServerDetails } from '~/lib/stellar/server'
 

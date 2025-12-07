@@ -17,7 +17,7 @@ import {
   FormattedTime,
   useIntl,
 } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 
 import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 import { MemoHash, MemoReturn } from '../lib/stellar/sdk'

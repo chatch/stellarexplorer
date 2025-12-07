@@ -6,7 +6,7 @@ import {
   FormattedTime,
   useIntl,
 } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 import { requestToServer } from '~/lib/stellar/server'
 
 import { json } from '~/lib/remix-shim'

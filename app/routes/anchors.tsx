@@ -1,6 +1,6 @@
 import { Card, Container, Row, Table } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 
 import AccountLink from '../components/shared/AccountLink'
 import ClipboardCopy from '../components/shared/ClipboardCopy'

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 import has from 'lodash/has'
 import { MuxedAccount } from '../../lib/stellar/sdk'
 

@@ -1,6 +1,6 @@
 import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 
 import { type LiquidityPoolProps } from './operations/LiquidityPool'
 import { liquidityPoolAsset } from '~/data/liquidity_pool_asset'
@@ -13,7 +13,7 @@ interface ParentProps {
   compact: boolean
 }
 
-interface LiquidityPoolRowProps extends LiquidityPoolProps, ParentProps {}
+interface LiquidityPoolRowProps extends LiquidityPoolProps, ParentProps { }
 
 interface LiquidityPoolTableProps {
   compact: boolean

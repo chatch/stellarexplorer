@@ -1,7 +1,7 @@
 import React from 'react'
 // @ts-expect-error - prop-types has incomplete type declarations
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 import { shortHash } from '../../lib/utils'
 
 const TransactionHash = ({
