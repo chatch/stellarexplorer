@@ -7,8 +7,8 @@ import { isSecretKey } from './lib/stellar/utils'
 import { useState } from 'react'
 import { useLocation, useNavigate } from '@remix-run/react'
 
-import searchSvg from '../public/search.svg'
-import infoCircleSvg from '../public/info-circle.svg'
+const searchSvg = '/search.svg'
+const infoCircleSvg = '/info-circle.svg'
 import { isPathClaimableBalance } from './lib/utilities'
 
 const HelpModal = ({

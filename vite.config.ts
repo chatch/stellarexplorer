@@ -4,6 +4,10 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
+    server: {
+        port: 3000,
+        allowedHosts: ["publicnet.local", "testnet.local", "futurenet.local"],
+    },
     plugins: [
         remix({
             ssr: false,

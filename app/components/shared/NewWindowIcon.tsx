@@ -1,4 +1,4 @@
-import externalLinkSvg from '../../../public/external-link.svg'
+const externalLinkSvg = '/external-link.svg'
 
 const NewWindowIcon = () => (
   <img

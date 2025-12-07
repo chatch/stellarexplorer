@@ -1,4 +1,5 @@
-import { SorobanServer, xdr } from '@stellar/stellar-sdk'
+import pkg from '@stellar/stellar-sdk';
+const { SorobanServer, xdr } = pkg;
 
 import networks from './stellar/networks'
 import Server from './stellar/server'

@@ -56,7 +56,7 @@ Deployments:
 | Transactions Tab | [/account/stellar\*fed.network#transactions](https://steexp.com/account/stellar*fed.network#transactions) |
 | Signing Tab      | [/account/stellar\*fed.network#signing](https://steexp.com/account/stellar*fed.network#signing)           |
 | Flags Tab        | [/account/stellar\*fed.network#flags](https://steexp.com/account/stellar*fed.network#flags)               |
-| Data Tab         | [/account/stellar\*fed.network#data](https://steexpcom/account/stellar*fed.network#data)                  |
+| Data Tab         | [/account/stellar\*fed.network#data](https://steexp.com/account/stellar*fed.network#data)                  |
 
 ### Search
 

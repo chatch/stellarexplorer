@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Card, Container, Row, Table } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
-import svgCircle from '../../../public/img/circle.svg'
+const svgCircle = '/img/circle.svg'
 
 import { setTitle } from '../../lib/utils'
 import BackendResourceBadgeButton from '../../components/shared/BackendResourceBadgeButton'
@@ -86,8 +86,8 @@ export function Asset(asset: AssetProps) {
   const price24h = formatPrice24h(latestPrice)
   const priceChange = previousPrice
     ? formatPercentToHumanReadable(
-        Math.abs(((latestPrice - previousPrice) * 100) / latestPrice),
-      )
+      Math.abs(((latestPrice - previousPrice) * 100) / latestPrice),
+    )
     : undefined
 
   return (

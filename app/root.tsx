@@ -89,11 +89,7 @@ function HtmlDocument({
   title,
 }: PropsWithChildren<{ title?: string }>) {
   const [theme] = useTheme()
-  const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    setIsLoading(false)
-  }, [])
 
   return (
     <html lang="en" data-bs-theme={theme}>
@@ -116,7 +112,7 @@ function HtmlDocument({
         <Links />
       </head>
       <body>
-        {!isLoading && children}
+        {children}
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -130,10 +126,14 @@ function HtmlDocument({
   )
 }
 
-export const clientLoader = ({ request }: LoaderFunctionArgs) =>
-  requestToNetworkDetails(request).then((networkDetails) =>
-    json({ ...networkDetails }),
-  )
+export const clientLoader = async ({ request }: LoaderFunctionArgs) => {
+  try {
+    const details = await requestToNetworkDetails(request);
+    return json({ ...details });
+  } catch (e) {
+    throw e;
+  }
+}
 
 function App() {
   const navigation = useNavigation()
@@ -175,6 +175,14 @@ function App() {
         </div>
       </HtmlDocument>
     </ThemeProvider>
+  )
+}
+
+export function HydrateFallback() {
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <h1>Global Loading Fallback...</h1>
+    </div>
   )
 }
 

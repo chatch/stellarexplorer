@@ -23,7 +23,7 @@ import { loadAccount } from '~/lib/stellar/server_request_utils'
 import AccountTypeUnrecognizedException from '~/lib/error/AccountTypeUnrecognizedException'
 import TabLink from './lib/tab-link-base'
 
-import infoSvg from '../../public/info-solid.svg'
+const infoSvg = '/info-solid.svg'
 import { ErrorBoundary } from './lib/error-boundary'
 
 // exists in @types/react-bootstrap however can't seem to resolve it
