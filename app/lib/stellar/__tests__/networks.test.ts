@@ -16,7 +16,7 @@ describe('hostnameToNetwork', () => {
 
     // unknown hosts default to local
     expect(hostnameToNetworkType('')).toEqual(networks.local)
-    expect(hostnameToNetworkType('localhost')).toEqual(networks.local)
+    expect(hostnameToNetworkType('localhost')).toEqual(networks.public)
     expect(hostnameToNetworkType('0.0.0.0')).toEqual(networks.local)
     expect(hostnameToNetworkType('not.steexp.com')).toEqual(networks.local)
   })

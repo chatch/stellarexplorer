@@ -48,6 +48,15 @@ const NetworkSelector = ({
           Cookies.remove('horizonAddress')
           Cookies.remove('sorobanRPCAddress')
 
+          if (
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1'
+          ) {
+            Cookies.set('network', btnNetType)
+            window.location.reload()
+            return
+          }
+
           const target = networkTypeToRedirectAddress(btnNetType, isLocal)
           console.log(`Switching to ${btnNetType}: ${target}`)
           window.location.href = target

@@ -9,8 +9,6 @@ import { Link } from '@remix-run/react'
 import type { HorizonServerDetails } from '~/lib/stellar/server'
 import HorizonServer, { requestToServerDetails } from '~/lib/stellar/server'
 
-import { json } from '~/lib/remix-shim'
-
 import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 import { MemoHash, MemoReturn } from '../lib/stellar/sdk'
 import { base64DecodeToHex, setTitle } from '../lib/utils'

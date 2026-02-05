@@ -1,5 +1,4 @@
 import type { LoaderFunctionArgs } from '~/lib/remix-shim'
-import { json } from '~/lib/remix-shim'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
@@ -78,8 +77,7 @@ export default function BalancesTab() {
         serverDetails.serverAddress,
         serverDetails.networkType as string,
       )
-      loadAccount(server, accountId as string)
-        .then(setAccountResult)
+      loadAccount(server, accountId as string).then(setAccountResult)
     }
   }, [accountId])
 

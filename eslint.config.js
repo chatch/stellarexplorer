@@ -54,8 +54,8 @@ export default [
   {
     files: ['**/*.{ts,tsx}'],
     rules: {
-      // Relax any usage - too many to fix at once, warn for now
-      '@typescript-eslint/no-explicit-any': 'warn',
+      // TODO: set this to error and clean up these
+      '@typescript-eslint/no-explicit-any': 'off',
       // Allow unused vars that start with underscore
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -77,8 +77,8 @@ export default [
       ],
       // Allow require() in specific contexts
       '@typescript-eslint/no-require-imports': 'off',
-      // Relax Function type
-      '@typescript-eslint/no-unsafe-function-type': 'warn',
+      // TODO: set this to error and clean up these
+      '@typescript-eslint/no-unsafe-function-type': 'off',
       // Relax empty object type
       '@typescript-eslint/no-empty-object-type': 'off',
     },

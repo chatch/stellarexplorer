@@ -41,9 +41,23 @@ const requestToNetworkDetails = async (
     session,
   )
 
+  const networkOverride = urlParamOrSessionOrEmpty(
+    'network',
+    url,
+    session,
+  ) as NetworkKey
+
+  let networkType = hostnameToNetworkType(url.hostname)
+  if (networkOverride && networks[networkOverride]) {
+    networkType = networks[networkOverride]
+  }
+
   return {
-    networkType: hostnameToNetworkType(url.hostname),
-    isLocal: url.hostname.endsWith('.local'),
+    networkType,
+    isLocal:
+      url.hostname.endsWith('.local') ||
+      url.hostname === 'localhost' ||
+      url.hostname === '127.0.0.1',
     isCustom:
       isValidUrl(customHorizonAddress) && isValidUrl(customSorobanRPCAddress),
     customHorizonAddress,
@@ -52,7 +66,12 @@ const requestToNetworkDetails = async (
 }
 
 const hostnameToNetworkType = (hostname: string) => {
-  if (hostname === 'steexp.com' || hostname === 'publicnet.local') {
+  if (
+    hostname === 'steexp.com' ||
+    hostname === 'publicnet.local' ||
+    hostname === 'localhost' ||
+    hostname === '127.0.0.1'
+  ) {
     return networks.public
   } else if (
     hostname === 'testnet.steexp.com' ||

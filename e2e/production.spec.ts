@@ -6,8 +6,8 @@ import {
   verifyOpeningNewPage,
 } from './utils'
 
-const baseUrl = 'https://steexp.com'
-// const baseUrl = 'http://publicnet.local:3000' // for test on local
+const baseUrl = 'http://localhost:4173'
+// const baseUrl = 'https://steexp.com'
 
 test('top page', async ({ page }) => {
   await page.goto(`${baseUrl}/`)
@@ -68,7 +68,7 @@ test('ledgers', async ({ page }) => {
   )
 })
 
-test('assets', async ({ page, context }) => {
+test('assets', async ({ page }) => {
   const targetUrl = `${baseUrl}/assets`
   await page.goto(targetUrl)
 

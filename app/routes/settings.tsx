@@ -1,5 +1,4 @@
 import type { ActionFunctionArgs } from '~/lib/remix-shim'
-import { useEffect } from 'react'
 import { redirect } from '~/lib/remix-shim'
 
 import { getSession, commitSession } from '~/sessions'
@@ -24,11 +23,15 @@ export async function clientAction({ request }: ActionFunctionArgs) {
     (form.get('sorobanRPCAddress') as string) ?? '',
   )
 
-  console.log('clientAction called', { url: request.url, form: Object.fromEntries(form) })
+  console.log('clientAction called', {
+    url: request.url,
+    form: Object.fromEntries(form),
+  })
 
   const url = new URL(request.url)
   let redirectAddress = '/'
-  const isUnset = url.searchParams.get('unset') === 'true' || form.get('unset') === 'true'
+  const isUnset =
+    url.searchParams.get('unset') === 'true' || form.get('unset') === 'true'
 
   const rawRedirectTo = form.get('redirect_to') as string
   if (isUnset) {
@@ -40,7 +43,7 @@ export async function clientAction({ request }: ActionFunctionArgs) {
     isUnset,
     rawRedirectTo,
     redirectAddress,
-    entries: Object.fromEntries(form)
+    entries: Object.fromEntries(form),
   })
 
   return redirect(redirectAddress, {

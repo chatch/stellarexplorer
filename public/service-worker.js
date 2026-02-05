@@ -1,14 +1,14 @@
 /* TODO: this file could be pretty much be removed now.
-         it was created for the transitionf from the old version of 
+         it was created for the transitionf from the old version of
          the app that used React and a service worker. This one just
          removed the old for those that had it cached. But most users
          will now be on the new version with no service worker needed. */
 
-self.addEventListener('install', function (e) {
+self.addEventListener('install', function () {
   self.skipWaiting()
 })
 
-self.addEventListener('activate', function (e) {
+self.addEventListener('activate', function () {
   self.registration
     .unregister()
     .then(function () {

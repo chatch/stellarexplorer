@@ -5,8 +5,8 @@ import { hexStringToBytes } from '../utils'
 import { scValToString } from './xdr_scval_utils'
 import ContractIdInvalid from '../error/ContractIdInvalid'
 
-const API_URL = 'https://steexp-api.fly.dev'
-// const API_URL = `http://localhost:3001`
+export const API_URL = 'https://steexp-api.fly.dev'
+// export const API_URL = `http://localhost:3001`
 
 interface ContractProps {
   id: string
