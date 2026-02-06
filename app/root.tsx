@@ -52,7 +52,7 @@ export const links: LinksFunction = () => [
 ]
 
 // const storage = storageInit()
-const storage = { setItem: () => { }, getItem: () => null }
+const storage = { setItem: () => {}, getItem: () => null }
 
 const getMessages = (locale: string) => {
   switch (locale) {
@@ -81,7 +81,7 @@ const getMessages = (locale: string) => {
 
 const languageSwitcherFn = (setLanguage: Function) => (event: any) => {
   const newLanguage = event.target.lang as string
-    ; (storage as unknown as Storage).setItem('language', newLanguage)
+  ;(storage as unknown as Storage).setItem('language', newLanguage)
   setLanguage(newLanguage)
 }
 

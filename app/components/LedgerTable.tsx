@@ -10,7 +10,7 @@ interface ParentProps {
   compact: boolean
 }
 
-interface LedgerRowProps extends Partial<LedgerProps>, ParentProps { }
+interface LedgerRowProps extends Partial<LedgerProps>, ParentProps {}
 
 interface LedgerTableProps extends ParentProps {
   records: ReadonlyArray<LedgerProps>

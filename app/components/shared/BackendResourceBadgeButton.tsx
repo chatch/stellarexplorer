@@ -143,9 +143,15 @@ const ResourceModalBody = ({
             <br />
             <strong>Action Required:</strong>
             <br />
-            Because of browser security (CORS), some hosts prevent direct reading of their files.
+            Because of browser security (CORS), some hosts prevent direct
+            reading of their files.
             <br />
-            <a href={url} target="_blank" rel="noreferrer" className="alert-link">
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="alert-link"
+            >
               Click here to open {url.split('/').pop()} directly in a new tab.
             </a>
           </div>

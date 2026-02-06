@@ -109,7 +109,9 @@ describe('BackendResourceBadgeButtonWithResourceModal', () => {
     ).toBeInTheDocument()
     expect(screen.getByText(/Action Required:/)).toBeInTheDocument()
     expect(
-      screen.getByRole('link', { name: /Click here to open .* directly in a new tab\./ }),
+      screen.getByRole('link', {
+        name: /Click here to open .* directly in a new tab\./,
+      }),
     ).toBeInTheDocument()
   })
 })

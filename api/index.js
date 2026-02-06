@@ -62,12 +62,16 @@ const cors = require('cors')
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || origin.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/) || origin.endsWith('steexp.com')) {
+    if (
+      !origin ||
+      origin.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/) ||
+      origin.endsWith('steexp.com')
+    ) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
     }
-  }
+  },
 }
 app.use(cors(corsOptions))
 
