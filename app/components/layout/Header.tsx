@@ -1,10 +1,8 @@
 import type { MouseEventHandler } from 'react'
 import { NavDropdown } from 'react-bootstrap'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import NavItem from 'react-bootstrap/NavItem'
+import { Nav, Navbar } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from '@remix-run/react'
 
 import logoImg from '../../img/logo.png'
 import LanguageSelector from './LanguageSelector'
@@ -69,35 +67,25 @@ export default function Header({
             id="basic-nav-dropdown"
             className="nav-dropdown"
           >
-            <LinkContainer to="/effects">
-              <NavDropdown.Item>
-                <FormattedMessage id="effects" />
-              </NavDropdown.Item>
-            </LinkContainer>
-            <LinkContainer to="/payments">
-              <NavDropdown.Item>
-                <FormattedMessage id="payments" />
-              </NavDropdown.Item>
-            </LinkContainer>
-            <LinkContainer to="/trades">
-              <NavDropdown.Item>
-                <FormattedMessage id="trades" />
-              </NavDropdown.Item>
-            </LinkContainer>
-            <LinkContainer to="/pools">
-              <NavDropdown.Item>
-                <FormattedMessage id="liquidity-pools" />
-              </NavDropdown.Item>
-            </LinkContainer>
-            <LinkContainer to="/claimable-balances">
-              <NavDropdown.Item>
-                <FormattedMessage id="claimable-balances" />
-              </NavDropdown.Item>
-            </LinkContainer>
+            <NavDropdown.Item as={Link} to="/effects">
+              <FormattedMessage id="effects" />
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/payments">
+              <FormattedMessage id="payments" />
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/trades">
+              <FormattedMessage id="trades" />
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/pools">
+              <FormattedMessage id="liquidity-pools" />
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/claimable-balances">
+              <FormattedMessage id="claimable-balances" />
+            </NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Nav className="ms-auto">
-          <NavItem>
+          <Nav.Item>
             <NetworkSelector
               networkType={networkType}
               isLocal={isLocal}
@@ -105,13 +93,13 @@ export default function Header({
               customHorizonAddress={customHorizonAddress}
               customSorobanRPCAddress={customSorobanRPCAddress}
             />
-          </NavItem>
-          <NavItem className="theme-selector-wrapper">
+          </Nav.Item>
+          <Nav.Item className="theme-selector-wrapper">
             <ThemeSwitcher />
-          </NavItem>
-          <NavItem>
+          </Nav.Item>
+          <Nav.Item>
             <LanguageSelector switcher={languageSwitcher} />
-          </NavItem>
+          </Nav.Item>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

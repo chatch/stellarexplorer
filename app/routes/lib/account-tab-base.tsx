@@ -9,8 +9,7 @@ import type { FunctionComponent } from 'react'
 import { useEffect, useState } from 'react'
 import { setTitle } from '~/lib/utils'
 import type { ServerReqFnName } from '~/lib/loader-util'
-import type { loader } from '../tx.$txHash'
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 
 const DEFAULT_RECORD_LIMIT = 30
 
@@ -31,7 +30,7 @@ const accountTabComponent = function <loaderFnType>(
   subpath = name?.toLowerCase(),
 ) {
   return function AccountTabComponent() {
-    const serverDetails = useLoaderData<typeof loader>() as HorizonServerDetails
+    const serverDetails = useLoaderData<loaderFnType>() as HorizonServerDetails
     const [serverResult, setServerResult] = useState(null)
 
     const { accountId } = useParams()

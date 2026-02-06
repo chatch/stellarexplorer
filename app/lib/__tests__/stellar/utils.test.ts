@@ -14,8 +14,10 @@ it('stroopsToLumens converts correctly', () => {
 })
 
 it('isPublicKey identifies a valid key', () => {
+  // @ts-expect-error - testing missing argument
   expect(isPublicKey()).toBe(false)
   expect(isPublicKey('')).toBe(false)
+  // @ts-expect-error - testing null argument
   expect(isPublicKey(null)).toBe(false)
 
   // same length as valid key and looks valid but is not
@@ -35,8 +37,10 @@ it('isPublicKey identifies a valid key', () => {
 })
 
 it('isFederatedAddress identifies a valid stellar address', () => {
+  // @ts-expect-error - testing missing argument
   expect(isFederatedAddress()).toBe(false)
   expect(isFederatedAddress('')).toBe(false)
+  // @ts-expect-error - testing null argument
   expect(isFederatedAddress(null)).toBe(false)
 
   expect(isFederatedAddress('comma,forbidden*stellar.org')).toBe(false)
@@ -47,8 +51,10 @@ it('isFederatedAddress identifies a valid stellar address', () => {
 })
 
 it('isTxHash identifies a valid transaction hash', () => {
+  // @ts-expect-error - testing missing argument
   expect(isTxHash()).toBe(false)
   expect(isTxHash('')).toBe(false)
+  // @ts-expect-error - testing null argument
   expect(isTxHash(null)).toBe(false)
   expect(isTxHash('ddefd')).toBe(false)
 
@@ -59,9 +65,11 @@ it('isTxHash identifies a valid transaction hash', () => {
   ).toBe(true)
 })
 
-it('isMuxedAddress identifies a valid key', () => {
+it('returns false if address is invalid', () => {
+  // @ts-expect-error - testing missing argument
   expect(isMuxedAddress()).toBe(false)
-  expect(isMuxedAddress('')).toBe(false)
+  expect(isMuxedAddress('GB65I560')).toBe(false)
+  // @ts-expect-error - testing null argument
   expect(isMuxedAddress(null)).toBe(false)
 
   // same length as valid key and looks valid but is not
@@ -85,8 +93,10 @@ it('isMuxedAddress identifies a valid key', () => {
 })
 
 it('isContractAddress identifies a valid smart contract address string', () => {
+  // @ts-expect-error - testing missing argument
   expect(isContractAddress()).toBe(false)
-  expect(isContractAddress('')).toBe(false)
+  expect(isContractAddress('CA3JP')).toBe(false)
+  // @ts-expect-error - testing null argument
   expect(isContractAddress(null)).toBe(false)
   expect(isContractAddress('ddefd')).toBe(false)
 

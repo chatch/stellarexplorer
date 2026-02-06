@@ -1,6 +1,4 @@
 import { Theme, useTheme } from '~/context/theme.provider'
-import lightIcon from 'public/img/sun.svg'
-import darkIcon from 'public/img/moon.svg'
 
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useTheme()
@@ -18,11 +16,11 @@ const ThemeSwitcher = () => {
 }
 
 const DarkIcon = () => {
-  return <img src={darkIcon} alt="moon" width={28} height={28} />
+  return <img src="/img/moon.svg" alt="moon" width={28} height={28} />
 }
 
 const LightIcon = () => {
-  return <img src={lightIcon} alt="sun" width={28} height={28} />
+  return <img src="/img/sun.svg" alt="sun" width={28} height={28} />
 }
 
 export default ThemeSwitcher

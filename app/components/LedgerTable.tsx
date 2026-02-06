@@ -1,7 +1,7 @@
 import React from 'react'
-import Table from 'react-bootstrap/Table'
+import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 
 import RelativeTime from './shared/RelativeTime'
 import type { LedgerProps } from '~/routes/ledger.$ledgerId'
@@ -63,7 +63,11 @@ export default function LedgerTable({ compact, records }: LedgerTableProps) {
       </thead>
       <tbody>
         {records == null ? (
-          <p> Loading ...</p>
+          <tr>
+            <td colSpan={3} className="text-center">
+              Loading ...
+            </td>
+          </tr>
         ) : (
           records.map((ledger: LedgerProps) => (
             <LedgerRow

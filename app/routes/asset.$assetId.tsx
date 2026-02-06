@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { json } from '@remix-run/node'
+import { json } from '~/lib/remix-shim'
 import { useLoaderData } from '@remix-run/react'
 
 import { setTitle } from '../lib/utils'
@@ -9,7 +9,7 @@ import directory from '../data/directory'
 
 const { assets } = directory
 
-export const loader = ({ params }: { params: { assetId: string } }) => {
+export const clientLoader = ({ params }: { params: { assetId: string } }) => {
   const matchingAssetKeys = Object.keys(assets).filter((k) =>
     k.startsWith(params.assetId),
   )
@@ -25,7 +25,9 @@ export default function AssetsById() {
     matchingAssetKeys,
   }: {
     matchingAssetKeys: Array<string>
-  } = useLoaderData<typeof loader>()
+  } = useLoaderData<typeof clientLoader>()
 
-  return <Assets assetKeys={matchingAssetKeys} />
+  const matchingAssets = matchingAssetKeys.map((key) => assets[key]) as any
+
+  return <Assets assets={matchingAssets} />
 }

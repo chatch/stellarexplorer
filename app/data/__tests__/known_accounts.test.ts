@@ -1,4 +1,3 @@
-/* eslint-disable testing-library/await-async-query */
 import accounts from '../known_accounts'
 import { isPublicKey } from '../../lib/stellar/utils'
 

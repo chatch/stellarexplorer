@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from 'react-bootstrap/Table'
+import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 
 import { OfferRow as Offer } from './operations/Offer'
@@ -12,10 +12,10 @@ interface OfferTableProps {
 }
 
 export default function OfferTable({
-  compact,
+  compact: _compact,
   records,
   showSeller = true,
-  horizonURL,
+  horizonURL: _horizonURL,
 }: OfferTableProps) {
   if (records.length === 0)
     return <div style={{ marginTop: 20, marginBottom: 20 }}>No Offers</div>

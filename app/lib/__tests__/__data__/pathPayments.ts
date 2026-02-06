@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-anonymous-default-export
-export default [
+const pathPaymentsData = [
   {
     _links: {
       self: {
@@ -54,3 +53,5 @@ export default [
       'GBSTRH4QOTWNSVA6E4HFERETX4ZLSR3CIUBLK7AXYII277PFJC4BBYOG',
   },
 ]
+
+export default pathPaymentsData

@@ -75,12 +75,21 @@ const pagingCalls = {
 
 Object.keys(pagingCalls).forEach(
   (callName) =>
-  ((Horizon.Server.prototype as any)[callName] = function (...params: any) {
-    const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
-      (pagingCalls as any)[callName],
-    )
-    return new (WrappedClass as any)(URI(this.serverURL), this.httpClient, ...params)
-  }),
+    ((Horizon.Server.prototype as any)[callName] = function (...params: any) {
+      const WrappedClass = wrapStellarCallBuilderWithWebPagePaging(
+        (pagingCalls as any)[callName],
+      )
+      return new (WrappedClass as any)(
+        URI(this.serverURL),
+        this.httpClient,
+        ...params,
+      )
+    }),
 )
 
-export { MemoHash, MemoReturn, MuxedAccount, StrKey } from '@stellar/stellar-sdk'
+export {
+  MemoHash,
+  MemoReturn,
+  MuxedAccount,
+  StrKey,
+} from '@stellar/stellar-sdk'

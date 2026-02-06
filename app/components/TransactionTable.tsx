@@ -1,7 +1,7 @@
 import React from 'react'
-import Table from 'react-bootstrap/Table'
+import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 
 import AccountLink from './shared/AccountLink'
 import RelativeTime from './shared/RelativeTime'
@@ -18,9 +18,7 @@ interface ParentProps {
 }
 
 interface TransactionRowProps
-  extends TransactionViewOptions,
-    TransactionProps,
-    ParentProps {}
+  extends TransactionViewOptions, TransactionProps, ParentProps {}
 
 interface TransactionTableProps extends ParentProps, TransactionViewOptions {
   records: ReadonlyArray<TransactionProps>

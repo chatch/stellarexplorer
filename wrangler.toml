@@ -1,0 +1,6 @@
+name = "stellarexplorer"
+compatibility_date = "2024-04-03"
+pages_build_output_dir = "./build/client"
+
+[vars]
+# Add any environment variables here

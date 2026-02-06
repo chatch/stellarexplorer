@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-anonymous-default-export
-export default [
+const effectsData = [
   {
     id: '0000774537222303745-0000000002',
     account: 'GCOLHJY3DMPDSZW7PNK4RWBQMCYE5Q67W7TT44SD46RKTVDEAUJZTNE6',
@@ -30,3 +29,5 @@ export default [
     startingBalance: '10000.0000000',
   },
 ]
+
+export default effectsData

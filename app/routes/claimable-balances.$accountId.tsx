@@ -1,5 +1,4 @@
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Container, Row } from 'react-bootstrap'
 import type { ClaimableBalanceProps } from '~/components/operations/ClaimableBalances'
 import { useLoaderData } from '@remix-run/react'
 import ClaimableBalanceTable from '~/components/ClaimableBalanceTable'
@@ -8,13 +7,13 @@ import { useEffect } from 'react'
 import { setTitle } from '../lib/utils'
 import { Tab, Tabs } from 'react-bootstrap'
 import { requestToServer } from '~/lib/stellar/server'
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 import { NotFoundError } from '@stellar/stellar-sdk'
 import { captureException } from '@sentry/remix'
 import { claimableBalances } from '~/lib/stellar/server_request_utils'
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const clientLoader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToServer(request)
   let response
   try {
@@ -45,7 +44,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 }
 
 export default function ClaimableBalances() {
-  const { claimants, sponsors } = useLoaderData<typeof loader>()
+  const { claimants, sponsors } = useLoaderData<typeof clientLoader>()
   const { formatMessage } = useIntl()
   useEffect(() => {
     setTitle(formatMessage({ id: 'claimable-balances' }))

@@ -5,9 +5,7 @@ body {
 .navbar {
   color: #96a2b4;
   background-color: #3c4452 !important;
-  font-family: "Noto Sans",
-  "Noto Sans CJK {SC, TC}",
-  sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans CJK {SC, TC}', sans-serif;
 }
 
 .text-orange {
@@ -17,7 +15,7 @@ body {
 
 .navbar {
   padding: 0 15px 0 0;
-  border-bottom: 1px solid #96A2B4;
+  border-bottom: 1px solid #96a2b4;
 }
 
 .navbar-toggler {
@@ -60,7 +58,7 @@ table {
 }
 
 .monospace {
-  font-family: "Noto Sans Mono", monospace;
+  font-family: 'Noto Sans Mono', monospace;
   word-break: break-all;
 }
 
@@ -93,7 +91,7 @@ table {
   text-decoration: underline;
 }
 
-.modal-body input[type="text"] {
+.modal-body input[type='text'] {
   width: 100%;
 }
 
@@ -103,7 +101,7 @@ table {
 
 .modal-dialog {
   max-width: 600px;
-  margin: 30px auto
+  margin: 30px auto;
 }
 
 .__json-pretty__ {
@@ -148,13 +146,13 @@ pre#plain-text {
   margin-bottom: 30px;
 }
 
-.card>.card-header {
+.card > .card-header {
   font-size: 15px;
   font-weight: 500;
   text-transform: uppercase;
 }
 
-.card-default>.card-header {
+.card-default > .card-header {
   background-color: #383f4b;
   color: #dce2ec;
   padding-left: 20px;
@@ -178,19 +176,19 @@ pre#plain-text {
   overflow-wrap: break-word;
 }
 
-[id*="-table"] {
+[id*='-table'] {
   font-size: 14px !important;
 }
 
-[id*="-table"] thead th {
+[id*='-table'] thead th {
   color: #dce2ec !important;
 }
 
-[id*="-table"] tbody td {
+[id*='-table'] tbody td {
   color: #96a2b4 !important;
 }
 
-[id*="-table"]>tbody>tr>td {
+[id*='-table'] > tbody > tr > td {
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid #4c5667;
@@ -220,13 +218,13 @@ pre#plain-text {
   color: #96a2b4 !important;
 }
 
-.table>tbody>tr:nth-of-type(odd)>td,
-.table>tbody>tr:nth-of-type(even)>td,
-.table>thead>tr>th {
+.table > tbody > tr:nth-of-type(odd) > td,
+.table > tbody > tr:nth-of-type(even) > td,
+.table > thead > tr > th {
   background-color: #383f4b;
 }
 
-.table>tbody>tr:hover {
+.table > tbody > tr:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -296,7 +294,7 @@ pre#plain-text {
   margin-left: 10px;
 }
 
-[id="contained-modal-title-lg"] {
+[id='contained-modal-title-lg'] {
   color: #dce2ec;
 }
 
@@ -311,7 +309,7 @@ pre#plain-text {
     margin-top: 10px;
     margin-left: 15px !important;
     padding-top: 10px;
-    border-top: hsla(210, 8%, 51%, .28) solid 1px;
+    border-top: hsla(210, 8%, 51%, 0.28) solid 1px;
   }
 
   .theme-selector {
@@ -352,7 +350,7 @@ pre#plain-text {
   margin-left: 30px;
 }
 
-#language-selector>span.caret {
+#language-selector > span.caret {
   color: #dce2ec !important;
 }
 
@@ -424,7 +422,7 @@ pre#plain-text {
   transition: all 0.18s ease-in-out;
 }
 
-button[id^="btn-custom-network"] {
+button[id^='btn-custom-network'] {
   margin-top: 10px;
   padding: 5px 30px;
   border: 1px solid white;
@@ -434,7 +432,7 @@ button[id^="btn-custom-network"] {
   font-size: 14px;
 }
 
-button[id^="btn-custom-network"]:first-of-type {
+button[id^='btn-custom-network']:first-of-type {
   margin-right: 20px;
 }
 
@@ -476,8 +474,8 @@ button[id^="btn-custom-network"]:first-of-type {
   background-color: #383f4b;
 }
 
-#account-nav>a,
-#contract-nav>a {
+#account-nav > a,
+#contract-nav > a {
   color: #96a2b4;
   padding: 10px 15px;
   margin-right: 2px;
@@ -488,8 +486,8 @@ button[id^="btn-custom-network"]:first-of-type {
   border-bottom: 2px solid #ddd !important;
 }
 
-#account-nav>a:hover,
-#contract-nav>a:hover {
+#account-nav > a:hover,
+#contract-nav > a:hover {
   background-color: #3c4452 !important;
   color: #01c0c8;
 }
@@ -544,10 +542,10 @@ button[id^="btn-custom-network"]:first-of-type {
 }
 
 .invoke-param:before {
-  content: "-> ";
+  content: '-> ';
 }
 
-#wasm-code>div,
+#wasm-code > div,
 #cli-info {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -618,7 +616,6 @@ button[id^="btn-custom-network"]:first-of-type {
 .paging-buttons {
   display: flex;
   justify-content: space-between;
-
 }
 
 .paging-buttons-right {
@@ -686,7 +683,7 @@ Mobile Rules
     table-layout: fixed;
   }
 
-  [id*="-table"] {
+  [id*='-table'] {
     font-size: 12px !important;
   }
 

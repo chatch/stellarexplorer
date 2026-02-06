@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from 'react-bootstrap/Table'
+import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 
 import { default as Operation } from './operations/Operation'
@@ -13,7 +13,7 @@ export interface OperationTableProps {
 export default function OperationTable({
   compact,
   records,
-  horizonURL, // possiblyMoreDataAvailable,
+  horizonURL,
 }: Readonly<OperationTableProps>) {
   return (
     <div>

@@ -1,5 +1,4 @@
-import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownItem from 'react-bootstrap/DropdownItem'
+import { Dropdown } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
 import langSelectImg from '../../img/lang-select.png'
 
@@ -30,42 +29,42 @@ export default function LanguageSelector({
         />
       </Dropdown.Toggle>
       <Dropdown.Menu style={{ color: 'white' }}>
-        <DropdownItem lang="en" onClick={switcher}>
+        <Dropdown.Item lang="en" onClick={switcher}>
           English
-        </DropdownItem>
-        <DropdownItem lang="zh-Hans" onClick={switcher}>
+        </Dropdown.Item>
+        <Dropdown.Item lang="zh-Hans" onClick={switcher}>
           中文 (简体)
-        </DropdownItem>
-        <DropdownItem lang="zh-Hant" onClick={switcher}>
+        </Dropdown.Item>
+        <Dropdown.Item lang="zh-Hant" onClick={switcher}>
           中文 (繁體)
-        </DropdownItem>
-        <DropdownItem lang="ru" onClick={switcher}>
+        </Dropdown.Item>
+        <Dropdown.Item lang="ru" onClick={switcher}>
           Pусский
-        </DropdownItem>
-        <DropdownItem lang="vi" onClick={switcher}>
+        </Dropdown.Item>
+        <Dropdown.Item lang="vi" onClick={switcher}>
           Tiếng Việt
-        </DropdownItem>
-        <DropdownItem lang="fr" onClick={switcher}>
+        </Dropdown.Item>
+        <Dropdown.Item lang="fr" onClick={switcher}>
           Français
-        </DropdownItem>
-        <DropdownItem lang="ur" onClick={switcher}>
+        </Dropdown.Item>
+        <Dropdown.Item lang="ur" onClick={switcher}>
           اردو
-        </DropdownItem>
-        <DropdownItem lang="hi" onClick={switcher}>
+        </Dropdown.Item>
+        <Dropdown.Item lang="hi" onClick={switcher}>
           हिन्दी
-        </DropdownItem>
-        <DropdownItem lang="ja" onClick={switcher}>
+        </Dropdown.Item>
+        <Dropdown.Item lang="ja" onClick={switcher}>
           日本語
-        </DropdownItem>
-        <DropdownItem lang="id" onClick={switcher}>
+        </Dropdown.Item>
+        <Dropdown.Item lang="id" onClick={switcher}>
           Bahasa Indonesia
-        </DropdownItem>
-        <DropdownItem
+        </Dropdown.Item>
+        <Dropdown.Item
           onClick={onClickTranslateHelp}
           style={{ borderTop: '1px solid black' }}
         >
           <FormattedMessage id="translate.help" />
-        </DropdownItem>
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   )

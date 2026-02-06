@@ -1,8 +1,4 @@
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Table from 'react-bootstrap/Table'
+import { Card, Col, Container, Row, Table } from 'react-bootstrap'
 import {
   FormattedDate,
   FormattedMessage,
@@ -10,20 +6,18 @@ import {
   FormattedTime,
   useIntl,
 } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 import { requestToServer } from '~/lib/stellar/server'
 
-import { json } from '@remix-run/node'
-
+import { json } from '~/lib/remix-shim'
 import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 import { useLoaderData } from '@remix-run/react'
 import { ledger, transactions } from '~/lib/stellar/server_request_utils'
 import TransactionTable from '~/components/TransactionTable'
 import { setTitle, shortHash } from '~/lib/utils'
 import { stroopsToLumens } from '~/lib/stellar/utils'
-import Col from 'react-bootstrap/Col'
 import { useEffect } from 'react'
 import { NotFoundError } from '@stellar/stellar-sdk'
 import { captureException } from '@sentry/remix'
@@ -42,7 +36,7 @@ const DetailRow = ({ label, children }: { label: string; children: any }) => (
 
 export { ErrorBoundary }
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const clientLoader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToServer(request)
   const ledgerSeq = params.ledgerId as string
   let response
@@ -109,7 +103,7 @@ export default function Ledger() {
     },
     transactions,
     horizonURL,
-  ]: [LedgerProps, any, string] = useLoaderData<typeof loader>()
+  ]: [LedgerProps, any, string] = useLoaderData<typeof clientLoader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -122,13 +116,13 @@ export default function Ledger() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <TitleWithJSONButton
               title={formatMessage({ id: 'ledger' })}
               titleSecondary={String(sequence)}
               url={`${horizonURL}ledgers/${sequence}`}
             />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Container>
               <Row>

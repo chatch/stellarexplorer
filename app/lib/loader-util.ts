@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs, TypedResponse } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LoaderFunctionArgs, TypedResponse } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 import type { HorizonServerDetails } from './stellar/server'
 import HorizonServer, { requestToServer } from './stellar/server'
 import * as serverRequestUtils from './stellar/server_request_utils'

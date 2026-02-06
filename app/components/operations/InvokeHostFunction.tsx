@@ -7,12 +7,22 @@ import AccountLink from '../shared/AccountLink'
 
 type HostFunctionParams = any // TODO: restore this after seeing live data: ReadonlyArray<Record<'key' | 'value' | 'type', string>>
 
-const invokeFunctionParamsRawtoRendered = (params: HostFunctionParams) =>
-  params.map((p: any) => {
-    let scVal = xdr.ScVal.fromXDR(p.value, 'base64')
-    let renderStr = scValToString(scVal) || p.value
-    return { key: p.type || 'Void', value: renderStr }
+const invokeFunctionParamsRawtoRendered = (params: HostFunctionParams) => {
+  if (!Array.isArray(params)) return []
+  return params.map((p: any) => {
+    try {
+      if (!p.value) {
+        return { key: p.type || 'Void', value: 'No value' }
+      }
+      const scVal = xdr.ScVal.fromXDR(p.value, 'base64')
+      const renderStr = scValToString(scVal) || p.value
+      return { key: p.type || 'Void', value: renderStr }
+    } catch (e) {
+      console.error('Failed to parse ScVal:', e)
+      return { key: p.type || 'Error', value: p.value || 'Invalid' }
+    }
   })
+}
 
 const renderContractParams = (
   // params: HostFunctionParams
@@ -74,8 +84,12 @@ const InvokeHostFunction = (props: InvokeHostFunctionProps) => {
         {parameters ? (
           renderContractParams(
             parameters.map((p: any) => {
-              const singleKey = Object.keys(p).filter((p) => p !== 'type')[0]
-              return { key: singleKey, value: p[singleKey] }
+              if (!p || typeof p !== 'object') {
+                return { key: 'Unknown', value: String(p) }
+              }
+              const keys = Object.keys(p).filter((k) => k !== 'type')
+              const singleKey = keys.length > 0 ? keys[0] : 'Unknown'
+              return { key: singleKey, value: String(p[singleKey] || '') }
             }),
           )
         ) : (

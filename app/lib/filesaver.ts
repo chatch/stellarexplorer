@@ -6,7 +6,7 @@ const saveAs = (data: Blob, filename: string) => {
     (window.navigator as any).msSaveOrOpenBlob(data, filename)
   else {
     // Others
-    let a = document.createElement('a'),
+    const a = document.createElement('a'),
       url = URL.createObjectURL(data)
     a.href = url
     a.download = filename

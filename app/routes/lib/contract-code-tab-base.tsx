@@ -1,6 +1,6 @@
 import { useLoaderData, useParams } from '@remix-run/react'
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 import type { PropsWithChildren } from 'react'
 import { useEffect } from 'react'
 
@@ -50,7 +50,7 @@ export default function contractCodeTab(loader: Function, language?: string) {
       setTitle(`Contract Code ${contractId}`)
     }, [contractId])
 
-    const codeProps = useLoaderData<typeof loader>() as CodeProps | null
+    const codeProps = useLoaderData<any>() as CodeProps | null
 
     if (!codeProps) {
       return <span>Code not found ...</span>

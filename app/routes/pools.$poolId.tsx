@@ -1,21 +1,16 @@
 import { useEffect, useState } from 'react'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Card, Container, Row, Table } from 'react-bootstrap'
 import { Outlet, useLoaderData, useLocation } from '@remix-run/react'
 
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import TabLink from './lib/tab-link-base'
 
-import Table from 'react-bootstrap/Table'
-
 import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 import { setTitle } from '../lib/utils'
 import { requestToServer } from '~/lib/stellar/server'
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 import { NotFoundError } from '@stellar/stellar-sdk'
 import AccountTypeUnrecognizedException from '~/lib/error/AccountTypeUnrecognizedException'
 import { captureException } from '@sentry/remix'
@@ -28,7 +23,7 @@ const pathToTabName = (path: string) => {
   return match ? match[1] : 'effects'
 }
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const clientLoader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToServer(request)
   const poolId = params.poolId as string
   let response
@@ -79,13 +74,13 @@ const LiquidityPoolCard = ({
   return (
     <Row>
       <Card>
-        <CardHeader>
+        <Card.Header>
           <TitleWithJSONButton
             title={formatMessage({ id: 'liquidity-pool' })}
             titleSecondary={poolId}
             url={`${horizonURL}liquidity_pools/${poolId}`}
           />
-        </CardHeader>
+        </Card.Header>
         <Card.Body>
           <Table>
             <tbody>
@@ -125,7 +120,8 @@ export default function LiquidityPool() {
     setActiveTab(pathToTabName(pathname))
   }, [pathname])
 
-  const { liquidityPool, horizonURL, poolId } = useLoaderData<typeof loader>()
+  const { liquidityPool, horizonURL, poolId } =
+    useLoaderData<typeof clientLoader>()
   const base = `/pools/${poolId}`
 
   return (

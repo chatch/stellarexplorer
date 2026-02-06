@@ -25,10 +25,9 @@ interface PageOptions {
   limit?: number
 }
 
-const withRetry = async (run: () => Promise<any>): Promise<any> => {
-  //  Dynamic import is used as p-retry is not compatible with cjs (see: remix.config.js)
-  const pRetry = await import('p-retry').then(({ default: pRetry }) => pRetry)
+import pRetry from 'p-retry'
 
+const withRetry = async (run: () => Promise<any>): Promise<any> => {
   return pRetry(run, {
     onFailedAttempt: (error) => {
       console.log(

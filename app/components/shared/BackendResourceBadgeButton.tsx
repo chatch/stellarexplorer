@@ -1,8 +1,7 @@
 import type { MouseEventHandler } from 'react'
 import { useEffect, useState } from 'react'
 import JSONPretty from 'react-json-pretty'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
+import { Button, Modal } from 'react-bootstrap'
 import { Spinner } from 'react-bootstrap'
 
 import NewWindowIcon from './NewWindowIcon'
@@ -59,7 +58,12 @@ const isJsonResponse = (rsp: Response, url: string) =>
 
 const fetchData = (url: string): Promise<FetchDataResponse> =>
   fetch(url)
-    .then((rsp) => Promise.all([rsp.text(), isJsonResponse(rsp, url)]))
+    .then((rsp) => {
+      if (!rsp.ok) {
+        throw new Error(`HTTP error! status: ${rsp.status}`)
+      }
+      return Promise.all([rsp.text(), isJsonResponse(rsp, url)])
+    })
     .then((result) => ({ textRaw: result[0], isJson: result[1] }))
 
 /**
@@ -106,13 +110,22 @@ const ResourceModalBody = ({
   setText: Function
 }) => {
   const [isJson, setIsJson] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetchData(url).then((result: FetchDataResponse) => {
-      setIsJson(result.isJson)
-      setText(filterRecords(result.textRaw, result.isJson, filterFn))
-    })
-  }, [url])
+    setError(null)
+    fetchData(url)
+      .then((result: FetchDataResponse) => {
+        setIsJson(result.isJson)
+        setText(filterRecords(result.textRaw, result.isJson, filterFn))
+      })
+      .catch((err) => {
+        console.error('Fetch error:', err)
+        setError(
+          'Failed to fetch resource. This is typically due to a CORS policy blocking the request from your browser for this specific host.',
+        )
+      })
+  }, [url, setText, filterFn])
 
   return (
     <div>
@@ -123,14 +136,36 @@ const ResourceModalBody = ({
         </a>
       </div>
       <div>
-        {!text && <Spinner />}
-        {text &&
-          text.length > 0 &&
-          (isJson ? (
-            <JSONPretty id="json-pretty" json={text} />
-          ) : (
-            <pre id="plain-text">{text}</pre>
-          ))}
+        {error && (
+          <div className="alert alert-danger" style={{ marginTop: 10 }}>
+            {error}
+            <br />
+            <br />
+            <strong>Action Required:</strong>
+            <br />
+            Because of browser security (CORS), some hosts prevent direct
+            reading of their files.
+            <br />
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="alert-link"
+            >
+              Click here to open {url.split('/').pop()} directly in a new tab.
+            </a>
+          </div>
+        )}
+        {!text && !error && <Spinner />}
+        {text && text.length > 0 && (
+          <div style={{ marginTop: 10 }}>
+            {isJson ? (
+              <JSONPretty id="json-pretty" json={text} />
+            ) : (
+              <pre id="plain-text">{text}</pre>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

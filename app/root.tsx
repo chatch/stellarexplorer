@@ -1,12 +1,12 @@
 import type { PropsWithChildren } from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { cssBundleHref } from '@remix-run/css-bundle'
-import { json } from '@remix-run/node'
-import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
+
+import type { LinksFunction } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -17,10 +17,10 @@ import {
 } from '@remix-run/react'
 import { captureRemixErrorBoundaryError, withSentry } from '@sentry/remix'
 
-import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css'
-import jsonPrettyStyles from 'react-json-pretty/themes/1337.css'
-import siteStyles from '~/styles/styles.css'
-import lightSiteStyles from '~/styles/styles.light.css'
+import bootstrapStyles from 'bootstrap/dist/css/bootstrap.css?url'
+import jsonPrettyStyles from 'react-json-pretty/themes/1337.css?url'
+import siteStyles from '~/styles/styles.css?url'
+import lightSiteStyles from '~/styles/styles.light.css?url'
 
 import Footer from './components/layout/Footer'
 import Header from './components/layout/Header'
@@ -36,7 +36,8 @@ import zhHansMessages from './lib/languages/zh-Hans.json'
 import zhHantMessages from './lib/languages/zh-Hant.json'
 
 import { requestToNetworkDetails } from './lib/stellar/networks'
-import { storageInit } from './lib/utils'
+// storageInit is prepared for future use when localStorage is needed
+import { storageInit as _storageInit } from './lib/utils'
 import SearchBox from './SearchBox'
 import { NotFoundError } from '@stellar/stellar-sdk'
 import { ThemeProvider, useTheme } from '~/context/theme.provider'
@@ -50,7 +51,8 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ]
 
-const storage = storageInit()
+// const storage = storageInit()
+const storage = { setItem: () => {}, getItem: () => null }
 
 const getMessages = (locale: string) => {
   switch (locale) {
@@ -79,7 +81,7 @@ const getMessages = (locale: string) => {
 
 const languageSwitcherFn = (setLanguage: Function) => (event: any) => {
   const newLanguage = event.target.lang as string
-    ; (storage as Storage).setItem('language', newLanguage)
+  ;(storage as unknown as Storage).setItem('language', newLanguage)
   setLanguage(newLanguage)
 }
 
@@ -88,11 +90,6 @@ function HtmlDocument({
   title,
 }: PropsWithChildren<{ title?: string }>) {
   const [theme] = useTheme()
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    setIsLoading(false)
-  }, [])
 
   return (
     <html lang="en" data-bs-theme={theme}>
@@ -115,10 +112,9 @@ function HtmlDocument({
         <Links />
       </head>
       <body>
-        {!isLoading && children}
+        {children}
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
         <script
           defer
           src="https://static.cloudflareinsights.com/beacon.min.js"
@@ -129,10 +125,22 @@ function HtmlDocument({
   )
 }
 
-export const loader = ({ request }: LoaderFunctionArgs) =>
-  requestToNetworkDetails(request).then((networkDetails) =>
-    json({ ...networkDetails }),
-  )
+export const clientLoader = async ({ request }: LoaderFunctionArgs) => {
+  console.log('[root clientLoader] Starting...')
+  try {
+    console.log('[root clientLoader] Calling requestToNetworkDetails...')
+    const details = await requestToNetworkDetails(request)
+    console.log('[root clientLoader] Got details:', details)
+    // In SPA mode, clientLoader should return plain data (not a Response)
+    return { ...details }
+  } catch (e) {
+    console.error('[root clientLoader] Error:', e)
+    throw e
+  }
+}
+
+// Required in SPA mode (ssr: false) to tell Remix to run clientLoader during hydration
+clientLoader.hydrate = true
 
 function App() {
   const navigation = useNavigation()
@@ -143,7 +151,7 @@ function App() {
     isCustom,
     customHorizonAddress: horizonAddress,
     customSorobanRPCAddress: sorobanRPCAddress,
-  } = useLoaderData<typeof loader>()
+  } = useLoaderData<typeof clientLoader>()
 
   return (
     <ThemeProvider>
@@ -177,11 +185,44 @@ function App() {
   )
 }
 
+export function HydrateFallback() {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+        <Meta />
+        <Links />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-bs-theme', theme);
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body>
+        <div className="d-flex justify-content-center align-items-center vh-100">
+          <h6 className="text-muted">Loading ...</h6>
+        </div>
+        <Scripts />
+      </body>
+    </html>
+  )
+}
+
 export const ErrorBoundary: ErrorBoundaryComponent = () => {
   const error: any = useRouteError()
 
-  // don't send steller resource not founds to sentry
-  // see comments in entry.server.tsx as well ...
+  // don't send stellar resource not founds to sentry
   if (!(error instanceof NotFoundError)) {
     captureRemixErrorBoundaryError(error)
   }
@@ -207,4 +248,5 @@ export const ErrorBoundary: ErrorBoundaryComponent = () => {
   )
 }
 
-export default withSentry(App)
+export default process.env.NODE_ENV === 'development' ? App : withSentry(App)
+// export default App

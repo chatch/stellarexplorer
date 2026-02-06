@@ -1,6 +1,6 @@
 import { useLoaderData, useParams } from '@remix-run/react'
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 import { useEffect } from 'react'
 
 import { getContractInterface, loadContract } from '~/lib/stellar/contracts'
@@ -27,7 +27,7 @@ const Interface = ({
   </div>
 )
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const clientLoader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToSorobanServer(request)
   return loadContract(server, params.contractId as string)
     .then((result: any) => {
@@ -45,7 +45,7 @@ export default function InterfaceTab() {
     setTitle(`Contract Interface ${contractId}`)
   }, [contractId])
 
-  const loadResult = useLoaderData<typeof loader>()
+  const loadResult = useLoaderData<typeof clientLoader>()
 
   if (!loadResult) {
     return <span>No interface or failed to get interface</span>

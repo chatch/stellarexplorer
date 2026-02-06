@@ -16,14 +16,14 @@
 
 .price-change-up {
   color: green;
-  font-size: .8em;
+  font-size: 0.8em;
   line-height: 1;
   vertical-align: super;
 }
 
 .price-change-down {
   color: red;
-  font-size: .8em;
+  font-size: 0.8em;
   line-height: 1;
   vertical-align: super;
 }

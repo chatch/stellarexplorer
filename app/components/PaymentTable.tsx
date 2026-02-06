@@ -1,4 +1,4 @@
-import Table from 'react-bootstrap/Table'
+import { Table } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 
 import Operation from './operations/Operation'
@@ -50,7 +50,7 @@ export default function PaymentTable({
             <Operation
               key={payment.id}
               compact={compact}
-              op={payment}
+              op={payment as any}
               horizonURL={horizonURL}
             />
           ))}

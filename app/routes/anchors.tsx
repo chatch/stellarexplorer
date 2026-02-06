@@ -1,10 +1,6 @@
-import Container from 'react-bootstrap/Container'
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Row from 'react-bootstrap/Row'
-import Table from 'react-bootstrap/Table'
+import { Card, Container, Row, Table } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Link } from 'react-router-dom'
+import { Link } from '@remix-run/react'
 
 import AccountLink from '../components/shared/AccountLink'
 import ClipboardCopy from '../components/shared/ClipboardCopy'
@@ -119,12 +115,12 @@ export default function Anchors() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <TitleWithJSONButton
               title={formatMessage({ id: 'anchors' })}
               url={METADATA_URI}
             />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Table id="anchors-table">
               <thead>

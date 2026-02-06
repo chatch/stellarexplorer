@@ -16,16 +16,16 @@ Deployments:
 
 ### Lists
 
-| Resource             | URI                                                     |
-| -------------------- | ------------------------------------------------------- |
-| Operations           | [/operations](https://steexp.com/operations)            |
-| Transactions         | [/txs](https://steexp.com/txs)                          |
-| Ledgers              | [/ledgers](https://steexp.com/ledgers)                  |
-| Payments             | [/payments](https://steexp.com/payments)                |
-| Trades               | [/trades](https://steexp.com/trades)                    |
-| Effects              | [/effects](https://steexp.com/effects)                  |
-| Liquidity Pools      | [/effects](https://steexp.com/pools)                    |
-| Claimable Balances   | [/effects](https://steexp.com/claimable-balances)       |
+| Resource           | URI                                               |
+| ------------------ | ------------------------------------------------- |
+| Operations         | [/operations](https://steexp.com/operations)      |
+| Transactions       | [/txs](https://steexp.com/txs)                    |
+| Ledgers            | [/ledgers](https://steexp.com/ledgers)            |
+| Payments           | [/payments](https://steexp.com/payments)          |
+| Trades             | [/trades](https://steexp.com/trades)              |
+| Effects            | [/effects](https://steexp.com/effects)            |
+| Liquidity Pools    | [/effects](https://steexp.com/pools)              |
+| Claimable Balances | [/effects](https://steexp.com/claimable-balances) |
 
 ### Directory
 
@@ -56,7 +56,7 @@ Deployments:
 | Transactions Tab | [/account/stellar\*fed.network#transactions](https://steexp.com/account/stellar*fed.network#transactions) |
 | Signing Tab      | [/account/stellar\*fed.network#signing](https://steexp.com/account/stellar*fed.network#signing)           |
 | Flags Tab        | [/account/stellar\*fed.network#flags](https://steexp.com/account/stellar*fed.network#flags)               |
-| Data Tab         | [/account/stellar\*fed.network#data](https://steexpcom/account/stellar*fed.network#data)                  |
+| Data Tab         | [/account/stellar\*fed.network#data](https://steexp.com/account/stellar*fed.network#data)                 |
 
 ### Search
 
@@ -103,13 +103,13 @@ See the section [Exploring Private / Local Development Networks](#private-networ
 ### Start
 
 ```sh
-npm i && npm run dev
+pnpm i && pnpm dev
 ```
 
 ### Test
 
 ```sh
-npm i && npm test
+pnpm i && pnpm test
 ```
 
 or
@@ -117,7 +117,7 @@ or
 You can run test with Jest Preview with the following command. You can see the result at <http://locahost:3336> for test using React Testing Library along with Jest Preview.
 
 ```sh
-npm run test:preview
+pnpm test:preview
 ```
 
 or
@@ -125,35 +125,35 @@ or
 You can run test and Jest Preview separately as follows (this is basically same as the previous one).
 
 ```sh
-npm run jest-preview
+pnpm jest-preview
 
-npm test
+pnpm test
 or
-npm run test:watch
+pnpm test:watch
 ```
 
 ### E2E Test
 
 ```sh
-npm run test:e2e
+pnpm test:e2e
 ```
 
 Run the test in UI mode:
 
 ```sh
-npm run test:e2e:ui
+pnpm test:e2e:ui
 ```
 
 Show HTML test reports:
 
 ```sh
-npm run test:e2e:report
+pnpm test:e2e:report
 ```
 
 ### Build
 
 ```sh
-npm i && npm run build
+pnpm i && pnpm build
 ```
 
 ## Languages
@@ -170,5 +170,5 @@ Submit pull requests with new languages or languages fixes there.
 ### Fetch and restructure centralized exchanges data
 
 ```sh
-npx ts-node scripts/restructure-centralized-exchanges-json.ts
+pnpm exec ts-node scripts/restructure-centralized-exchanges-json.ts
 ```

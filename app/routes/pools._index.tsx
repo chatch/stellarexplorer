@@ -2,10 +2,7 @@ import { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useLoaderData } from '@remix-run/react'
 
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Card, Container, Row } from 'react-bootstrap'
 
 import { setTitle } from '../lib/utils'
 
@@ -16,13 +13,12 @@ import LiquidityPoolTable from '~/components/LiquidityPoolTable'
 
 const RECORD_LIMIT = 30
 
-export const loader = horizonRecordsLoader<ReadonlyArray<LiquidityPoolProps>>(
-  'liquidityPools',
-  RECORD_LIMIT,
-)
+export const clientLoader = horizonRecordsLoader<
+  ReadonlyArray<LiquidityPoolProps>
+>('liquidityPools', RECORD_LIMIT)
 
 export default function LiquidityPools() {
-  const { records, cursor } = useLoaderData<typeof loader>()
+  const { records, cursor } = useLoaderData<typeof clientLoader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -33,9 +29,9 @@ export default function LiquidityPools() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <FormattedMessage id="liquidity-pools" />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Paging baseUrl="/pools" records={records} currentCursor={cursor}>
               <LiquidityPoolTable

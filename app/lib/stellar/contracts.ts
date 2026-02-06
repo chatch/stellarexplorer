@@ -5,8 +5,8 @@ import { hexStringToBytes } from '../utils'
 import { scValToString } from './xdr_scval_utils'
 import ContractIdInvalid from '../error/ContractIdInvalid'
 
-const API_URL = 'https://steexp-api.fly.dev'
-// const API_URL = `http://localhost:3001`
+export const API_URL = 'https://steexp-api.fly.dev'
+// export const API_URL = `http://localhost:3001`
 
 interface ContractProps {
   id: string
@@ -121,7 +121,9 @@ const loadContract = async (
 
   const wasmIdResult = await getContractInfo(server, contractId)
   if (wasmIdResult == null) {
-    console.error('❌ Failed to get wasm id - contract may not exist on this network')
+    console.error(
+      '❌ Failed to get wasm id - contract may not exist on this network',
+    )
     return
   }
 
@@ -149,16 +151,16 @@ const loadContract = async (
 
 const postWasmToWabtBackendRoute =
   (path: string) =>
-    (wasmHexString: string): Promise<string> => {
-      const wasmBytes = hexStringToBytes(wasmHexString)
-      const blob = new Blob([new Uint8Array(wasmBytes)])
-      const formData = new FormData()
-      formData.append('contract', blob)
-      return fetch(`${API_URL}${path}`, {
-        method: 'POST',
-        body: formData,
-      }).then((response) => response.text())
-    }
+  (wasmHexString: string): Promise<string> => {
+    const wasmBytes = hexStringToBytes(wasmHexString)
+    const blob = new Blob([new Uint8Array(wasmBytes)])
+    const formData = new FormData()
+    formData.append('contract', blob)
+    return fetch(`${API_URL}${path}`, {
+      method: 'POST',
+      body: formData,
+    }).then((response) => response.text())
+  }
 
 const getContractDecompiled = postWasmToWabtBackendRoute('/decompile')
 const getContractWat = postWasmToWabtBackendRoute('/wat')

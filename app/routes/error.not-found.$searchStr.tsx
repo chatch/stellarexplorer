@@ -1,4 +1,4 @@
-import Container from 'react-bootstrap/Container'
+import { Container } from 'react-bootstrap'
 import { useParams } from '@remix-run/react'
 import { FormattedMessage } from 'react-intl'
 

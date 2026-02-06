@@ -1,10 +1,8 @@
-import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Col, Container, Row } from 'react-bootstrap'
 
-import ghImg from '../../../public/img/gh.svg'
-import supportImg from '../../../public/img/support.svg'
-import stellarIconImg from '../../../public/stellar.ico'
+const ghImg = '/img/gh.svg'
+const supportImg = '/img/support.svg'
+const stellarIconImg = '/stellar.ico'
 
 export default function Footer() {
   return (

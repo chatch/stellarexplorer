@@ -1,8 +1,4 @@
-import Container from 'react-bootstrap/Container'
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Row from 'react-bootstrap/Row'
-import Table from 'react-bootstrap/Table'
+import { Card, Container, Row, Table } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
 import isEmpty from 'lodash/isEmpty'
 
@@ -84,12 +80,12 @@ export default function Exchanges() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <TitleWithJSONButton
               title={formatMessage({ id: 'exchanges' })}
               url={METADATA_URI}
             />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <h6 style={{ textDecoration: 'underline' }}>Decentralized</h6>
             <Table id="dex-table">

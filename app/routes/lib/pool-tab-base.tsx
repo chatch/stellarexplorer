@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '~/lib/remix-shim'
+import { json } from '~/lib/remix-shim'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { Container, Row } from 'react-bootstrap'
 import Paging from '~/components/shared/Paging'

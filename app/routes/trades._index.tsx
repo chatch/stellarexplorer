@@ -1,7 +1,4 @@
-import Card from 'react-bootstrap/Card'
-import CardHeader from 'react-bootstrap/CardHeader'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import { Card, Container, Row } from 'react-bootstrap'
 
 import { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
@@ -16,13 +13,13 @@ import Paging from '~/components/shared/Paging'
 
 const RECORD_LIMIT = 20
 
-export const loader = horizonRecordsLoader<ReadonlyArray<TradeProps>>(
+export const clientLoader = horizonRecordsLoader<ReadonlyArray<TradeProps>>(
   'trades',
   RECORD_LIMIT,
 )
 
 export default function Trades() {
-  const { records, cursor } = useLoaderData<typeof loader>()
+  const { records, cursor } = useLoaderData<typeof clientLoader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -33,9 +30,9 @@ export default function Trades() {
     <Container>
       <Row>
         <Card>
-          <CardHeader>
+          <Card.Header>
             <FormattedMessage id="trades" />
-          </CardHeader>
+          </Card.Header>
           <Card.Body>
             <Paging baseUrl="/trades" records={records} currentCursor={cursor}>
               <TradeTable

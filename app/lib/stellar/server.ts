@@ -67,15 +67,16 @@ const requestToSorobanServer = async (
 ): Promise<SorobanServer> => {
   console.log('🌐 requestToSorobanServer - analyzing request:', {
     url: request.url,
-    hostname: new URL(request.url).hostname
+    hostname: new URL(request.url).hostname,
   })
 
-  const { networkType, customSorobanRPCAddress } = await requestToNetworkDetails(request)
+  const { networkType, customSorobanRPCAddress } =
+    await requestToNetworkDetails(request)
 
   console.log('🌐 Network details:', {
     networkType,
     customSorobanRPCAddress,
-    defaultRpcUri: sorobanRpcURIs[networkType]
+    defaultRpcUri: sorobanRpcURIs[networkType],
   })
 
   let server: SorobanServer
@@ -89,7 +90,10 @@ const requestToSorobanServer = async (
     console.log('🌐 Using default Soroban RPC for', networkType + ':', rpcUri)
   }
 
-  console.log('🌐 Final server URL:', (server as any).serverURL || 'not available')
+  console.log(
+    '🌐 Final server URL:',
+    (server as any).serverURL || 'not available',
+  )
   return server
 }
 
