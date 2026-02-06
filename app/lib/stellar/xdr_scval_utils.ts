@@ -5,7 +5,13 @@ import { Buffer } from 'buffer'
 export function scValToAddress(
   scval: any, // : SorobanClient.xdr.ScVal | undefined
 ): string {
+  if (!scval || typeof scval.address !== 'function') {
+    return 'invalid scval'
+  }
   const addr = scval.address()
+  if (!addr || typeof addr.switch !== 'function') {
+    return 'invalid address'
+  }
   switch (addr.switch()) {
     case xdr.ScAddressType.scAddressTypeAccount():
       return StrKey.encodeEd25519PublicKey(addr.accountId().ed25519())
@@ -28,23 +34,31 @@ export function scValToAddress(
  * @returns string representation
  */
 const jsNativeValToString = (native: any): string => {
-  //   console.log(`type=${typeof native}`)
+  if (native === null) {
+    return 'null'
+  }
+  if (native === undefined) {
+    return 'undefined'
+  }
   if (typeof native === 'string') {
     return native
   } else if (typeof native === 'bigint') {
     return native.toString()
+  } else if (Buffer.isBuffer(native)) {
+    return native.toString('hex')
   } else if (Array.isArray(native)) {
     return JSON.stringify(native.map((val) => jsNativeValToString(val)))
   } else if (typeof native === 'object') {
     return jsNativeObjectValToString(native)
-  } else if (Buffer.isBuffer(native)) {
-    return native.toString('hex')
   } else {
     return JSON.stringify(native)
   }
 }
 
 const jsNativeObjectValToString = (native: any): string => {
+  if (native === null || native === undefined) {
+    return '{}'
+  }
   const convertedObj: Record<string, string> = {}
   for (const [objKey, objVal] of Object.entries(native)) {
     // console.log(`key ${JSON.stringify(objKey, null, 2)}`)

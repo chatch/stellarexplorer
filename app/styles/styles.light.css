@@ -2,8 +2,8 @@
   --light-color: #000000;
   --light-background-color: #ffffff;
   --light-text-color: #000000;
-  --light-table-bg: #efefef;
-  --light-body-bg: #e7e7e7;
+  --light-table-bg: #f8f9fa;
+  --light-body-bg: #ffffff;
 }
 
 [data-bs-theme='light'] body {

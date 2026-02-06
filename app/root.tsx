@@ -52,7 +52,7 @@ export const links: LinksFunction = () => [
 ]
 
 // const storage = storageInit()
-const storage = { setItem: () => {}, getItem: () => null }
+const storage = { setItem: () => { }, getItem: () => null }
 
 const getMessages = (locale: string) => {
   switch (locale) {
@@ -81,7 +81,7 @@ const getMessages = (locale: string) => {
 
 const languageSwitcherFn = (setLanguage: Function) => (event: any) => {
   const newLanguage = event.target.lang as string
-  ;(storage as unknown as Storage).setItem('language', newLanguage)
+    ; (storage as unknown as Storage).setItem('language', newLanguage)
   setLanguage(newLanguage)
 }
 
@@ -198,10 +198,20 @@ export function HydrateFallback() {
         <link rel="manifest" href="/manifest.json" />
         <Meta />
         <Links />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-bs-theme', theme);
+              } catch (e) {}
+            `,
+          }}
+        />
       </head>
       <body>
         <div className="d-flex justify-content-center align-items-center vh-100">
-          <h1>Loading ...</h1>
+          <h6 className="text-muted">Loading ...</h6>
         </div>
         <Scripts />
       </body>

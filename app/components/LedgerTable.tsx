@@ -10,7 +10,7 @@ interface ParentProps {
   compact: boolean
 }
 
-interface LedgerRowProps extends Partial<LedgerProps>, ParentProps {}
+interface LedgerRowProps extends Partial<LedgerProps>, ParentProps { }
 
 interface LedgerTableProps extends ParentProps {
   records: ReadonlyArray<LedgerProps>
@@ -63,7 +63,11 @@ export default function LedgerTable({ compact, records }: LedgerTableProps) {
       </thead>
       <tbody>
         {records == null ? (
-          <p> Loading ...</p>
+          <tr>
+            <td colSpan={3} className="text-center">
+              Loading ...
+            </td>
+          </tr>
         ) : (
           records.map((ledger: LedgerProps) => (
             <LedgerRow

@@ -107,9 +107,9 @@ export default function Home() {
   if (!serverResponse) {
     return (
       <Container className="mt-5">
-        <h1 className="text-center text-dark">
+        <h6 className="text-center text-muted">
           Loading data from the Stellar Network...
-        </h1>
+        </h6>
       </Container>
     )
   }
