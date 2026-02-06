@@ -1,7 +1,7 @@
 {
   "name": "stellarexplorer",
   "description": "Ledger explorer for the Stellar network",
-  "version": "2.7.1",
+  "version": "3.0.0",
   "type": "module",
   "license": "Apache-2.0",
   "author": "Chris Hatch <devcebfaff@proton.me>",
@@ -29,7 +29,7 @@
     "dev": "remix vite:dev",
     "start": "vite preview",
     "pages:dev": "wrangler pages dev ./build/client",
-    "pages:deploy": "npm run build && wrangler pages deploy ./build/client",
+    "pages:deploy": "pnpm run build && wrangler pages deploy ./build/client --branch master",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "lint:fix": "eslint --cache --cache-location ./node_modules/.cache/eslint --fix . || true",
     "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
