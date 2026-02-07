@@ -1,5 +1,3 @@
-import type { ServerApi } from '@stellar/stellar-sdk/lib/horizon'
-
 import { Card, Container, Row } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { requestToServer } from '~/lib/stellar/server'
@@ -14,24 +12,29 @@ import { setTitle } from '../lib/utils'
 import { effects } from '~/lib/stellar/server_request_utils'
 import type { EffectProps } from '~/components/Effect'
 import { useEffect } from 'react'
+import Paging from '~/components/shared/Paging'
 
 export const clientLoader = async ({ request }: LoaderFunctionArgs) => {
+  const url = new URL(request.url)
+  const cursor: string | undefined = url.searchParams.get('cursor') ?? undefined
+  const order: string | undefined = url.searchParams.get('order') ?? undefined
+
   const server = await requestToServer(request)
-  return effects(server, { limit: 30 })
-    .then((effects) =>
-      effects.map(
-        (effect: ServerApi.EffectRecord) =>
-          ({
-            ...effect,
-            op: effect.operation ? effect.operation() : undefined,
-          }) as EffectProps,
-      ),
-    )
-    .then(json)
+  const records = await effects(server, {
+    cursor,
+    order: order as 'asc' | 'desc',
+    limit: 30,
+  })
+
+  return json({
+    records,
+    cursor,
+    horizonURL: server.serverURL.toString(),
+  })
 }
 
 export default function Effects() {
-  const { records, cursor: _cursor } = useLoaderData<typeof clientLoader>()
+  const { records, cursor } = useLoaderData<typeof clientLoader>()
 
   const { formatMessage } = useIntl()
   useEffect(() => {
@@ -46,13 +49,15 @@ export default function Effects() {
             <FormattedMessage id="effects" />
           </Card.Header>
           <Card.Body>
-            <EffectTable
-              records={records as ReadonlyArray<EffectProps>}
-              // showEffect
-              // showSource
-              // compact={false}
-              // limit={20}
-            />
+            <Paging baseUrl="/effects" records={records} currentCursor={cursor}>
+              <EffectTable
+                records={records as ReadonlyArray<EffectProps>}
+                // showEffect
+                // showSource
+                // compact={false}
+                // limit={20}
+              />
+            </Paging>
           </Card.Body>
         </Card>
       </Row>

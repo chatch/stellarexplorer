@@ -402,7 +402,7 @@ function Effect({
   effect: EffectProps
   showAccount: boolean
 }>) {
-  const opId = effect.op?.id
+  const opId = effect.op?.id || effect.id.split('-')[0]
   const txHash = effect.op?.transaction_hash
   return (
     <tr key={effect.id} id={effect.id} className="effect">
