@@ -1,7 +1,7 @@
 {
   "name": "stellarexplorer",
   "description": "Ledger explorer for the Stellar network",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "license": "Apache-2.0",
   "author": "Chris Hatch <devcebfaff@proton.me>",
