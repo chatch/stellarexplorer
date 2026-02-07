@@ -6,8 +6,8 @@ import {
   verifyOpeningNewPage,
 } from './utils'
 
-const baseUrl = 'http://localhost:4173'
-// const baseUrl = 'https://steexp.com'
+// const baseUrl = 'http://localhost:4173'
+const baseUrl = 'https://steexp.com'
 
 test('top page', async ({ page }) => {
   await page.goto(`${baseUrl}/`)
