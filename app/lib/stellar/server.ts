@@ -4,7 +4,7 @@ import type { NetworkKey } from './networks'
 import networks, { requestToNetworkDetails } from './networks'
 import SorobanServer, { sorobanRpcURIs } from './server_soroban'
 import { isLocalhost } from './utils'
-import { isValidUrl } from '../utils'
+import { isValidUrl, safeNewURL } from '../utils'
 
 export const defaultNetworkAddresses: Record<string, string> = {
   public: 'https://horizon.stellar.org',
@@ -65,9 +65,11 @@ const requestToServerDetails = async (
 const requestToSorobanServer = async (
   request: Request,
 ): Promise<SorobanServer> => {
+  const url = safeNewURL(request.url)
+
   console.log('🌐 requestToSorobanServer - analyzing request:', {
     url: request.url,
-    hostname: new URL(request.url).hostname,
+    hostname: url.hostname,
   })
 
   const { networkType, customSorobanRPCAddress } =

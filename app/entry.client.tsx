@@ -11,7 +11,7 @@ import * as Sentry from '@sentry/remix'
 
 if (process.env.NODE_ENV !== 'development') {
   Sentry.init({
-    dsn: 'https://cbde552cd9c3a2300daf1355b7e14e7e@o4505837033095168.ingest.sentry.io/4505837045153792',
+    dsn: 'https://76beb9ebb67baaf3347f17f7c2190d1c@o4505837033095168.ingest.us.sentry.io/4505837045153792',
     integrations: [
       new Sentry.BrowserTracing({
         routingInstrumentation: Sentry.remixRouterInstrumentation(

@@ -7,7 +7,7 @@ import * as serverRequestUtils from '../../lib/stellar/server_request_utils'
 import { requestToServer } from '~/lib/stellar/server'
 import type { FunctionComponent } from 'react'
 import { useEffect } from 'react'
-import { setTitle } from '~/lib/utils'
+import { safeNewURL, setTitle } from '~/lib/utils'
 import type { ServerReqFnName } from '~/lib/loader-util'
 import type { LiquidityPoolProps } from '~/components/operations/LiquidityPool'
 
@@ -16,7 +16,7 @@ const DEFAULT_RECORD_LIMIT = 30
 const poolTabLoader =
   (serverRequestFnName: ServerReqFnName, limit?: number) =>
   async ({ request, params }: LoaderFunctionArgs) => {
-    const url = new URL(request.url)
+    const url = safeNewURL(request.url)
     const cursor: string | undefined =
       url.searchParams.get('cursor') ?? undefined
     const order: string | undefined = url.searchParams.get('order') ?? undefined

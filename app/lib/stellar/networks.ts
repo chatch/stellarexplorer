@@ -1,5 +1,5 @@
 import { getSession } from '~/sessions'
-import { isValidUrl } from '../utils'
+import { isValidUrl, safeNewURL } from '../utils'
 
 export type NetworkKey = 'public' | 'test' | 'local' | 'future'
 
@@ -28,7 +28,7 @@ const requestToNetworkDetails = async (
   request: Request,
 ): Promise<NetworkDetails> => {
   const session = await getSession(request.headers.get('Cookie'))
-  const url = new URL(request.url)
+  const url = safeNewURL(request.url)
 
   const customHorizonAddress = urlParamOrSessionOrEmpty(
     'horizonAddress',

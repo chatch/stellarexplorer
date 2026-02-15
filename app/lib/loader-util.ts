@@ -3,6 +3,7 @@ import { json } from '~/lib/remix-shim'
 import type { HorizonServerDetails } from './stellar/server'
 import HorizonServer, { requestToServer } from './stellar/server'
 import * as serverRequestUtils from './stellar/server_request_utils'
+import { safeNewURL } from './utils'
 
 export type ServerReqFnName =
   | 'effects'
@@ -24,7 +25,7 @@ export function getHorizonRecords<RecordsType>(
   cursor?: string
   horizonURL: string
 }> {
-  const url = new URL(serverDetails.requestURL)
+  const url = safeNewURL(serverDetails.requestURL)
   const cursor: string | undefined = url.searchParams.get('cursor') ?? undefined
   const order: string | undefined = url.searchParams.get('order') ?? undefined
 
@@ -57,7 +58,7 @@ export function horizonRecordsLoader<RecordsType>(
       horizonURL: string
     }>
   > {
-    const url = new URL(request.url)
+    const url = safeNewURL(request.url)
     const cursor: string | undefined =
       url.searchParams.get('cursor') ?? undefined
     const order: string | undefined = url.searchParams.get('order') ?? undefined

@@ -7,7 +7,7 @@ import { json } from '~/lib/remix-shim'
 import { useLoaderData } from '@remix-run/react'
 
 import EffectTable from '../components/EffectTable'
-import { setTitle } from '../lib/utils'
+import { safeNewURL, setTitle } from '../lib/utils'
 
 import { effects } from '~/lib/stellar/server_request_utils'
 import type { EffectProps } from '~/components/Effect'
@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 import Paging from '~/components/shared/Paging'
 
 export const clientLoader = async ({ request }: LoaderFunctionArgs) => {
-  const url = new URL(request.url)
+  const url = safeNewURL(request.url)
   const cursor: string | undefined = url.searchParams.get('cursor') ?? undefined
   const order: string | undefined = url.searchParams.get('order') ?? undefined
 

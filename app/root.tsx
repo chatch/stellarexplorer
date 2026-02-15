@@ -6,6 +6,7 @@ import { cssBundleHref } from '@remix-run/css-bundle'
 import type { LinksFunction } from '@remix-run/node'
 import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
@@ -217,8 +218,11 @@ export function HydrateFallback() {
 export const ErrorBoundary: ErrorBoundaryComponent = () => {
   const error: any = useRouteError()
 
-  // don't send stellar resource not founds to sentry
-  if (!(error instanceof NotFoundError)) {
+  const is404 = isRouteErrorResponse(error) && error.status === 404
+  const is405 = isRouteErrorResponse(error) && error.status === 405
+
+  // don't send stellar resource not founds, 404s, or 405s to sentry
+  if (!(error instanceof NotFoundError) && !is404 && !is405) {
     captureRemixErrorBoundaryError(error)
   }
 

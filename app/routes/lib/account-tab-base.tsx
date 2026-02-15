@@ -7,7 +7,7 @@ import type { HorizonServerDetails } from '~/lib/stellar/server'
 import HorizonServer, { requestToServerDetails } from '~/lib/stellar/server'
 import type { FunctionComponent } from 'react'
 import { useEffect, useState } from 'react'
-import { setTitle } from '~/lib/utils'
+import { safeNewURL, setTitle } from '~/lib/utils'
 import type { ServerReqFnName } from '~/lib/loader-util'
 import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 
@@ -43,7 +43,7 @@ const accountTabComponent = function <loaderFnType>(
           serverDetails.networkType as string,
         )
 
-        const url = new URL(serverDetails.requestURL)
+        const url = safeNewURL(serverDetails.requestURL)
         const cursor: string | undefined =
           url.searchParams.get('cursor') ?? undefined
         const order: string | undefined =

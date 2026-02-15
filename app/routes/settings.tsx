@@ -2,6 +2,7 @@ import type { ActionFunctionArgs } from '~/lib/remix-shim'
 import { redirect } from '~/lib/remix-shim'
 
 import { getSession, commitSession } from '~/sessions'
+import { safeNewURL } from '~/lib/utils'
 
 /**
  * Stores or clears session settings which include:
@@ -28,7 +29,7 @@ export async function clientAction({ request }: ActionFunctionArgs) {
     form: Object.fromEntries(form),
   })
 
-  const url = new URL(request.url)
+  const url = safeNewURL(request.url)
   let redirectAddress = '/'
   const isUnset =
     url.searchParams.get('unset') === 'true' || form.get('unset') === 'true'

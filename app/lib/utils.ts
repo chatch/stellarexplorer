@@ -65,6 +65,14 @@ const isValidUrl = (url: string): boolean => {
   }
 }
 
+const safeNewURL = (url: string, fallback = 'http://localhost'): URL => {
+  try {
+    return new URL(url)
+  } catch (_error) {
+    return new URL(fallback)
+  }
+}
+
 export {
   assetKeyToIssuer,
   base64Decode,
@@ -73,6 +81,7 @@ export {
   hexStringToBytes,
   isDefInt,
   isValidUrl,
+  safeNewURL,
   setTitle,
   shortAddress,
   shortHash,
