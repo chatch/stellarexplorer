@@ -3,27 +3,33 @@ import {
   clickLinkAndVerify,
   getFirstLink,
   getRowCount,
+  gotoAndWaitForTitle,
   verifyOpeningNewPage,
 } from './utils'
 
 // const baseUrl = 'http://localhost:4173'
 const baseUrl = 'https://steexp.com'
 
+test.beforeEach(async ({ page }, testInfo) => {
+  console.log(`Running test: ${testInfo.title}`)
+})
+
 test('top page', async ({ page }) => {
-  await page.goto(`${baseUrl}/`)
+  await gotoAndWaitForTitle(page, `${baseUrl}/`, 'Stellar Explorer | Home')
 
   expect(await getRowCount(page, `operation-table`)).toEqual(25)
   expect(await getRowCount(page, `transaction-table`)).toEqual(10)
   expect(await getRowCount(page, `ledger-table`)).toEqual(10)
-
-  await expect(page).toHaveTitle('Stellar Explorer | Home')
 })
 
 test('operations', async ({ page }) => {
   const targetUrl = `${baseUrl}/operations`
 
-  await page.goto(targetUrl)
-  await expect(page).toHaveTitle('Stellar Explorer | Operations')
+  await gotoAndWaitForTitle(
+    page,
+    targetUrl,
+    'Stellar Explorer | Operations',
+  )
 
   // Click account link
   const accountLink = await getFirstLink(page, 0)
@@ -35,7 +41,11 @@ test('operations', async ({ page }) => {
   )
 
   // Click transaction link
-  await page.goto(targetUrl)
+  await gotoAndWaitForTitle(
+    page,
+    targetUrl,
+    'Stellar Explorer | Operations',
+  )
   const transactionLink = await getFirstLink(page, 2)
   await clickLinkAndVerify(
     baseUrl,
@@ -46,17 +56,18 @@ test('operations', async ({ page }) => {
 })
 
 test('transactions', async ({ page }) => {
-  const targetUrl = `${baseUrl}/txs`
-  await page.goto(targetUrl)
+  await gotoAndWaitForTitle(
+    page,
+    `${baseUrl}/txs`,
+    'Stellar Explorer | Transactions',
+  )
   expect(await getRowCount(page, `transaction-table`)).toEqual(20)
-  await expect(page).toHaveTitle('Stellar Explorer | Transactions')
 })
 
 test('ledgers', async ({ page }) => {
   const targetUrl = `${baseUrl}/ledgers`
 
-  await page.goto(targetUrl)
-  await expect(page).toHaveTitle('Stellar Explorer | Ledgers')
+  await gotoAndWaitForTitle(page, targetUrl, 'Stellar Explorer | Ledgers')
 
   // Click ledger link
   const ledgerLink = await getFirstLink(page, 0)
@@ -69,18 +80,18 @@ test('ledgers', async ({ page }) => {
 })
 
 test('assets', async ({ page }) => {
-  const targetUrl = `${baseUrl}/assets`
-  await page.goto(targetUrl)
-
+  await gotoAndWaitForTitle(
+    page,
+    `${baseUrl}/assets`,
+    'Stellar Explorer | Assets',
+  )
   expect(await getRowCount(page, `assets-table`)).toEqual(50)
-  await expect(page).toHaveTitle('Stellar Explorer | Assets')
 })
 
 test('anchors', async ({ page }) => {
   const targetUrl = `${baseUrl}/anchors`
 
-  await page.goto(targetUrl)
-  await expect(page).toHaveTitle('Stellar Explorer | Anchors')
+  await gotoAndWaitForTitle(page, targetUrl, 'Stellar Explorer | Anchors')
 
   // Click anchors link
   const anchorLink = await getFirstLink(page, 0)
@@ -95,8 +106,7 @@ test('anchors', async ({ page }) => {
 test('exchanges', async ({ page, context }) => {
   const targetUrl = `${baseUrl}/exchanges`
 
-  await page.goto(targetUrl)
-  await expect(page).toHaveTitle('Stellar Explorer | Exchanges')
+  await gotoAndWaitForTitle(page, targetUrl, 'Stellar Explorer | Exchanges')
 
   // Click asset link
   const exchangeLink = await getFirstLink(page, 0)
@@ -106,8 +116,7 @@ test('exchanges', async ({ page, context }) => {
 test('effects', async ({ page }) => {
   const targetUrl = `${baseUrl}/effects`
 
-  await page.goto(targetUrl)
-  await expect(page).toHaveTitle('Stellar Explorer | Effects')
+  await gotoAndWaitForTitle(page, targetUrl, 'Stellar Explorer | Effects')
 
   // Click account link
   const accountLink = await getFirstLink(page, 0)
@@ -122,8 +131,7 @@ test('effects', async ({ page }) => {
 test('payments', async ({ page }) => {
   const targetUrl = `${baseUrl}/payments`
 
-  await page.goto(targetUrl)
-  await expect(page).toHaveTitle('Stellar Explorer | Payments')
+  await gotoAndWaitForTitle(page, targetUrl, 'Stellar Explorer | Payments')
 
   // Click account link
   const accountLink = await getFirstLink(page, 0)
@@ -135,7 +143,7 @@ test('payments', async ({ page }) => {
   )
 
   // Click transaction link
-  await page.goto(targetUrl)
+  await gotoAndWaitForTitle(page, targetUrl, 'Stellar Explorer | Payments')
   const transactionLink = await getFirstLink(page, 2)
   await clickLinkAndVerify(
     baseUrl,
@@ -146,17 +154,22 @@ test('payments', async ({ page }) => {
 })
 
 test('trades', async ({ page }) => {
-  const targetUrl = `${baseUrl}/trades`
-  await page.goto(targetUrl)
+  await gotoAndWaitForTitle(
+    page,
+    `${baseUrl}/trades`,
+    'Stellar Explorer | Trades',
+  )
   expect(await getRowCount(page, `trade-table`)).toEqual(20)
-  await expect(page).toHaveTitle('Stellar Explorer | Trades')
 })
 
 test('pools', async ({ page }) => {
   const targetUrl = `${baseUrl}/pools`
 
-  await page.goto(targetUrl)
-  await expect(page).toHaveTitle('Stellar Explorer | Liquidity Pools')
+  await gotoAndWaitForTitle(
+    page,
+    targetUrl,
+    'Stellar Explorer | Liquidity Pools',
+  )
 
   // Click pool link
   const accountLink = await getFirstLink(page, 0)
@@ -171,8 +184,11 @@ test('pools', async ({ page }) => {
 test('claimable-balances', async ({ page }) => {
   const targetUrl = `${baseUrl}/claimable-balances`
 
-  await page.goto(targetUrl)
-  await expect(page).toHaveTitle('Stellar Explorer | Claimable Balances')
+  await gotoAndWaitForTitle(
+    page,
+    targetUrl,
+    'Stellar Explorer | Claimable Balances',
+  )
 
   // Execute search
   const searchInput = page.getByPlaceholder('Search by Account')
