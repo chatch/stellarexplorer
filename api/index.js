@@ -13,8 +13,7 @@ const WABT_BIN_PATH = '/wabt-1.0.33/bin'
 const WASM_DECOMPILE_PATH = `${WABT_BIN_PATH}/wasm-decompile`
 const WASM_2_WAT_PATH = `${WABT_BIN_PATH}/wasm2wat`
 const UPLOAD_DIR = path.join(__dirname, 'uploads')
-const UPLOAD_FILENAME_PATTERN =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.wasm$/u
+const uploadedWasmPaths = new WeakMap()
 
 fs.mkdirSync(UPLOAD_DIR, { recursive: true })
 
@@ -22,7 +21,9 @@ const upload = multer({
   storage: multer.diskStorage({
     destination: UPLOAD_DIR,
     filename: (req, file, callback) => {
-      callback(null, `${crypto.randomUUID()}.wasm`)
+      const filename = `${crypto.randomUUID()}.wasm`
+      uploadedWasmPaths.set(req, path.join(UPLOAD_DIR, filename))
+      callback(null, filename)
     },
   }),
   limits: { fileSize: MAX_FILE_SIZE_BYTES },
@@ -41,12 +42,13 @@ const handleCliFailure = (error, res, wasmFilePath) => {
   return res.status(500).send('internal server error')
 }
 
-const getUploadedWasmPath = (file) => {
-  if (!UPLOAD_FILENAME_PATTERN.test(file.filename)) {
-    throw new Error('Unexpected upload filename')
+const getUploadedWasmPath = (req) => {
+  const wasmFilePath = uploadedWasmPaths.get(req)
+  if (!wasmFilePath) {
+    throw new Error('Missing uploaded wasm path')
   }
 
-  return path.join(UPLOAD_DIR, file.filename)
+  return wasmFilePath
 }
 
 const wabtToolRoute = (subpath, toolPath) =>
@@ -56,7 +58,7 @@ const wabtToolRoute = (subpath, toolPath) =>
     }
     let wasmFilePath
     try {
-      wasmFilePath = getUploadedWasmPath(req.file)
+      wasmFilePath = getUploadedWasmPath(req)
     } catch (error) {
       return res.status(500).send('internal server error')
     }
@@ -128,7 +130,7 @@ app.post('/interface', limiter, upload.single('contract'), (req, res) => {
   }
   let wasmFilePath
   try {
-    wasmFilePath = getUploadedWasmPath(req.file)
+    wasmFilePath = getUploadedWasmPath(req)
   } catch (error) {
     return res.status(500).send('internal server error')
   }
