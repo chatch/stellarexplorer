@@ -1,7 +1,7 @@
 const express = require('express')
 const { rateLimit } = require('express-rate-limit')
 const multer = require('multer')
-const { exec, execSync } = require('child_process')
+const { execFile, execFileSync } = require('child_process')
 const fs = require('fs')
 const path = require('path')
 
@@ -39,7 +39,7 @@ const wabtToolRoute = (subpath, toolPath) =>
     const wasmFilePath = filePath + '.wasm'
     fs.renameSync(filePath, wasmFilePath)
 
-    exec(`${toolPath} ${wasmFilePath}`, (error, stdout, stderr) => {
+    execFile(toolPath, [wasmFilePath], (error, stdout) => {
       fs.unlinkSync(wasmFilePath)
       if (error) {
         console.error(`exec error: ${error}`)
@@ -108,22 +108,18 @@ app.post('/interface', limiter, upload.single('contract'), (req, res) => {
   const wasmFilePath = filePath + '.wasm'
   fs.renameSync(filePath, wasmFilePath)
 
-  const sorobanBindingCmd = (lang) =>
-    `soroban contract bindings ${lang} --wasm ${wasmFilePath}`
-
   let rustInterface
   try {
-    rustInterface = execSync(sorobanBindingCmd('rust')).toString()
+    rustInterface = execFileSync('soroban', [
+      'contract',
+      'bindings',
+      'rust',
+      '--wasm',
+      wasmFilePath,
+    ]).toString()
   } catch (error) {
     return handleCliFailure(error, res, wasmFilePath)
   }
-
-  // let jsonInterface
-  // try {
-  //     jsonInterface = execSync(sorobanBindingCmd(`json`)).toString()
-  // } catch (error) {
-  //     return handleCliFailure(error, res, wasmFilePath)
-  // }
 
   fs.unlinkSync(wasmFilePath)
 
