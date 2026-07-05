@@ -13,15 +13,11 @@ if (process.env.NODE_ENV !== 'development') {
   Sentry.init({
     dsn: 'https://76beb9ebb67baaf3347f17f7c2190d1c@o4505837033095168.ingest.us.sentry.io/4505837045153792',
     integrations: [
-      new Sentry.BrowserTracing({
-        routingInstrumentation: Sentry.remixRouterInstrumentation(
-          useEffect,
-          useLocation,
-          useMatches,
-        ),
+      Sentry.browserTracingIntegration({
+        useEffect,
+        useLocation,
+        useMatches,
       }),
-      // Replay is only available in the client
-      new Sentry.Replay(),
     ],
 
     beforeSend(event) {

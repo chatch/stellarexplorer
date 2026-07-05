@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: '0 * * * *'
 
+permissions:
+  contents: read
+
 jobs:
   test_schedule:
     timeout-minutes: 30
@@ -13,11 +16,12 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 11
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Get Playwright version

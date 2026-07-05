@@ -9,8 +9,11 @@ on:
   pull_request:
     branches: ["master"]
 
+permissions:
+  contents: read
+
 jobs:
-  build:
+  web:
     runs-on: ubuntu-22.04
 
     strategy:
@@ -23,17 +26,43 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 11
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+          cache-dependency-path: pnpm-lock.yaml
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run typecheck
       - run: pnpm run build
       - run: pnpm test
+
+  api:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: "pnpm"
+          cache-dependency-path: api/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile --ignore-workspace
+        working-directory: api
+      - run: pnpm audit --prod --ignore-workspace
+        working-directory: api
 
     # - name: Test Report
     #   uses: dorny/test-reporter@v1

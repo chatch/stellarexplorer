@@ -7,3 +7,8 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
   workerd: true
+peerDependencyRules:
+  allowedVersions:
+    wrangler: '4'
+overrides:
+  turbo-stream: ^3.2.0

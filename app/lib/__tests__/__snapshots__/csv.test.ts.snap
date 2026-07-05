@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`jsonToCSV effects 1`] = `
 ""id","account","type","typeI","createdAt","assetType","assetCode","assetIssuer","amount","weight","publicKey","key","startingBalance"

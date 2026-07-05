@@ -1,6 +1,6 @@
 import AccountLink from '../shared/AccountLink'
 import type { PropsWithChildren } from 'react'
-import type { HorizonApi } from '@stellar/stellar-sdk/lib/horizon'
+import type { HorizonApi } from '@stellar/stellar-sdk/lib/esm/horizon/horizon_api.js'
 import { getAssetCode } from '~/lib/utilities'
 
 export interface LiquidityPoolProps extends PropsWithChildren {

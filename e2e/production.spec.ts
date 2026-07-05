@@ -10,7 +10,7 @@ import {
 // const baseUrl = 'http://localhost:4173'
 const baseUrl = 'https://steexp.com'
 
-test.beforeEach(async ({ page }, testInfo) => {
+test.beforeEach(async ({ page: _page }, testInfo) => {
   console.log(`Running test: ${testInfo.title}`)
 })
 
@@ -25,11 +25,7 @@ test('top page', async ({ page }) => {
 test('operations', async ({ page }) => {
   const targetUrl = `${baseUrl}/operations`
 
-  await gotoAndWaitForTitle(
-    page,
-    targetUrl,
-    'Stellar Explorer | Operations',
-  )
+  await gotoAndWaitForTitle(page, targetUrl, 'Stellar Explorer | Operations')
 
   // Click account link
   const accountLink = await getFirstLink(page, 0)
@@ -41,11 +37,7 @@ test('operations', async ({ page }) => {
   )
 
   // Click transaction link
-  await gotoAndWaitForTitle(
-    page,
-    targetUrl,
-    'Stellar Explorer | Operations',
-  )
+  await gotoAndWaitForTitle(page, targetUrl, 'Stellar Explorer | Operations')
   const transactionLink = await getFirstLink(page, 2)
   await clickLinkAndVerify(
     baseUrl,

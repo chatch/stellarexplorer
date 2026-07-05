@@ -1,5 +1,5 @@
 import type { Asset } from '@stellar/stellar-sdk'
-import type { ServerApi } from '@stellar/stellar-sdk/lib/horizon'
+import type { ServerApi } from '@stellar/stellar-sdk/lib/esm/horizon/server_api.js'
 
 import { Federation, MuxedAccount, NotFoundError } from '@stellar/stellar-sdk'
 import AccountTypeUnrecognizedException from '../error/AccountTypeUnrecognizedException'

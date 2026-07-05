@@ -8,7 +8,7 @@ import type { LoaderFunctionArgs } from '~/lib/remix-shim'
 import { captureException } from '@sentry/remix'
 import has from 'lodash/has'
 import { NotFoundError } from '@stellar/stellar-sdk'
-import type { ServerApi } from '@stellar/stellar-sdk/lib/horizon'
+import type { ServerApi } from '@stellar/stellar-sdk/lib/esm/horizon/server_api.js'
 
 import type { KnownAccountProps } from '../data/known_accounts'
 import knownAccounts from '../data/known_accounts'

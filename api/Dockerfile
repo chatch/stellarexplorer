@@ -28,8 +28,9 @@ RUN curl -sL https://github.com/WebAssembly/wabt/releases/download/1.0.33/wabt-1
 
 # api
 WORKDIR /api
-COPY package*.json ./
-RUN npm install
+RUN corepack enable pnpm
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --prod
 COPY . .
 EXPOSE 3001
 

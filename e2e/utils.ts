@@ -30,7 +30,7 @@ export const gotoAndWaitForTitle = async (
       retries: 2,
       onFailedAttempt: (error) => {
         console.log(
-          `gotoAndWaitForTitle attempt ${error.attemptNumber} failed for ${url}: ${error.message}. Retrying...`,
+          `gotoAndWaitForTitle attempt ${error.attemptNumber} failed for ${url}: ${error.error.message}. Retrying...`,
         )
       },
     },
@@ -52,7 +52,9 @@ export const getFirstLink = async (
   }
 
   const link = row.locator('td').nth(columnNum).locator('a')
-  console.log(`Found link at row ${rowNum}, col ${columnNum}: ${await link.getAttribute('href')}`)
+  console.log(
+    `Found link at row ${rowNum}, col ${columnNum}: ${await link.getAttribute('href')}`,
+  )
   return link
 }
 
@@ -111,7 +113,7 @@ export const clickLinkAndVerify = async (
       retries: 2,
       onFailedAttempt: (error) => {
         console.log(
-          `clickLinkAndVerify attempt ${error.attemptNumber} failed: ${error.message}. Retrying...`,
+          `clickLinkAndVerify attempt ${error.attemptNumber} failed: ${error.error.message}. Retrying...`,
         )
       },
     },

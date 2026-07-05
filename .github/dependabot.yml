@@ -1,0 +1,40 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+      timezone: Asia/Bangkok
+    open-pull-requests-limit: 5
+    groups:
+      root-dependencies:
+        patterns:
+          - '*'
+
+  - package-ecosystem: npm
+    directory: /api
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:30'
+      timezone: Asia/Bangkok
+    open-pull-requests-limit: 5
+    groups:
+      api-dependencies:
+        patterns:
+          - '*'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '10:00'
+      timezone: Asia/Bangkok
+    open-pull-requests-limit: 5
+    groups:
+      github-actions:
+        patterns:
+          - '*'

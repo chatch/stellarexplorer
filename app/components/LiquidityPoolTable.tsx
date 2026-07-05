@@ -7,7 +7,7 @@ import { liquidityPoolAsset } from '~/data/liquidity_pool_asset'
 import { formatAmountToHumanReadable, getAssetCode } from '~/lib/utilities'
 
 import styles from './LiquidityPoolTable.module.css'
-import type { HorizonApi } from '@stellar/stellar-sdk/lib/horizon'
+import type { HorizonApi } from '@stellar/stellar-sdk/lib/esm/horizon/horizon_api.js'
 
 interface ParentProps {
   compact: boolean

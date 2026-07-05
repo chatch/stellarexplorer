@@ -197,7 +197,9 @@ const config: Config = {
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['node_modules/(?!.*(@web3-storage|@remix-run))'],
+  transformIgnorePatterns: [
+    'node_modules/(?!.*(@formatjs|@noble|@remix-run|@stellar|@web3-storage|intl-messageformat|react-intl|uint8array-extras))',
+  ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
