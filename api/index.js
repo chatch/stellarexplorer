@@ -1,3 +1,14 @@
+const Sentry = require('@sentry/node')
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  // We don't ship performance traces from this simple API; errors only.
+  tracesSampleRate: 0,
+  // Tag every event so backend issues are searchable next to web-app issues.
+  environment: process.env.NODE_ENV || 'production',
+  release: require('./package.json').version,
+})
+
 const express = require('express')
 const { rateLimit } = require('express-rate-limit')
 const multer = require('multer')
@@ -5,6 +16,7 @@ const { execFile, execFileSync } = require('child_process')
 const crypto = require('crypto')
 const fs = require('fs')
 const path = require('path')
+const cors = require('cors')
 
 // Current maximum - see discussions in Discord
 const MAX_FILE_SIZE_BYTES = 200 * 1024 * 1024
@@ -38,6 +50,7 @@ const limiter = rateLimit({
 
 const handleCliFailure = (error, res, wasmFilePath) => {
   console.error(`exec error: ${error}`)
+  Sentry.captureException(error)
   fs.rmSync(wasmFilePath, { force: true })
   return res.status(500).send('internal server error')
 }
@@ -45,7 +58,9 @@ const handleCliFailure = (error, res, wasmFilePath) => {
 const getUploadedWasmPath = (req) => {
   const wasmFilePath = uploadedWasmPaths.get(req)
   if (!wasmFilePath) {
-    throw new Error('Missing uploaded wasm path')
+    const err = new Error('Missing uploaded wasm path')
+    Sentry.captureException(err)
+    throw err
   }
 
   return wasmFilePath
@@ -67,6 +82,7 @@ const wabtToolRoute = (subpath, toolPath) =>
       fs.rmSync(wasmFilePath, { force: true })
       if (error) {
         console.error(`exec error: ${error}`)
+        Sentry.captureException(error)
         return res.status(500).send(`Command execution error: ${error}`)
       }
       res.contentType('text/plain')
@@ -82,7 +98,6 @@ const decompileLimiter = rateLimit({
 })
 
 const app = express()
-const cors = require('cors')
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -153,6 +168,11 @@ app.post('/interface', limiter, upload.single('contract'), (req, res) => {
   res.contentType('application/json')
   res.json({ rustInterface })
 })
+
+// Let Sentry capture uncaught request errors before Express's default handler
+// runs. Must be added after all routes but before the (non-existent) custom
+// error handlers.
+Sentry.setupExpressErrorHandler(app)
 
 const port = 3001
 app.listen(port, () => {
