@@ -36,7 +36,7 @@ if (process.env.NODE_ENV !== 'development') {
     // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
     tracePropagationTargets: [
       'http://testnet.local:3000',
-      /^https:\/\/*.steexp.com/,
+      /^https:\/\/([a-z0-9-]+\.)*steexp\.com/,
     ],
 
     // Capture Replay for 10% of all sessions,
