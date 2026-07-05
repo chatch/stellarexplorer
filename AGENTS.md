@@ -17,18 +17,31 @@ Always use pnpm instead of npm.
 
 Production deploys are tag-triggered in GitHub Actions.
 
-| Component | Host                                                  | Trigger                  | Workflow                       |
-| --------- | ----------------------------------------------------- | ------------------------ | ------------------------------ |
-| Web app   | Cloudflare Pages (`stellarexplorer`, branch `master`) | Push a tag matching `v*` | `.github/workflows/deploy.yml` |
-| API       | Fly.io (`steexp-api`, region `sin`)                   | Push a tag matching `v*` | `.github/workflows/deploy.yml` |
+| Component | Host                                                  | Trigger                      | Workflow                       |
+| --------- | ----------------------------------------------------- | ---------------------------- | ------------------------------ |
+| Web app   | Cloudflare Pages (`stellarexplorer`, branch `master`) | Push a tag matching `v*-app` | `.github/workflows/deploy.yml` |
+| API       | Fly.io (`steexp-api`, region `sin`)                   | Push a tag matching `v*-api` | `.github/workflows/deploy.yml` |
 
-Release flow:
+The root `package.json` version is the web app version. `api/package.json`
+version is the API version. Keep them independent.
 
-1. Merge the release commit to `master`.
-2. Create a version tag, for example `git tag v3.0.2`.
-3. Push the tag with `git push origin v3.0.2`.
-4. Watch the `Deploy` workflow.
-5. Create the GitHub Release manually with curated notes.
+Web app release flow:
+
+1. Bump the root `package.json` version, for example to `3.1.0`.
+2. Merge or push the release commit to `master`.
+3. Create an app tag, for example `git tag v3.1.0-app`.
+4. Push the tag with `git push origin v3.1.0-app`.
+5. Watch the `Deploy` workflow's `Deploy web app` job.
+6. Create the GitHub Release manually with curated notes.
+
+API release flow:
+
+1. Bump `api/package.json`, for example to `1.0.2`.
+2. Merge or push the release commit to `master`.
+3. Create an API tag, for example `git tag v1.0.2-api`.
+4. Push the tag with `git push origin v1.0.2-api`.
+5. Watch the `Deploy` workflow's `Deploy API` job.
+6. Create the GitHub Release manually with curated notes.
 
 Emergency local deploy commands are still available:
 
@@ -37,9 +50,10 @@ Emergency local deploy commands are still available:
 
 Required GitHub secrets:
 
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-- `FLY_API_TOKEN`
+- `CLOUDFLARE_API_TOKEN`: Cloudflare token that can deploy the
+  `stellarexplorer` Pages project.
+- `CLOUDFLARE_ACCOUNT_ID`: Cloudflare account that owns the Pages project.
+- `FLY_API_TOKEN`: Fly.io token that can deploy the `steexp-api` app.
 
 Notes:
 

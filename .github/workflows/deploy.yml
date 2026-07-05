@@ -3,7 +3,8 @@ name: Deploy
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*-app'
+      - 'v*-api'
 
 permissions:
   contents: read
@@ -11,6 +12,7 @@ permissions:
 jobs:
   deploy-web:
     name: Deploy web app
+    if: endsWith(github.ref_name, '-app')
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     concurrency:
@@ -87,6 +89,7 @@ jobs:
 
   deploy-api:
     name: Deploy API
+    if: endsWith(github.ref_name, '-api')
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     concurrency:
@@ -134,8 +137,13 @@ jobs:
       - name: Setup flyctl
         uses: superfly/flyctl-actions/setup-flyctl@ed8efb33836e8b2096c7fd3ba1c8afe303ebbff1
 
+      - name: Verify Fly.io authentication
+        run: flyctl auth whoami
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
       - name: Deploy to Fly.io
-        run: flyctl deploy --remote-only
+        run: flyctl deploy --remote-only --app steexp-api
         working-directory: api
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

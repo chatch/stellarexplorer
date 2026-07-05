@@ -1,36 +1,39 @@
 # Plan: tag-triggered deploys for web app and API
 
-Status: ready to implement.
+Status: implemented, then revised for independent component deploys.
 
 Deployments should move from local/manual commands to GitHub Actions, but stay
-release-driven: pushing a version tag deploys both production targets.
+release-driven: pushing a component version tag deploys one production target.
 
 ## Goals
 
 - Deploy the web app to Cloudflare Pages.
 - Deploy the API to Fly.io.
-- Trigger production deploys only from pushed version tags.
+- Trigger production deploys only from pushed component version tags.
+- Keep web app and API versions independent.
 - Keep GitHub Releases hand-curated and separate from deployment automation.
 - Preserve the existing local deploy commands as emergency escape hatches.
 
 ## Trigger
 
-Use one workflow triggered by version tags:
+Use one workflow triggered by component version tags:
 
 ```yaml
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*-app'
+      - 'v*-api'
 ```
 
-This matches the repo's existing tag style, including normal semver tags such as
-`v3.0.2` and historical suffix tags such as `v2.2.0-soroban`.
+The suffix selects the deployment target:
 
-Default behavior: every matching tag deploys both the web app and the API.
-That is simpler than component-specific tags and keeps production components in
-sync for a release. If component-specific deploys are needed later, split the
-workflow or add stricter patterns such as `web-v*` and `api-v*`.
+- `v3.1.0-app` deploys the web app and should match the root `package.json`
+  version.
+- `v1.0.2-api` deploys the API and should match `api/package.json`.
+
+The jobs also have tag-suffix guards so a tag cannot accidentally deploy the
+wrong target if the workflow trigger is broadened later.
 
 ## Workflow
 
@@ -40,7 +43,7 @@ Create:
 .github/workflows/deploy.yml
 ```
 
-Use two jobs in the same workflow:
+Use two jobs in the same workflow, with job-level tag guards:
 
 - `deploy-web`: builds the Remix/Vite app and deploys `./build/client` to the
   `stellarexplorer` Cloudflare Pages project on branch `master`.
@@ -73,7 +76,8 @@ name: Deploy
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*-app'
+      - 'v*-api'
 
 permissions:
   contents: read
@@ -81,6 +85,7 @@ permissions:
 jobs:
   deploy-web:
     name: Deploy web app
+    if: endsWith(github.ref_name, '-app')
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     concurrency:
@@ -158,6 +163,7 @@ jobs:
 
   deploy-api:
     name: Deploy API
+    if: endsWith(github.ref_name, '-api')
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     concurrency:
@@ -205,8 +211,13 @@ jobs:
       - name: Setup flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
+      - name: Verify Fly.io authentication
+        run: flyctl auth whoami
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
       - name: Deploy to Fly.io
-        run: flyctl deploy --remote-only
+        run: flyctl deploy --remote-only --app steexp-api
         working-directory: api
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
@@ -234,6 +245,10 @@ Notes:
   run production dependency audit before deploy.
 - Fly's `--remote-only` keeps Docker builds on Fly remote builders, so the
   GitHub runner does not need Docker build setup.
+- `flyctl auth whoami` makes token failures explicit before attempting a
+  deploy.
+- `--app steexp-api` makes the deploy target explicit even though `api/fly.toml`
+  already declares the app.
 - The API smoke test accepts `404` because the Express root route may not be a
   health endpoint. If there is a real health endpoint, use that and require
   `200`.
@@ -250,6 +265,14 @@ Set these in repository or environment secrets:
 
 Prefer GitHub environment secrets if production approvals are enabled for
 `production-web` or `production-api`; otherwise repository secrets are enough.
+
+Current credential audit from the failed `v3.1.0` deploy:
+
+- No repository or environment secrets exist for `CLOUDFLARE_API_TOKEN` or
+  `CLOUDFLARE_ACCOUNT_ID`, so Cloudflare Pages deploys cannot authenticate.
+- A repository-level `FLY_API_TOKEN` exists, but Fly.io returned
+  `unauthorized` during `flyctl deploy --remote-only`. Replace or regenerate the
+  token with permission to deploy the `steexp-api` app.
 
 ## GitHub Releases
 
@@ -281,18 +304,31 @@ Replace the current deployment section with:
 
 Production deploys are tag-triggered in GitHub Actions.
 
-| Component | Host                                                  | Trigger                  | Workflow                       |
-| --------- | ----------------------------------------------------- | ------------------------ | ------------------------------ |
-| Web app   | Cloudflare Pages (`stellarexplorer`, branch `master`) | Push a tag matching `v*` | `.github/workflows/deploy.yml` |
-| API       | Fly.io (`steexp-api`, region `sin`)                   | Push a tag matching `v*` | `.github/workflows/deploy.yml` |
+| Component | Host                                                  | Trigger                      | Workflow                       |
+| --------- | ----------------------------------------------------- | ---------------------------- | ------------------------------ |
+| Web app   | Cloudflare Pages (`stellarexplorer`, branch `master`) | Push a tag matching `v*-app` | `.github/workflows/deploy.yml` |
+| API       | Fly.io (`steexp-api`, region `sin`)                   | Push a tag matching `v*-api` | `.github/workflows/deploy.yml` |
 
-Release flow:
+The root `package.json` version is the web app version. `api/package.json`
+version is the API version. Keep them independent.
 
-1. Merge the release commit to `master`.
-2. Create a version tag, for example `git tag v3.0.2`.
-3. Push the tag with `git push origin v3.0.2`.
-4. Watch the `Deploy` workflow.
-5. Create the GitHub Release manually with curated notes.
+Web app release flow:
+
+1. Bump the root `package.json` version, for example to `3.1.0`.
+2. Merge or push the release commit to `master`.
+3. Create an app tag, for example `git tag v3.1.0-app`.
+4. Push the tag with `git push origin v3.1.0-app`.
+5. Watch the `Deploy` workflow's `Deploy web app` job.
+6. Create the GitHub Release manually with curated notes.
+
+API release flow:
+
+1. Bump `api/package.json`, for example to `1.0.2`.
+2. Merge or push the release commit to `master`.
+3. Create an API tag, for example `git tag v1.0.2-api`.
+4. Push the tag with `git push origin v1.0.2-api`.
+5. Watch the `Deploy` workflow's `Deploy API` job.
+6. Create the GitHub Release manually with curated notes.
 
 Emergency local deploy commands are still available:
 
@@ -301,14 +337,15 @@ Emergency local deploy commands are still available:
 
 Required GitHub secrets:
 
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-- `FLY_API_TOKEN`
+- `CLOUDFLARE_API_TOKEN`: Cloudflare token that can deploy the
+  `stellarexplorer` Pages project.
+- `CLOUDFLARE_ACCOUNT_ID`: Cloudflare account that owns the Pages project.
+- `FLY_API_TOKEN`: Fly.io token that can deploy the `steexp-api` app.
 ```
 
 ## Implementation order
 
-1. Create the Cloudflare API token and Fly API token.
+1. Create or rotate the Cloudflare API token and Fly API token.
 2. Add the three secrets to GitHub.
 3. Create `.github/workflows/deploy.yml`.
 4. Pin all third-party actions to full commit SHAs.
