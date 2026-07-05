@@ -2,6 +2,7 @@ const express = require('express')
 const { rateLimit } = require('express-rate-limit')
 const multer = require('multer')
 const { execFile, execFileSync } = require('child_process')
+const crypto = require('crypto')
 const fs = require('fs')
 const path = require('path')
 
@@ -11,9 +12,19 @@ const MAX_FILE_SIZE_BYTES = 200 * 1024 * 1024
 const WABT_BIN_PATH = '/wabt-1.0.33/bin'
 const WASM_DECOMPILE_PATH = `${WABT_BIN_PATH}/wasm-decompile`
 const WASM_2_WAT_PATH = `${WABT_BIN_PATH}/wasm2wat`
+const UPLOAD_DIR = path.join(__dirname, 'uploads')
+const UPLOAD_FILENAME_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.wasm$/u
+
+fs.mkdirSync(UPLOAD_DIR, { recursive: true })
 
 const upload = multer({
-  dest: 'uploads/',
+  storage: multer.diskStorage({
+    destination: UPLOAD_DIR,
+    filename: (req, file, callback) => {
+      callback(null, `${crypto.randomUUID()}.wasm`)
+    },
+  }),
   limits: { fileSize: MAX_FILE_SIZE_BYTES },
 })
 
@@ -26,8 +37,16 @@ const limiter = rateLimit({
 
 const handleCliFailure = (error, res, wasmFilePath) => {
   console.error(`exec error: ${error}`)
-  fs.unlinkSync(wasmFilePath)
+  fs.rmSync(wasmFilePath, { force: true })
   return res.status(500).send('internal server error')
+}
+
+const getUploadedWasmPath = (file) => {
+  if (!UPLOAD_FILENAME_PATTERN.test(file.filename)) {
+    throw new Error('Unexpected upload filename')
+  }
+
+  return path.join(UPLOAD_DIR, file.filename)
 }
 
 const wabtToolRoute = (subpath, toolPath) =>
@@ -35,12 +54,15 @@ const wabtToolRoute = (subpath, toolPath) =>
     if (!req.file) {
       return res.status(400).send('No file was uploaded.')
     }
-    const filePath = path.join(req.file.destination, req.file.filename)
-    const wasmFilePath = filePath + '.wasm'
-    fs.renameSync(filePath, wasmFilePath)
+    let wasmFilePath
+    try {
+      wasmFilePath = getUploadedWasmPath(req.file)
+    } catch (error) {
+      return res.status(500).send('internal server error')
+    }
 
     execFile(toolPath, [wasmFilePath], (error, stdout) => {
-      fs.unlinkSync(wasmFilePath)
+      fs.rmSync(wasmFilePath, { force: true })
       if (error) {
         console.error(`exec error: ${error}`)
         return res.status(500).send(`Command execution error: ${error}`)
@@ -65,7 +87,7 @@ const corsOptions = {
     if (
       !origin ||
       origin.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/) ||
-      origin.endsWith('steexp.com')
+      origin.match(/^https?:\/\/([a-z0-9-]+\.)*steexp\.com$/)
     ) {
       callback(null, true)
     } else {
@@ -104,9 +126,12 @@ app.post('/interface', limiter, upload.single('contract'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file was uploaded.')
   }
-  const filePath = path.join(req.file.destination, req.file.filename)
-  const wasmFilePath = filePath + '.wasm'
-  fs.renameSync(filePath, wasmFilePath)
+  let wasmFilePath
+  try {
+    wasmFilePath = getUploadedWasmPath(req.file)
+  } catch (error) {
+    return res.status(500).send('internal server error')
+  }
 
   let rustInterface
   try {
@@ -121,7 +146,7 @@ app.post('/interface', limiter, upload.single('contract'), (req, res) => {
     return handleCliFailure(error, res, wasmFilePath)
   }
 
-  fs.unlinkSync(wasmFilePath)
+  fs.rmSync(wasmFilePath, { force: true })
 
   res.contentType('application/json')
   res.json({ rustInterface })
