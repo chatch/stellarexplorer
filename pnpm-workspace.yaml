@@ -1,0 +1,9 @@
+allowBuilds:
+  '@sentry/cli': true
+  '@stellar/stellar-sdk': true
+  '@swc/core': true
+  esbuild: true
+  jest-preview: true
+  sharp: true
+  unrs-resolver: true
+  workerd: true
