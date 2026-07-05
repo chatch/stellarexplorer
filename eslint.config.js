@@ -12,6 +12,8 @@ export default [
       'public/build/**',
       '.cache/**',
       'coverage/**',
+      'playwright-report/**',
+      'test-results/**',
       '*.min.js',
       'api/**', // CommonJS backend - ignore
       'dist/**',

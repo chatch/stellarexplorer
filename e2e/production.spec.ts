@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import type { APIRequestContext } from '@playwright/test'
 import {
   clickLinkAndVerify,
   getFirstLink,
@@ -9,6 +10,38 @@ import {
 
 // const baseUrl = 'http://localhost:4173'
 const baseUrl = 'https://steexp.com'
+const horizonUrl = 'https://horizon.stellar.org'
+
+type ClaimableBalanceRecord = {
+  sponsor?: string
+  claimants?: Array<{
+    destination?: string
+  }>
+}
+
+const getLiveClaimableBalanceAccounts = async (
+  request: APIRequestContext,
+): Promise<{ claimant: string; sponsor: string }> => {
+  const response = await request.get(
+    `${horizonUrl}/claimable_balances?limit=50&order=desc`,
+  )
+  expect(response.ok()).toBeTruthy()
+
+  const body = await response.json()
+  const records = (body._embedded?.records ?? []) as ClaimableBalanceRecord[]
+  const record = records.find(
+    ({ sponsor, claimants }) => sponsor && claimants?.[0]?.destination,
+  )
+
+  if (!record?.sponsor || !record.claimants?.[0]?.destination) {
+    throw new Error('No live claimable balance with sponsor and claimant found')
+  }
+
+  return {
+    claimant: record.claimants[0].destination,
+    sponsor: record.sponsor,
+  }
+}
 
 test.beforeEach(async ({ page: _page }, testInfo) => {
   console.log(`Running test: ${testInfo.title}`)
@@ -173,8 +206,9 @@ test('pools', async ({ page }) => {
   )
 })
 
-test('claimable-balances', async ({ page }) => {
+test('claimable-balances', async ({ page, request }) => {
   const targetUrl = `${baseUrl}/claimable-balances`
+  const { claimant, sponsor } = await getLiveClaimableBalanceAccounts(request)
 
   await gotoAndWaitForTitle(
     page,
@@ -184,14 +218,22 @@ test('claimable-balances', async ({ page }) => {
 
   // Execute search
   const searchInput = page.getByPlaceholder('Search by Account')
-  await searchInput.fill(
-    // arbitrary address is used
-    'GB5YEYTFL2VKQTY34XUTYAS24BGNHHEUEGNLPMQZNJULGCZ2C5UIBMLC',
-  )
+  await searchInput.fill(claimant)
   await searchInput.press('Enter')
 
+  await expect(
+    page.getByRole('columnheader', { name: 'Sponsor' }),
+  ).toBeVisible()
+
+  await gotoAndWaitForTitle(
+    page,
+    targetUrl,
+    'Stellar Explorer | Claimable Balances',
+  )
+  await page.getByPlaceholder('Search by Account').fill(sponsor)
+  await page.getByPlaceholder('Search by Account').press('Enter')
   await page.getByRole('tab', { name: 'Sponsor' }).click()
-  await expect(page.getByRole('cell', { name: 'Claimant' })).toBeVisible()
-  await page.getByRole('tab', { name: 'Claimant' }).click()
-  await expect(page.getByRole('cell', { name: 'Sponsor' })).toBeVisible()
+  await expect(
+    page.getByRole('columnheader', { name: 'Claimant' }),
+  ).toBeVisible()
 })
