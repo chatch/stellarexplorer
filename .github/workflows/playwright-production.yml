@@ -1,6 +1,7 @@
 name: Run e2e tests against production
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 * * * *'
 
@@ -24,7 +25,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Get Playwright version
         id: playwright-version
-        run: echo "PLAYWRIGHT_VERSION=$(pnpm exec playwright --version | sed 's/Version //')" >> $GITHUB_ENV
+        run: echo "PLAYWRIGHT_VERSION=$(pnpm --silent exec playwright --version | sed 's/Version //')" >> $GITHUB_ENV
       - name: Cache Playwright Browsers
         uses: actions/cache@v4
         id: playwright-cache
