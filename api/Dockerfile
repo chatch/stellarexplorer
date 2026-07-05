@@ -1,16 +1,18 @@
 FROM ubuntu:22.04
 
+ARG RUST_VERSION=1.79.0
+
 RUN apt-get update && \
     apt-get install -y curl
 
 # rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rust_install.sh
-RUN sh rust_install.sh -y
+RUN sh rust_install.sh -y --default-toolchain ${RUST_VERSION}
 RUN echo $PATH
 ENV PATH="$PATH:/root/.cargo/bin"
 
 # soroban
-RUN rustup target add wasm32-unknown-unknown
+RUN rustup target add wasm32-unknown-unknown --toolchain ${RUST_VERSION}
 RUN apt-get install -y build-essential
 RUN cargo install --locked --version 20.0.0-rc2 soroban-cli
 
