@@ -12,6 +12,13 @@ updates:
       root-dependencies:
         patterns:
           - '*'
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
 
   - package-ecosystem: npm
     directory: /api
@@ -25,6 +32,13 @@ updates:
       api-dependencies:
         patterns:
           - '*'
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
 
   - package-ecosystem: github-actions
     directory: /
