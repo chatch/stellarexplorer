@@ -15,14 +15,31 @@ Always use pnpm instead of npm.
 
 ## Deployment
 
-Deployment is **manual from a local dev box** — there are no GitHub Actions deploy
-workflows. `.github/workflows/` only contains CI (`node.js.yml`) and scheduled
-Playwright e2e against production (`playwright-production.yml`).
+Production deploys are tag-triggered in GitHub Actions.
 
-| Component | Host        | Deploy command (run from local)                                    | Triggered from |
-| --------- | ----------- | ------------------------------------------------------------------ | -------------- |
-| Web app   | Cloudflare Pages (`stellarexplorer`, branch `master`) | `pnpm pages:deploy` (alias for `pnpm build && wrangler pages deploy ./build/client --branch master`) | repo root |
-| API       | Fly.io (`steexp-api`, region `sin`)                  | `fly deploy --remote-only`                                          | `api/`         |
+| Component | Host                                                  | Trigger                  | Workflow                       |
+| --------- | ----------------------------------------------------- | ------------------------ | ------------------------------ |
+| Web app   | Cloudflare Pages (`stellarexplorer`, branch `master`) | Push a tag matching `v*` | `.github/workflows/deploy.yml` |
+| API       | Fly.io (`steexp-api`, region `sin`)                   | Push a tag matching `v*` | `.github/workflows/deploy.yml` |
+
+Release flow:
+
+1. Merge the release commit to `master`.
+2. Create a version tag, for example `git tag v3.0.2`.
+3. Push the tag with `git push origin v3.0.2`.
+4. Watch the `Deploy` workflow.
+5. Create the GitHub Release manually with curated notes.
+
+Emergency local deploy commands are still available:
+
+- Web: `pnpm pages:deploy`
+- API: `cd api && pnpm deploy`
+
+Required GitHub secrets:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+- `FLY_API_TOKEN`
 
 Notes:
 
