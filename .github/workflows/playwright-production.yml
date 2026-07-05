@@ -12,12 +12,12 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 11
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'pnpm'
@@ -28,7 +28,7 @@ jobs:
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(pnpm exec playwright --version | sed 's/Version //')" >> $GITHUB_ENV
       - name: Cache Playwright Browsers
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
@@ -41,7 +41,7 @@ jobs:
         run: pnpm exec playwright install-deps
       - name: Run e2e tests
         run: pnpm run test:e2e -- e2e/production.spec.ts
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report-production
