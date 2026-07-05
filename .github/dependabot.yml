@@ -52,3 +52,12 @@ updates:
       github-actions:
         patterns:
           - '*'
+
+  - package-ecosystem: docker
+    directory: /api
+    schedule:
+      interval: weekly
+      day: monday
+      time: '10:30'
+      timezone: Asia/Bangkok
+    open-pull-requests-limit: 5

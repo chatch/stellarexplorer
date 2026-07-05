@@ -118,7 +118,7 @@ wabtToolRoute('/decompile', WASM_DECOMPILE_PATH)
 wabtToolRoute('/wat', WASM_2_WAT_PATH)
 
 /**
- * Generate JSON and Rust interfaces from wasm using soroban cli.
+ * Generate JSON and Rust interfaces from wasm using Stellar CLI.
  *
  * To invoke from cli:
  *   curl -F "contract=@/wasm/contract.wasm" http://localhost:3000/interface
@@ -137,7 +137,7 @@ app.post('/interface', limiter, upload.single('contract'), (req, res) => {
 
   let rustInterface
   try {
-    rustInterface = execFileSync('soroban', [
+    rustInterface = execFileSync('stellar', [
       'contract',
       'bindings',
       'rust',

@@ -1,6 +1,8 @@
 FROM ubuntu:22.04
 
-ARG RUST_VERSION=1.79.0
+ARG RUST_VERSION=1.93.0
+ARG STELLAR_CLI_VERSION=27.0.0
+ARG NODE_VERSION=24.18.0
 
 RUN apt-get update && \
     apt-get install -y curl
@@ -11,16 +13,15 @@ RUN sh rust_install.sh -y --default-toolchain ${RUST_VERSION}
 RUN echo $PATH
 ENV PATH="$PATH:/root/.cargo/bin"
 
-# soroban
+# stellar cli
 RUN rustup target add wasm32-unknown-unknown --toolchain ${RUST_VERSION}
-RUN apt-get install -y build-essential
-RUN cargo install --locked --version 20.0.0-rc2 soroban-cli
+RUN apt-get install -y build-essential libssl-dev pkg-config
+RUN cargo install --locked --version ${STELLAR_CLI_VERSION} stellar-cli --no-default-features
 
 # nodejs
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
     && . ~/.bashrc \
-    && nvm install 18.18.0 && nvm use 18.18.0
-ENV NODE_VERSION=18.18.0
+    && nvm install ${NODE_VERSION} && nvm use ${NODE_VERSION}
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
 # wabt
