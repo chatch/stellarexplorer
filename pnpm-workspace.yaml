@@ -11,4 +11,9 @@ peerDependencyRules:
   allowedVersions:
     wrangler: '4'
 overrides:
+  diff: ^8.0.3
+  esbuild: ^0.25.12
+  estree-util-value-to-estree: ^3.3.3
+  tar: ^7.5.16
   turbo-stream: ^3.2.0
+  vite: 6.4.3
