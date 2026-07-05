@@ -24,6 +24,14 @@ if (process.env.NODE_ENV !== 'development') {
       new Sentry.Replay(),
     ],
 
+    beforeSend(event) {
+      if (isRemixRouteMissErrorBoundaryEvent(event)) {
+        return null
+      }
+
+      return event
+    },
+
     // Set tracesSampleRate to 1.0 to capture 100%
     // of transactions for performance monitoring.
     // We recommend adjusting this value in production
@@ -40,6 +48,19 @@ if (process.env.NODE_ENV !== 'development') {
     replaysSessionSampleRate: 0.1,
     replaysOnErrorSampleRate: 1.0,
   })
+}
+
+function isRemixRouteMissErrorBoundaryEvent(event: Sentry.Event) {
+  const exception = event.exception?.values?.[0]
+  const mechanism = exception?.mechanism
+  const value = exception?.value
+
+  return (
+    mechanism?.type === 'instrument' &&
+    mechanism.data?.function === 'ReactError' &&
+    typeof value === 'string' &&
+    /^(No route matches URL|Method .+ not allowed for route)/i.test(value)
+  )
 }
 
 startTransition(() => {
