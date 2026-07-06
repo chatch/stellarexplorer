@@ -15,7 +15,12 @@
   "packageManager": "pnpm@11.8.0",
   "scripts": {
     "start": "node index.js",
+    "test": "jest --runInBand",
     "deploy": "fly deploy --remote-only"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2",
+    "supertest": "^7.2.2"
   },
   "dependencies": {
     "@sentry/node": "^10.63.0",
