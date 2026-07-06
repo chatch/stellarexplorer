@@ -3,17 +3,31 @@ import { json } from '~/lib/remix-shim'
 import { useLoaderData } from '@remix-run/react'
 
 import { setTitle } from '../lib/utils'
-import { Assets } from './lib/assets-base'
+import { Assets, type AssetProps } from './lib/assets-base'
 
-import directory from '../data/directory'
+// Live asset search via stellar.expert. The directory lookup previously fed
+// local {code,issuer,domain} records into the Assets component, which expects
+// the richer live-API shape (supply/trustlines/payments/price7d/...), causing
+// a crash on e.g. /asset/USD. Fetch matching assets from the same backend the
+// /assets page uses so the page renders a proper list of matching assets.
+const STELLAR_EXPERT_ASSET_SEARCH =
+  'https://api.stellar.expert/explorer/public/asset?search='
 
-const { assets } = directory
-
-export const clientLoader = ({ params }: { params: { assetId: string } }) => {
-  const matchingAssetKeys = Object.keys(assets).filter((k) =>
-    k.startsWith(params.assetId),
+export const clientLoader = async ({
+  params,
+}: {
+  params: { assetId: string }
+}) => {
+  const response = await fetch(
+    `${STELLAR_EXPERT_ASSET_SEARCH}${encodeURIComponent(
+      params.assetId,
+    )}&limit=50`,
   )
-  return json({ matchingAssetKeys })
+  // guard against non-JSON error pages so we never crash on parse
+  if (!response.ok) return json([] as AssetProps[])
+  const data = await response.json()
+  const records = (data?._embedded?.records ?? []) as AssetProps[]
+  return json(records)
 }
 
 export default function AssetsById() {
@@ -21,13 +35,7 @@ export default function AssetsById() {
     setTitle('Assets')
   }, [])
 
-  const {
-    matchingAssetKeys,
-  }: {
-    matchingAssetKeys: Array<string>
-  } = useLoaderData<typeof clientLoader>()
+  const assets = useLoaderData<typeof clientLoader>() as AssetProps[]
 
-  const matchingAssets = matchingAssetKeys.map((key) => assets[key]) as any
-
-  return <Assets assets={matchingAssets} />
+  return <Assets assets={assets} />
 }

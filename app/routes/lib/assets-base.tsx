@@ -68,27 +68,36 @@ export function Asset(asset: AssetProps) {
   const displayDate = asset.created
     ? new Date(asset.created * 1000).toLocaleDateString('sv-SE')
     : ''
-  const holders = ` ${asset.trustlines[
-    asset.trustlines.length - 1
-  ].toLocaleString()}/${asset.trustlines[0].toLocaleString()}`
-  const payments = asset.payments.toLocaleString()
-  const supply = (asset.supply / 10_000_000).toLocaleString(undefined, {
-    maximumFractionDigits: 0,
-  })
+  const trustlines = Array.isArray(asset.trustlines) ? asset.trustlines : []
+  const holders =
+    trustlines.length > 0
+      ? ` ${trustlines[trustlines.length - 1].toLocaleString()}/${trustlines[0].toLocaleString()}`
+      : ''
+  const payments = asset.payments != null ? asset.payments.toLocaleString() : ''
+  const supply =
+    asset.supply != null
+      ? (asset.supply / 10_000_000).toLocaleString(undefined, {
+          maximumFractionDigits: 0,
+        })
+      : ''
   // NOTE: asset.price7d seems to have a maximum of 8 elements, each of which is an array of 2 elements.
   // And the elements are timestamp and price. And they are sorted in ascending order by timestamp.
-  // So the last one is the most recent one.
-  const latestPrice = asset.price7d[asset.price7d.length - 1][1]
+  // So the last one is the most recent one. Low-activity assets returned by asset search may have
+  // an empty/missing price7d, so guard every access.
+  const price7d = Array.isArray(asset.price7d) ? asset.price7d : []
+  const latestEntry = price7d[price7d.length - 1]
+  const latestPrice = latestEntry ? latestEntry[1] : null
   let previousPrice = null
-  if (asset.price7d.length > 1) {
-    previousPrice = asset.price7d[asset.price7d.length - 2][1] ?? null
+  if (price7d.length > 1) {
+    previousPrice = price7d[price7d.length - 2][1] ?? null
   }
-  const price24h = formatPrice24h(latestPrice)
-  const priceChange = previousPrice
-    ? formatPercentToHumanReadable(
-        Math.abs(((latestPrice - previousPrice) * 100) / latestPrice),
-      )
-    : undefined
+  const price24h = latestPrice != null ? formatPrice24h(latestPrice) : undefined
+  const priceChange =
+    previousPrice != null && latestPrice != null
+      ? formatPercentToHumanReadable(
+          Math.abs(((latestPrice - previousPrice) * 100) / latestPrice),
+        )
+      : undefined
 
   return (
     <tr className="directoryRow">
@@ -105,32 +114,48 @@ export function Asset(asset: AssetProps) {
       <td className={styles['assets-cell']}>{holders}</td>
       <td className={styles['assets-cell']}>{payments}</td>
       <td className={styles['assets-cell']}>
-        {price24h}
-        {previousPrice && latestPrice >= previousPrice ? (
-          <span className={`${styles['price-change-up']}`}>
-            {priceChange && `↑${priceChange}%`}
-          </span>
-        ) : (
-          <span className={`${styles['price-change-down']}`}>
-            {priceChange && `↓${priceChange}%`}
-          </span>
+        {price24h != null && (
+          <>
+            {price24h}
+            {previousPrice != null &&
+            latestPrice != null &&
+            latestPrice >= previousPrice ? (
+              <span className={`${styles['price-change-up']}`}>
+                {priceChange && `↑${priceChange}%`}
+              </span>
+            ) : (
+              <span className={`${styles['price-change-down']}`}>
+                {priceChange && `↓${priceChange}%`}
+              </span>
+            )}
+            <span className={`${styles['text-small']}`}>USD</span>
+          </>
         )}
-        <span className={`${styles['text-small']}`}>USD</span>
       </td>
       <td>
         <div>
-          <a href={`https://${asset.domain}`} target="_blank" rel="noreferrer">
-            {asset.domain}
-            {asset.domain && <NewWindowIcon />}
-          </a>
+          {asset.domain ? (
+            <a
+              href={`https://${asset.domain}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {asset.domain}
+              <NewWindowIcon />
+            </a>
+          ) : (
+            ''
+          )}
         </div>
       </td>
       <td>
         <div className="stellarToml">
-          <BackendResourceBadgeButton
-            label="server.toml"
-            url={`https://${asset.domain}/.well-known/stellar.toml`}
-          />
+          {asset.domain && (
+            <BackendResourceBadgeButton
+              label="server.toml"
+              url={`https://${asset.domain}/.well-known/stellar.toml`}
+            />
+          )}
         </div>
       </td>
     </tr>
