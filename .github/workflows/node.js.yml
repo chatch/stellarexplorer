@@ -55,9 +55,9 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: api/pnpm-lock.yaml
 
-      - run: pnpm install --frozen-lockfile --ignore-workspace
+      - run: pnpm install --frozen-lockfile
         working-directory: api
-      - run: pnpm audit --prod --ignore-workspace
+      - run: pnpm audit --prod
         working-directory: api
 
     # - name: Test Report

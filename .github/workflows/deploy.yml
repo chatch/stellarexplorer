@@ -127,11 +127,11 @@ jobs:
           cache-dependency-path: api/pnpm-lock.yaml
 
       - name: Install API dependencies
-        run: pnpm install --frozen-lockfile --ignore-workspace
+        run: pnpm install --frozen-lockfile
         working-directory: api
 
       - name: Audit production API dependencies
-        run: pnpm audit --prod --ignore-workspace
+        run: pnpm audit --prod
         working-directory: api
 
       - name: Setup flyctl
