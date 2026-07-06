@@ -15,6 +15,14 @@ const anchors: Record<string, DirectoryAnchor> = {
       USDC: 'USDC-GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN',
     },
   },
+  'token-metadata.paxos.com': {
+    name: 'token-metadata.paxos.com',
+    displayName: 'Paxos',
+    website: 'https://www.paxos.com/',
+    assets: {
+      PYUSD: 'PYUSD-GDQE7IXJ4HUHV6RQHIUPRJSEZE4DRS5WY577O2FY6YQ5LVWZ7JZTU2V5',
+    },
+  },
   'ultrastellar.com': {
     name: 'ultrastellar.com',
     displayName: 'Ultrastellar',
@@ -597,6 +605,12 @@ const assets: Record<string, DirectoryAsset> = {
     code: 'USDC',
     issuer: 'GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN',
     domain: 'www.centre.io',
+  },
+  'PYUSD-GDQE7IXJ4HUHV6RQHIUPRJSEZE4DRS5WY577O2FY6YQ5LVWZ7JZTU2V5': {
+    code: 'PYUSD',
+    issuer: 'GDQE7IXJ4HUHV6RQHIUPRJSEZE4DRS5WY577O2FY6YQ5LVWZ7JZTU2V5',
+    domain: 'token-metadata.paxos.com',
+    stablecoin: true,
   },
   'yXLM-GARDNV3Q7YGT4AKSDF25LT32YSCCW4EV22Y2TV3I2PU2MMXJTEDL5T55': {
     code: 'yXLM',
