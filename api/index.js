@@ -19,12 +19,19 @@ const path = require('path')
 const cors = require('cors')
 
 // Current maximum - see discussions in Discord
-const MAX_FILE_SIZE_BYTES = 200 * 1024 * 1024
+const MAX_FILE_SIZE_BYTES =
+  Number(process.env.MAX_FILE_SIZE_BYTES) || 200 * 1024 * 1024
 
-const WABT_BIN_PATH = '/wabt-1.0.33/bin'
-const WASM_DECOMPILE_PATH = `${WABT_BIN_PATH}/wasm-decompile`
-const WASM_2_WAT_PATH = `${WABT_BIN_PATH}/wasm2wat`
-const UPLOAD_DIR = path.join(__dirname, 'uploads')
+// Native tooling. Overridable via env for local dev and tests; in production
+// these live in the container image (see Dockerfile).
+const WABT_VERSION = '1.0.37'
+const WABT_BIN_PATH = process.env.WABT_BIN_PATH || `/wabt-${WABT_VERSION}/bin`
+const WASM_DECOMPILE_PATH =
+  process.env.WASM_DECOMPILE_PATH || `${WABT_BIN_PATH}/wasm-decompile`
+const WASM_2_WAT_PATH = process.env.WASM2WAT_PATH || `${WABT_BIN_PATH}/wasm2wat`
+const STELLAR_BIN_PATH = process.env.STELLAR_BIN_PATH || 'stellar'
+
+const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, 'uploads')
 const uploadedWasmPaths = new WeakMap()
 
 fs.mkdirSync(UPLOAD_DIR, { recursive: true })
@@ -41,12 +48,17 @@ const upload = multer({
   limits: { fileSize: MAX_FILE_SIZE_BYTES },
 })
 
-const limiter = rateLimit({
-  windowMs: 60 * 1000,
-  limit: 5,
-  standardHeaders: 'draft-7',
-  legacyHeaders: false,
-})
+const createLimiter = () =>
+  rateLimit({
+    windowMs: 60 * 1000,
+    // Allow a higher burst under test so the suite isn't throttled.
+    limit: process.env.NODE_ENV === 'test' ? 1000 : 5,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+  })
+
+const limiter = createLimiter()
+const decompileLimiter = createLimiter()
 
 const handleCliFailure = (error, res, wasmFilePath) => {
   console.error(`exec error: ${error}`)
@@ -89,13 +101,6 @@ const wabtToolRoute = (subpath, toolPath) =>
       res.send(stdout)
     })
   })
-
-const decompileLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  limit: 5,
-  standardHeaders: 'draft-7',
-  legacyHeaders: false,
-})
 
 const app = express()
 
@@ -152,7 +157,7 @@ app.post('/interface', limiter, upload.single('contract'), (req, res) => {
 
   let rustInterface
   try {
-    rustInterface = execFileSync('stellar', [
+    rustInterface = execFileSync(STELLAR_BIN_PATH, [
       'contract',
       'bindings',
       'rust',
@@ -169,12 +174,35 @@ app.post('/interface', limiter, upload.single('contract'), (req, res) => {
   res.json({ rustInterface })
 })
 
-// Let Sentry capture uncaught request errors before Express's default handler
-// runs. Must be added after all routes but before the (non-existent) custom
-// error handlers.
+// Let Sentry capture uncaught request errors before our response formatter.
 Sentry.setupExpressErrorHandler(app)
 
-const port = 3001
-app.listen(port, () => {
-  console.log(`App listening on port ${port}!`)
+// Centralised error handler. Keeps multer failures (e.g. file too large) and
+// CORS rejections from leaking stack traces or crashing the process.
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err)
+  }
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(413).send('File too large')
+    }
+    console.error(`multer error: ${err.message}`)
+    Sentry.captureException(err)
+    return res.status(400).send(`Upload error: ${err.message}`)
+  }
+  console.error(`unhandled error: ${err}`)
+  Sentry.captureException(err)
+  return res.status(500).send('internal server error')
 })
+
+const port = Number(process.env.PORT) || 3001
+// Only bind when run directly, so the app can also be imported for tests.
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`App listening on port ${port}!`)
+  })
+}
+
+module.exports = app

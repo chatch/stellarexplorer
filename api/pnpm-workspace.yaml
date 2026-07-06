@@ -1,0 +1,15 @@
+# The API is a standalone, independently deployable package (its Dockerfile
+# copies only api/* and runs `pnpm install --prod`). Having its own
+# pnpm-workspace.yaml makes it a self-contained workspace root so local
+# installs resolve against api's own lockfile/store instead of the repo root.
+#
+# unrs-resolver (pulled in transitively by jest) declares a build script that
+# pnpm 11 blocks by default; approve it so the dev toolchain installs cleanly.
+# It is a dev-only dependency, so this never affects the production image.
+#
+# NOTE: do NOT pass --ignore-workspace to pnpm here. That flag makes pnpm skip
+# this file entirely, so allowBuilds is ignored and the install fails with
+# ERR_PNPM_IGNORED_BUILDS. CI runs with working-directory: api, so pnpm picks
+# up this workspace root on its own.
+allowBuilds:
+  unrs-resolver: true
