@@ -59,6 +59,8 @@ jobs:
         working-directory: api
       - run: pnpm audit --prod
         working-directory: api
+      - run: pnpm test
+        working-directory: api
 
     # - name: Test Report
     #   uses: dorny/test-reporter@v1
