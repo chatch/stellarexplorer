@@ -29,18 +29,17 @@ export const contractCodeLoaderFn =
   (getCodeFn: Function) =>
   async ({ params, request }: LoaderFunctionArgs) => {
     const server = await requestToSorobanServer(request)
-    return loadContract(server, params.contractId as string).then(
-      async (result: any) => {
-        if (!result) {
-          return null
-        }
+    const contractId = params.contractId as string
+    return loadContract(server, contractId).then(async (result: any) => {
+      if (!result) {
+        return null
+      }
 
-        const { wasmCode, wasmCodeLedger } = result
-        const decompiledCode = await getCodeFn(wasmCode)
+      const { wasmCode, wasmCodeLedger } = result
+      const decompiledCode = await getCodeFn(contractId, wasmCode)
 
-        return json({ wasmCode, wasmCodeLedger, decompiledCode })
-      },
-    )
+      return json({ wasmCode, wasmCodeLedger, decompiledCode })
+    })
   }
 
 export default function contractCodeTab(loader: Function, language?: string) {

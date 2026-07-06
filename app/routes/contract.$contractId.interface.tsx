@@ -29,12 +29,13 @@ const Interface = ({
 
 export const clientLoader = async ({ params, request }: LoaderFunctionArgs) => {
   const server = await requestToSorobanServer(request)
-  return loadContract(server, params.contractId as string)
+  const contractId = params.contractId as string
+  return loadContract(server, contractId)
     .then((result: any) => {
       if (!result) {
         return null
       }
-      return getContractInterface(result.wasmCode)
+      return getContractInterface(contractId, result.wasmCode)
     })
     .then(json)
 }

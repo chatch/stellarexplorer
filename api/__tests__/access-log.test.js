@@ -30,9 +30,9 @@ describe('access log', () => {
   })
 
   // ISO timestamp, METHOD, URL, STATUS, "resLen/reqLen", "-", "<n> ms",
-  // "<ua>", "<referer>"
+  // contract-id (or "-"), "<ua>", "<referer>"
   const LINE_RE =
-    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z (GET|POST) \/[\w/-]+ \d{3} (-|\d+)(\/(-|\d+))? - \d+(?:\.\d+)? ms "[^"]*" "[^"]*"$/
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z (GET|POST) \/[\w/-]+ \d{3} (-|\d+)(\/(-|\d+))? - \d+(?:\.\d+)? ms (?:-|\S+) "[^"]*" "[^"]*"$/
 
   it('emits exactly one log line for a successful /wat request', async () => {
     const before = lines.length
@@ -71,5 +71,56 @@ describe('access log', () => {
 
     const newLines = lines.slice(before).filter((l) => LINE_RE.test(l))
     expect(newLines).toHaveLength(0)
+  })
+
+  it('logs the X-Steexp-Contract-Id header when set', async () => {
+    const before = lines.length
+    await request(app)
+      .post('/wat')
+      .set('X-Steexp-Contract-Id', 'CDL74RF5BLYR2YBLCCI7F5FB6TPSCLKEJUBSD2RSVWZ4YHF3VMFAIGWA')
+      .attach('contract', trivialWasm)
+      .expect(200)
+
+    const newLines = lines.slice(before).filter((l) => LINE_RE.test(l))
+    expect(newLines).toHaveLength(1)
+    expect(newLines[0]).toContain(
+      'CDL74RF5BLYR2YBLCCI7F5FB6TPSCLKEJUBSD2RSVWZ4YHF3VMFAIGWA',
+    )
+  })
+
+  it('caps the contract ID at 100 characters', async () => {
+    // Node's http module rejects header values with control characters,
+    // so we can only test the length cap here. Control-char stripping is
+    // a one-line regex and doesn't need a runtime test.
+    const longId = 'C' + 'A'.repeat(150)
+    const before = lines.length
+    await request(app)
+      .post('/wat')
+      .set('X-Steexp-Contract-Id', longId)
+      .attach('contract', trivialWasm)
+      .expect(200)
+
+    const newLines = lines.slice(before).filter((l) => LINE_RE.test(l))
+    expect(newLines).toHaveLength(1)
+    const fields = newLines[0].split(' ')
+    // contract-id slot is field 8 (after timestamp, METHOD, URL, STATUS,
+    // "resLen/reqLen", "-", "<n> ms")
+    expect(fields[8]).toBe('C' + 'A'.repeat(99))
+    expect(fields[8]).toHaveLength(100)
+  })
+
+  it('emits a dash when X-Steexp-Contract-Id is not set', async () => {
+    const before = lines.length
+    await request(app)
+      .post('/wat')
+      .attach('contract', trivialWasm)
+      .expect(200)
+
+    const newLines = lines.slice(before).filter((l) => LINE_RE.test(l))
+    expect(newLines).toHaveLength(1)
+    // contract-id slot is field 8 (after timestamp, METHOD, URL, STATUS,
+    // "resLen/reqLen", "-", "<n> ms")
+    const fields = newLines[0].split(' ')
+    expect(fields[8]).toBe('-')
   })
 })
