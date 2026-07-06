@@ -10,13 +10,14 @@ import { TitleWithJSONButton } from '../components/shared/TitleWithJSONButton'
 import { setTitle } from '../lib/utils'
 import { requestToServer } from '~/lib/stellar/server'
 import type { LoaderFunctionArgs } from '~/lib/remix-shim'
-import { json } from '~/lib/remix-shim'
+import { json, redirect } from '~/lib/remix-shim'
 import { NotFoundError } from '@stellar/stellar-sdk'
 import AccountTypeUnrecognizedException from '~/lib/error/AccountTypeUnrecognizedException'
 import { captureException } from '@sentry/remix'
 import { liquidityPool } from '~/lib/stellar/server_request_utils'
 import { formatAmountToHumanReadable } from '~/lib/utilities'
 import { PoolAsset } from '~/components/LiquidityPoolTable'
+import { isContractAddress } from '~/lib/stellar/utils'
 
 const pathToTabName = (path: string) => {
   const match = /\/pools\/[^/]*\/([a-z]*)/.exec(path)
@@ -24,8 +25,12 @@ const pathToTabName = (path: string) => {
 }
 
 export const clientLoader = async ({ params, request }: LoaderFunctionArgs) => {
-  const server = await requestToServer(request)
   const poolId = params.poolId as string
+  if (isContractAddress(poolId)) {
+    return redirect(`/contract/${poolId}`)
+  }
+
+  const server = await requestToServer(request)
   let response
   try {
     response = await Promise.all([

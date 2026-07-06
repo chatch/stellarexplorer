@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from '~/lib/remix-shim'
-import { json } from '~/lib/remix-shim'
+import { json, redirect } from '~/lib/remix-shim'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { Container, Row } from 'react-bootstrap'
 import Paging from '~/components/shared/Paging'
@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { safeNewURL, setTitle } from '~/lib/utils'
 import type { ServerReqFnName } from '~/lib/loader-util'
 import type { LiquidityPoolProps } from '~/components/operations/LiquidityPool'
+import { isContractAddress } from '~/lib/stellar/utils'
 
 const DEFAULT_RECORD_LIMIT = 30
 
@@ -20,11 +21,16 @@ const poolTabLoader =
     const cursor: string | undefined =
       url.searchParams.get('cursor') ?? undefined
     const order: string | undefined = url.searchParams.get('order') ?? undefined
+    const poolId = params.poolId
+
+    if (poolId && isContractAddress(poolId)) {
+      return redirect(`/contract/${poolId}`)
+    }
 
     const server = await requestToServer(request)
 
     return serverRequestUtils[serverRequestFnName](server, {
-      poolId: params.poolId,
+      poolId,
       cursor,
       order: order as 'asc' | 'desc',
       limit: limit ?? DEFAULT_RECORD_LIMIT,
