@@ -149,15 +149,19 @@ const loadContract = async (
   }
 }
 
+// Send the contract ID as X-Steexp-Contract-Id so the API can log it.
+// Browser default referrer-policy strips the path on cross-origin fetches,
+// so the Referer alone won't tell us which contract page initiated the call.
 const postWasmToWabtBackendRoute =
   (path: string) =>
-  (wasmHexString: string): Promise<string> => {
+  (contractId: string, wasmHexString: string): Promise<string> => {
     const wasmBytes = hexStringToBytes(wasmHexString)
     const blob = new Blob([new Uint8Array(wasmBytes)])
     const formData = new FormData()
     formData.append('contract', blob)
     return fetch(`${API_URL}${path}`, {
       method: 'POST',
+      headers: { 'X-Steexp-Contract-Id': contractId },
       body: formData,
     }).then((response) => response.text())
   }
@@ -166,6 +170,7 @@ const getContractDecompiled = postWasmToWabtBackendRoute('/decompile')
 const getContractWat = postWasmToWabtBackendRoute('/wat')
 
 const getContractInterface = (
+  contractId: string,
   wasmHexString: string,
 ): Promise<Record<string, string>> => {
   const wasmBytes = hexStringToBytes(wasmHexString)
@@ -174,6 +179,7 @@ const getContractInterface = (
   formData.append('contract', blob)
   return fetch(`${API_URL}/interface`, {
     method: 'POST',
+    headers: { 'X-Steexp-Contract-Id': contractId },
     body: formData,
   }).then((response) => response.json())
 }

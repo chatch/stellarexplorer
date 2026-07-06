@@ -126,6 +126,14 @@ app.set('trust proxy', 2)
 // into `fly logs`). Skips /health so any future Fly health probe doesn't
 // drown the log. Includes request + response Content-Length so a single
 // grep shows both the upload size and the response size.
+// The contract-id token is sanitised: control characters are stripped and
+// the value is capped at 100 chars, since the header value flows into a
+// log line that downstream tooling (Fly log viewer, grep pipelines) reads.
+morgan.token('contract-id', (req) => {
+  const raw = req.headers['x-steexp-contract-id']
+  if (!raw) return '-'
+  return String(raw).replace(/[\x00-\x1f\x7f]/g, '').slice(0, 100)
+})
 app.use(morgan((tokens, req, res) => {
   const reqLen = req.headers['content-length'] || '-'
   const resLen = res.getHeader('content-length') || '-'
@@ -137,6 +145,7 @@ app.use(morgan((tokens, req, res) => {
     `${resLen}/${reqLen}`,
     '-',
     `${tokens['response-time'](req, res)} ms`,
+    tokens['contract-id'](req, res),
     `"${tokens['user-agent'](req, res) || '-'}"`,
     `"${tokens.referrer(req, res) || '-'}"`,
   ].join(' ')
