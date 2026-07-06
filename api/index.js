@@ -12,6 +12,7 @@ Sentry.init({
 const express = require('express')
 const { rateLimit } = require('express-rate-limit')
 const multer = require('multer')
+const morgan = require('morgan')
 const { execFile, execFileSync } = require('child_process')
 const crypto = require('crypto')
 const fs = require('fs')
@@ -120,6 +121,26 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.set('trust proxy', 2)
+
+// One-line access log per finished request. Goes to stdout (Fly captures it
+// into `fly logs`). Skips /health so any future Fly health probe doesn't
+// drown the log. Includes request + response Content-Length so a single
+// grep shows both the upload size and the response size.
+app.use(morgan((tokens, req, res) => {
+  const reqLen = req.headers['content-length'] || '-'
+  const resLen = res.getHeader('content-length') || '-'
+  return [
+    new Date().toISOString(),
+    tokens.method(req, res),
+    tokens.url(req, res),
+    tokens.status(req, res),
+    `${resLen}/${reqLen}`,
+    '-',
+    `${tokens['response-time'](req, res)} ms`,
+    `"${tokens['user-agent'](req, res) || '-'}"`,
+    `"${tokens.referrer(req, res) || '-'}"`,
+  ].join(' ')
+}, { skip: (req) => req.path === '/health' }))
 
 /**
  * Decompile a wasm file using the wabt wasm-decompile tool
