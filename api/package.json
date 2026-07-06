@@ -1,7 +1,7 @@
 {
   "name": "stellarexplorer-backend-api",
   "description": "Backend api for supporting stellarexplorer",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "Apache-2.0",
   "author": "Chris Hatch <hatch@tuta.io>",
   "homepage": "https://steexp.com",
@@ -27,6 +27,7 @@
     "cors": "^2.8.6",
     "express": "5.2.1",
     "express-rate-limit": "^8.5.2",
+    "morgan": "^1.11.0",
     "multer": "2.2.0"
   }
 }
