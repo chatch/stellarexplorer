@@ -83,8 +83,10 @@ const hostnameToNetworkType = (hostname: string) => {
     hostname === 'futurenet.local'
   ) {
     return networks.future
-  } else {
+  } else if (hostname === 'localnet.local' || hostname === '0.0.0.0') {
     return networks.local
+  } else {
+    return networks.public
   }
 }
 
