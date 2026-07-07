@@ -43,13 +43,16 @@ import SearchBox from './SearchBox'
 import { NotFoundError } from '@stellar/stellar-sdk'
 import { ThemeProvider, useTheme } from '~/context/theme.provider'
 import type { ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules'
+import { publicAssetUrl } from './lib/build-target'
 
 export const links: LinksFunction = () => [
-  { rel: 'stylesheet', href: bootstrapStyles },
-  { rel: 'stylesheet', href: jsonPrettyStyles },
-  { rel: 'stylesheet', href: siteStyles },
-  { rel: 'stylesheet', href: lightSiteStyles },
-  ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
+  { rel: 'stylesheet', href: publicAssetUrl(bootstrapStyles) },
+  { rel: 'stylesheet', href: publicAssetUrl(jsonPrettyStyles) },
+  { rel: 'stylesheet', href: publicAssetUrl(siteStyles) },
+  { rel: 'stylesheet', href: publicAssetUrl(lightSiteStyles) },
+  ...(cssBundleHref
+    ? [{ rel: 'stylesheet', href: publicAssetUrl(cssBundleHref) }]
+    : []),
 ]
 
 // const storage = storageInit()
@@ -100,11 +103,11 @@ function HtmlDocument({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
         />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="shortcut icon" href={publicAssetUrl('favicon.ico')} />
+        <link rel="manifest" href={publicAssetUrl('manifest.json')} />
         <link
           rel="search"
-          href="/search.xml"
+          href={publicAssetUrl('search.xml')}
           title="Stellar Explorer"
           type="application/opensearchdescription+xml"
         />
@@ -190,8 +193,8 @@ export function HydrateFallback() {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
         />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="shortcut icon" href={publicAssetUrl('favicon.ico')} />
+        <link rel="manifest" href={publicAssetUrl('manifest.json')} />
         <Meta />
         <Links />
         <script

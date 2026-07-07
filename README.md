@@ -156,6 +156,86 @@ pnpm test:e2e:report
 pnpm i && pnpm build
 ```
 
+`pnpm build` is the centralized Cloudflare Pages build. It keeps the app
+root-based for <https://steexp.com> and the existing Pages SPA fallback.
+
+`pnpm build:decentralized` sets `STEEXP_BUILD_TARGET=decentralized` and emits a
+static SPA build with relative Vite asset URLs. This target is intended for
+IPFS DNSLink/subdomain gateways, ArNS/custom Arweave entrypoints, or any
+gateway/domain that serves the app at path root. Direct refreshes on nested
+routes still require the gateway to serve `index.html` as the SPA fallback. Raw
+path gateways such as `/ipfs/<cid>/...` or `/arweave-id/...` are not supported
+by this target.
+
+### Deploy to IPFS
+
+The decentralized build should be served from a gateway origin root. Use an IPFS
+subdomain gateway or DNSLink/custom domain, not a path gateway URL such as
+`https://ipfs.io/ipfs/<cid>/...`.
+
+```sh
+pnpm build:decentralized
+ipfs add -r --cid-version=1 --pin=true build/client
+```
+
+The last CID printed for `build/client` is the site root CID. Verify it with a
+subdomain gateway:
+
+```sh
+CID=<site-root-cid>
+open "https://${CID}.ipfs.dweb.link/"
+```
+
+For a custom domain, publish a DNSLink TXT record:
+
+```txt
+_dnslink.example.com.  TXT  "dnslink=/ipfs/<site-root-cid>"
+```
+
+Then point the domain at an IPFS gateway that supports DNSLink. The app expects
+the gateway to serve `index.html` for deep links such as `/operations`; if the
+gateway does not provide SPA fallback, users should enter through `/`.
+
+If you use a pinning service instead of your own Kubo node, upload the whole
+`build/client` directory and pin the returned directory CID. The same DNSLink
+and SPA fallback notes apply.
+
+### Deploy to Arweave
+
+The Arweave target is also root-oriented. Use an ArNS name or custom Arweave
+gateway entrypoint that serves the uploaded manifest at `/`. A raw manifest
+transaction URL such as `https://arweave.net/<manifest-tx-id>/...` is useful for
+inspection, but it is not the intended production URL for this app.
+
+Turbo can upload the folder and create an Arweave path manifest:
+
+```sh
+pnpm build:decentralized
+pnpm add -g @ardrive/turbo-sdk
+turbo upload-folder \
+  --folder-path build/client \
+  --index-file index.html \
+  --fallback-file index.html \
+  --token arweave \
+  --wallet-file /path/to/arweave-wallet.json
+```
+
+Save the returned manifest transaction id. The `--fallback-file index.html`
+setting is important for SPA route refreshes when the gateway honors manifest
+fallbacks.
+
+After upload, point your ArNS name or custom Arweave gateway routing at the
+manifest transaction id. Verify the production URL is root-style, for example:
+
+```txt
+https://your-name.arweave.net/
+https://your-domain.example/
+```
+
+Do not publish a decentralized release that only works at
+`https://arweave.net/<manifest-tx-id>/`; that path-style gateway shape is out of
+scope for this build target.
+
 ## Languages
 
 Use the language selector in the top right corner to change the language.

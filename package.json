@@ -27,6 +27,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix vite:build",
+    "build:decentralized": "STEEXP_BUILD_TARGET=decentralized remix vite:build && node scripts/patch-decentralized-remix-manifest.mjs",
     "dev": "remix vite:dev",
     "start": "vite preview",
     "pages:dev": "wrangler pages dev ./build/client",
