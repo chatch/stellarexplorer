@@ -20,9 +20,7 @@ const publicAssetUrl = (path: string): string => {
     return `./${normalizedPath}`
   }
 
-  const baseUrl = import.meta.env.BASE_URL || '/'
-  const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`
-  return `${normalizedBase}${normalizedPath}`
+  return `/${normalizedPath}`
 }
 
 export { buildTarget, isDecentralizedBuild, publicAssetUrl }
