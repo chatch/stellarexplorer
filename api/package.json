@@ -19,15 +19,15 @@
     "deploy": "fly deploy --remote-only"
   },
   "devDependencies": {
-    "jest": "^30.4.2",
+    "jest": "^30.5.1",
     "supertest": "^7.2.2"
   },
   "dependencies": {
-    "@sentry/node": "^10.63.0",
+    "@sentry/node": "^10.73.0",
     "cors": "^2.8.6",
     "express": "5.2.1",
-    "express-rate-limit": "^8.5.2",
-    "morgan": "^1.11.0",
-    "multer": "2.2.0"
+    "express-rate-limit": "^8.7.0",
+    "morgan": "^1.12.0",
+    "multer": "2.3.0"
   }
 }
