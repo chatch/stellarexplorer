@@ -1,0 +1,128 @@
+# Monthly refresh of dependencies that Dependabot's semver-major ignore
+# rule never touches:
+#   - web app: devDependencies only (prod pins like Remix 2 / React 18 are
+#     deliberate migration decisions, not monthly chores)
+#   - api: all dependencies (small tree, judged by its tests)
+#
+# NOTE: PRs created with GITHUB_TOKEN do not trigger the CI workflow, so
+# this workflow runs the equivalent checks itself before opening the PR.
+name: Dependency refresh
+
+on:
+  schedule:
+    - cron: '30 5 1 * *'
+  workflow_dispatch:
+
+permissions: read-all
+
+concurrency:
+  group: dep-refresh
+  cancel-in-progress: false
+
+env:
+  BRANCH: deps/auto-refresh
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    permissions:
+      contents: write  # push the refresh branch
+      pull-requests: write  # open the PR
+
+    steps:
+      # Credentials persisted: this job pushes the refresh branch
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+        with:
+          version: 11.8.0
+
+      - name: Setup Node 24
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            api/pnpm-lock.yaml
+
+      - name: Skip if a refresh PR is already open
+        id: skip
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$(gh pr list --head "$BRANCH" --state open --json number --jq 'length')" != "0" ]; then
+            echo "A refresh PR is already open — stopping"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install (web)
+        if: steps.skip.outputs.skip != 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Update dev dependencies to latest (web)
+        if: steps.skip.outputs.skip != 'true'
+        run: pnpm update --latest --dev
+
+      - name: Update all dependencies to latest (api)
+        if: steps.skip.outputs.skip != 'true'
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm update --latest
+        working-directory: api
+
+      - name: Detect changes
+        id: changes
+        if: steps.skip.outputs.skip != 'true'
+        run: |
+          if git diff --exit-code --quiet -- pnpm-lock.yaml api/pnpm-lock.yaml package.json api/package.json; then
+            echo "No dependency updates available"
+            echo "changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Lint (web)
+        if: steps.changes.outputs.changes == 'true'
+        run: pnpm run lint
+
+      - name: Typecheck (web)
+        if: steps.changes.outputs.changes == 'true'
+        run: pnpm run typecheck
+
+      - name: Test (web)
+        if: steps.changes.outputs.changes == 'true'
+        run: pnpm test
+
+      - name: Build (web)
+        if: steps.changes.outputs.changes == 'true'
+        run: pnpm run build
+
+      - name: Test (api)
+        if: steps.changes.outputs.changes == 'true'
+        run: pnpm test
+        working-directory: api
+
+      - name: Open refresh PR
+        if: steps.changes.outputs.changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ env.BRANCH }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add pnpm-lock.yaml api/pnpm-lock.yaml package.json api/package.json
+          git commit -m "chore(deps): monthly dependency refresh"
+          git push --force-with-lease origin "$BRANCH"
+          gh pr create \
+            --head "$BRANCH" \
+            --base master \
+            --title "chore(deps): monthly dependency refresh" \
+            --body "Auto-generated refresh of dev dependencies (web) and all dependencies (api), majors included.
+
+          Checks (lint, typecheck, tests, build) were run inside the Dependency refresh workflow on this exact tree — CI does not trigger on GITHUB_TOKEN PRs. Dependency review runs if you push anything to this branch." \
+            || echo "PR already exists (upserted the branch instead)"
