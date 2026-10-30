@@ -21,6 +21,8 @@ jobs:
     environment:
       name: production-web
       url: https://steexp.com
+    permissions:
+      contents: write  # release SBOM upload
     steps:
       - name: Log trigger context
         env:
@@ -87,6 +89,28 @@ jobs:
           echo "steexp.com returned HTTP $code"
           exit 1
 
+      - name: Generate SBOM (CycloneDX)
+        run: pnpm run sbom
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: sbom-cyclonedx-web-${{ github.ref_name }}
+          path: stellarexplorer-*.sbom.cdx.json
+          if-no-files-found: error
+
+      - name: Attach SBOM to GitHub release (if it exists)
+        # Releases are created manually after deploys, so the release may not
+        # exist yet — the artifact above preserves the SBOM meanwhile.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" stellarexplorer-*.sbom.cdx.json --clobber
+          else
+            echo "No release $GITHUB_REF_NAME yet; SBOM kept as workflow artifact"
+          fi
+
   deploy-api:
     name: Deploy API
     if: endsWith(github.ref_name, '-api')
@@ -98,6 +122,8 @@ jobs:
     environment:
       name: production-api
       url: https://steexp-api.fly.dev
+    permissions:
+      contents: write  # release SBOM upload
     steps:
       - name: Log trigger context
         env:
@@ -159,3 +185,24 @@ jobs:
           done
           echo "steexp-api.fly.dev returned HTTP $code"
           exit 1
+
+      - name: Generate SBOM (CycloneDX)
+        run: pnpm run sbom
+        working-directory: api
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: sbom-cyclonedx-api-${{ github.ref_name }}
+          path: api/stellarexplorer-backend-api-*.sbom.cdx.json
+          if-no-files-found: error
+
+      - name: Attach SBOM to GitHub release (if it exists)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" api/stellarexplorer-backend-api-*.sbom.cdx.json --clobber
+          else
+            echo "No release $GITHUB_REF_NAME yet; SBOM kept as workflow artifact"
+          fi
