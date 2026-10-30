@@ -43,11 +43,9 @@ const SellingAsset = ({
 )
 
 const offerType = (amount: string, offerId: number) => {
-  let type = ''
-  if (offerId === 0) type = 'sell'
-  else if (parseFloat(amount) === 0) type = 'remove'
-  else type = 'update'
-  return type
+  if (offerId === 0) return 'sell'
+  if (parseFloat(amount) === 0) return 'remove'
+  return 'update'
 }
 
 const Offer = (props: Partial<OfferProps>) => {

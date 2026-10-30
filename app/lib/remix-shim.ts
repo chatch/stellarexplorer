@@ -5,13 +5,8 @@
  * A Response helper to mimic `json` from @remix-run/node but compatible with the browser.
  */
 export function json<Data>(data: Data, init: number | ResponseInit = {}) {
-  let responseInit: ResponseInit = {}
-
-  if (typeof init === 'number') {
-    responseInit = { status: init }
-  } else {
-    responseInit = init
-  }
+  const responseInit: ResponseInit =
+    typeof init === 'number' ? { status: init } : init
 
   const headers = new Headers(responseInit.headers)
   if (!headers.has('Content-Type')) {
@@ -28,13 +23,8 @@ export function json<Data>(data: Data, init: number | ResponseInit = {}) {
  * A Response helper to mimic `redirect` from @remix-run/node but compatible with the browser.
  */
 export function redirect(url: string, init: number | ResponseInit = 302) {
-  let responseInit: ResponseInit = {}
-
-  if (typeof init === 'number') {
-    responseInit = { status: init }
-  } else {
-    responseInit = init
-  }
+  const responseInit: ResponseInit =
+    typeof init === 'number' ? { status: init } : init
 
   const headers = new Headers(responseInit.headers)
   headers.set('Location', url)

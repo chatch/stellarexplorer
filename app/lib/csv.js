@@ -2,13 +2,16 @@ import { saveAs } from './filesaver'
 
 // build and return csv string from array of column values
 const toCsvString = (stringArr) =>
-  stringArr.reduce(
-    (accumulated, val, idx) =>
-      (accumulated += `"${
-        typeof val === 'object' ? JSON.stringify(val).replace(/"/g, '""') : val
-      }"${idx < stringArr.length - 1 ? ',' : ''}`),
-    '',
-  )
+  stringArr
+    .map(
+      (val, idx) =>
+        `"${
+          typeof val === 'object'
+            ? JSON.stringify(val).replace(/"/g, '""')
+            : val
+        }"${idx < stringArr.length - 1 ? ',' : ''}`,
+    )
+    .join('')
 
 const jsonToCSV = (records) => {
   const columns = []
