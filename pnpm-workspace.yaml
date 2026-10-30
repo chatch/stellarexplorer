@@ -17,3 +17,25 @@ overrides:
   tar: ^7.5.16
   turbo-stream: ^3.2.0
   vite: 6.4.3
+  # Security floors — see GHSA advisories in `pnpm audit --prod` (2026-11)
+  # undici DoS/TLS-bypass via @remix-run/node (GHSA-9fm3-97px-rjf6 et al)
+  undici: ^6.29.1
+  # axios SSRF/redirect issues via @stellar/stellar-sdk
+  axios: ^1.20.0
+  follow-redirects: ^1.16.1
+  # smol-toml prototype pollution via @stellar/stellar-sdk
+  smol-toml: ^1.8.1
+  # react-router advisory (XSS in 6.30.x < 6.30.6) nested in @remix-run/react
+  react-router: ^6.30.6
+  react-router-dom: ^6.30.6
+
+auditConfig:
+  # react-router 6.x open-redirect advisories (GHSA-wrjc-x8rr-h8h6,
+  # GHSA-337j-9hxr-rhxg): patched only in react-router 7.18.0. Remix 2 pins
+  # react-router 6.x, so no fixed 6.x release exists. Accepted risk: the app
+  # renders its own <Link> targets (no attacker-controlled URLs), so the
+  # open-redirect paths are not reachable in practice.
+  # REVISIT: when migrating to React Router 7 / Remix 3.
+  ignoreGhsas:
+    - GHSA-wrjc-x8rr-h8h6
+    - GHSA-337j-9hxr-rhxg
