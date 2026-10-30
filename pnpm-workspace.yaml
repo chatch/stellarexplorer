@@ -1,4 +1,5 @@
 allowBuilds:
+  '@parcel/watcher': true
   '@sentry/cli': true
   '@stellar/stellar-sdk': true
   '@swc/core': true
@@ -10,24 +11,30 @@ allowBuilds:
 peerDependencyRules:
   allowedVersions:
     wrangler: '4'
+
 overrides:
-  diff: ^8.0.3
-  esbuild: ^0.25.12
-  estree-util-value-to-estree: ^3.3.3
-  tar: ^7.5.16
-  turbo-stream: ^3.2.0
-  vite: 6.4.3
-  # Security floors — see GHSA advisories in `pnpm audit --prod` (2026-11)
-  # undici DoS/TLS-bypass via @remix-run/node (GHSA-9fm3-97px-rjf6 et al)
-  undici: ^6.29.1
-  # axios SSRF/redirect issues via @stellar/stellar-sdk
-  axios: ^1.20.0
-  follow-redirects: ^1.16.1
-  # smol-toml prototype pollution via @stellar/stellar-sdk
-  smol-toml: ^1.8.1
-  # react-router advisory (XSS in 6.30.x < 6.30.6) nested in @remix-run/react
+  # Minimal security-floor set. Transitives NOT listed here resolve to patched
+  # versions via normal `pnpm update`/`dedupe` (their ranges allow it). These
+  # remain because @remix-run/dev 2.17.5 vendors old exact-pinned copies that
+  # no update can reach while we're on Remix 2:
+  turbo-stream: ^3.2.0  # remix runtime, exact-pins 2.4.1 (RR DoS, prod path)
+  tar: ^7.5.21          # via remix dev > cacache (tar@6, dev path)
+  toml: ^5.0.1          # via remix dev > remark-mdx-frontmatter (toml@3, dev)
+  esbuild: ^0.25.12     # vendored 0.17/0.21 copies inside remix dev
+  estree-util-value-to-estree: ^3.3.3  # vendored 1.3.0 (prototype pollution)
+  # elliptic 6.6.2 (GHSA-848j-6mx2-7j84) is not published upstream either
+  # (latest 6.6.1) — ignore until released (dev-path browser polyfill)
+  # deepmerge: advisory GHSA-9jrq-w75r-8gcw says patched >=4.3.2, but 4.3.2 is
+  # NOT published (latest 4.3.1) — override is unsatisfiable. Ignored below;
+  # restore the override when the release lands.
+  # react-router: @remix-run/react@2.17.5 EXACT-pins 6.30.4. 6.30.4 has a
+  # prod-audit advisory (fixed in 6.30.6) and the dual instance (6.30.4
+  # inside remix vs 6.30.6 top-level) breaks Router context in tests.
   react-router: ^6.30.6
   react-router-dom: ^6.30.6
+  # vanilla-extract/integration pins vite 5.4.21 (multiple advisories);
+  # force the single 6.4.5 copy everywhere
+  vite: ^6.4.5
 
 auditConfig:
   # react-router 6.x open-redirect advisories (GHSA-wrjc-x8rr-h8h6,
@@ -39,3 +46,9 @@ auditConfig:
   ignoreGhsas:
     - GHSA-wrjc-x8rr-h8h6
     - GHSA-337j-9hxr-rhxg
+    # deepmerge prototype-pollution (dev path via jest): both advisories are
+    # fixed in >=4.3.2 which is NOT published (latest 4.3.1). Ignored until
+    # the release lands — then re-add the override.
+    - GHSA-9jrq-w75r-8gcw
+    - GHSA-gcqx-w48m-w2h4
+    - GHSA-848j-6mx2-7j84

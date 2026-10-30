@@ -12,11 +12,11 @@
 # ERR_PNPM_IGNORED_BUILDS. CI runs with working-directory: api, so pnpm picks
 # up this workspace root on its own.
 allowBuilds:
+  '@parcel/watcher': true
   unrs-resolver: true
-overrides:
-  # Security floors — see `pnpm audit --prod` (2026-11)
-  # express 5.2.1 pins older transitives; bump to patched versions
-  proxy-addr: ^2.0.8
-  body-parser: ^2.4.0
-  ip-address: ^10.7.4
-  qs: ^6.16.1
+auditConfig:
+  # deepmerge (via jest, dev): fix in >=4.3.2 not yet published upstream
+  # (latest 4.3.1). No override possible until released. See root workspace.
+  ignoreGhsas:
+    - GHSA-9jrq-w75r-8gcw
+    - GHSA-gcqx-w48m-w2h4

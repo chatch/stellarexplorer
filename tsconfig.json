@@ -1,6 +1,11 @@
 {
+  // Deep-import style (e.g. '@stellar/stellar-sdk/lib/esm/...') needs node10
+  // resolution; 'bundler' can't reach paths outside the package exports map.
+  // node10 + baseUrl are deprecated (removed in TS 7) — migrate alongside the
+  // stellar-sdk 17 / RR7 / React 19 generation of upgrades.
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "app/server.js"],
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "isolatedModules": true,
     "esModuleInterop": true,
