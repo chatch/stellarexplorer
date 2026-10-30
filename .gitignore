@@ -4,6 +4,9 @@ stellar-explorer-vite
 
 junit.xml
 
+# generated SBOMs (CI artifacts / release attachments, not committed)
+*.sbom.cdx.json
+
 # dependencies
 /node_modules
 

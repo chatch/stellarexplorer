@@ -16,6 +16,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest --runInBand",
+    "sbom": "pnpm sbom --sbom-format cyclonedx --lockfile-only --out stellarexplorer-backend-api-%v.sbom.cdx.json",
     "deploy": "fly deploy --remote-only"
   },
   "devDependencies": {
