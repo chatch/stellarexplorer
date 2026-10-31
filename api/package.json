@@ -10,9 +10,9 @@
     "url": "https://github.com/chatch/stellarexplorer/issues"
   },
   "engines": {
-    "node": ">= 18.x.x"
+    "node": ">= 24"
   },
-  "packageManager": "pnpm@11.8.0",
+  "packageManager": "pnpm@12.16.1",
   "scripts": {
     "start": "node index.js",
     "test": "jest --runInBand",

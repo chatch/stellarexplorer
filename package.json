@@ -23,9 +23,10 @@
   "engines": {
     "node": ">= 24.0.0"
   },
-  "packageManager": "pnpm@11.8.0",
+  "packageManager": "pnpm@12.16.1",
   "sideEffects": false,
   "scripts": {
+    "prepare": "husky",
     "build": "remix vite:build",
     "dev": "remix vite:dev",
     "start": "vite preview",
@@ -112,12 +113,8 @@
     "vite-tsconfig-paths": "^6.1.1",
     "wrangler": "^4.156.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --max-warnings=0"
+    "*.{js,jsx,ts,tsx}": "eslint --max-warnings=0",
+    "*.{js,jsx,ts,tsx,json,css,md}": "prettier --write"
   }
 }
