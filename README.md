@@ -2,6 +2,7 @@
 
 [![Node.js CI](https://github.com/chatch/stellarexplorer/actions/workflows/node.js.yml/badge.svg)](https://github.com/chatch/stellarexplorer/actions/workflows/node.js.yml)
 [![Run e2e tests against production](https://github.com/chatch/stellarexplorer/actions/workflows/playwright-production.yml/badge.svg)](https://github.com/chatch/stellarexplorer/actions/workflows/playwright-production.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/chatch/stellarexplorer/badge)](https://scorecard.dev/viewer/?uri=github.com/chatch/stellarexplorer)
 
 A ledger explorer for [Stellar](https://stellar.org).
 

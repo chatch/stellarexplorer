@@ -1,13 +1,21 @@
 version: 2
 updates:
+  # Weekly was noisy: 4 ecosystems x staggered slots + one-off security PRs
+  # (security updates are always individual, they bypass groups). Fortnightly,
+  # one ecosystem per weekday, keeps the cadence calm.
+  #
+  # NOTE: semver-major npm updates are ignored everywhere on purpose. Web prod
+  # majors are deliberate migrations (see repo_improvements.md), web dev +
+  # api majors are surfaced monthly by the `dep-refresh` workflow instead.
+
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
+      interval: fortnightly
       day: monday
       time: '09:00'
       timezone: Asia/Bangkok
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     groups:
       root-dependencies:
         patterns:
@@ -19,15 +27,19 @@ updates:
       - dependency-name: '*'
         update-types:
           - version-update:semver-major
+      # @types/node majors track Node.js majors (see engines / Dockerfile)
+      - dependency-name: '@types/node'
+        update-types:
+          - version-update:semver-major
 
   - package-ecosystem: npm
     directory: /api
     schedule:
-      interval: weekly
-      day: monday
-      time: '09:30'
+      interval: fortnightly
+      day: tuesday
+      time: '09:00'
       timezone: Asia/Bangkok
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     groups:
       api-dependencies:
         patterns:
@@ -40,14 +52,15 @@ updates:
         update-types:
           - version-update:semver-major
 
+  # Rewrites SHA-pinned actions in place (keeps commit-SHA pinning + comment)
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
-      day: monday
-      time: '10:00'
+      interval: fortnightly
+      day: wednesday
+      time: '09:00'
       timezone: Asia/Bangkok
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     groups:
       github-actions:
         patterns:
@@ -56,8 +69,8 @@ updates:
   - package-ecosystem: docker
     directory: /api
     schedule:
-      interval: weekly
-      day: monday
-      time: '10:30'
+      interval: fortnightly
+      day: thursday
+      time: '09:00'
       timezone: Asia/Bangkok
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
