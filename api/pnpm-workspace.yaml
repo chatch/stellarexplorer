@@ -20,3 +20,8 @@ auditConfig:
   ignoreGhsas:
     - GHSA-9jrq-w75r-8gcw
     - GHSA-gcqx-w48m-w2h4
+
+overrides:
+  # @sentry/bundler-plugins pins glob ^13.0.6 (vulnerable, GHSA-3g3m-2fjr-6pw4
+  # fixed in >=14.0.2); range can't reach the fix
+  glob: ^14.0.2

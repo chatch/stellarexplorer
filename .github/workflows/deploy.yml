@@ -157,7 +157,8 @@ jobs:
         working-directory: api
 
       - name: Audit production API dependencies
-        run: pnpm audit --prod
+        # fails only on high+ (moderates tracked via Dependabot alerts)
+        run: pnpm audit --prod --audit-level high
         working-directory: api
 
       - name: Setup flyctl

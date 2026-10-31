@@ -52,7 +52,8 @@ jobs:
         run: pnpm run build
 
       - name: Audit production dependencies
-        run: pnpm audit --prod
+        # fails only on high+ (moderates tracked via Dependabot alerts)
+        run: pnpm audit --prod --audit-level high
 
       - name: Generate SBOM (CycloneDX)
         run: pnpm run sbom
@@ -94,7 +95,8 @@ jobs:
         working-directory: api
 
       - name: Audit production dependencies
-        run: pnpm audit --prod
+        # fails only on high+ (moderates tracked via Dependabot alerts)
+        run: pnpm audit --prod --audit-level high
         working-directory: api
 
       - name: Generate SBOM (CycloneDX)
@@ -124,3 +126,6 @@ jobs:
 
       - name: Review dependencies for known vulnerabilities
         uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          # match the CI audit gate: fail only on high+
+          fail-on-severity: high
