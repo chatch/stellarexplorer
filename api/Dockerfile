@@ -33,7 +33,7 @@ RUN curl -sL https://github.com/WebAssembly/wabt/releases/download/${WABT_VERSIO
 # api
 WORKDIR /api
 RUN corepack enable pnpm
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile --prod
 COPY . .
 EXPOSE 3001
