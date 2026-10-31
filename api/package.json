@@ -3,7 +3,7 @@
   "description": "Backend api for supporting stellarexplorer",
   "version": "1.0.9",
   "license": "Apache-2.0",
-  "author": "Chris Hatch <hatch@tuta.io>",
+  "author": "Chris Hatch <devcebfaff@proton.me>",
   "homepage": "https://steexp.com",
   "repository": "chatch/stellarexplorer",
   "bugs": {
