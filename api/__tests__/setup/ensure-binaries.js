@@ -13,11 +13,20 @@
 // Requires `curl` and `tar` on the host (present on Linux/macOS dev machines
 // and on the ubuntu CI image).
 const fs = require('fs')
+const os = require('os')
 const path = require('path')
 const { execFileSync } = require('child_process')
 
-const { TESTBIN, WABT_VERSION, trivialWat, trivialWasm, truncatedWasm } =
-  require('../helpers/paths')
+const {
+  TESTBIN,
+  WABT_VERSION,
+  trivialWat,
+  trivialWasm,
+  truncatedWasm,
+  MINIJAIL_SRC,
+  MINIJAIL0,
+  LANDLOCK_PROBE,
+} = require('../helpers/paths')
 
 const WABT_BIN = path.join(TESTBIN, `wabt-${WABT_VERSION}`, 'bin')
 const WABT_MARKER = path.join(WABT_BIN, 'wasm2wat')
@@ -33,6 +42,85 @@ function ensureWabt() {
     stdio: 'inherit',
   })
   execFileSync('tar', ['xzf', asset], { cwd: TESTBIN, stdio: 'inherit' })
+}
+
+// Build the minijail sandbox launcher (see api/sandbox/run-minijail.sh).
+// Clones google/minijail at the same pinned commit the Dockerfile uses (the
+// linux-v9 tag predates a fix for newer kernel headers). Needs libcap-dev to
+// build; skipped (with a warning, tests then run tools unsandboxed) when
+// git/libcap-dev/make aren't available.
+const MINIJAIL_COMMIT = '8787d1a4fdd7c64791607a1122d2408b3b35ade4'
+
+function haveLibcapDev() {
+  return fs.existsSync('/usr/include/sys/capability.h')
+}
+
+function ensureMinijail() {
+  if (fs.existsSync(MINIJAIL0)) return
+  if (!haveLibcapDev()) {
+    // CI runners (and some dev machines) lack libcap-dev; try to install it.
+    try {
+      execFileSync('sudo', ['-n', 'apt-get', 'install', '-y', 'libcap-dev'], {
+        stdio: 'ignore',
+      })
+    } catch {
+      try {
+        execFileSync('apt-get', ['install', '-y', 'libcap-dev'], {
+          stdio: 'ignore',
+        })
+      } catch {}
+    }
+  }
+  if (!haveLibcapDev()) {
+    console.log(
+      '[test setup] libcap-dev unavailable; wabt tools will run UNSANDBOXED in tests',
+    )
+    return
+  }
+  console.log(
+    `\n[test setup] building minijail (${MINIJAIL_COMMIT.slice(0, 7)})...`,
+  )
+  fs.rmSync(MINIJAIL_SRC, { recursive: true, force: true })
+  execFileSync('git', ['init', MINIJAIL_SRC], { stdio: 'ignore' })
+  execFileSync(
+    'git',
+    [
+      '-C',
+      MINIJAIL_SRC,
+      'remote',
+      'add',
+      'origin',
+      'https://github.com/google/minijail',
+    ],
+    { stdio: 'ignore' },
+  )
+  execFileSync(
+    'git',
+    ['-C', MINIJAIL_SRC, 'fetch', '--depth', '1', 'origin', MINIJAIL_COMMIT],
+    { stdio: 'inherit' },
+  )
+  execFileSync('git', ['-C', MINIJAIL_SRC, 'checkout', 'FETCH_HEAD'], {
+    stdio: 'ignore',
+  })
+  // NB: must run make with cwd INSIDE the source dir — minijail's Makefile
+  // sets its output dir from the process cwd, so `make -C` scatters object
+  // files into the caller's directory.
+  execFileSync('make', ['-j', String(os.cpus().length), 'all'], {
+    cwd: MINIJAIL_SRC,
+    stdio: 'inherit',
+  })
+}
+
+// Build the small Landlock probe the API runs at startup (same source the
+// Dockerfile compiles). Best-effort: the API skips the probe when absent.
+function ensureLandlockProbe() {
+  if (fs.existsSync(LANDLOCK_PROBE)) return
+  const src = path.resolve(__dirname, '../../sandbox/landlock-probe.c')
+  try {
+    execFileSync('cc', ['-O2', '-o', LANDLOCK_PROBE, src], { stdio: 'inherit' })
+  } catch {
+    console.log('[test setup] cc unavailable; skipping landlock probe')
+  }
 }
 
 function writeStellarStubs() {
@@ -69,6 +157,8 @@ function generateWasmFixtures() {
 
 module.exports = async function globalSetup() {
   ensureWabt()
+  ensureMinijail()
+  ensureLandlockProbe()
   writeStellarStubs()
   generateWasmFixtures()
 }

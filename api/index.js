@@ -32,6 +32,14 @@ const WASM_DECOMPILE_PATH =
 const WASM_2_WAT_PATH = process.env.WASM2WAT_PATH || `${WABT_BIN_PATH}/wasm2wat`
 const STELLAR_BIN_PATH = process.env.STELLAR_BIN_PATH || 'stellar'
 
+// Sandbox launcher for the wabt tools. The prebuilt wabt binaries have open
+// memory-corruption bugs reachable from hostile wasm input (WebAssembly/wabt
+// #2678, #2679, #2749, #2565), so tool runs go through api/sandbox/run-minijail.sh,
+// which wraps Google's minijail0: rlimits + uid drop + Landlock fs rules +
+// seccomp allowlist (api/sandbox/wabt.seccomp.policy). Env-overridable for
+// local dev / tests (see __tests__/setup/ensure-binaries.js).
+const WABT_SANDBOX_BIN = process.env.WABT_SANDBOX_BIN || ''
+
 const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, 'uploads')
 const uploadedWasmPaths = new WeakMap()
 
@@ -91,16 +99,47 @@ const wabtToolRoute = (subpath, toolPath) =>
       return res.status(500).send('internal server error')
     }
 
-    execFile(toolPath, [wasmFilePath], (error, stdout) => {
-      fs.rmSync(wasmFilePath, { force: true })
-      if (error) {
-        console.error(`exec error: ${error}`)
-        Sentry.captureException(error)
-        return res.status(500).send(`Command execution error: ${error}`)
-      }
-      res.contentType('text/plain')
-      res.send(stdout)
-    })
+    // Through the sandbox wrapper when available: it applies rlimits, drops
+    // to an unprivileged uid, applies Landlock fs rules and a seccomp
+    // allowlist, then execs the tool with the wasm path. stdout passes
+    // through unchanged. Direct exec only as a local-dev fallback.
+    const useSandbox = Boolean(WABT_SANDBOX_BIN)
+    const argv = useSandbox ? [toolPath, wasmFilePath] : [wasmFilePath]
+
+    // Scrubbed env: the tool never needs SENTRY_DSN or anything else, and a
+    // leaked heap contains less worth reading if it is ever corrupted. The
+    // minijail path overrides are passed through for tests / local dev; in
+    // production the wrapper's built-in /usr/local defaults apply.
+    const sandboxEnv = { PATH: '/usr/bin:/bin', LANG: 'C' }
+    if (process.env.MINIJAIL0) sandboxEnv.MINIJAIL0 = process.env.MINIJAIL0
+    if (process.env.MINIJAIL_PRELOAD)
+      sandboxEnv.MINIJAIL_PRELOAD = process.env.MINIJAIL_PRELOAD
+    const options = {
+      env: useSandbox ? sandboxEnv : undefined,
+      // DoS hardening: several wabt assertion/DoS bugs are reachable via
+      // crafted input (#2316, #2317, #2322). The launcher also applies
+      // RLIMIT_AS / RLIMIT_CPU internally; this bounds wall time per tool
+      // run so a hung child can't pin the route.
+      timeout: 30_000,
+      killSignal: 'SIGKILL',
+    }
+
+    execFile(
+      useSandbox ? WABT_SANDBOX_BIN : toolPath,
+      argv,
+      options,
+      (error, stdout, stderr) => {
+        fs.rmSync(wasmFilePath, { force: true })
+        if (error) {
+          console.error(`exec error: ${error}`)
+          if (stderr) console.error(`tool stderr: ${stderr}`)
+          Sentry.captureException(error)
+          return res.status(500).send(`Command execution error: ${error}`)
+        }
+        res.contentType('text/plain')
+        res.send(stdout)
+      },
+    )
   })
 
 const app = express()
@@ -132,24 +171,31 @@ app.set('trust proxy', 2)
 morgan.token('contract-id', (req) => {
   const raw = req.headers['x-steexp-contract-id']
   if (!raw) return '-'
-  return String(raw).replace(/[\x00-\x1f\x7f]/g, '').slice(0, 100)
+  return String(raw)
+    .replace(/[\x00-\x1f\x7f]/g, '')
+    .slice(0, 100)
 })
-app.use(morgan((tokens, req, res) => {
-  const reqLen = req.headers['content-length'] || '-'
-  const resLen = res.getHeader('content-length') || '-'
-  return [
-    new Date().toISOString(),
-    tokens.method(req, res),
-    tokens.url(req, res),
-    tokens.status(req, res),
-    `${resLen}/${reqLen}`,
-    '-',
-    `${tokens['response-time'](req, res)} ms`,
-    tokens['contract-id'](req, res),
-    `"${tokens['user-agent'](req, res) || '-'}"`,
-    `"${tokens.referrer(req, res) || '-'}"`,
-  ].join(' ')
-}, { skip: (req) => req.path === '/health' }))
+app.use(
+  morgan(
+    (tokens, req, res) => {
+      const reqLen = req.headers['content-length'] || '-'
+      const resLen = res.getHeader('content-length') || '-'
+      return [
+        new Date().toISOString(),
+        tokens.method(req, res),
+        tokens.url(req, res),
+        tokens.status(req, res),
+        `${resLen}/${reqLen}`,
+        '-',
+        `${tokens['response-time'](req, res)} ms`,
+        tokens['contract-id'](req, res),
+        `"${tokens['user-agent'](req, res) || '-'}"`,
+        `"${tokens.referrer(req, res) || '-'}"`,
+      ].join(' ')
+    },
+    { skip: (req) => req.path === '/health' },
+  ),
+)
 
 /**
  * Decompile a wasm file using the wabt wasm-decompile tool
@@ -227,9 +273,46 @@ app.use((err, req, res, next) => {
   return res.status(500).send('internal server error')
 })
 
+/**
+ * Log what the wabt sandbox can actually enforce on this host.
+ *
+ * The sandbox has four layers (see api/sandbox/README.md): rlimits, uid drop
+ * and the seccomp allowlist all fail closed, but Landlock filesystem
+ * confinement is skipped silently by minijail when the kernel lacks it.
+ * Some kernels (notably Fly's Firecracker guest kernel, 6.12.x as of
+ * 2026-10) are built without Landlock. Surface that once at startup so the
+ * degraded state is visible in the logs instead of being tribal knowledge —
+ * and so a future kernel upgrade that *gains* Landlock is noticed too.
+ */
+const logSandboxStatus = () => {
+  if (!WABT_SANDBOX_BIN) {
+    console.log(
+      '[sandbox] WABT_SANDBOX_BIN not set - wabt tools run UNSANDBOXED',
+    )
+    return
+  }
+  const probe = process.env.LANDLOCK_PROBE_BIN
+  if (!probe) return
+  try {
+    const out = execFileSync(probe, [], { timeout: 5000 }).toString().trim()
+    if (out.startsWith('abi=')) {
+      console.log(
+        `[sandbox] landlock ${out.slice(4)} - full filesystem confinement active`,
+      )
+    } else {
+      console.warn(
+        `[sandbox] WARNING: landlock unavailable (${out}) - running with seccomp + uid drop + rlimits only; tool sandbox has NO filesystem confinement`,
+      )
+    }
+  } catch (error) {
+    console.warn(`[sandbox] landlock probe failed: ${error.message}`)
+  }
+}
+
 const port = Number(process.env.PORT) || 3001
 // Only bind when run directly, so the app can also be imported for tests.
 if (require.main === module) {
+  logSandboxStatus()
   app.listen(port, () => {
     console.log(`App listening on port ${port}!`)
   })
