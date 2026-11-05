@@ -1,4 +1,5 @@
 import { Theme, useTheme } from '~/context/theme.provider'
+import { publicAssetUrl } from '~/lib/build-target'
 
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useTheme()
@@ -16,11 +17,20 @@ const ThemeSwitcher = () => {
 }
 
 const DarkIcon = () => {
-  return <img src="/img/moon.svg" alt="moon" width={28} height={28} />
+  return (
+    <img
+      src={publicAssetUrl('img/moon.svg')}
+      alt="moon"
+      width={28}
+      height={28}
+    />
+  )
 }
 
 const LightIcon = () => {
-  return <img src="/img/sun.svg" alt="sun" width={28} height={28} />
+  return (
+    <img src={publicAssetUrl('img/sun.svg')} alt="sun" width={28} height={28} />
+  )
 }
 
 export default ThemeSwitcher

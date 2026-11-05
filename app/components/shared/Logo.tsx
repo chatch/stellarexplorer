@@ -1,4 +1,5 @@
 import type { KnownAccountType } from '~/data/known_accounts'
+import { publicAssetUrl } from '~/lib/build-target'
 
 // 2 supported logo forms
 const squareDimensions = { height: 75, width: 75 }
@@ -15,7 +16,7 @@ export default function Logo({
   type: KnownAccountType
 }>) {
   const nameLower = name?.toLowerCase() ?? ''
-  const imgSrc = `/img/${nameLower}.png`
+  const imgSrc = publicAssetUrl(`img/${nameLower}.png`)
   const dimen =
     type !== 'exchange' || imagesInBoth.indexOf(nameLower) !== -1
       ? squareDimensions

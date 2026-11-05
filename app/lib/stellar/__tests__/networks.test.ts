@@ -14,10 +14,10 @@ describe('hostnameToNetwork', () => {
     expect(hostnameToNetworkType('publicnet.local')).toEqual(networks.public)
     expect(hostnameToNetworkType('futurenet.local')).toEqual(networks.future)
 
-    // unknown hosts default to local
-    expect(hostnameToNetworkType('')).toEqual(networks.local)
+    // unknown hosts default to public for decentralized/root-style gateways
+    expect(hostnameToNetworkType('')).toEqual(networks.public)
     expect(hostnameToNetworkType('localhost')).toEqual(networks.public)
     expect(hostnameToNetworkType('0.0.0.0')).toEqual(networks.local)
-    expect(hostnameToNetworkType('not.steexp.com')).toEqual(networks.local)
+    expect(hostnameToNetworkType('not.steexp.com')).toEqual(networks.public)
   })
 })

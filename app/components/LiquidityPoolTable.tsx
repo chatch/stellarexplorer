@@ -8,6 +8,7 @@ import { formatAmountToHumanReadable, getAssetCode } from '~/lib/utilities'
 
 import styles from './LiquidityPoolTable.module.css'
 import type { HorizonApi } from '@stellar/stellar-sdk/lib/esm/horizon/horizon_api.js'
+import { publicAssetUrl } from '~/lib/build-target'
 
 interface ParentProps {
   compact: boolean
@@ -20,7 +21,7 @@ interface LiquidityPoolTableProps {
   records: ReadonlyArray<LiquidityPoolProps>
 }
 
-const fallBackAssetIcon = '/img/circle.svg'
+const fallBackAssetIcon = publicAssetUrl('img/circle.svg')
 
 export const PoolAsset = ({
   reserves,
