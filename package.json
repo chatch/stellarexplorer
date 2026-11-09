@@ -73,7 +73,7 @@
     "@playwright/test": "^1.64.1",
     "@remix-run/dev": "2.17.5",
     "@remix-run/testing": "2.17.5",
-    "@swc/core": "1.16.20",
+    "@swc/core": "1.16.22",
     "@swc/jest": "0.2.39",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
