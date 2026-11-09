@@ -24,10 +24,10 @@
     "supertest": "^7.3.1"
   },
   "dependencies": {
-    "@sentry/node": "^11.10.0",
+    "@sentry/node": "^11.11.0",
     "cors": "^2.8.6",
     "express": "5.3.0",
-    "express-rate-limit": "^8.7.2",
+    "express-rate-limit": "^8.7.3",
     "morgan": "^1.12.1",
     "multer": "^2.5.0"
   }
