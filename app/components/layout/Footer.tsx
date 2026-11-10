@@ -1,8 +1,9 @@
 import { Col, Container, Row } from 'react-bootstrap'
+import { publicAssetUrl } from '~/lib/build-target'
 
-const ghImg = '/img/gh.svg'
-const supportImg = '/img/support.svg'
-const stellarIconImg = '/stellar.ico'
+const ghImg = publicAssetUrl('img/gh.svg')
+const supportImg = publicAssetUrl('img/support.svg')
+const stellarIconImg = publicAssetUrl('stellar.ico')
 
 export default function Footer() {
   return (

@@ -6,9 +6,26 @@ import { searchStrToPath } from './lib/search'
 import { isSecretKey } from './lib/stellar/utils'
 import { useState } from 'react'
 import { useLocation, useNavigate } from '@remix-run/react'
+import { publicAssetUrl } from './lib/build-target'
 
-const searchSvg = '/search.svg'
-const infoCircleSvg = '/info-circle.svg'
+const searchSvg = publicAssetUrl('search.svg')
+const infoCircleSvg = publicAssetUrl('info-circle.svg')
+const searchStellarAddressImg = publicAssetUrl(
+  'search/search_stellar_address.png',
+)
+const searchAccountPublicImg = publicAssetUrl(
+  'search/search_account_public.png',
+)
+const searchTxHashImg = publicAssetUrl('search/search_tx_hash.png')
+const searchContractImg = publicAssetUrl('search/search_contract.png')
+const searchLedgerImg = publicAssetUrl('search/search_ledger.png')
+const searchAnchorNameFullImg = publicAssetUrl(
+  'search/search_anchor_name_full.png',
+)
+const searchAnchorNamePartialImg = publicAssetUrl(
+  'search/search_anchor_name_partial.png',
+)
+const searchAssetImg = publicAssetUrl('search/search_asset.png')
 import { isPathClaimableBalance } from './lib/utilities'
 
 const HelpModal = ({
@@ -34,10 +51,7 @@ const HelpModal = ({
           >
             Stellar federated address
           </a>
-          <img
-            src="/search/search_stellar_address.png"
-            alt="search by ledger"
-          />
+          <img src={searchStellarAddressImg} alt="search by ledger" />
         </div>
       </div>
       <div>
@@ -45,7 +59,7 @@ const HelpModal = ({
         <div className="search-desc">
           Also called a Public Key or Public Address
           <img
-            src="/search/search_account_public.png"
+            src={searchAccountPublicImg}
             alt="search by public account address"
             width="100%"
           />
@@ -54,7 +68,7 @@ const HelpModal = ({
       <div>
         <div className="search-sub-heading">Transaction Hash</div>
         <img
-          src="/search/search_tx_hash.png"
+          src={searchTxHashImg}
           alt="search by transaction hash"
           width="100%"
         />
@@ -62,14 +76,14 @@ const HelpModal = ({
       <div>
         <div className="search-sub-heading">Contract Address or Hash</div>
         <img
-          src="/search/search_contract.png"
+          src={searchContractImg}
           alt="search by contract address"
           width="100%"
         />
       </div>
       <div>
         <div className="search-sub-heading">Ledger</div>
-        <img src="/search/search_ledger.png" alt="search by ledger" />
+        <img src={searchLedgerImg} alt="search by ledger" />
       </div>
       <div className="search-sub-heading">Anchor Name</div>
       <div>
@@ -88,7 +102,7 @@ const HelpModal = ({
           <div className="search-desc">
             <div>Full name:</div>
             <img
-              src="/search/search_anchor_name_full.png"
+              src={searchAnchorNameFullImg}
               alt="search by anchor full name"
             />
           </div>
@@ -96,7 +110,7 @@ const HelpModal = ({
           <div className="search-desc">
             <div>Partial name:</div>
             <img
-              src="/search/search_anchor_name_partial.png"
+              src={searchAnchorNamePartialImg}
               alt="search by anchor partial name"
             />
           </div>
@@ -104,7 +118,7 @@ const HelpModal = ({
       </div>
       <div>
         <div className="search-sub-heading">Asset Code</div>
-        <img src="/search/search_asset.png" alt="search by asset code" />
+        <img src={searchAssetImg} alt="search by asset code" />
       </div>
       <hr />
       <h4>OpenSearch:</h4>

@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { Card, Container, Row, Table } from 'react-bootstrap'
 import { FormattedMessage, useIntl } from 'react-intl'
-const svgCircle = '/img/circle.svg'
 
 import { setTitle } from '../../lib/utils'
 import BackendResourceBadgeButton from '../../components/shared/BackendResourceBadgeButton'
@@ -9,6 +8,9 @@ import NewWindowIcon from '../../components/shared/NewWindowIcon'
 import { TitleWithJSONButton } from '~/components/shared/TitleWithJSONButton'
 import styles from './assets-base.module.css'
 import { formatPercentToHumanReadable, formatPrice24h } from '~/lib/utilities'
+import { publicAssetUrl } from '~/lib/build-target'
+
+const svgCircle = publicAssetUrl('img/circle.svg')
 
 export const METADATA_URI =
   'https://raw.githubusercontent.com/irisli/stellarterm/master/directory/directory.json'

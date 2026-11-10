@@ -2,6 +2,7 @@ import { networks } from '~/lib/stellar'
 import type { NetworkDetails } from '~/lib/stellar/networks'
 import CustomNetworkButton from '../shared/CustomNetworkButton'
 import Cookies from 'js-cookie'
+import { isDecentralizedBuild } from '~/lib/build-target'
 
 const HOME_PUBLIC = 'https://steexp.com'
 const HOME_TESTNET = 'https://testnet.steexp.com'
@@ -49,6 +50,7 @@ const NetworkSelector = ({
           Cookies.remove('sorobanRPCAddress')
 
           if (
+            isDecentralizedBuild ||
             window.location.hostname === 'localhost' ||
             window.location.hostname === '127.0.0.1'
           ) {
